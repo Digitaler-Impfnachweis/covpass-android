@@ -1,0 +1,68 @@
+class CommonConfig {
+    Integer minVersion = null
+    Integer targetVersion = null
+    Integer compileSdkVersion = null
+    List<String> disableAndroidLints = []
+}
+
+ext.androidCommon = { args = [:] ->
+    CommonConfig config = new CommonConfig(args)
+
+    int minVersion = config.minVersion ?: 23
+    int targetVersion = config.targetVersion ?: 30
+    int compileVersion = config.compileSdkVersion ?: targetVersion
+
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-android-extensions'
+
+    android {
+        compileSdkVersion compileVersion
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+
+        defaultConfig {
+            minSdkVersion minVersion
+            targetSdkVersion targetVersion
+            versionCode 1
+            versionName version
+            buildConfigField("String", "MODULE_VERSION", "\"$version\"")
+
+            multiDexEnabled true
+
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        lintOptions {
+            disable(*config.disableAndroidLints)
+            abortOnError true
+            warningsAsErrors true
+            textReport true
+            textOutput 'stdout'
+            lintConfig file("$rootDir/gradle/common/lint.xml")
+        }
+
+        testOptions {
+            // Needed for Robolectric
+            unitTests {
+                includeAndroidResources = true
+            }
+        }
+
+        packagingOptions {
+            pickFirst 'META-INF/*.kotlin_module'
+        }
+    }
+
+    tasks.withType(Test) {
+        testLogging {
+            exceptionFormat "full"
+        }
+    }
+}

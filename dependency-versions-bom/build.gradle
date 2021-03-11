@@ -1,0 +1,7 @@
+// Also see the docs about platform projects: https://docs.gradle.org/current/userguide/platforms.html
+
+apply from: "$rootDir/gradle/common/dependency-versions-bom.gradle"
+
+dependencies {
+    versionConstraints()
+}

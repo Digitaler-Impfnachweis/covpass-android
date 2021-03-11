@@ -1,0 +1,14 @@
+ext.setupScmVersion = { defaultBranchVersionCreator = true ->
+    scmVersion {
+        tag { prefix = 'v' }
+        if (defaultBranchVersionCreator) {
+            branchVersionCreator = [
+                'release/.*': 'simple',
+                '.*'        : 'versionWithBranch'
+            ]
+        }
+        useHighestVersion = true
+    }
+    version = scmVersion.version
+    println("Version: $version")
+}

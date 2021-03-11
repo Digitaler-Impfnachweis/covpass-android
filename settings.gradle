@@ -1,0 +1,15 @@
+rootProject.name = 'android-vaccination-app'
+include ':dependency-versions-bom'
+
+// How to include locally cloned repos / composing builds:
+// Create a settings-local.gradle file and add entries like this to it:
+//
+// substituteAllModules '../path-to-other-repo'
+//
+// Note that settings-local.gradle is ignored by Git, so you can't mistakenly commit it and you can adjust the paths
+// to your local setup without any conflicts with other people.
+apply from: "$rootDir/gradle/common/settings.gradle"
+def localSettings = "$rootDir/settings-local.gradle"
+if (file(localSettings).exists()) {
+    apply from: localSettings
+}

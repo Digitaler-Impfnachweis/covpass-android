@@ -1,0 +1,109 @@
+buildscript {
+    ext.kotlin_version = '1.4.31'
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.1'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
+        classpath 'pl.allegro.tech.build:axion-release-plugin:1.11.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
+        classpath 'org.cyclonedx:cyclonedx-gradle-plugin:1.1.3'
+    }
+}
+
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'pl.allegro.tech.build.axion-release'
+
+apply from: "$rootDir/gradle/common/ibmconfig.gradle"
+setupRepos()
+apply from: "$rootDir/gradle/common/dependency-updates.gradle"
+
+apply from: "$rootDir/gradle/common/scm-version.gradle"
+setupScmVersion()
+group = 'com.ibm.health.vaccination.common'
+subprojects {
+    def isLibraryProject = project.name != 'app' && !project.name.startsWith('app-')
+
+    group = isLibraryProject ? rootProject.group : 'com.ibm.health.vaccination.app'
+    version = rootProject.version
+
+    def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
+    def isPlatformProject = project.name.endsWith('-bom')
+    def isTestProject = project.name.endsWith('-test') || project.name == 'test'
+
+    apply from: "$rootDir/dependencies.gradle"
+
+    if (!isPlatformProject) {
+        if (isAndroidProject) {
+            apply from: "$rootDir/gradle/common/android-library.gradle"
+            androidLibrary(obfuscation: Obfuscation.None, kotlinExplicitApiMode: true)
+        } else {
+            apply from: "$rootDir/gradle/common/kotlin-library.gradle"
+            kotlinLibrary(kotlinExplicitApiMode: true)
+        }
+
+        apply from: "$rootDir/gradle/common/ktlint.gradle"
+        apply from: "$rootDir/gradle/common/detekt.gradle"
+        apply from: "$rootDir/gradle/common/dokka.gradle"
+        apply from: "$rootDir/gradle/common/cyclonedx.gradle"
+
+        if (isAndroidProject) {
+            android {
+                // Resolve build conflicts for test modules
+                if (isTestProject) {
+                    packagingOptions {
+                        pickFirst 'META-INF/AL2.0'
+                        pickFirst 'META-INF/LGPL2.1'
+                    }
+                }
+            }
+
+            dependencies {
+                baseAndroid()
+                if (isTestProject) {
+                    androidTestLib()
+                }
+            }
+        } else {
+            dependencies {
+                base()
+                if (isTestProject) {
+                    baseTestLib()
+                }
+            }
+        }
+
+        task verifyAll(group: 'verification') {
+            dependsOn 'ktlint'
+            dependsOn 'detekt'
+            if (isAndroidProject) {
+                dependsOn 'lintDebug'
+                dependsOn 'testDebugUnitTest'
+            } else {
+                dependsOn 'test'
+            }
+        }
+
+        if (isLibraryProject) {
+            apply from: "$rootDir/gradle/common/coverage.gradle"
+            trackCoverage(isOnCI)
+        }
+    }
+
+    // TODO:
+//    if (isLibraryProject) {
+//        apply from: "$rootDir/gradle/common/publish.gradle"
+//        def url = TODO
+//        publish(
+//            url: url,
+//            username: username,
+//            password: password,
+//            isPlatformProject: isPlatformProject,
+//        )
+//    }
+}

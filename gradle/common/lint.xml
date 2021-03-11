@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+  <issue id="InvalidPackage" severity="warning">
+    <ignore regexp="bcpkix-jdk15on-.*\.jar" />
+    <ignore regexp="pkix-.*\.jar" />
+  </issue>
+  <issue id="RtlEnabled" severity="ignore" />
+  <issue id="ObsoleteLintCustomCheck" severity="ignore" />
+  <issue id="LockedOrientationActivity" severity="ignore" />
+  <issue id="RequiredSize" severity="ignore" />
+  <issue id="PluralsCandidate" severity="ignore" />
+  <issue id="VectorPath" severity="ignore" />
+  <issue id="GradleDependency" severity="ignore" />
+  <issue id="TrustAllX509TrustManager" severity="warning">
+    <ignore path="org/bouncycastle/est/jcajce/JcaJceUtils$1.class" />
+    <ignore path="org/bouncycastle/est/jcajce/JcaJceUtils$2.class" />
+  </issue>
+</lint>

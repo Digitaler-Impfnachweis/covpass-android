@@ -1,0 +1,37 @@
+// This is a mavenLocal alternative that is better suited for local development across multiple repos.
+// Unlike mavenLocal, you can modify the source directly without publishing intermediate modules.
+// So, this basically turns a multi-repo project into a single combined project.
+//
+// Call this function from your project's settings.gradle to integrate a local repo.
+// For example, if you have an application that depends on common-kotlin-android:
+//
+// apply from: 'gradle/common/settings.gradle'
+// substituteAllModules('../common-kotlin-android')
+//
+// Now you can directly debug and edit the common-kotlin-android source code from within the app project.
+// In contrast, with mavenLocal you'd have to compile and publish common-kotlin-android for every change.
+ext.substituteAllModules = { path, group = null ->
+    def basePath = rootDir.absolutePath + '/' + path
+    if (group == null) {
+        def pattern = /group\s*=?\s*["'](.*)["']\s*(#.*)?/
+        new File(basePath + '/build.gradle').readLines().forEach { line ->
+            def matcher = line =~ pattern
+            if (matcher.matches()) {
+                group = matcher.group(1)
+            }
+        }
+    }
+    def settings = new File(basePath + '/settings.gradle').text.replaceAll(/(?m)\/\/.*$/, '').replaceAll(/(?s)\/\*.*\*\//, '')
+    includeBuild(path) {
+        dependencySubstitution {
+            fileTree(dir: basePath, include: '*/build.gradle').visit { FileVisitDetails fd ->
+                if (fd.name == 'build.gradle') {
+                    def name = new File(fd.path).getParentFile().name
+                    if (settings.contains("\":$name\"") || settings.contains("':$name'")) {
+                        substitute module("$group:$name") with project(":$name")
+                    }
+                }
+            }
+        }
+    }
+}

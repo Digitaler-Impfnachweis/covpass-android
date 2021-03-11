@@ -1,0 +1,99 @@
+ext.installCoverageDeps = {
+    buildscript {
+        dependencies {
+            classpath "org.jacoco:org.jacoco.core:0.8.5"
+        }
+    }
+}
+
+ext.trackCoverage = { boolean enableTestCoverage, boolean trackUI = true, List<String> extraExcludes = [] ->
+    apply plugin: 'jacoco'
+
+    tasks.withType(Test) {
+        jacoco.includeNoLocationClasses = true
+    }
+
+    def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
+    def hasInstrumentationTests = isAndroidProject && project.file('src/androidTest').exists()
+
+    if (isAndroidProject) {
+        android {
+            buildTypes {
+                debug {
+                    testCoverageEnabled = hasInstrumentationTests && enableTestCoverage
+                }
+            }
+
+            testOptions {
+                execution 'ANDROIDX_TEST_ORCHESTRATOR'
+                animationsDisabled true
+            }
+        }
+    }
+
+    def androidTaskDeps = ['testDebugUnitTest']
+    if (hasInstrumentationTests) {
+        androidTaskDeps.add('createDebugCoverageReport')
+    }
+    def taskDeps = isAndroidProject ? androidTaskDeps : ['test']
+    task jacocoTestReportDefault(type: JacocoReport, dependsOn: taskDeps, group: 'verification') {
+        reports {
+            xml.enabled = true
+            html.enabled = true
+        }
+
+        def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+        ]
+        if (!trackUI) {
+            fileFilter.addAll([
+                '**/*BottomSheet*.*',
+                '**/*Fragment*.*',
+                '**/*Activity*.*',
+                '**/*Adapter*.*',
+                '**/*ViewHolder*.*',
+                '**/*Layout*.*',
+                '**/*ViewFrame*.*',
+                '**/*Popup*.*',
+                '**/*PopUp*.*',
+                '**/*Animation*.*',
+                '**/*Divider*.*',
+                '**/*Decoration.*',
+            ])
+        }
+        fileFilter.addAll(extraExcludes)
+
+        sourceDirectories.setFrom(files(["$project.projectDir/src/main/java", "$project.projectDir/src/main/kotlin"]))
+        classDirectories.setFrom(files([
+            isAndroidProject ?
+                fileTree(dir: "$project.buildDir/intermediates/javac/debug", excludes: fileFilter)
+                    + fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+                    + fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+                : fileTree(dir: "$project.buildDir/classes/kotlin")
+        ]))
+        executionData.setFrom(fileTree(dir: project.buildDir,
+            includes: isAndroidProject ?
+                ['jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/**/*.ec']
+                : ['jacoco/test.exec'],
+        ))
+    }
+}
+
+ext.verifyCoverage = { minCoverage ->
+    task jacocoTestCoverageVerificationDefault(type: JacocoCoverageVerification, group: 'verification') {
+        executionData { project.fileTree(dir: project.buildDir, include: 'jacoco/**/*.exec') }
+
+        violationRules {
+            rule {
+                limit {
+                    minimum = minCoverage
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+// Based on:
+// * https://gist.github.com/Robyer/a6578e60127418b380ca133a1291f017
+// * https://stackoverflow.com/questions/26874498/publish-an-android-library-to-maven-with-aar-and-source-jar
+
+class License {
+    String name
+    String url
+    String distribution
+}
+
+class PublishingConfig {
+    String url
+    String username
+    String password
+    String name
+    String description
+    String website
+    String repoUrl
+    List<License> licenses = []
+    Boolean withSources = true
+    Boolean withPublication = true
+    Boolean isPlatformProject = false
+}
+
+ext.licenses = [
+    MIT    : new License(name: "The MIT License", url: "https://opensource.org/licenses/mit-license.php"),
+    APACHE2: new License(name: "The Apache Software License, Version 2.0", url: "https://www.apache.org/licenses/LICENSE-2.0.txt"),
+    LGPL3  : new License(name: "GNU Lesser General Public License, Version 3", url: "https://www.gnu.org/licenses/lgpl-3.0.txt"),
+]
+
+ext.publish = { args ->
+    apply plugin: "maven-publish"
+
+    PublishingConfig config = new PublishingConfig(args)
+    if (!config.name) {
+        config.name = "$rootProject.name: $project.name"
+    }
+
+    def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
+
+    if (config.withPublication) {
+        if (!config.isPlatformProject && config.withSources) {
+            task sourcesJar(type: Jar) {
+                archiveClassifier.set('sources')
+                if (isAndroidProject) {
+                    from android.sourceSets.main.java.srcDirs
+                } else {
+                    from sourceSets.main.java.srcDirs
+                }
+            }
+        }
+
+        // Some components are only available in the afterEvaluate phase (e.g. components.release)
+        afterEvaluate {
+            publishing {
+                publications {
+                    release(MavenPublication) {
+                        if (isAndroidProject) {
+                            from components.release
+                        } else if (config.isPlatformProject) {
+                            from components.javaPlatform
+                        } else {
+                            from components.java
+                        }
+                        if (!config.isPlatformProject && config.withSources) {
+                            artifact sourcesJar
+                        }
+                        pom.withXml {
+                            def root = asNode()
+                            if (config.name) {
+                                root.appendNode("name", config.name)
+                            }
+                            if (config.description) {
+                                root.appendNode("description", config.description)
+                            }
+                            if (config.website) {
+                                root.appendNode("url", config.website)
+                            }
+                            if (config.repoUrl) {
+                                root.appendNode("scm").appendNode("url", config.repoUrl)
+                            }
+                            if (config.licenses) {
+                                def licensesXml = root.appendNode("licenses")
+                                for (license in config.licenses) {
+                                    def licenseXml = licensesXml.appendNode("license")
+                                    licenseXml.appendNode("name", license.name)
+                                    licenseXml.appendNode("url", license.url)
+                                    if (license.distribution) {
+                                        licenseXml.appendNode("distribution", license.distribution)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    publishing {
+        repositories {
+            maven {
+                url config.url
+                credentials {
+                    username config.username
+                    password config.password
+                }
+            }
+        }
+    }
+}
