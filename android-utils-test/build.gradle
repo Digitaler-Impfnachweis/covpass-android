@@ -1,0 +1,5 @@
+dependencies {
+    api project(':android-utils')
+    coroutines()
+    reactiveState()
+}

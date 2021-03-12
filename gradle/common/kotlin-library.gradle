@@ -24,4 +24,10 @@ ext.kotlinLibrary = { args = [:] ->
 
     // Behave like Android
     task testDebugUnitTest(type: Test, dependsOn: ['test'], group: 'verification')
+
+    tasks.withType(Test) {
+        testLogging {
+            exceptionFormat "full"
+        }
+    }
 }

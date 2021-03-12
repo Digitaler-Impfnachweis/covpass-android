@@ -1,13 +1,4 @@
-enum Obfuscation {
-    None,
-    Explicit,
-    VisibilityBased,
-}
-
-ext.Obfuscation = Obfuscation
-
 class LibConfig {
-    Obfuscation obfuscation = Obfuscation.VisibilityBased
     Integer minVersion = null
     Integer targetVersion = null
     Integer compileSdkVersion = null
@@ -32,31 +23,6 @@ ext.androidLibrary = { args = [:] ->
         defaultConfig {
             consumerProguardFiles 'consumer-rules.pro'
         }
-
-        buildTypes {
-            release {
-                if (config.obfuscation != Obfuscation.None) {
-                    minifyEnabled true
-                    def obfuscationRules = [
-                        // XXX: We disable optimizations because they break the release debuggable=false build.
-                        // Also, the proguard-android-optimize.txt contains -allowaccessmodification which would turn
-                        // even private APIs into public ones. This is not what we want for a library.
-                        getDefaultProguardFile('proguard-android.txt'),
-                    ]
-                    if (config.obfuscation == Obfuscation.VisibilityBased) {
-                        obfuscationRules.add("$rootDir/gradle/common/proguard-rules-android-library-visibility.pro")
-                    }
-                    obfuscationRules.addAll([
-                        "$rootDir/gradle/common/proguard-rules-android-library.pro",
-                        "$rootDir/gradle/common/proguard-rules.pro",
-                        'proguard-rules.pro',
-                        'consumer-rules.pro',
-                    ])
-                    proguardFiles(*obfuscationRules)
-                }
-            }
-        }
-
 
         if (config.kotlinExplicitApiMode) {
             kotlinOptions {

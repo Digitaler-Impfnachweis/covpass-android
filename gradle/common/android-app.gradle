@@ -51,15 +51,13 @@ ext.androidApp = { args = [:] ->
                     minifyEnabled true
 
                     def obfuscationRules = [
-                        // XXX: We disable optimizations because they break the release debuggable=false build.
+                        // XXX: We disable optimizations because they're too brittle.
                         getDefaultProguardFile('proguard-android.txt'),
                     ]
                     if (config.obfuscation == Obfuscation.Debuggable) {
                         obfuscationRules.add("$rootDir/gradle/common/proguard-rules-debug.pro")
                     }
                     obfuscationRules.addAll([
-                        "$rootDir/gradle/common/proguard-rules-android-app.pro",
-                        "$rootDir/gradle/common/proguard-rules.pro",
                         'proguard-rules.pro',
                     ])
                     proguardFiles(*obfuscationRules)
@@ -70,12 +68,6 @@ ext.androidApp = { args = [:] ->
         packagingOptions {
             // See https://github.com/Kotlin/kotlinx.coroutines#avoiding-including-the-debug-infrastructure-in-the-resulting-apk
             exclude "DebugProbesKt.bin"
-        }
-    }
-
-    if (config.obfuscation == Obfuscation.Full) {
-        dependencies {
-            implementation "com.ibm.health.common:obfuscation"
         }
     }
 }

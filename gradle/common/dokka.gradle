@@ -1,5 +1,0 @@
-apply plugin: 'org.jetbrains.dokka'
-dokka {
-    outputDirectory = "$rootDir/docs/reference"
-    outputFormat = 'gfm'
-}

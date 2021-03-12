@@ -1,0 +1,5 @@
+dependencies {
+    api project(":annotations")
+    gson()
+    threeten()
+}
