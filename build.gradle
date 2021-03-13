@@ -24,7 +24,7 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
-group = 'com.ibm.health.vaccination.common'
+group = 'com.ibm.health.common'
 subprojects {
     def isLibraryProject = project.name != 'app' && !project.name.startsWith('app-')
 
@@ -40,7 +40,7 @@ subprojects {
     if (!isPlatformProject) {
         if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"
-            androidLibrary(obfuscation: Obfuscation.None, kotlinExplicitApiMode: true)
+            androidLibrary(minVersion: 23, kotlinExplicitApiMode: true)
         } else {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
             kotlinLibrary(kotlinExplicitApiMode: true)

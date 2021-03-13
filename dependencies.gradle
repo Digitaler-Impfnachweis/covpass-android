@@ -11,8 +11,8 @@ dependencies.ext.versionConstraints = {
         api platform('com.ensody.reactivestate:dependency-versions-bom:2.0.4')
 
         constraints {
-            // The versions definition for as constraints are only taken into account if they are brought
-            // in as transitive  dependencies. Otherwise, the constraint has no effect.
+            // The versions definition for constraints are only taken into account if they are brought
+            // in as transitive dependencies. Otherwise, the constraint has no effect.
 
             // While kotlin-stdlib and kotlin-stdlib-common are automatically set by the gradle plugin,
             // a few older dependencies still want kotlin-stdlib-jdk7 or kotlin-reflect based on a different Kotlin
@@ -20,6 +20,12 @@ dependencies.ext.versionConstraints = {
             api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
             api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
             api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+            api 'org.conscrypt:conscrypt-android:2.4.0'
+            def okhttpVersion = '3.12.12'
+            api "com.squareup.okhttp3:okhttp:$okhttpVersion"
+            api "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+            api "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
 
             api 'androidx.appcompat:appcompat:1.2.0'
             api 'androidx.core:core-ktx:1.3.2'

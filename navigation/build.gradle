@@ -1,0 +1,5 @@
+dependencies {
+    androidUI()
+    api project(":annotations")
+    api project(":logging")
+}
