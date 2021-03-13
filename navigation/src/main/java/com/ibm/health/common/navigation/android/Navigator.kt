@@ -18,8 +18,11 @@ import kotlin.reflect.KClass
  * Usage:
  *
  * 1. Your `Fragment` or `Activity` must implement [NavigatorOwner] and provide a `by lazy` [Navigator].
- * 2. In `Activity.onCreate`/`Fragment.onCreateView` check for state restoration. Only [push] if no state is restored.
- * 3. Now you can use [push]/[pop]/etc. to navigate between fragments.
+ * 2. In `Activity.onCreate`/`Fragment.onCreateView` check for state restoration with [isEmpty].
+ *    IMPORTANT: It's not enough to check for `savedInstanceState` because that can be null and still
+ *    `childFragmentManager` can contain restored fragments.
+ * 3. Only [push] the initial fragment if state isn't restored.
+ * 4. Now you can use [push]/[pop]/etc. to navigate between fragments.
  */
 public interface Navigator {
     public val backStackEntryCount: StateFlow<Int>
