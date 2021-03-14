@@ -8,7 +8,7 @@ dependencies.ext.versionConstraints = {
     dependencies {
         api platform('org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.4.3')
         api platform('io.ktor:ktor-bom:1.3.2')
-        api platform('com.ensody.reactivestate:dependency-versions-bom:2.0.4')
+        api platform('com.ensody.reactivestate:dependency-versions-bom:3.0.0')
 
         constraints {
             // The versions definition for constraints are only taken into account if they are brought
