@@ -13,11 +13,8 @@ public interface ViewModelOwner<T : BaseEvents> : LifecycleOwner {
 }
 
 /** Watches the loading state and triggers `setLoading()`. */
-public fun <T : BaseEvents> ViewModelOwner<T>.watchLoading(
-    isLoading: StateFlow<Boolean>,
-    setLoading: (Boolean) -> Unit,
-) {
-    watchLoading(isLoading, viewModel.eventNotifier, setLoading)
+public fun <T : BaseEvents> ViewModelOwner<T>.watchLoading(setLoading: (Boolean) -> Unit) {
+    watchLoading(viewModel.isLoading, viewModel.eventNotifier, setLoading)
 }
 
 /** Observes a Boolean and triggers the [setLoading] function, taking lifecycle handling into account. */

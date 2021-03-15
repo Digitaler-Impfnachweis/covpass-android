@@ -10,7 +10,7 @@ public interface ViewModelOwnerMixin<T : BaseEvents> : OnCreateHook, ViewModelOw
     @Suppress("UNCHECKED_CAST")
     override fun onCreateHook() {
         super.onCreateHook()
-        watchLoading(viewModel.isLoading, ::setLoading)
+        watchLoading(::setLoading)
         viewModel.eventNotifier.handleEvents(this as T, this)
     }
 
