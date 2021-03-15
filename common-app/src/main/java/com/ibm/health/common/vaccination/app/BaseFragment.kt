@@ -1,13 +1,21 @@
 package com.ibm.health.common.vaccination.app
 
+import androidx.annotation.LayoutRes
+import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.NavigatorOwner
 import com.ibm.health.common.navigation.android.OnBackPressedNavigation
 import com.ibm.health.common.android.utils.BaseHookedFragment
 
-public open class BaseFragment : BaseHookedFragment(), OnBackPressedNavigation {
+public open class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
+    BaseHookedFragment(contentLayoutId = contentLayoutId), OnBackPressedNavigation, BaseEvents {
+
     override fun onBackPressed(): Abortable =
         (this as? NavigatorOwner)?.navigator?.onBackPressed()
             ?: Continue
+
+    override fun onError(error: Throwable) {
+        handleError(error, childFragmentManager)
+    }
 }
