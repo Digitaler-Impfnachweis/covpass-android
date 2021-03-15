@@ -53,7 +53,17 @@ public interface Navigator {
      * @param cls The target fragment to pop up to.
      * @param includeMatch Whether to also pop the matching fragment. Defaults to `false`.
      */
-    public fun popUntil(cls: KClass<out Fragment>, includeMatch: Boolean = false)
+    public fun popUntil(cls: KClass<out Fragment>, includeMatch: Boolean = false) {
+        popUntil(getTagName(cls) ?: return, includeMatch = includeMatch)
+    }
+
+    /**
+     * Pops the back stack until the given [tag] is matched.
+     *
+     * @param tag The tag to pop up to.
+     * @param includeMatch Whether to also pop the matching fragment. Defaults to `false`.
+     */
+    public fun popUntil(tag: String, includeMatch: Boolean = false)
 
     /**
      * Pops the back stack until the given Fragment class is matched.
@@ -413,8 +423,7 @@ private class NavigatorImpl(
         } else false
     }
 
-    override fun popUntil(cls: KClass<out Fragment>, includeMatch: Boolean) {
-        val tag = getTagName(cls)
+    override fun popUntil(tag: String, includeMatch: Boolean) {
         fragmentManager.popBackStack(tag, if (includeMatch) FragmentManager.POP_BACK_STACK_INCLUSIVE else 0)
     }
 
