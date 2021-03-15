@@ -439,11 +439,6 @@ private class NavigatorImpl(
     override fun findFragment(func: (Fragment) -> Boolean): Fragment? =
         fragmentManager.fragments.lastOrNull(func)
 
-    private fun Fragment.getTagName(): String? = getTagName(this::class)
-
-    private fun getTagName(cls: KClass<out Fragment>): String? =
-        if (StatelessNavigation::class.java.isAssignableFrom(cls.java)) null else cls.java.name
-
     private fun updateOrientation(fragment: Fragment? = null) {
         val fixedOrientation =
             (fragment ?: findFragment { it is FixedOrientation }) as? FixedOrientation
@@ -451,3 +446,8 @@ private class NavigatorImpl(
             ?: ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 }
+
+public fun Fragment.getTagName(): String? = getTagName(this::class)
+
+public fun getTagName(cls: KClass<out Fragment>): String? =
+    if (StatelessNavigation::class.java.isAssignableFrom(cls.java)) null else cls.java.name
