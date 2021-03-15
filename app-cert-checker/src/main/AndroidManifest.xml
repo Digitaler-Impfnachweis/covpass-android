@@ -6,7 +6,6 @@
   <application
     android:name=".App"
     android:allowBackup="false"
-    android:networkSecurityConfig="@xml/network_security_config"
     android:supportsRtl="false"
     tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
     tools:replace="android:allowBackup, android:supportsRtl">
