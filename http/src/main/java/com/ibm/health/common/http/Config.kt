@@ -2,14 +2,11 @@ package com.ibm.health.common.http
 
 import com.ibm.health.common.gson.defaultGsonBuilder
 import com.ibm.health.common.http.retry.RetryInterceptor
-import io.ktor.client.HttpClient
-import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.engine.okhttp.OkHttpConfig
-import io.ktor.client.features.HttpTimeout
-import io.ktor.client.features.defaultRequest
-import io.ktor.client.features.json.GsonSerializer
-import io.ktor.http.URLProtocol
+import io.ktor.client.*
+import io.ktor.client.engine.okhttp.*
+import io.ktor.client.features.*
+import io.ktor.client.features.json.*
+import io.ktor.http.*
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
@@ -131,7 +128,7 @@ private class DefaultHttpConfig : HttpConfig {
                 requestTimeoutMillis = 15_000
                 socketTimeoutMillis = 15_000
             }
-            install(FixedJsonFeature) {
+            install(JsonFeature) {
                 serializer = GsonSerializer {
                     defaultGsonBuilder()
                 }
