@@ -19,7 +19,7 @@ internal class RetryInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
-        val httpMethod = request.method()
+        val httpMethod = request.method
         var attempt = 0
         val retryEnabled = isRetryEnabled(request)
 
@@ -35,7 +35,7 @@ internal class RetryInterceptor : Interceptor {
             try {
                 attempt += 1
                 val response = chain.proceed(request)
-                if (shouldRetry(httpMethod, response.code(), attempt, retryEnabled)) {
+                if (shouldRetry(httpMethod, response.code, attempt, retryEnabled)) {
                     Thread.sleep(RETRY_DELAY_IN_MS)
                     continue
                 }
@@ -63,8 +63,7 @@ internal class RetryInterceptor : Interceptor {
     }
 
     private fun isRetryEnabled(request: Request): Boolean {
-        val retryHeader = request.headers().get(RETRY_ALLOWED_HEADER)
-
+        val retryHeader = request.headers[RETRY_ALLOWED_HEADER]
         return retryHeader == null || retryHeader == RETRY_ALLOWED_VALUE
     }
 

@@ -104,7 +104,7 @@ subprojects {
     }
 
     // TODO:
-//    if (isLibraryProject) {
+//    if (isLibraryProject && project.name != "common-app") {
 //        apply from: "$rootDir/gradle/common/publish.gradle"
 //        def url = TODO
 //        publish(

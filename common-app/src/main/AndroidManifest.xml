@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.ibm.health.common.vaccination.app">
+
+  <application
+    android:allowBackup="false"
+    android:supportsRtl="false"
+    tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+    tools:replace="android:allowBackup, android:supportsRtl">
+
+
+  </application>
+
+</manifest>

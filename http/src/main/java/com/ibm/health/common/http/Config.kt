@@ -104,12 +104,13 @@ private class DefaultHttpConfig : HttpConfig {
             connectionSpecs(listOf(connectionSpec))
             sslSocketFactory(sslSocketFactory, trustManager)
 
+            @Suppress("IMPLICIT_CAST_TO_ANY", "DEPRECATION")
             when (logging) {
                 HttpLogLevel.NONE -> Unit
                 HttpLogLevel.HEADERS ->
-                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)) as Any
+                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
                 HttpLogLevel.BODY ->
-                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)) as Any
+                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             }.let {}
         }.build()
     }

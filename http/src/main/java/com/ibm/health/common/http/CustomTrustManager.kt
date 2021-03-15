@@ -38,7 +38,8 @@ internal class CustomTrustManager(private val delegate: X509TrustManager) : X509
         host: String?
     ): List<X509Certificate>? {
         val result: List<X509Certificate>? = if (delegateCheckServerTrusted != null) {
-            delegateCheckServerTrusted.invoke(delegate, chain, authType, host) as List<X509Certificate>?
+            @Suppress("UNCHECKED_CAST")
+            delegateCheckServerTrusted.invoke(delegate, chain, authType, host) as? List<X509Certificate>
         } else {
             delegate.checkServerTrusted(chain, authType)
             chain.toList()

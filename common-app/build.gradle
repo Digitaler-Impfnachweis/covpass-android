@@ -1,0 +1,6 @@
+dependencies {
+    api project(":android-utils")
+    api project(":http")
+    api project(":navigation")
+    api project(":securityprovider")
+}

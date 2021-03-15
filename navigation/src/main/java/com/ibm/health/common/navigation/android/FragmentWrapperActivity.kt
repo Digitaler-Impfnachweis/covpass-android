@@ -2,7 +2,7 @@ package com.ibm.health.common.navigation.android
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /** Displays a fragment (via a [FragmentNav]) in its own activity. */
 @Parcelize

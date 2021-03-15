@@ -1,4 +1,4 @@
-package com.ibm.health.common.android.utils
+package com.ibm.health.common.navigation.android
 
 import androidx.fragment.app.Fragment
 

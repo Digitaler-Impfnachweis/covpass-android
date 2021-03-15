@@ -2,5 +2,4 @@ dependencies {
     androidUI()
     coroutines()
     reactiveState()
-    api project(':navigation')
 }

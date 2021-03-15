@@ -1,20 +1,12 @@
-package com.ibm.health.ui
+package com.ibm.health.common.android.utils
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.ibm.health.common.android.utils.OnActivityResultHook
-import com.ibm.health.common.android.utils.OnCreateHook
-import com.ibm.health.common.android.utils.OnRequestPermissionsResultHook
-import com.ibm.health.common.annotations.Abortable
-import com.ibm.health.common.annotations.Continue
-import com.ibm.health.common.navigation.android.NavigatorOwner
-import com.ibm.health.common.navigation.android.OnBackPressedNavigation
 
-/** Common base class that comes with hook and navigation support. */
+/** Base class that comes with mixin hook support. */
 public abstract class BaseHookedFragment :
     Fragment(),
-    OnBackPressedNavigation,
     OnCreateHook,
     OnActivityResultHook,
     OnRequestPermissionsResultHook {
@@ -37,8 +29,4 @@ public abstract class BaseHookedFragment :
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         onRequestPermissionsResultHook(requestCode, permissions, grantResults)
     }
-
-    override fun onBackPressed(): Abortable =
-        (this as? NavigatorOwner)?.navigator?.onBackPressed()
-            ?: Continue
 }

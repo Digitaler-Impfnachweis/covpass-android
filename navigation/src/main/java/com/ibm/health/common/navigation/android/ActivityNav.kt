@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import kotlinx.android.parcel.IgnoredOnParcel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import kotlin.reflect.KClass
 
 /**
@@ -91,10 +91,13 @@ public interface IntentDestination {
  * This also works with [startActivityForResult].
  */
 @Parcelize
-public open class IntentNav(public val cls: KClass<*>) : IntentDestination, Parcelable {
-    public constructor(cls: KClass<*>, config: Intent.() -> Unit) : this(cls) {
+public open class IntentNav internal constructor(private val javaCls: Class<*>) : IntentDestination, Parcelable {
+    public constructor(cls: KClass<*>, config: Intent.() -> Unit = {}) : this(cls.java) {
         this.intentConfig = config
     }
+
+    @IgnoredOnParcel
+    public val cls: KClass<*> = javaCls.kotlin
 
     @IgnoredOnParcel
     public var intentConfig: Intent.() -> Unit = {}

@@ -39,6 +39,11 @@ public class ActivityNavigator {
         }
     }
 
+    public fun getCurrentActivityOrNull(): Activity? =
+        if (::currentActivity.isInitialized) currentActivity else null
+
+    public fun getCurrentActivity(): Activity? = currentActivity
+
     /**
      * Calls [Activity.navigateUpTo].
 
@@ -59,9 +64,6 @@ public fun initActivityNavigator(application: Application) {
 
 @SuppressLint("StaticFieldLeak")
 private lateinit var currentActivity: Activity
-
-public fun getCurrentActivityOrNull(): Activity? =
-    if (::currentActivity.isInitialized) currentActivity else null
 
 private object LifecycleTracker : Application.ActivityLifecycleCallbacks {
 

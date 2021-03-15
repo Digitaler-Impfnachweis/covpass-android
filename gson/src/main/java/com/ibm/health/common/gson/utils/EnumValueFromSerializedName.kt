@@ -1,9 +1,9 @@
-package com.ibm.health.common.http.util
+package com.ibm.health.common.gson.utils
 
 import com.google.gson.annotations.SerializedName
 
 /** Mixin for enums that adds a `value` attribute which returns the `@SerializedName` annotation's value. */
-public interface ValueFromSerializedName {
+public interface EnumValueFromSerializedName {
     public val name: String
 
     public val value: String

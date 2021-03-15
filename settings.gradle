@@ -1,6 +1,13 @@
 rootProject.name = 'android-vaccination-app'
+
+// Apps
 include ':app-cert-checker'
 include ':app-vaccinee'
+include ':common-app'
+
+// TODO: SDK modules
+
+// SDK utils
 include ':android-utils'
 include ':android-utils-test'
 include ':annotations'
@@ -9,3 +16,4 @@ include ':gson'
 include ':http'
 include ':logging'
 include ':navigation'
+include ':securityprovider'

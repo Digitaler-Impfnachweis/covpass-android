@@ -1,0 +1,35 @@
+package com.ibm.health.common.android.utils
+
+import android.content.Context
+import android.graphics.drawable.Drawable
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+
+/**
+ * Interface used to encapsulate resource fetching where a context is needed.
+ * For example fetching a string.
+ **/
+public interface ResourceProvider {
+
+    public fun getString(@StringRes resId: Int, vararg formatArgs: Any): String
+
+    public fun getDrawable(@DrawableRes resId: Int): Drawable?
+}
+
+@Suppress("FunctionName")
+public fun ResourceProvider(context: Context): ResourceProvider =
+    ResourceProviderImpl(context)
+
+private class ResourceProviderImpl(private val context: Context) : ResourceProvider {
+
+    @Suppress("SpreadOperator")
+    override fun getString(@StringRes resId: Int, vararg formatArgs: Any) =
+        context().getString(resId, *formatArgs)
+
+    override fun getDrawable(@DrawableRes resId: Int) =
+        ContextCompat.getDrawable(context(), resId)
+
+    // We prefer activity context as configuration of baseContext may have changed at runtime
+    private fun context() = androidDeps.currentActivityOrNull() ?: context
+}
