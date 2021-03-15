@@ -69,6 +69,7 @@ public interface Navigator {
      * Pops the back stack until the given Fragment class is matched.
      *
      * This can be used to communicate back results that aren't parcelable/serializable.
+     *
      * WARNING: If this pops multiple fragments it can trigger multiple animations.
      * Usually you should use the class-based popUntil variant above.
      *
@@ -79,6 +80,13 @@ public interface Navigator {
      * @return true if there was something to pop, false otherwise.
      */
     public fun popUntil(includeMatch: Boolean = false, predicate: (Any) -> Boolean): Boolean
+
+    /**
+     * Pops all entries from the back stack, that are any type of overlay navigation.
+     *
+     * @return true if there was something to pop, false otherwise.
+     */
+    public fun popOverlays(): Boolean
 
     /** Clears the back stack. */
     public fun popAll()
@@ -245,6 +253,7 @@ public interface SheetPaneNavigation : AnimatedNavigation, OverlayNavigation {
     }
 }
 
+/** Interface marking a modal overlay. This usually is inserted before the first [OverlayNavigation]. */
 public interface ModalPaneNavigation : AnimatedNavigation {
     override fun animateNavigation(fragmentTransaction: FragmentTransaction) {
         navigationAnimationConfig.modalPaneAnimation(fragmentTransaction)
@@ -300,22 +309,6 @@ public fun Fragment.findNavigator(skip: Int = 0): Navigator =
     findInHierarchy(skip = skip) {
         (it as? NavigatorOwner)?.navigator
     }
-
-/** Pops all currently visible [SheetPaneNavigation]s / bottom sheets. */
-public fun <T> T.popSheetPanes(): Boolean where T : FragmentActivity, T : NavigatorOwner =
-    navigator.popUntil { it !is SheetPaneNavigation }
-
-/** Pops all currently visible [OverlayNavigation]s including dialogs and bottom sheets. */
-public fun <T> T.popOverlays(): Boolean where T : FragmentActivity, T : NavigatorOwner =
-    navigator.popUntil { it !is OverlayNavigation }
-
-/** Pops all currently visible [SheetPaneNavigation]s / bottom sheets. */
-public fun Fragment.popSheetPanes(): Boolean =
-    findNavigator().popUntil { it !is SheetPaneNavigation }
-
-/** Pops all currently visible [OverlayNavigation]s including dialogs and bottom sheets. */
-public fun Fragment.popOverlays(): Boolean =
-    findNavigator().popUntil { it !is OverlayNavigation }
 
 /**
  * Creates a new [Navigator] instance on a fragment implementing [NavigatorOwner].
@@ -408,6 +401,21 @@ private class NavigatorImpl(
                 ?: (it as? NavigatorOwner)?.navigator?.onBackPressed()
         }
         return if (result == Abort || pop()) Abort else Continue
+    }
+
+    override fun popOverlays(): Boolean {
+        fragmentManager.executePendingTransactions()
+        // Try to find the modal overlay and pop (including) until the fragment right after it
+        var index = fragmentManager.fragments.indexOfLast { it is ModalPaneNavigation }
+        if (index < 0) {
+            return false
+        }
+        fragmentManager.fragments.getOrNull(index + 1)?.getTagName()?.let {
+            popUntil(tag = it, includeMatch = true)
+            return true
+        }
+
+        return false
     }
 
     override fun popAll() {
