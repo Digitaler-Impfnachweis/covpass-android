@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.pm.ActivityInfo
 import androidx.annotation.IdRes
 import androidx.fragment.app.*
-import com.ibm.health.common.android.utils.reactive.android.findInHierarchy
+import com.ibm.health.common.android.utils.findInHierarchy
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue

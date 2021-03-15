@@ -1,4 +1,4 @@
-package com.ibm.health.common.android.utils.reactive.android
+package com.ibm.health.common.android.utils
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel

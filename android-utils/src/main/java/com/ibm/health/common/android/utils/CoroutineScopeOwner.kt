@@ -1,4 +1,4 @@
-package com.ibm.health.common.android.utils.reactive
+package com.ibm.health.common.android.utils
 
 import kotlinx.coroutines.CoroutineScope
 

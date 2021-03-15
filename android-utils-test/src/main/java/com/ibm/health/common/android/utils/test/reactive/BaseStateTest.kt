@@ -1,8 +1,8 @@
 package com.ibm.health.common.android.utils.test.reactive
 
-import com.ibm.health.common.android.utils.reactive.BaseEvents
-import com.ibm.health.common.android.utils.reactive.android.BaseViewModel
-import com.ibm.health.common.android.utils.reactive.State
+import com.ibm.health.common.android.utils.BaseEvents
+import com.ibm.health.common.android.utils.BaseViewModel
+import com.ibm.health.common.android.utils.State
 import com.ibm.health.common.android.utils.test.BaseTest
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
