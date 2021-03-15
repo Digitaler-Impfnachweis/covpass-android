@@ -22,8 +22,6 @@ import javax.net.ssl.X509TrustManager
 
 /**
  * Interface for common HTTP client configuration.
- *
- * It is required for certification that you only use the client defined here.
  */
 public interface HttpConfig {
     /** Activates request logging. You MUST NOT use this in release builds! */
