@@ -1,4 +1,6 @@
 rootProject.name = 'android-vaccination-app'
+include ':app-cert-checker'
+include ':app-vaccinee'
 include ':android-utils'
 include ':android-utils-test'
 include ':annotations'

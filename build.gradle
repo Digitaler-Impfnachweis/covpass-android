@@ -38,7 +38,10 @@ subprojects {
     apply from: "$rootDir/dependencies.gradle"
 
     if (!isPlatformProject) {
-        if (isAndroidProject) {
+        if (!isLibraryProject) {
+            apply from: "$rootDir/gradle/common/android-app.gradle"
+            androidApp(minVersion: 23, obfuscation: Obfuscation.Full)
+        } else if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"
             androidLibrary(minVersion: 23, kotlinExplicitApiMode: true)
         } else {
@@ -51,6 +54,14 @@ subprojects {
 
         if (isAndroidProject) {
             android {
+                if (!isLibraryProject) {
+                    def codeName = project.name.substring("app-".length()).replaceAll("-", "")
+                    defaultConfig {
+                        applicationId "$group.$codeName"
+                        archivesBaseName = "$codeName-$version"
+                    }
+                }
+
                 // Resolve build conflicts for test modules
                 if (isTestProject) {
                     packagingOptions {
