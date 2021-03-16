@@ -2,18 +2,12 @@ package com.ibm.health.common.android.utils
 
 import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.ErrorEvents
-import com.ensody.reactivestate.EventNotifier
 import com.ensody.reactivestate.android.buildViewModel
 import com.ensody.reactivestate.android.handleEvents
 import com.ensody.reactivestate.android.onCreate
 import com.ensody.reactivestate.android.stateViewModel
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 public inline fun <reified E : ErrorEvents, reified T : BaseViewModel<E>, O> O.buildBaseViewModel(
     crossinline block: () -> T,
