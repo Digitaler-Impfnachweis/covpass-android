@@ -3,7 +3,6 @@ package com.ibm.health.common.android.utils
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.MutableValueFlow
-import com.ensody.reactivestate.android.onCreate
 import com.ensody.reactivestate.derived
 import com.ensody.reactivestate.get
 import kotlinx.coroutines.flow.StateFlow
@@ -29,7 +28,7 @@ public fun <T> T.IsLoading(): IsLoading where T : LifecycleOwner, T : LoadingSta
     val isLoading = lifecycleScope.derived {
         get(loadingStates).count { get(it) } > 0
     }
-    onCreate {
+    lifecycleScope.launchWhenCreated {
         watchLoading(isLoading, ::setLoading)
     }
     return IsLoading(loadingStates, isLoading)
