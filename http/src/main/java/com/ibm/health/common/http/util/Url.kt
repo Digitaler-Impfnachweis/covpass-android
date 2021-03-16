@@ -1,4 +1,4 @@
-package com.ibm.health.common.http.utils
+package com.ibm.health.common.http.util
 
 import android.net.Uri
 import io.ktor.http.*
