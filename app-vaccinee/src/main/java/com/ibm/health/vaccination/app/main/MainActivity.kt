@@ -3,11 +3,11 @@ package com.ibm.health.vaccination.app.main
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import com.ensody.reactivestate.android.buildViewModel
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.android.utils.BaseViewModel
 import com.ibm.health.common.android.utils.ViewModelOwner
+import com.ibm.health.common.android.utils.buildBaseViewModel
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.vaccination.app.BaseActivity
 import com.ibm.health.vaccination.app.databinding.ActivityMainBinding
@@ -19,13 +19,16 @@ class MainActivityViewModel : BaseViewModel<MainActivityEvents>() {
 
 class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>, MainActivityEvents {
 
-    override val viewModel by buildViewModel { MainActivityViewModel() }
+    override val viewModel by buildBaseViewModel { MainActivityViewModel() }
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        /*lifecycleScope.launchWhenStarted {
+            viewModel.eventNotifier.collect { it() }
+        }*/
         binding.qrScannerBtn.setOnClickListener { viewModel.state.onLaunchQRScannerButtonClicked() }
     }
 
