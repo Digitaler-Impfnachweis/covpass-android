@@ -3,8 +3,26 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.ibm.health.vaccination.app">
 
-  <application android:name=".App">
+  <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
+  <application
+    android:name=".App"
+    android:hardwareAccelerated="true">
+
+    <activity android:name=".MainActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name="com.journeyapps.barcodescanner.CaptureActivity"
+      android:screenOrientation="fullSensor"
+      tools:replace="screenOrientation" />
 
   </application>
 

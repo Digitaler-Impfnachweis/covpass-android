@@ -83,7 +83,7 @@ public class Navigator internal constructor(
      *
      * @param nav The [FragmentNav] to be pushed to the stack and displayed.
      */
-    public fun Navigator.push(nav: FragmentNav) {
+    public fun push(nav: FragmentNav) {
         push(nav.build())
     }
 
