@@ -1,4 +1,4 @@
-package com.ibm.health.common.http.utils
+package com.ibm.health.common.http.util
 
 public interface UrlWhitelist {
     public fun isWhitelisted(url: String): Boolean
