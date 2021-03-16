@@ -1,40 +1,26 @@
 package com.ibm.health.common.android.utils.permission
 
-import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.ibm.health.common.android.utils.OnRequestPermissionsResultHook
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 
-public interface PermissionHandler : PermissionResponseHandler, OnRequestPermissionsResultHook {
-    public val permissionManager: PermissionManager
+/** Creates a [PermissionManager] on a fragment that implements [PermissionHandler]. */
+@Suppress("FunctionName")
+public fun <T> T.PermissionManager(): PermissionManager where T : Fragment, T: PermissionHandler =
+    PermissionManager(this)
 
-    public fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    )
+/** Creates a [PermissionManager] on an activity that implements [PermissionHandler]. */
+@Suppress("FunctionName")
+public fun <T> T.PermissionManager(): PermissionManager where T : FragmentActivity, T: PermissionHandler =
+    PermissionManager(this)
 
-    override fun onRequestPermissionsResultHook(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        permissionManager
-            .getResponses(requestCode, permissions, grantResults)
-            .forEach { onPermissionResponse(it) }
+public class PermissionManager internal constructor(private val handler: PermissionHandler) {
+
+    init {
+
     }
-
-    public fun requireActivity(): Activity
-
-    public fun requestPermissions(permissions: Array<String>, requestCode: Int)
-}
-
-public interface PermissionResponseHandler {
-    public fun onPermissionResponse(permissionResponse: PermissionResponse) {}
-}
-
-public class PermissionManager(private val handler: PermissionHandler) {
 
     public fun isPermissionGranted(permission: String): Boolean =
         ContextCompat.checkSelfPermission(handler.requireActivity(), permission).isGranted()
@@ -50,7 +36,6 @@ public class PermissionManager(private val handler: PermissionHandler) {
         }
     }
 
-    @Suppress("MemberVisibilityCanBePrivate")
     public fun getResponses(
         requestCode: Int,
         permissions: Array<out String>,
@@ -68,7 +53,6 @@ public class PermissionManager(private val handler: PermissionHandler) {
             )
         }
 
-    @Suppress("unused")
     public fun getResponse(
         requestCode: Int,
         permissions: Array<out String>,

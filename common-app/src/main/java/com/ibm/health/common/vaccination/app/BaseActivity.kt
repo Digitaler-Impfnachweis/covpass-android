@@ -8,7 +8,9 @@ import com.ibm.health.common.navigation.android.Navigator
 import com.ibm.health.common.navigation.android.NavigatorOwner
 
 public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
-    BaseHookedActivity(contentLayoutId = contentLayoutId), NavigatorOwner, BaseEvents {
+    BaseHookedActivity(contentLayoutId = contentLayoutId),
+    NavigatorOwner,
+    BaseEvents {
 
     override val navigator: Navigator = Navigator()
 
@@ -20,5 +22,9 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
 
     override fun onError(error: Throwable) {
         handleError(error, supportFragmentManager)
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        // TODO: Implement this
     }
 }

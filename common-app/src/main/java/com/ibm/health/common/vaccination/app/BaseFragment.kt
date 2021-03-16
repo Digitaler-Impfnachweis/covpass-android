@@ -9,7 +9,9 @@ import com.ibm.health.common.navigation.android.OnBackPressedNavigation
 import com.ibm.health.common.android.utils.BaseHookedFragment
 
 public open class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
-    BaseHookedFragment(contentLayoutId = contentLayoutId), OnBackPressedNavigation, BaseEvents {
+    BaseHookedFragment(contentLayoutId = contentLayoutId),
+    OnBackPressedNavigation,
+    BaseEvents {
 
     override fun onBackPressed(): Abortable =
         (this as? NavigatorOwner)?.navigator?.onBackPressed()
@@ -17,5 +19,9 @@ public open class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
 
     override fun onError(error: Throwable) {
         handleError(error, childFragmentManager)
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        // TODO: Implement this
     }
 }

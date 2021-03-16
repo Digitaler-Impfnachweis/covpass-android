@@ -1,7 +1,6 @@
 package com.ibm.health.common.android.utils
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -10,17 +9,14 @@ import androidx.fragment.app.FragmentActivity
 /** Base class that comes with mixin hook support. */
 public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
     AppCompatActivity(contentLayoutId),
-    OnCreateHook,
     OnActivityResultHook,
-    OnRequestPermissionsResultHook {
+    OnRequestPermissionsResultHook,
+    LoadingStateHook {
+
+    override val isLoading: IsLoading = IsLoading()
 
     /** Helper to abstract away activity and fragment differences. */
     public open fun requireActivity(): FragmentActivity = this
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        onCreateHook()
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
