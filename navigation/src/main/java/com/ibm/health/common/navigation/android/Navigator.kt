@@ -75,7 +75,7 @@ public class Navigator internal constructor(
     }
 
     /** Checks if the `FragmentManager` is not empty and thus if we're doing a restore. See [isEmpty]. */
-    public fun Navigator.isNotEmpty(): Boolean =
+    public fun isNotEmpty(): Boolean =
         !isEmpty()
 
     /**
