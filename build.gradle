@@ -62,6 +62,10 @@ subprojects {
                     }
                 }
 
+                buildFeatures {
+                    viewBinding true
+                }
+
                 // Resolve build conflicts for test modules
                 if (isTestProject) {
                     packagingOptions {
