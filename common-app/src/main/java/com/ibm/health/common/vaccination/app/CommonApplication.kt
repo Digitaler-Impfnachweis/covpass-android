@@ -10,7 +10,8 @@ import com.ibm.health.common.http.HttpLogLevel
 import com.ibm.health.common.http.httpConfig
 import com.ibm.health.common.logging.Lumber
 import com.ibm.health.common.navigation.android.ActivityNavigator
-import com.ibm.health.common.navigation.android.initActivityNavigator
+import com.ibm.health.common.navigation.android.NavigationDependencies
+import com.ibm.health.common.navigation.android.navigationDeps
 import com.ibm.health.common.securityprovider.initSecurityProvider
 
 public abstract class CommonApplication : Application() {
@@ -27,9 +28,12 @@ public abstract class CommonApplication : Application() {
             WebView.setWebContentsDebuggingEnabled(true)
         }
 
-        initActivityNavigator(this)
-        val activityNavigator = ActivityNavigator()
+        navigationDeps = object : NavigationDependencies() {
+            override val application: Application = this@CommonApplication
+        }
         androidDeps = object : AndroidDependencies() {
+            private val activityNavigator = ActivityNavigator()
+
             override val application: Application = this@CommonApplication
 
             override fun currentActivityOrNull(): FragmentActivity? =
