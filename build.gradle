@@ -73,9 +73,6 @@ subprojects {
                         pickFirst 'META-INF/LGPL2.1'
                     }
                 }
-                viewBinding {
-                    enabled true
-                }
             }
 
             dependencies {
