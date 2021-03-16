@@ -9,7 +9,7 @@
     android:name=".App"
     android:hardwareAccelerated="true">
 
-    <activity android:name=".MainActivity"
+    <activity android:name=".main.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/Theme.AppCompat.Light.NoActionBar">
       <intent-filter>
