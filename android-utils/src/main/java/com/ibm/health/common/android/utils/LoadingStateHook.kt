@@ -34,6 +34,15 @@ public fun <T> T.IsLoading(): IsLoading where T : LifecycleOwner, T : LoadingSta
     return IsLoading(loadingStates, isLoading)
 }
 
+@Suppress("FunctionName")
+public fun State<*>.IsLoading(): IsLoading {
+    val loadingStates: MutableValueFlow<MutableSet<StateFlow<Boolean>>> = MutableValueFlow(mutableSetOf())
+    val isLoading = derived {
+        get(loadingStates).count { get(it) } > 0
+    }
+    return IsLoading(loadingStates, isLoading)
+}
+
 public class IsLoading internal constructor(
     private val loadingStates: MutableValueFlow<MutableSet<StateFlow<Boolean>>>,
     private val isLoading: StateFlow<Boolean>,
