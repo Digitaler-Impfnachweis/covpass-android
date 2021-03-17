@@ -5,31 +5,35 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
-import com.ibm.health.common.android.utils.BaseViewModel
-import com.ibm.health.common.android.utils.ViewModelOwner
-import com.ibm.health.common.android.utils.buildBaseViewModel
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.vaccination.app.BaseActivity
+import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.ActivityMainBinding
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
-internal class MainActivityViewModel : BaseViewModel<MainActivityEvents>() {
-    val state = MainActivityState(this)
-}
-
-internal class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>, MainActivityEvents {
-
-    override val viewModel by buildBaseViewModel { MainActivityViewModel() }
+internal class MainActivity : BaseActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        binding.qrScannerBtn.setOnClickListener { viewModel.state.onLaunchQRScannerButtonClicked() }
+        binding.qrScannerBtn.setOnClickListener { launchScanner() }
     }
 
-    override fun launchScanner() {
+    // Get the scanner results:
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
+            if (it.contents == null) {
+                Toast.makeText(this, getString(R.string.scanner_error_message),
+                    Toast.LENGTH_LONG).show()
+            } else {
+                generateQRCode(it.contents)
+            }
+        } ?: super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun launchScanner() {
         IntentIntegrator(this).run {
             setOrientationLocked(false)
             setPrompt("")
@@ -38,7 +42,7 @@ internal class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>
         }
     }
 
-    override fun generateQRCode(content: String) {
+    private fun generateQRCode(content: String) {
         Toast.makeText(this, content, Toast.LENGTH_LONG).show()
         try {
             val bitmap = BarcodeEncoder().encodeBitmap(
@@ -51,16 +55,5 @@ internal class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
-    }
-
-    override fun showError(res: Int) {
-        Toast.makeText(this, getString(res), Toast.LENGTH_LONG).show()
-    }
-
-    // Get the scanner results:
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
-            viewModel.state.onQRCodeResultReceived(it)
-        } ?: super.onActivityResult(requestCode, resultCode, data)
     }
 }

@@ -1,5 +1,5 @@
 dependencies {
     api project(":common-app")
-    api project(':android-utils-test')
+    testImplementation project(':android-utils-test')
     zxing()
 }
