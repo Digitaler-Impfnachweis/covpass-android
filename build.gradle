@@ -62,6 +62,10 @@ subprojects {
                     }
                 }
 
+                defaultConfig {
+                    vectorDrawables.useSupportLibrary = true
+                }
+
                 buildFeatures {
                     viewBinding true
                 }
@@ -71,6 +75,10 @@ subprojects {
                     packagingOptions {
                         pickFirst 'META-INF/AL2.0'
                         pickFirst 'META-INF/LGPL2.1'
+                    }
+
+                    lintOptions {
+                        abortOnError false
                     }
                 }
             }

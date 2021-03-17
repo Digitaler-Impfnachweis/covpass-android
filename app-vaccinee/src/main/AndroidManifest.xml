@@ -3,8 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.ibm.health.vaccination.app">
 
-  <application android:name=".App">
-
+  <application android:name=".App" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
 
   </application>
 
