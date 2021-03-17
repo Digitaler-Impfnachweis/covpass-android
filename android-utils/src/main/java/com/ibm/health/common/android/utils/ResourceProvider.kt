@@ -3,6 +3,7 @@ package com.ibm.health.common.android.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 
@@ -15,6 +16,8 @@ public interface ResourceProvider {
     public fun getString(@StringRes resId: Int, vararg formatArgs: Any): String
 
     public fun getDrawable(@DrawableRes resId: Int): Drawable?
+
+    public fun getInteger(@IntegerRes resId: Int): Int
 }
 
 @Suppress("FunctionName")
@@ -29,6 +32,9 @@ private class ResourceProviderImpl(private val context: Context) : ResourceProvi
 
     override fun getDrawable(@DrawableRes resId: Int) =
         ContextCompat.getDrawable(context(), resId)
+
+    override fun getInteger(resId: Int) =
+        context().resources.getInteger(resId)
 
     // We prefer activity context as configuration of baseContext may have changed at runtime
     private fun context() = androidDeps.currentActivityOrNull() ?: context
