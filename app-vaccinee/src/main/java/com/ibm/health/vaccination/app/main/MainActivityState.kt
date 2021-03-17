@@ -1,11 +1,13 @@
 package com.ibm.health.vaccination.app.main
 
+import androidx.annotation.StringRes
 import com.google.zxing.integration.android.IntentResult
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.State
+import com.ibm.health.vaccination.app.R
 
 @Suppress("EXPERIMENTAL_API_USAGE")
-open class MainActivityState<T : MainActivityEvents>(
+internal class MainActivityState<T : MainActivityEvents>(
     parentState: State<T>,
 ) : State<T> by parentState {
 
@@ -18,7 +20,7 @@ open class MainActivityState<T : MainActivityEvents>(
     fun onQRCodeContentReceived(result: IntentResult) {
         eventNotifier {
             if (result.contents == null) {
-                showError("Canceled")
+                showError(R.string.scanner_error_message)
             } else {
                 generateQRCode(result.contents)
             }
@@ -29,5 +31,5 @@ open class MainActivityState<T : MainActivityEvents>(
 interface MainActivityEvents : BaseEvents {
     fun launchScanner()
     fun generateQRCode(content: String)
-    fun showError(message: String)
+    fun showError(@StringRes res: Int)
 }

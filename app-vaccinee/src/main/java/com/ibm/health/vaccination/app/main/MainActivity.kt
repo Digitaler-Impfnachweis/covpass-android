@@ -13,11 +13,11 @@ import com.ibm.health.common.vaccination.app.BaseActivity
 import com.ibm.health.vaccination.app.databinding.ActivityMainBinding
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
-class MainActivityViewModel : BaseViewModel<MainActivityEvents>() {
+internal class MainActivityViewModel : BaseViewModel<MainActivityEvents>() {
     val state = MainActivityState(this)
 }
 
-class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>, MainActivityEvents {
+internal class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>, MainActivityEvents {
 
     override val viewModel by buildBaseViewModel { MainActivityViewModel() }
 
@@ -26,9 +26,6 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>, MainAct
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        /*lifecycleScope.launchWhenStarted {
-            viewModel.eventNotifier.collect { it() }
-        }*/
         binding.qrScannerBtn.setOnClickListener { viewModel.state.onLaunchQRScannerButtonClicked() }
     }
 
@@ -56,8 +53,8 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>, MainAct
         }
     }
 
-    override fun showError(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    override fun showError(res: Int) {
+        Toast.makeText(this, getString(res), Toast.LENGTH_LONG).show()
     }
 
     // Get the scanner results:
