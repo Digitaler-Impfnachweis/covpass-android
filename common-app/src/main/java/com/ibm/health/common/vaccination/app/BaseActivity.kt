@@ -1,7 +1,6 @@
 package com.ibm.health.common.vaccination.app
 
 import androidx.annotation.LayoutRes
-import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseHookedActivity
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.Navigator
@@ -9,8 +8,7 @@ import com.ibm.health.common.navigation.android.NavigatorOwner
 
 public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
     BaseHookedActivity(contentLayoutId = contentLayoutId),
-    NavigatorOwner,
-    BaseEvents {
+    NavigatorOwner {
 
     override val navigator: Navigator = Navigator()
 
