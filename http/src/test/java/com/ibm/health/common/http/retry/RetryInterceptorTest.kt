@@ -7,7 +7,8 @@ import com.ibm.health.common.http.retry.RetryInterceptor.Companion.RETRY_ALLOWED
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import okhttp3.Headers
+import okhttp3.Headers.Companion.headersOf
+import okhttp3.Headers.Companion.toHeaders
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -24,9 +25,9 @@ internal class RetryInterceptorTest {
         every { request.header(RETRY_ALLOWED_HEADER) } returns null
         every { chain.request() } returns request
         every { chain.proceed(request) } returns response
-        every { request.method() } returns "GET"
-        every { request.headers() } returns Headers.of("a", "b")
-        every { response.code() } returns 200
+        every { request.method } returns "GET"
+        every { request.headers } returns headersOf("a", "b")
+        every { response.code } returns 200
 
         val result = subject.intercept(chain)
 
@@ -42,9 +43,9 @@ internal class RetryInterceptorTest {
         every { request.header(RETRY_ALLOWED_HEADER) } returns null
         every { chain.request() } returns request
         every { chain.proceed(request) } throws Exception()
-        every { request.method() } returns "GET"
-        every { request.headers() } returns Headers.of("a", "b")
-        every { response.code() } returns 200
+        every { request.method } returns "GET"
+        every { request.headers } returns headersOf("a", "b")
+        every { response.code } returns 200
 
         assertThat {
             subject.intercept(chain)
@@ -61,11 +62,11 @@ internal class RetryInterceptorTest {
         every { request.header(RETRY_ALLOWED_HEADER) } returns null
         every { chain.request() } returns request
         every { chain.proceed(request) } returns response
-        every { request.method() } returns "GET"
-        every { request.headers() } returns Headers.of("a", "b")
-        every { response.code() } returns 500
+        every { request.method } returns "GET"
+        every { request.headers } returns headersOf("a", "b")
+        every { response.code } returns 500
 
-        assertThat(subject.intercept(chain).code()).isEqualTo(500)
+        assertThat(subject.intercept(chain).code).isEqualTo(500)
 
         verify(exactly = RetryInterceptor.MAX_ATTEMPTS) { chain.proceed(request) }
     }
@@ -78,9 +79,9 @@ internal class RetryInterceptorTest {
         every { request.header(RETRY_ALLOWED_HEADER) } returns null
         every { chain.request() } returns request
         every { chain.proceed(request) } returns response
-        every { request.method() } returns "POST"
-        every { request.headers() } returns Headers.of("a", "b")
-        every { response.code() } returns 500
+        every { request.method } returns "POST"
+        every { request.headers } returns headersOf("a", "b")
+        every { response.code } returns 500
 
         subject.intercept(chain)
 
@@ -100,11 +101,10 @@ internal class RetryInterceptorTest {
         every { request.header(RETRY_ALLOWED_HEADER) } returns "bla"
         every { chain.request() } returns request
         every { chain.proceed(request) } returns response
-        every { request.method() } returns "GET"
-        every { request.headers() } returns Headers.of(
-            mutableMapOf(RETRY_ALLOWED_HEADER to RetryInterceptor.RETRY_DISABLED_VALUE)
-        )
-        every { response.code() } returns 500
+        every { request.method } returns "GET"
+        every { request.headers } returns mutableMapOf(RETRY_ALLOWED_HEADER to RetryInterceptor.RETRY_DISABLED_VALUE)
+            .toHeaders()
+        every { response.code } returns 500
 
         subject.intercept(chain)
 
@@ -126,14 +126,14 @@ internal class RetryInterceptorTest {
         every { request.header(RETRY_ALLOWED_HEADER) } returns "bla"
         every { chain.request() } returns request
         every { chain.proceed(request) } returns response
-        every { request.method() } returns "GET"
-        every { request.headers() } returns Headers.of(
+        every { request.method } returns "GET"
+        every { request.headers } returns headersOf(
             RETRY_ALLOWED_HEADER,
-            RetryInterceptor.RETRY_ALLOWED_VALUE
+            RetryInterceptor.RETRY_ALLOWED_VALUE,
         )
-        every { response.code() } returns 500
+        every { response.code } returns 500
 
-        assertThat(subject.intercept(chain).code()).isEqualTo(500)
+        assertThat(subject.intercept(chain).code).isEqualTo(500)
 
         verify(exactly = RetryInterceptor.MAX_ATTEMPTS) { chain.proceed(request) }
         verify(exactly = 1) { builder.removeHeader(RETRY_ALLOWED_HEADER) }

@@ -262,5 +262,5 @@ private val Orientation.androidScreenOrientation: Int
     get() = when (this) {
         Orientation.PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         Orientation.LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        Orientation.SENSOR -> ActivityInfo.SCREEN_ORIENTATION_SENSOR
+        Orientation.SENSOR -> ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
     }

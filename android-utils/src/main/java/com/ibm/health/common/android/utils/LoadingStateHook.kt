@@ -28,7 +28,7 @@ public fun <T> T.IsLoading(): IsLoading where T : LifecycleOwner, T : LoadingSta
     val isLoading = lifecycleScope.derived {
         get(loadingStates).count { get(it) } > 0
     }
-    lifecycleScope.launchWhenCreated {
+    lifecycleScope.launchWhenStarted {
         watchLoading(isLoading, ::setLoading)
     }
     return IsLoading(loadingStates, isLoading)

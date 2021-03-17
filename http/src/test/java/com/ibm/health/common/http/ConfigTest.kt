@@ -25,12 +25,12 @@ internal class ConfigTest {
 
     @Test
     fun `logging disabled by default`() {
-        assertThat(httpConfig.okHttpClient.interceptors()).none { it.isInstanceOf(HttpLoggingInterceptor::class) }
+        assertThat(httpConfig.okHttpClient.interceptors).none { it.isInstanceOf(HttpLoggingInterceptor::class) }
     }
 
     @Test
     fun `enabling logging`() {
         httpConfig.enableLogging(HttpLogLevel.HEADERS)
-        assertThat(httpConfig.okHttpClient.interceptors()).any { it.isInstanceOf(HttpLoggingInterceptor::class) }
+        assertThat(httpConfig.okHttpClient.interceptors).any { it.isInstanceOf(HttpLoggingInterceptor::class) }
     }
 }
