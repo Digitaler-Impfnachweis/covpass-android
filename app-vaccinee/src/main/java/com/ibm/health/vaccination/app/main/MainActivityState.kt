@@ -17,7 +17,7 @@ internal class MainActivityState<T : MainActivityEvents>(
         }
     }
 
-    fun onQRCodeContentReceived(result: IntentResult) {
+    fun onQRCodeResultReceived(result: IntentResult) {
         eventNotifier {
             if (result.contents == null) {
                 showError(R.string.scanner_error_message)

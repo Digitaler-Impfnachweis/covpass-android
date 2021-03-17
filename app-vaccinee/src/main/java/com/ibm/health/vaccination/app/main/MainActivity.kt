@@ -60,7 +60,7 @@ internal class MainActivity : BaseActivity(), ViewModelOwner<MainActivityEvents>
     // Get the scanner results:
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
-            viewModel.state.onQRCodeContentReceived(it)
+            viewModel.state.onQRCodeResultReceived(it)
         } ?: super.onActivityResult(requestCode, resultCode, data)
     }
 }

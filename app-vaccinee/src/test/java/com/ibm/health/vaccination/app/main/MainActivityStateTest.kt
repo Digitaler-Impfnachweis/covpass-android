@@ -27,25 +27,25 @@ internal class MainActivityStateTest :
     }
 
     @Test
-    fun `view should be closed whenever the delete process is confirmed and executed`() =
+    fun `should call launch scanner event when launch button was clicked`() =
         runBlockingTest {
             state.onLaunchQRScannerButtonClicked()
             verify { events.launchScanner() }
         }
 
     @Test
-    fun `view should be closed whenever the delete process is confirmed and`() =
+    fun `should call generate qr code event when qr code result received`() =
         runBlockingTest {
             every { intentResult.contents } returns QR_CODE_URL
-            state.onQRCodeContentReceived(intentResult)
+            state.onQRCodeResultReceived(intentResult)
             verify { events.generateQRCode(QR_CODE_URL) }
         }
 
     @Test
-    fun `view should be closed whenever the delete process is confirmed`() =
+    fun `should call show error event when scanning cancelled`() =
         runBlockingTest {
             every { intentResult.contents } returns null
-            state.onQRCodeContentReceived(intentResult)
+            state.onQRCodeResultReceived(intentResult)
             verify { events.showError(SCANNER_ERROR_MESSAGE_RES) }
         }
 
