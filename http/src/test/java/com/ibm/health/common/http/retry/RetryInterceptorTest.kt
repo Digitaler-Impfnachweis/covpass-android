@@ -7,7 +7,6 @@ import com.ibm.health.common.http.retry.RetryInterceptor.Companion.RETRY_ALLOWED
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import okhttp3.Headers
 import okhttp3.Headers.Companion.headersOf
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.Interceptor
@@ -128,8 +127,9 @@ internal class RetryInterceptorTest {
         every { chain.request() } returns request
         every { chain.proceed(request) } returns response
         every { request.method } returns "GET"
-        every { request.headers } returns headersOf(RETRY_ALLOWED_HEADER,
-            RetryInterceptor.RETRY_ALLOWED_VALUE
+        every { request.headers } returns headersOf(
+            RETRY_ALLOWED_HEADER,
+            RetryInterceptor.RETRY_ALLOWED_VALUE,
         )
         every { response.code } returns 500
 
