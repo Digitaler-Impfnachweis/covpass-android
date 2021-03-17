@@ -1,13 +1,9 @@
 package com.ibm.health.common.android.utils
 
-import androidx.activity.ComponentActivity
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.ensody.reactivestate.ErrorEvents
 import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.android.stateFlowStore
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
 
 /**
  * Creates a [State] wrapped in a [WrapperStateViewModel].
