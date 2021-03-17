@@ -27,7 +27,7 @@ public interface OverlayNavigation {
  * This interface allows fragments to define their own animation. Also, see [SheetPaneNavigation].
  */
 public interface AnimatedNavigation {
-    public fun animateNavigation(fragmentTransaction: FragmentTransaction)
+    public fun animateNavigation(fragmentTransaction: FragmentTransaction?, fragment: Fragment)
 }
 
 /** Interface marking a fragment to be a sheet pane overlay (e.g. a bottom sheet). */
@@ -36,15 +36,15 @@ public interface SheetPaneNavigation : AnimatedNavigation, OverlayNavigation {
     // The screen side should be passed to sheetPaneAnimation() as an argument, so we can centrally override all
     // animations.
 
-    override fun animateNavigation(fragmentTransaction: FragmentTransaction) {
-        navigationAnimationConfig.sheetPaneAnimation(fragmentTransaction)
+    override fun animateNavigation(fragmentTransaction: FragmentTransaction?, fragment: Fragment) {
+        navigationDeps.animationConfig.sheetPaneAnimation(fragment)
     }
 }
 
 /** Interface marking a modal overlay. This usually is inserted before the first [OverlayNavigation]. */
 public interface ModalPaneNavigation : AnimatedNavigation {
-    override fun animateNavigation(fragmentTransaction: FragmentTransaction) {
-        navigationAnimationConfig.modalPaneAnimation(fragmentTransaction)
+    override fun animateNavigation(fragmentTransaction: FragmentTransaction?, fragment: Fragment) {
+        navigationDeps.animationConfig.modalPaneAnimation(fragment)
     }
 }
 
@@ -68,5 +68,5 @@ public interface FixedOrientation {
 
 /** The possible fixed orientations for [FixedOrientation]. */
 public enum class Orientation {
-    PORTRAIT, LANDSCAPE
+    PORTRAIT, LANDSCAPE, SENSOR,
 }

@@ -15,6 +15,10 @@ import com.ibm.health.common.logging.Lumber
 import kotlin.reflect.KClass
 
 public class ActivityNavigator {
+    init {
+        initActivityNavigator
+    }
+
     public fun startActivity(activityToStart: Class<out Activity>, intentFlags: List<Int>? = null) {
         val intent = Intent(currentActivity, activityToStart)
         intentFlags?.forEach { intent.addFlags(it) }
@@ -55,9 +59,9 @@ public class ActivityNavigator {
         currentActivity.navigateUpTo(intentDestination.toIntent(currentActivity))
 }
 
-public fun initActivityNavigator(application: Application) {
+private val initActivityNavigator by lazy {
     if (!LifecycleTracker.initialized) {
-        application.registerActivityLifecycleCallbacks(LifecycleTracker)
+        navigationDeps.application.registerActivityLifecycleCallbacks(LifecycleTracker)
         LifecycleTracker.initialized = true
     }
 }

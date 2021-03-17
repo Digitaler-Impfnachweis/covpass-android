@@ -1,10 +1,9 @@
 package com.ibm.health.common.navigation.android
 
+import android.transition.Fade
+import android.transition.Slide
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-
-/** The currently active default [NavigationAnimationConfig]. */
-public var navigationAnimationConfig: NavigationAnimationConfig = DefaultNavigationAnimationConfig()
 
 /** Defines default animations and animation overrides. */
 public interface NavigationAnimationConfig {
@@ -18,27 +17,41 @@ public interface NavigationAnimationConfig {
     }
 
     /** Applies animations for normal fragments. */
-    public fun fragmentPaneAnimation(transaction: FragmentTransaction)
+    public fun fragmentPaneAnimation(transaction: FragmentTransaction, fragment: Fragment)
 
     /** Applies animations for [SheetPaneNavigation]. */
-    public fun sheetPaneAnimation(transaction: FragmentTransaction)
+    public fun sheetPaneAnimation(fragment: Fragment)
 
     /** Applies animations for the overlay fragment behind [SheetPaneNavigation] sheets. */
-    public fun modalPaneAnimation(transaction: FragmentTransaction)
+    public fun modalPaneAnimation(fragment: Fragment)
 }
 
 /** The default animations. */
-public class DefaultNavigationAnimationConfig : NavigationAnimationConfig {
-    override fun fragmentPaneAnimation(transaction: FragmentTransaction) {
+public class DefaultNavigationAnimationConfig(
+    public val animationDuration: Long = 400,
+) : NavigationAnimationConfig {
+
+    override fun fragmentPaneAnimation(transaction: FragmentTransaction, fragment: Fragment) {
         transaction.fragmentPaneAnimation()
     }
 
-    override fun sheetPaneAnimation(transaction: FragmentTransaction) {
-        transaction.sheetPaneAnimation()
+    override fun sheetPaneAnimation(fragment: Fragment) {
+        Slide().setDuration(animationDuration).let {
+            fragment.enterTransition = it
+            fragment.reenterTransition = it
+        }
     }
 
-    override fun modalPaneAnimation(transaction: FragmentTransaction) {
-        transaction.modalPaneAnimation()
+    override fun modalPaneAnimation(fragment: Fragment) {
+        Fade(Fade.IN).setDuration(animationDuration).let {
+            fragment.enterTransition = it
+            fragment.reenterTransition = it
+        }
+
+        Fade(Fade.OUT).setDuration(animationDuration).let {
+            fragment.exitTransition = it
+            fragment.returnTransition = it
+        }
     }
 }
 
@@ -50,32 +63,10 @@ public class DefaultNavigationAnimationConfig : NavigationAnimationConfig {
  */
 public fun FragmentTransaction.defaultNavigationAnimation(fragment: Fragment) {
     if (fragment is AnimatedNavigation) {
-        fragment.animateNavigation(this)
+        fragment.animateNavigation(this, fragment)
     } else {
-        navigationAnimationConfig.fragmentPaneAnimation(this)
+        navigationDeps.animationConfig.fragmentPaneAnimation(this, fragment)
     }
-}
-
-/** Extension method on [FragmentTransaction] that applies animations on sheet pane. */
-public fun FragmentTransaction.sheetPaneAnimation(): FragmentTransaction {
-    setCustomAnimations(
-        R.anim.navigator_slide_up,
-        R.anim.navigator_slide_down,
-        R.anim.navigator_slide_up,
-        R.anim.navigator_slide_down,
-    )
-    return this
-}
-
-/** Extension method on [FragmentTransaction] that applies animations on a dimmed overlay screen. */
-public fun FragmentTransaction.modalPaneAnimation(): FragmentTransaction {
-    setCustomAnimations(
-        R.anim.navigator_fade_in,
-        R.anim.navigator_fade_out,
-        R.anim.navigator_fade_in,
-        R.anim.navigator_fade_out,
-    )
-    return this
 }
 
 /** Extension method on [FragmentTransaction] that applies animations on fragment pane. */

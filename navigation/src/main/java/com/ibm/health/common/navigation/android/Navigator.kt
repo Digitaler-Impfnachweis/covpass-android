@@ -1,6 +1,5 @@
 package com.ibm.health.common.navigation.android
 
-import android.app.Activity
 import android.content.pm.ActivityInfo
 import androidx.annotation.IdRes
 import androidx.fragment.app.*
@@ -20,7 +19,7 @@ import kotlin.reflect.KClass
 @Suppress("FunctionName")
 public fun <T> T.Navigator(
     @IdRes containerId: Int,
-    animator: FragmentTransaction.(fragment: Fragment) -> Unit = navigationAnimationConfig::defaultAnimation,
+    animator: FragmentTransaction.(fragment: Fragment) -> Unit = navigationDeps.animationConfig::defaultAnimation,
 ): Navigator where T : Fragment, T : NavigatorOwner =
     Navigator(requireActivity(), childFragmentManager, containerId, animator)
 
@@ -33,7 +32,7 @@ public fun <T> T.Navigator(
 @Suppress("FunctionName")
 public fun <T> T.Navigator(
     @IdRes containerId: Int = android.R.id.content,
-    animator: FragmentTransaction.(fragment: Fragment) -> Unit = navigationAnimationConfig::defaultAnimation,
+    animator: FragmentTransaction.(fragment: Fragment) -> Unit = navigationDeps.animationConfig::defaultAnimation,
 ): Navigator where T : FragmentActivity, T : NavigatorOwner =
     Navigator(this, supportFragmentManager, containerId, animator)
 
@@ -60,12 +59,12 @@ public class Navigator internal constructor(
     public val backStackEntryCount: StateFlow<Int> = MutableStateFlow(0).apply {
         fragmentManager.addOnBackStackChangedListener {
             value = fragmentManager.backStackEntryCount
-            updateOrientation()
+            update()
         }
     }
 
     init {
-        updateOrientation()
+        update()
     }
 
     /** Checks if the `FragmentManager` is empty and thus if we're starting with a clean state or doing a restore. */
@@ -93,8 +92,6 @@ public class Navigator internal constructor(
      * @param fragment The `Fragment` to be pushed to the stack and displayed.
      */
     public fun push(fragment: Fragment) {
-        // this prevents a crash when a pop or other transactions are still pending
-        fragmentManager.executePendingTransactions()
         fragmentManager.commit {
 
             val overlayFragment = (fragment as? OverlayNavigation)?.getModalOverlayFragment()
@@ -167,7 +164,7 @@ public class Navigator internal constructor(
      * @param tag The tag name to pop up to.
      * @param includeMatch Whether to also pop the matching fragment. Defaults to `false`.
      */
-    public fun popUntil(tag: String, includeMatch: Boolean) {
+    public fun popUntil(tag: String, includeMatch: Boolean = false) {
         fragmentManager.popBackStack(tag, if (includeMatch) FragmentManager.POP_BACK_STACK_INCLUSIVE else 0)
     }
 
@@ -185,7 +182,7 @@ public class Navigator internal constructor(
      *
      * @return true if there was something to pop, false otherwise.
      */
-    public fun popUntil(includeMatch: Boolean, predicate: (Any) -> Boolean): Boolean {
+    public fun popUntil(includeMatch: Boolean = false, predicate: (Any) -> Boolean): Boolean {
         fragmentManager.executePendingTransactions()
 
         var popped = false
@@ -236,11 +233,23 @@ public class Navigator internal constructor(
     public fun findFragment(func: (Fragment) -> Boolean): Fragment? =
         fragmentManager.fragments.lastOrNull(func)
 
+    private fun update() {
+        updateOrientation()
+        updateAnimations()
+    }
+
     private fun updateOrientation(fragment: Fragment? = null) {
-        val fixedOrientation =
-            (fragment ?: findFragment { it is FixedOrientation }) as? FixedOrientation
-        activity.requestedOrientation = fixedOrientation?.orientation?.androidScreenOrientation
-            ?: ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val fixedOrientation = (fragment ?: findFragment { it is FixedOrientation }) as? FixedOrientation
+        val orientation = fixedOrientation?.orientation
+            ?: navigationDeps.defaultScreenOrientation
+        activity.requestedOrientation = orientation.androidScreenOrientation
+    }
+
+    private fun updateAnimations() {
+        fragmentManager.fragments.forEach {
+            // Updating the fragment transitions after fragment manager restoration
+            (it as? AnimatedNavigation)?.animateNavigation(null, it)
+        }
     }
 }
 
@@ -253,4 +262,5 @@ private val Orientation.androidScreenOrientation: Int
     get() = when (this) {
         Orientation.PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         Orientation.LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        Orientation.SENSOR -> ActivityInfo.SCREEN_ORIENTATION_SENSOR
     }
