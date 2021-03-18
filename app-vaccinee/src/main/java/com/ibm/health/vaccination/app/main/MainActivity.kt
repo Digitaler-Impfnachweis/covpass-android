@@ -25,8 +25,7 @@ internal class MainActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
             if (it.contents == null) {
-                Toast.makeText(this, getString(R.string.scanner_error_message),
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.scanner_error_message), Toast.LENGTH_LONG).show()
             } else {
                 generateQRCode(it.contents)
             }
