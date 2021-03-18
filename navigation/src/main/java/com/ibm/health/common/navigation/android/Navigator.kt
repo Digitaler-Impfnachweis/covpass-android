@@ -19,9 +19,8 @@ import kotlin.reflect.KClass
 @Suppress("FunctionName")
 public fun <T> T.Navigator(
     @IdRes containerId: Int,
-    animator: FragmentTransaction.(fragment: Fragment) -> Unit = navigationDeps.animationConfig::defaultAnimation,
 ): Navigator where T : Fragment, T : NavigatorOwner =
-    Navigator(requireActivity(), childFragmentManager, containerId, animator)
+    Navigator(requireActivity(), childFragmentManager, containerId)
 
 /**
  * Creates a new [Navigator] instance on an activity implementing [NavigatorOwner].
@@ -32,9 +31,8 @@ public fun <T> T.Navigator(
 @Suppress("FunctionName")
 public fun <T> T.Navigator(
     @IdRes containerId: Int = android.R.id.content,
-    animator: FragmentTransaction.(fragment: Fragment) -> Unit = navigationDeps.animationConfig::defaultAnimation,
 ): Navigator where T : FragmentActivity, T : NavigatorOwner =
-    Navigator(this, supportFragmentManager, containerId, animator)
+    Navigator(this, supportFragmentManager, containerId)
 
 /**
  * Basic navigation primitives for `Fragment`s.
@@ -53,7 +51,6 @@ public class Navigator internal constructor(
     private val activity: FragmentActivity,
     private val fragmentManager: FragmentManager,
     @IdRes private val containerId: Int,
-    private val animator: FragmentTransaction.(fragment: Fragment) -> Unit,
 ) {
 
     public val backStackEntryCount: StateFlow<Int> = MutableStateFlow(0).apply {
@@ -250,6 +247,10 @@ public class Navigator internal constructor(
             // Updating the fragment transitions after fragment manager restoration
             (it as? AnimatedNavigation)?.animateNavigation(null, it)
         }
+    }
+
+    private fun FragmentTransaction.animator(fragment: Fragment) {
+        navigationDeps.animationConfig.defaultAnimation(this, fragment)
     }
 }
 
