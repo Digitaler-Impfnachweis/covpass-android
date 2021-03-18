@@ -48,7 +48,7 @@ public interface BaseEvents : ErrorEvents
  * Typical usage:
  *
  * ```kotlin
- * open class MyState<T: MyEvents>(parentState: State<T>) : State<T> by parentState {
+ * open class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
  *     fun foo() {
  *         launch {
  *             // something with error handling.
