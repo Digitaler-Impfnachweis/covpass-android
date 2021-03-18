@@ -39,6 +39,7 @@ public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
 ): Lazy<S> where O : ComponentActivity, O : ErrorEvents, O : LoadingStateHook =
     _buildState(S::class, block)
 
+@Suppress("FunctionName")
 public fun <E : BaseEvents, S : State<E>, O> O._buildState(
     cls: KClass<S>,
     block: StateHost.() -> S,
@@ -46,14 +47,15 @@ public fun <E : BaseEvents, S : State<E>, O> O._buildState(
     attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, block)
 
 /** Creates a child [State] and merges its [State.eventNotifier] and [State.isLoading] into the parent. */
-public fun <E : BaseEvents, P : BaseState<out E>, S : State<E>> P.buildState(block: () -> S): Lazy<S> {
+public fun <E : BaseEvents, P : State<out E>, S : State<E>> P.buildState(block: () -> S): Lazy<S> {
     val child = block()
     attachState(child)
+    // We return a Lazy only for consistency with the other buildState functions
     return lazy { child }
 }
 
 /** Merges the [child]'s [State.eventNotifier] and [State.isLoading] into the parent. */
-public fun <E : BaseEvents> BaseState<out E>.attachState(child: State<E>) {
+public fun <E : BaseEvents> State<out E>.attachState(child: State<E>) {
     launch(withLoading = false) {
         eventNotifier.emitAll(child.eventNotifier)
     }

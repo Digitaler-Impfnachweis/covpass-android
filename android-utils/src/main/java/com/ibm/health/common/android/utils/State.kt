@@ -61,7 +61,7 @@ public interface BaseEvents : ErrorEvents
  */
 public interface State<T : BaseEvents> : EventNotifierOwner<T>, CoroutineLauncher {
     /** Whether this object is currently loading data. Coroutines launched `withLoading = false` aren't tracked. */
-    public val isLoading: StateFlow<Boolean>
+    public val isLoading: IsLoading
 }
 
 public abstract class BaseState<T : BaseEvents>(private val lazyLauncherScope: Lazy<CoroutineScope>) : State<T> {
@@ -70,10 +70,8 @@ public abstract class BaseState<T : BaseEvents>(private val lazyLauncherScope: L
     final override val launcherScope: CoroutineScope by lazyLauncherScope
     override val eventNotifier: EventNotifier<T> = EventNotifier()
     private val loadingCount = MutableValueFlow(AtomicInteger(0))
-    final override val isLoading: IsLoading = IsLoading()
-
-    init {
-        isLoading.addLoadingState(
+    override val isLoading: IsLoading = IsLoading().apply {
+        addLoadingState(
             derived {
                 get(loadingCount).get() > 0
             }
