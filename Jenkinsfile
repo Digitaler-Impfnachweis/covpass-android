@@ -45,13 +45,13 @@ pipeline {
             steps {
                 script {
                     if (env.CHANGE_ID) {
-                        if (!(pullRequest.headRef ==~ /[\w_\-]+\/(bump.*|[A-Z]{3,}-\d+(,[A-Z]{3,}-\d+)*(([_\-]).+)?)/)) {
-                            error("PR branch name ${pullRequest.headRef} doesn't start with ticket ID after first slash")
-                        }
-
-                        if (!(pullRequest.title ==~ /[Bb]ump.*|[A-Z]{3,}-\d+(,\s*?[A-Z]{3,}-\d+)*:?\s+.+/)) {
-                            error("PR title doesn't start with \"Bump\" or ticket ID (e.g. \"EBH-12345: bla bla\" or \"EBH-12345, EBH-23456: bla bla for two tickets\")")
-                        }
+//                        if (!(pullRequest.headRef ==~ /[\w_\-]+\/(bump.*|[A-Z]{3,}-\d+(,[A-Z]{3,}-\d+)*(([_\-]).+)?)/)) {
+//                            error("PR branch name ${pullRequest.headRef} doesn't start with ticket ID after first slash")
+//                        }
+//
+//                        if (!(pullRequest.title ==~ /[Bb]ump.*|[A-Z]{3,}-\d+(,\s*?[A-Z]{3,}-\d+)*:?\s+.+/)) {
+//                            error("PR title doesn't start with \"Bump\" or ticket ID (e.g. \"EBH-12345: bla bla\" or \"EBH-12345, EBH-23456: bla bla for two tickets\")")
+//                        }
 
                         setLabelForPattern(pullRequest, 'dependencies-changed', /dependencies\.gradle/, null)
                         setLabelForPattern(pullRequest, 'gradle-common', /gradle\/common/, null)
@@ -218,13 +218,13 @@ pipeline {
                     }
 
                     // Only publish release if tag doesn't exist, yet.
-                    if (toPush != "") {
-                        withEnv(["PUBLISH_SOURCES=true"]) {
-                            gradle('publish', '--stacktrace')
-                        }
-                        withEnv(["PUBLISH_SOURCES=false"]) {
-                            gradle('publish', '--stacktrace')
-                        }
+//                    if (toPush != "") {
+//                        withEnv(["PUBLISH_SOURCES=true"]) {
+//                            gradle('publish', '--stacktrace')
+//                        }
+//                        withEnv(["PUBLISH_SOURCES=false"]) {
+//                            gradle('publish', '--stacktrace')
+//                        }
                     }
                 }
                 finishRelease()
