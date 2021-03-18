@@ -3,6 +3,8 @@ package com.ibm.health.common.navigation.android
 import android.content.pm.ActivityInfo
 import androidx.annotation.IdRes
 import androidx.fragment.app.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue
@@ -20,7 +22,7 @@ import kotlin.reflect.KClass
 public fun <T> T.Navigator(
     @IdRes containerId: Int,
 ): Navigator where T : Fragment, T : NavigatorOwner =
-    Navigator(requireActivity(), childFragmentManager, containerId)
+    Navigator(requireActivity(), childFragmentManager, this, containerId)
 
 /**
  * Creates a new [Navigator] instance on an activity implementing [NavigatorOwner].
@@ -32,7 +34,7 @@ public fun <T> T.Navigator(
 public fun <T> T.Navigator(
     @IdRes containerId: Int = android.R.id.content,
 ): Navigator where T : FragmentActivity, T : NavigatorOwner =
-    Navigator(this, supportFragmentManager, containerId)
+    Navigator(this, supportFragmentManager, this, containerId)
 
 /**
  * Basic navigation primitives for `Fragment`s.
@@ -50,6 +52,7 @@ public class Navigator internal constructor(
     // constructor is internal to enforce the above contextual constructors
     private val activity: FragmentActivity,
     private val fragmentManager: FragmentManager,
+    private val lifecycleOwner: LifecycleOwner,
     @IdRes private val containerId: Int,
 ) {
 
@@ -61,7 +64,9 @@ public class Navigator internal constructor(
     }
 
     init {
-        update()
+        lifecycleOwner.lifecycleScope.launchWhenCreated {
+            update()
+        }
     }
 
     /** Checks if the `FragmentManager` is empty and thus if we're starting with a clean state or doing a restore. */
@@ -205,7 +210,7 @@ public class Navigator internal constructor(
     public fun popOverlays(): Boolean {
         fragmentManager.executePendingTransactions()
         // Try to find the modal overlay and pop (including) until the fragment right after it
-        var index = fragmentManager.fragments.indexOfLast { it is ModalPaneNavigation }
+        val index = fragmentManager.fragments.indexOfLast { it is ModalPaneNavigation }
         if (index < 0) {
             return false
         }
@@ -236,7 +241,18 @@ public class Navigator internal constructor(
     }
 
     private fun updateOrientation(fragment: Fragment? = null) {
-        val fixedOrientation = (fragment ?: findFragment { it is FixedOrientation }) as? FixedOrientation
+        val fixedOrientation =
+            (fragment ?: findFragment { it is FixedOrientation } ?: lifecycleOwner) as? FixedOrientation
+                ?: try {
+                    val navigator = (lifecycleOwner as? Fragment)?.findNavigator(skip = 1)
+                    if (navigator != null) {
+                        navigator.updateOrientation()
+                        return
+                    }
+                    null
+                } catch (e: NoSuchElementInHierarchy) {
+                    null
+                }
         val orientation = fixedOrientation?.orientation
             ?: navigationDeps.defaultScreenOrientation
         activity.requestedOrientation = orientation.androidScreenOrientation
