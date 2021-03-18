@@ -2,8 +2,18 @@ package com.ibm.health.common.android.utils
 
 import com.ensody.reactivestate.CoroutineLauncher
 import com.ensody.reactivestate.ErrorEvents
+import com.ensody.reactivestate.EventNotifier
+import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.derived
+import com.ensody.reactivestate.get
+import com.ensody.reactivestate.withErrorReporting
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Base interface for an event listener receiving events from [State.eventNotifier].
@@ -51,5 +61,42 @@ public interface BaseEvents : ErrorEvents
  */
 public interface State<T : BaseEvents> : EventNotifierOwner<T>, CoroutineLauncher {
     /** Whether this object is currently loading data. Coroutines launched `withLoading = false` aren't tracked. */
-    public val isLoading: StateFlow<Boolean>
+    public val isLoading: IsLoading
+}
+
+public abstract class BaseState<T : BaseEvents>(private val lazyLauncherScope: Lazy<CoroutineScope>) : State<T> {
+    public constructor(scope: CoroutineScope) : this(lazy { scope })
+
+    final override val launcherScope: CoroutineScope by lazyLauncherScope
+    override val eventNotifier: EventNotifier<T> = EventNotifier()
+    private val loadingCount = MutableValueFlow(AtomicInteger(0))
+    override val isLoading: IsLoading = IsLoading().apply {
+        addLoadingState(
+            derived {
+                get(loadingCount).get() > 0
+            }
+        )
+    }
+
+    override fun launch(
+        context: CoroutineContext,
+        start: CoroutineStart,
+        withLoading: Boolean,
+        onError: (suspend (Throwable) -> Unit)?,
+        block: suspend CoroutineScope.() -> Unit,
+    ): Job =
+        launcherScope.launch(context = context, start = start) {
+            try {
+                if (withLoading) {
+                    loadingCount.update { it.incrementAndGet() }
+                }
+                withErrorReporting(eventNotifier, onError) {
+                    block()
+                }
+            } finally {
+                if (withLoading) {
+                    loadingCount.update { it.decrementAndGet() }
+                }
+            }
+        }
 }
