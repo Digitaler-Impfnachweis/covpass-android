@@ -1,9 +1,9 @@
 package com.ibm.health.common.navigation.android
 
-import android.transition.Fade
-import android.transition.Slide
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.transition.Fade
+import androidx.transition.Slide
 
 /** Defines default animations and animation overrides. */
 public interface NavigationAnimationConfig {
