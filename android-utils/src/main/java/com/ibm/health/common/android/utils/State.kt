@@ -64,18 +64,18 @@ public interface State<T : BaseEvents> : EventNotifierOwner<T>, CoroutineLaunche
     public val isLoading: IsLoading
 }
 
-public abstract class BaseState<T : BaseEvents>(private val lazyLauncherScope: Lazy<CoroutineScope>) : State<T> {
-    public constructor(scope: CoroutineScope) : this(lazy { scope })
-
-    final override val launcherScope: CoroutineScope by lazyLauncherScope
+public abstract class BaseState<T : BaseEvents>(scope: CoroutineScope) : State<T> {
+    final override val launcherScope: CoroutineScope = scope
     override val eventNotifier: EventNotifier<T> = EventNotifier()
     private val loadingCount = MutableValueFlow(AtomicInteger(0))
-    override val isLoading: IsLoading = IsLoading().apply {
-        addLoadingState(
-            derived {
-                get(loadingCount).get() > 0
-            }
-        )
+    override val isLoading: IsLoading by lazy {
+        IsLoading().apply {
+            addLoadingState(
+                derived {
+                    get(loadingCount).get() > 0
+                }
+            )
+        }
     }
 
     override fun launch(
