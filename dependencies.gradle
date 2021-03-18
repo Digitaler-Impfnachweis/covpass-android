@@ -62,6 +62,8 @@ dependencies.ext.versionConstraints = {
             api 'junit:junit:4.13.1'
             api 'org.robolectric:robolectric:4.5.1'
             api 'org.opentest4j:opentest4j:1.2.0'
+
+            api 'com.google.android.material:material:1.2.1'
         }
     }
 }
@@ -78,6 +80,8 @@ dependencies.ext.base = {
         testImplementation 'com.willowtreeapps.assertk:assertk-jvm'
 
         testImplementation "io.mockk:mockk"
+
+        api 'com.google.android.material:material'
     }
 }
 
@@ -189,5 +193,12 @@ dependencies.ext.ktor = {
 dependencies.ext.threeten = {
     dependencies {
         api 'com.jakewharton.threetenabp:threetenabp'
+    }
+}
+
+dependencies.ext.zxing = {
+    dependencies {
+        implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+        implementation 'com.google.zxing:core:3.3.0'
     }
 }
