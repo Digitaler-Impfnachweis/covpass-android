@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.derived
 import com.ensody.reactivestate.get
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,25 +23,23 @@ public interface LoadingStateHook {
     public fun setLoading(isLoading: Boolean)
 }
 
+/** Creates a new [IsLoading] instances and watches it by calling `setLoading(Boolean)`. */
 @Suppress("FunctionName")
-public fun <T> T.IsLoading(): IsLoading where T : LifecycleOwner, T : LoadingStateHook {
-    val loadingStates: MutableValueFlow<MutableSet<StateFlow<Boolean>>> = MutableValueFlow(mutableSetOf())
-    val isLoading = lifecycleScope.derived {
-        get(loadingStates).count { get(it) } > 0
+public fun <T> T.IsLoading(): IsLoading where T : LifecycleOwner, T : LoadingStateHook =
+    buildIsLoading(lifecycleScope).also {
+        lifecycleScope.launchWhenStarted {
+            watchLoading(it, ::setLoading)
+        }
     }
-    lifecycleScope.launchWhenStarted {
-        watchLoading(isLoading, ::setLoading)
-    }
-    return IsLoading(loadingStates, isLoading)
-}
 
+/** Creates a new [IsLoading] instances. */
 @Suppress("FunctionName")
-public fun State<*>.IsLoading(): IsLoading {
-    val loadingStates: MutableValueFlow<MutableSet<StateFlow<Boolean>>> = MutableValueFlow(mutableSetOf())
-    val isLoading = derived {
-        get(loadingStates).count { get(it) } > 0
-    }
-    return IsLoading(loadingStates, isLoading)
+public fun State<*>.IsLoading(): IsLoading =
+    buildIsLoading(launcherScope)
+
+private fun buildIsLoading(scope: CoroutineScope): IsLoading {
+    val loadingStates = MutableValueFlow(mutableSetOf<StateFlow<Boolean>>())
+    return IsLoading(loadingStates, scope.derived { get(loadingStates).count { get(it) } > 0 })
 }
 
 public class IsLoading internal constructor(
