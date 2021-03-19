@@ -48,7 +48,7 @@ public interface BaseEvents : ErrorEvents
  * Typical usage:
  *
  * ```kotlin
- * open class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
+ * class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
  *     fun foo() {
  *         launch {
  *             // something with error handling.
@@ -57,7 +57,7 @@ public interface BaseEvents : ErrorEvents
  * }
  * ```
  *
- * Note that you should use a generic / type argument to allow subclass to use an extended `MyFatView` sub-interface.
+ * You can then add a State to a fragment, activity or even as a child within another state by using [buildState].
  */
 public interface State<T : BaseEvents> : EventNotifierOwner<T>, CoroutineLauncher {
     /** Whether this object is currently loading data. Coroutines launched `withLoading = false` aren't tracked. */

@@ -13,9 +13,12 @@ import kotlinx.coroutines.flow.emitAll
 import kotlin.reflect.KClass
 
 /**
- * Creates a [State] wrapped in a [WrapperStateViewModel].
+ * Creates a [State] wrapped in a ViewModel.
  *
- * If you need a [SavedStateHandle] you can access it using [WrapperStateViewModel.savedStateHandle].
+ * The `this` argument to [block] is a [StateHost] which provides a [StateHost.scope] (the [ViewModel.viewModelScope])
+ * and [StateHost.stateFlowStore] and other useful properties.
+ *
+ * The resulting [State]'s `isLoading` and `eventNotifier` are automatically observed.
  */
 public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
     noinline block: StateHost.() -> S,
@@ -30,9 +33,12 @@ public fun <E : BaseEvents, S : State<E>, O> O._buildState(
     attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, block)
 
 /**
- * Creates a [State] wrapped in a [WrapperStateViewModel].
+ * Creates a [State] wrapped in a ViewModel.
  *
- * If you need a [StateFlowStore] you can access it using [WrapperStateViewModel.stateFlowStore].
+ * The `this` argument to [block] is a [StateHost] which provides a [StateHost.scope] (the [ViewModel.viewModelScope])
+ * and [StateHost.stateFlowStore] and other useful properties.
+ *
+ * The resulting [State]'s `isLoading` and `eventNotifier` are automatically observed.
  */
 public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
     noinline block: StateHost.() -> S,
@@ -46,7 +52,11 @@ public fun <E : BaseEvents, S : State<E>, O> O._buildState(
 ): Lazy<S> where O : ComponentActivity, O : ErrorEvents, O : LoadingStateHook =
     attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, block)
 
-/** Creates a child [State] and merges its [State.eventNotifier] and [State.isLoading] into the parent. */
+/**
+ * Creates a child [State] and merges its [State.eventNotifier] and [State.isLoading] into the parent.
+ *
+ * Note that the parent has to implement the child's events interface.
+ */
 public fun <E : BaseEvents, P : State<out E>, S : State<E>> P.buildState(block: () -> S): Lazy<S> {
     val child = block()
     attachState(child)

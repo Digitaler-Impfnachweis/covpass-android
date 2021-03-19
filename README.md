@@ -27,3 +27,51 @@ dependencies {
     implementation 'com.ibm.health.common:logging'
 }
 ```
+
+## App architecture
+
+### UI and State
+
+In order to automatically deal with Android's architecture we utilize `State` objects which are like stateful UseCases/ViewModels, but are independent of Android's `ViewModel` class and can be composed more easily.
+A `State` comes with an `eventNotifier` to communicate events out-of-band (e.g. outside of the fragment's lifecycle) and a `launch` method to launch coroutines with automatic error handling.
+Any errors are automatically forwarded to the UI via `eventNotifier` and trigger the fragment's `onError(error: Throwable)` method.
+Typically you'd use `MutableStateFlow` (or the mutation-optimized `MutableValueFlow`) in order to provide observable values.
+
+Simple example:
+
+```kotlin
+interface MyEvents : BaseEvents {
+    fun onSomethingHappened()
+}
+
+class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
+    val data = MutableStateFlow<List<Entity>>(emptyList())
+
+    fun refreshData() {
+        launch {
+            // If an exception is thrown here it'll automatically get caught trigger BaseFragment.onError(exception)
+            data.value = requestLatestData()
+        }
+    }
+
+    // You can also compose states
+    val otherState by buildState { OtherState(scope) }
+
+    // A contrived event example to get the point across
+    init {
+        otherState.subscribeToEvent {
+            // Tell UI that something happened
+            eventNotifier { onSomethingHappened() }
+        }
+    }
+}
+
+class MyFragment : BaseFragment(), MyEvents {
+    // buildState creates a ViewModel to hold the state instance
+    val state by buildState { MyState(scope) }
+
+    override fun onSomethingHappened() {
+        // handle event
+    }
+}
+```
