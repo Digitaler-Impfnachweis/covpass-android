@@ -70,8 +70,20 @@ class MyFragment : BaseFragment(), MyEvents {
     // buildState creates a ViewModel to hold the state instance
     val state by buildState { MyState(scope) }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Observe the data and update the UI whenever it changes
+        autoRun {
+            updateUI(get(state.data))
+        }
+    }
+
     override fun onSomethingHappened() {
         // handle event
+    }
+
+    fun updateUI(data: List<Entity>) {
+        // ...
     }
 }
 ```
