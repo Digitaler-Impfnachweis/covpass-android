@@ -1,7 +1,6 @@
 package com.ibm.health.common.android.utils
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +21,8 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
     /** Helper to abstract away activity and fragment differences. */
     public open fun requireActivity(): FragmentActivity = this
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding?.also {
             setContentView(it.root)
         }
