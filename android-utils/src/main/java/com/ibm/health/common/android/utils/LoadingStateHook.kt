@@ -23,21 +23,28 @@ public interface LoadingStateHook {
     public fun setLoading(isLoading: Boolean)
 }
 
-/** Creates a new [IsLoading] instances and watches it by calling `setLoading(Boolean)`. */
+/**
+ * Creates a new [IsLoading] instance and on change calls [setLoading] (defaults to [LoadingStateHook.setLoading]).
+ */
 @Suppress("FunctionName")
-public fun <T> T.IsLoading(): IsLoading where T : LifecycleOwner, T : LoadingStateHook =
-    buildIsLoading(lifecycleScope).also {
-        lifecycleScope.launchWhenStarted {
-            watchLoading(it, ::setLoading)
+public fun <T> T.IsLoading(
+    setLoading: ((Boolean) -> Unit)? = ::setLoading,
+): IsLoading where T : LifecycleOwner, T : LoadingStateHook =
+    IsLoading(lifecycleScope).also { isLoading ->
+        if (setLoading != null) {
+            lifecycleScope.launchWhenStarted {
+                watchLoading(isLoading, setLoading)
+            }
         }
     }
 
-/** Creates a new [IsLoading] instances. */
+/** Creates a new [IsLoading] instance. */
 @Suppress("FunctionName")
 public fun State<*>.IsLoading(): IsLoading =
-    buildIsLoading(launcherScope)
+    IsLoading(launcherScope)
 
-private fun buildIsLoading(scope: CoroutineScope): IsLoading {
+@Suppress("FunctionName")
+public fun IsLoading(scope: CoroutineScope): IsLoading {
     val loadingStates = MutableValueFlow(mutableSetOf<StateFlow<Boolean>>())
     return IsLoading(loadingStates, scope.derived { get(loadingStates).count { get(it) } > 0 })
 }

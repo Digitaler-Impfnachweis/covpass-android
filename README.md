@@ -40,50 +40,62 @@ Typically you'd use `MutableStateFlow` (or the mutation-optimized `MutableValueF
 Simple example:
 
 ```kotlin
+// BaseEvents defines our always-available events. Currently this only contains onError(error: Throwable).
+// We use interfaces instead of sealed classes to represent events because that is more composable (like union types)
+// and results in less boilerplate.
 interface MyEvents : BaseEvents {
-    fun onSomethingHappened()
+    fun onSomethingHappened(result: String)
 }
 
+// Usually the scope is passed from outside (in our case this will be the viewModelScope).
 class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
     val data = MutableStateFlow<List<Entity>>(emptyList())
 
     fun refreshData() {
+        // This launches a coroutine, catches any exceptions and forwards them via eventNotifier { onError(error) }
+        // and activates the `isLoading` state (unless you pass withLoading = false).
         launch {
             // If an exception is thrown here it'll automatically get caught trigger BaseFragment.onError(exception)
             data.value = requestLatestData()
         }
     }
 
-    // You can also compose states
+    // You can also compose states. The otherState.eventNotifier and otherState.isLoading will get merged into MyState.
     val otherState by buildState { OtherState(scope) }
 
     // A contrived event example to get the point across
-    init {
-        otherState.subscribeToEvent {
-            // Tell UI that something happened
-            eventNotifier { onSomethingHappened() }
+    fun doSomething() {
+        launch {
+            val result: String = someBackendCommunication()
+
+            // Tell UI the result of doSomething
+            eventNotifier { onSomethingHappened(result) }
         }
     }
 }
 
+// The fragment has to implement the events interface.
 class MyFragment : BaseFragment(), MyEvents {
-    // buildState creates a ViewModel to hold the state instance
-    val state by buildState { MyState(scope) }
+    // buildState internally creates a ViewModel to hold the state instance. The state's eventNotifier and isLoading
+    // are automatically processed. The events are triggered as method calls on this fragment.
+    // Whenever isLoading changes this triggers setLoading(isLoading: Boolean).
+    val state by buildState { MyState(scope) }  // here, scope is an alias for the viewModelScope
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Observe the data and update the UI whenever it changes
+        // Observe the data and update the UI whenever it changes. The autoRun block will re-execute whenever
+        // state.data is changed.
         autoRun {
             updateUI(get(state.data))
         }
     }
 
-    override fun onSomethingHappened() {
-        // handle event
-    }
-
     fun updateUI(data: List<Entity>) {
         // ...
+    }
+
+    override fun onSomethingHappened(result: String) {
+        // handle result event
     }
 }
 ```

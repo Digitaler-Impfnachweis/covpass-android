@@ -2,6 +2,7 @@ package com.ibm.health.common.android.utils
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -21,7 +22,62 @@ public inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
  *
  * Use this property delegate to bind the Fragment's rootView to the inferred Binding `T`.
  * This binding is nullified when the `invalidateOn` inner block is executed.
- * (E.g. when a LifecyleObserver gets its OnDestroy callback)
+ * (E.g. when a LifecyleObserver gets its onDestroyView callback)
+ *
+ * Example:
+ *
+ * ```
+ * private val binding by viewBinding(FragmentFeatureX::inflate)
+ * ```
+ *
+ * @param bindingInflater: the ViewBinding::inflate method
+ * @param invalidateOn: block to handle the binding invalidation. Default: Fragment::onDestroyView.
+ *
+ * @return ReadOnlyProperty that binds to `viewBinder`'s return value.
+ */
+public fun <T : ViewBinding> BaseHookedFragment.viewBinding(
+    bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> T,
+    invalidateOn: (invalidate: () -> Unit) -> Any? = ::onDestroyView,
+): ReadOnlyProperty<BaseHookedFragment, T> =
+    ViewBindingInflaterProperty(fragment = this, bindingInflater = bindingInflater, invalidateOn = invalidateOn)
+
+private class ViewBindingInflaterProperty<T : ViewBinding>(
+    private val fragment: BaseHookedFragment,
+    private val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> T,
+    private val invalidateOn: (invalidate: () -> Unit) -> Any?,
+) : ReadOnlyProperty<BaseHookedFragment, T> {
+
+    private var binding: T? = null
+
+    init {
+        fragment.inflaterHook = ::init
+        invalidateOn {
+            binding = null
+        }
+    }
+
+    fun init(
+        inflater: LayoutInflater,
+        parent: ViewGroup?,
+    ): View {
+        val bindingInstance = bindingInflater(inflater, parent, false)
+        binding = bindingInstance
+        return bindingInstance.root
+    }
+
+    override fun getValue(thisRef: BaseHookedFragment, property: KProperty<*>): T =
+        binding ?: throw UninitializedViewBindingException()
+}
+
+/** This exception is thrown when accessing an uninitialized ViewBinding (e.g. before onCreateView). */
+public class UninitializedViewBindingException : IllegalStateException()
+
+/**
+ * Fragment view binding.
+ *
+ * Use this property delegate to bind the Fragment's rootView to the inferred Binding `T`.
+ * This binding is nullified when the `invalidateOn` inner block is executed
+ * (e.g. when a LifecyleObserver gets its onDestroyView callback).
  *
  * Example:
  *
@@ -34,7 +90,7 @@ public inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
  *
  * @return ReadOnlyProperty that binds to `viewBinder`'s return value.
  */
-public fun <T> Fragment.viewBinding(
+public fun <T : ViewBinding> Fragment.viewBinding(
     viewBinder: (View) -> T,
     invalidateOn: (invalidate: () -> Unit) -> Any? = ::onDestroyView,
 ): ReadOnlyProperty<Fragment, T> =

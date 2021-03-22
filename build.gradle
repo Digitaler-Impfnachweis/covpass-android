@@ -24,13 +24,12 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
-group = 'com.ibm.health.common'
+group = 'com.ibm.health.vaccination'
 subprojects {
-    def isLibraryProject = project.name != 'app' && !project.name.startsWith('app-')
-
-    group = isLibraryProject ? rootProject.group : 'com.ibm.health.vaccination.app'
+    group = rootProject.group
     version = rootProject.version
 
+    def isLibraryProject = project.name != 'app' && !project.name.startsWith('app-')
     def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
     def isPlatformProject = project.name.endsWith('-bom')
     def isTestProject = project.name.endsWith('-test') || project.name == 'test'

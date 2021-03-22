@@ -4,6 +4,7 @@ import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.ensody.reactivestate.ErrorEvents
+import com.ensody.reactivestate.EventNotifier
 import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.android.handleEvents
 import com.ensody.reactivestate.android.stateFlowStore
@@ -21,16 +22,18 @@ import kotlin.reflect.KClass
  * The resulting [State]'s `isLoading` and `eventNotifier` are automatically observed.
  */
 public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
+    withLoading: IsLoading? = isLoading,
     noinline block: StateHost.() -> S,
 ): Lazy<S> where O : Fragment, O : ErrorEvents, O : LoadingStateHook =
-    _buildState(S::class, block)
+    _buildState(S::class, withLoading, block)
 
 @Suppress("FunctionName")
 public fun <E : BaseEvents, S : State<E>, O> O._buildState(
     cls: KClass<S>,
+    withLoading: IsLoading?,
     block: StateHost.() -> S,
 ): Lazy<S> where O : Fragment, O : ErrorEvents, O : LoadingStateHook =
-    attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, block)
+    attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, withLoading, block)
 
 /**
  * Creates a [State] wrapped in a ViewModel.
@@ -41,41 +44,57 @@ public fun <E : BaseEvents, S : State<E>, O> O._buildState(
  * The resulting [State]'s `isLoading` and `eventNotifier` are automatically observed.
  */
 public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
+    withLoading: IsLoading? = isLoading,
     noinline block: StateHost.() -> S,
 ): Lazy<S> where O : ComponentActivity, O : ErrorEvents, O : LoadingStateHook =
-    _buildState(S::class, block)
+    _buildState(S::class, withLoading, block)
 
 @Suppress("FunctionName")
 public fun <E : BaseEvents, S : State<E>, O> O._buildState(
     cls: KClass<S>,
+    withLoading: IsLoading?,
     block: StateHost.() -> S,
 ): Lazy<S> where O : ComponentActivity, O : ErrorEvents, O : LoadingStateHook =
-    attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, block)
+    attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, withLoading, block)
 
 /**
  * Creates a child [State] and merges its [State.eventNotifier] and [State.isLoading] into the parent.
  *
  * Note that the parent has to implement the child's events interface.
  */
-public fun <E : BaseEvents, P : State<out E>, S : State<E>> P.buildState(block: () -> S): Lazy<S> {
+public fun <E : BaseEvents, P : State<out E>, S : State<E>> P.buildState(
+    withLoading: IsLoading? = isLoading,
+    block: () -> S,
+): Lazy<S> {
     val child = block()
-    attachState(child)
+    attachState(child, withLoading = withLoading)
     // We return a Lazy only for consistency with the other buildState functions
     return lazy { child }
 }
 
 /** Merges the [child]'s [State.eventNotifier] and [State.isLoading] into the parent. */
-public fun <E : BaseEvents> State<out E>.attachState(child: State<E>) {
+public fun <E : BaseEvents> State<out E>.attachState(
+    child: State<E>,
+    withLoading: IsLoading? = isLoading,
+) {
+    mergeEventsFrom(child.eventNotifier)
+    withLoading?.addLoadingState(child.isLoading)
+}
+
+/** Merges the given [eventNotifier] into this [State]'s [EventNotifier]. */
+public fun <E : BaseEvents> State<out E>.mergeEventsFrom(
+    eventNotifier: EventNotifier<E>,
+) {
     launch(withLoading = false) {
-        eventNotifier.emitAll(child.eventNotifier)
+        this@mergeEventsFrom.eventNotifier.emitAll(eventNotifier)
     }
-    isLoading.addLoadingState(child.isLoading)
 }
 
 @Suppress("UNCHECKED_CAST")
 private fun <E : ErrorEvents, S : State<E>, O> O.attachLazyState(
     cls: KClass<S>,
     lazyViewModel: Lazy<WrapperStateViewModel>,
+    withLoading: IsLoading?,
     block: WrapperStateViewModel.() -> S,
 ): Lazy<S> where O : LifecycleOwner, O : ErrorEvents, O : LoadingStateHook {
     val lazyState = lazy {
@@ -85,7 +104,7 @@ private fun <E : ErrorEvents, S : State<E>, O> O.attachLazyState(
         state
     }
     lifecycleScope.launchWhenCreated {
-        isLoading.addLoadingState(lazyState.value.isLoading)
+        withLoading?.addLoadingState(lazyState.value.isLoading)
         lazyState.value.eventNotifier.handleEvents(this@attachLazyState as E, this@attachLazyState)
     }
     return lazyState
@@ -93,14 +112,25 @@ private fun <E : ErrorEvents, S : State<E>, O> O.attachLazyState(
 
 /** Provides additional attributes for constructing a [State] using [buildState]. */
 public interface StateHost {
+    /** The [CoroutineScope] to use for the [State]. */
     public val scope: CoroutineScope
 
+    /**
+     * A [StateFlowStore] backed by [savedStateHandle].
+     *
+     * FIXME/XXX: If your fragment/activity has multiple [State]s they currently share the same [StateFlowStore].
+     */
     public val stateFlowStore: StateFlowStore
 
+    /**
+     * The underlying ViewModel's [SavedStateHandle].
+     *
+     * FIXME/XXX: If your fragment/activity has multiple [State]s they currently share the same [SavedStateHandle].
+     */
     public val savedStateHandle: SavedStateHandle
 }
 
-/** A [State] container. */
+/** The container [ViewModel] holding [State] instances. */
 private class WrapperStateViewModel(
     override val savedStateHandle: SavedStateHandle,
 ) : ViewModel(), StateHost {
