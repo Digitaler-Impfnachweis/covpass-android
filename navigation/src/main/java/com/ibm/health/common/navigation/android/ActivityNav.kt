@@ -92,13 +92,23 @@ public interface IntentDestination {
  */
 @Parcelize
 public open class IntentNav internal constructor(private val javaCls: Class<*>) : IntentDestination, Parcelable {
+
+    /**
+     * Constructs a new [IntentNav] for the given activity's class [cls] with the given config as [intentConfig].
+     */
     public constructor(cls: KClass<*>, config: Intent.() -> Unit = {}) : this(cls.java) {
         this.intentConfig = config
     }
 
+    /**
+     * The activity's [KClass].
+     */
     @IgnoredOnParcel
     public val cls: KClass<*> = javaCls.kotlin
 
+    /**
+     * Additional function that will be applied to the Intent, to implement some special configuration.
+     */
     @IgnoredOnParcel
     public var intentConfig: Intent.() -> Unit = {}
         private set
@@ -107,6 +117,10 @@ public open class IntentNav internal constructor(private val javaCls: Class<*>) 
         Intent(context, cls.java).withArgs(this).apply(intentConfig)
 
     public companion object {
+
+        /**
+         * Extend the current [intentConfig] by another function.
+         */
         public fun <T : IntentNav> T.addConfig(config: Intent.() -> Unit): T =
             apply {
                 val prevConfig = intentConfig
@@ -116,6 +130,9 @@ public open class IntentNav internal constructor(private val javaCls: Class<*>) 
                 }
             }
 
+        /**
+         * Replace the current [intentConfig] by the given function.
+         */
         public fun <T : IntentNav> T.withConfig(config: Intent.() -> Unit): T =
             apply {
                 intentConfig = config

@@ -14,25 +14,41 @@ import androidx.fragment.app.FragmentManager
 import com.ibm.health.common.logging.Lumber
 import kotlin.reflect.KClass
 
+/**
+ * Holds a reference to the [currentActivity] and offers some functions for activity navigation.
+ */
 public class ActivityNavigator {
+
     init {
         initActivityNavigator
     }
 
+    /**
+     * Start a new activity from the [currentActivity] with given intent flags.
+     */
     public fun startActivity(activityToStart: Class<out Activity>, intentFlags: List<Int>? = null) {
         val intent = Intent(currentActivity, activityToStart)
         intentFlags?.forEach { intent.addFlags(it) }
         currentActivity.startActivity(intent)
     }
 
+    /**
+     * Start a new activity from the [currentActivity].
+     */
     public fun startActivity(intentDestination: IntentDestination) {
         currentActivity.startActivity(intentDestination)
     }
 
+    /**
+     * Start a new activity from the [currentActivity].
+     */
     public fun startActivity(intent: Intent) {
         currentActivity.startActivity(intent)
     }
 
+    /**
+     * Get an [IntentNav] for the [currentActivity].
+     */
     public fun getCurrent(): IntentNav {
         // Cache the currentActivity in an immutable field, else it can change till execution of closure
         val activity = currentActivity
@@ -43,9 +59,15 @@ public class ActivityNavigator {
         }
     }
 
+    /**
+     * Returns [currentActivity] if initialized, else null.
+     */
     public fun getCurrentActivityOrNull(): Activity? =
         if (::currentActivity.isInitialized) currentActivity else null
 
+    /**
+     * Returns [currentActivity].
+     */
     public fun getCurrentActivity(): Activity? = currentActivity
 
     /**
@@ -186,4 +208,7 @@ public val blacklistFragmentsLifecycleLogging: MutableList<KClass<out Any>> = mu
     DialogFragment::class,
 )
 
+/**
+ * True to automatically register fragment lifecycle callbacks for all child FragmentManagers.
+ */
 public var shouldLogFragmentLifecycleRecursive: Boolean = true

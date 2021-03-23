@@ -56,6 +56,9 @@ public class Navigator internal constructor(
     @IdRes private val containerId: Int,
 ) {
 
+    /**
+     * Return the number of entries currently in the back stack.
+     */
     public val backStackEntryCount: StateFlow<Int> = MutableStateFlow(0).apply {
         fragmentManager.addOnBackStackChangedListener {
             value = fragmentManager.backStackEntryCount
@@ -270,8 +273,20 @@ public class Navigator internal constructor(
     }
 }
 
+/**
+ * Returns the tag name to use for the fragment.
+ * 
+ * Usually returns the fragments class name, but if your fragment implements [StatelessNavigation]
+ * this returns null.
+ */
 public fun Fragment.getTagName(): String? = getTagName(this::class)
 
+/**
+ * Returns the tag name to use for the fragment.
+ *
+ * Usually returns the fragments class name, but if your fragment implements [StatelessNavigation],
+ * this returns null.
+ */
 public fun getTagName(cls: KClass<out Fragment>): String? =
     if (StatelessNavigation::class.java.isAssignableFrom(cls.java)) null else cls.java.name
 

@@ -27,4 +27,7 @@ public fun <T> Fragment.findInHierarchy(skip: Int = 0, action: (Any) -> T?): T {
         ?: throw NoSuchElementInHierarchy("Element not found.")
 }
 
+/**
+ * Thrown when [findInHiercharchy] couldn't find a fragment.
+ */
 public class NoSuchElementInHierarchy(message: String) : IllegalStateException(message)
