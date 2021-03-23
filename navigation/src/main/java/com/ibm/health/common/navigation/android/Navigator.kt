@@ -51,7 +51,7 @@ public fun <T> T.Navigator(
 public class Navigator internal constructor(
     // constructor is internal to enforce the above contextual constructors
     private val activity: FragmentActivity,
-    private val fragmentManager: FragmentManager,
+    public val fragmentManager: FragmentManager,
     private val lifecycleOwner: LifecycleOwner,
     @IdRes private val containerId: Int,
 ) {
@@ -97,7 +97,7 @@ public class Navigator internal constructor(
      * @param fragment The `Fragment` to be pushed to the stack and displayed.
      */
     public fun push(fragment: Fragment) {
-        fragmentManager.commit {
+        fragmentManager.beginTransaction().apply {
 
             val overlayFragment = (fragment as? OverlayNavigation)?.getModalOverlayFragment()
             if (overlayFragment != null && findFragment { it::class == overlayFragment::class } == null) {
@@ -111,21 +111,26 @@ public class Navigator internal constructor(
                 hide(lastFragment)
             }
 
-            animator(fragment)
-            if (fragment is OverlayNavigation) {
-                add(containerId, fragment, fragment.getTagName())
-            } else {
-                replace(containerId, fragment, fragment.getTagName())
-            }
-
             // For SheetPaneNavigation we always want to allow popping the back stack to remove the pane, even if this
             // is the first fragment getting pushed (e.g. when using a normal activity in combination with bottom sheet)
             if (fragmentManager.fragments.isNotEmpty() || fragment is OverlayNavigation) {
                 // TODO: Should StatelessNavigation ever be pushed on the back stack?
+                // This has to happen before DialogFragment.show() because show() commits the transaction.
                 addToBackStack(fragment.getTagName())
             } else if (fragmentManager.fragments.isEmpty()) {
                 updateOrientation(fragment)
             }
+
+            animator(fragment)
+            when (fragment) {
+                is DialogFragment -> {
+                    fragment.show(this, fragment.getTagName())
+                    return // skip the commit() below because show() already commits
+                }
+                is OverlayNavigation -> add(containerId, fragment, fragment.getTagName())
+                else -> replace(containerId, fragment, fragment.getTagName())
+            }
+            commit()
         }
     }
 
