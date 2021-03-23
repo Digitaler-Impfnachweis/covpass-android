@@ -12,11 +12,13 @@ buildscript {
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
         classpath 'pl.allegro.tech.build:axion-release-plugin:1.11.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'pl.allegro.tech.build.axion-release'
+apply plugin: 'kotlinx-serialization'
 
 apply from: "$rootDir/gradle/common/ibmconfig.gradle"
 setupRepos()

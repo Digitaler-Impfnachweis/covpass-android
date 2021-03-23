@@ -1,11 +1,11 @@
 package com.ibm.health.common.http
 
-import com.ibm.health.common.gson.defaultGsonBuilder
 import com.ibm.health.common.http.retry.RetryInterceptor
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
 import io.ktor.http.*
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
@@ -127,9 +127,7 @@ private class DefaultHttpConfig : HttpConfig {
                 socketTimeoutMillis = 15_000
             }
             install(JsonFeature) {
-                serializer = GsonSerializer {
-                    defaultGsonBuilder()
-                }
+                serializer = KotlinxSerializer()
             }
             defaultRequest {
                 url {

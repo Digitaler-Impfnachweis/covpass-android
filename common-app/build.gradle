@@ -3,4 +3,5 @@ dependencies {
     api project(":http")
     api project(":navigation")
     api project(":securityprovider")
+    cryptographic()
 }

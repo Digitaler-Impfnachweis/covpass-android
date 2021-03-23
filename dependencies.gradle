@@ -22,6 +22,10 @@ dependencies.ext.versionConstraints = {
             api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
             api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
+            def kotlinxSerializationVersion = "1.1.0"
+            api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
+            api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
+
             api 'org.conscrypt:conscrypt-android:2.5.1'
 
             api 'androidx.appcompat:appcompat:1.2.0'
@@ -42,7 +46,6 @@ dependencies.ext.versionConstraints = {
             api "androidx.lifecycle:lifecycle-service:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
 
-            api 'com.google.code.gson:gson:2.8.6'
             api 'com.jakewharton.timber:timber:4.7.1'
             api 'com.jakewharton.threetenabp:threetenabp:1.2.2'
 
@@ -166,22 +169,17 @@ dependencies.ext.timber = {
     }
 }
 
-dependencies.ext.gson = {
-    dependencies {
-        api 'com.google.code.gson:gson'
-    }
-}
-
 dependencies.ext.ktor = {
     dependencies {
         coroutines()
-        gson()
 
         api 'io.ktor:ktor-client-core'
         api 'io.ktor:ktor-client-android'
         api 'io.ktor:ktor-client-json-jvm'
-        api 'io.ktor:ktor-client-gson'
         api 'io.ktor:ktor-client-okhttp'
+
+        kotlinxSerialization()
+        api 'io.ktor:ktor-client-serialization'
 
         api 'com.squareup.okhttp3:okhttp'
         api 'com.squareup.okhttp3:logging-interceptor'
@@ -198,7 +196,23 @@ dependencies.ext.threeten = {
 
 dependencies.ext.zxing = {
     dependencies {
+        // FIXME/XXX: From zxing-android-embedded's version 4.x, only Android SDK 24+ is supported by default.
+        //  Our minVersion = 23, so For Android SDK versions < 24, we should downgrade zxing:core to 3.3.0
+        //  inside zxing-android-embedded lib. To do it we use { transitive = false }.
         implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
         implementation 'com.google.zxing:core:3.3.0'
+    }
+}
+
+dependencies.ext.cryptographic = {
+    dependencies {
+        api 'androidx.security:security-crypto:1.1.0-alpha03'
+    }
+}
+
+dependencies.ext.kotlinxSerialization = {
+    dependencies {
+        api 'org.jetbrains.kotlinx:kotlinx-serialization-core'
+        api 'org.jetbrains.kotlinx:kotlinx-serialization-json'
     }
 }
