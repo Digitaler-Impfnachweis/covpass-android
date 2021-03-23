@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.ensody.reactivestate.ErrorEvents
 import com.ensody.reactivestate.EventNotifier
+import com.ensody.reactivestate.NamespacedStateFlowStore
 import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.android.handleEvents
 import com.ensody.reactivestate.android.stateFlowStore
@@ -78,7 +79,7 @@ public fun <E : BaseEvents> State<out E>.attachState(
     withLoading: IsLoading? = isLoading,
 ) {
     mergeEventsFrom(child.eventNotifier)
-    withLoading?.addLoadingState(child.isLoading)
+    withLoading?.add(child.isLoading)
 }
 
 /** Merges the given [eventNotifier] into this [State]'s [EventNotifier]. */
@@ -95,16 +96,22 @@ private fun <E : ErrorEvents, S : State<E>, O> O.attachLazyState(
     cls: KClass<S>,
     lazyViewModel: Lazy<WrapperStateViewModel>,
     withLoading: IsLoading?,
-    block: WrapperStateViewModel.() -> S,
+    block: StateHost.() -> S,
 ): Lazy<S> where O : LifecycleOwner, O : ErrorEvents, O : LoadingStateHook {
     val lazyState = lazy {
         val viewModel = lazyViewModel.value
-        val state = (viewModel.stateRegistry[cls] as? S) ?: viewModel.block()
+        val namespace = cls.qualifiedName
+            ?: throw IllegalArgumentException("The State class has no qualified name")
+        val state = (viewModel.stateRegistry[cls] as? S)
+            ?: StateHostImpl(
+                scope = viewModel.viewModelScope,
+                stateFlowStore = NamespacedStateFlowStore(viewModel.stateFlowStore, namespace),
+            ).block()
         viewModel.stateRegistry[cls] = state
         state
     }
     lifecycleScope.launchWhenCreated {
-        withLoading?.addLoadingState(lazyState.value.isLoading)
+        withLoading?.add(lazyState.value.isLoading)
         lazyState.value.eventNotifier.handleEvents(this@attachLazyState as E, this@attachLazyState)
     }
     return lazyState
@@ -116,28 +123,22 @@ public interface StateHost {
     public val scope: CoroutineScope
 
     /**
-     * A [StateFlowStore] backed by [savedStateHandle].
-     *
-     * FIXME/XXX: If your fragment/activity has multiple [State]s they currently share the same [StateFlowStore].
+     * A [StateFlowStore] backed by a [SavedStateHandle].
      */
     public val stateFlowStore: StateFlowStore
-
-    /**
-     * The underlying ViewModel's [SavedStateHandle].
-     *
-     * FIXME/XXX: If your fragment/activity has multiple [State]s they currently share the same [SavedStateHandle].
-     */
-    public val savedStateHandle: SavedStateHandle
 }
+
+private class StateHostImpl(
+    override val scope: CoroutineScope,
+    override val stateFlowStore: StateFlowStore,
+) : StateHost
 
 /** The container [ViewModel] holding [State] instances. */
 private class WrapperStateViewModel(
-    override val savedStateHandle: SavedStateHandle,
-) : ViewModel(), StateHost {
+    private val savedStateHandle: SavedStateHandle,
+) : ViewModel() {
 
-    override val scope: CoroutineScope get() = viewModelScope
-
-    override val stateFlowStore: StateFlowStore = savedStateHandle.stateFlowStore(viewModelScope)
+    val stateFlowStore: StateFlowStore = savedStateHandle.stateFlowStore(viewModelScope)
 
     val stateRegistry: MutableMap<KClass<*>, State<*>> = mutableMapOf()
 }

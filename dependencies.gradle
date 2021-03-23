@@ -8,7 +8,7 @@ dependencies.ext.versionConstraints = {
     dependencies {
         api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.4.3")
         api platform("io.ktor:ktor-bom:1.5.2")
-        api platform("com.ensody.reactivestate:dependency-versions-bom:3.2.1")
+        api platform("com.ensody.reactivestate:dependency-versions-bom:3.3.0")
         api platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
 
         constraints {
@@ -73,6 +73,8 @@ dependencies.ext.base = {
     dependencies {
         api platform(project(':dependency-versions-bom'))
 
+        api 'com.google.android.material:material'
+
         testImplementation 'junit:junit'
 
         // Workaround for assertk-related IntelliJ bug: https://youtrack.jetbrains.com/issue/IDEA-214533
@@ -80,8 +82,6 @@ dependencies.ext.base = {
         testImplementation 'com.willowtreeapps.assertk:assertk-jvm'
 
         testImplementation "io.mockk:mockk"
-
-        api 'com.google.android.material:material'
     }
 }
 

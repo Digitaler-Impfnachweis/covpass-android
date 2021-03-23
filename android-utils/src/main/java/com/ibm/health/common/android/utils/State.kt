@@ -70,7 +70,7 @@ public abstract class BaseState<T : BaseEvents>(scope: CoroutineScope) : State<T
     private val loadingCount = MutableValueFlow(AtomicInteger(0))
     override val isLoading: IsLoading by lazy {
         IsLoading().apply {
-            addLoadingState(
+            add(
                 derived {
                     get(loadingCount).get() > 0
                 }

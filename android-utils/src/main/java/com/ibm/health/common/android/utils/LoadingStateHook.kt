@@ -2,9 +2,7 @@ package com.ibm.health.common.android.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.ensody.reactivestate.MutableValueFlow
-import com.ensody.reactivestate.derived
-import com.ensody.reactivestate.get
+import com.ensody.reactivestate.ReducingStateFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -44,20 +42,10 @@ public fun State<*>.IsLoading(): IsLoading =
     IsLoading(launcherScope)
 
 @Suppress("FunctionName")
-public fun IsLoading(scope: CoroutineScope): IsLoading {
-    val loadingStates = MutableValueFlow(mutableSetOf<StateFlow<Boolean>>())
-    return IsLoading(loadingStates, scope.derived { get(loadingStates).count { get(it) } > 0 })
-}
+public fun IsLoading(scope: CoroutineScope): IsLoading =
+    ReducingStateFlow(scope) { loadings -> loadings.count { it } > 0 }
 
-public class IsLoading internal constructor(
-    private val loadingStates: MutableValueFlow<MutableSet<StateFlow<Boolean>>>,
-    private val isLoading: StateFlow<Boolean>,
-) : StateFlow<Boolean> by isLoading {
-
-    public fun addLoadingState(loading: StateFlow<Boolean>) {
-        loadingStates.update { it.add(loading) }
-    }
-}
+public typealias IsLoading = ReducingStateFlow<Boolean, Boolean>
 
 /** Observes a Boolean and triggers the [setLoading] function, taking lifecycle handling into account. */
 public fun LifecycleOwner.watchLoading(

@@ -275,7 +275,7 @@ public class Navigator internal constructor(
 
 /**
  * Returns the tag name to use for the fragment.
- * 
+ *
  * Usually returns the fragments class name, but if your fragment implements [StatelessNavigation]
  * this returns null.
  */
