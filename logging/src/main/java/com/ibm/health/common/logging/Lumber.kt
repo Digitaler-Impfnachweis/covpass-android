@@ -17,6 +17,7 @@ import timber.log.Timber
  */
 public class Lumber {
     public companion object {
+
         /** Plants debug tree if none was planted yet. */
         public fun plantDebugTreeIfNeeded(shouldPlant: Boolean = true) {
             if (shouldPlant && Timber.treeCount() == 0) {
@@ -24,36 +25,44 @@ public class Lumber {
             }
         }
 
+        /** Log a verbose exception and/or a message specified by [LogBlock]. */
         public fun v(err: Throwable? = null, block: LogBlock? = null) {
             Timber.v(err, block?.invoke())
         }
 
+        /** Log a debug exception and/or a message specified by [LogBlock]. */
         public fun d(err: Throwable? = null, block: LogBlock? = null) {
             Timber.d(err, block?.invoke())
         }
 
+        /** Log an info exception and/or a message specified by [LogBlock]. */
         public fun i(err: Throwable? = null, block: LogBlock? = null) {
             Timber.i(err, block?.invoke())
         }
 
+        /** Log a warning exception and/or a message specified by [LogBlock]. */
         public fun w(err: Throwable? = null, block: LogBlock? = null) {
             Timber.w(err, block?.invoke())
         }
 
+        /** Log an assert exception and/or a message specified by [LogBlock]. */
         public fun wtf(err: Throwable? = null, block: LogBlock? = null) {
             Timber.wtf(err, block?.invoke())
         }
 
+        /** Log an error exception and/or a message specified by [block]. */
         public fun e(err: Throwable? = null, block: LogBlock? = null) {
             Timber.e(err, block?.invoke())
         }
 
+        /** Log with given priority an exception and/or a message specified by [LogBlock]. */
         public fun log(priority: Int, err: Throwable?, block: LogBlock) {
             Timber.log(priority, err, block())
         }
     }
 }
 
+/** A function returning a log message. Obfuscation can fully strip this, even when using string templates. */
 public fun interface LogBlock {
     public operator fun invoke(): String
 }
