@@ -13,10 +13,13 @@ import androidx.core.content.ContextCompat
  **/
 public interface ResourceProvider {
 
+    /** @see [Context.getString] */
     public fun getString(@StringRes resId: Int, vararg formatArgs: Any): String
 
+    /** @see [Context.getDrawable] */
     public fun getDrawable(@DrawableRes resId: Int): Drawable?
 
+    /** @see [Context.getInteger] */
     public fun getInteger(@IntegerRes resId: Int): Int
 }
 

@@ -6,6 +6,7 @@ import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.Navigator
 import com.ibm.health.common.navigation.android.NavigatorOwner
 
+/** Common base activity with some common functionality like error handling or loading behaviour. */
 public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
     BaseHookedActivity(contentLayoutId = contentLayoutId),
     NavigatorOwner {

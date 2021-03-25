@@ -7,6 +7,7 @@ import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.NavigatorOwner
 import com.ibm.health.common.navigation.android.OnBackPressedNavigation
 
+/** Common base fragment with some common functionality like error handling or loading behaviour. */
 public abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
     BaseHookedFragment(contentLayoutId = contentLayoutId),
     OnBackPressedNavigation {

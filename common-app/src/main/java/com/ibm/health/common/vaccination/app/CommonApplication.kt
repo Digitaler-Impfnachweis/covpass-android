@@ -14,7 +14,9 @@ import com.ibm.health.common.navigation.android.NavigationDependencies
 import com.ibm.health.common.navigation.android.navigationDeps
 import com.ibm.health.common.securityprovider.initSecurityProvider
 
+/** Common base application with some common functionality like setting up logging. */
 public abstract class CommonApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
 
