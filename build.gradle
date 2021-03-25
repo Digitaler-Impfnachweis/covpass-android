@@ -13,6 +13,7 @@ buildscript {
         classpath 'pl.allegro.tech.build:axion-release-plugin:1.11.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
     }
 }
 
@@ -42,6 +43,13 @@ subprojects {
         if (!isLibraryProject) {
             apply from: "$rootDir/gradle/common/android-app.gradle"
             androidApp(minVersion: 23, obfuscation: Obfuscation.Full)
+            apply plugin: 'com.jaredsburrows.license'
+
+            licenseReport {
+                generateCsvReport = false
+                generateHtmlReport = true
+                generateJsonReport = false
+            }
         } else if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"
             androidLibrary(minVersion: 23, kotlinExplicitApiMode: true)

@@ -7,10 +7,16 @@
   android:orientation="vertical">
 
   <Button
-    android:id="@+id/qr_scanner_btn"
+    android:id="@+id/qr_scanner_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/qr_scanner_btn_txt" />
+    android:text="@string/qr_scanner_button_text" />
+
+  <Button
+    android:id="@+id/licenses_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/licenses_button_text" />
 
   <ImageView
     android:id="@+id/qr_code_image_view"

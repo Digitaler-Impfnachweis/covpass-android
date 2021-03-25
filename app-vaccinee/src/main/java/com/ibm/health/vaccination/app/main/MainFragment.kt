@@ -8,7 +8,9 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.SimpleFragmentNav
+import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
+import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.MainBinding
 import com.journeyapps.barcodescanner.BarcodeEncoder
@@ -23,7 +25,8 @@ internal class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.qrScannerBtn.setOnClickListener { launchScanner() }
+        binding.qrScannerButton.setOnClickListener { launchScanner() }
+        binding.licensesButton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
     }
 
     // Get the scanner results:

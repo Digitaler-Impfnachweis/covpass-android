@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="scanner_error_message">Cancelled</string>
-  <string name="qr_scanner_btn_txt">Launch the Scanner</string>
+  <string name="qr_scanner_button_text">Launch the Scanner</string>
+  <string name="licenses_button_text">Show Licenses</string>
 </resources>

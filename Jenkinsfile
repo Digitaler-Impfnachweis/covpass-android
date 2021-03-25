@@ -124,6 +124,8 @@ pipeline {
                 }
                 stage('Assemble') {
                     steps {
+                        gradle('app-vaccinee:licenseReleaseReport')
+                        gradle('app-cert-checker:licenseReleaseReport')
                         gradleAssemble('assemble')
                     }
                 }
