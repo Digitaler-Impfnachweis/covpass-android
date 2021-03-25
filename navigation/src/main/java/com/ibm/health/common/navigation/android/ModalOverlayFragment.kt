@@ -26,8 +26,7 @@ public class ModalOverlayFragment : Fragment(), ModalPaneNavigation {
             accessibilityDelegate = null
 
             setOnClickListener {
-                val overlayingFragment = findNavigator().findFragment { it is OverlayNavigation }
-                (overlayingFragment as? OverlayNavigation)?.onClickOutside()
+                findNavigator().findFragment<OverlayNavigation>()?.onClickOutside()
             }
         }
     }

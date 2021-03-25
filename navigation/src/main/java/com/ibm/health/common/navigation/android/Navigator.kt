@@ -16,7 +16,6 @@ import kotlin.reflect.KClass
  * Creates a new [Navigator] instance on a fragment implementing [NavigatorOwner].
  *
  * @param containerId The container where fragments are added to.
- * @param animator Defines custom animations. Don't use this to globally override animations for the whole app!
  */
 @Suppress("FunctionName")
 public fun <T> T.Navigator(
@@ -238,10 +237,17 @@ public class Navigator internal constructor(
     /**
      * Searches for a matching `Fragment` in the back stack.
      *
-     * @return the matching [Fragment] or null if no matching fragment was not found.
+     * @return the matching [Fragment] or null if no matching fragment was found.
      */
     public fun findFragment(func: (Fragment) -> Boolean): Fragment? =
         fragmentManager.fragments.lastOrNull(func)
+
+    /**
+     * Searches for a matching `Fragment` in the back stack with the given type [T].
+     *
+     * @return the matching [Fragment] or null if no matching fragment was found.
+     */
+    public inline fun <reified T> findFragment(): T? = findFragment { it is T } as? T
 
     private fun update() {
         updateOrientation()
@@ -250,7 +256,7 @@ public class Navigator internal constructor(
 
     private fun updateOrientation(fragment: Fragment? = null) {
         val fixedOrientation =
-            (fragment ?: findFragment { it is FixedOrientation } ?: lifecycleOwner) as? FixedOrientation
+            (fragment ?: findFragment<FixedOrientation>() ?: lifecycleOwner) as? FixedOrientation
                 ?: try {
                     val navigator = (lifecycleOwner as? Fragment)?.findNavigator(skip = 1)
                     if (navigator != null) {
