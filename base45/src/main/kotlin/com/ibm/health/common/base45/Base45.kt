@@ -1,12 +1,12 @@
-package com.ibm.health.common.vaccination.app
+package com.ibm.health.common.base45
 
 // Note: Unbelievably, we couldn't find a base45 encoder/decoder for Kotlin or Java, so we had to implement our own.
 // GitHub and Google seemed to only list implementations in Rust, Go, Python, JavaScript, Haskell.
 
 internal val ENCODING_CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:".encodeToByteArray()
-private val DECODING_CHARSET = ByteArray(256).also {
+private val DECODING_CHARSET = ByteArray(256).also { charset ->
     ENCODING_CHARSET.forEachIndexed { index, byte ->
-        it[byte.toInt()] = index.toByte()
+        charset[byte.toInt()] = index.toByte()
     }
 }
 
@@ -26,7 +26,7 @@ public object Base45 {
 
         // 2 chars -> 3 chars case
         while (inIndex + 1 < input.size) {
-            write(write(write(read() * 256 + read())))
+            write(write(write(read() shl 8 or read())))
         }
         // (remaining) 1 char -> 2 chars case
         if (inIndex < input.size) {

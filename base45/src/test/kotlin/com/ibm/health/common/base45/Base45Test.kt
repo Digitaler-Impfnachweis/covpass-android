@@ -1,4 +1,4 @@
-package com.ibm.health.common.vaccination.app
+package com.ibm.health.common.base45
 
 import assertk.assertThat
 import assertk.assertions.*

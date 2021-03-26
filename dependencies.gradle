@@ -72,11 +72,19 @@ dependencies.ext.versionConstraints = {
 }
 // ------------------------------------------------------------------------------------------------
 
+dependencies.ext.testDependency = { dependency ->
+    dependencies {
+        if (project.name.endsWith("-test")) {
+            api dependency
+        } else {
+            testImplementation dependency
+        }
+    }
+}
+
 dependencies.ext.base = {
     dependencies {
         api platform(project(':dependency-versions-bom'))
-
-        api 'com.google.android.material:material'
 
         testImplementation 'junit:junit'
 
@@ -99,6 +107,7 @@ dependencies.ext.baseAndroid = {
     dependencies {
         base()
         api 'androidx.annotation:annotation'
+        api 'com.google.android.material:material'
     }
 }
 
@@ -106,12 +115,7 @@ dependencies.ext.reactiveState = {
     dependencies {
         api 'com.ensody.reactivestate:core'
         api 'com.ensody.reactivestate:reactivestate'
-        def testProject = 'com.ensody.reactivestate:core-test'
-        if (project.name.endsWith("-test")) {
-            api testProject
-        } else {
-            testImplementation testProject
-        }
+        testDependency 'com.ensody.reactivestate:core-test'
     }
 }
 

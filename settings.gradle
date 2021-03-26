@@ -1,18 +1,23 @@
 rootProject.name = 'android-vaccination-app'
 
+// SDK modules
+include ':dependency-versions-bom'
+include ':sdk-core'
+include ':sdk-android'
+
+// SDK utils
+include ':annotations'
+include ':base45'
+include ':http'
+include ':logging'
+
 // Apps
 include ':app-cert-checker'
 include ':app-vaccinee'
 include ':common-app'
 
-// TODO: SDK modules
-
-// SDK utils
-include ':android-utils'
+// App-only utils (not used by SDK)
 include ':android-utils-test'
-include ':annotations'
-include ':dependency-versions-bom'
-include ':http'
-include ':logging'
+include ':android-utils'
 include ':navigation'
 include ':securityprovider'

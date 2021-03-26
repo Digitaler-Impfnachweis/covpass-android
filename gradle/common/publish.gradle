@@ -44,8 +44,10 @@ ext.publish = { args ->
                 archiveClassifier.set('sources')
                 if (isAndroidProject) {
                     from android.sourceSets.main.java.srcDirs
+                    from android.sourceSets.main.kotlin.srcDirs
                 } else {
                     from sourceSets.main.java.srcDirs
+                    from sourceSets.main.kotlin.srcDirs
                 }
             }
         }
