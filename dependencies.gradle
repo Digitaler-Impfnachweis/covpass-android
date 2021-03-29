@@ -24,7 +24,7 @@ dependencies.ext.versionConstraints = {
 
             def kotlinxSerializationVersion = "1.1.0"
             api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
-            api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
+            api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion"
 
             api 'org.conscrypt:conscrypt-android:2.5.1'
 
@@ -217,6 +217,6 @@ dependencies.ext.cryptographic = {
 dependencies.ext.kotlinxSerialization = {
     dependencies {
         api 'org.jetbrains.kotlinx:kotlinx-serialization-core'
-        api 'org.jetbrains.kotlinx:kotlinx-serialization-json'
+        api 'org.jetbrains.kotlinx:kotlinx-serialization-cbor'
     }
 }

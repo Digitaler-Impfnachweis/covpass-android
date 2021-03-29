@@ -2,11 +2,12 @@ package com.ibm.health.common.vaccination.app
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Base64
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.cbor.Cbor
+import kotlinx.serialization.decodeFromByteArray
+import kotlinx.serialization.encodeToByteArray
 
 /**
  * Storage that provides an encryption functionality.
@@ -34,18 +35,20 @@ public class EncryptedKeyValueStore(context: Context, preferencesName: String) {
     }
 
     /**
-     * Sets a pair ([key] [obj]) to the storage.
-     * The [obj] must be annotated with compatible with kotlinx.serialization
+     * Sets key-value pair to the storage.
+     * @param key Will be used for access to the obj
+     * @param obj The value that will be stored. Must be annotated with compatible with kotlinx.serialization
      */
     public inline fun <reified T> set(key: String, obj: T) {
-        prefs.edit().putString(key, Json.encodeToString(obj)).apply()
+        prefs.edit().putString(key, Base64.encodeToString(Cbor.encodeToByteArray(obj), Base64.DEFAULT)).apply()
     }
 
     /**
+     * @param key Used for access to the [T] object
      * @return an object from the storage by provided [key], null otherwise.
      */
     public inline fun <reified T : Any> get(key: String): T? =
-        prefs.getString(key, null)?.let { Json.decodeFromString<T>(it) }
+        prefs.getString(key, null)?.let { Cbor.decodeFromByteArray<T>(Base64.decode(it, Base64.DEFAULT)) }
 
     /**
      * Checks if provided [key] contains in the storage.
