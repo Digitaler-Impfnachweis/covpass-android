@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.android.utils.viewBinding
-import com.ibm.health.common.navigation.android.SimpleFragmentNav
+import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
@@ -17,7 +17,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class MainFragmentNav : SimpleFragmentNav(MainFragment::class)
+class MainFragmentNav : FragmentNav(MainFragment::class)
 
 internal class MainFragment : BaseFragment() {
 

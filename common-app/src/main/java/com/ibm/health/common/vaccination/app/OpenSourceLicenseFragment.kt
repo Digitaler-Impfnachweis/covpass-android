@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import com.ibm.health.common.navigation.android.SimpleFragmentNav
+import com.ibm.health.common.navigation.android.FragmentNav
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-public class OpenSourceLicenseFragmentNav : SimpleFragmentNav(OpenSourceLicenseFragment::class)
+public class OpenSourceLicenseFragmentNav : FragmentNav(OpenSourceLicenseFragment::class)
 
 /**
  * Displays open source licenses for all app dependencies. The licenses are displayed in a webview, the html is

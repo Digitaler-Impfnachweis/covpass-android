@@ -82,11 +82,11 @@ public class Navigator internal constructor(
         !isEmpty()
 
     /**
-     * Pushes a fragment via [FragmentNav].
+     * Pushes a fragment via [FragmentDestination].
      *
-     * @param nav The [FragmentNav] to be pushed to the stack and displayed.
+     * @param nav The [FragmentDestination] to be pushed to the stack and displayed.
      */
-    public fun push(nav: FragmentNav) {
+    public fun push(nav: FragmentDestination) {
         push(nav.build())
     }
 
@@ -185,17 +185,74 @@ public class Navigator internal constructor(
      * WARNING: If this pops multiple fragments it can trigger multiple animations.
      * Usually you should use the class-based popUntil variant above.
      *
+     * WARNING: If [includeMatch] is `true` the returned fragment will already be detached!
+     *
+     * @param includeMatch Whether to also pop the matching fragment. Defaults to `false`.
+     *
+     * @return The matching fragment or `null`.
+     */
+    @Suppress("UNCHECKED_CAST")
+    public inline fun <reified T> popUntil(includeMatch: Boolean = false): T? =
+        popUntilFound(includeMatch = includeMatch) { it as? T }
+
+    /**
+     * Pops the back stack until the given Fragment class is matched.
+     *
+     * This can be used to communicate back results that aren't parcelable/serializable.
+     *
+     * WARNING: If this pops multiple fragments it can trigger multiple animations.
+     * Usually you should use the class-based popUntil variant above.
+     *
+     * WARNING: If [includeMatch] is `true` the returned fragment will already be detached!
+     *
+     * @param includeMatch Whether to also pop the matching fragment. Defaults to `false`.
+     *
+     * @return The matching fragment or `null`.
+     */
+    @Suppress("UNCHECKED_CAST")
+    public fun <T> popUntilFound(includeMatch: Boolean = false, predicate: (Any) -> T?): T? {
+        fragmentManager.executePendingTransactions()
+
+        var target: T? = null
+        while (true) {
+            target = predicate(fragmentManager.fragments.lastOrNull() ?: break)
+            if (target != null) {
+                break
+            }
+            if (!fragmentManager.popBackStackImmediate()) {
+                break
+            }
+        }
+
+        if (includeMatch) {
+            pop()
+        }
+
+        return target
+    }
+
+    /**
+     * Pops the back stack until the given Fragment class is matched.
+     *
+     * This can be used to communicate back results that aren't parcelable/serializable.
+     *
+     * WARNING: If this pops multiple fragments it can trigger multiple animations.
+     * Usually you should use the class-based popUntil variant above.
+     *
      * @param includeMatch Whether to also pop the matching fragment (for which [predicate] returns `true`).
      *                     Defaults to `false`.
+     * @param deep Whether to check [predicate] against the `childFragmentManager` of each fragment, too.
      * @param predicate Pops until this function returns `true`.
      *
      * @return true if there was something to pop, false otherwise.
      */
-    public fun popUntil(includeMatch: Boolean = false, predicate: (Any) -> Boolean): Boolean {
+    public fun popUntil(includeMatch: Boolean = false, deep: Boolean = false, predicate: (Any) -> Boolean): Boolean {
         fragmentManager.executePendingTransactions()
 
         var popped = false
-        while (fragmentManager.fragments.size > 0 && !predicate(fragmentManager.fragments.last())) {
+        while (fragmentManager.fragments.isNotEmpty() &&
+            !checkPredicate(fragmentManager = fragmentManager, deep = deep, predicate = predicate)
+        ) {
             if (!fragmentManager.popBackStackImmediate()) {
                 break
             }
@@ -207,6 +264,12 @@ public class Navigator internal constructor(
         }
 
         return popped
+    }
+
+    private fun checkPredicate(fragmentManager: FragmentManager, deep: Boolean, predicate: (Any) -> Boolean): Boolean {
+        val fragment = fragmentManager.fragments.lastOrNull() ?: return false
+        return predicate(fragment) ||
+            deep && checkPredicate(fragmentManager = fragment.childFragmentManager, deep = deep, predicate = predicate)
     }
 
     /**

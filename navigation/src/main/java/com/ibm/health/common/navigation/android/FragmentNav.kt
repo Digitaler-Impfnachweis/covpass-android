@@ -36,29 +36,11 @@ public fun <T : Parcelable> Fragment.getOptionalArgs(): T? =
  * A `Fragment` navigation destination.
  *
  * Most APIs that only want to navigate somewhere should take this as an argument for maximum flexibility.
- * For defining such a destination, you can use [FragmentNav] and [SimpleFragmentNav].
+ * For defining such a destination, you can use [FragmentNav].
  */
-public interface FragmentDestination {
+public interface FragmentDestination : Parcelable {
     public fun build(): Fragment
 }
-
-/**
- * Base interface for defining a `Fragment`-based navigation destination.
- *
- * In many cases you'll want to use the [SimpleFragmentNav] API, but sometimes you need to customize the
- * instantiation process e.g. to pass callbacks or modify the resulting Fragment.
- * In that case, you can use this interface:
- *
- * ```kotlin
- * @Parcelize
- * class InfoDialogFragmentNav(val dialogConfig: DialogConfig) : FragmentNav {
- *     override fun build(): Fragment = MyDialogFragment().withArgs(this).apply {
- *         isCancelable = dialogConfig.isCancelable
- *     }
- * }
- * ```
- */
-public interface FragmentNav : FragmentDestination, Parcelable
 
 /**
  * Base class for defining a `Parcelable` that can be used for easy and type-safe argument-passing to a `Fragment`.
@@ -70,6 +52,6 @@ public interface FragmentNav : FragmentDestination, Parcelable
  * class InfoDialogFragmentNav(val egaDialog: EgaDialog) : SimpleFragmentNav(InfoDialogFragment::class)
  * ```
  */
-public abstract class SimpleFragmentNav(public val cls: KClass<out Fragment>) : FragmentNav {
+public abstract class FragmentNav(public val cls: KClass<out Fragment>) : FragmentDestination {
     override fun build(): Fragment = cls.java.newInstance().withArgs(this)
 }
