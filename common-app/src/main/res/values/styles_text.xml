@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="DefaultText">
+    <item name="android:lineSpacingMultiplier">1.2</item>
+    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:textSize">@dimen/textsize_default</item>
+  </style>
+
+  <style name="DefaultText.Solid">
+    <item name="android:textColor">@color/onBackground</item>
+  </style>
+
+  <style name="DefaultText.Faint">
+    <item name="android:textColor">@color/onBackground70</item>
+  </style>
+
+  <style name="Header">
+    <item name="android:lineSpacingMultiplier">1.2</item>
+    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:textColor">@color/onBackground100</item>
+  </style>
+
+  <style name="Header.Small">
+    <item name="android:textSize">@dimen/textsize_default</item>
+  </style>
+
+  <style name="Header.Standard">
+    <item name="android:textSize">@dimen/textsize_header_standard</item>
+  </style>
+
+  <style name="Header.MediumBig">
+    <item name="android:textSize">@dimen/textsize_header_medium_big</item>
+  </style>
+
+  <style name="Header.Big">
+    <item name="android:textSize">@dimen/textsize_header_big</item>
+  </style>
+
+  <style name="SubHeader">
+    <item name="android:lineSpacingMultiplier">1.2</item>
+    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:textColor">@color/onBackground100</item>
+    <item name="android:textSize">@dimen/textsize_header_standard</item>
+  </style>
+
+</resources>

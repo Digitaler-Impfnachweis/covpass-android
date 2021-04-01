@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/round_button_container"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:gravity="center"
+  android:minWidth="@dimen/round_button_min_size"
+  android:minHeight="@dimen/round_button_min_size"
+  tools:background="@drawable/button_round_selector"
+  tools:ignore="UseCompoundDrawables">
+
+  <ImageView
+    android:id="@+id/round_button_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="@dimen/icon_size_round_button"
+    android:minHeight="@dimen/icon_size_round_button"
+    android:adjustViewBounds="true"
+    android:src="@drawable/plus"
+    tools:ignore="ContentDescription" />
+
+</RelativeLayout>

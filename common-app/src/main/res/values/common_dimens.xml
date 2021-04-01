@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+
+
+  <!-- Grids / margins / paddings -->
+  <dimen name="grid_zero">0dp</dimen>
+  <dimen name="grid_one">8dp</dimen>
+  <dimen name="grid_two">16dp</dimen>
+  <dimen name="grid_three">24dp</dimen>
+  <dimen name="grid_four">32dp</dimen>
+  <dimen name="grid_five">40dp</dimen>
+  <dimen name="grid_six">48dp</dimen>
+  <dimen name="grid_seven">56dp</dimen>
+  <dimen name="grid_eight">64dp</dimen>
+  <dimen name="grid_nine">72dp</dimen>
+  <dimen name="grid_ten">80dp</dimen>
+  <dimen name="grid_eleven">88dp</dimen>
+  <dimen name="grid_twelve">96dp</dimen>
+  <dimen name="grid_thirteen">104dp</dimen>
+  <dimen name="grid_fourteen">112dp</dimen>
+  <dimen name="grid_fifteen">120dp</dimen>
+  <dimen name="grid_sixteen">128dp</dimen>
+  <dimen name="grid_twenty">160dp</dimen>
+  <dimen name="grid_twentytwo">200dp</dimen>
+  <dimen name="grid_thirtytwo">256dp</dimen>
+  <dimen name="grid_thirtyfive">280dp</dimen>
+  <dimen name="grid_eighth">1dp</dimen>
+  <dimen name="grid_quarter">2dp</dimen>
+  <dimen name="grid_half">4dp</dimen>
+  <dimen name="grid_one_half">12dp</dimen>
+  <dimen name="grid_two_half">20dp</dimen>
+  <dimen name="grid_three_half">28dp</dimen>
+  <dimen name="grid_four_half">36dp</dimen>
+  <dimen name="grid_seven_half">60dp</dimen>
+
+  <!-- Text sizes -->
+  <dimen name="textsize_default">14sp</dimen>
+  <dimen name="textsize_header_standard">18sp</dimen>
+  <dimen name="textsize_header_medium_big">20sp</dimen>
+  <dimen name="textsize_header_big">34sp</dimen>
+
+  <!-- Buttons -->
+  <dimen name="button_primary_padding_top_bottom">18dp</dimen>
+  <dimen name="button_min_width">180dp</dimen>
+  <dimen name="round_button_min_size">56dp</dimen>
+  <dimen name="button_size_settings">36dp</dimen>
+
+  <!-- Icons -->
+  <dimen name="icon_height_welcome_encryption">21dp</dimen>
+  <dimen name="icon_height_settings">20dp</dimen>
+  <dimen name="icon_size_round_button">14dp</dimen>
+
+  <!-- Misc -->
+  <dimen name="dots_tab_max_width">22dp</dimen>
+  <dimen name="faq_cell_height">48dp</dimen>
+
+</resources>

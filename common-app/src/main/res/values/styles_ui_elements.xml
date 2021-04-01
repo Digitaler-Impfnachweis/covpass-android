@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--
+  Button - Primary
+
+  Defines a button which can be used for primary actions. Please check examples for more details.
+
+  Examples:
+  https://ibm.invisionapp.com/d/main#/console/15357523/319528242/preview => "Anmelden"
+  https://ibm.invisionapp.com/d/main#/console/15357523/319528248/preview => "Bestätigen"
+  -->
+  <style name="PrimaryButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+    <item name="android:maxLines">1</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:paddingTop">@dimen/button_primary_padding_top_bottom</item>
+    <item name="android:paddingBottom">@dimen/button_primary_padding_top_bottom</item>
+    <item name="backgroundTint">@drawable/button_primary_background_tint</item>
+    <item name="android:textColor">@drawable/button_primary_text</item>
+    <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+    <item name="android:minWidth">@dimen/button_min_width</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
+
+  <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">100dp</item>
+  </style>
+
+  <!-- Base style for any card layout. -->
+  <style name="VaccinationCardView">
+    <item name="cardCornerRadius">@dimen/grid_two</item>
+  </style>
+
+  <!-- Base style for any card layout. -->
+  <style name="VaccinationCardView.Elevated">
+    <item name="cardElevation">@dimen/grid_half</item>
+  </style>
+
+  <!-- Base style for any card layout. -->
+  <style name="VaccinationCardView.Level">
+    <item name="cardElevation">@dimen/grid_half</item>
+  </style>
+
+</resources>

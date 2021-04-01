@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="VaccinationAppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <item name="android:colorPrimary">@color/brandAccent</item>
+    <item name="android:colorPrimaryDark">@color/brandBaseDark</item>
+    <item name="android:colorAccent">@color/brandAccent</item>
+    <item name="android:colorBackground">@color/backgroundPrimary</item>
+    <item name="colorOnBackground">@color/onBackground</item>
+    <item name="android:windowBackground">@color/backgroundPrimary</item>
+    <item name="android:textViewStyle">@style/DefaultText.Solid</item>
+    <item name="android:fontFamily">@font/font_default</item>
+    <item name="android:statusBarColor">@color/brandAccentDark</item>
+    <item name="colorPrimary">@color/brandAccent</item>
+    <item name="colorPrimaryVariant">@color/brandBaseDark</item>
+    <item name="colorOnPrimary">@color/onBrandAccent</item>
+    <item name="colorSecondary">@color/brandAccent</item>
+    <item name="colorSecondaryVariant">@color/brandAccentDark</item>
+    <item name="colorOnSecondary">@color/onBrandAccent</item>
+    <item name="colorError">@color/danger</item>
+    <item name="colorOnError">@color/onDanger</item>
+    <item name="colorSurface">@color/backgroundPrimary</item>
+    <item name="colorOnSurface">@color/onBackground</item>
+  </style>
+
+</resources>

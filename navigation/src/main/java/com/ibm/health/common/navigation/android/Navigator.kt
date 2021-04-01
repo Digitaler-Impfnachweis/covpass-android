@@ -85,17 +85,23 @@ public class Navigator internal constructor(
      * Pushes a fragment via [FragmentDestination].
      *
      * @param nav The [FragmentDestination] to be pushed to the stack and displayed.
+     *
+     * @param suppressAddToBackstack Usually it is determined automatically if the push should be added to backstack.
+     * If you want to suppress this and enforce the transaction not being added, pass true here.
      */
-    public fun push(nav: FragmentDestination) {
-        push(nav.build())
+    public fun push(nav: FragmentDestination, suppressAddToBackstack: Boolean = false) {
+        push(nav.build(), suppressAddToBackstack)
     }
 
     /**
      * Pushes a [fragment] to the back stack and displays it.
      *
      * @param fragment The `Fragment` to be pushed to the stack and displayed.
+     *
+     * @param suppressAddToBackstack Usually it is determined automatically if the push should be added to backstack.
+     * If you want to suppress this and enforce the transaction not being added, pass true here.
      */
-    public fun push(fragment: Fragment) {
+    public fun push(fragment: Fragment, suppressAddToBackstack: Boolean = false) {
         fragmentManager.beginTransaction().apply {
 
             val overlayFragment = (fragment as? OverlayNavigation)?.getModalOverlayFragment()
@@ -112,7 +118,7 @@ public class Navigator internal constructor(
 
             // For SheetPaneNavigation we always want to allow popping the back stack to remove the pane, even if this
             // is the first fragment getting pushed (e.g. when using a normal activity in combination with bottom sheet)
-            if (fragmentManager.fragments.isNotEmpty() || fragment is OverlayNavigation) {
+            if (!suppressAddToBackstack && (fragmentManager.fragments.isNotEmpty() || fragment is OverlayNavigation)) {
                 // TODO: Should StatelessNavigation ever be pushed on the back stack?
                 // This has to happen before DialogFragment.show() because show() commits the transaction.
                 addToBackStack(fragment.getTagName())

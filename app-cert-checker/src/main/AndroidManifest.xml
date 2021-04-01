@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  package="com.ibm.health.vaccination.app">
+xmlns:tools="http://schemas.android.com/tools"
+package="com.ibm.health.vaccination.app">
 
-  <application android:name=".App" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
+<uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 
-  </application>
+<application
+  android:name=".App"
+  android:icon="@mipmap/ic_launcher"
+  android:roundIcon="@mipmap/ic_launcher_round">
+
+  <activity android:name=".main.MainActivity"
+    android:screenOrientation="portrait"
+    android:theme="@style/VaccinationAppTheme">
+    <intent-filter>
+      <action android:name="android.intent.action.MAIN" />
+      <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+  </activity>
+
+</application>
 
 </manifest>

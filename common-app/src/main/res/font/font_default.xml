@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        app:font="@font/ibmplexsans_text"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <font
+        app:font="@font/ibmplexsans_semibold"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
+
+</font-family>

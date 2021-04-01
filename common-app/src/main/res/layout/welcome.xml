@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/welcome_start_button"
+    style="@style/PrimaryButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/grid_three"
+    android:text="@string/onboarding_welcome_start_button_text"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"/>
+
+  <ScrollView
+    android:id="@+id/welcome_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:layout_above="@id/welcome_start_button">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/welcome_header_textview"
+        style="@style/Header.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/grid_three"
+        android:paddingTop="@dimen/grid_six"
+        android:paddingBottom="@dimen/grid_one_half" />
+
+      <TextView
+        android:id="@+id/welcome_subheader_textview"
+        style="@style/SubHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/grid_three" />
+
+      <ImageView
+        android:id="@+id/welcome_main_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_nine"
+        android:layout_marginBottom="@dimen/grid_two"
+        android:adjustViewBounds="true"
+        tools:ignore="ContentDescription" />
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:id="@+id/welcome_encryption_header_textview"
+          style="@style/Header.Small"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="start"
+          android:layout_marginStart="@dimen/grid_nine"
+          android:layout_marginEnd="@dimen/grid_eight" />
+
+        <TextView
+          android:id="@+id/welcome_encryption_textview"
+          style="@style/DefaultText.Faint"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="start"
+          android:layout_below="@id/welcome_encryption_header_textview"
+          android:layout_alignEnd="@id/welcome_encryption_header_textview"
+          android:layout_alignStart="@id/welcome_encryption_header_textview" />
+
+        <ImageView
+          android:id="@+id/welcome_encryption_imageview"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/icon_height_welcome_encryption"
+          android:layout_marginLeft="@dimen/grid_four"
+          android:adjustViewBounds="true"
+          android:src="@drawable/lock_outline"
+          android:layout_centerVertical="true"
+          tools:ignore="ContentDescription" />
+
+      </RelativeLayout>
+
+      <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/grid_eighth"
+        android:layout_marginTop="@dimen/grid_four_half"
+        android:background="@color/onBackground20" />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</RelativeLayout>

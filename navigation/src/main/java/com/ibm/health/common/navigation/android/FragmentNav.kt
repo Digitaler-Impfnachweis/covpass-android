@@ -49,7 +49,7 @@ public interface FragmentDestination : Parcelable {
  *
  * ```kotlin
  * @Parcelize
- * class InfoDialogFragmentNav(val egaDialog: EgaDialog) : SimpleFragmentNav(InfoDialogFragment::class)
+ * class InfoDialogFragmentNav(val egaDialog: EgaDialog) : FragmentNav(InfoDialogFragment::class)
  * ```
  */
 public abstract class FragmentNav(public val cls: KClass<out Fragment>) : FragmentDestination {

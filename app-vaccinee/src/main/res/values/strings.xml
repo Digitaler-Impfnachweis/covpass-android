@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
   <string name="scanner_error_message">Cancelled</string>
-  <string name="qr_scanner_button_text">Launch the Scanner</string>
-  <string name="licenses_button_text">Show Licenses</string>
+  <string name="detail_message">Detail View</string>
+  <string name="detail_button_text">Show Detail View</string>
+
+  <string name="onboarding_welcome_header">Willkommen zum digitalen Impfnachweis</string>
+  <string name="onboarding_welcome_subheader">Einfach und sicher den eigenen Impfschutz gegen COVID-19 verwalten.</string>
+  <string name="onboarding_welcome_encryption_header">Sicher verschlüsselt</string>
+  <string name="onboarding_welcome_encryption_text">Ihre persönlichen Daten werden nur lokal auf Ihrem Handy gespeichert.</string>
+
+  <string name="onboarding_info_title_1">Laden Sie Ihre Bescheinigung nach der Impfung per QR Code einfach in die App</string>
+  <string name="onboarding_info_text_1">Sie können auch Bescheinigungen für Angehörige, Ihre Kinder und andere wichtige Personen in Ihrem Leben mit der App verwalten.</string>
+  <string name="onboarding_info_title_2">Teilen Sie bei Bedarf den Impfeintrag mit der Ärzt*in</string>
+  <string name="onboarding_info_text_2">Keine Sorge, wenn der Impfpass gerade nicht dabei ist: Einfach den Impfeintrag mit der behandelnden Ärzt*in aus der App teilen.</string>
+  <string name="onboarding_info_title_3">Den vollen Impfschutz sicher mit dem Prüfzertifikat nachweisen</string>
+  <string name="onboarding_info_text_3">Sobald Ihr Impfschutz komplett ist, können Sie einen Prüfbeleg erstellen. Dieser enthält nur die nötigsten Daten und kann z.B. bei Veranstaltungen vorgezeigt werden.</string>
+
+  <string name="main_header">Impfnachweise</string>
+  <string name="main_empty_header">Kein Nachweis hinzugefügt</string>
+  <string name="main_empty_text">Scannen Sie eine Bescheinigung mit QR Code, um hier Ihren Nachweis zu sehen</string>
+  <string name="main_empty_button_text">Nachweis hinzufügen</string>
+
 </resources>

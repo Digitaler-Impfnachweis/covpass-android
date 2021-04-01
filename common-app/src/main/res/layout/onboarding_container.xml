@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:gravity="center">
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/onboarding_continue_button"
+    style="@style/PrimaryButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginVertical="@dimen/grid_three"
+    android:text="@string/onboarding_continue_button_text" />
+
+  <com.google.android.material.tabs.TabLayout
+    android:id="@+id/onboarding_tab_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/onboarding_continue_button"
+    android:layout_centerHorizontal="true"
+    app:tabBackground="@drawable/view_pager_dot_selector"
+    app:tabIndicator="@drawable/view_pager_dot_selected"
+    app:tabIndicatorColor="@color/brandAccent"
+    app:tabIndicatorGravity="center"
+    app:tabMaxWidth="@dimen/dots_tab_max_width"
+    app:tabRippleColor="@null" />
+
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/onboarding_view_pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/onboarding_tab_layout" />
+
+</RelativeLayout>

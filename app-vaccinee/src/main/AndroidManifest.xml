@@ -12,7 +12,7 @@
 
     <activity android:name=".main.MainActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/Theme.MaterialComponents.NoActionBar">
+      android:theme="@style/VaccinationAppTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

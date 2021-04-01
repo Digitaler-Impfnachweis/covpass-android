@@ -11,6 +11,7 @@ import com.ibm.health.common.http.httpConfig
 import com.ibm.health.common.logging.Lumber
 import com.ibm.health.common.navigation.android.ActivityNavigator
 import com.ibm.health.common.navigation.android.NavigationDependencies
+import com.ibm.health.common.navigation.android.Orientation
 import com.ibm.health.common.navigation.android.navigationDeps
 import com.ibm.health.common.securityprovider.initSecurityProvider
 
@@ -32,6 +33,7 @@ public abstract class CommonApplication : Application() {
 
         navigationDeps = object : NavigationDependencies() {
             override val application: Application = this@CommonApplication
+            override val defaultScreenOrientation: Orientation = Orientation.PORTRAIT
         }
         androidDeps = object : AndroidDependencies() {
             private val activityNavigator = ActivityNavigator()

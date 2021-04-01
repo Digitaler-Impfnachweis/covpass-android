@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- START HUI general color pallet -->
+    <color name="brandBase">#064BC4</color>
+    <color name="brandBaseDark">#032868</color>
+    <color name="brandBaseLight">#4D8CFA</color>
+    <color name="brandBase10">#EBF2FE</color>
+    <color name="brandBase20">#D2E2FE</color>
+    <color name="brandBase30">#ABC8FC</color>
+    <color name="brandBase40">#7EACFB</color>
+    <color name="brandBase50">#4D8CFA</color>
+    <color name="brandBase60">#1668F8</color>
+    <color name="brandBase70">#064BC4</color>
+    <color name="brandBase80">#053B99</color>
+    <color name="brandBase90">#032868</color>
+    <color name="brandBase100">#021940</color>
+
+    <color name="brandAccent">#064CC6</color>
+    <color name="brandAccentDark">#032868</color>
+    <color name="brandAccentLight">#4D8CFA</color>
+    <color name="brandAccent10">#EBF2FE</color>
+    <color name="brandAccent20">#D2E2FE</color>
+    <color name="brandAccent30">#ABC9FC</color>
+    <color name="brandAccent40">#7EACFB</color>
+    <color name="brandAccent50">#4D8CFA</color>
+    <color name="brandAccent60">#1669F8</color>
+    <color name="brandAccent70">#064CC6</color>
+    <color name="brandAccent80">#053B99</color>
+    <color name="brandAccent90">#032868</color>
+    <color name="brandAccent100">#021940</color>
+
+    <color name="backgroundPrimary">#F9F9FB</color>
+    <color name="backgroundPrimaryDark">#CBCBDC</color>
+    <color name="backgroundPrimaryLight">#F9F9FB</color>
+    <color name="backgroundPrimary10">#F9F9FB</color>
+    <color name="backgroundPrimary20">#E3E3ED</color>
+    <color name="backgroundPrimary30">#CBCBDC</color>
+    <color name="backgroundPrimary40">#AFAFCA</color>
+    <color name="backgroundPrimary50">#9191B6</color>
+    <color name="backgroundPrimary60">#6F6F9F</color>
+    <color name="backgroundPrimary70">#52527A</color>
+    <color name="backgroundPrimary80">#3F3F5F</color>
+    <color name="backgroundPrimary90">#2B2B40</color>
+    <color name="backgroundPrimary100">#1B1B28</color>
+
+    <color name="backgroundSecondary">#FFFFFF</color>
+    <color name="backgroundSecondaryDark">#D4D4D4</color>
+    <color name="backgroundSecondaryLight">#FFFFFF</color>
+    <color name="backgroundSecondary10">#FFFFFF</color>
+    <color name="backgroundSecondary10_33">#55FFFFFF</color>
+    <color name="backgroundSecondary10_67">#ABFFFFFF</color>
+    <color name="backgroundSecondary20">#E8E8E8</color>
+    <color name="backgroundSecondary30">#D4D4D4</color>
+    <color name="backgroundSecondary40">#BDBDBD</color>
+    <color name="backgroundSecondary50">#A3A3A3</color>
+    <color name="backgroundSecondary60">#878787</color>
+    <color name="backgroundSecondary70">#666666</color>
+    <color name="backgroundSecondary80">#4F4F4F</color>
+    <color name="backgroundSecondary90">#363636</color>
+    <color name="backgroundSecondary100">#212121</color>
+
+    <color name="danger">#D62E42</color>
+    <color name="dangerDark">#841A27</color>
+    <color name="dangerLight">#E9909B</color>
+    <color name="danger10">#FCEEF0</color>
+    <color name="danger20">#F7D9DC</color>
+    <color name="danger30">#F1B7BD</color>
+    <color name="danger40">#E9909B</color>
+    <color name="danger50">#E16674</color>
+    <color name="danger60">#D62E42</color>
+    <color name="danger70">#AB2132</color>
+    <color name="danger80">#841A27</color>
+    <color name="danger90">#5A121A</color>
+    <color name="danger100">#370B10</color>
+
+    <color name="warning">#F3D34C</color>
+    <color name="warningDark">#BF9D0D</color>
+    <color name="warningLight">#FAEBAE</color>
+    <color name="warning10">#FEFAEC</color>
+    <color name="warning20">#FCF4D4</color>
+    <color name="warning30">#FAEBAE</color>
+    <color name="warning40">#F7E083</color>
+    <color name="warning50">#F3D34C</color>
+    <color name="warning60">#F0C81E</color>
+    <color name="warning70">#BF9D0D</color>
+    <color name="warning80">#947A0A</color>
+    <color name="warning90">#645207</color>
+    <color name="warning100">#3E3304</color>
+
+    <color name="success">#1D7C4E</color>
+    <color name="successDark">#0D3622</color>
+    <color name="successLight">#3DD28A</color>
+    <color name="success10">#EEFBF5</color>
+    <color name="success20">#DAF6E9</color>
+    <color name="success30">#B9EFD5</color>
+    <color name="success40">#94E6BE</color>
+    <color name="success50">#6ADCA5</color>
+    <color name="success60">#3DD28A</color>
+    <color name="success70">#27A568</color>
+    <color name="success80">#1D7C4E</color>
+    <color name="success90">#145737</color>
+    <color name="success100">#0D3622</color>
+
+    <color name="info">#065FC4</color>
+    <color name="infoDark">#033268</color>
+    <color name="infoLight">#4D9EFA</color>
+    <color name="info10">#EBF4FE</color>
+    <color name="info20">#D2E7FE</color>
+    <color name="info30">#ABD1FC</color>
+    <color name="info40">#7EB9FB</color>
+    <color name="info50">#4D9EFA</color>
+    <color name="info60">#1680F8</color>
+    <color name="info70">#065FC4</color>
+    <color name="info80">#054A99</color>
+    <color name="info90">#033268</color>
+    <color name="info100">#021F40</color>
+
+    <!-- on-colors are the recommended colors for the foreground e.g. when the background
+    is brandAccent then the foreground usually is onBrandAccent -->
+    <color name="onBrandBase">#FFFFFF</color>
+    <color name="onBrandBaseDark">#D4D4D4</color>
+    <color name="onBrandBaseLight">#FFFFFF</color>
+    <color name="onBrandBase10">#FFFFFF</color>
+    <color name="onBrandBase20">#E8E8E8</color>
+    <color name="onBrandBase30">#D4D4D4</color>
+    <color name="onBrandBase40">#BDBDBD</color>
+    <color name="onBrandBase50">#A3A3A3</color>
+    <color name="onBrandBase60">#878787</color>
+    <color name="onBrandBase70">#666666</color>
+    <color name="onBrandBase80">#4F4F4F</color>
+    <color name="onBrandBase90">#363636</color>
+    <color name="onBrandBase100">#212121</color>
+
+    <color name="onBrandAccent">#FFFFFF</color>
+    <color name="onBrandAccentDark">#D4D4D4</color>
+    <color name="onBrandAccentLight">#FFFFFF</color>
+    <color name="onBrandAccent10">#FFFFFF</color>
+    <color name="onBrandAccent20">#E8E8E8</color>
+    <color name="onBrandAccent30">#D4D4D4</color>
+    <color name="onBrandAccent40">#BDBDBD</color>
+    <color name="onBrandAccent50">#A3A3A3</color>
+    <color name="onBrandAccent60">#878787</color>
+    <color name="onBrandAccent70">#666666</color>
+    <color name="onBrandAccent80">#4F4F4F</color>
+    <color name="onBrandAccent90">#363636</color>
+    <color name="onBrandAccent100">#212121</color>
+
+    <color name="onBackground">#1C2227</color>
+    <color name="onBackgroundDark">#1C2227</color>
+    <color name="onBackgroundLight">#42505C</color>
+    <color name="onBackground10">#F3F5F6</color>
+    <color name="onBackground20">#E4E8EC</color>
+    <color name="onBackground30">#CDD4DB</color>
+    <color name="onBackground40">#B2BEC8</color>
+    <color name="onBackground50">#94A5B2</color>
+    <color name="onBackground60">#73899B</color>
+    <color name="onBackground70">#556877</color>
+    <color name="onBackground80">#42505C</color>
+    <color name="onBackground90">#2D363E</color>
+    <color name="onBackground100">#1C2227</color>
+    <color name="onBackground100_82">#D11C2227</color>
+
+    <color name="onDanger">#FFFFFF</color>
+    <color name="onDangerDark">#D4D4D4</color>
+    <color name="onDangerLight">#FFFFFF</color>
+    <color name="onDanger10">#FFFFFF</color>
+    <color name="onDanger20">#E8E8E8</color>
+    <color name="onDanger30">#D4D4D4</color>
+    <color name="onDanger40">#BDBDBD</color>
+    <color name="onDanger50">#A3A3A3</color>
+    <color name="onDanger60">#878787</color>
+    <color name="onDanger70">#666666</color>
+    <color name="onDanger80">#4F4F4F</color>
+    <color name="onDanger90">#363636</color>
+    <color name="onDanger100">#212121</color>
+
+    <color name="onWarning">#152935</color>
+    <color name="onWarningDark">#152935</color>
+    <color name="onWarningLight">#2D5871</color>
+    <color name="onWarning10">#F0F6F9</color>
+    <color name="onWarning20">#DEEBF2</color>
+    <color name="onWarning30">#C1D8E6</color>
+    <color name="onWarning40">#A0C4D9</color>
+    <color name="onWarning50">#7CADCB</color>
+    <color name="onWarning60">#5394BB</color>
+    <color name="onWarning70">#3A7192</color>
+    <color name="onWarning80">#2D5871</color>
+    <color name="onWarning90">#1E3B4D</color>
+    <color name="onWarning100">#152935</color>
+
+    <color name="onSuccess">#FFFFFF</color>
+    <color name="onSuccessDark">#D4D4D4</color>
+    <color name="onSuccessLight">#FFFFFF</color>
+    <color name="onSuccess10">#FFFFFF</color>
+    <color name="onSuccess20">#E8E8E8</color>
+    <color name="onSuccess30">#D4D4D4</color>
+    <color name="onSuccess40">#BDBDBD</color>
+    <color name="onSuccess50">#A3A3A3</color>
+    <color name="onSuccess60">#878787</color>
+    <color name="onSuccess70">#666666</color>
+    <color name="onSuccess80">#4F4F4F</color>
+    <color name="onSuccess90">#363636</color>
+    <color name="onSuccess100">#212121</color>
+
+    <color name="onInfo">#FFFFFF</color>
+    <color name="onInfoDark">#D4D4D4</color>
+    <color name="onInfoLight">#FFFFFF</color>
+    <color name="onInfo10">#FFFFFF</color>
+    <color name="onInfo20">#E8E8E8</color>
+    <color name="onInfo30">#D4D4D4</color>
+    <color name="onInfo40">#BDBDBD</color>
+    <color name="onInfo50">#A3A3A3</color>
+    <color name="onInfo60">#878787</color>
+    <color name="onInfo70">#666666</color>
+    <color name="onInfo80">#4F4F4F</color>
+    <color name="onInfo90">#363636</color>
+    <color name="onInfo100">#212121</color>
+    <!-- END HUI general color pallet -->
+
+</resources>
