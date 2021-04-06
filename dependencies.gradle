@@ -67,6 +67,8 @@ dependencies.ext.versionConstraints = {
             api 'org.opentest4j:opentest4j:1.2.0'
 
             api 'com.google.android.material:material:1.2.1'
+
+            api 'com.google.iot.cbor:cbor:0.01.01'
         }
     }
 }
@@ -218,5 +220,11 @@ dependencies.ext.kotlinxSerialization = {
     dependencies {
         api 'org.jetbrains.kotlinx:kotlinx-serialization-core'
         api 'org.jetbrains.kotlinx:kotlinx-serialization-cbor'
+    }
+}
+
+dependencies.ext.cbor = {
+    dependencies {
+        api 'com.google.iot.cbor:cbor'
     }
 }
