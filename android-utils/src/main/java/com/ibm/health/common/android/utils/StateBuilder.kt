@@ -5,58 +5,30 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.ensody.reactivestate.ErrorEvents
 import com.ensody.reactivestate.EventNotifier
-import com.ensody.reactivestate.NamespacedStateFlowStore
-import com.ensody.reactivestate.StateFlowStore
-import com.ensody.reactivestate.android.handleEvents
-import com.ensody.reactivestate.android.stateFlowStore
-import com.ensody.reactivestate.android.stateViewModel
-import kotlinx.coroutines.CoroutineScope
+import com.ensody.reactivestate.android.*
 import kotlinx.coroutines.flow.emitAll
-import kotlin.reflect.KClass
 
 /**
- * Creates a [State] wrapped in a ViewModel.
+ * Creates a [State] wrapped in a ViewModel and observes its [State.eventNotifier] and [State.isLoading].
  *
- * The `this` argument to [block] is a [StateHost] which provides a [StateHost.scope] (the [ViewModel.viewModelScope])
- * and [StateHost.stateFlowStore] and other useful properties.
- *
- * The resulting [State]'s `isLoading` and `eventNotifier` are automatically observed.
+ * The [block] has the same semantics as with [buildOnViewModel].
  */
-public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
+public inline fun <reified E : BaseEvents, reified S : State<E>, O> O.buildState(
     withLoading: IsLoading? = isLoading,
-    noinline block: StateHost.() -> S,
+    noinline block: BuildOnViewModelContext.() -> S,
 ): Lazy<S> where O : Fragment, O : ErrorEvents, O : LoadingStateHook =
-    _buildState(S::class, withLoading, block)
-
-@Suppress("FunctionName")
-public fun <E : BaseEvents, S : State<E>, O> O._buildState(
-    cls: KClass<S>,
-    withLoading: IsLoading?,
-    block: StateHost.() -> S,
-): Lazy<S> where O : Fragment, O : ErrorEvents, O : LoadingStateHook =
-    attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, withLoading, block)
+    buildOnViewModel(block).attachLazyState(owner = this, withLoading = withLoading)
 
 /**
- * Creates a [State] wrapped in a ViewModel.
+ * Creates a [State] wrapped in a ViewModel and observes its [State.eventNotifier] and [State.isLoading].
  *
- * The `this` argument to [block] is a [StateHost] which provides a [StateHost.scope] (the [ViewModel.viewModelScope])
- * and [StateHost.stateFlowStore] and other useful properties.
- *
- * The resulting [State]'s `isLoading` and `eventNotifier` are automatically observed.
+ * The [block] has the same semantics as with [buildOnViewModel].
  */
-public inline fun <E : BaseEvents, reified S : State<E>, O> O.buildState(
+public inline fun <reified E : BaseEvents, reified S : State<E>, O> O.buildState(
     withLoading: IsLoading? = isLoading,
-    noinline block: StateHost.() -> S,
+    noinline block: BuildOnViewModelContext.() -> S,
 ): Lazy<S> where O : ComponentActivity, O : ErrorEvents, O : LoadingStateHook =
-    _buildState(S::class, withLoading, block)
-
-@Suppress("FunctionName")
-public fun <E : BaseEvents, S : State<E>, O> O._buildState(
-    cls: KClass<S>,
-    withLoading: IsLoading?,
-    block: StateHost.() -> S,
-): Lazy<S> where O : ComponentActivity, O : ErrorEvents, O : LoadingStateHook =
-    attachLazyState(cls, stateViewModel { WrapperStateViewModel(it) }, withLoading, block)
+    buildOnViewModel(block).attachLazyState(owner = this, withLoading = withLoading)
 
 /**
  * Creates a child [State] and merges its [State.eventNotifier] and [State.isLoading] into the parent.
@@ -92,53 +64,13 @@ public fun <E : BaseEvents> State<out E>.mergeEventsFrom(
 }
 
 @Suppress("UNCHECKED_CAST")
-private fun <E : ErrorEvents, S : State<E>, O> O.attachLazyState(
-    cls: KClass<S>,
-    lazyViewModel: Lazy<WrapperStateViewModel>,
+public inline fun <reified E : ErrorEvents, S : State<E>, O> Lazy<S>.attachLazyState(
+    owner: O,
     withLoading: IsLoading?,
-    block: StateHost.() -> S,
 ): Lazy<S> where O : LifecycleOwner, O : ErrorEvents, O : LoadingStateHook {
-    val lazyState = lazy {
-        val viewModel = lazyViewModel.value
-        val namespace = cls.qualifiedName
-            ?: throw IllegalArgumentException("The State class has no qualified name")
-        val state = (viewModel.stateRegistry[cls] as? S)
-            ?: StateHostImpl(
-                scope = viewModel.viewModelScope,
-                stateFlowStore = NamespacedStateFlowStore(viewModel.stateFlowStore, namespace),
-            ).block()
-        viewModel.stateRegistry[cls] = state
-        state
+    owner.lifecycleScope.launchWhenCreated {
+        withLoading?.add(value.isLoading)
+        value.eventNotifier.handleEvents(owner as E, owner)
     }
-    lifecycleScope.launchWhenCreated {
-        withLoading?.add(lazyState.value.isLoading)
-        lazyState.value.eventNotifier.handleEvents(this@attachLazyState as E, this@attachLazyState)
-    }
-    return lazyState
-}
-
-/** Provides additional attributes for constructing a [State] using [buildState]. */
-public interface StateHost {
-    /** The [CoroutineScope] to use for the [State]. */
-    public val scope: CoroutineScope
-
-    /**
-     * A [StateFlowStore] backed by a [SavedStateHandle].
-     */
-    public val stateFlowStore: StateFlowStore
-}
-
-private class StateHostImpl(
-    override val scope: CoroutineScope,
-    override val stateFlowStore: StateFlowStore,
-) : StateHost
-
-/** The container [ViewModel] holding [State] instances. */
-private class WrapperStateViewModel(
-    private val savedStateHandle: SavedStateHandle,
-) : ViewModel() {
-
-    val stateFlowStore: StateFlowStore = savedStateHandle.stateFlowStore(viewModelScope)
-
-    val stateRegistry: MutableMap<KClass<*>, State<*>> = mutableMapOf()
+    return this
 }

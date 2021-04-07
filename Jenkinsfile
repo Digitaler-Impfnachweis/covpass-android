@@ -204,10 +204,6 @@ pipeline {
                     // Prevent conflicts for parallel builds
                     sh('git fetch --tags')
 
-                    // Archive mappings
-                    sh 'zip -r mappings.zip */build/outputs/mapping/'
-                    archiveArtifacts 'mappings.zip'
-
                     // Check if we have any tags to push.
                     def toPush = sh(
                         returnStdout: true,
@@ -232,6 +228,16 @@ pipeline {
 //                    }
                 }
                 finishRelease()
+            }
+        }
+        stage('Archive APK') {
+            steps {
+                script {
+                    archiveArtifacts 'app-*/**/*.apk'
+                    // Archive mappings
+                    sh 'zip -r mappings.zip */build/outputs/mapping/'
+                    archiveArtifacts 'mappings.zip'
+                }
             }
         }
     }
