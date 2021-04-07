@@ -3,13 +3,18 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.ibm.health.common.vaccination.app">
 
+  <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
+
   <application
     android:allowBackup="false"
-    android:supportsRtl="false"
     android:hardwareAccelerated="true"
+    android:supportsRtl="false"
     tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
     tools:replace="android:allowBackup, android:supportsRtl">
 
+    <activity
+      android:name="com.ibm.health.common.vaccination.app.scanner.QRScannerActivity"
+      android:theme="@style/VaccinationAppTheme" />
 
   </application>
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <com.journeyapps.barcodescanner.DecoratedBarcodeView
+    android:id="@+id/zxing_barcode_scanner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
+
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.57"
+    android:background="@color/scanner_overlay"
+    tools:ignore="ContentDescription" />
+
+  <TextView
+    style="@style/Header.Small"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="@dimen/grid_thirteen"
+    android:background="@drawable/button_label"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/grid_one_half"
+    android:paddingVertical="@dimen/grid_half"
+    android:text="@string/scan_code_label_text"
+    android:textColor="@color/backgroundPrimary20" />
+
+  <View
+    android:id="@+id/scanner_laser_line"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_quarter"
+    android:layout_centerVertical="true"
+    android:background="@color/info"
+    tools:ignore="ContentDescription" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eleven"
+    android:layout_above="@+id/scanner_laser_line"
+    android:layout_centerVertical="true"
+    android:background="@drawable/common_gradient_scanner_line"
+    tools:ignore="ContentDescription" />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_fourteen"
+    android:layout_alignParentBottom="true"
+    android:background="@color/backgroundPrimary">
+
+    <ImageButton
+      android:id="@+id/scanner_back_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:padding="@dimen/grid_three"
+      android:src="@drawable/common_back_arrow"
+      tools:ignore="ContentDescription" />
+
+    <com.ibm.health.common.vaccination.app.uielements.RoundImageButton
+      android:id="@+id/scanner_close_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      app:round_button_background="@drawable/button_round_disabled"
+      app:round_button_icon="@drawable/common_ic_close" />
+  </RelativeLayout>
+
+</RelativeLayout>

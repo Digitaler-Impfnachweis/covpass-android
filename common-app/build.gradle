@@ -6,4 +6,5 @@ dependencies {
     cryptographic()
     kotlinxSerialization()
     androidUI()
+    zxing()
 }

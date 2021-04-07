@@ -13,6 +13,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
+import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
 import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.MainBinding
 import com.ibm.health.vaccination.app.detail.DetailFragmentNav
@@ -55,6 +56,7 @@ internal class MainFragment : BaseFragment() {
 
     private fun launchScanner() {
         IntentIntegrator(requireActivity()).run {
+            captureActivity = QRScannerActivity::class.java
             setOrientationLocked(false)
             setPrompt("")
             setBeepEnabled(false)

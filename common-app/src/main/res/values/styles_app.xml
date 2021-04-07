@@ -22,5 +22,4 @@
     <item name="colorSurface">@color/backgroundPrimary</item>
     <item name="colorOnSurface">@color/onBackground</item>
   </style>
-
 </resources>

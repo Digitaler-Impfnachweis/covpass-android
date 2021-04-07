@@ -10,4 +10,6 @@
   <string name="faq_get_qr_code"><a href="http://www.bing.com">Woher bekomme ich einen QR Code?</a></string>
   <string name="faq_data_usage"><a href="http://www.amazon.com">Was passiert mit meinen Daten?</a></string>
 
+  <string name="scan_code_label_text">Scanne Code …</string>
+
 </resources>

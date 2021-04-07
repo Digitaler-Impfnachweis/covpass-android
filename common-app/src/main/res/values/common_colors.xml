@@ -218,4 +218,6 @@
     <color name="onInfo100">#212121</color>
     <!-- END HUI general color pallet -->
 
+    <color name="scanner_overlay">#000000</color>
+
 </resources>
