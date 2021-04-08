@@ -12,4 +12,6 @@
 
   <string name="scan_code_label_text">Scanne Code …</string>
 
+  <string name="covid_header">Covid-19</string>
+
 </resources>

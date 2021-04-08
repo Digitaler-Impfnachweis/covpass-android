@@ -57,13 +57,14 @@ internal class MainFragment : BaseFragment() {
                 Storage.setQrContent(it.contents)
                 binding.mainEmptyCardview.isVisible = false
                 binding.mainViewPagerContainer.isVisible = true
-                fragmentStateAdapter.addFragment(CertificateFragment())
-                fragmentStateAdapter.addFragment(CertificateFragment())
+                // FIXME this is just a provisionally implementation
+                fragmentStateAdapter.addFragment(CertificateFragmentNav(true).build())
+                fragmentStateAdapter.addFragment(CertificateFragmentNav(false).build())
             }
         } ?: super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun launchScanner() {
+    fun launchScanner() {
         IntentIntegrator(requireActivity()).run {
             captureActivity = QRScannerActivity::class.java
             setOrientationLocked(false)

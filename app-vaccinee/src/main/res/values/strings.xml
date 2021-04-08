@@ -21,4 +21,6 @@
   <string name="main_empty_text">Scannen Sie eine Bescheinigung mit QR Code, um hier Ihren Nachweis zu sehen</string>
   <string name="main_empty_button_text">Nachweis hinzufügen</string>
 
+  <string name="certificate_add_button_text">2. Impfung hinzufügen</string>
+
 </resources>
