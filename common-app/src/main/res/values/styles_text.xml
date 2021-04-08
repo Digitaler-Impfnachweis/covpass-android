@@ -7,33 +7,56 @@
     <item name="android:textSize">@dimen/textsize_default</item>
   </style>
 
-  <style name="DefaultText.Solid">
+  <style name="DefaultText.OnBackground">
     <item name="android:textColor">@color/onBackground</item>
   </style>
 
-  <style name="DefaultText.Faint">
+  <style name="DefaultText.OnBackground70">
     <item name="android:textColor">@color/onBackground70</item>
+  </style>
+
+  <style name="DefaultText.OnInfo">
+    <item name="android:textColor">@color/onInfo</item>
   </style>
 
   <style name="Header">
     <item name="android:lineSpacingMultiplier">1.2</item>
     <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+  </style>
+
+  <style name="Header.OnBackground">
     <item name="android:textColor">@color/onBackground100</item>
   </style>
 
-  <style name="Header.Small">
+  <style name="Header.OnInfo">
+    <item name="android:textColor">@color/onInfo</item>
+  </style>
+
+  <style name="Header.OnBackground.Small">
     <item name="android:textSize">@dimen/textsize_default</item>
   </style>
 
-  <style name="Header.Standard">
+  <style name="Header.OnBackground.Standard">
     <item name="android:textSize">@dimen/textsize_header_standard</item>
   </style>
 
-  <style name="Header.MediumBig">
+  <style name="Header.OnBackground.MediumBig">
     <item name="android:textSize">@dimen/textsize_header_medium_big</item>
   </style>
 
-  <style name="Header.Big">
+  <style name="Header.OnBackground.Extralarge">
+    <item name="android:textSize">@dimen/textsize_header_extralarge</item>
+  </style>
+
+  <style name="Header.OnInfo.Small">
+    <item name="android:textSize">@dimen/textsize_default</item>
+  </style>
+
+  <style name="Header.OnInfo.Standard">
+    <item name="android:textSize">@dimen/textsize_header_standard</item>
+  </style>
+
+  <style name="Header.OnInfo.Big">
     <item name="android:textSize">@dimen/textsize_header_big</item>
   </style>
 

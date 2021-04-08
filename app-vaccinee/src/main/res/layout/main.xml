@@ -12,7 +12,7 @@
 
     <TextView
       android:id="@+id/main_header_textview"
-      style="@style/Header.Big"
+      style="@style/Header.OnBackground.Extralarge"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
@@ -34,74 +34,110 @@
       android:padding="@dimen/grid_one"
       android:adjustViewBounds="true"
       android:scaleType="fitCenter"
+      android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:src="@drawable/settings"
       tools:ignore="ContentDescription" />
 
-    <com.google.android.material.card.MaterialCardView
-      android:id="@+id/main_cardview"
-      style="@style/VaccinationCardView"
+    <FrameLayout
+      android:id="@+id/main_cardview_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/main_header_textview"
-      android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_four_half"
-      app:cardBackgroundColor="@color/onBackground20">
+      android:layout_marginTop="@dimen/grid_three_half">
+
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/main_empty_cardview"
+        style="@style/VaccinationCardView.Level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_one"
+        app:cardBackgroundColor="@color/onBackground20">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <ImageView
+            android:id="@+id/main_empty_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/icon_height_main_empty"
+            android:layout_marginTop="@dimen/grid_eight"
+            android:adjustViewBounds="true"
+            android:src="@drawable/empty_state_vaccination"
+            tools:ignore="ContentDescription" />
+
+          <TextView
+            android:id="@+id/main_empty_header_textview"
+            style="@style/Header.OnBackground.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_six"
+            android:layout_marginTop="@dimen/grid_one_half"
+            android:gravity="center_horizontal"
+            android:text="@string/main_empty_header" />
+
+          <TextView
+            android:id="@+id/main_empty_textview"
+            style="@style/DefaultText.OnBackground70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_six"
+            android:gravity="center_horizontal"
+            android:text="@string/main_empty_text" />
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/main_empty_button"
+            style="@style/PrimaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_six"
+            android:layout_marginBottom="@dimen/grid_three"
+            android:text="@string/main_empty_button_text" />
+
+        </LinearLayout>
+
+      </com.google.android.material.card.MaterialCardView>
 
       <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/main_view_pager_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/grid_two"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <ImageView
-          android:id="@+id/main_empty_imageview"
-          android:layout_width="wrap_content"
-          android:layout_height="@dimen/icon_height_main_empty"
-          android:layout_marginTop="@dimen/grid_eight"
-          android:adjustViewBounds="true"
-          android:src="@drawable/empty_state_vaccination"
-          tools:ignore="ContentDescription" />
+        <androidx.viewpager2.widget.ViewPager2
+          android:id="@+id/main_view_pager"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
 
-        <TextView
-          android:id="@+id/main_empty_header_textview"
-          style="@style/Header.Small"
+        <com.google.android.material.tabs.TabLayout
+          android:id="@+id/main_tab_layout"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_six"
-          android:layout_marginTop="@dimen/grid_one_half"
-          android:gravity="center_horizontal"
-          android:text="@string/main_empty_header" />
-
-        <TextView
-          android:id="@+id/main_empty_textview"
-          style="@style/DefaultText.Faint"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_six"
-          android:gravity="center_horizontal"
-          android:text="@string/main_empty_text" />
-
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/main_empty_button"
-          style="@style/PrimaryButton"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/grid_three"
-          android:layout_marginTop="@dimen/grid_six"
-          android:text="@string/main_empty_button_text" />
+          app:tabBackground="@drawable/view_pager_dot_selector"
+          app:tabIndicator="@drawable/view_pager_dot_selected"
+          app:tabIndicatorColor="@color/brandAccent"
+          app:tabIndicatorGravity="center"
+          app:tabMaxWidth="@dimen/dots_tab_max_width"
+          app:tabRippleColor="@null" />
 
       </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
     <TextView
       android:id="@+id/main_faq_header_textview"
-      style="@style/Header.MediumBig"
+      style="@style/Header.OnBackground.MediumBig"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/main_cardview"
+      android:layout_below="@id/main_cardview_container"
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginBottom="@dimen/grid_two"
       android:gravity="start"
@@ -110,7 +146,7 @@
 
     <TextView
       android:id="@+id/main_faq_show_all_textview"
-      style="@style/Header.Small"
+      style="@style/Header.OnBackground.Small"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignBottom="@id/main_faq_header_textview"
@@ -125,16 +161,17 @@
 
     <TextView
       android:id="@+id/main_faq_use_cert_textview"
-      style="@style/Header.Small"
+      style="@style/Header.OnBackground.Small"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/faq_cell_height"
+      android:layout_height="wrap_content"
+      android:paddingVertical="@dimen/grid_one_half"
       android:layout_below="@id/main_faq_header_textview"
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginEnd="@dimen/grid_four"
       android:gravity="center_vertical"
       android:text="@string/faq_use_cert"
       android:textColorLink="@color/onBackground"
-      app:drawableEndCompat="@drawable/arrow_right" />
+      app:drawableEndCompat="@drawable/arrow_right_blue" />
 
     <View
       android:id="@+id/main_faq_use_cert_divider"
@@ -145,16 +182,17 @@
 
     <TextView
       android:id="@+id/main_faq_get_qr_code_textview"
-      style="@style/Header.Small"
+      style="@style/Header.OnBackground.Small"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/faq_cell_height"
+      android:layout_height="wrap_content"
+      android:paddingVertical="@dimen/grid_one_half"
       android:layout_below="@id/main_faq_use_cert_divider"
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginEnd="@dimen/grid_four"
       android:gravity="center_vertical"
       android:text="@string/faq_get_qr_code"
       android:textColorLink="@color/onBackground"
-      app:drawableEndCompat="@drawable/arrow_right" />
+      app:drawableEndCompat="@drawable/arrow_right_blue" />
 
     <View
       android:id="@+id/main_faq_get_qr_code_divider"
@@ -165,16 +203,17 @@
 
     <TextView
       android:id="@+id/main_faq_data_usage_textview"
-      style="@style/Header.Small"
+      style="@style/Header.OnBackground.Small"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/faq_cell_height"
+      android:layout_height="wrap_content"
+      android:paddingVertical="@dimen/grid_one_half"
       android:layout_below="@id/main_faq_get_qr_code_divider"
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginEnd="@dimen/grid_four"
       android:gravity="center_vertical"
       android:text="@string/faq_data_usage"
       android:textColorLink="@color/onBackground"
-      app:drawableEndCompat="@drawable/arrow_right" />
+      app:drawableEndCompat="@drawable/arrow_right_blue" />
 
     <View
       android:id="@+id/main_faq_data_usage_divider"
@@ -191,20 +230,6 @@
       android:layout_centerHorizontal="true"
       android:layout_marginVertical="@dimen/grid_three"
       app:round_button_icon="@drawable/plus" />
-
-    <Button
-      android:id="@+id/detail_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/detail_button_text"
-      android:layout_below="@id/main_add_button"/>
-
-    <ImageView
-      android:id="@+id/qr_code_image_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:adjustViewBounds="true"
-      tools:ignore="ContentDescription" />
 
   </RelativeLayout>
 

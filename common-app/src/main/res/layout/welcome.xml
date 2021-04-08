@@ -28,7 +28,7 @@
 
       <TextView
         android:id="@+id/welcome_header_textview"
-        style="@style/Header.Big"
+        style="@style/Header.OnBackground.Extralarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/grid_three"
@@ -57,7 +57,7 @@
 
         <TextView
           android:id="@+id/welcome_encryption_header_textview"
-          style="@style/Header.Small"
+          style="@style/Header.OnBackground.Small"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="start"
@@ -66,7 +66,7 @@
 
         <TextView
           android:id="@+id/welcome_encryption_textview"
-          style="@style/DefaultText.Faint"
+          style="@style/DefaultText.OnBackground70"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="start"

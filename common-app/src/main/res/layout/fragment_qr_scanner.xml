@@ -19,7 +19,7 @@
     tools:ignore="ContentDescription" />
 
   <TextView
-    style="@style/Header.Small"
+    style="@style/Header.OnBackground.Small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
@@ -58,8 +58,10 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
+      android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
       android:background="?attr/selectableItemBackgroundBorderless"
-      android:padding="@dimen/grid_three"
+      android:padding="@dimen/grid_one"
+      android:layout_margin="@dimen/grid_two"
       android:src="@drawable/common_back_arrow"
       tools:ignore="ContentDescription" />
 

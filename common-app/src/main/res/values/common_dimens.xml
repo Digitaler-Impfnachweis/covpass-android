@@ -37,21 +37,25 @@
   <dimen name="textsize_default">14sp</dimen>
   <dimen name="textsize_header_standard">18sp</dimen>
   <dimen name="textsize_header_medium_big">20sp</dimen>
-  <dimen name="textsize_header_big">34sp</dimen>
+  <dimen name="textsize_header_big">28sp</dimen>
+  <dimen name="textsize_header_extralarge">34sp</dimen>
 
   <!-- Buttons -->
   <dimen name="button_primary_padding_top_bottom">18dp</dimen>
   <dimen name="button_min_width">180dp</dimen>
   <dimen name="round_button_min_size">56dp</dimen>
   <dimen name="button_size_settings">36dp</dimen>
+  <dimen name="button_size_favorite">40dp</dimen>
+  <dimen name="button_size_vaccination_status">32dp</dimen>
 
   <!-- Icons -->
   <dimen name="icon_height_welcome_encryption">21dp</dimen>
   <dimen name="icon_height_settings">20dp</dimen>
+  <dimen name="icon_height_arrow">15dp</dimen>
   <dimen name="icon_size_round_button">14dp</dimen>
 
   <!-- Misc -->
   <dimen name="dots_tab_max_width">22dp</dimen>
-  <dimen name="faq_cell_height">48dp</dimen>
+  <dimen name="elevation">4dp</dimen>
 
 </resources>

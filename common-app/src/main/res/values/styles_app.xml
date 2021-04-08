@@ -8,7 +8,7 @@
     <item name="android:colorBackground">@color/backgroundPrimary</item>
     <item name="colorOnBackground">@color/onBackground</item>
     <item name="android:windowBackground">@color/backgroundPrimary</item>
-    <item name="android:textViewStyle">@style/DefaultText.Solid</item>
+    <item name="android:textViewStyle">@style/DefaultText.OnBackground</item>
     <item name="android:fontFamily">@font/font_default</item>
     <item name="android:statusBarColor">@color/brandAccentDark</item>
     <item name="colorPrimary">@color/brandAccent</item>
@@ -22,4 +22,9 @@
     <item name="colorSurface">@color/backgroundPrimary</item>
     <item name="colorOnSurface">@color/onBackground</item>
   </style>
+
+  <style name="VaccinationAppTheme.DarkControlHighlight">
+    <item name="colorControlHighlight">@color/brandAccent40</item>
+  </style>
+
 </resources>

@@ -29,19 +29,16 @@
     <item name="cornerSize">100dp</item>
   </style>
 
-  <!-- Base style for any card layout. -->
   <style name="VaccinationCardView">
     <item name="cardCornerRadius">@dimen/grid_two</item>
   </style>
 
-  <!-- Base style for any card layout. -->
   <style name="VaccinationCardView.Elevated">
-    <item name="cardElevation">@dimen/grid_half</item>
+    <item name="cardElevation">@dimen/elevation</item>
   </style>
 
-  <!-- Base style for any card layout. -->
   <style name="VaccinationCardView.Level">
-    <item name="cardElevation">@dimen/grid_half</item>
+    <item name="cardElevation">0dp</item>
   </style>
 
 </resources>
