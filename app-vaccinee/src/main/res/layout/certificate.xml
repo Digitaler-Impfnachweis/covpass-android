@@ -38,14 +38,13 @@
 
         <ImageButton
           android:id="@+id/certificate_favorite_button"
-          android:layout_width="@dimen/button_size_favorite"
-          android:layout_height="@dimen/button_size_favorite"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:layout_alignParentEnd="true"
           android:layout_centerInParent="true"
           android:adjustViewBounds="true"
           android:background="?attr/selectableItemBackgroundBorderless"
           android:padding="@dimen/grid_one"
-          android:scaleType="fitCenter"
           tools:ignore="ContentDescription" />
 
       </RelativeLayout>
@@ -69,8 +68,8 @@
 
         <ImageView
           android:id="@+id/certificate_vaccination_status_imageview"
-          android:layout_width="@dimen/button_size_vaccination_status"
-          android:layout_height="@dimen/button_size_vaccination_status"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:layout_alignParentStart="true"
           android:layout_centerInParent="true"
           android:adjustViewBounds="true"
@@ -102,7 +101,7 @@
         <ImageView
           android:id="@+id/certificate_arrow_imageview"
           android:layout_width="wrap_content"
-          android:layout_height="@dimen/icon_height_arrow"
+          android:layout_height="wrap_content"
           android:layout_alignParentEnd="true"
           android:layout_centerInParent="true"
           android:adjustViewBounds="true"
@@ -143,7 +142,7 @@
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/certificate_add_button"
-          style="@style/PrimaryButton"
+          style="@style/PrimaryButton.Dark"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/grid_five"

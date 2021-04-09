@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
-
-  <!-- Icons -->
-  <dimen name="icon_height_main_empty">80dp</dimen>
-
-</resources>

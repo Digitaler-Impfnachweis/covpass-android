@@ -7,7 +7,7 @@
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/onboarding_continue_button"
-    style="@style/PrimaryButton"
+    style="@style/PrimaryButton.Dark"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"

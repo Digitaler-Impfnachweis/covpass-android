@@ -6,7 +6,7 @@
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/welcome_start_button"
-    style="@style/PrimaryButton"
+    style="@style/PrimaryButton.Dark"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/grid_three"
@@ -77,7 +77,7 @@
         <ImageView
           android:id="@+id/welcome_encryption_imageview"
           android:layout_width="wrap_content"
-          android:layout_height="@dimen/icon_height_welcome_encryption"
+          android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/grid_four"
           android:adjustViewBounds="true"
           android:src="@drawable/lock_outline"

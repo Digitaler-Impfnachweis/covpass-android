@@ -20,6 +20,7 @@
   <dimen name="grid_fourteen">112dp</dimen>
   <dimen name="grid_fifteen">120dp</dimen>
   <dimen name="grid_sixteen">128dp</dimen>
+  <dimen name="grid_eightteen">144dp</dimen>
   <dimen name="grid_twenty">160dp</dimen>
   <dimen name="grid_twentytwo">200dp</dimen>
   <dimen name="grid_thirtytwo">256dp</dimen>
@@ -44,14 +45,8 @@
   <dimen name="button_primary_padding_top_bottom">18dp</dimen>
   <dimen name="button_min_width">180dp</dimen>
   <dimen name="round_button_min_size">56dp</dimen>
-  <dimen name="button_size_settings">36dp</dimen>
-  <dimen name="button_size_favorite">40dp</dimen>
-  <dimen name="button_size_vaccination_status">32dp</dimen>
 
   <!-- Icons -->
-  <dimen name="icon_height_welcome_encryption">21dp</dimen>
-  <dimen name="icon_height_settings">20dp</dimen>
-  <dimen name="icon_height_arrow">15dp</dimen>
   <dimen name="icon_size_round_button">14dp</dimen>
 
   <!-- Misc -->

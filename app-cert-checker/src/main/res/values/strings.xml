@@ -2,6 +2,8 @@
 <resources>
   <string name="app_name">Impfprüfer</string>
 
+  <string name="scanner_error_message">Cancelled</string>
+
   <string name="onboarding_welcome_header">Willkommen zur Prüf-App für digitale Impfnachweise</string>
   <string name="onboarding_welcome_subheader">Schnell und datensicher die Gültigkeit eines Impfnachweises prüfen.</string>
   <string name="onboarding_welcome_encryption_header">Sicherer Datenaustausch</string>
@@ -11,4 +13,14 @@
   <string name="onboarding_info_text_1">Einfach mit Ihrer Smartphone-Kamera den QR-Code eines Impfnachweises scannen und Gültigkeit überprüfen.</string>
   <string name="onboarding_info_title_2">Scannen Sie auch offline</string>
   <string name="onboarding_info_text_2">Einfach mit dem Internet verbinden und die App synchronisieren lassen. So können Sie auch Offline-Zeiten überbrücken.</string>
+
+  <string name="main_header">Prüf-App</string>
+  <string name="main_check_cert_header">Nachweis prüfen</string>
+  <string name="main_check_cert_info">Scannen Sie den QR Code eines Prüfzertifikats</string>
+  <string name="main_check_cert_button_text">QR Code scannen</string>
+  <string name="main_availability_header">Offline-Verfügbarkeit</string>
+  <string name="main_availability_info">Verbinden Sie Ihr Telefon mit dem Internet, um die Prüfeinträge zu aktualisieren.</string>
+  <string name="main_availability_status">Ihre Prüfeinträge sind aktuell</string>
+  <string name="main_availability_last_update">Letztes Update: %1$s</string>
+
 </resources>

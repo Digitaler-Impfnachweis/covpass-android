@@ -17,7 +17,7 @@ import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
 import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
 import com.ibm.health.vaccination.app.R
-import com.ibm.health.vaccination.app.databinding.MainBinding
+import com.ibm.health.vaccination.app.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.storage.Storage
 import kotlinx.parcelize.Parcelize
 
@@ -26,7 +26,7 @@ class MainFragmentNav : FragmentNav(MainFragment::class)
 
 internal class MainFragment : BaseFragment() {
 
-    private val binding by viewBinding(MainBinding::inflate)
+    private val binding by viewBinding(VaccineeMainBinding::inflate)
     private lateinit var fragmentStateAdapter: CertificateFragmentStateAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
