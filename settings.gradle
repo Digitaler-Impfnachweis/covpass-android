@@ -2,7 +2,6 @@ rootProject.name = 'android-vaccination-app'
 
 // SDK modules
 include ':dependency-versions-bom'
-include ':sdk-core'
 include ':sdk-android'
 
 // SDK utils

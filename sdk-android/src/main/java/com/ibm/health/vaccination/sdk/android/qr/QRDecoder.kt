@@ -1,8 +1,9 @@
-package com.ibm.health.vaccination.sdk.android.qr.decode
+package com.ibm.health.vaccination.sdk.android.qr
 
 import com.ibm.health.common.base45.Base45
-import com.ibm.health.vaccination.sdk.android.qr.decode.models.CoseSign1
-import com.ibm.health.vaccination.sdk.android.qr.decode.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cose.CoseSign1
+import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.zlib.Zlib
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray

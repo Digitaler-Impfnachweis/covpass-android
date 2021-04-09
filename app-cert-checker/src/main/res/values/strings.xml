@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="app_name">Impfprüfer</string>
+
   <string name="onboarding_welcome_header">Willkommen zur Prüf-App für digitale Impfnachweise</string>
   <string name="onboarding_welcome_subheader">Schnell und datensicher die Gültigkeit eines Impfnachweises prüfen.</string>
   <string name="onboarding_welcome_encryption_header">Sicherer Datenaustausch</string>

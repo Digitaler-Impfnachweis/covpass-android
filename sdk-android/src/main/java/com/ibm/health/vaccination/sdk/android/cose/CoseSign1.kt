@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.qr.decode.models
+package com.ibm.health.vaccination.sdk.android.cose
 
 import com.google.iot.cbor.CborArray
 import com.google.iot.cbor.CborObject

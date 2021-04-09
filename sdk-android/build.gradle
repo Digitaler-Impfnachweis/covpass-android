@@ -1,7 +1,7 @@
 apply plugin: 'kotlinx-serialization'
 
 dependencies {
-    api project(":sdk-core")
+    api project(":base45")
     api project(":logging")
     kotlinxSerialization()
     cbor()

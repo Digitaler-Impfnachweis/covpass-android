@@ -3,6 +3,7 @@ package com.ibm.health.vaccination.sdk.android.qr.decode
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
+import com.ibm.health.vaccination.sdk.android.qr.QRDecoder
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.junit.Test
 

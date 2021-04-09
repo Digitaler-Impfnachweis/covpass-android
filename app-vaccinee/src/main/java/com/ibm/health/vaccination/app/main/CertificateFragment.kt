@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.google.zxing.BarcodeFormat
 import com.ibm.health.common.android.utils.viewBinding
@@ -16,12 +17,11 @@ import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.CertificateBinding
 import com.ibm.health.vaccination.app.detail.DetailFragmentNav
 import com.ibm.health.vaccination.app.storage.Storage
-import com.ibm.health.vaccination.sdk.android.qr.decode.QRDecoder
-import com.ibm.health.vaccination.sdk.android.qr.decode.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.qr.QRDecoder
+import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.ExperimentalSerializationApi
-import java.lang.IllegalStateException
 
 @Parcelize
 // FIXME this is just a provisionally implementation
@@ -92,8 +92,7 @@ internal class CertificateFragment : BaseFragment() {
             if (incomplete) R.drawable.vaccination_status_incomplete else R.drawable.vaccination_status_complete
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
-        val qrVisibility = if (incomplete) View.INVISIBLE else View.VISIBLE
-        binding.certificateQrCardview.visibility = qrVisibility
+        binding.certificateQrCardview.isInvisible = incomplete
 
         if (!incomplete) {
             generateQRCode()

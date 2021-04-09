@@ -7,7 +7,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.vaccination.app.databinding.DetailBinding
 import com.ibm.health.vaccination.app.storage.Storage
-import com.ibm.health.vaccination.sdk.android.qr.decode.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
 import kotlinx.parcelize.Parcelize
 import java.lang.IllegalStateException
 

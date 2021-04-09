@@ -1,6 +1,7 @@
 @file:UseSerializers(LocalDateSerializer::class, SexSerializer::class)
-package com.ibm.health.vaccination.sdk.android.qr.decode.models
+package com.ibm.health.vaccination.sdk.android.qr.models
 
+import com.ibm.health.vaccination.sdk.android.serialization.LocalDateSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.time.LocalDate

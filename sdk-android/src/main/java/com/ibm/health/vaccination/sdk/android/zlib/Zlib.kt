@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.qr.decode
+package com.ibm.health.vaccination.sdk.android.zlib
 
 import java.io.ByteArrayOutputStream
 import java.util.zip.Deflater

@@ -2,7 +2,7 @@ package com.ibm.health.vaccination.app.storage
 
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.vaccination.app.EncryptedKeyValueStore
-import com.ibm.health.vaccination.sdk.android.qr.decode.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
 
 object Storage {
 
