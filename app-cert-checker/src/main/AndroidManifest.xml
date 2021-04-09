@@ -3,8 +3,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.ibm.health.vaccination.app">
 
-  <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
-
   <application
     android:name=".App"
     android:icon="@mipmap/ic_launcher"
