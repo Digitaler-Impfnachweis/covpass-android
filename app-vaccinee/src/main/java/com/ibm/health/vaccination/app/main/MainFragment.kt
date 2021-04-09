@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -67,6 +68,9 @@ internal class MainFragment : BaseFragment() {
     fun launchScanner() {
         IntentIntegrator(requireActivity()).run {
             captureActivity = QRScannerActivity::class.java
+            setDesiredBarcodeFormats(
+                listOf(BarcodeFormat.QR_CODE.name, BarcodeFormat.DATA_MATRIX.name, BarcodeFormat.AZTEC.name)
+            )
             setOrientationLocked(false)
             setPrompt("")
             setBeepEnabled(false)
