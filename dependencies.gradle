@@ -204,11 +204,8 @@ dependencies.ext.threeten = {
 
 dependencies.ext.zxing = {
     dependencies {
-        // FIXME/XXX: From zxing-android-embedded's version 4.x, only Android SDK 24+ is supported by default.
-        //  Our minVersion = 23, so For Android SDK versions < 24, we should downgrade zxing:core to 3.3.0
-        //  inside zxing-android-embedded lib. To do it we use { transitive = false }.
-        api ('com.journeyapps:zxing-android-embedded:4.2.0') { transitive = false }
-        api 'com.google.zxing:core:3.3.3'
+        api 'com.journeyapps:zxing-android-embedded:4.2.0'
+        api 'com.google.zxing:core:3.4.1'
     }
 }
 
