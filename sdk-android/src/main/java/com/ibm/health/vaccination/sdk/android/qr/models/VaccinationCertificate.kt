@@ -14,7 +14,7 @@ public data class VaccinationCertificate(
     val name: String = "",
     val birthDate: LocalDate? = null,
     val identifier: String = "",
-    val sex: Sex?,
+    val sex: Sex? = null,
     val vaccination: List<Vaccination> = emptyList(),
     val issuer: String = "",
     val id: String = "",
