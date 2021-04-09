@@ -6,20 +6,20 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.ensody.reactivestate.dispatchers
 import com.google.zxing.BarcodeFormat
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.vaccination.app.BaseFragment
-import com.ibm.health.common.vaccination.app.handleError
 import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.CertificateBinding
 import com.ibm.health.vaccination.app.detail.DetailFragmentNav
 import com.ibm.health.vaccination.app.storage.Storage
 import com.ibm.health.vaccination.sdk.android.qr.QRDecoder
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.ExperimentalSerializationApi
 
@@ -30,27 +30,22 @@ class CertificateFragmentNav(val demoIncompleteCertificate: Boolean) : FragmentN
 internal class CertificateFragment : BaseFragment() {
 
     private val binding by viewBinding(CertificateBinding::inflate)
-    private lateinit var qrContent: String
-    private lateinit var vaccinationCertificate: VaccinationCertificate
 
     @ExperimentalSerializationApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // FIXME this is just a provisionally implementation
-        Storage.getQrContent()?.let {
-            qrContent = it
-        } ?: run {
-            throw IllegalStateException()
-        }
-        try {
-            vaccinationCertificate = QRDecoder().decode(qrContent)
-        } catch (throwable: Throwable) {
-            handleError(throwable, childFragmentManager)
-        }
-        Storage.setVaccinationCertificate(vaccinationCertificate)
-
         val incomplete = getArgs<CertificateFragmentNav>().demoIncompleteCertificate
+
+        // FIXME this is just a provisional implementation
+        launchWhenStarted {
+            val qrContent = Storage.getQrContent() ?: throw IllegalStateException()
+            if (!incomplete) {
+                generateQRCode(qrContent)
+            }
+            val vaccinationCertificate = QRDecoder().decode(qrContent)
+            Storage.setVaccinationCertificate(vaccinationCertificate)
+        }
 
         val textColor = if (incomplete) R.color.onBackground else R.color.onInfo
         context?.let {
@@ -94,23 +89,21 @@ internal class CertificateFragment : BaseFragment() {
 
         binding.certificateQrCardview.isInvisible = incomplete
 
-        if (!incomplete) {
-            generateQRCode()
-        }
-
         binding.certificateAddButton.isVisible = incomplete
         binding.certificateAddButton.setOnClickListener { (parentFragment as? MainFragment)?.launchScanner() }
     }
 
-    private fun generateQRCode() {
+    private suspend fun generateQRCode(qrContent: String) {
         // FIXME replace this with the simplified validation certificate
         try {
-            val bitmap = BarcodeEncoder().encodeBitmap(
-                qrContent,
-                BarcodeFormat.QR_CODE,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.widthPixels
-            )
+            val bitmap = dispatchers.default {
+                BarcodeEncoder().encodeBitmap(
+                    qrContent,
+                    BarcodeFormat.QR_CODE,
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.widthPixels
+                )
+            }
             binding.certificateQrImageview.setImageBitmap(bitmap)
         } catch (e: Exception) {
             // FIXME handle error

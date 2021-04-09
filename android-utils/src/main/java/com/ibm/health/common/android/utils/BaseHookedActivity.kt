@@ -5,7 +5,10 @@ import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.ensody.reactivestate.withErrorReporting
+import kotlinx.coroutines.CoroutineScope
 
 /** Base class that comes with hook support. */
 public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
@@ -34,5 +37,19 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    public open fun launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
+        lifecycleScope.launchWhenStarted {
+            withErrorReporting(::onError) {
+                block()
+            }
+        }
+    }
+
+    public open fun withErrorReporting(block: () -> Unit) {
+        withErrorReporting(::onError) {
+            block()
+        }
     }
 }
