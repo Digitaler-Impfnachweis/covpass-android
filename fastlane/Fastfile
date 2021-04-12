@@ -1,0 +1,37 @@
+opt_out_usage
+default_platform(:android)
+
+platform :android do
+  lane :get_latest_version do |options|
+    versions = [0]
+    ['internal', 'alpha', 'beta', 'production'].each do |t|
+      versions += google_play_track_version_codes(package_name: options[:appid], track: t)
+    end
+    puts versions.max
+    versions.max
+  end
+
+  lane :bump_version do |options|
+    appid = options[:appid]
+    version = [options[:min].to_i - 1, get_latest_version(appid: appid)].max + 1
+    File.open('../generated.properties', 'w') do |f|
+      f.write("versionCode=#{version}\n")
+    end
+  end
+
+  lane :deploy do |options|
+    path = options[:path]
+    mapping = options[:mapping]
+    skip_metadata = options[:skip_metadata] == true
+    upload_to_play_store(apk_paths: [path],
+                         package_name: options[:appid],
+                         track: 'internal',
+                         release_status: options[:release_status],
+                         validate_only: false,
+                         mapping: mapping,
+                         skip_upload_screenshots: skip_metadata,
+                         skip_upload_images: skip_metadata,
+                         skip_upload_metadata: skip_metadata,
+                         skip_upload_changelogs: skip_metadata)
+  end
+end
