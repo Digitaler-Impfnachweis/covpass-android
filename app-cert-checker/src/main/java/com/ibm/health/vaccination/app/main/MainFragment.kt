@@ -46,11 +46,10 @@ internal class MainFragment : BaseFragment() {
     // Get the scanner results:
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
-            if (it.contents == null) {
-                Toast.makeText(requireContext(), getString(R.string.scanner_error_message), Toast.LENGTH_LONG).show()
-            } else {
+            if (it.contents != null) {
                 Toast.makeText(requireContext(), it.contents, Toast.LENGTH_LONG).show()
             }
+            // Else the backbutton was pressed, nothing to do
         } ?: super.onActivityResult(requestCode, resultCode, data)
     }
 

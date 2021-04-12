@@ -3,7 +3,6 @@
 
   <string name="app_name">Impfnachweis</string>
 
-  <string name="scanner_error_message">Cancelled</string>
   <string name="detail_message">Detail View</string>
 
   <string name="onboarding_welcome_header">Willkommen zum digitalen Impfnachweis</string>

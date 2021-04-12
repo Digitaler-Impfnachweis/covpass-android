@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.zxing.BarcodeFormat
@@ -16,7 +15,6 @@ import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
 import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
-import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.storage.Storage
 import kotlinx.parcelize.Parcelize
@@ -52,9 +50,7 @@ internal class MainFragment : BaseFragment() {
     // Get the scanner results:
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
-            if (it.contents == null) {
-                Toast.makeText(requireContext(), getString(R.string.scanner_error_message), Toast.LENGTH_LONG).show()
-            } else {
+            if (it.contents != null) {
                 Storage.setQrContent(it.contents)
                 binding.mainEmptyCardview.isVisible = false
                 binding.mainViewPagerContainer.isVisible = true
@@ -62,6 +58,7 @@ internal class MainFragment : BaseFragment() {
                 fragmentStateAdapter.addFragment(CertificateFragmentNav(true).build())
                 fragmentStateAdapter.addFragment(CertificateFragmentNav(false).build())
             }
+            // Else the backbutton was pressed, nothing to do
         } ?: super.onActivityResult(requestCode, resultCode, data)
     }
 
