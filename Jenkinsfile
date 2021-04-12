@@ -19,14 +19,6 @@ pipeline {
     }
     stages {
         stage('CleanWs') {
-            when {
-                anyOf {
-                    expression { return buildWasTriggeredByIssueComment() }
-                    branch 'master'
-                    branch 'release/*'
-                    branch 'snapshot/*'
-                }
-            }
             steps {
                 cleanWs()
             }
@@ -60,6 +52,16 @@ pipeline {
                         setLabelForPattern(pullRequest, 'proguard', /(proguard|consumer)-rules.*\.pro/, null)
                         setLabelForPattern(pullRequest, 'security-critical', /(security|http|oidc).*/, null)
                     }
+                }
+            }
+        }
+        stage('Version code') {
+            steps {
+                script {
+                    sh('''
+                        VERSION=$(($(git rev-list --count HEAD) + 50))
+                        echo "versionCode=$VERSION" > generated.properties
+                    ''')
                 }
             }
         }
@@ -228,6 +230,44 @@ pipeline {
 //                    }
                 }
                 finishRelease()
+            }
+        }
+        stage('Play Store') {
+            when {
+                anyOf {
+                    branch 'master'
+                }
+            }
+            steps {
+                script {
+                    withEnv(["RELEASE_KEYSTORE=UNSIGNED", "AUTOMATIC_KOBIL_VERSION=true"]) {
+                        sh('rm -rf app-vaccinee/build')
+                        sh('rm -rf app-cert-checker/build')
+                        gradle('assembleRelease')
+                        gradle('app-vaccinee:publish')
+                        gradle('app-cert-checker:publish')
+                    }
+                    withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
+                        withCredentials([
+                            file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
+                            file(credentialsId: 'keystore', variable: 'RELEASE_KEYSTORE'),
+                            string(credentialsId: 'keystore-password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
+                        ]) {
+                            sh '''
+                            ./deploy-app.sh "app-vaccinee"
+                             '''
+                        }
+                        withCredentials([
+                            file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
+                            file(credentialsId: 'keystore', variable: 'RELEASE_KEYSTORE'),
+                            string(credentialsId: 'keystore-password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
+                        ]) {
+                            sh '''
+                            ./deploy-app.sh "app-cert-checker"
+                            '''
+                        }
+                    }
+                }
             }
         }
         stage('Archive APK') {

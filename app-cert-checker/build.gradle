@@ -1,3 +1,5 @@
 dependencies {
     api project(":common-app")
 }
+
+apply plugin: 'maven-publish'
