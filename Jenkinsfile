@@ -168,6 +168,17 @@ pipeline {
                         gradle('testDebugUnitTest')
                     }
                 }
+                stage('Assemble Release') {
+                    // This is only needed when publishing below, so we select published branches only.
+                    when {
+                        anyOf {
+                            branch 'master'
+                        }
+                    }
+                    steps {
+                        gradle('assembleRelease')
+                    }
+                }
             }
         }
         stage('Verification') {
@@ -240,13 +251,8 @@ pipeline {
             }
             steps {
                 script {
-                    withEnv(["RELEASE_KEYSTORE=UNSIGNED", "AUTOMATIC_KOBIL_VERSION=true"]) {
-                        sh('rm -rf app-vaccinee/build')
-                        sh('rm -rf app-cert-checker/build')
-                        gradle('assembleRelease')
-                        gradle('app-vaccinee:publish')
-                        gradle('app-cert-checker:publish')
-                    }
+                    gradle('app-vaccinee:publish')
+                    gradle('app-cert-checker:publish')
                     withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
                         withCredentials([
                             file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
