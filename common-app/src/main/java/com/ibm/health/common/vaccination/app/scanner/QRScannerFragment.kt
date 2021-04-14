@@ -2,7 +2,7 @@ package com.ibm.health.common.vaccination.app.scanner
 
 import android.os.Bundle
 import android.view.View
-import com.ibm.health.common.android.utils.getScreenSize
+import com.ibm.health.common.vaccination.app.utils.getScreenSize
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.vaccination.app.BaseFragment

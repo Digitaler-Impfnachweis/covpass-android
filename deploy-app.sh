@@ -2,7 +2,7 @@
 set -eu -o pipefail
 
 APP="$1"
-TYPE="release"
+TYPE="${2:-release}"
 STATUS="${3:-completed}"
 
 BUILDCONFIG="$(find $APP/build/generated/source/buildConfig/$TYPE/ -name BuildConfig.java)"

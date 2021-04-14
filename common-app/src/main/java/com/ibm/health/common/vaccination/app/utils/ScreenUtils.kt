@@ -1,4 +1,4 @@
-package com.ibm.health.common.android.utils
+package com.ibm.health.common.vaccination.app.utils
 
 import android.content.Context
 import android.graphics.Point
