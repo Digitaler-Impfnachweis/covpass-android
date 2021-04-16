@@ -40,6 +40,7 @@
   <dimen name="textsize_header_medium_big">20sp</dimen>
   <dimen name="textsize_header_big">28sp</dimen>
   <dimen name="textsize_header_extralarge">34sp</dimen>
+  <dimen name="textsize_dialog">16sp</dimen>
 
   <!-- Buttons -->
   <dimen name="button_primary_padding_top_bottom">18dp</dimen>
@@ -52,5 +53,6 @@
   <!-- Misc -->
   <dimen name="dots_tab_max_width">22dp</dimen>
   <dimen name="elevation">4dp</dimen>
+  <dimen name="dialog_corner_size">8dp</dimen>
 
 </resources>

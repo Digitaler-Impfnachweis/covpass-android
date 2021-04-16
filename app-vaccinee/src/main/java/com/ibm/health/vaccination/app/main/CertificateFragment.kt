@@ -6,8 +6,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.dispatchers
+import com.ensody.reactivestate.get
 import com.google.zxing.BarcodeFormat
+import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -17,37 +20,45 @@ import com.ibm.health.vaccination.app.R
 import com.ibm.health.vaccination.app.databinding.CertificateBinding
 import com.ibm.health.vaccination.app.detail.DetailFragmentNav
 import com.ibm.health.vaccination.app.storage.Storage
-import com.ibm.health.vaccination.sdk.android.qr.QRDecoder
+import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.ExperimentalSerializationApi
 
 @Parcelize
-// FIXME this is just a provisionally implementation
-class CertificateFragmentNav(val demoIncompleteCertificate: Boolean) : FragmentNav(CertificateFragment::class)
+class CertificateFragmentNav(val certId: String) : FragmentNav(CertificateFragment::class)
 
 internal class CertificateFragment : BaseFragment() {
 
+    private val state by buildState { CertificateState(scope) }
     private val binding by viewBinding(CertificateBinding::inflate)
 
     @ExperimentalSerializationApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val incomplete = getArgs<CertificateFragmentNav>().demoIncompleteCertificate
+        autoRun {
+            updateViews(get(Storage.certCache))
+        }
+    }
 
-        // FIXME this is just a provisional implementation
+    private fun updateViews(certificateList: VaccinationCertificateList) {
+        val certId = getArgs<CertificateFragmentNav>().certId
+        val extendedCertificate = certificateList.getExtendedVaccinationCertificate(certId)
+        val vaccinationCertificate = extendedCertificate.vaccinationCertificate
+        val complete = vaccinationCertificate.isComplete()
+
         launchWhenStarted {
-            val qrContent = Storage.getQrContent() ?: throw IllegalStateException()
-            if (!incomplete) {
-                generateQRCode(qrContent)
+            if (complete) {
+                extendedCertificate.validationQrContent?.let {
+                    generateQRCode(it)
+                }
+                // FIXME handle case when the qrContent is not yet set, because the backend request failed e.g.
             }
-            val vaccinationCertificate = QRDecoder().decode(qrContent)
-            Storage.setVaccinationCertificate(vaccinationCertificate)
         }
 
-        val textColor = if (incomplete) R.color.onBackground else R.color.onInfo
+        val textColor = if (complete) R.color.onInfo else R.color.onBackground
         context?.let {
             binding.certificateHeaderTextview.setTextColor(ContextCompat.getColor(it, textColor))
             binding.certificateNameTextview.setTextColor(ContextCompat.getColor(it, textColor))
@@ -55,46 +66,51 @@ internal class CertificateFragment : BaseFragment() {
             binding.certificateSeriesTextview.setTextColor(ContextCompat.getColor(it, textColor))
         }
 
-        val backgroundColorResource = if (incomplete) R.color.info20 else R.color.info80
+        val backgroundColorResource = if (complete) R.color.info80 else R.color.info20
         context?.let {
             binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(it, backgroundColorResource))
         }
 
-        val favoriteIconActiveResource = if (incomplete) R.drawable.star_blue_fill else R.drawable.star_white_fill
-        binding.certificateFavoriteButton.setImageResource(favoriteIconActiveResource)
+        val activeRes = if (complete) R.drawable.star_white_fill else R.drawable.star_blue_fill
+        val inactiveRes = if (complete) R.drawable.star_white else R.drawable.star_blue
+        val favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) activeRes else inactiveRes
 
-        val favoriteIconInactiveResource = if (incomplete) R.drawable.star_blue else R.drawable.star_white
+        binding.certificateFavoriteButton.setImageResource(favoriteIconResource)
         binding.certificateFavoriteButton.setOnClickListener {
-            binding.certificateFavoriteButton.setImageResource(favoriteIconInactiveResource)
-            Toast.makeText(requireContext(), "Work in progress...", Toast.LENGTH_SHORT).show()
+            state.onFavoriteClick(certId)
         }
 
-        val name = if (incomplete) "Mara Mustermann" else "Max Mustermann"
-        binding.certificateNameTextview.text = name
+        binding.certificateNameTextview.text = vaccinationCertificate.name
 
-        val protection = if (incomplete) "Impfschutz nicht vollständig" else "Impfschutz vollständig"
-        binding.certificateProtectionTextview.text = protection
+        val protection =
+            if (complete) R.string.certificate_protection_complete else R.string.certificate_protection_incomplete
+        binding.certificateProtectionTextview.text = getString(protection)
 
-        val series = if (incomplete) "1/2 Impfungen" else "2/2 Impfungen"
-        binding.certificateSeriesTextview.text = series
+        val completeVaccination =
+            vaccinationCertificate.vaccination.firstOrNull { it.isComplete() }
+        val mainVaccination = completeVaccination ?: vaccinationCertificate.vaccination.first()
+        binding.certificateSeriesTextview.text = getString(R.string.certificate_series, mainVaccination.series)
 
-        val arrowRightIconResource = if (incomplete) R.drawable.arrow_right_blue else R.drawable.arrow_right_white
+        val arrowRightIconResource = if (complete) R.drawable.arrow_right_white else R.drawable.arrow_right_blue
         binding.certificateArrowImageview.setImageResource(arrowRightIconResource)
 
-        binding.certificateVaccinationStatusContainer.setOnClickListener { findNavigator().push(DetailFragmentNav()) }
+        binding.certificateVaccinationStatusContainer.setOnClickListener {
+            findNavigator().push(DetailFragmentNav(getArgs<CertificateFragmentNav>().certId))
+        }
 
         val statusIconResource =
-            if (incomplete) R.drawable.vaccination_status_incomplete else R.drawable.vaccination_status_complete
+            if (complete) R.drawable.vaccination_status_complete else R.drawable.vaccination_status_incomplete
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
-        binding.certificateQrCardview.isInvisible = incomplete
+        binding.certificateQrCardview.isInvisible = !complete
 
-        binding.certificateAddButton.isVisible = incomplete
+        binding.certificateAddButton.isVisible = !complete
         binding.certificateAddButton.setOnClickListener { (parentFragment as? MainFragment)?.launchScanner() }
     }
 
+    // FIXME move this to state
+    // FIXME move this to SDK and change return to Bitmap
     private suspend fun generateQRCode(qrContent: String) {
-        // FIXME replace this with the simplified validation certificate
         try {
             val bitmap = dispatchers.default {
                 BarcodeEncoder().encodeBitmap(

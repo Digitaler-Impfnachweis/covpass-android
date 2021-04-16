@@ -9,19 +9,18 @@ import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 
 /**
- * Used to decode QR code string.
+ * Used to encode/decode QR code string.
  */
 @ExperimentalSerializationApi
-public class QRDecoder {
+public class QRCoder {
 
     private val cbor: Cbor = Cbor { ignoreUnknownKeys = true }
 
     /**
-     * Decodes [qr] code.
-     * @return [VaccinationCertificate] data model.
+     * Converts a [qrContent] to a [VaccinationCertificate] data model.
      */
-    public fun decode(qr: String): VaccinationCertificate {
-        val decodedByteArrayFromBase45 = Base45.decode(qr.toByteArray())
+    public fun decode(qrContent: String): VaccinationCertificate {
+        val decodedByteArrayFromBase45 = Base45.decode(qrContent.toByteArray())
         val decompressedByteArray = Zlib.decompress(decodedByteArrayFromBase45)
         val coseSign1 = CoseSign1.fromByteArray(decompressedByteArray)
         return cbor.decodeFromByteArray(coseSign1.payload)

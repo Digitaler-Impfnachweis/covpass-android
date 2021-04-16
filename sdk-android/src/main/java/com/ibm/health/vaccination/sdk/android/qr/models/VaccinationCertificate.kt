@@ -22,4 +22,14 @@ public data class VaccinationCertificate(
     val validUntil: LocalDate? = null,
     val version: String = "",
     val secret: String = "",
-)
+) {
+    // FIXME this is just a provisionally implementation, has to be clarified
+    public fun isComplete(): Boolean {
+        vaccination.forEach {
+            if (it.series == "2/2") {
+                return true
+            }
+        }
+        return false
+    }
+}

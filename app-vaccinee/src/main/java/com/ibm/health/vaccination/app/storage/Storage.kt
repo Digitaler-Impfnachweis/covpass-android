@@ -1,17 +1,24 @@
 package com.ibm.health.vaccination.app.storage
 
+import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.dispatchers
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.vaccination.app.EncryptedKeyValueStore
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
+import kotlinx.coroutines.invoke
 
 object Storage {
 
     private const val PREFS_NAME = "vaccinee_prefs"
     private const val PREFS_KEY_ONBOARDING_SHOWN = "onboarding_shown"
-    private const val PREFS_KEY_QR_CONTENT = "qr_content"
-    private const val PREFS_KEY_VACCINATION_CERTIFICATE = "vaccination_certificate"
+    private const val PREFS_KEY_VACCINATION_CERTIFICATE_LIST = "vaccination_certificate_list"
 
     private val keyValueStore by lazy { EncryptedKeyValueStore(androidDeps.application, PREFS_NAME) }
+
+    val certCache = MutableValueFlow(
+        keyValueStore.get(PREFS_KEY_VACCINATION_CERTIFICATE_LIST)
+            ?: VaccinationCertificateList()
+    )
 
     var onboardingDone: Boolean
         get() {
@@ -21,16 +28,11 @@ object Storage {
             keyValueStore.set(PREFS_KEY_ONBOARDING_SHOWN, value)
         }
 
-    // FIXME this is just a provisionally implementation
-    fun getQrContent(): String? = keyValueStore.get(PREFS_KEY_QR_CONTENT)
-
-    // FIXME this is just a provisionally implementation
-    fun setQrContent(qrContent: String) = keyValueStore.set(PREFS_KEY_QR_CONTENT, qrContent)
-
-    // FIXME this is just a provisionally implementation
-    fun getVaccinationCertificate(): VaccinationCertificate? = keyValueStore.get(PREFS_KEY_VACCINATION_CERTIFICATE)
-
-    // FIXME this is just a provisionally implementation
-    fun setVaccinationCertificate(vaccinationCertificate: VaccinationCertificate) =
-        keyValueStore.set(PREFS_KEY_VACCINATION_CERTIFICATE, vaccinationCertificate)
+    // FIXME move to SDK as CertificateStorage
+    suspend fun setVaccinationCertificateList(certificateList: VaccinationCertificateList) {
+        dispatchers.io {
+            keyValueStore.set(PREFS_KEY_VACCINATION_CERTIFICATE_LIST, certificateList)
+            certCache.value = certificateList
+        }
+    }
 }

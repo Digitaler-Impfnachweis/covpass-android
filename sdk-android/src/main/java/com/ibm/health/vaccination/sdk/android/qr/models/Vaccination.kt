@@ -19,4 +19,10 @@ public data class Vaccination(
     val performer: String = "",
     val country: String = "",
     val nextDate: LocalDate? = null,
-)
+) {
+
+    public fun isComplete(): Boolean {
+        val seriesValues = series.split("/")
+        return seriesValues.get(0) == seriesValues.get(1)
+    }
+}

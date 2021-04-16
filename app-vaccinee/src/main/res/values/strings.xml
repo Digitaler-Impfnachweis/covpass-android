@@ -3,8 +3,6 @@
 
   <string name="app_name">Impfnachweis</string>
 
-  <string name="detail_message">Detail View</string>
-
   <string name="onboarding_welcome_header">Willkommen zum digitalen Impfnachweis</string>
   <string name="onboarding_welcome_subheader">Einfach und sicher den eigenen Impfschutz gegen COVID-19 verwalten.</string>
   <string name="onboarding_welcome_encryption_header">Sicher verschlüsselt</string>
@@ -21,7 +19,20 @@
   <string name="main_empty_header">Kein Nachweis hinzugefügt</string>
   <string name="main_empty_text">Scannen Sie eine Bescheinigung mit QR Code, um hier Ihren Nachweis zu sehen</string>
   <string name="main_empty_button_text">Nachweis hinzufügen</string>
+  <string name="main_delete_dialog_header">Nachweis entfernt</string>
+  <string name="main_delete_dialog_message">Sie haben den Nachweis und alle enthaltenen Daten von diesem Telefon entfernt.</string>
+  <string name="main_delete_dialog_positive">Schließen</string>
 
+  <string name="certificate_protection_complete">Impfschutz vollständig</string>
+  <string name="certificate_protection_incomplete">Impfschutz nicht vollständig</string>
+  <string name="certificate_series">%1$s Impfungen</string>
   <string name="certificate_add_button_text">2. Impfung hinzufügen</string>
+
+  <string name="detail_message">Detail View</string>
+  <string name="detail_delete_button_text">Nachweis löschen</string>
+  <string name="detail_delete_dialog_header">Möchten Sie diesen Nachweis wirklich entfernen?</string>
+  <string name="detail_delete_dialog_message">Ein Wiederherstellen ist nicht möglich.</string>
+  <string name="detail_delete_dialog_positive">Entfernen</string>
+  <string name="detail_delete_dialog_negative">Abbrechen</string>
 
 </resources>

@@ -14,6 +14,8 @@ import com.ibm.health.common.navigation.android.NavigationDependencies
 import com.ibm.health.common.navigation.android.Orientation
 import com.ibm.health.common.navigation.android.navigationDeps
 import com.ibm.health.common.securityprovider.initSecurityProvider
+import com.ibm.health.vaccination.app.dependencies.SdkDependencies
+import com.ibm.health.vaccination.app.dependencies.sdkDeps
 
 /** Common base application with some common functionality like setting up logging. */
 public abstract class CommonApplication : Application() {
@@ -43,5 +45,6 @@ public abstract class CommonApplication : Application() {
             override fun currentActivityOrNull(): FragmentActivity? =
                 activityNavigator.getCurrentActivityOrNull() as? FragmentActivity
         }
+        sdkDeps = object : SdkDependencies() {}
     }
 }

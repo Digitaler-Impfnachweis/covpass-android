@@ -8,7 +8,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 /**
- * Sealed class for the gender.
+ * Sealed class for the sex.
  *
  */
 public sealed class Sex {
@@ -36,7 +36,7 @@ public sealed class Sex {
     public companion object {
 
         /**
-         * Maps the raw value to the sex instance.
+         * Maps the raw value to the [Sex] instance.
          *
          * @param [value] the raw value.
          */
