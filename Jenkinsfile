@@ -246,7 +246,7 @@ pipeline {
         stage('Play Store') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'master-disabled'
                 }
             }
             steps {
@@ -276,10 +276,22 @@ pipeline {
                 }
             }
         }
-        stage('Archive APK') {
+        stage('Archive APKs') {
             steps {
                 script {
                     archiveArtifacts 'app-*/**/*.apk'
+                }
+            }
+        }
+        stage('Archive Mappings') {
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'release/*'
+                }
+            }
+            steps {
+                script {
                     // Archive mappings
                     sh 'zip -r mappings.zip */build/outputs/mapping/'
                     archiveArtifacts 'mappings.zip'
