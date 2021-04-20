@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
@@ -22,11 +21,11 @@ import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
-import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
 import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
 import com.ibm.health.vaccination.app.vaccinee.storage.Storage
+import com.ibm.health.vaccination.app.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -49,8 +48,8 @@ internal class MainFragment : BaseFragment(), DetailCallback {
     }
 
     private fun setupViews() {
-        binding.mainAddButton.setOnClickListener { launchScanner() }
-        binding.mainEmptyButton.setOnClickListener { launchScanner() }
+        binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
+        binding.mainEmptyButton.setOnClickListener { showAddVaccinationCertificatePopup() }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
         binding.mainFaqShowAllTextview.movementMethod = LinkMovementMethod.getInstance()
         binding.mainFaqShowAllTextview.stripUnderlines()
@@ -80,8 +79,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
                         if (binding.mainViewPager.layoutParams.height != view.measuredHeight) {
                             binding.mainViewPager.layoutParams =
-                                (binding.mainViewPager.layoutParams as LinearLayout.LayoutParams).also {
-                                    params ->
+                                (binding.mainViewPager.layoutParams as LinearLayout.LayoutParams).also { params ->
                                     params.height = view.measuredHeight
                                 }
                         }
@@ -122,17 +120,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         showDialog(dialogModel, childFragmentManager)
     }
 
-    // FIXME move this to SDK
-    fun launchScanner() {
-        IntentIntegrator(requireActivity()).run {
-            captureActivity = QRScannerActivity::class.java
-            setDesiredBarcodeFormats(
-                listOf(BarcodeFormat.QR_CODE.name, BarcodeFormat.DATA_MATRIX.name, BarcodeFormat.AZTEC.name)
-            )
-            setOrientationLocked(false)
-            setPrompt("")
-            setBeepEnabled(false)
-            initiateScan()
-        }
+    private fun showAddVaccinationCertificatePopup() {
+        findNavigator().push(AddVaccinationCertificateFragmentNav())
     }
 }

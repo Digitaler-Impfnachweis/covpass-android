@@ -2,8 +2,10 @@ package com.ibm.health.vaccination.app.vaccinee.main
 
 import android.content.Intent
 import android.os.Bundle
+import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.vaccination.app.BaseActivity
+import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.onboarding.WelcomeFragmentNav
 
@@ -25,7 +27,19 @@ internal class MainActivity : BaseActivity() {
 
         // Forward ZXing's results
         if (IntentIntegrator.parseActivityResult(requestCode, resultCode, data) != null) {
-            supportFragmentManager.fragments.firstOrNull()?.onActivityResult(requestCode, resultCode, data)
+            navigator.findFragment<MainFragment>()?.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+    fun launchScanner() {
+        IntentIntegrator(requireActivity()).run {
+            captureActivity = QRScannerActivity::class.java
+            setDesiredBarcodeFormats(
+                listOf(BarcodeFormat.QR_CODE.name, BarcodeFormat.DATA_MATRIX.name, BarcodeFormat.AZTEC.name)
+            )
+            setOrientationLocked(false)
+            setPrompt("")
+            setBeepEnabled(false)
+            initiateScan()
         }
     }
 }

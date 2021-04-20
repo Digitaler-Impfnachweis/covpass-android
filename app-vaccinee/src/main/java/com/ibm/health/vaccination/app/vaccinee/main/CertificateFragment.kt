@@ -105,7 +105,7 @@ internal class CertificateFragment : BaseFragment() {
         binding.certificateQrCardview.isInvisible = !complete
 
         binding.certificateAddButton.isVisible = !complete
-        binding.certificateAddButton.setOnClickListener { (parentFragment as? MainFragment)?.launchScanner() }
+        binding.certificateAddButton.setOnClickListener { (requireActivity() as? MainActivity)?.launchScanner() }
     }
 
     // FIXME move this to state
