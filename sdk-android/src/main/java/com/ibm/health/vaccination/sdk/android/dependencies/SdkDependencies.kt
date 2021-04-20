@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.app.dependencies
+package com.ibm.health.vaccination.sdk.android.dependencies
 
 import com.ibm.health.vaccination.sdk.android.qr.QRCoder
 import kotlinx.serialization.ExperimentalSerializationApi
