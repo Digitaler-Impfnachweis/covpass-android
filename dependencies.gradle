@@ -111,6 +111,9 @@ dependencies.ext.baseAndroid = {
         base()
         api 'androidx.annotation:annotation'
         api 'com.google.android.material:material'
+
+        testImplementation 'androidx.arch.core:core-testing'
+        testImplementation 'org.robolectric:robolectric'
     }
 }
 
@@ -152,9 +155,6 @@ dependencies.ext.androidUI = {
         if (project.name != 'android-utils-test') {
             testImplementation project(':android-utils-test')
         }
-
-        testImplementation 'androidx.arch.core:core-testing'
-        testImplementation 'org.robolectric:robolectric'
     }
 }
 

@@ -1,9 +1,8 @@
-package com.ibm.health.vaccination.sdk.android.qr.decode
+package com.ibm.health.vaccination.sdk.android.qr
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import com.ibm.health.vaccination.sdk.android.qr.QRCoder
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.junit.Test
 

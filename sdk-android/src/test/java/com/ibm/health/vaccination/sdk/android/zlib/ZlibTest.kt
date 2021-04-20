@@ -1,10 +1,9 @@
-package com.ibm.health.vaccination.sdk.android.qr.decode
+package com.ibm.health.vaccination.sdk.android.zlib
 
 import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isGreaterThan
-import com.ibm.health.vaccination.sdk.android.zlib.Zlib
 import org.junit.Test
 
 public class ZlibTest {
