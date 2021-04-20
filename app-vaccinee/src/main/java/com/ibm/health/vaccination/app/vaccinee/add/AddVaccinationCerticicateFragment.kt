@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.app.add
+package com.ibm.health.vaccination.app.vaccinee.add
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod

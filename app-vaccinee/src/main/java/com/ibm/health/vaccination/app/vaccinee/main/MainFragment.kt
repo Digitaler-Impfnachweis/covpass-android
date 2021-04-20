@@ -25,7 +25,7 @@ import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
 import com.ibm.health.vaccination.app.vaccinee.storage.Storage
-import com.ibm.health.vaccination.app.add.AddVaccinationCertificateFragmentNav
+import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.ExperimentalSerializationApi
