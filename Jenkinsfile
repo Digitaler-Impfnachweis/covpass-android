@@ -158,14 +158,23 @@ pipeline {
                 stage('Log Dependencies') {
                     steps {
                         script {
-                            sh('python3 extract-dependencies.py > dependencies.txt')
-                            archiveArtifacts 'dependencies.txt'
+                            sh('python3 extract-dependencies.py --modules $(echo app-* | tr " " ,) > dependencies.txt')
+                            sh('python3 extract-dependencies.py --configurations ALL > dependencies-test.txt')
+                            archiveArtifacts 'dependencies*.txt'
                         }
                     }
                 }
                 stage('Unit Tests') {
                     steps {
                         gradle('testDebugUnitTest')
+
+                        sh 'touch **/build/test-results/**/* || true'
+                        junit '**/build/test-results/**/*.xml'
+
+                        gradle('jacocoTestReportDefault')
+                        // Ignore coverage for some modules
+                        sh 'rm -rf android-utils-test/build/reports/jacoco'
+                        jacocoReport('', 9.0, true, 'jacocoTestReportDefault', true)
                     }
                 }
                 stage('Assemble Release') {
@@ -179,17 +188,6 @@ pipeline {
                         gradle('assembleRelease')
                     }
                 }
-            }
-        }
-        stage('Verification') {
-            steps {
-                sh 'touch **/build/test-results/**/* || true'
-                junit '**/build/test-results/**/*.xml'
-
-                gradle('jacocoTestReportDefault')
-                // Ignore coverage for some modules
-                sh 'rm -rf android-utils-test/build/reports/jacoco'
-                jacocoReport('', 9.0, true, 'jacocoTestReportDefault', true)
             }
         }
 // TODO: Add documentation
