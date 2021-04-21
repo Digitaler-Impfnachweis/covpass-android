@@ -1,7 +1,6 @@
 package com.ibm.health.vaccination.sdk.android.dependencies
 
 import com.ibm.health.vaccination.sdk.android.qr.QRCoder
-import kotlinx.serialization.ExperimentalSerializationApi
 
 /**
  * Global var for making the [SdkDependencies] accessible.
@@ -16,6 +15,5 @@ public abstract class SdkDependencies {
     /**
      * The [QRCoder].
      */
-    @ExperimentalSerializationApi
     public val qrCoder: QRCoder = QRCoder()
 }

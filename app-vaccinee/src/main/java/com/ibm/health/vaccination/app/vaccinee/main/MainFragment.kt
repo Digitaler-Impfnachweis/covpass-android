@@ -28,7 +28,6 @@ import com.ibm.health.vaccination.app.vaccinee.storage.Storage
 import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.ExperimentalSerializationApi
 
 @Parcelize
 class MainFragmentNav : FragmentNav(MainFragment::class)
@@ -101,7 +100,6 @@ internal class MainFragment : BaseFragment(), DetailCallback {
     }
 
     // Get the scanner results:
-    @ExperimentalSerializationApi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
             if (it.contents != null) {

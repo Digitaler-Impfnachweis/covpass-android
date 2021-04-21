@@ -20,7 +20,6 @@ import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import com.ibm.health.vaccination.app.certchecker.databinding.CheckerMainBinding
 import com.ibm.health.vaccination.sdk.android.qr.models.Vaccination
 import com.ibm.health.vaccination.sdk.android.qr.models.ValidationCertificate
-import kotlinx.serialization.ExperimentalSerializationApi
 import java.util.*
 
 @Parcelize
@@ -48,7 +47,6 @@ internal class MainFragment : BaseFragment() {
     }
 
     // Get the scanner results:
-    @ExperimentalSerializationApi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
             if (it.contents != null) {

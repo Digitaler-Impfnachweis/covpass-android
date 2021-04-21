@@ -3,7 +3,6 @@ package com.ibm.health.vaccination.sdk.android.qr
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEqualTo
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.junit.Test
 
 public class QRCoderTest {
@@ -11,7 +10,6 @@ public class QRCoderTest {
     /**
      * Makes sure we have a correct decoding a data from some QR code to the ValidationCertificate.
      */
-    @ExperimentalSerializationApi
     @Test
     public fun `check data fields after decoding`() {
         val qrDataModel = QRCoder().decodeVaccinationCert(RAW_VACCINATION_QR_DATA)
@@ -23,7 +21,6 @@ public class QRCoderTest {
     /**
      * Makes sure we have a correct decoding a data from some QR code to the ValidationCertificate.
      */
-    @ExperimentalSerializationApi
     @Test
     public fun `check data fields after decoding d`() {
         val qrDataModel = QRCoder().decodeValidationCert(RAW_VALIDATION_QR_DATA)

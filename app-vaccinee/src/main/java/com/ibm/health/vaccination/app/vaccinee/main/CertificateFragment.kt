@@ -24,7 +24,6 @@ import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateLi
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.ExperimentalSerializationApi
 
 @Parcelize
 class CertificateFragmentNav(val certId: String) : FragmentNav(CertificateFragment::class)
@@ -34,7 +33,6 @@ internal class CertificateFragment : BaseFragment() {
     private val state by buildState { CertificateState(scope) }
     private val binding by viewBinding(CertificateBinding::inflate)
 
-    @ExperimentalSerializationApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
