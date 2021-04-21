@@ -1,13 +1,14 @@
 @file:UseSerializers(LocalDateSerializer::class)
+
 package com.ibm.health.vaccination.sdk.android.qr.models
 
 import com.ibm.health.vaccination.sdk.android.serialization.LocalDateSerializer
-import kotlinx.serialization.UseSerializers
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
 @Serializable
-public data class Vaccination(
+public data class ExtendedVaccination(
     val targetDisease: String = "",
     val vaccineCode: String = "",
     val product: String = "",
@@ -23,6 +24,17 @@ public data class Vaccination(
 
     public fun isComplete(): Boolean {
         val seriesValues = series.split("/")
-        return seriesValues.get(0) == seriesValues.get(1)
+        return seriesValues[0] == seriesValues[1]
     }
 }
+
+@Serializable
+public data class Vaccination(
+    val targetDisease: String = "",
+    val vaccineCode: String = "",
+    val product: String = "",
+    val manufacturer: String = "",
+    val series: String = "",
+    val occurence: LocalDate? = null,
+    val country: String = "",
+)

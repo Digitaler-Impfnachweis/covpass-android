@@ -15,13 +15,12 @@ public data class VaccinationCertificate(
     val birthDate: LocalDate? = null,
     val identifier: String = "",
     val sex: Sex? = null,
-    val vaccination: List<Vaccination> = emptyList(),
+    val vaccination: List<ExtendedVaccination> = emptyList(),
     val issuer: String = "",
     val id: String = "",
     val validFrom: LocalDate? = null,
     val validUntil: LocalDate? = null,
     val version: String = "",
-    val secret: String = "",
 ) {
     // FIXME this is just a provisionally implementation, has to be clarified
     public fun isComplete(): Boolean {

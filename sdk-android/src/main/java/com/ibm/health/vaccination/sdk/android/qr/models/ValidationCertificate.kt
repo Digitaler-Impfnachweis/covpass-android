@@ -13,8 +13,8 @@ import java.time.LocalDate
 public data class ValidationCertificate(
     val name: String = "",
     val birthDate: LocalDate? = null,
-    val vaccinated: Boolean = false,
-    val validFrom: LocalDate? = null,
+    val vaccination: List<Vaccination> = emptyList(),
+    val issuer: String = "",
+    val id: String = "",
     val validUntil: LocalDate? = null,
-    val secret: String = "",
 )

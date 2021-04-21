@@ -16,7 +16,7 @@ class MainState(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
             val vaccinationCertificateList = Storage.certCache.value
             vaccinationCertificateList.addCertificate(
                 // FIXME replace validationQrContent with the simplified validation certificate
-                ExtendedVaccinationCertificate(sdkDeps.qrCoder.decode(qrContent), qrContent, qrContent)
+                ExtendedVaccinationCertificate(sdkDeps.qrCoder.decodeVaccinationCert(qrContent), qrContent, qrContent)
             )
             Storage.setVaccinationCertificateList(vaccinationCertificateList)
         }
