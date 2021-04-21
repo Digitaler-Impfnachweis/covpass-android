@@ -28,6 +28,14 @@ dependencies {
 }
 ```
 
+## Legal requirements
+
+Our legal team considers Bouncy Castle's patent situation unsafe.
+Unfortunately, the library isn't split up nicely into safe and potentially unsafe/patented algorithms.
+There seems to be no precedent for whether it's acceptable to simply import the whole library, but only use the patent-free algorithms.
+
+This means we MUST NOT use any utility functions from Bouncy Castle and we MUST NOT COSE-JAVA (which depends on Bouncy Castle).
+
 ## App architecture
 
 ### UI and State
