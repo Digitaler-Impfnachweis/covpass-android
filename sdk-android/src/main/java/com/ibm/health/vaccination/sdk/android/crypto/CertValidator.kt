@@ -1,5 +1,6 @@
 package com.ibm.health.vaccination.sdk.android.crypto
 
+import java.math.BigInteger
 import java.security.GeneralSecurityException
 import java.security.cert.*
 import javax.security.auth.x500.X500Principal
@@ -20,6 +21,7 @@ public class CertValidator(trusted: Iterable<X509Certificate>) {
     public val trustAnchors: Set<TrustAnchor> by lazy { rootCerts.toTrustAnchors() }
 
     private val subjectToCerts by lazy { trustedCerts.groupBy { it.subjectX500Principal } }
+    private val serialNumberToCerts by lazy { trustedCerts.groupBy { it.serialNumber } }
 
     /**
      * Returns the certificate path from [leaf] to one of the [rootCerts].
@@ -36,7 +38,7 @@ public class CertValidator(trusted: Iterable<X509Certificate>) {
             if (cert in rootCerts) {
                 return path
             }
-            cert = cert.parent() ?: throw InvalidCertPathException()
+            cert = findParent(cert) ?: throw InvalidCertPathException()
         }
     }
 
@@ -59,19 +61,22 @@ public class CertValidator(trusted: Iterable<X509Certificate>) {
     public fun findBySubject(subject: X500Principal): List<X509Certificate> =
         subjectToCerts[subject] ?: emptyList()
 
-    private fun X509Certificate.parent(): X509Certificate? =
-        parents().find {
-            try {
-                verify(it.publicKey)
-                true
-            } catch (e: GeneralSecurityException) {
-                false
-            }
-        }
+    /** Finds trusted certificates matching the given [serialNumber]. */
+    public fun findBySerialNumber(serialNumber: BigInteger): List<X509Certificate> =
+        serialNumberToCerts[serialNumber] ?: emptyList()
 
-    private fun X509Certificate.parents(): List<X509Certificate> =
-        // TODO: Add support for AKID/SKID and prioritize over principal based matching.
-        findBySubject(issuerX500Principal).filter { it.subjectX500Principal != subjectX500Principal }
+    /** Returns the parent of the given certificate or `null` if no certificate matches. */
+    private fun findParent(cert: X509Certificate): X509Certificate? =
+        findBySubject(cert.issuerX500Principal).find {
+            cert != it &&
+                try {
+                    cert.verify(it.publicKey)
+                    true
+                } catch (e: GeneralSecurityException) {
+                    false
+                }
+        }
 }
 
+/** Thrown when no valid certificate path could be constructed. */
 public class InvalidCertPathException : GeneralSecurityException()
