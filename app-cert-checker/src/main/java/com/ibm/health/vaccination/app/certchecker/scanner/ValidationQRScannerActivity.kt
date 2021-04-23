@@ -1,16 +1,16 @@
-package com.ibm.health.common.vaccination.app.scanner
+package com.ibm.health.vaccination.app.certchecker.scanner
 
 import android.os.Bundle
 import com.ibm.health.common.vaccination.app.BaseActivity
 
 /**
- * QR Scanner Activity pushes QRScannerFragment to the navigator.
+ * Capture activity for ZXing, pushes ValidationQRScannerFragment to the navigator.
  */
-public class QRScannerActivity : BaseActivity() {
+class ValidationQRScannerActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (navigator.isEmpty() && savedInstanceState == null) {
-            navigator.push(CustomScannerFragmentNav())
+            navigator.push(ValidationQRScannerFragmentNav())
         }
     }
 }

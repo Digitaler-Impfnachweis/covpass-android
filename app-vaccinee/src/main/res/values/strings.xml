@@ -55,4 +55,9 @@
   <string name="add_vaccination_cert_action_button_text">QR-Code scannen</string>
   <string name="add_vaccination_cert_popup_content_text">Scannen Sie den QR-Code auf der Impfbescheinigung. Es wird automatisch ein Eintrag mit den wichtigsten Impfdaten erstellt.</string>
   <string name="add_vaccination_cert_question_link"><a href="http://www.amazon.com">Sie haben keinen QR-Code erhalten?</a></string>
+
+  <string name="scan_duplicate_warning_dialog_title">Impfzertifikat wurde bereits hinzugefügt</string>
+  <string name="scan_duplicate_warning_dialog_message">Haben Sie aus Versehen ein Zertifikat doppelt gescannt?</string>
+  <string name="scan_duplicate_warning_dialog_positive">Erneut scannen</string>
+  <string name="scan_duplicate_warning_dialog_negative">Abbrechen</string>
 </resources>

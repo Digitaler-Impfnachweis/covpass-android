@@ -53,18 +53,6 @@
     android:layout_alignParentBottom="true"
     android:background="@color/backgroundPrimary">
 
-    <ImageButton
-      android:id="@+id/scanner_back_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:padding="@dimen/grid_one"
-      android:layout_margin="@dimen/grid_two"
-      android:src="@drawable/common_back_arrow"
-      tools:ignore="ContentDescription" />
-
     <com.ibm.health.common.vaccination.app.uielements.RoundImageButton
       android:id="@+id/scanner_close_button"
       android:layout_width="wrap_content"

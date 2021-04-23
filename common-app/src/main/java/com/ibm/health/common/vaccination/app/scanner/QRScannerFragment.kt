@@ -1,61 +1,83 @@
 package com.ibm.health.common.vaccination.app.scanner
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import com.ibm.health.common.vaccination.app.utils.getScreenSize
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleObserver
 import com.ibm.health.common.android.utils.viewBinding
-import com.ibm.health.common.navigation.android.FragmentNav
+import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.databinding.FragmentQrScannerBinding
-import com.journeyapps.barcodescanner.CaptureManager
+import com.ibm.health.common.vaccination.app.utils.getScreenSize
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.Size
-import kotlinx.parcelize.Parcelize
 
 /**
  * QR Scanner Fragment extending from BaseFragment to display a custom layout form scanner view.
  */
-@Parcelize
-public class CustomScannerFragmentNav : FragmentNav(CustomScannerFragment::class)
-
-public class CustomScannerFragment : BaseFragment() {
-    private lateinit var capture: CaptureManager
+public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
 
     private val binding by viewBinding(FragmentQrScannerBinding::inflate)
 
+    public abstract val callback: BarcodeCallback
+
+    public lateinit var barcodeView: DecoratedBarcodeView
+
+    private val requestPermissionLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                startScanning()
+            } else {
+                finishScanning()
+            }
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        barcodeView = binding.zxingBarcodeScanner
         val screenSize = requireContext().getScreenSize()
         binding.zxingBarcodeScanner.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
-        binding.scannerBackButton.setOnClickListener { requireActivity().onBackPressed() }
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
-        capture = CaptureManager(requireActivity(), binding.zxingBarcodeScanner)
-        capture.initializeFromIntent(requireActivity().intent, savedInstanceState)
-        capture.setShowMissingCameraPermissionDialog(false)
-        capture.decode()
+        checkPermission(Manifest.permission.CAMERA) { startScanning() }
+    }
+
+    private fun checkPermission(targetPermission: String, targetAction: () -> Unit) {
+        when (PackageManager.PERMISSION_GRANTED) {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                targetPermission
+            ),
+            -> {
+                targetAction.invoke()
+            }
+            else -> {
+                requestPermissionLauncher.launch(targetPermission)
+            }
+        }
+    }
+
+    private fun startScanning() {
+        binding.zxingBarcodeScanner.barcodeView.decodeContinuous(callback)
     }
 
     override fun onResume() {
         super.onResume()
-        capture.onResume()
+        binding.zxingBarcodeScanner.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        capture.onPause()
+        binding.zxingBarcodeScanner.pause()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        capture.onDestroy()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        capture.onSaveInstanceState(outState)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        capture.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    public fun finishScanning() {
+        triggerBackPress()
     }
 }

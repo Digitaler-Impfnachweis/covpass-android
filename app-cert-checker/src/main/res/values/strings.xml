@@ -21,4 +21,7 @@
   <string name="main_availability_status">Auf dem aktuellsten Stand</string>
   <string name="main_availability_last_update">Letztes Update: %1$s</string>
 
+  <string name="validation_certificate_preview_dialog_message">%1$s</string>
+  <string name="validation_certificate_preview_dialog_positive">OK</string>
+
 </resources>

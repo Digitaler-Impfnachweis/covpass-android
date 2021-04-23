@@ -12,9 +12,16 @@ public data class VaccinationCertificateList(
 ) {
 
     public fun addCertificate(certificate: ExtendedVaccinationCertificate) {
-        certificates.add(certificate)
-        if (certificates.size == 1) {
-            favoriteCertId = certificate.vaccinationCertificate.id
+        if (certificates.none { it.vaccinationCertificate.id == certificate.vaccinationCertificate.id }) {
+            certificates.add(certificate)
+            if (certificates.size == 1) {
+                favoriteCertId = certificate.vaccinationCertificate.id
+            }
+        } else {
+            throw CertAlreadyExistsException()
         }
     }
 }
+
+/** This exception is thrown when certificates list already has such certificate */
+public class CertAlreadyExistsException : RuntimeException()

@@ -9,28 +9,26 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
+import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.R
+import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
 import com.ibm.health.vaccination.app.vaccinee.storage.Storage
-import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
-import com.ibm.health.vaccination.app.vaccinee.common.ScannerResultFragment
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class MainFragmentNav : FragmentNav(MainFragment::class)
 
-internal class MainFragment : ScannerResultFragment(), DetailCallback {
+internal class MainFragment : BaseFragment(), DetailCallback {
 
-    private val state by buildState { MainState(scope) }
     private val binding by viewBinding(VaccineeMainBinding::inflate)
     private lateinit var fragmentStateAdapter: CertificateFragmentStateAdapter
 
@@ -84,10 +82,6 @@ internal class MainFragment : ScannerResultFragment(), DetailCallback {
             binding.mainEmptyCardview.isVisible = false
             binding.mainViewPagerContainer.isVisible = true
         }
-    }
-
-    override fun handleQrContent(qrContent: String) {
-        state.onQrContentReceived(qrContent)
     }
 
     override fun onDeletionCompleted() {
