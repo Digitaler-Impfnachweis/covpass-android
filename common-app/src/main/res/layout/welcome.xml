@@ -4,26 +4,16 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <com.google.android.material.button.MaterialButton
-    android:id="@+id/welcome_start_button"
-    style="@style/PrimaryButton.Dark"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/grid_three"
-    android:text="@string/onboarding_welcome_start_button_text"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"/>
-
   <ScrollView
     android:id="@+id/welcome_scrollview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fillViewport="true"
-    android:layout_above="@id/welcome_start_button">
+    android:fillViewport="true">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:paddingBottom="@dimen/grid_sixteen"
       android:orientation="vertical">
 
       <TextView
@@ -60,40 +50,55 @@
           style="@style/Header.OnBackground.Small"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:gravity="start"
           android:layout_marginStart="@dimen/grid_nine"
-          android:layout_marginEnd="@dimen/grid_eight" />
+          android:layout_marginEnd="@dimen/grid_eight"
+          android:gravity="start" />
 
         <TextView
           android:id="@+id/welcome_encryption_textview"
           style="@style/DefaultText.OnBackground70"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:gravity="start"
           android:layout_below="@id/welcome_encryption_header_textview"
-          android:layout_alignEnd="@id/welcome_encryption_header_textview"
-          android:layout_alignStart="@id/welcome_encryption_header_textview" />
+          android:layout_alignStart="@id/welcome_encryption_header_textview"
+          android:layout_marginEnd="@dimen/grid_four"
+          android:gravity="start" />
 
         <ImageView
           android:id="@+id/welcome_encryption_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/grid_four"
           android:adjustViewBounds="true"
           android:src="@drawable/lock_outline"
-          android:layout_centerVertical="true"
           tools:ignore="ContentDescription" />
 
       </RelativeLayout>
 
-      <View
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/grid_eighth"
-        android:layout_marginTop="@dimen/grid_four_half"
-        android:background="@color/onBackground20" />
-
     </LinearLayout>
 
   </ScrollView>
+
+  <FrameLayout
+    android:id="@+id/bottom_sheet_bottom_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/common_gradient_fadeout"
+    android:paddingStart="@dimen/grid_two"
+    android:paddingEnd="@dimen/grid_two">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/welcome_start_button"
+      style="@style/PrimaryButton.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginVertical="@dimen/grid_three"
+      android:text="@string/onboarding_welcome_start_button_text" />
+
+  </FrameLayout>
 
 </RelativeLayout>

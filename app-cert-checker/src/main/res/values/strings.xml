@@ -2,23 +2,23 @@
 <resources>
   <string name="app_name">Impfprüfer</string>
 
-  <string name="onboarding_welcome_header">Willkommen zur Prüf-App für digitale Impfnachweise</string>
-  <string name="onboarding_welcome_subheader">Schnell und datensicher die Gültigkeit eines Impfnachweises prüfen.</string>
+  <string name="onboarding_welcome_header">Willkommen in der Prüf-App für Corona-Impfungen</string>
+  <string name="onboarding_welcome_subheader">Finden Sie in wenigen Sekunden heraus, ob eine Person vollständig geimpft ist.</string>
   <string name="onboarding_welcome_encryption_header">Sicherer Datenaustausch</string>
-  <string name="onboarding_welcome_encryption_text">Es werden keine persönlichen Daten gespeichert und Sie sehen nur die wirklich notwendigen Informationen.</string>
+  <string name="onboarding_welcome_encryption_text">Gemäß DSGVO werden keine empfindlichen Daten gespeichert. Sie sehen nur die nötigsten Informationen.</string>
 
-  <string name="onboarding_info_title_1">Scannen und prüfen Sie digitale Impfnachweise in Sekunden</string>
-  <string name="onboarding_info_text_1">Einfach mit Ihrer Smartphone-Kamera den QR-Code eines Impfnachweises scannen und Gültigkeit überprüfen.</string>
-  <string name="onboarding_info_title_2">Scannen Sie auch offline</string>
-  <string name="onboarding_info_text_2">Einfach mit dem Internet verbinden und die App synchronisieren lassen. So können Sie auch Offline-Zeiten überbrücken.</string>
+  <string name="onboarding_info_title_1">Erster Schritt: Scannen Sie das Prüfzertifikat mit der App</string>
+  <string name="onboarding_info_text_1">Halten Sie das Handy über den QR-Code und scannen Sie diesen mit der App. Die Daten werden datenschutzkonform übermittelt und können nicht gespeichert werden. Sie sehen sofort alle nötigen Informationen in der App. Und das auch, wenn Sie mal kein Internet haben.</string>
+  <string name="onboarding_info_title_2">Zweiter Schritt: Überprüfen Sie die Identität mit einem amtlichen Ausweis</string>
+  <string name="onboarding_info_text_2">Sie sehen nur den Impfstatus sowie Namen und Geburtsdatum der geimpften Person. Zur sicheren Identifikation gleichen Sie bitte die Daten mit einem Personalausweis oder Reisepass ab.</string>
 
   <string name="main_header">Prüf-App</string>
-  <string name="main_check_cert_header">Nachweis prüfen</string>
-  <string name="main_check_cert_info">Scannen Sie den QR Code eines Prüfzertifikats</string>
-  <string name="main_check_cert_button_text">QR Code scannen</string>
-  <string name="main_availability_header">Offline-Verfügbarkeit</string>
-  <string name="main_availability_info">Verbinden Sie Ihr Telefon mit dem Internet, um die Prüfeinträge zu aktualisieren.</string>
-  <string name="main_availability_status">Ihre Prüfeinträge sind aktuell</string>
+  <string name="main_check_cert_header">Impfschutz prüfen</string>
+  <string name="main_check_cert_info">Scannen Sie jetzt das Prüfzertifikat. Sie sehen sofort, ob die Person geimpft ist.</string>
+  <string name="main_check_cert_button_text">Zertifikat scannen</string>
+  <string name="main_availability_header">Offline-Modus</string>
+  <string name="main_availability_info">Stellen Sie sicher, dass die App auf dem aktuellsten Stand ist. Dazu verbinden Sie Ihr Gerät kurz mit dem Internet.</string>
+  <string name="main_availability_status">Auf dem aktuellsten Stand</string>
   <string name="main_availability_last_update">Letztes Update: %1$s</string>
 
 </resources>

@@ -2,7 +2,6 @@ package com.ibm.health.vaccination.app.certchecker.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.View
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.zxing.BarcodeFormat
@@ -12,7 +11,6 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
-import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
 import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
 import com.ibm.health.vaccination.app.certchecker.R
 import kotlinx.parcelize.Parcelize
@@ -33,12 +31,6 @@ internal class MainFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
         binding.mainCheckCertButton.setOnClickListener { launchScanner() }
-        binding.mainFaqShowAllTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqShowAllTextview.stripUnderlines()
-        binding.mainFaqCheckCertTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqCheckCertTextview.stripUnderlines()
-        binding.mainFaqGetQrCodeTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqGetQrCodeTextview.stripUnderlines()
 
         // FIXME use correct date
         val date = Calendar.getInstance().getTime().toString()

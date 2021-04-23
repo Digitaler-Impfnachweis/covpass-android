@@ -12,7 +12,7 @@
 
     <TextView
       android:id="@+id/main_header_textview"
-      style="@style/Header.OnBackground.Extralarge"
+      style="@style/Header.OnBackground.Standard"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
@@ -29,12 +29,12 @@
       android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
       android:layout_alignParentEnd="true"
-      android:layout_marginTop="@dimen/grid_seven_half"
+      android:layout_marginTop="@dimen/grid_six"
       android:layout_marginEnd="@dimen/grid_two"
       android:adjustViewBounds="true"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:padding="@dimen/grid_one"
-      android:src="@drawable/settings"
+      android:src="@drawable/questionmark_black"
       android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
       tools:ignore="ContentDescription" />
 
@@ -45,7 +45,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/main_header_textview"
       android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_four"
       app:cardBackgroundColor="@color/info70">
 
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,37 +57,20 @@
           style="@style/Header.OnInfo.Big"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/grid_two_half"
+          android:layout_marginHorizontal="@dimen/grid_three"
           android:layout_marginTop="@dimen/grid_two_half"
-          android:layout_marginEnd="@dimen/grid_one"
           android:text="@string/main_check_cert_header"
-          app:layout_constraintEnd_toStartOf="@id/main_check_cert_hint_button"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-          android:id="@+id/main_check_cert_hint_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/grid_one_half"
-          android:adjustViewBounds="true"
-          android:background="?attr/selectableItemBackgroundBorderless"
-          android:padding="@dimen/grid_one"
-          android:src="@drawable/questionmark_white"
-          app:layout_constraintBottom_toBottomOf="@id/main_check_cert_header_textview"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_chainStyle="spread_inside"
-          app:layout_constraintStart_toEndOf="@id/main_check_cert_header_textview"
-          app:layout_constraintTop_toTopOf="@id/main_check_cert_header_textview"
-          tools:ignore="ContentDescription" />
 
         <TextView
           android:id="@+id/main_check_cert_info_textview"
           style="@style/DefaultText.OnInfo"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:text="@string/main_check_cert_info"
           android:layout_marginTop="@dimen/grid_half"
+          android:text="@string/main_check_cert_info"
           app:layout_constraintEnd_toEndOf="@id/main_check_cert_header_textview"
           app:layout_constraintStart_toStartOf="@id/main_check_cert_header_textview"
           app:layout_constraintTop_toBottomOf="@id/main_check_cert_header_textview" />
@@ -101,10 +84,10 @@
           android:layout_marginBottom="@dimen/grid_five"
           android:text="@string/main_check_cert_button_text"
           app:icon="@drawable/scan_qr"
-          app:layout_constraintTop_toBottomOf="@id/main_check_cert_info_textview"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent" />
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/main_check_cert_info_textview" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -117,7 +100,8 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/main_check_cert_cardview"
       android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_five"
+      android:layout_marginBottom="@dimen/grid_three"
       app:cardBackgroundColor="@color/brandAccent10">
 
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -133,26 +117,9 @@
           android:layout_marginTop="@dimen/grid_two_half"
           android:layout_marginEnd="@dimen/grid_one"
           android:text="@string/main_availability_header"
-          app:layout_constraintEnd_toStartOf="@id/main_availability_hint_button"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-          android:id="@+id/main_availability_hint_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="@dimen/grid_one_half"
-          android:adjustViewBounds="true"
-          android:background="?attr/selectableItemBackgroundBorderless"
-          android:padding="@dimen/grid_one"
-          android:src="@drawable/questionmark_black"
-          android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
-          app:layout_constraintBottom_toBottomOf="@id/main_availability_header_textview"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_chainStyle="spread_inside"
-          app:layout_constraintStart_toEndOf="@id/main_availability_header_textview"
-          app:layout_constraintTop_toTopOf="@id/main_availability_header_textview"
-          tools:ignore="ContentDescription" />
 
         <TextView
           android:id="@+id/main_availability_info_textview"
@@ -210,76 +177,6 @@
       </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-      android:id="@+id/main_faq_header_textview"
-      style="@style/Header.OnBackground.MediumBig"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/main_availability_cardview"
-      android:layout_marginStart="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_five"
-      android:layout_marginBottom="@dimen/grid_two"
-      android:gravity="start"
-      android:text="@string/faq_header" />
-
-    <TextView
-      android:id="@+id/main_faq_show_all_textview"
-      style="@style/Header.OnBackground.Small"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBottom="@id/main_faq_header_textview"
-      android:layout_alignParentEnd="true"
-      android:layout_marginStart="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_five"
-      android:layout_marginEnd="@dimen/grid_three"
-      android:layout_toRightOf="@id/main_faq_header_textview"
-      android:gravity="end"
-      android:text="@string/faq_show_all"
-      android:textColorLink="@color/info" />
-
-    <TextView
-      android:id="@+id/main_faq_check_cert_textview"
-      style="@style/Header.OnBackground.Small"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/main_faq_header_textview"
-      android:layout_marginStart="@dimen/grid_three"
-      android:layout_marginEnd="@dimen/grid_four"
-      android:gravity="center_vertical"
-      android:paddingVertical="@dimen/grid_one_half"
-      android:text="@string/faq_check_cert"
-      android:textColorLink="@color/onBackground"
-      app:drawableEndCompat="@drawable/arrow_right_blue" />
-
-    <View
-      android:id="@+id/main_faq_check_cert_divider"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/grid_eighth"
-      android:layout_below="@id/main_faq_check_cert_textview"
-      android:background="@color/onBackground20" />
-
-    <TextView
-      android:id="@+id/main_faq_get_qr_code_textview"
-      style="@style/Header.OnBackground.Small"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/main_faq_check_cert_divider"
-      android:layout_marginStart="@dimen/grid_three"
-      android:layout_marginEnd="@dimen/grid_four"
-      android:gravity="center_vertical"
-      android:paddingVertical="@dimen/grid_one_half"
-      android:text="@string/faq_get_qr_code"
-      android:textColorLink="@color/onBackground"
-      app:drawableEndCompat="@drawable/arrow_right_blue" />
-
-    <View
-      android:id="@+id/main_faq_get_qr_code_divider"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/grid_eighth"
-      android:layout_below="@id/main_faq_get_qr_code_textview"
-      android:layout_marginBottom="@dimen/grid_six"
-      android:background="@color/onBackground20" />
 
   </RelativeLayout>
 

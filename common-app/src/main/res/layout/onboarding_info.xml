@@ -14,27 +14,26 @@
       android:id="@+id/onboarding_imageview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_eight"
-      android:layout_marginBottom="@dimen/grid_fourteen"
+      android:layout_marginTop="@dimen/grid_nine"
+      android:layout_marginBottom="@dimen/grid_five"
       android:adjustViewBounds="true"
       tools:ignore="ContentDescription" />
 
     <TextView
       android:id="@+id/onboarding_info_header_textview"
       style="@style/Header.OnBackground.Standard"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingStart="@dimen/grid_three"
-      android:paddingEnd="@dimen/grid_eight"
+      android:paddingHorizontal="@dimen/grid_three"
       android:paddingBottom="@dimen/grid_one_half" />
 
     <TextView
       android:id="@+id/onboarding_info_textview"
       style="@style/DefaultText.OnBackground70"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingStart="@dimen/grid_three"
-      android:paddingEnd="@dimen/grid_eight" />
+      android:paddingHorizontal="@dimen/grid_three"
+      android:layout_marginBottom="@dimen/grid_twentytwo"/>
 
   </LinearLayout>
 

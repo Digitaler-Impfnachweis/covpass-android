@@ -26,5 +26,10 @@ class OnboardingInfoFragment : BaseOnboardingInfoFragment() {
         }
 
     // FIXME use final icon
-    override fun getImageRes() = R.drawable.onboarding_welcome
+    override fun getImageRes(): Int =
+        when (getArgs<OnboardingInfoFragmentNav>().position) {
+            0 -> R.drawable.onboarding_info_validation_1
+            1 -> R.drawable.onboarding_info_validation_2
+            else -> throw IllegalArgumentException()
+        }
 }

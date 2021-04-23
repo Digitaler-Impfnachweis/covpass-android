@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="onboarding_welcome_start_button_text">Jetzt starten</string>
+  <string name="onboarding_welcome_start_button_text">Los geht\'s</string>
   <string name="onboarding_continue_button_text">Weiter</string>
-
-  <string name="faq_header">Häufige Fragen</string>
-  <string name="faq_show_all"><a href="http://www.google.com">Alle anzeigen</a></string>
-  <string name="faq_use_cert"><a href="http://www.yahoo.com">Wie nutze ich den digitalen Nachweis?</a></string>
-  <string name="faq_get_qr_code"><a href="http://www.bing.com">Woher bekomme ich einen QR Code?</a></string>
-  <string name="faq_data_usage"><a href="http://www.amazon.com">Was passiert mit meinen Daten?</a></string>
-  <string name="faq_check_cert"><a href="http://www.bing.com">Wie überprüfe ich einen digitalen Impfnachweis?</a></string>
 
   <string name="scan_code_label_text">Scanne Code …</string>
 
-  <string name="covid_header">Covid-19</string>
+  <string name="covid_header">COVID-19-Impfung</string>
 
 </resources>

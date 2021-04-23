@@ -1,7 +1,6 @@
 package com.ibm.health.vaccination.app.vaccinee.main
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.View.MeasureSpec
 import android.widget.LinearLayout
@@ -17,7 +16,6 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
-import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
 import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
@@ -46,16 +44,7 @@ internal class MainFragment : ScannerResultFragment(), DetailCallback {
 
     private fun setupViews() {
         binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
-        binding.mainEmptyButton.setOnClickListener { showAddVaccinationCertificatePopup() }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
-        binding.mainFaqShowAllTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqShowAllTextview.stripUnderlines()
-        binding.mainFaqUseCertTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqUseCertTextview.stripUnderlines()
-        binding.mainFaqGetQrCodeTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqGetQrCodeTextview.stripUnderlines()
-        binding.mainFaqDataUsageTextview.movementMethod = LinkMovementMethod.getInstance()
-        binding.mainFaqDataUsageTextview.stripUnderlines()
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         binding.mainViewPager.adapter = fragmentStateAdapter
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { tab, position ->

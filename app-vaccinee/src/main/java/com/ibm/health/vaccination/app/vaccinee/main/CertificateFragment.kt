@@ -62,7 +62,6 @@ internal class CertificateFragment : BaseFragment() {
             binding.certificateHeaderTextview.setTextColor(ContextCompat.getColor(it, textColor))
             binding.certificateNameTextview.setTextColor(ContextCompat.getColor(it, textColor))
             binding.certificateProtectionTextview.setTextColor(ContextCompat.getColor(it, textColor))
-            binding.certificateSeriesTextview.setTextColor(ContextCompat.getColor(it, textColor))
         }
 
         val backgroundColorResource = if (complete) R.color.info80 else R.color.info20
@@ -82,12 +81,8 @@ internal class CertificateFragment : BaseFragment() {
 
         binding.certificateNameTextview.text = mainCertificate.name
 
-        val protection =
-            if (complete) R.string.certificate_protection_complete else R.string.certificate_protection_incomplete
+        val protection = R.string.certificate_protection
         binding.certificateProtectionTextview.text = getString(protection)
-
-        val mainVaccination = mainCertificate.vaccination.first()
-        binding.certificateSeriesTextview.text = getString(R.string.certificate_series, mainVaccination.series)
 
         val arrowRightIconResource = if (complete) R.drawable.arrow_right_white else R.drawable.arrow_right_blue
         binding.certificateArrowImageview.setImageResource(arrowRightIconResource)
@@ -101,9 +96,6 @@ internal class CertificateFragment : BaseFragment() {
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
         binding.certificateQrCardview.isInvisible = !complete
-
-        binding.certificateAddButton.isVisible = !complete
-        binding.certificateAddButton.setOnClickListener { (requireActivity() as? MainActivity)?.launchScanner() }
     }
 
     // FIXME move this to state

@@ -3,30 +3,26 @@
 
   <string name="app_name">Impfnachweis</string>
 
-  <string name="onboarding_welcome_header">Willkommen zum digitalen Impfnachweis</string>
-  <string name="onboarding_welcome_subheader">Einfach und sicher den eigenen Impfschutz gegen COVID-19 verwalten.</string>
-  <string name="onboarding_welcome_encryption_header">Sicher verschlüsselt</string>
-  <string name="onboarding_welcome_encryption_text">Ihre persönlichen Daten werden nur lokal auf Ihrem Handy gespeichert.</string>
+  <string name="onboarding_welcome_header">Willkommen im digitalen Impfnachweis</string>
+  <string name="onboarding_welcome_subheader">Weisen Sie Ihren Impfschutz ganz einfach mit dem Handy nach.</string>
+  <string name="onboarding_welcome_encryption_header">Absolute Sicherheit Ihrer Daten</string>
+  <string name="onboarding_welcome_encryption_text">Ihre Impfdaten werden nur lokal auf Ihrem Handy gespeichert. Sie entscheiden, wann und mit wem Sie Ihre Daten teilen wollen.</string>
 
-  <string name="onboarding_info_title_1">Laden Sie Ihre Bescheinigung nach der Impfung per QR Code einfach in die App</string>
-  <string name="onboarding_info_text_1">Sie können auch Bescheinigungen für Angehörige, Ihre Kinder und andere wichtige Personen in Ihrem Leben mit der App verwalten.</string>
-  <string name="onboarding_info_title_2">Teilen Sie bei Bedarf den Impfeintrag mit der Ärzt*in</string>
-  <string name="onboarding_info_text_2">Keine Sorge, wenn der Impfpass gerade nicht dabei ist: Einfach den Impfeintrag mit der behandelnden Ärzt*in aus der App teilen.</string>
-  <string name="onboarding_info_title_3">Den vollen Impfschutz sicher mit dem Prüfzertifikat nachweisen</string>
-  <string name="onboarding_info_text_3">Sobald Ihr Impfschutz komplett ist, können Sie einen Prüfbeleg erstellen. Dieser enthält nur die nötigsten Daten und kann z.B. bei Veranstaltungen vorgezeigt werden.</string>
+  <string name="onboarding_info_title_1">Erster Schritt: Fügen Sie Corona-Impfungen per QR-Code hinzu</string>
+  <string name="onboarding_info_text_1">Nach der Impfung erhalten Sie ein Impfzertifikat mit einem QR-Code. Darauf sind die selben Daten wie im gelben Impfpass hinterlegt. Scannen Sie den QR-Code mit der App. Die Impfung wird automatisch auf Ihrem Handy gespeichert.</string>
+  <string name="onboarding_info_title_2">Zweiter Schritt: Erstellen Sie das Prüfzertifikat in der App</string>
+  <string name="onboarding_info_text_2">Das Prüfzertifikat ist ein weiterer QR-Code. Impfzertifikats. Zu sehen sind nur der Impfstatus sowie Name und Geburtsdatum der geimpften Person. Sobald die Impfung vollständig ist, können Sie das Prüfzertifikat direkt in der App erstellen.</string>
+  <string name="onboarding_info_title_3">Letzter Schritt: Zeigen Sie das Prüfzertifikat mit dem Handy vor</string>
+  <string name="onboarding_info_text_3">Die vollständige Impfung ersetzt den negativen Corona-Test. Lassen Sie dafür das Prüfzertifikat auf Ihrem Handy scannen. Die Daten werden verschlüsselt übermittelt. Und das auch, wenn Sie mal kein Internet haben. Zur Identifikation zeigen Sie bitte den Personalausweis oder Reisepass vor.</string>
 
-  <string name="main_header">Impfnachweise</string>
-  <string name="main_empty_header">Kein Nachweis hinzugefügt</string>
-  <string name="main_empty_text">Scannen Sie eine Bescheinigung mit QR Code, um hier Ihren Nachweis zu sehen</string>
-  <string name="main_empty_button_text">Nachweis hinzufügen</string>
+  <string name="main_header">Alle Zertifikate</string>
+  <string name="main_empty_header">Fügen Sie eine Impfung hinzu</string>
+  <string name="main_empty_text">Sie haben aktuell keine Impfungen gespeichert. Drücken Sie auf das folgende Plus-Symbol, um eine Impfung hinzuzufügen.</string>
   <string name="main_delete_dialog_header">Nachweis entfernt</string>
   <string name="main_delete_dialog_message">Sie haben den Nachweis und alle enthaltenen Daten von diesem Telefon entfernt.</string>
   <string name="main_delete_dialog_positive">Schließen</string>
 
-  <string name="certificate_protection_complete">Impfschutz vollständig</string>
-  <string name="certificate_protection_incomplete">Impfschutz nicht vollständig</string>
-  <string name="certificate_series">%1$s Impfungen</string>
-  <string name="certificate_add_button_text">2. Impfung hinzufügen</string>
+  <string name="certificate_protection">Impfungen anzeigen</string>
 
   <string name="detail_favorite_title">Als Favorit markieren</string>
   <string name="detail_status_header_complete">Impfschutz vollständig</string>
