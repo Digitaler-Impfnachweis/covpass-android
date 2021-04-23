@@ -44,6 +44,10 @@
     <item name="android:textSize">@dimen/textsize_header_medium_big</item>
   </style>
 
+  <style name="Header.OnBackground.Big">
+    <item name="android:textSize">@dimen/textsize_header_big</item>
+  </style>
+
   <style name="Header.OnBackground.Extralarge">
     <item name="android:textSize">@dimen/textsize_header_extralarge</item>
   </style>

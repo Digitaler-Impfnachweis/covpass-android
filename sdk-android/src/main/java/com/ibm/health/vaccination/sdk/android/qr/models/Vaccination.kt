@@ -23,8 +23,17 @@ public data class ExtendedVaccination(
 ) {
 
     public fun isComplete(): Boolean {
+        return getCurrentSeries() == getCompleteSeries()
+    }
+
+    public fun getCurrentSeries(): String {
         val seriesValues = series.split("/")
-        return seriesValues[0] == seriesValues[1]
+        return seriesValues[0]
+    }
+
+    public fun getCompleteSeries(): String {
+        val seriesValues = series.split("/")
+        return seriesValues[1]
     }
 }
 

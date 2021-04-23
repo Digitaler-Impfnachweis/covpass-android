@@ -15,10 +15,7 @@ object Storage {
 
     private val keyValueStore by lazy { EncryptedKeyValueStore(androidDeps.application, PREFS_NAME) }
 
-    val certCache = MutableValueFlow(
-        keyValueStore.get(PREFS_KEY_VACCINATION_CERTIFICATE_LIST)
-            ?: VaccinationCertificateList()
-    )
+    val certCache = MutableValueFlow(getInitialGroupedCertificatesList())
 
     var onboardingDone: Boolean
         get() {
@@ -29,10 +26,16 @@ object Storage {
         }
 
     // FIXME move to SDK as CertificateStorage
-    suspend fun setVaccinationCertificateList(certificateList: VaccinationCertificateList) {
+    // FIXME do this directly when updating the MutableValueFlow, not from outside
+    suspend fun setVaccinationCertificateList(certificateList: GroupedCertificatesList) {
         dispatchers.io {
-            keyValueStore.set(PREFS_KEY_VACCINATION_CERTIFICATE_LIST, certificateList)
+            keyValueStore.set(PREFS_KEY_VACCINATION_CERTIFICATE_LIST, certificateList.toVaccinationCertificateList())
             certCache.value = certificateList
         }
     }
+
+    private fun getInitialGroupedCertificatesList() =
+        GroupedCertificatesList.fromVaccinationCertificateList(
+            keyValueStore.get(PREFS_KEY_VACCINATION_CERTIFICATE_LIST) ?: VaccinationCertificateList()
+        )
 }

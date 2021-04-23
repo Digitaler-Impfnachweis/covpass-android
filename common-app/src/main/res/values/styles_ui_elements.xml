@@ -10,13 +10,10 @@
   https://ibm.invisionapp.com/d/main#/console/15357523/319528248/preview => "Bestätigen"
   -->
   <style name="PrimaryButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
-    <item name="android:maxLines">1</item>
     <item name="android:ellipsize">end</item>
     <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:paddingTop">@dimen/button_primary_padding_top_bottom</item>
-    <item name="android:paddingBottom">@dimen/button_primary_padding_top_bottom</item>
+    <item name="android:paddingTop">@dimen/button_padding_vertical</item>
+    <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
     <item name="android:paddingLeft">@dimen/grid_five</item>
     <item name="android:paddingRight">@dimen/grid_five</item>
     <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
@@ -34,6 +31,40 @@
     <item name="backgroundTint">@color/onInfo</item>
     <item name="android:textColor">@color/onBackground</item>
     <item name="rippleColor">@color/brandAccent40</item>
+  </style>
+
+  <!--
+  Button - Secondary
+
+  Defines a button which can be used for secondary actions. Please check examples for more details.
+
+  Examples:
+  https://ibm.invisionapp.com/d/main#/console/15357523/319528244/preview => "Schlüssel vergessen"
+  https://ibm.invisionapp.com/d/main#/console/15357523/319528234/preview => "Alternative mit Ton"
+  -->
+  <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:minWidth">@dimen/button_min_width</item>
+    <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+    <item name="strokeWidth">@dimen/grid_eighth</item>
+    <item name="backgroundTint">@color/backgroundSecondary</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:paddingLeft">@dimen/grid_five</item>
+    <item name="android:paddingRight">@dimen/grid_five</item>
+  </style>
+
+  <style name="SecondaryButton.Add">
+    <item name="android:textColor">@color/brandAccent70</item>
+    <item name="strokeColor">@color/brandAccent70</item>
+    <item name="android:paddingTop">@dimen/button_padding_vertical_small</item>
+    <item name="android:paddingBottom">@dimen/button_padding_vertical_small</item>
+  </style>
+
+  <style name="SecondaryButton.Delete">
+    <item name="android:textColor">@color/onBackground</item>
+    <item name="strokeColor">@color/onBackground30</item>
+    <item name="android:paddingTop">@dimen/button_padding_vertical</item>
+    <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
   </style>
 
   <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.SmallComponent">

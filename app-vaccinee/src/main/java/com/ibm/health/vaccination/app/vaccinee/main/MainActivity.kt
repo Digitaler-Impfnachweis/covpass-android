@@ -6,6 +6,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.vaccination.app.BaseActivity
 import com.ibm.health.common.vaccination.app.scanner.QRScannerActivity
+import com.ibm.health.vaccination.app.vaccinee.common.ScannerResultFragment
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.onboarding.WelcomeFragmentNav
 
@@ -27,7 +28,7 @@ internal class MainActivity : BaseActivity() {
 
         // Forward ZXing's results
         if (IntentIntegrator.parseActivityResult(requestCode, resultCode, data) != null) {
-            navigator.findFragment<MainFragment>()?.onActivityResult(requestCode, resultCode, data)
+            navigator.findFragment<ScannerResultFragment>()?.onActivityResult(requestCode, resultCode, data)
         }
     }
     fun launchScanner() {

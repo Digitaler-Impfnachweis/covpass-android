@@ -1,6 +1,5 @@
 package com.ibm.health.vaccination.app.vaccinee.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -11,12 +10,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.zxing.integration.android.IntentIntegrator
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
@@ -26,13 +23,14 @@ import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
 import com.ibm.health.vaccination.app.vaccinee.storage.Storage
 import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
+import com.ibm.health.vaccination.app.vaccinee.common.ScannerResultFragment
+import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class MainFragmentNav : FragmentNav(MainFragment::class)
 
-internal class MainFragment : BaseFragment(), DetailCallback {
+internal class MainFragment : ScannerResultFragment(), DetailCallback {
 
     private val state by buildState { MainState(scope) }
     private val binding by viewBinding(VaccineeMainBinding::inflate)
@@ -88,7 +86,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         })
     }
 
-    private fun updateCertificates(certificateList: VaccinationCertificateList) {
+    private fun updateCertificates(certificateList: GroupedCertificatesList) {
         if (certificateList.certificates.isEmpty()) {
             binding.mainEmptyCardview.isVisible = true
             binding.mainViewPagerContainer.isVisible = false
@@ -99,14 +97,8 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         }
     }
 
-    // Get the scanner results:
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        IntentIntegrator.parseActivityResult(requestCode, resultCode, data)?.let {
-            if (it.contents != null) {
-                state.onQrContentReceived(it.contents)
-            }
-            // Else the backbutton was pressed, nothing to do
-        } ?: super.onActivityResult(requestCode, resultCode, data)
+    override fun handleQrContent(qrContent: String) {
+        state.onQrContentReceived(qrContent)
     }
 
     override fun onDeletionCompleted() {

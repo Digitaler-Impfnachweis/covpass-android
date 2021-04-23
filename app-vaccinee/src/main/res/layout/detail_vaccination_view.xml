@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/detail_vaccination_header_textview"
+    style="@style/Header.OnBackground.MediumBig"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_five"
+    android:layout_marginBottom="@dimen/grid_one_half"/>
+
+  <include
+    android:id="@+id/detail_vaccination_occurrence_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_product_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_manufacturer_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_lotnumber_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_location_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_issuer_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_country_data_row"
+    layout="@layout/detail_data_row" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_eighth"
+    android:background="@color/onBackground20" />
+
+  <include
+    android:id="@+id/detail_vaccination_uvci_data_row"
+    layout="@layout/detail_data_row" />
+
+</LinearLayout>

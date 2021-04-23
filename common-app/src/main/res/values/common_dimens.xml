@@ -43,7 +43,8 @@
   <dimen name="textsize_dialog">16sp</dimen>
 
   <!-- Buttons -->
-  <dimen name="button_primary_padding_top_bottom">18dp</dimen>
+  <dimen name="button_padding_vertical_small">14dp</dimen>
+  <dimen name="button_padding_vertical">20dp</dimen>
   <dimen name="button_min_width">180dp</dimen>
   <dimen name="round_button_min_size">56dp</dimen>
 

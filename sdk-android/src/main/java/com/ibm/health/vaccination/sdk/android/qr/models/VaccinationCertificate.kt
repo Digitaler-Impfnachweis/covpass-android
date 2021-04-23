@@ -5,6 +5,7 @@ import com.ibm.health.vaccination.sdk.android.serialization.LocalDateSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
+import com.ibm.health.common.vaccination.app.utils.getFormattedDate
 
 /**
  * Data model for the vaccination certificate
@@ -22,13 +23,14 @@ public data class VaccinationCertificate(
     val validUntil: LocalDate? = null,
     val version: String = "",
 ) {
-    // FIXME this is just a provisionally implementation, has to be clarified
-    public fun isComplete(): Boolean {
-        vaccination.forEach {
-            if (it.series == "2/2") {
-                return true
-            }
-        }
-        return false
+
+    public fun getFormattedBirthDate(): String {
+        return birthDate?.getFormattedDate() ?: "-"
     }
+
+    public fun isComplete(): Boolean = vaccination.any { it.isComplete() }
+
+    public fun getCurrentSeries(): String = vaccination.first().getCurrentSeries()
+
+    public fun getCompleteSeries(): String = vaccination.first().getCompleteSeries()
 }

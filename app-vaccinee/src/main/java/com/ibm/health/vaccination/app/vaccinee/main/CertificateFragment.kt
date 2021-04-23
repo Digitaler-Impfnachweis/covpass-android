@@ -19,8 +19,8 @@ import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.databinding.CertificateBinding
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailFragmentNav
+import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.app.vaccinee.storage.Storage
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
@@ -41,15 +41,16 @@ internal class CertificateFragment : BaseFragment() {
         }
     }
 
-    private fun updateViews(certificateList: VaccinationCertificateList) {
+    private fun updateViews(certificateList: GroupedCertificatesList) {
         val certId = getArgs<CertificateFragmentNav>().certId
-        val extendedCertificate = certificateList.getExtendedVaccinationCertificate(certId)
-        val vaccinationCertificate = extendedCertificate.vaccinationCertificate
-        val complete = vaccinationCertificate.isComplete()
+        val groupedCertificate = certificateList.getGroupedCertificates(certId)
+        val mainExtendedCertificate = groupedCertificate.getMainCertificate()
+        val mainCertificate = groupedCertificate.getMainCertificate().vaccinationCertificate
+        val complete = groupedCertificate.isComplete()
 
         launchWhenStarted {
             if (complete) {
-                extendedCertificate.validationQrContent?.let {
+                mainExtendedCertificate.validationQrContent?.let {
                     generateQRCode(it)
                 }
                 // FIXME handle case when the qrContent is not yet set, because the backend request failed e.g.
@@ -69,24 +70,23 @@ internal class CertificateFragment : BaseFragment() {
             binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(it, backgroundColorResource))
         }
 
-        val activeRes = if (complete) R.drawable.star_white_fill else R.drawable.star_blue_fill
-        val inactiveRes = if (complete) R.drawable.star_white else R.drawable.star_blue
+        val activeRes = if (complete) R.drawable.star_white_fill else R.drawable.star_black_fill
+        val inactiveRes = if (complete) R.drawable.star_white else R.drawable.star_black
         val favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) activeRes else inactiveRes
 
         binding.certificateFavoriteButton.setImageResource(favoriteIconResource)
         binding.certificateFavoriteButton.setOnClickListener {
             state.onFavoriteClick(certId)
         }
+        binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
 
-        binding.certificateNameTextview.text = vaccinationCertificate.name
+        binding.certificateNameTextview.text = mainCertificate.name
 
         val protection =
             if (complete) R.string.certificate_protection_complete else R.string.certificate_protection_incomplete
         binding.certificateProtectionTextview.text = getString(protection)
 
-        val completeVaccination =
-            vaccinationCertificate.vaccination.firstOrNull { it.isComplete() }
-        val mainVaccination = completeVaccination ?: vaccinationCertificate.vaccination.first()
+        val mainVaccination = mainCertificate.vaccination.first()
         binding.certificateSeriesTextview.text = getString(R.string.certificate_series, mainVaccination.series)
 
         val arrowRightIconResource = if (complete) R.drawable.arrow_right_white else R.drawable.arrow_right_blue
@@ -97,7 +97,7 @@ internal class CertificateFragment : BaseFragment() {
         }
 
         val statusIconResource =
-            if (complete) R.drawable.vaccination_status_complete else R.drawable.vaccination_status_incomplete
+            if (complete) R.drawable.main_vaccination_status_complete else R.drawable.main_vaccination_status_incomplete
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
         binding.certificateQrCardview.isInvisible = !complete

@@ -28,7 +28,27 @@
   <string name="certificate_series">%1$s Impfungen</string>
   <string name="certificate_add_button_text">2. Impfung hinzufügen</string>
 
-  <string name="detail_message">Detail View</string>
+  <string name="detail_favorite_title">Als Favorit markieren</string>
+  <string name="detail_status_header_complete">Impfschutz vollständig</string>
+  <string name="detail_status_header_incomplete">%1$s von %2$s Impfungen vorhanden</string>
+  <string name="detail_status_text_complete">Teilen Sie jetzt den Impfschutz vertrauensvoll mit einer weiteren Person. Erstellen Sie dafür ein Prüfzertifikat.</string>
+  <string name="detail_status_text_incomplete">Ihr Impfschutz ist nicht vollständig. Um ein Prüfzertifikat zu erstellen, fügen Sie bitte die zweite Impfung hinzu.</string>
+  <string name="detail_show_proof_button_text_complete">Impfnachweis anzeigen</string>
+  <!-- TODO will be reactivated later, when the button shall be visible -->
+  <!--  <string name="detail_show_proof_button_text_incomplete">Vorläufigen Impfnachweis anzeigen</string>-->
+  <string name="detail_add_button_text">Impfung hinzufügen</string>
+  <string name="detail_personal_header">Persönliche Daten</string>
+  <string name="detail_name_header">Name</string>
+  <string name="detail_birthdate_header">Geburtsdatum</string>
+  <string name="detail_vaccination_header">Impfung %1$s von %2$s</string>
+  <string name="detail_vaccination_occurrence">Datum der Impfung</string>
+  <string name="detail_vaccination_product">Impfstoff</string>
+  <string name="detail_vaccination_manufacturer">Hersteller</string>
+  <string name="detail_vaccination_lotnumber">Chargennummer</string>
+  <string name="detail_vaccination_location">Impfort</string>
+  <string name="detail_vaccination_issuer">Aussteller</string>
+  <string name="detail_vaccination_country">Land</string>
+  <string name="detail_vaccination_uvci">UVCI (Identifikationsnummer für das Zertifikat)</string>
   <string name="detail_delete_button_text">Nachweis löschen</string>
   <string name="detail_delete_dialog_header">Möchten Sie diesen Nachweis wirklich entfernen?</string>
   <string name="detail_delete_dialog_message">Ein Wiederherstellen ist nicht möglich.</string>
