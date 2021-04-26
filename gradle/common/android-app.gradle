@@ -13,25 +13,27 @@ enum Obfuscation {
 
 ext.Obfuscation = Obfuscation
 
-class AppConfig {
+class Config {
     Obfuscation obfuscation = Obfuscation.Full
     Integer minVersion = null
     Integer targetVersion = null
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
+    Boolean kotlinExplicitApiMode = false
 }
 
 ext.androidApp = { args = [:] ->
     apply plugin: 'com.android.application'
     apply from: "$rootDir/gradle/common/android-common.gradle"
 
-    AppConfig config = new AppConfig(args)
+    Config config = new Config(args)
 
     androidCommon(
         minVersion: config.minVersion,
         targetVersion: config.targetVersion,
         compileSdkVersion: config.compileSdkVersion,
         disableAndroidLints: config.disableAndroidLints,
+        kotlinExplicitApiMode: config.kotlinExplicitApiMode,
     )
 
     android {

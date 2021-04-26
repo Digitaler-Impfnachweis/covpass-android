@@ -2,7 +2,7 @@ package com.ibm.health.vaccination.sdk.android.cose
 
 import com.google.iot.cbor.*
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
-import com.ibm.health.vaccination.sdk.android.crypto.isRoot
+import com.ibm.health.vaccination.sdk.android.crypto.isCA
 import java.security.GeneralSecurityException
 import java.security.PublicKey
 import java.security.cert.X509Certificate
@@ -12,19 +12,20 @@ import java.security.cert.X509Certificate
  *
  * Also see: https://cose-wg.github.io/cose-spec/#rfc.section.4.2
  */
-internal data class CoseSign1(
+internal class CoseSign1(
     val protected: ByteArray,
-    val unprotected: Map<Int, Any?>,
+    val unprotected: Map<Any, Any?>,
     val payload: ByteArray,
     val signature: ByteArray,
 ) {
 
-    internal val headers: Map<Int, Any?> =
-        CborMap.createFromCborByteArray(protected)?.toJavaObject() as? Map<Int, Any?>
+    internal val protectedHeaders: Map<Any, Any?> =
+        CborMap.createFromCborByteArray(protected)?.toJavaObject() as? Map<Any, Any?>
             ?: emptyMap()
 
-    internal val kid: ByteArray? = unprotected[4] as? ByteArray
-    internal val signatureAlgorithm: CoseSignatureAlgorithm? = CoseSignatureAlgorithm.fromId(headers[1] as? Int)
+    internal val kid: ByteArray? = (protectedHeaders[4] ?: unprotected[4]) as? ByteArray
+    internal val signatureAlgorithm: CoseSignatureAlgorithm? =
+        CoseSignatureAlgorithm.fromId(protectedHeaders[1] as? Int)
 
     /**
      * Checks if this object is valid and also if the signing certificate's whole chain is valid.
@@ -33,15 +34,15 @@ internal data class CoseSign1(
      */
     fun validate(validator: CertValidator) {
         // TODO: Once the kid contains the SKID we can use that directly. For now, try out all certificates.
-        for (cert in validator.trustedCerts) {
-            if (!cert.isRoot) {
-                try {
-                    validate(cert)
-                    validator.validate(cert)
-                    return
-                } catch (e: GeneralSecurityException) {
-                    continue
-                }
+        for (cert in validator.trustedCerts.filter { !it.isCA }) {
+            try {
+                // Validate the COSE signature
+                validate(cert)
+                // Validate the cert chain
+                validator.validate(cert)
+                return
+            } catch (e: GeneralSecurityException) {
+                continue
             }
         }
         throw CoseValidationException()
@@ -66,28 +67,6 @@ internal data class CoseSign1(
         signatureAlgorithm.validator.validate(data, publicKey, signature)
     }
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as CoseSign1
-
-        if (!protected.contentEquals(other.protected)) return false
-        if (unprotected != other.unprotected) return false
-        if (!payload.contentEquals(other.payload)) return false
-        if (!signature.contentEquals(other.signature)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = protected.contentHashCode()
-        result = 31 * result + unprotected.hashCode()
-        result = 31 * result + payload.contentHashCode()
-        result = 31 * result + signature.contentHashCode()
-        return result
-    }
-
     companion object {
         /**
          * Creates CoseSign1 instance from given [byteArray].
@@ -109,7 +88,7 @@ internal data class CoseSign1(
             val (protected, unprotected, payload, signature) = list
             return CoseSign1(
                 protected.toJavaObject() as ByteArray,
-                unprotected.toJavaObject() as Map<Int, Any?>,
+                unprotected.toJavaObject() as Map<Any, Any?>,
                 payload.toJavaObject() as ByteArray,
                 signature.toJavaObject() as ByteArray
             )

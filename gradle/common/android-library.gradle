@@ -1,33 +1,28 @@
-class LibConfig {
+class Config {
     Integer minVersion = null
     Integer targetVersion = null
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
-    Boolean kotlinExplicitApiMode = false
+    Boolean kotlinExplicitApiMode = true
 }
 
 ext.androidLibrary = { args = [:] ->
     apply plugin: 'com.android.library'
     apply from: "$rootDir/gradle/common/android-common.gradle"
 
-    LibConfig config = new LibConfig(args)
+    Config config = new Config(args)
 
     androidCommon(
         minVersion: config.minVersion,
         targetVersion: config.targetVersion,
         compileSdkVersion: config.compileSdkVersion,
         disableAndroidLints: config.disableAndroidLints,
+        kotlinExplicitApiMode: config.kotlinExplicitApiMode,
     )
 
     android {
         defaultConfig {
             consumerProguardFiles 'consumer-rules.pro'
-        }
-
-        if (config.kotlinExplicitApiMode) {
-            kotlinOptions {
-                freeCompilerArgs = ["-Xexplicit-api=strict"]
-            }
         }
     }
 }

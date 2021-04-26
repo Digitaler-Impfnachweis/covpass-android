@@ -1,0 +1,24 @@
+ext.kotlinCommon = {
+    tasks.withType(Test) {
+        testLogging {
+            exceptionFormat "full"
+        }
+    }
+}
+
+class CompilerArgsConfig {
+    Boolean kotlinExplicitApiMode = true
+}
+
+ext.getCompilerArgs = { args = [:] ->
+    CompilerArgsConfig config = new CompilerArgsConfig(args)
+    def compilerArgs = [
+        "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+        "-Xopt-in=kotlin.ExperimentalUnsignedTypes",
+    ]
+    if (config.kotlinExplicitApiMode) {
+        compilerArgs.add("-Xexplicit-api=strict")
+    }
+    return compilerArgs
+}

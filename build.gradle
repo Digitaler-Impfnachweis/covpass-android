@@ -51,10 +51,10 @@ subprojects {
             }
         } else if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"
-            androidLibrary(minVersion: 23, kotlinExplicitApiMode: true)
+            androidLibrary(minVersion: 23)
         } else {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
-            kotlinLibrary(kotlinExplicitApiMode: true)
+            kotlinLibrary()
         }
 
         apply from: "$rootDir/gradle/common/ktlint.gradle"

@@ -3,17 +3,58 @@ package com.ibm.health.vaccination.sdk.android.cose
 import COSE.*
 import assertk.assertThat
 import assertk.assertions.*
+import com.ibm.health.vaccination.sdk.android.crypto.readPem
+import com.ibm.health.vaccination.sdk.android.qr.QRCoder
+import com.ibm.health.vaccination.sdk.android.utils.fromHex
+import com.ibm.health.vaccination.sdk.android.utils.loadCAValidator
+import com.ibm.health.vaccination.sdk.android.utils.readResource
+import com.upokecenter.cbor.CBORObject
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.junit.Ignore
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import java.security.KeyPair
 import java.security.KeyPairGenerator
+import java.security.Security
 import java.security.spec.ECGenParameterSpec
 
-@RunWith(RobolectricTestRunner::class)
 internal class CoseSign1Test {
     private val content = byteArrayOf(12, 1, 4)
+
+    init {
+        Security.addProvider(BouncyCastleProvider())
+    }
+
+    @Test
+    fun `CWT validation cross-check against RFC 8392 signed CWT example A3`() {
+        val cwt = readResource("rfc-8392-signed-cwt-example-a3.txt").fromHex()
+
+        // Test with COSE-JAVA
+        val key = OneKey(CBORObject.DecodeFromBytes(readResource("rfc-8392-cwt-public-key.txt").fromHex()))
+        val msg = Sign1Message.DecodeFromBytes(cwt) as Sign1Message
+        msg.validate(key)
+
+        // Test with our implementation
+        val cose = CoseSign1.fromByteArray(cwt)
+        assertThat { cose.validate(key.AsPublicKey()) }.isSuccess()
+    }
+
+    @Ignore("The cert probably isn't correct yet.")
+    @Test
+    fun `validate vaccination`() {
+        val sealCert = readPem(readResource("seal-cert.pem")).first()
+        val data = readResource("vaccination-cert.txt").replace("\n", "")
+        val validator = loadCAValidator()
+
+        // Cross-check against COSE-JAVA
+        val rawCose = QRCoder().decodeRawCose(data)
+        val msg = Sign1Message.DecodeFromBytes(rawCose) as Sign1Message
+        assertThat(msg.validate(OneKey(sealCert.publicKey, null))).isTrue()
+
+        val cose = QRCoder().decodeCose(data)
+        assertThat(cose.signatureAlgorithm).isEqualTo(CoseSignatureAlgorithm.ECDSA_256)
+        assertThat { cose.validate(sealCert) }.isSuccess()
+        assertThat { cose.validate(validator) }.isSuccess()
+    }
 
     @Test
     fun `COSE ECDSA validation cross-check against COSE-JAVA`() {

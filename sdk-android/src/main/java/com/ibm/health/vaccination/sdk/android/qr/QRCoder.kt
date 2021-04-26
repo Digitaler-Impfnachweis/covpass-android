@@ -15,11 +15,11 @@ public class QRCoder {
 
     private val cbor: Cbor = Cbor { ignoreUnknownKeys = true }
 
-    internal fun decodeCose(qr: String): CoseSign1 {
-        val decodedByteArrayFromBase45 = Base45.decode(qr.toByteArray())
-        val decompressedByteArray = Zlib.decompress(decodedByteArrayFromBase45)
-        return CoseSign1.fromByteArray(decompressedByteArray)
-    }
+    internal fun decodeRawCose(qr: String): ByteArray =
+        Zlib.decompress(Base45.decode(qr.toByteArray()))
+
+    internal fun decodeCose(qr: String): CoseSign1 =
+        CoseSign1.fromByteArray(decodeRawCose(qr))
 
     private inline fun <reified T> decode(qr: String): T {
         val coseSign1 = decodeCose(qr)

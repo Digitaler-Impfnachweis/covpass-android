@@ -1,16 +1,21 @@
-class CommonConfig {
+class Config {
     Integer minVersion = null
     Integer targetVersion = null
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
+    Boolean kotlinExplicitApiMode = true
 }
 
 ext.androidCommon = { args = [:] ->
-    CommonConfig config = new CommonConfig(args)
+    apply from: "$rootDir/gradle/common/kotlin-common.gradle"
+
+    Config config = new Config(args)
 
     int minVersion = config.minVersion ?: 23
     int targetVersion = config.targetVersion ?: 30
     int compileVersion = config.compileSdkVersion ?: targetVersion
+
+    kotlinCommon()
 
     apply plugin: 'kotlin-android'
     apply plugin: 'kotlin-parcelize'
@@ -27,6 +32,7 @@ ext.androidCommon = { args = [:] ->
 
         kotlinOptions {
             jvmTarget = "1.8"
+            freeCompilerArgs = getCompilerArgs(kotlinExplicitApiMode: config.kotlinExplicitApiMode)
         }
 
         defaultConfig {
@@ -65,11 +71,5 @@ ext.androidCommon = { args = [:] ->
 
     dependencies {
         coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-    }
-
-    tasks.withType(Test) {
-        testLogging {
-            exceptionFormat "full"
-        }
     }
 }
