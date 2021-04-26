@@ -18,38 +18,9 @@
     android:background="@color/scanner_overlay"
     tools:ignore="ContentDescription" />
 
-  <TextView
-    style="@style/Header.OnBackground.Small"
-    android:layout_width="wrap_content"
+  <FrameLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="@dimen/grid_thirteen"
-    android:background="@drawable/button_label"
-    android:gravity="center"
-    android:paddingHorizontal="@dimen/grid_one_half"
-    android:paddingVertical="@dimen/grid_half"
-    android:text="@string/scan_code_label_text"
-    android:textColor="@color/backgroundPrimary20" />
-
-  <View
-    android:id="@+id/scanner_laser_line"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_quarter"
-    android:layout_centerVertical="true"
-    android:background="@color/info"
-    tools:ignore="ContentDescription" />
-
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eleven"
-    android:layout_above="@+id/scanner_laser_line"
-    android:layout_centerVertical="true"
-    android:background="@drawable/common_gradient_scanner_line"
-    tools:ignore="ContentDescription" />
-
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_fourteen"
     android:layout_alignParentBottom="true"
     android:background="@color/backgroundPrimary">
 
@@ -57,9 +28,11 @@
       android:id="@+id/scanner_close_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
+      android:layout_gravity="center"
+      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginBottom="@dimen/grid_three_half"
       app:round_button_background="@drawable/button_round_disabled"
       app:round_button_icon="@drawable/common_ic_close" />
-  </RelativeLayout>
+  </FrameLayout>
 
 </RelativeLayout>
