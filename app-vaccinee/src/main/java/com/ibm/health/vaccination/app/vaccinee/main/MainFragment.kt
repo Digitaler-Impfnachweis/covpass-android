@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -29,6 +30,7 @@ class MainFragmentNav : FragmentNav(MainFragment::class)
 
 internal class MainFragment : BaseFragment(), DetailCallback {
 
+    private val state by buildState { MainState(scope) }
     private val binding by viewBinding(VaccineeMainBinding::inflate)
     private lateinit var fragmentStateAdapter: CertificateFragmentStateAdapter
 
@@ -36,7 +38,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         autoRun {
-            updateCertificates(get(vaccineeDeps.storage.certs))
+            updateCertificates(get(vaccineeDeps.storage.certs), state.selectedCertId)
         }
     }
 
@@ -55,6 +57,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                state.onPageSelected(position)
                 fragmentStateAdapter.createFragment(position).view?.let { view ->
                     view.post {
                         val widthMeasureSpec = MeasureSpec.makeMeasureSpec(view.width, MeasureSpec.EXACTLY)
@@ -73,7 +76,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         })
     }
 
-    private fun updateCertificates(certificateList: GroupedCertificatesList) {
+    private fun updateCertificates(certificateList: GroupedCertificatesList, selectedCertId: String?) {
         if (certificateList.certificates.isEmpty()) {
             binding.mainEmptyCardview.isVisible = true
             binding.mainViewPagerContainer.isVisible = false
@@ -81,6 +84,9 @@ internal class MainFragment : BaseFragment(), DetailCallback {
             fragmentStateAdapter.createFragments(certificateList)
             binding.mainEmptyCardview.isVisible = false
             binding.mainViewPagerContainer.isVisible = true
+            selectedCertId?.let {
+                binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(it), false)
+            }
         }
     }
 

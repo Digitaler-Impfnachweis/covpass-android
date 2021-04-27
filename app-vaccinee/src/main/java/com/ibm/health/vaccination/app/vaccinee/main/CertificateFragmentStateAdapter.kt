@@ -2,6 +2,7 @@ package com.ibm.health.vaccination.app.vaccinee.main
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import java.util.ArrayList
 
@@ -21,5 +22,11 @@ class CertificateFragmentStateAdapter(
             fragmentList.add(CertificateFragmentNav(it.getMainCertId()).build())
         }
         notifyDataSetChanged()
+    }
+
+    fun getItemPosition(certId: String): Int {
+        return fragmentList.indexOfFirst {
+            it.getArgs<CertificateFragmentNav>().certId == certId
+        }
     }
 }

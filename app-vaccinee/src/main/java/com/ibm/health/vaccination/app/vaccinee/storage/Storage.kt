@@ -17,7 +17,6 @@ class Storage {
     val onboardingDone = keyValueStore.getFlow("onboarding_shown", false)
 
     // FIXME move to SDK as CertificateStorage
-    // FIXME do this directly when updating the MutableValueFlow, not from outside
     val certs = SettableStateFlow(certFlow) {
         certsPref.set(it.toVaccinationCertificateList())
         certFlow.emit(it)
