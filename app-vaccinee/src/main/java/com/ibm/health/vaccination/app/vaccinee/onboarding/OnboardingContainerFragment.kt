@@ -15,8 +15,10 @@ class OnboardingContainerFragment : BaseOnboardingContainerFragment() {
     override fun createFragmentStateAdapter() = OnboardingFragmentStateAdapter(this)
 
     override fun finishOnboarding() {
-        vaccineeDeps.storage.onboardingDone = true
-        findNavigator().popAll()
-        findNavigator().push(MainFragmentNav(), true)
+        launchWhenStarted {
+            vaccineeDeps.storage.onboardingDone.set(true)
+            findNavigator().popAll()
+            findNavigator().push(MainFragmentNav(), true)
+        }
     }
 }

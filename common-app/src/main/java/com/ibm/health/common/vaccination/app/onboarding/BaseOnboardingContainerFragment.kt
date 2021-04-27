@@ -35,7 +35,6 @@ public abstract class BaseOnboardingContainerFragment : BaseFragment() {
     override fun onBackPressed(): Abortable {
         val currentItemPosition = binding.onboardingViewPager.currentItem
         if (currentItemPosition > 0) {
-            binding.onboardingViewPager.setCurrentItem(currentItemPosition - 1)
             return Abort
         } else {
             return Continue

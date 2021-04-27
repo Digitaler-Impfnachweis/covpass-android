@@ -2,7 +2,7 @@ package com.ibm.health.vaccination.app.vaccinee.scanner
 
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
-import com.ibm.health.vaccination.app.vaccinee.common.AddCertUseCase
+import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.sdk.android.qr.models.CertAlreadyExistsException
 import kotlinx.coroutines.CoroutineScope
 
@@ -16,7 +16,7 @@ class VaccinationScannerState(scope: CoroutineScope) : BaseState<ScannerEvents>(
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                AddCertUseCase().addCertFromQr(qrContent)
+                vaccineeDeps.addCertUseCase.addCertFromQr(qrContent)
                 eventNotifier {
                     onScanFinished()
                 }

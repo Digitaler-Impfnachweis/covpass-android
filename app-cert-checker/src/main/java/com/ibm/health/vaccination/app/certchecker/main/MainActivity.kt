@@ -10,7 +10,7 @@ internal class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (navigator.isEmpty() && savedInstanceState == null) {
-            if (certCheckerDeps.storage.onboardingDone) {
+            if (certCheckerDeps.storage.onboardingDone.value) {
                 navigator.push(MainFragmentNav())
             } else {
                 navigator.push(WelcomeFragmentNav())

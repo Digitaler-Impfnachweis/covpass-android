@@ -2,9 +2,7 @@ package com.ibm.health.vaccination.app.vaccinee.detail
 
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
-import com.ibm.health.vaccination.app.vaccinee.common.AddCertUseCase
-import com.ibm.health.vaccination.app.vaccinee.common.ToggleFavoriteUseCase
-import com.ibm.health.vaccination.app.vaccinee.storage.Storage
+import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import kotlinx.coroutines.CoroutineScope
 
 interface DetailEvents : BaseEvents {
@@ -12,12 +10,11 @@ interface DetailEvents : BaseEvents {
 }
 
 class DetailState(scope: CoroutineScope, val certId: String) : BaseState<DetailEvents>(scope) {
-
     fun onDelete() {
         launch {
-            val vaccinationCertificateList = Storage.certCache.value
-            vaccinationCertificateList.deleteCertificate(certId)
-            Storage.setVaccinationCertificateList(vaccinationCertificateList)
+            vaccineeDeps.storage.certs.update {
+                it.deleteCertificate(certId)
+            }
             eventNotifier {
                 onDeleteDone()
             }
@@ -26,13 +23,13 @@ class DetailState(scope: CoroutineScope, val certId: String) : BaseState<DetailE
 
     fun onFavoriteClick(certId: String) {
         launch {
-            ToggleFavoriteUseCase().toggleFavorite(certId)
+            vaccineeDeps.toggleFavoriteUseCase.toggleFavorite(certId)
         }
     }
 
     fun onQrContentReceived(qrContent: String) {
         launch {
-            AddCertUseCase().addCertFromQr(qrContent)
+            vaccineeDeps.addCertUseCase.addCertFromQr(qrContent)
         }
     }
 }

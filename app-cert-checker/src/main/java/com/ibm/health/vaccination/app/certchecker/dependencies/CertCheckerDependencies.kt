@@ -15,5 +15,5 @@ abstract class CertCheckerDependencies {
     /**
      * The [Storage].
      */
-    open val storage: Storage = Storage
+    val storage: Storage = Storage()
 }

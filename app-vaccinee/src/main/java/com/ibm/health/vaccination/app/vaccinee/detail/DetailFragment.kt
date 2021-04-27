@@ -25,9 +25,9 @@ import com.ibm.health.common.vaccination.app.utils.getFormattedDate
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.common.ScannerResultFragment
 import com.ibm.health.vaccination.app.vaccinee.databinding.DetailBinding
+import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.main.MainActivity
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
-import com.ibm.health.vaccination.app.vaccinee.storage.Storage
 import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
 import kotlinx.parcelize.Parcelize
 
@@ -48,7 +48,7 @@ class DetailFragment : ScannerResultFragment(), DetailEvents, DialogListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        autoRun { updateViews(get(Storage.certCache)) }
+        autoRun { updateViews(get(vaccineeDeps.storage.certs)) }
         binding.detailDeleteButton.setOnClickListener {
             val dialogModel = DialogModel(
                 titleRes = R.string.detail_delete_dialog_header,

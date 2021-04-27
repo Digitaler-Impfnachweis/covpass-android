@@ -13,7 +13,7 @@ internal class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (navigator.isEmpty() && savedInstanceState == null) {
-            if (vaccineeDeps.storage.onboardingDone) {
+            if (vaccineeDeps.storage.onboardingDone.value) {
                 navigator.push(MainFragmentNav())
             } else {
                 navigator.push(WelcomeFragmentNav())

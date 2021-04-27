@@ -21,7 +21,7 @@ public class ZlibTest {
         val compressedByteArray = Zlib.compress(input)
         assertThat(input.size).isGreaterThan(compressedByteArray.size)
         val decompressedByteArray = Zlib.decompress(compressedByteArray)
-        assertThat(input).hasSize(decompressedByteArray.size)
+        assertThat(decompressedByteArray).hasSize(input.size)
     }
 
     public companion object {

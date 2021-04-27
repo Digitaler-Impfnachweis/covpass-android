@@ -16,11 +16,11 @@ import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
-import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
+import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
+import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
-import com.ibm.health.vaccination.app.vaccinee.storage.Storage
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
@@ -36,7 +36,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         autoRun {
-            updateCertificates(get(Storage.certCache))
+            updateCertificates(get(vaccineeDeps.storage.certs))
         }
     }
 

@@ -158,8 +158,10 @@ pipeline {
                 stage('Log Dependencies') {
                     steps {
                         script {
-                            sh('python3 extract-dependencies.py --modules $(echo app-* | tr " " ,) > dependencies.txt')
-                            sh('python3 extract-dependencies.py --configurations ALL > dependencies-test.txt')
+                            sh('python3 extract-dependencies.py --modules APP > dependencies-app.txt')
+                            sh('python3 extract-dependencies.py > dependencies-sdk-with-test-modules.txt')
+                            sh('python3 extract-dependencies.py --exclude-modules TEST > dependencies-sdk-without-test-modules.txt')
+                            sh('python3 extract-dependencies.py --configurations ALL > dependencies-including-tests.txt')
                             archiveArtifacts 'dependencies*.txt'
                         }
                     }
