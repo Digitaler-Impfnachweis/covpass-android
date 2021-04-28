@@ -45,6 +45,8 @@ public abstract class CommonApplication : Application() {
             override fun currentActivityOrNull(): FragmentActivity? =
                 activityNavigator.getCurrentActivityOrNull() as? FragmentActivity
         }
-        sdkDeps = object : SdkDependencies() {}
+        sdkDeps = object : SdkDependencies() {
+            override val application: Application = this@CommonApplication
+        }
     }
 }

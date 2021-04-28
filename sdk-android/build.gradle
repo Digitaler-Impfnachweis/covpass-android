@@ -4,8 +4,5 @@ dependencies {
     api project(":base45")
     api project(":logging")
     kotlinxSerialization()
-    cbor()
-    asn1()
-
-    coseJavaTestOnly()
+    coseJava()
 }

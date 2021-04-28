@@ -1,5 +1,6 @@
 package com.ibm.health.common.securityprovider
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.conscrypt.Conscrypt
 import java.security.Security
 
@@ -16,5 +17,6 @@ public fun initSecurityProvider() {
 private val lazySecurityProviderInstaller by lazy {
     // Just in case we also integrate Bouncy Castle, disable patented algorithms
     System.setProperty("org.bouncycastle.ec.disable_mqv", "true")
+    Security.addProvider(BouncyCastleProvider())
     Security.insertProviderAt(Conscrypt.newProvider(), 1)
 }

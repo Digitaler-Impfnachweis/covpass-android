@@ -28,7 +28,15 @@ dependencies.ext.versionConstraints = {
 
             api 'org.conscrypt:conscrypt-android:2.5.2'
 
-            api "org.apache.kerby:kerby-asn1:2.0.1"
+            def bouncyCastleVersion = "1.68"
+            api "org.bouncycastle:bcprov-jdk15to18:$bouncyCastleVersion"
+            api "org.bouncycastle:bcprov-jdk15on:$bouncyCastleVersion"
+            api "org.bouncycastle:bcmail-jdk15to18:$bouncyCastleVersion"
+            api "org.bouncycastle:bcmail-jdk15on:$bouncyCastleVersion"
+            api "org.bouncycastle:bcpkix-jdk15to18:$bouncyCastleVersion"
+            api "org.bouncycastle:bcpkix-jdk15on:$bouncyCastleVersion"
+
+            api "com.augustcellars.cose:cose-java:1.1.0"
 
             api 'androidx.appcompat:appcompat:1.2.0'
             api 'androidx.core:core-ktx:1.3.2'
@@ -69,8 +77,6 @@ dependencies.ext.versionConstraints = {
             api 'org.opentest4j:opentest4j:1.2.0'
 
             api 'com.google.android.material:material:1.2.1'
-
-            api 'com.google.iot.cbor:cbor:0.01.01'
         }
     }
 }
@@ -114,7 +120,11 @@ dependencies.ext.baseAndroid = {
         api 'com.google.android.material:material'
 
         testImplementation 'androidx.arch.core:core-testing'
-        testImplementation 'org.robolectric:robolectric'
+        testImplementation('org.robolectric:robolectric') {
+            exclude group: 'org.bouncycastle'
+        }
+        testImplementation "org.bouncycastle:bcprov-jdk15to18"
+        testImplementation "org.bouncycastle:bcpkix-jdk15to18"
     }
 }
 
@@ -197,17 +207,19 @@ dependencies.ext.ktor = {
     }
 }
 
-dependencies.ext.asn1 = {
+dependencies.ext.coseJava = {
     dependencies {
-        api "org.apache.kerby:kerby-asn1"
+        api("com.augustcellars.cose:cose-java") {
+            exclude group: 'org.bouncycastle'
+        }
+        bouncyCastle()
     }
 }
 
-// XXX: COSE-JAVA uses Bouncy Castle which our legal team doesn't allow due to its questionable patent situation.
-// Only in unit tests it's fine because then it's not packaged into a release artifact.
-dependencies.ext.coseJavaTestOnly = {
+dependencies.ext.bouncyCastle = {
     dependencies {
-        testImplementation "com.augustcellars.cose:cose-java:1.1.0"
+        api "org.bouncycastle:bcprov-jdk15to18"
+        api "org.bouncycastle:bcpkix-jdk15to18"
     }
 }
 
@@ -228,11 +240,5 @@ dependencies.ext.kotlinxSerialization = {
     dependencies {
         api 'org.jetbrains.kotlinx:kotlinx-serialization-core'
         api 'org.jetbrains.kotlinx:kotlinx-serialization-cbor'
-    }
-}
-
-dependencies.ext.cbor = {
-    dependencies {
-        api 'com.google.iot.cbor:cbor'
     }
 }

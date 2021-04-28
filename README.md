@@ -20,21 +20,12 @@ It's important that you include the BOM via `platform`. Those are the only modul
 
 ```
 dependencies {
-    api platform("com.ibm.health.common:dependency-versions-bom:$version")
+    api platform("com.ibm.health.vaccination:dependency-versions-bom:$version")
 
     // No version needed here
-    implementation 'com.ibm.health.common:http'
-    implementation 'com.ibm.health.common:logging'
+    implementation 'com.ibm.health.vaccination:sdk-android'
 }
 ```
-
-## Legal requirements
-
-Our legal team considers Bouncy Castle's patent situation unsafe.
-Unfortunately, the library isn't split up nicely into safe and potentially unsafe/patented algorithms.
-There seems to be no precedent for whether it's acceptable to simply import the whole library, but only use the patent-free algorithms.
-
-This means we MUST NOT use any utility functions from Bouncy Castle and we MUST NOT COSE-JAVA (which depends on Bouncy Castle).
 
 ## App architecture
 

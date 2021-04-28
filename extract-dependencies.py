@@ -17,9 +17,11 @@ all_modules = [x.name for x in ROOT.iterdir()
 deps_re = re.compile(r'(?<=--- )(?:[a-z][a-z0-9\.\-_]+:)+[0-9\.]+.*(?=\n)', re.UNICODE)
 
 def read_dependencies(modules, configuration):
-    cmd = [GRADLEW] + [module + ':dependencies' for module in modules]
-    if configuration != ALL_CONFIG:
-        cmd.extend(['--configuration', configuration])
+    cmd = [GRADLEW]
+    for module in modules:
+        cmd.append(module + ':dependencies')
+        if configuration != ALL_CONFIG:
+            cmd.extend(['--configuration', configuration])
     output = check_output(
         cmd,
         shell=platform.system() == 'Windows'
@@ -51,7 +53,7 @@ def read_all(modules, configurations):
         for configuration in module_configurations:
             by_config.setdefault(configuration, []).append(module)
     for configuration, modules in by_config.items():
-        all = all + read_dependencies(modules, configuration)
+        all += read_dependencies(modules, configuration)
     return all
 
 
