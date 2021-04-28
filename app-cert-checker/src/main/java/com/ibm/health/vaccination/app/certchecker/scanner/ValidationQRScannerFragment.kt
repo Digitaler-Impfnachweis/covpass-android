@@ -3,6 +3,7 @@ package com.ibm.health.vaccination.app.certchecker.scanner
 import androidx.lifecycle.LifecycleObserver
 import com.google.zxing.ResultPoint
 import com.ibm.health.common.navigation.android.FragmentNav
+import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.dialog.DialogAction
 import com.ibm.health.common.vaccination.app.dialog.DialogListener
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
@@ -25,7 +26,7 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
 
     override val callback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
-            barcodeView.pause()
+            decoratedBarcodeView.pause()
             // FIXME this is just a provisionally implementation
             showValidation(sdkDeps.qrCoder.decodeValidationCert(result.text))
         }
@@ -35,7 +36,7 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == CERTIFICATE_PREVIEW_DIALOG_TAG) {
-            finishScanning()
+            triggerBackPress()
         }
     }
 

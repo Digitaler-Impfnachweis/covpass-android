@@ -9,10 +9,7 @@ import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.http.HttpLogLevel
 import com.ibm.health.common.http.httpConfig
 import com.ibm.health.common.logging.Lumber
-import com.ibm.health.common.navigation.android.ActivityNavigator
-import com.ibm.health.common.navigation.android.NavigationDependencies
-import com.ibm.health.common.navigation.android.Orientation
-import com.ibm.health.common.navigation.android.navigationDeps
+import com.ibm.health.common.navigation.android.*
 import com.ibm.health.common.securityprovider.initSecurityProvider
 import com.ibm.health.vaccination.sdk.android.dependencies.SdkDependencies
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
@@ -34,8 +31,9 @@ public abstract class CommonApplication : Application() {
         }
 
         navigationDeps = object : NavigationDependencies() {
-            override val application: Application = this@CommonApplication
-            override val defaultScreenOrientation: Orientation = Orientation.PORTRAIT
+            override val application = this@CommonApplication
+            override val defaultScreenOrientation = Orientation.PORTRAIT
+            override val animationConfig = DefaultNavigationAnimationConfig(250)
         }
         androidDeps = object : AndroidDependencies() {
             private val activityNavigator = ActivityNavigator()

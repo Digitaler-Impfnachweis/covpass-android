@@ -18,9 +18,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity
-      android:name=".scanner.ValidationQRScannerActivity"
-      android:theme="@style/VaccinationAppTheme" />
   </application>
 
 </manifest>

@@ -17,29 +17,28 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
+import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.dialog.DialogAction
 import com.ibm.health.common.vaccination.app.dialog.DialogListener
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 import com.ibm.health.common.vaccination.app.utils.getFormattedDate
 import com.ibm.health.vaccination.app.vaccinee.R
-import com.ibm.health.vaccination.app.vaccinee.common.ScannerResultFragment
+import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.databinding.DetailBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
-import com.ibm.health.vaccination.app.vaccinee.main.MainActivity
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
 import kotlinx.parcelize.Parcelize
 
 interface DetailCallback {
-
     fun onDeletionCompleted()
 }
 
 @Parcelize
 class DetailFragmentNav(val certId: String) : FragmentNav(DetailFragment::class)
 
-class DetailFragment : ScannerResultFragment(), DetailEvents, DialogListener {
+class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     private val state by buildState { DetailState(scope, getArgs<DetailFragmentNav>().certId) }
     private val binding by viewBinding(DetailBinding::inflate)
@@ -77,10 +76,6 @@ class DetailFragment : ScannerResultFragment(), DetailEvents, DialogListener {
         } else {
             super.onOptionsItemSelected(item)
         }
-
-    override fun handleQrContent(qrContent: String) {
-        state.onQrContentReceived(qrContent)
-    }
 
     override fun onDeleteDone() {
         findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
@@ -133,7 +128,7 @@ class DetailFragment : ScannerResultFragment(), DetailEvents, DialogListener {
                     findNavigator().pop()
                 } else {
                     // TODO this is only temporary, change back again when feature shall be activated
-                    (requireActivity() as? MainActivity)?.launchScanner()
+                    findNavigator().push(AddVaccinationCertificateFragmentNav())
                 }
             }
 

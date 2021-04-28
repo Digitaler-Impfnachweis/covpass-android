@@ -26,10 +26,4 @@ class DetailState(scope: CoroutineScope, val certId: String) : BaseState<DetailE
             vaccineeDeps.toggleFavoriteUseCase.toggleFavorite(certId)
         }
     }
-
-    fun onQrContentReceived(qrContent: String) {
-        launch {
-            vaccineeDeps.addCertUseCase.addCertFromQr(qrContent)
-        }
-    }
 }

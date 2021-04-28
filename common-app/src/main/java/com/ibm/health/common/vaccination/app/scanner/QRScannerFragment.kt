@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleObserver
+import com.google.zxing.BarcodeFormat
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.BaseFragment
@@ -15,6 +16,7 @@ import com.ibm.health.common.vaccination.app.databinding.FragmentQrScannerBindin
 import com.ibm.health.common.vaccination.app.utils.getScreenSize
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import com.journeyapps.barcodescanner.DefaultDecoderFactory
 import com.journeyapps.barcodescanner.Size
 
 /**
@@ -26,7 +28,13 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
 
     public abstract val callback: BarcodeCallback
 
-    public lateinit var barcodeView: DecoratedBarcodeView
+    public val decoratedBarcodeView: DecoratedBarcodeView get() = binding.zxingBarcodeScanner
+
+    private var barcodeTypes: List<BarcodeFormat> = listOf(
+        BarcodeFormat.QR_CODE,
+        BarcodeFormat.AZTEC,
+        BarcodeFormat.DATA_MATRIX,
+    )
 
     private val requestPermissionLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(
@@ -35,49 +43,37 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
             if (isGranted) {
                 startScanning()
             } else {
-                finishScanning()
+                triggerBackPress()
             }
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        barcodeView = binding.zxingBarcodeScanner
+        decoratedBarcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(barcodeTypes)
         val screenSize = requireContext().getScreenSize()
-        binding.zxingBarcodeScanner.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
+        decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
         checkPermission(Manifest.permission.CAMERA) { startScanning() }
     }
 
     private fun checkPermission(targetPermission: String, targetAction: () -> Unit) {
         when (PackageManager.PERMISSION_GRANTED) {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                targetPermission
-            ),
-            -> {
-                targetAction.invoke()
-            }
-            else -> {
-                requestPermissionLauncher.launch(targetPermission)
-            }
+            ContextCompat.checkSelfPermission(requireContext(), targetPermission) -> targetAction.invoke()
+            else -> requestPermissionLauncher.launch(targetPermission)
         }
     }
 
     private fun startScanning() {
-        binding.zxingBarcodeScanner.barcodeView.decodeContinuous(callback)
+        decoratedBarcodeView.barcodeView.decodeContinuous(callback)
     }
 
     override fun onResume() {
         super.onResume()
-        binding.zxingBarcodeScanner.resume()
+        decoratedBarcodeView.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        binding.zxingBarcodeScanner.pause()
-    }
-
-    public fun finishScanning() {
-        triggerBackPress()
+        decoratedBarcodeView.pause()
     }
 }

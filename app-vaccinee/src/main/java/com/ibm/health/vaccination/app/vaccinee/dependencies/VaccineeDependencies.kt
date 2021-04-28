@@ -1,6 +1,5 @@
 package com.ibm.health.vaccination.app.vaccinee.dependencies
 
-import com.ibm.health.vaccination.app.vaccinee.common.AddCertUseCase
 import com.ibm.health.vaccination.app.vaccinee.common.ToggleFavoriteUseCase
 import com.ibm.health.vaccination.app.vaccinee.storage.Storage
 
@@ -18,8 +17,6 @@ abstract class VaccineeDependencies {
      * The [Storage].
      */
     val storage: Storage = Storage()
-
-    val addCertUseCase by lazy { AddCertUseCase(storage) }
 
     val toggleFavoriteUseCase by lazy { ToggleFavoriteUseCase(storage) }
 }
