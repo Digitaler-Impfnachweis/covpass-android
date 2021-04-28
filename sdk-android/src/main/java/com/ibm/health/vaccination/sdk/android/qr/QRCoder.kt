@@ -12,6 +12,7 @@ import com.ibm.health.vaccination.sdk.android.zlib.Zlib
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
+import java.time.LocalDate
 
 /**
  * Used to encode/decode QR code string.
@@ -34,6 +35,12 @@ public class QRCoder(private val validator: CertValidator) {
     }
 
     private fun validate(cose: Sign1Message) {
+        val validationCert = cbor.decodeFromByteArray<ValidationCertificate>(cose.GetContent())
+        // TODO/FIXME: Nullability should not be possible, but currently the certs don't have an expiry attribute
+        if (validationCert.validUntil?.isAfter(LocalDate.now()) == true) {
+            throw HCertExpiredException()
+        }
+
         // TODO: Once the kid contains the correct value we can resolve the cert directly.
         //  Until then, try out all certificates.
         for (cert in validator.trustedCerts.filter { !it.isCA }) {
@@ -49,18 +56,34 @@ public class QRCoder(private val validator: CertValidator) {
                 continue
             }
         }
-        throw CoseException("Validation failed")
+        throw HCertBadSignatureException()
     }
 
     /**
      * Converts a [qrContent] to a [VaccinationCertificate] data model.
+     *
+     * @throws HCertExpiredException If the certificate has expired.
+     * @throws HCertBadSignatureException If the signature validation failed.
+     * @throws CoseException For generic COSE errors.
+     * @throws GeneralSecurityException For generic cryptography errors.
      */
     public fun decodeVaccinationCert(qrContent: String): VaccinationCertificate =
         decode(qrContent)
 
     /**
      * Converts a [qrContent] to a [ValidationCertificate] data model.
+     *
+     * @throws HCertExpiredException If the certificate has expired.
+     * @throws HCertBadSignatureException If the signature validation failed.
+     * @throws CoseException For generic COSE errors.
+     * @throws GeneralSecurityException For generic cryptography errors.
      */
     public fun decodeValidationCert(qrContent: String): ValidationCertificate =
         decode(qrContent)
 }
+
+/** Thrown when the HCert expiry validation failed. */
+public open class HCertExpiredException(message: String = "Certificate expired") : CoseException(message)
+
+/** Thrown when the HCert signature validation failed. */
+public open class HCertBadSignatureException(message: String = "Validation failed") : CoseException(message)
