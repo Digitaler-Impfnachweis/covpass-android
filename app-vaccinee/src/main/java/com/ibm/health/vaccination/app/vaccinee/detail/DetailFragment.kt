@@ -88,7 +88,8 @@ class DetailFragment : ScannerResultFragment(), DetailEvents, DialogListener {
 
     private fun updateViews(certList: GroupedCertificatesList) {
         val certId = getArgs<DetailFragmentNav>().certId
-        val groupedCertificate = certList.getGroupedCertificates(certId)
+        // Can be null after deletion... in this case no update is necessary anymore
+        val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
         val mainCertificate = groupedCertificate.getMainCertificate()
         val isComplete = groupedCertificate.isComplete()
         isFavorite = certList.isMarkedAsFavorite(certId)

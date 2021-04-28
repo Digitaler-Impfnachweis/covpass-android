@@ -14,8 +14,8 @@ data class GroupedCertificatesList(
     var favoriteCertId: String? = null,
 ) {
 
-    fun getGroupedCertificates(certId: String): GroupedCertificates {
-        return certificates.first {
+    fun getGroupedCertificates(certId: String): GroupedCertificates? {
+        return certificates.firstOrNull {
             it.matchesId(certId)
         }
     }

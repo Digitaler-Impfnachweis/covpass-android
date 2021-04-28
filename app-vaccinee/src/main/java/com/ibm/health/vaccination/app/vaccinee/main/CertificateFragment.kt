@@ -43,7 +43,7 @@ internal class CertificateFragment : BaseFragment() {
 
     private fun updateViews(certificateList: GroupedCertificatesList) {
         val certId = getArgs<CertificateFragmentNav>().certId
-        val groupedCertificate = certificateList.getGroupedCertificates(certId)
+        val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainExtendedCertificate = groupedCertificate.getMainCertificate()
         val mainCertificate = groupedCertificate.getMainCertificate().vaccinationCertificate
         val complete = groupedCertificate.isComplete()
