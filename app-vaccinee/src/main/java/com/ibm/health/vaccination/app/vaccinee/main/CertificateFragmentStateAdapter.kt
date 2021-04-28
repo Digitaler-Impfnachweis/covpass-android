@@ -16,6 +16,10 @@ class CertificateFragmentStateAdapter(
 
     override fun createFragment(position: Int): Fragment = fragmentList[position]
 
+    override fun getItemId(position: Int): Long = getId(fragmentList[position])
+
+    override fun containsItem(itemId: Long): Boolean = fragmentList.any { getId(it) == itemId }
+
     fun createFragments(certificateList: GroupedCertificatesList) {
         fragmentList.clear()
         certificateList.getSortedCertificates().forEach {
@@ -29,4 +33,8 @@ class CertificateFragmentStateAdapter(
             it.getArgs<CertificateFragmentNav>().certId == certId
         }
     }
+
+    fun getFragment(position: Int): Fragment = fragmentList[position]
+
+    private fun getId(it: Fragment) = it.getArgs<CertificateFragmentNav>().certId.hashCode().toLong()
 }

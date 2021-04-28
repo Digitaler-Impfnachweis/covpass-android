@@ -53,12 +53,13 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         prepareViewpagerForDifferentSizes()
     }
 
+    // FIXME this is not working really properly and has to be reworked
     private fun prepareViewpagerForDifferentSizes() {
         binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 state.onPageSelected(position)
-                fragmentStateAdapter.createFragment(position).view?.let { view ->
+                fragmentStateAdapter.getFragment(position).view?.let { view ->
                     view.post {
                         val widthMeasureSpec = MeasureSpec.makeMeasureSpec(view.width, MeasureSpec.EXACTLY)
                         val heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
@@ -85,7 +86,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
             binding.mainEmptyCardview.isVisible = false
             binding.mainViewPagerContainer.isVisible = true
             selectedCertId?.let {
-                binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(it), false)
+                binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(it), isResumed)
             }
         }
     }
