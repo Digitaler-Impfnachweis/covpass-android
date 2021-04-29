@@ -24,7 +24,6 @@ public interface LoadingStateHook {
 /**
  * Creates a new [IsLoading] instance and on change calls [setLoading] (defaults to [LoadingStateHook.setLoading]).
  */
-@Suppress("FunctionName")
 public fun <T> T.IsLoading(
     setLoading: ((Boolean) -> Unit)? = ::setLoading,
 ): IsLoading where T : LifecycleOwner, T : LoadingStateHook =
@@ -37,11 +36,9 @@ public fun <T> T.IsLoading(
     }
 
 /** Creates a new [IsLoading] instance. */
-@Suppress("FunctionName")
 public fun State<*>.IsLoading(): IsLoading =
     IsLoading(launcherScope)
 
-@Suppress("FunctionName")
 public fun IsLoading(scope: CoroutineScope): IsLoading =
     ReducingStateFlow(scope) { loadings -> loadings.count { it } > 0 }
 

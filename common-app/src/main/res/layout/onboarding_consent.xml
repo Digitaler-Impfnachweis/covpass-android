@@ -16,7 +16,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/grid_nine"
-      android:layout_marginBottom="@dimen/grid_five"
+      android:layout_marginBottom="@dimen/grid_two"
       android:adjustViewBounds="true"
       tools:ignore="ContentDescription" />
 
@@ -34,6 +34,24 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:paddingHorizontal="@dimen/grid_three" />
+
+    <LinearLayout
+      android:id="@+id/consent_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:orientation="vertical">
+
+      <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
+        android:id="@+id/terms_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+      <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
+        android:id="@+id/data_protection_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
 
   </LinearLayout>
 

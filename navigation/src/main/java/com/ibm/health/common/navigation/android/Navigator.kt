@@ -17,7 +17,6 @@ import kotlin.reflect.KClass
  *
  * @param containerId The container where fragments are added to.
  */
-@Suppress("FunctionName")
 public fun <T> T.Navigator(
     @IdRes containerId: Int,
 ): Navigator where T : Fragment, T : NavigatorOwner =
@@ -29,7 +28,6 @@ public fun <T> T.Navigator(
  * @param containerId The container where fragments are added to.
  * @param animator Defines custom animations. Don't use this to globally override animations for the whole app!
  */
-@Suppress("FunctionName")
 public fun <T> T.Navigator(
     @IdRes containerId: Int = android.R.id.content,
 ): Navigator where T : FragmentActivity, T : NavigatorOwner =

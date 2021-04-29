@@ -11,6 +11,10 @@
   <string name="onboarding_info_text_1">Halten Sie das Handy über den QR-Code und scannen Sie diesen mit der App. Die Daten werden datenschutzkonform übermittelt und können nicht gespeichert werden. Sie sehen sofort alle nötigen Informationen in der App. Und das auch, wenn Sie mal kein Internet haben.</string>
   <string name="onboarding_info_title_2">Zweiter Schritt: Überprüfen Sie die Identität mit einem amtlichen Ausweis</string>
   <string name="onboarding_info_text_2">Sie sehen nur den Impfstatus sowie Namen und Geburtsdatum der geimpften Person. Zur sicheren Identifikation gleichen Sie bitte die Daten mit einem Personalausweis oder Reisepass ab.</string>
+  <string name="onboarding_consent_title">Zustimmung für die Nutzung</string>
+  <string name="onboarding_consent_text">Um die App zu nutzen, müssen Sie bestätigen, dass Sie den AGBs zustimmen und die Datenschutzerklärung zur Kenntnis genommen haben.</string>
+  <string name="onboarding_continue_button_text">Weiter</string>
+  <string name="onboarding_consent_continue_button_text">Bestätigen</string>
 
   <string name="main_header">Prüf-App</string>
   <string name="main_check_cert_header">Impfschutz prüfen</string>

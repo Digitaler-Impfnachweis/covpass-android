@@ -28,7 +28,6 @@ public interface ResourceProvider {
     public fun getInteger(@IntegerRes resId: Int): Int
 }
 
-@Suppress("FunctionName")
 public fun ResourceProvider(context: Context): ResourceProvider =
     ResourceProviderImpl(context)
 

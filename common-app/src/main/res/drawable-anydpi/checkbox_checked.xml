@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/checkbox_circle">
+    <shape android:shape="oval">
+      <solid android:color="@color/brandAccent" />
+      <size
+        android:width="@dimen/grid_three"
+        android:height="@dimen/grid_three" />
+    </shape>
+  </item>
+  <item
+    android:id="@+id/checkbox_inner_icon"
+    android:drawable="@drawable/checkmark" />
+</layer-list>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <androidx.appcompat.widget.AppCompatCheckBox
+    android:id="@+id/checkbox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_alignParentTop="true"
+    android:button="@drawable/checkbox_bg"
+    tools:checked="true" />
+
+  <TextView
+    android:id="@+id/checkbox_text"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/grid_three"
+    android:layout_toEndOf="@+id/checkbox"
+    tools:maxLines="5"
+    tools:text="@tools:sample/lorem/random"
+    android:layout_marginTop="@dimen/grid_one_half"/>
+
+</RelativeLayout>

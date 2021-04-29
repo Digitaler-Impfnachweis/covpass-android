@@ -14,6 +14,10 @@
   <string name="onboarding_info_text_2">Das Prüfzertifikat ist ein weiterer QR-Code. Impfzertifikats. Zu sehen sind nur der Impfstatus sowie Name und Geburtsdatum der geimpften Person. Sobald die Impfung vollständig ist, können Sie das Prüfzertifikat direkt in der App erstellen.</string>
   <string name="onboarding_info_title_3">Letzter Schritt: Zeigen Sie das Prüfzertifikat mit dem Handy vor</string>
   <string name="onboarding_info_text_3">Die vollständige Impfung ersetzt den negativen Corona-Test. Lassen Sie dafür das Prüfzertifikat auf Ihrem Handy scannen. Die Daten werden verschlüsselt übermittelt. Und das auch, wenn Sie mal kein Internet haben. Zur Identifikation zeigen Sie bitte den Personalausweis oder Reisepass vor.</string>
+  <string name="onboarding_consent_title">Zustimmung für die Nutzung</string>
+  <string name="onboarding_consent_text">Um die App zu nutzen, müssen Sie bestätigen, dass Sie den AGBs zustimmen und die Datenschutzerklärung zur Kenntnis genommen haben.</string>
+  <string name="onboarding_continue_button_text">Weiter</string>
+  <string name="onboarding_consent_continue_button_text">Bestätigen</string>
 
   <string name="main_header">Alle Zertifikate</string>
   <string name="main_empty_header">Fügen Sie eine Impfung hinzu</string>

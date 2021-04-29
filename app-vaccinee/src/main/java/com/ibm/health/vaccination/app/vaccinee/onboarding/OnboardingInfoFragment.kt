@@ -1,37 +1,34 @@
 package com.ibm.health.vaccination.app.vaccinee.onboarding
 
-import com.ibm.health.common.navigation.android.FragmentNav
-import com.ibm.health.common.navigation.android.getArgs
+import com.ibm.health.common.vaccination.app.onboarding.BaseOnboardingConsentFragment
 import com.ibm.health.common.vaccination.app.onboarding.BaseOnboardingInfoFragment
 import com.ibm.health.vaccination.app.vaccinee.R
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-class OnboardingInfoFragmentNav(val position: Int) : FragmentNav(OnboardingInfoFragment::class)
+abstract class CommonOnboardingInfoFragment : BaseOnboardingInfoFragment() {
+    override val buttonTextRes = R.string.onboarding_continue_button_text
+}
 
-class OnboardingInfoFragment : BaseOnboardingInfoFragment() {
+class OnboardingInfo1Fragment : CommonOnboardingInfoFragment() {
+    override val titleRes = R.string.onboarding_info_title_1
+    override val textRes = R.string.onboarding_info_text_1
+    override val imageRes = R.drawable.onboarding_info_1
+}
 
-    override fun getTitleRes(): Int =
-        when (getArgs<OnboardingInfoFragmentNav>().position) {
-            0 -> R.string.onboarding_info_title_1
-            1 -> R.string.onboarding_info_title_2
-            2 -> R.string.onboarding_info_title_3
-            else -> throw IllegalArgumentException()
-        }
+class OnboardingInfo2Fragment : CommonOnboardingInfoFragment() {
+    override val titleRes = R.string.onboarding_info_title_2
+    override val textRes = R.string.onboarding_info_text_2
+    override val imageRes = R.drawable.onboarding_info_2
+}
 
-    override fun getTextRes(): Int =
-        when (getArgs<OnboardingInfoFragmentNav>().position) {
-            0 -> R.string.onboarding_info_text_1
-            1 -> R.string.onboarding_info_text_2
-            2 -> R.string.onboarding_info_text_3
-            else -> throw IllegalArgumentException()
-        }
+class OnboardingInfo3Fragment : CommonOnboardingInfoFragment() {
+    override val titleRes = R.string.onboarding_info_title_3
+    override val textRes = R.string.onboarding_info_text_3
+    override val imageRes = R.drawable.onboarding_info_3
+}
 
-    override fun getImageRes(): Int =
-        when (getArgs<OnboardingInfoFragmentNav>().position) {
-            0 -> R.drawable.onboarding_info_1
-            1 -> R.drawable.onboarding_info_2
-            2 -> R.drawable.onboarding_info_3
-            else -> throw IllegalArgumentException()
-        }
+class OnboardingConsentFragment : BaseOnboardingConsentFragment() {
+    override val titleRes = R.string.onboarding_consent_title
+    override val textRes = R.string.onboarding_consent_text
+    override val imageRes = R.drawable.onboarding_consent
+    override val buttonTextRes = R.string.onboarding_consent_continue_button_text
 }

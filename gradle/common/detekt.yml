@@ -28,6 +28,9 @@ formatting:
 naming:
   MemberNameEqualsClassName:
     active: false
+  # Way too often we want to name functions like classes. Don't require lowercase initial character, anymore.
+  FunctionNaming:
+    functionPattern: "(_?[a-zA-Z0-9]+)|(`.*`)"
 
 style:
   ForbiddenComment:

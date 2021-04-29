@@ -8,18 +8,17 @@ import com.ibm.health.common.vaccination.app.databinding.OnboardingInfoBinding
 
 public abstract class BaseOnboardingInfoFragment : BaseFragment() {
 
+    public abstract val titleRes: Int
+    public abstract val textRes: Int
+    public abstract val imageRes: Int
+    public abstract val buttonTextRes: Int
+
     private val binding by viewBinding(OnboardingInfoBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.onboardingInfoHeaderTextview.setText(getTitleRes())
-        binding.onboardingInfoTextview.setText(getTextRes())
-        binding.onboardingImageview.setImageResource(getImageRes())
+        binding.onboardingInfoHeaderTextview.setText(titleRes)
+        binding.onboardingInfoTextview.setText(textRes)
+        binding.onboardingImageview.setImageResource(imageRes)
     }
-
-    protected abstract fun getTitleRes(): Int
-
-    protected abstract fun getTextRes(): Int
-
-    protected abstract fun getImageRes(): Int
 }
