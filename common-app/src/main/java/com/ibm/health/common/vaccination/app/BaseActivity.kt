@@ -5,6 +5,7 @@ import com.ibm.health.common.android.utils.BaseHookedActivity
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.Navigator
 import com.ibm.health.common.navigation.android.NavigatorOwner
+import com.ibm.health.vaccination.common.android.dependencies.commonDeps
 
 /** Common base activity with some common functionality like error handling or loading behaviour. */
 public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
@@ -20,7 +21,7 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
     }
 
     override fun onError(error: Throwable) {
-        handleError(error, supportFragmentManager)
+        commonDeps.errorHandler.handleError(error, supportFragmentManager)
     }
 
     override fun setLoading(isLoading: Boolean) {

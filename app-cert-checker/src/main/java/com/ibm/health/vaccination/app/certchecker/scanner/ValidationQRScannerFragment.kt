@@ -5,6 +5,8 @@ import com.google.zxing.ResultPoint
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.triggerBackPress
+import com.ibm.health.common.vaccination.app.CommonErrorHandler.Companion.TAG_ERROR_CONNECTION
+import com.ibm.health.common.vaccination.app.CommonErrorHandler.Companion.TAG_ERROR_GENERAL
 import com.ibm.health.common.vaccination.app.dialog.DialogAction
 import com.ibm.health.common.vaccination.app.dialog.DialogListener
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
@@ -39,6 +41,12 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
         if (tag == CERTIFICATE_PREVIEW_DIALOG_TAG) {
             triggerBackPress()
         }
+        when (tag) {
+            CERTIFICATE_PREVIEW_DIALOG_TAG ->
+                triggerBackPress()
+            TAG_ERROR_CONNECTION, TAG_ERROR_GENERAL ->
+                decoratedBarcodeView.resume()
+        }
     }
 
     override fun onValidationSuccess(certificate: ValidationCertificate) {
@@ -47,7 +55,7 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
             titleRes = null,
             messageRes = R.string.validation_certificate_preview_dialog_message,
             messageParameter = "onValidationSuccess\n\n$certificate",
-            positiveButtonTextRes = R.string.validation_certificate_preview_dialog_positive,
+            positiveButtonTextRes = R.string.dialog_button_ok,
             tag = CERTIFICATE_PREVIEW_DIALOG_TAG
         )
         showDialog(dialogModel, childFragmentManager)
@@ -59,7 +67,7 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
             titleRes = null,
             messageRes = R.string.validation_certificate_preview_dialog_message,
             messageParameter = "onValidationFailure",
-            positiveButtonTextRes = R.string.validation_certificate_preview_dialog_positive,
+            positiveButtonTextRes = R.string.dialog_button_ok,
             tag = CERTIFICATE_PREVIEW_DIALOG_TAG
         )
         showDialog(dialogModel, childFragmentManager)
@@ -71,7 +79,7 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
             titleRes = null,
             messageRes = R.string.validation_certificate_preview_dialog_message,
             messageParameter = "onImmunizationIncomplete\n\n$certificate",
-            positiveButtonTextRes = R.string.validation_certificate_preview_dialog_positive,
+            positiveButtonTextRes = R.string.dialog_button_ok,
             tag = CERTIFICATE_PREVIEW_DIALOG_TAG
         )
         showDialog(dialogModel, childFragmentManager)

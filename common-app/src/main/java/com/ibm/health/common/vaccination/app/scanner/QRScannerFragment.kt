@@ -61,6 +61,11 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
         binding.loadingScreen.isVisible = isLoading
     }
 
+    override fun onError(error: Throwable) {
+        decoratedBarcodeView.pause()
+        super.onError(error)
+    }
+
     private fun checkPermission(targetPermission: String, targetAction: () -> Unit) {
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(requireContext(), targetPermission) -> targetAction.invoke()
