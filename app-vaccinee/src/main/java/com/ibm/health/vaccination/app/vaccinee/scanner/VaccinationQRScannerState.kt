@@ -8,12 +8,12 @@ import com.ibm.health.vaccination.sdk.android.qr.models.CertAlreadyExistsExcepti
 import com.ibm.health.vaccination.sdk.android.qr.models.ExtendedVaccinationCertificate
 import kotlinx.coroutines.CoroutineScope
 
-interface ScannerEvents : BaseEvents {
+interface VaccinationQRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: String)
     fun onCertificateDuplicated()
 }
 
-class VaccinationScannerState(scope: CoroutineScope) : BaseState<ScannerEvents>(scope) {
+class VaccinationQRScannerState(scope: CoroutineScope) : BaseState<VaccinationQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {

@@ -21,20 +21,14 @@ public data class ExtendedVaccination(
     val country: String = "",
     val nextDate: LocalDate? = null,
 ) {
+    public val isComplete: Boolean
+        get() = getCurrentSeries(series) == getCompleteSeries(series)
 
-    public fun isComplete(): Boolean {
-        return getCurrentSeries() == getCompleteSeries()
-    }
+    public val currentSeries: String
+        get() = getCurrentSeries(series)
 
-    public fun getCurrentSeries(): String {
-        val seriesValues = series.split("/")
-        return seriesValues[0]
-    }
-
-    public fun getCompleteSeries(): String {
-        val seriesValues = series.split("/")
-        return seriesValues[1]
-    }
+    public val completeSeries: String
+        get() = getCompleteSeries(series)
 }
 
 @Serializable
@@ -46,4 +40,17 @@ public data class Vaccination(
     val series: String = "",
     val occurence: LocalDate? = null,
     val country: String = "",
-)
+) {
+    public val isComplete: Boolean
+        get() = getCurrentSeries(series) == getCompleteSeries(series)
+}
+
+private fun getCurrentSeries(series: String): String {
+    val seriesValues = series.split("/")
+    return seriesValues[0]
+}
+
+private fun getCompleteSeries(series: String): String {
+    val seriesValues = series.split("/")
+    return seriesValues[1]
+}

@@ -2,6 +2,7 @@ package com.ibm.health.vaccination.app.certchecker.scanner
 
 import androidx.lifecycle.LifecycleObserver
 import com.google.zxing.ResultPoint
+import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.dialog.DialogAction
@@ -10,7 +11,6 @@ import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 import com.ibm.health.common.vaccination.app.scanner.QRScannerFragment
 import com.ibm.health.vaccination.app.certchecker.R
-import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import com.ibm.health.vaccination.sdk.android.qr.models.ValidationCertificate
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
@@ -22,13 +22,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class ValidationQRScannerFragmentNav : FragmentNav(ValidationQRScannerFragment::class)
 
-class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, DialogListener {
+class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, DialogListener, ValidationQRScannerEvents {
+
+    private val state by buildState { ValidationQRScannerState(scope) }
 
     override val callback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
             decoratedBarcodeView.pause()
-            // FIXME this is just a provisionally implementation
-            showValidation(sdkDeps.qrCoder.decodeValidationCert(result.text))
+            state.onQrContentReceived(result.text)
         }
 
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
@@ -40,11 +41,36 @@ class ValidationQRScannerFragment : QRScannerFragment(), LifecycleObserver, Dial
         }
     }
 
-    fun showValidation(validationCertificate: ValidationCertificate) {
+    override fun onValidationSuccess(certificate: ValidationCertificate) {
+        // TODO implement
         val dialogModel = DialogModel(
             titleRes = null,
             messageRes = R.string.validation_certificate_preview_dialog_message,
-            messageParameter = validationCertificate.toString(),
+            messageParameter = "onValidationSuccess\n\n$certificate",
+            positiveButtonTextRes = R.string.validation_certificate_preview_dialog_positive,
+            tag = CERTIFICATE_PREVIEW_DIALOG_TAG
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
+
+    override fun onValidationFailure() {
+        // TODO implement
+        val dialogModel = DialogModel(
+            titleRes = null,
+            messageRes = R.string.validation_certificate_preview_dialog_message,
+            messageParameter = "onValidationFailure",
+            positiveButtonTextRes = R.string.validation_certificate_preview_dialog_positive,
+            tag = CERTIFICATE_PREVIEW_DIALOG_TAG
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
+
+    override fun onImmunizationIncomplete(certificate: ValidationCertificate) {
+        // TODO implement
+        val dialogModel = DialogModel(
+            titleRes = null,
+            messageRes = R.string.validation_certificate_preview_dialog_message,
+            messageParameter = "onImmunizationIncomplete\n\n$certificate",
             positiveButtonTextRes = R.string.validation_certificate_preview_dialog_positive,
             tag = CERTIFICATE_PREVIEW_DIALOG_TAG
         )

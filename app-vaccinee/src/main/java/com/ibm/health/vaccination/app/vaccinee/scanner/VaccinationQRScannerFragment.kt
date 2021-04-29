@@ -22,9 +22,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class VaccinationQRScannerFragmentNav : FragmentNav(VaccinationQRScannerFragment::class)
 
-class VaccinationQRScannerFragment : QRScannerFragment(), DialogListener, ScannerEvents {
+class VaccinationQRScannerFragment : QRScannerFragment(), DialogListener, VaccinationQRScannerEvents {
 
-    private val state by buildState { VaccinationScannerState(scope) }
+    private val state by buildState { VaccinationQRScannerState(scope) }
 
     override val callback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {

@@ -96,7 +96,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             val statusHeaderText = if (isComplete) {
                 getString(R.string.detail_status_header_complete)
             } else {
-                getString(R.string.detail_status_header_incomplete, cert.getCurrentSeries(), cert.getCompleteSeries())
+                getString(R.string.detail_status_header_incomplete, cert.currentSeries, cert.completeSeries)
             }
             binding.detailStatusHeaderTextview.text = statusHeaderText
 
@@ -142,7 +142,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             binding.detailNameDataRow.detailDataTextview.text = cert.name
 
             binding.detailBirthdateDataRow.detailDataHeaderTextview.setText(R.string.detail_birthdate_header)
-            binding.detailBirthdateDataRow.detailDataTextview.text = cert.getFormattedBirthDate()
+            binding.detailBirthdateDataRow.detailDataTextview.text = cert.formattedBirthDate
 
             binding.detailVaccinationContainer.removeAllViews()
 
@@ -165,8 +165,8 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
         val headerText = getString(
             R.string.detail_vaccination_header,
-            cert.getCurrentSeries(),
-            cert.getCompleteSeries()
+            cert.currentSeries,
+            cert.completeSeries
         )
         vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
 

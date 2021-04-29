@@ -113,21 +113,21 @@ data class GroupedCertificatesList(
                 val currentVaccinationCert = currentCert.vaccinationCertificate
                 val equalNames = currentVaccinationCert.name == startVaccinationCert.name
                 val equalDates = currentVaccinationCert.birthDate == startVaccinationCert.birthDate
-                val equalCompletion = currentVaccinationCert.isComplete() == startVaccinationCert.isComplete()
+                val equalCompletion = currentVaccinationCert.isComplete == startVaccinationCert.isComplete
                 val matchFound = equalNames && equalDates && !equalCompletion
                 if (matchFound) {
                     // remove the matching cert, so it cannot be checked again
                     certList.removeAt(currentIndex)
                     val completeCert =
-                        if (startVaccinationCert.isComplete()) startCert else currentCert
+                        if (startVaccinationCert.isComplete) startCert else currentCert
                     val incompleteCert =
-                        if (startVaccinationCert.isComplete()) currentCert else startCert
+                        if (startVaccinationCert.isComplete) currentCert else startCert
                     return GroupedCertificates(completeCert, incompleteCert)
                 }
                 currentIndex++
             }
             // If not yet returned, no matching cert was found
-            return if (startVaccinationCert.isComplete()) {
+            return if (startVaccinationCert.isComplete) {
                 GroupedCertificates(startCert, null)
             } else {
                 GroupedCertificates(null, startCert)

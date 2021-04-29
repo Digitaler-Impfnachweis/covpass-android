@@ -24,13 +24,15 @@ public data class VaccinationCertificate(
     val version: String = "",
 ) {
 
-    public fun getFormattedBirthDate(): String {
-        return birthDate?.getFormattedDate() ?: "-"
-    }
+    public val formattedBirthDate: String
+        get() = birthDate?.getFormattedDate() ?: "-"
 
-    public fun isComplete(): Boolean = vaccination.any { it.isComplete() }
+    public val isComplete: Boolean
+        get() = vaccination.any { it.isComplete }
 
-    public fun getCurrentSeries(): String = vaccination.first().getCurrentSeries()
+    public val currentSeries: String
+        get() = vaccination.first().currentSeries
 
-    public fun getCompleteSeries(): String = vaccination.first().getCompleteSeries()
+    public val completeSeries: String
+        get() = vaccination.first().completeSeries
 }

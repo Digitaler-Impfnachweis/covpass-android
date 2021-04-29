@@ -17,4 +17,7 @@ public data class ValidationCertificate(
     val issuer: String = "",
     val id: String = "",
     val validUntil: LocalDate? = null,
-)
+) {
+    public val isComplete: Boolean
+        get() = vaccination.any { it.isComplete }
+}
