@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleObserver
 import com.google.zxing.BarcodeFormat
 import com.ibm.health.common.android.utils.viewBinding
@@ -54,6 +55,10 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
         checkPermission(Manifest.permission.CAMERA) { startScanning() }
+    }
+
+    override fun setLoading(isLoading: Boolean) {
+        binding.loadingScreen.isVisible = isLoading
     }
 
     private fun checkPermission(targetPermission: String, targetAction: () -> Unit) {

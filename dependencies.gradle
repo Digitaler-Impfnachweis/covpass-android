@@ -162,6 +162,7 @@ dependencies.ext.androidUI = {
         api 'androidx.lifecycle:lifecycle-viewmodel-ktx'
         api 'androidx.lifecycle:lifecycle-viewmodel-savedstate'
         api 'androidx.constraintlayout:constraintlayout'
+        api 'com.airbnb.android:lottie:3.4.1'
 
         if (project.name != 'android-utils-test') {
             testImplementation project(':android-utils-test')

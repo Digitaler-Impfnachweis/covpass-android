@@ -7,6 +7,7 @@ import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.sdk.android.qr.models.CertAlreadyExistsException
 import com.ibm.health.vaccination.sdk.android.qr.models.ExtendedVaccinationCertificate
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 
 interface VaccinationQRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: String)
@@ -18,6 +19,8 @@ class VaccinationQRScannerState(scope: CoroutineScope) : BaseState<VaccinationQR
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
+                // FIXME: Remove the delay
+                delay(2000)
                 val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
                 vaccineeDeps.storage.certs.update {
                     it.addCertificate(
