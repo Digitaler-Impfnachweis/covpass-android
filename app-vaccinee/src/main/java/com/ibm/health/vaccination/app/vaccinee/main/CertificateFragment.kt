@@ -87,7 +87,7 @@ internal class CertificateFragment : BaseFragment() {
         val arrowRightIconResource = if (complete) R.drawable.arrow_right_white else R.drawable.arrow_right_blue
         binding.certificateArrowImageview.setImageResource(arrowRightIconResource)
 
-        binding.certificateVaccinationStatusContainer.setOnClickListener {
+        binding.certificateCardview.setOnClickListener {
             findNavigator().push(DetailFragmentNav(getArgs<CertificateFragmentNav>().certId))
         }
 
