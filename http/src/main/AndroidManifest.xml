@@ -3,6 +3,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.ibm.health.common.http">
 
+  <uses-permission android:name="android.permission.INTERNET" />
+
   <application
     android:networkSecurityConfig="@xml/network_security_config"
     tools:targetApi="n" />
