@@ -25,16 +25,8 @@
 
   <TextView
     android:id="@+id/add_vaccination_cert_faq"
-    style="@style/Header.OnBackground.Small"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginEnd="@dimen/grid_four"
-    android:gravity="center_vertical"
-    android:paddingVertical="@dimen/grid_one_half"
-    android:text="@string/add_vaccination_cert_question_link"
-    android:textColorLink="@color/onBackground"
-    app:drawableEndCompat="@drawable/arrow_right_blue" />
+    style="@style/NavigationField"
+    android:text="@string/add_vaccination_cert_question_link" />
 
   <View
     android:layout_width="wrap_content"

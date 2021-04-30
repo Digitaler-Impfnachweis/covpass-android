@@ -121,10 +121,7 @@
         android:id="@+id/detail_name_data_row"
         layout="@layout/detail_data_row" />
 
-      <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/grid_eighth"
-        android:background="@color/onBackground20" />
+      <View style="@style/Divider" />
 
       <include
         android:id="@+id/detail_birthdate_data_row"

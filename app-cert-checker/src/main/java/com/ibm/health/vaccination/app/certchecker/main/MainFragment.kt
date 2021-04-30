@@ -6,7 +6,7 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
-import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
+import com.ibm.health.common.vaccination.app.information.InformationFragmentNav
 import com.ibm.health.vaccination.app.certchecker.R
 import com.ibm.health.vaccination.app.certchecker.databinding.CheckerMainBinding
 import com.ibm.health.vaccination.app.certchecker.scanner.ValidationQRScannerFragmentNav
@@ -22,7 +22,7 @@ internal class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
+        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(InformationFragmentNav()) }
         binding.mainCheckCertButton.setOnClickListener { findNavigator().push(ValidationQRScannerFragmentNav()) }
 
         // FIXME use correct date and use LocalDateTime

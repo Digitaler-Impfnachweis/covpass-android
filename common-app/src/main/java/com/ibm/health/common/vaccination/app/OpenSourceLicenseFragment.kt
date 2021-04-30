@@ -1,11 +1,11 @@
 package com.ibm.health.common.vaccination.app
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.webkit.WebView
+import androidx.appcompat.app.AppCompatActivity
+import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
+import com.ibm.health.common.vaccination.app.databinding.OpenSourceLicenseBinding
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -17,10 +17,23 @@ public class OpenSourceLicenseFragmentNav : FragmentNav(OpenSourceLicenseFragmen
  */
 public class OpenSourceLicenseFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // This is just a provisional implementation.
-        val webView = WebView(requireActivity())
-        webView.loadUrl("file:///android_asset/open_source_licenses.html")
-        return webView
+    private val binding by viewBinding(OpenSourceLicenseBinding::inflate)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupActionBar()
+        binding.openSourceLicenseWebView.loadUrl("file:///android_asset/open_source_licenses.html")
+    }
+
+    private fun setupActionBar() {
+        (activity as? AppCompatActivity)?.run {
+            setSupportActionBar(binding.openSourceLicenseToolbar)
+            supportActionBar?.run {
+                setDisplayShowTitleEnabled(false)
+                setDisplayHomeAsUpEnabled(true)
+                setHomeAsUpIndicator(R.drawable.back_arrow)
+            }
+            binding.openSourceLicenseToolbar.title = getString(R.string.open_source_license_header)
+        }
     }
 }

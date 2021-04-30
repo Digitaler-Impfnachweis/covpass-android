@@ -16,7 +16,6 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
-import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 import com.ibm.health.vaccination.app.vaccinee.R
@@ -24,6 +23,7 @@ import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFrag
 import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
+import com.ibm.health.common.vaccination.app.information.InformationFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
@@ -46,7 +46,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
     private fun setupViews() {
         binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
-        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
+        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(InformationFragmentNav()) }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         binding.mainViewPager.adapter = fragmentStateAdapter
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { tab, position ->

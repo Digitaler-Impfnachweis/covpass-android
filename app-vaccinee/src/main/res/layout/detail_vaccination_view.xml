@@ -17,64 +17,43 @@
     android:id="@+id/detail_vaccination_occurrence_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_product_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_manufacturer_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_lotnumber_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_location_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_issuer_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_country_data_row"
     layout="@layout/detail_data_row" />
 
-  <View
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_eighth"
-    android:background="@color/onBackground20" />
+  <View style="@style/Divider" />
 
   <include
     android:id="@+id/detail_vaccination_uvci_data_row"
