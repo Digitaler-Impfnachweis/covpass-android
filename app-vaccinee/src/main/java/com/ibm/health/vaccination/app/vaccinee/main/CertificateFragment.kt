@@ -28,8 +28,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class CertificateFragmentNav(val certId: String) : FragmentNav(CertificateFragment::class)
 
-internal class CertificateFragment : BaseFragment() {
+class CertificateFragment : BaseFragment() {
 
+    internal val args: CertificateFragmentNav by lazy { getArgs() }
     private val state by buildState { CertificateState(scope) }
     private val binding by viewBinding(CertificateBinding::inflate)
 
@@ -42,7 +43,7 @@ internal class CertificateFragment : BaseFragment() {
     }
 
     private fun updateViews(certificateList: GroupedCertificatesList) {
-        val certId = getArgs<CertificateFragmentNav>().certId
+        val certId = args.certId
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainExtendedCertificate = groupedCertificate.getMainCertificate()
         val mainCertificate = groupedCertificate.getMainCertificate().vaccinationCertificate
@@ -88,7 +89,7 @@ internal class CertificateFragment : BaseFragment() {
         binding.certificateArrowImageview.setImageResource(arrowRightIconResource)
 
         binding.certificateCardview.setOnClickListener {
-            findNavigator().push(DetailFragmentNav(getArgs<CertificateFragmentNav>().certId))
+            findNavigator().push(DetailFragmentNav(args.certId))
         }
 
         val statusIconResource =

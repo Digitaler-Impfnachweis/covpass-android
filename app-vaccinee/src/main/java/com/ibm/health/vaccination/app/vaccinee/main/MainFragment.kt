@@ -7,7 +7,9 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.get
+import com.ensody.reactivestate.validUntil
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
@@ -32,7 +34,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
     private val state by buildState { MainState(scope) }
     private val binding by viewBinding(VaccineeMainBinding::inflate)
-    private lateinit var fragmentStateAdapter: CertificateFragmentStateAdapter
+    private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

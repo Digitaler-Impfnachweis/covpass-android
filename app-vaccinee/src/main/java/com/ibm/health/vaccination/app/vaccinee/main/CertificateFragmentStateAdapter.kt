@@ -2,39 +2,36 @@ package com.ibm.health.vaccination.app.vaccinee.main
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
-import java.util.ArrayList
 
 class CertificateFragmentStateAdapter(
     fragment: Fragment
 ) : FragmentStateAdapter(fragment) {
 
-    private val fragmentList = ArrayList<Fragment>()
+    private var fragments = listOf<CertificateFragment>()
 
-    override fun getItemCount(): Int = fragmentList.size
+    override fun getItemCount(): Int = fragments.size
 
-    override fun createFragment(position: Int): Fragment = fragmentList[position]
+    override fun createFragment(position: Int): Fragment = fragments[position]
 
-    override fun getItemId(position: Int): Long = getId(fragmentList[position])
+    override fun getItemId(position: Int): Long = getId(fragments[position])
 
-    override fun containsItem(itemId: Long): Boolean = fragmentList.any { getId(it) == itemId }
+    override fun containsItem(itemId: Long): Boolean = fragments.any { getId(it) == itemId }
 
     fun createFragments(certificateList: GroupedCertificatesList) {
-        fragmentList.clear()
-        certificateList.getSortedCertificates().forEach {
-            fragmentList.add(CertificateFragmentNav(it.getMainCertId()).build())
+        fragments = certificateList.getSortedCertificates().map {
+            CertificateFragmentNav(it.getMainCertId()).build() as CertificateFragment
         }
         notifyDataSetChanged()
     }
 
     fun getItemPosition(certId: String): Int {
-        return fragmentList.indexOfFirst {
-            it.getArgs<CertificateFragmentNav>().certId == certId
+        return fragments.indexOfFirst {
+            it.args.certId == certId
         }
     }
 
-    fun getFragment(position: Int): Fragment = fragmentList[position]
+    fun getFragment(position: Int): CertificateFragment = fragments[position]
 
-    private fun getId(it: Fragment) = it.getArgs<CertificateFragmentNav>().certId.hashCode().toLong()
+    private fun getId(it: CertificateFragment) = it.args.certId.hashCode().toLong()
 }

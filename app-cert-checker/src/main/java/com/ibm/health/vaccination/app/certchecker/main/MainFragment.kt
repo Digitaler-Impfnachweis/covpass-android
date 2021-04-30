@@ -25,8 +25,9 @@ internal class MainFragment : BaseFragment() {
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(OpenSourceLicenseFragmentNav()) }
         binding.mainCheckCertButton.setOnClickListener { findNavigator().push(ValidationQRScannerFragmentNav()) }
 
-        // FIXME use correct date
-        val date = Calendar.getInstance().getTime().toString()
+        // FIXME use correct date and use LocalDateTime
+        val date = Calendar.getInstance().time.toString()
+        // FIXME use getString's formatting?
         val updateString = String.format(resources.getString(R.string.main_availability_last_update), date)
         binding.mainAvailabilityLastUpdateTextview.text = updateString
     }

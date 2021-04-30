@@ -40,7 +40,8 @@ class DetailFragmentNav(val certId: String) : FragmentNav(DetailFragment::class)
 
 class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
-    private val state by buildState { DetailState(scope, getArgs<DetailFragmentNav>().certId) }
+    private val args: DetailFragmentNav by lazy { getArgs() }
+    private val state by buildState { DetailState(scope, args.certId) }
     private val binding by viewBinding(DetailBinding::inflate)
     private var isFavorite = false
 
@@ -71,7 +72,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         if (item.itemId == FAVORITE_ITEM_ID) {
-            state.onFavoriteClick(getArgs<DetailFragmentNav>().certId)
+            state.onFavoriteClick(args.certId)
             true
         } else {
             super.onOptionsItemSelected(item)
@@ -82,7 +83,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
     }
 
     private fun updateViews(certList: GroupedCertificatesList) {
-        val certId = getArgs<DetailFragmentNav>().certId
+        val certId = args.certId
         // Can be null after deletion... in this case no update is necessary anymore
         val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
         val mainCertificate = groupedCertificate.getMainCertificate()
