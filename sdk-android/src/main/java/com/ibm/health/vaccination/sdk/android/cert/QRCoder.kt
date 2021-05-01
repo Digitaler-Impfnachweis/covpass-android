@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.qr
+package com.ibm.health.vaccination.sdk.android.cert
 
 import COSE.CoseException
 import COSE.OneKey
@@ -6,9 +6,9 @@ import COSE.Sign1Message
 import com.ibm.health.common.base45.Base45
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
 import com.ibm.health.vaccination.sdk.android.crypto.isCA
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.qr.models.ValidationCertificate
-import com.ibm.health.vaccination.sdk.android.zlib.Zlib
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
+import com.ibm.health.vaccination.sdk.android.utils.Zlib
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException

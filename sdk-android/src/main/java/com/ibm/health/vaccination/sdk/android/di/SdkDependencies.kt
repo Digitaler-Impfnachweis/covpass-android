@@ -1,9 +1,9 @@
-package com.ibm.health.vaccination.sdk.android.dependencies
+package com.ibm.health.vaccination.sdk.android.di
 
 import android.app.Application
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
 import com.ibm.health.vaccination.sdk.android.crypto.readPem
-import com.ibm.health.vaccination.sdk.android.qr.QRCoder
+import com.ibm.health.vaccination.sdk.android.cert.QRCoder
 
 /**
  * Global var for making the [SdkDependencies] accessible.

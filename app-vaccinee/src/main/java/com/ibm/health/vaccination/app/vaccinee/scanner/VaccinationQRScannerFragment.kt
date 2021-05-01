@@ -4,7 +4,7 @@ import com.google.zxing.ResultPoint
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.vaccination.app.CommonErrorHandler.Companion.TAG_ERROR_GENERAL
-import com.ibm.health.common.vaccination.app.ErrorHandler.Companion.TAG_ERROR_DUPLICATE_CERTIFICATE
+import com.ibm.health.vaccination.app.vaccinee.errorhandling.ErrorHandler.Companion.TAG_ERROR_DUPLICATE_CERTIFICATE
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.CommonErrorHandler.Companion.TAG_ERROR_CONNECTION

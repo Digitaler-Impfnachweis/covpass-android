@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.qr.models
+package com.ibm.health.vaccination.sdk.android.cert.models
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

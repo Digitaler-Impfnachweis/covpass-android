@@ -4,19 +4,22 @@ import com.ensody.reactivestate.MutableValueFlow
 import com.ibm.health.common.android.utils.SettableStateFlow
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.vaccination.app.EncryptedKeyValueStore
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 
+// TODO: Should this be named CertRepository or CertStorage?
 class Storage {
 
-    private val keyValueStore = EncryptedKeyValueStore(androidDeps.application, "vaccinee_prefs")
+    private val store = EncryptedKeyValueStore(androidDeps.application, "vaccinee_prefs")
 
-    private val certsPref = keyValueStore.getFlow("vaccination_certificate_list", VaccinationCertificateList())
+    private val certsPref = store.getFlow("vaccination_certificate_list", VaccinationCertificateList())
 
     private val certFlow = MutableValueFlow(GroupedCertificatesList.fromVaccinationCertificateList(certsPref.value))
 
-    val onboardingDone = keyValueStore.getFlow("onboarding_shown", false)
+    // TODO: Split this up into a separate storage system? This could even be reused via common-app.
+    val onboardingDone = store.getFlow("onboarding_shown", false)
 
     // FIXME move to SDK as CertificateStorage
+    // FIXME Switch to SuspendMutableValueFlow
     val certs = SettableStateFlow(certFlow) {
         certsPref.set(it.toVaccinationCertificateList())
         certFlow.emit(it)

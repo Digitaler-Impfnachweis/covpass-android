@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.qr
+package com.ibm.health.vaccination.sdk.android.cert
 
 import COSE.OneKey
 import assertk.assertThat

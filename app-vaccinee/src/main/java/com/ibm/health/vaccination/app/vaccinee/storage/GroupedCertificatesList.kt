@@ -1,13 +1,15 @@
 package com.ibm.health.vaccination.app.vaccinee.storage
 
-import com.ibm.health.vaccination.sdk.android.qr.models.ExtendedVaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
+import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 
 /**
  * Data model which contains a list of [GroupedCertificates] and a pointer to the favorite / own certificate.
  * This data model is used at runtime, while for the persistent data the [VaccinationCertificateList] is used.
  * So for storing / loading, the two models have to be transformed into each other.
  */
+// FIXME Clean this up. Separate data from logic. Rethink the back and forth conversion in addCertificate.
+//  Think about immutability vs mutability, safety and efficiency (we hold this in an observable singleton). Etc.
 // TODO maybe move this to sdk later on
 data class GroupedCertificatesList(
     var certificates: MutableList<GroupedCertificates> = mutableListOf(),

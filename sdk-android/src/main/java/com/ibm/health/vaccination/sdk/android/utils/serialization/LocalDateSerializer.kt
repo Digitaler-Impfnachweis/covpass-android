@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.serialization
+package com.ibm.health.vaccination.sdk.android.utils.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

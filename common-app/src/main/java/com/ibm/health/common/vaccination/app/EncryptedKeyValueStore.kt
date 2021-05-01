@@ -69,6 +69,7 @@ public class EncryptedKeyValueStore(context: Context, preferencesName: String) {
      */
     public inline fun <reified T : Any> getFlow(key: String, default: T): SettableStateFlow<T> {
         val flow = MutableValueFlow(get(key, default))
+        // FIXME Switch to SuspendMutableValueFlow
         return SettableStateFlow(flow) {
             dispatchers.io {
                 set(key, it)

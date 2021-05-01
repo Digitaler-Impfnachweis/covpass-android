@@ -13,7 +13,7 @@ import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 import com.ibm.health.common.vaccination.app.scanner.QRScannerFragment
 import com.ibm.health.vaccination.app.certchecker.R
-import com.ibm.health.vaccination.sdk.android.qr.models.ValidationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.parcelize.Parcelize

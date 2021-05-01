@@ -1,7 +1,7 @@
 @file:UseSerializers(LocalDateSerializer::class)
-package com.ibm.health.vaccination.sdk.android.qr.models
+package com.ibm.health.vaccination.sdk.android.cert.models
 
-import com.ibm.health.vaccination.sdk.android.serialization.LocalDateSerializer
+import com.ibm.health.vaccination.sdk.android.utils.serialization.LocalDateSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.time.LocalDate

@@ -2,11 +2,11 @@ package com.ibm.health.vaccination.app.vaccinee.scanner
 
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
-import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
+import com.ibm.health.vaccination.sdk.android.di.sdkDeps
 import com.ibm.health.common.http.httpConfig
 import com.ibm.health.common.vaccination.app.errorhandling.isConnectionError
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
-import com.ibm.health.vaccination.sdk.android.qr.models.ExtendedVaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*

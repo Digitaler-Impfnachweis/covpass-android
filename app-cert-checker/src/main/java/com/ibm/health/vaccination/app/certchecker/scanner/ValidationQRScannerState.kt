@@ -2,10 +2,10 @@ package com.ibm.health.vaccination.app.certchecker.scanner
 
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
-import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
-import com.ibm.health.vaccination.sdk.android.qr.HCertBadSignatureException
-import com.ibm.health.vaccination.sdk.android.qr.HCertExpiredException
-import com.ibm.health.vaccination.sdk.android.qr.models.ValidationCertificate
+import com.ibm.health.vaccination.sdk.android.di.sdkDeps
+import com.ibm.health.vaccination.sdk.android.cert.HCertBadSignatureException
+import com.ibm.health.vaccination.sdk.android.cert.HCertExpiredException
+import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
 import kotlinx.coroutines.CoroutineScope
 
 interface ValidationQRScannerEvents : BaseEvents {

@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.zlib
+package com.ibm.health.vaccination.sdk.android.utils
 
 import java.io.ByteArrayOutputStream
 import java.util.zip.Deflater

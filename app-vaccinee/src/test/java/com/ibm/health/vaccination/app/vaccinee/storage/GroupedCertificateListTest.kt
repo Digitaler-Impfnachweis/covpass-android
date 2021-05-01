@@ -4,10 +4,10 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
-import com.ibm.health.vaccination.sdk.android.qr.models.ExtendedVaccination
-import com.ibm.health.vaccination.sdk.android.qr.models.ExtendedVaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.qr.models.VaccinationCertificateList
+import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccination
+import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 import org.junit.Test
 import java.time.LocalDate
 
