@@ -297,8 +297,12 @@ public class Navigator internal constructor(
     }
 
     /** Clears the back stack. */
-    public fun popAll() {
-        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    public fun popAll(immediate: Boolean = false) {
+        if (immediate) {
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        } else {
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
 
     /**
