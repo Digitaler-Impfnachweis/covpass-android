@@ -22,6 +22,7 @@ class CertificateFragmentStateAdapter(
         fragments = certificateList.getSortedCertificates().map {
             CertificateFragmentNav(it.getMainCertId()).build() as CertificateFragment
         }
+        // TODO: Optimize this to only update what has really changed
         notifyDataSetChanged()
     }
 
