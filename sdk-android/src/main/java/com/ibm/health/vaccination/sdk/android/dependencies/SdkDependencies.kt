@@ -1,4 +1,4 @@
-package com.ibm.health.vaccination.sdk.android.di
+package com.ibm.health.vaccination.sdk.android.dependencies
 
 import android.app.Application
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator

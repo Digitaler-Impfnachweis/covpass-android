@@ -1,6 +1,6 @@
 package com.ibm.health.vaccination.app.vaccinee.errorhandling
 
-import com.ibm.health.common.vaccination.app.CommonErrorHandler
+import com.ibm.health.common.vaccination.app.errorhandling.CommonErrorHandler
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.vaccination.sdk.android.cert.models.CertAlreadyExistsException
 import com.ibm.health.vaccination.app.vaccinee.R

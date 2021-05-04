@@ -1,10 +1,10 @@
-package com.ibm.health.common.vaccination.app
+package com.ibm.health.common.vaccination.app.errorhandling
 
 import androidx.fragment.app.FragmentManager
 import com.ibm.health.common.logging.Lumber
+import com.ibm.health.common.vaccination.app.R
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
-import com.ibm.health.common.vaccination.app.errorhandling.isConnectionError
 
 public abstract class CommonErrorHandler {
 

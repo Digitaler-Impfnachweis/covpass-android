@@ -63,6 +63,7 @@
     app:layout_constraintHeight_default="spread"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/bottom_sheet_header"
+    app:layout_constraintVertical_bias="0"
     app:layout_constraintWidth_default="wrap" />
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +84,6 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/grid_three"
       android:layout_marginBottom="@dimen/grid_three"
-      android:text="@string/onboarding_welcome_start_button_text"
       android:textSize="@dimen/textsize_default"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

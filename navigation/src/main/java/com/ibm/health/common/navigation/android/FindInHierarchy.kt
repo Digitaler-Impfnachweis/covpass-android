@@ -38,6 +38,27 @@ public fun <T : Any> Fragment.findInHierarchyOrNull(skip: Int = 0, action: (Any)
 }
 
 /**
+ * Searches from the current fragment upwards to parents and then the activity until the given type is found.
+ *
+ * @return The matching type.
+ * @throws [NoSuchElementInHierarchy] if nothing was found.
+ *
+ * @param skip How many results to skip. Defaults to 0 (taking first result).
+ */
+public inline fun <reified T : Any> Fragment.findInHierarchy(skip: Int = 0): T =
+    findInHierarchy(skip = skip) { it as? T }
+
+/**
+ * Searches from the current fragment upwards to parents and then the activity until the given type is found.
+ *
+ * @return The matching type or null if nothing could be found.
+ *
+ * @param skip How many results to skip. Defaults to 0 (taking first result).
+ */
+public inline fun <reified T : Any> Fragment.findInHierarchyOrNull(skip: Int = 0): T? =
+    findInHierarchyOrNull(skip = skip) { it as? T }
+
+/**
  * Thrown when [findInHiercharchy] couldn't find a fragment.
  */
 public class NoSuchElementInHierarchy(message: String) : IllegalStateException(message)

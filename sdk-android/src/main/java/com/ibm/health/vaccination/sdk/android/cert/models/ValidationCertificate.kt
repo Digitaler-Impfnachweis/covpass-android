@@ -1,4 +1,5 @@
 @file:UseSerializers(LocalDateSerializer::class)
+
 package com.ibm.health.vaccination.sdk.android.cert.models
 
 import com.ibm.health.vaccination.sdk.android.utils.serialization.LocalDateSerializer

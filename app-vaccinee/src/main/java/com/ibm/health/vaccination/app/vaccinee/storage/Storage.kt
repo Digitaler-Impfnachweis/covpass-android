@@ -1,7 +1,7 @@
 package com.ibm.health.vaccination.app.vaccinee.storage
 
 import com.ensody.reactivestate.MutableValueFlow
-import com.ibm.health.common.android.utils.SettableStateFlow
+import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.vaccination.app.EncryptedKeyValueStore
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
@@ -19,9 +19,7 @@ class Storage {
     val onboardingDone = store.getFlow("onboarding_shown", false)
 
     // FIXME move to SDK as CertificateStorage
-    // FIXME Switch to SuspendMutableValueFlow
-    val certs = SettableStateFlow(certFlow) {
+    val certs = SuspendMutableValueFlow(certFlow) {
         certsPref.set(it.toVaccinationCertificateList())
-        certFlow.emit(it)
     }
 }

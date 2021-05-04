@@ -1,11 +1,11 @@
 @file:UseSerializers(LocalDateSerializer::class, SexSerializer::class)
+
 package com.ibm.health.vaccination.sdk.android.cert.models
 
 import com.ibm.health.vaccination.sdk.android.utils.serialization.LocalDateSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
-import com.ibm.health.common.vaccination.app.utils.getFormattedDate
 
 /**
  * Data model for the vaccination certificate
@@ -23,9 +23,6 @@ public data class VaccinationCertificate(
     val validUntil: LocalDate? = null,
     val version: String = "",
 ) {
-
-    public val formattedBirthDate: String
-        get() = birthDate?.getFormattedDate() ?: "-"
 
     public val isComplete: Boolean
         get() = vaccination.any { it.isComplete }

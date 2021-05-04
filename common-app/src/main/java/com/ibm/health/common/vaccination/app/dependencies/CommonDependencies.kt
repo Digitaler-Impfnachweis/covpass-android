@@ -1,6 +1,6 @@
-package com.ibm.health.vaccination.common.android.dependencies
+package com.ibm.health.common.vaccination.app.dependencies
 
-import com.ibm.health.common.vaccination.app.CommonErrorHandler
+import com.ibm.health.common.vaccination.app.errorhandling.CommonErrorHandler
 
 /**
  * Global var for making the [CommonDependencies] accessible.

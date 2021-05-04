@@ -8,28 +8,43 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.LifecycleObserver
+import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.android.savedInstanceState
+import com.ensody.reactivestate.withErrorReporting
 import com.google.zxing.BarcodeFormat
+import com.google.zxing.ResultPoint
 import com.ibm.health.common.android.utils.viewBinding
-import com.ibm.health.common.navigation.android.triggerBackPress
+import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.databinding.FragmentQrScannerBinding
 import com.ibm.health.common.vaccination.app.utils.getScreenSize
-import com.journeyapps.barcodescanner.BarcodeCallback
-import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import com.journeyapps.barcodescanner.DefaultDecoderFactory
-import com.journeyapps.barcodescanner.Size
+import com.journeyapps.barcodescanner.*
 
 /**
  * QR Scanner Fragment extending from BaseFragment to display a custom layout form scanner view.
  */
-public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
+public abstract class QRScannerFragment : BaseFragment() {
 
     private val binding by viewBinding(FragmentQrScannerBinding::inflate)
 
-    public abstract val callback: BarcodeCallback
+    protected abstract val loadingText: Int
 
-    public val decoratedBarcodeView: DecoratedBarcodeView get() = binding.zxingBarcodeScanner
+    protected val scanEnabled: MutableValueFlow<Boolean> by savedInstanceState(true)
+
+    private val barcodeCallback: BarcodeCallback = object : BarcodeCallback {
+        override fun barcodeResult(result: BarcodeResult) {
+            withErrorReporting(::onError) {
+                if (scanEnabled.value) {
+                    scanEnabled.value = false
+                    onBarcodeResult(result)
+                }
+            }
+        }
+
+        override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
+    }
+
+    private val decoratedBarcodeView: DecoratedBarcodeView get() = binding.zxingBarcodeScanner
 
     private var barcodeTypes: List<BarcodeFormat> = listOf(
         BarcodeFormat.QR_CODE,
@@ -44,7 +59,7 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
             if (isGranted) {
                 startScanning()
             } else {
-                triggerBackPress()
+                findNavigator().pop()
             }
         }
 
@@ -55,15 +70,13 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
         checkPermission(Manifest.permission.CAMERA) { startScanning() }
+        binding.loadingText.setText(loadingText)
     }
+
+    protected abstract fun onBarcodeResult(result: BarcodeResult)
 
     override fun setLoading(isLoading: Boolean) {
         binding.loadingScreen.isVisible = isLoading
-    }
-
-    override fun onError(error: Throwable) {
-        decoratedBarcodeView.pause()
-        super.onError(error)
     }
 
     private fun checkPermission(targetPermission: String, targetAction: () -> Unit) {
@@ -74,7 +87,7 @@ public abstract class QRScannerFragment : BaseFragment(), LifecycleObserver {
     }
 
     private fun startScanning() {
-        decoratedBarcodeView.barcodeView.decodeContinuous(callback)
+        decoratedBarcodeView.barcodeView.decodeContinuous(barcodeCallback)
     }
 
     override fun onResume() {

@@ -1,5 +1,6 @@
 package com.ibm.health.common.navigation.android
 
+import android.content.Context
 import android.content.pm.ActivityInfo
 import androidx.annotation.IdRes
 import androidx.fragment.app.*
@@ -60,6 +61,26 @@ public class Navigator internal constructor(
         fragmentManager.addOnBackStackChangedListener {
             value = fragmentManager.backStackEntryCount
             update()
+        }
+    }
+
+    public val fragments: StateFlow<List<Fragment>> = MutableStateFlow(emptyList<Fragment>()).apply {
+        fragmentManager.registerFragmentLifecycleCallbacks(
+            object : FragmentManager.FragmentLifecycleCallbacks() {
+                override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
+                    super.onFragmentAttached(fm, f, context)
+                    value = fragmentManager.fragments.toList()
+                }
+
+                override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+                    super.onFragmentDetached(fm, f)
+                    value = fragmentManager.fragments.toList()
+                }
+            },
+            false
+        )
+        fragmentManager.addOnBackStackChangedListener {
+            value = fragmentManager.fragments.toList()
         }
     }
 

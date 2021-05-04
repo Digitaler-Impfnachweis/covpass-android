@@ -6,7 +6,7 @@ import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.NavigatorOwner
 import com.ibm.health.common.navigation.android.OnBackPressedNavigation
-import com.ibm.health.vaccination.common.android.dependencies.commonDeps
+import com.ibm.health.common.vaccination.app.dependencies.commonDeps
 
 /** Common base fragment with some common functionality like error handling or loading behaviour. */
 public abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :

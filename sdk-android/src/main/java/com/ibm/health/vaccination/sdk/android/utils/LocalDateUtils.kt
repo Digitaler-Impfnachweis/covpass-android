@@ -7,7 +7,11 @@ import java.time.format.DateTimeFormatter
  * Formats a local date to e.g. "12.03.1989".
  */
 // TODO support locale-dependent patterns automatically
-public fun LocalDate.getFormattedDate(): String {
+public fun LocalDate.formatDate(): String {
     val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     return format(formatter)
+}
+
+public fun LocalDate?.formatDateOrEmpty(): String {
+    return this?.formatDate() ?: ""
 }

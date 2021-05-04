@@ -11,8 +11,8 @@ import com.ibm.health.common.http.httpConfig
 import com.ibm.health.common.logging.Lumber
 import com.ibm.health.common.navigation.android.*
 import com.ibm.health.common.securityprovider.initSecurityProvider
-import com.ibm.health.vaccination.sdk.android.di.SdkDependencies
-import com.ibm.health.vaccination.sdk.android.di.sdkDeps
+import com.ibm.health.vaccination.sdk.android.dependencies.SdkDependencies
+import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 
 /** Common base application with some common functionality like setting up logging. */
 public abstract class CommonApplication : Application() {

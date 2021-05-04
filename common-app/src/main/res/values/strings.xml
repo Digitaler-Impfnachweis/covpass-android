@@ -14,8 +14,6 @@
 
   <string name="covid_header">COVID-19-Impfung</string>
 
-  <string name="loading_text">Impfung wird hinzugefügt</string>
-
   <string name="information_header">Informationen</string>
   <string name="information_app_version_label_text">App Version %1$s</string>
   <string name="information_faq_link"><a href="https://www.coronawarn.app/de/faq/">Häufige Fragen</a></string>

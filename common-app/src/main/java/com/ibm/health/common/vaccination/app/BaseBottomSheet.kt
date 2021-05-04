@@ -8,13 +8,14 @@ import android.view.ViewTreeObserver
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.validUntil
 import com.ibm.health.common.navigation.android.SheetPaneNavigation
-import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.databinding.BottomSheetViewBinding
 
 /** Common base bottom sheet. */
 public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
+    public abstract val buttonTextRes: String
+    public open val heightLayoutParams: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     protected var bottomSheetBinding: BottomSheetViewBinding by validUntil(::onDestroyView)
 
     override fun onCreateView(
@@ -32,7 +33,9 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
             bottomSheetBinding.bottomSheetContent.addView(it)
         }
 
-        bottomSheetBinding.bottomSheetClose.setOnClickListener { findNavigator().pop() }
+        bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
+        bottomSheetBinding.bottomSheetClose.setOnClickListener { triggerBackPress() }
+        bottomSheetBinding.bottomSheetActionButton.text = buttonTextRes
         bottomSheetBinding.bottomSheetActionButton.setOnClickListener {
             onActionButtonClicked()
         }

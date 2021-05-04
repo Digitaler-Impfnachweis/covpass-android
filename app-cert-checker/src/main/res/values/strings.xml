@@ -25,6 +25,21 @@
   <string name="main_availability_status">Auf dem aktuellsten Stand</string>
   <string name="main_availability_last_update">Letztes Update: %1$s</string>
 
-  <string name="validation_certificate_preview_dialog_message">%1$s</string>
+  <string name="validation_result_button">Nächstes Zertifikat scannen</string>
+  <string name="validation_result_birth_date">Geboren am %1$s</string>
 
+  <string name="validation_result_success_title">Impfschutz gültig</string>
+  <string name="validation_result_success_text">Gleichen Sie jetzt folgende Daten mit dem Personalausweis oder Reisepass ab.</string>
+
+  <string name="validation_result_incomplete_title">Impfschutz nicht vollständig</string>
+  <string name="validation_result_incomplete_text">Das geprüfte Zertifikat weist keine vollständige Impfung nach.</string>
+
+  <string name="validation_result_failure_title">Prüfung nicht erfolgreich</string>
+  <string name="validation_result_failure_text">Das kann zwei Gründe haben:</string>
+  <string name="validation_result_failure_info1_title">Impfnachweis nicht gefunden</string>
+  <string name="validation_result_failure_info1_text">Es sind keine Daten auf dem Prüfzertifikat gespeichert. Sollten Sie sich im Offline-Modus befinden, aktualisieren Sie die App. </string>
+  <string name="validation_result_failure_info2_title">Impfnachweis abgelaufen</string>
+  <string name="validation_result_failure_info2_text">Das Prüfzertifikat ist nicht mehr gültig. Der aktuelle Status kann in der Impf-Nachweis-App eingesehen werden.</string>
+
+  <string name="loading_text">Wird geprüft</string>
 </resources>

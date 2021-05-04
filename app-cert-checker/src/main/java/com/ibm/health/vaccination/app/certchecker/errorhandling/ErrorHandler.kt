@@ -1,6 +1,6 @@
 package com.ibm.health.vaccination.app.certchecker.errorhandling
 
-import com.ibm.health.common.vaccination.app.CommonErrorHandler
+import com.ibm.health.common.vaccination.app.errorhandling.CommonErrorHandler
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 
 class ErrorHandler : CommonErrorHandler() {

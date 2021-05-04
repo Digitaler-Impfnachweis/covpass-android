@@ -7,8 +7,8 @@ import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ensody.reactivestate.dispatchers
-import com.ibm.health.common.android.utils.SettableStateFlow
 import kotlinx.coroutines.invoke
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
@@ -67,14 +67,12 @@ public class EncryptedKeyValueStore(context: Context, preferencesName: String) {
      * @param key Used for access to the [T] object
      * @return an object from the storage by provided [key], null otherwise.
      */
-    public inline fun <reified T : Any> getFlow(key: String, default: T): SettableStateFlow<T> {
+    public inline fun <reified T : Any> getFlow(key: String, default: T): SuspendMutableValueFlow<T> {
         val flow = MutableValueFlow(get(key, default))
-        // FIXME Switch to SuspendMutableValueFlow
-        return SettableStateFlow(flow) {
+        return SuspendMutableValueFlow(flow) {
             dispatchers.io {
                 set(key, it)
             }
-            flow.emit(it)
         }
     }
 

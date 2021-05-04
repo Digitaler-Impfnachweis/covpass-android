@@ -20,4 +20,4 @@ public fun showDialog(dialogModel: DialogModel, fragmentManager: FragmentManager
  * @return true if the action has been delivered to the listener, false if it could not find a listener.
  */
 public fun DialogFragment.forwardDialogClickAction(tag: String, action: DialogAction): Boolean =
-    findInHierarchyOrNull { (it as? DialogListener)?.onDialogAction(tag, action) } != null
+    findInHierarchyOrNull<DialogListener>()?.apply { onDialogAction(tag, action) } != null

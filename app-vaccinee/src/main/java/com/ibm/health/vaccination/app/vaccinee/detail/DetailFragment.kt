@@ -22,7 +22,8 @@ import com.ibm.health.common.vaccination.app.dialog.DialogAction
 import com.ibm.health.common.vaccination.app.dialog.DialogListener
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
-import com.ibm.health.common.vaccination.app.utils.getFormattedDate
+import com.ibm.health.common.vaccination.app.utils.formatDate
+import com.ibm.health.common.vaccination.app.utils.formatDateOrEmpty
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.databinding.DetailBinding
@@ -143,7 +144,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             binding.detailNameDataRow.detailDataTextview.text = cert.name
 
             binding.detailBirthdateDataRow.detailDataHeaderTextview.setText(R.string.detail_birthdate_header)
-            binding.detailBirthdateDataRow.detailDataTextview.text = cert.formattedBirthDate
+            binding.detailBirthdateDataRow.detailDataTextview.text = cert.birthDate.formatDateOrEmpty()
 
             binding.detailVaccinationContainer.removeAllViews()
 
@@ -173,8 +174,8 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
         val occurrenceRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_occurrence_data_row)
         findRowHeaderView(occurrenceRow).setText(R.string.detail_vaccination_occurrence)
-        findRowTextView(occurrenceRow).text = vaccination.occurence?.getFormattedDate()
-        occurrenceRow.isVisible = !vaccination.occurence?.getFormattedDate().isNullOrBlank()
+        findRowTextView(occurrenceRow).text = vaccination.occurence?.formatDate()
+        occurrenceRow.isVisible = !vaccination.occurence?.formatDate().isNullOrBlank()
 
         val productRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_product_data_row)
         findRowHeaderView(productRow).setText(R.string.detail_vaccination_product)
