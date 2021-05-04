@@ -23,23 +23,26 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/grid_three"
         android:paddingTop="@dimen/grid_six"
-        android:paddingBottom="@dimen/grid_one_half" />
+        android:paddingBottom="@dimen/grid_one_half"
+        tools:text="@tools:sample/lorem" />
 
       <TextView
         android:id="@+id/welcome_subheader_textview"
         style="@style/SubHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/grid_three" />
+        android:paddingHorizontal="@dimen/grid_three"
+        tools:text="@tools:sample/lorem" />
 
       <ImageView
         android:id="@+id/welcome_main_imageview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_nine"
+        android:layout_marginTop="@dimen/grid_five"
         android:layout_marginBottom="@dimen/grid_two"
         android:adjustViewBounds="true"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/backgrounds/scenic"/>
 
       <RelativeLayout
         android:layout_width="match_parent"
@@ -52,7 +55,8 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/grid_nine"
           android:layout_marginEnd="@dimen/grid_eight"
-          android:gravity="start" />
+          android:gravity="start"
+          tools:text="@tools:sample/lorem" />
 
         <TextView
           android:id="@+id/welcome_encryption_textview"
@@ -62,7 +66,8 @@
           android:layout_below="@id/welcome_encryption_header_textview"
           android:layout_alignStart="@id/welcome_encryption_header_textview"
           android:layout_marginEnd="@dimen/grid_four"
-          android:gravity="start" />
+          android:gravity="start"
+          tools:text="@tools:sample/lorem/random" />
 
         <ImageView
           android:id="@+id/welcome_encryption_imageview"
