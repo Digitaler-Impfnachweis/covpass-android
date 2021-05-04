@@ -1,8 +1,8 @@
 package com.ibm.health.vaccination.app.vaccinee.main
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -53,7 +53,7 @@ class CertificateFragment : BaseFragment() {
         launchWhenStarted {
             if (complete) {
                 mainExtendedCertificate.validationQrContent?.let {
-                    generateQRCode(it)
+                    binding.certificateQrImageview.setImageBitmap(generateQRCode(it))
                 }
                 // FIXME handle case when the qrContent is not yet set, because the backend request failed e.g.
             }
@@ -100,22 +100,15 @@ class CertificateFragment : BaseFragment() {
         binding.certificateQrCardview.isInvisible = !complete
     }
 
-    // FIXME move this to state
     // FIXME move this to SDK and change return to Bitmap
-    private suspend fun generateQRCode(qrContent: String) {
-        try {
-            val bitmap = dispatchers.default {
-                BarcodeEncoder().encodeBitmap(
-                    qrContent,
-                    BarcodeFormat.QR_CODE,
-                    resources.displayMetrics.widthPixels,
-                    resources.displayMetrics.widthPixels
-                )
-            }
-            binding.certificateQrImageview.setImageBitmap(bitmap)
-        } catch (e: Exception) {
-            // FIXME handle error
-            Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+    private suspend fun generateQRCode(qrContent: String): Bitmap {
+        return dispatchers.default {
+            BarcodeEncoder().encodeBitmap(
+                qrContent,
+                BarcodeFormat.QR_CODE,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.widthPixels
+            )
         }
     }
 }
