@@ -34,6 +34,7 @@ import kotlinx.parcelize.Parcelize
 
 interface DetailCallback {
     fun onDeletionCompleted()
+    fun onShowCertClick(certId: String)
 }
 
 @Parcelize
@@ -127,7 +128,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
             binding.detailShowProofButton.setOnClickListener {
                 if (isComplete) {
-                    findNavigator().pop()
+                    findNavigator().popUntil<DetailCallback>()?.onShowCertClick(certId)
                 } else {
                     // TODO this is only temporary, change back again when feature shall be activated
                     findNavigator().push(AddVaccinationCertificateFragmentNav())
