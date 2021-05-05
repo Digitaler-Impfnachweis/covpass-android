@@ -70,7 +70,6 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
-                    branch 'snapshot/*'
                 }
             }
             steps {
@@ -146,7 +145,6 @@ pipeline {
                         anyOf {
                             branch 'master'
                             branch 'release/*'
-                            branch 'snapshot/*'
                         }
                     }
                     steps {
@@ -187,7 +185,6 @@ pipeline {
                     when {
                         anyOf {
                             branch 'master'
-                            branch 'snapshot/*'
                         }
                     }
                     steps {
@@ -214,7 +211,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
-                    branch 'snapshot/*'
+                    branch 'PR-*'
                 }
             }
             steps {
@@ -251,7 +248,7 @@ pipeline {
         stage('Play Store') {
             when {
                 anyOf {
-                    branch 'snapshot/*'
+                    branch 'PR-*'
                 }
             }
             steps {
@@ -293,7 +290,6 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
-                    branch 'snapshot/*'
                 }
             }
             steps {
