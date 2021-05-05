@@ -70,6 +70,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
+                    branch 'task/fix-play-store-release'
                 }
             }
             steps {
@@ -145,6 +146,7 @@ pipeline {
                         anyOf {
                             branch 'master'
                             branch 'release/*'
+                            branch 'task/fix-play-store-release'
                         }
                     }
                     steps {
@@ -185,6 +187,7 @@ pipeline {
                     when {
                         anyOf {
                             branch 'master'
+                            branch 'task/fix-play-store-release'
                         }
                     }
                     steps {
@@ -211,6 +214,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
+                    branch 'task/fix-play-store-release'
                 }
             }
             steps {
@@ -247,7 +251,7 @@ pipeline {
         stage('Play Store') {
             when {
                 anyOf {
-                    branch 'master-disabled'
+                    branch 'task/fix-play-store-release'
                 }
             }
             steps {
@@ -289,6 +293,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
+                    branch 'task/fix-play-store-release'
                 }
             }
             steps {
