@@ -1,0 +1,61 @@
+enum RepoType {
+}
+ext.RepoType = RepoType
+ext {
+    repoConfig = new Properties()
+    isOnCI = System.getenv("JENKINS_HOME") != null || System.getenv("RUNNING_CI") == "true"
+    isSnapshot = version.endsWith('-SNAPSHOT') && isOnCI
+    shouldPublishWithSources = { !isSnapshot && repoConfig.getProperty('publishWithSources') == 'true' }
+    shouldUseDebugRepos = { repoConfig.getProperty('useDebugRepos') == 'true' }
+    shouldUseEpaDebugRepos = { shouldUseDebugRepos() && repoConfig.getProperty('useEpaDebugRepos') == 'true' }
+
+    nexus = [
+    ]
+}
+
+ext.setupRepos = { Set<RepoType> repos = new HashSet(RepoType.values().toList()) ->
+    subprojects {
+        task depsTree(type: DependencyReportTask) {}
+
+        repositories {
+            google()
+            mavenCentral()
+            flatDir {
+                dirs '../libs'
+            }
+            maven { url 'https://jitpack.io' }
+            jcenter()
+            mavenLocal()  // since we need this so often, let's just keep it as the last fallback
+        }
+    }
+}
+
+// Set defaults (also see below)
+repoConfig.setProperty('publishWithSources', 'false')
+repoConfig.setProperty('useDebugRepos', (!isOnCI).toString())
+
+// Copy settings from global gradle properties if they exist
+for (key in ["nexusUsername", "nexusPassword", "publishWithSources", "useDebugRepos", "useEpaDebugRepos"]) {
+    if (hasProperty(key) && !repoConfig.hasProperty(key)) {
+        repoConfig.setProperty(key, getProperty(key))
+    }
+}
+
+// Load local config
+def _propertiesFile = file("$rootDir/../vaccination.properties")
+if (_propertiesFile.exists()) {
+    _propertiesFile.withInputStream { ext.repoConfig.load(it) }
+}
+
+// Allow overriding via environment variables
+if (System.env.PUBLISH_SOURCES in ['true', 'false']) {
+    repoConfig.setProperty('publishWithSources', System.env.PUBLISH_SOURCES)
+}
+if (System.env.USE_DEBUG_REPOS in ['true', 'false']) {
+    repoConfig.setProperty('useDebugRepos', System.env.USE_DEBUG_REPOS)
+}
+
+// Set defaults based on other defaults
+if (!repoConfig.hasProperty('useEpaDebugRepos')) {
+    repoConfig.setProperty('useEpaDebugRepos', repoConfig.getProperty('useDebugRepos'))
+}

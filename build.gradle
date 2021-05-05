@@ -20,7 +20,7 @@ buildscript {
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'pl.allegro.tech.build.axion-release'
 
-apply from: "$rootDir/gradle/common/ibmconfig.gradle"
+apply from: "$rootDir/gradle/common/repos.gradle"
 setupRepos()
 apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 

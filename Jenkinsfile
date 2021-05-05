@@ -158,6 +158,7 @@ pipeline {
                 stage('Log Dependencies') {
                     steps {
                         script {
+                            sh('./gradlew depsTree > dependencies-tree.txt')
                             sh('python3 extract-dependencies.py --modules APP > dependencies-app.txt')
                             sh('python3 extract-dependencies.py > dependencies-sdk-with-test-modules.txt')
                             sh('python3 extract-dependencies.py --exclude-modules TEST > dependencies-sdk-without-test-modules.txt')
