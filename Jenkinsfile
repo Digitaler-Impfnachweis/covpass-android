@@ -70,7 +70,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
-                    branch 'task/fix-play-store-release'
+                    branch 'snapshot/*'
                 }
             }
             steps {
@@ -146,7 +146,7 @@ pipeline {
                         anyOf {
                             branch 'master'
                             branch 'release/*'
-                            branch 'task/fix-play-store-release'
+                            branch 'snapshot/*'
                         }
                     }
                     steps {
@@ -187,7 +187,7 @@ pipeline {
                     when {
                         anyOf {
                             branch 'master'
-                            branch 'task/fix-play-store-release'
+                            branch 'snapshot/*'
                         }
                     }
                     steps {
@@ -214,7 +214,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
-                    branch 'task/fix-play-store-release'
+                    branch 'snapshot/*'
                 }
             }
             steps {
@@ -251,7 +251,7 @@ pipeline {
         stage('Play Store') {
             when {
                 anyOf {
-                    branch 'task/fix-play-store-release'
+                    branch 'snapshot/*'
                 }
             }
             steps {
@@ -293,7 +293,7 @@ pipeline {
                 anyOf {
                     branch 'master'
                     branch 'release/*'
-                    branch 'task/fix-play-store-release'
+                    branch 'snapshot/*'
                 }
             }
             steps {
