@@ -6,7 +6,7 @@
   <string name="error_title_general">Entschuldigung</string>
   <string name="error_message_general">Es ist ein unerwarteter Fehler aufgetreten.</string>
   <string name="error_title_connection">Verbindungsfehler</string>
-  <string name="error_message_connection">Bei der Verbindung zum Server ist ein Fehler aufgetreten.\nBitte überprüfen Sie Ihre Internetverbindung.</string>
+  <string name="error_message_connection">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
 
   <string name="onboarding_welcome_start_button_text">Los geht\'s</string>
   <string name="onboarding_consent_terms_condition">Ich akzeptiere die <a href="https://www.coronawarn.app/assets/documents/cwa-privacy-notice-de.pdf">AGB</a>.</string>

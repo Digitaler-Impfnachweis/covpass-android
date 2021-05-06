@@ -13,6 +13,7 @@ class Storage {
 
     private val certsPref = store.getFlow("vaccination_certificate_list", VaccinationCertificateList())
 
+    // TODO: Remove this with the next ReactiveState upgrade
     private val certFlow = MutableValueFlow(GroupedCertificatesList.fromVaccinationCertificateList(certsPref.value))
 
     // TODO: Split this up into a separate storage system? This could even be reused via common-app.
@@ -20,6 +21,6 @@ class Storage {
 
     // FIXME move to SDK as CertificateStorage
     val certs = SuspendMutableValueFlow(certFlow) {
-        certsPref.set(it.toVaccinationCertificateList())
+        certsPref.set(value = it.toVaccinationCertificateList(), force = true)
     }
 }

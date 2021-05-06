@@ -68,8 +68,8 @@ public class EncryptedKeyValueStore(context: Context, preferencesName: String) {
      * @return an object from the storage by provided [key], null otherwise.
      */
     public inline fun <reified T : Any> getFlow(key: String, default: T): SuspendMutableValueFlow<T> {
-        val flow = MutableValueFlow(get(key, default))
-        return SuspendMutableValueFlow(flow) {
+        // TODO: Simplify with next ReactiveState update
+        return SuspendMutableValueFlow(MutableValueFlow(get(key, default))) {
             dispatchers.io {
                 set(key, it)
             }

@@ -38,11 +38,11 @@ class CertificateFragment : BaseFragment() {
 
         autoRun {
             // TODO: Optimize this, so we only update if our cert has changed and not something else
-            updateViews(get(vaccineeDeps.storage.certs))
+            updateViews(get(vaccineeDeps.storage.certs), get(vaccineeDeps.certRefreshService.failingCertIds))
         }
     }
 
-    private fun updateViews(certificateList: GroupedCertificatesList) {
+    private fun updateViews(certificateList: GroupedCertificatesList, failingCertIds: Set<String>) {
         val certId = args.certId
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainExtendedCertificate = groupedCertificate.getMainCertificate()
@@ -54,7 +54,6 @@ class CertificateFragment : BaseFragment() {
                 mainExtendedCertificate.validationQrContent?.let {
                     binding.certificateQrImageview.setImageBitmap(generateQRCode(it))
                 }
-                // FIXME handle case when the qrContent is not yet set, because the backend request failed e.g.
             }
         }
 
@@ -103,7 +102,15 @@ class CertificateFragment : BaseFragment() {
             if (complete) R.drawable.main_vaccination_status_complete else R.drawable.main_vaccination_status_incomplete
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
-        binding.certificateQrCardview.isVisible = complete
+        val qrCodeIsMissing = groupedCertificate.getMainCertificate().validationQrContent == null
+        binding.certificateQrCardview.isVisible = complete && !qrCodeIsMissing
+        binding.certificateLoadingContainer.isVisible = complete && qrCodeIsMissing
+        val loadingTextRes = if (failingCertIds.contains(groupedCertificate.getMainCertId())) {
+            R.string.certificate_error_message_general
+        } else {
+            R.string.certificate_error_message_connection
+        }
+        binding.certificateLoadingText.setText(loadingTextRes)
     }
 
     // FIXME move this to SDK and change return to Bitmap

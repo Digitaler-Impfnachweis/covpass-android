@@ -174,39 +174,53 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
 
         val occurrenceRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_occurrence_data_row)
+        val occurrenceDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_occurrence_data_divider)
         findRowHeaderView(occurrenceRow).setText(R.string.detail_vaccination_occurrence)
         findRowTextView(occurrenceRow).text = vaccination.occurence?.formatDate()
         occurrenceRow.isVisible = !vaccination.occurence?.formatDate().isNullOrBlank()
+        occurrenceDivider.isVisible = !vaccination.occurence?.formatDate().isNullOrBlank()
 
         val productRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_product_data_row)
+        val productDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_product_data_divider)
         findRowHeaderView(productRow).setText(R.string.detail_vaccination_product)
         findRowTextView(productRow).text = vaccination.product
         productRow.isVisible = vaccination.product.isNotBlank()
+        productDivider.isVisible = vaccination.product.isNotBlank()
 
         val manufacturerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_manufacturer_data_row)
+        val manufacturerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_manufacturer_data_divider)
         findRowHeaderView(manufacturerRow).setText(R.string.detail_vaccination_manufacturer)
         findRowTextView(manufacturerRow).text = vaccination.manufacturer
         manufacturerRow.isVisible = vaccination.manufacturer.isNotBlank()
+        manufacturerDivider.isVisible = vaccination.manufacturer.isNotBlank()
 
         val lotNumberRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_lotnumber_data_row)
+        val lotNumberDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_lotnumber_data_divider)
         findRowHeaderView(lotNumberRow).setText(R.string.detail_vaccination_lotnumber)
         findRowTextView(lotNumberRow).text = vaccination.lotNumber
         lotNumberRow.isVisible = vaccination.lotNumber.isNotBlank()
+        lotNumberDivider.isVisible = vaccination.lotNumber.isNotBlank()
 
         val locationRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_location_data_row)
+        val locationDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_location_data_divider)
         findRowHeaderView(locationRow).setText(R.string.detail_vaccination_location)
         findRowTextView(locationRow).text = vaccination.location
         locationRow.isVisible = vaccination.location.isNotBlank()
+        locationDivider.isVisible = vaccination.location.isNotBlank()
 
         val issuerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_issuer_data_row)
+        val issuerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_issuer_data_divider)
         findRowHeaderView(issuerRow).setText(R.string.detail_vaccination_issuer)
         findRowTextView(issuerRow).text = cert.issuer
         issuerRow.isVisible = cert.issuer.isNotBlank()
+        issuerDivider.isVisible = cert.issuer.isNotBlank()
 
         val countryRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_country_data_row)
+        val countryDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_country_data_divider)
         findRowHeaderView(countryRow).setText(R.string.detail_vaccination_country)
         findRowTextView(countryRow).text = vaccination.country
         countryRow.isVisible = vaccination.country.isNotBlank()
+        countryDivider.isVisible = vaccination.country.isNotBlank()
 
         val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
         findRowHeaderView(uvciRow).setText(R.string.detail_vaccination_uvci)

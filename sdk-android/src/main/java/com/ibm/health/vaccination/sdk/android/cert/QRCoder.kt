@@ -21,8 +21,13 @@ public class QRCoder(private val validator: CertValidator) {
 
     private val cbor: Cbor = Cbor { ignoreUnknownKeys = true }
 
+    /** Returns the raw COSE ByteArray contained within the certificate. */
     internal fun decodeRawCose(qr: String): ByteArray =
         Zlib.decompress(Base45.decode(qr.toByteArray()))
+
+    /** Encodes the raw COSE ByteArray into qr code data. */
+    internal fun encodeRawCose(cose: ByteArray): String =
+        String(Base45.encode(Zlib.compress(cose)))
 
     internal fun decodeCose(qr: String): Sign1Message =
         Sign1Message.DecodeFromBytes(decodeRawCose(qr)) as? Sign1Message

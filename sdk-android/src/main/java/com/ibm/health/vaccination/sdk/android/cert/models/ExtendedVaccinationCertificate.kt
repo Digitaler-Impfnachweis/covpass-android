@@ -18,5 +18,5 @@ public data class ExtendedVaccinationCertificate(
     val vaccinationQrContent: String,
 
     /** The raw qr content of the simplified validation certificate. */
-    val validationQrContent: String?,
+    var validationQrContent: String?,
 )

@@ -1,7 +1,6 @@
 package com.ibm.health.vaccination.app.vaccinee.storage
 
 import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
-import java.lang.IllegalStateException
 
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).
