@@ -2,10 +2,7 @@ package com.ibm.health.vaccination.app.vaccinee.main
 
 import android.os.Bundle
 import android.view.View
-import android.view.View.MeasureSpec
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.get
@@ -52,41 +49,16 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
-        prepareViewpagerForDifferentSizes()
-    }
-
-    // FIXME this is not working really properly and has to be reworked
-    private fun prepareViewpagerForDifferentSizes() {
-        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                state.onPageSelected(position)
-                fragmentStateAdapter.getFragment(position).view?.let { view ->
-                    view.post {
-                        val widthMeasureSpec = MeasureSpec.makeMeasureSpec(view.width, MeasureSpec.EXACTLY)
-                        val heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-                        view.measure(widthMeasureSpec, heightMeasureSpec)
-
-                        if (binding.mainViewPager.layoutParams.height != view.measuredHeight) {
-                            binding.mainViewPager.layoutParams =
-                                (binding.mainViewPager.layoutParams as LinearLayout.LayoutParams).also { params ->
-                                    params.height = view.measuredHeight
-                                }
-                        }
-                    }
-                }
-            }
-        })
     }
 
     private fun updateCertificates(certificateList: GroupedCertificatesList, selectedCertId: String?) {
         if (certificateList.certificates.isEmpty()) {
             binding.mainEmptyCardview.isVisible = true
-            binding.mainViewPagerContainer.isVisible = false
+            binding.mainViewPager.isVisible = false
         } else {
             fragmentStateAdapter.createFragments(certificateList)
             binding.mainEmptyCardview.isVisible = false
-            binding.mainViewPagerContainer.isVisible = true
+            binding.mainViewPager.isVisible = true
             selectedCertId?.let {
                 binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(it), isResumed)
             }

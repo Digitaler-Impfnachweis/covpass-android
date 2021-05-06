@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.dispatchers
@@ -67,8 +66,11 @@ class CertificateFragment : BaseFragment() {
         }
 
         val backgroundColorResource = if (complete) R.color.info80 else R.color.info20
+        val backgroundFaderResource = if (complete)
+            R.drawable.common_gradient_card_fadeout_blue else R.drawable.common_gradient_card_fadeout_light_blue
         context?.let {
             binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(it, backgroundColorResource))
+            binding.cardBottomFadeout.setBackgroundResource(backgroundFaderResource)
         }
 
         val activeRes = if (complete) R.drawable.star_white_fill else R.drawable.star_black_fill
@@ -93,11 +95,15 @@ class CertificateFragment : BaseFragment() {
             findNavigator().push(DetailFragmentNav(args.certId))
         }
 
+        binding.certificateCardviewScrollContent.setOnClickListener {
+            findNavigator().push(DetailFragmentNav(args.certId))
+        }
+
         val statusIconResource =
             if (complete) R.drawable.main_vaccination_status_complete else R.drawable.main_vaccination_status_incomplete
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
-        binding.certificateQrCardview.isInvisible = !complete
+        binding.certificateQrCardview.isVisible = complete
     }
 
     // FIXME move this to SDK and change return to Bitmap

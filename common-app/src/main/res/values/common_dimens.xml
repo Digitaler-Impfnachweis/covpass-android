@@ -56,4 +56,5 @@
   <dimen name="elevation">4dp</dimen>
   <dimen name="dialog_corner_size">8dp</dimen>
 
+  <dimen name="qr_code_card_view_size">278dp</dimen>
 </resources>
