@@ -43,14 +43,10 @@
       android:orientation="vertical">
 
       <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
-        android:id="@+id/terms_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-      <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
         android:id="@+id/data_protection_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     </LinearLayout>
 
   </LinearLayout>

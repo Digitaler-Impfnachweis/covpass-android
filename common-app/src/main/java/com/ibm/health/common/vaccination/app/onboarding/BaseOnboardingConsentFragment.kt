@@ -25,19 +25,15 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingInfoTextview.setText(textRes)
         binding.onboardingImageview.setImageResource(imageRes)
-        binding.termsCheckbox.setText(R.string.onboarding_consent_terms_condition)
         binding.dataProtectionCheckbox.setText(R.string.onboarding_consent_data_protection)
         updateFormValidity()
 
-        binding.termsCheckbox.addOnCheckListener { _: CompoundButton, _: Boolean ->
-            updateFormValidity()
-        }
         binding.dataProtectionCheckbox.addOnCheckListener { _: CompoundButton, _: Boolean ->
             updateFormValidity()
         }
     }
 
     private fun updateFormValidity() {
-        isFormValid.value = binding.termsCheckbox.isChecked() && binding.dataProtectionCheckbox.isChecked()
+        isFormValid.value = binding.dataProtectionCheckbox.isChecked()
     }
 }
