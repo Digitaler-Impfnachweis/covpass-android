@@ -2,8 +2,8 @@ package com.ibm.health.vaccination.sdk.android.dependencies
 
 import android.app.Application
 import com.ibm.health.common.http.httpConfig
+import com.ibm.health.vaccination.sdk.android.cert.CertService
 import com.ibm.health.vaccination.sdk.android.cert.QRCoder
-import com.ibm.health.vaccination.sdk.android.cert.models.CertService
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
 import com.ibm.health.vaccination.sdk.android.crypto.readPem
 import kotlinx.coroutines.CoroutineScope

@@ -7,7 +7,7 @@ import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ensody.reactivestate.test.CoroutineTest
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
-import com.ibm.health.vaccination.sdk.android.cert.models.CertService
+import com.ibm.health.vaccination.sdk.android.cert.CertService
 import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import io.ktor.client.features.*

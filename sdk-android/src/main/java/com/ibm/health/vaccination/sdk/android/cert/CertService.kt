@@ -1,6 +1,5 @@
-package com.ibm.health.vaccination.sdk.android.cert.models
+package com.ibm.health.vaccination.sdk.android.cert
 
-import com.ibm.health.vaccination.sdk.android.cert.QRCoder
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*

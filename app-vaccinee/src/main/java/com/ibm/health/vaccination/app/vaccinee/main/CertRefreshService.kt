@@ -4,7 +4,7 @@ import com.ensody.reactivestate.*
 import com.ibm.health.common.logging.Lumber
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificates
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
-import com.ibm.health.vaccination.sdk.android.cert.models.CertService
+import com.ibm.health.vaccination.sdk.android.cert.CertService
 import com.ibm.health.vaccination.sdk.android.utils.ExponentialBackoffRetryStrategy
 import com.ibm.health.vaccination.sdk.android.utils.parallelMap
 import com.ibm.health.vaccination.sdk.android.utils.retry
