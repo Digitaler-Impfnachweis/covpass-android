@@ -13,12 +13,11 @@ data class GroupedCertificates(
 
     fun getMainCertId() = getMainCertificate().vaccinationCertificate.id
 
-    /**
-     * Usually always the [getMainCertId] should be considered, but right after scanning, the fragments can still point
-     * to the "not main cert id". So it is necessary to check both ids.
-     */
-    fun matchesId(certId: String) = completeCertificate?.vaccinationCertificate?.id == certId ||
-        incompleteCertificate?.vaccinationCertificate?.id == certId
+    // XXX: Usually always the [getMainCertId] should be considered, but right after scanning, the fragments can
+    // still point to the "not main cert id". So it is necessary to check both ids.
+    fun matchesId(certId: String) =
+        completeCertificate?.vaccinationCertificate?.id == certId ||
+            incompleteCertificate?.vaccinationCertificate?.id == certId
 
     fun getMainCertificate() =
         completeCertificate

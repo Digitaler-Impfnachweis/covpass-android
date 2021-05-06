@@ -8,28 +8,21 @@ import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
  * This data model is used at runtime, while for the persistent data the [VaccinationCertificateList] is used.
  * So for storing / loading, the two models have to be transformed into each other.
  */
-// FIXME Clean this up. Separate data from logic. Rethink the back and forth conversion in addCertificate.
-//  Think about immutability vs mutability, safety and efficiency (we hold this in an observable singleton). Etc.
-// TODO maybe move this to sdk later on
 data class GroupedCertificatesList(
     var certificates: MutableList<GroupedCertificates> = mutableListOf(),
     var favoriteCertId: String? = null,
 ) {
 
-    fun getGroupedCertificates(certId: String): GroupedCertificates? {
-        return certificates.firstOrNull {
-            it.matchesId(certId)
-        }
-    }
+    fun getGroupedCertificates(certId: String): GroupedCertificates? =
+        certificates.firstOrNull { it.matchesId(certId) }
 
     fun addCertificate(certificate: ExtendedVaccinationCertificate) {
-        val vaccinationCertificateList = toVaccinationCertificateList()
-        vaccinationCertificateList.addCertificate(
-            certificate
-        )
-        val convertedGroupedCertificatesList = fromVaccinationCertificateList(vaccinationCertificateList)
-        favoriteCertId = convertedGroupedCertificatesList.favoriteCertId
-        certificates = convertedGroupedCertificatesList.certificates
+        val vaccinationCertificateList = toVaccinationCertificateList().apply {
+            addCertificate(certificate)
+        }
+        val result = fromVaccinationCertificateList(vaccinationCertificateList)
+        favoriteCertId = result.favoriteCertId
+        certificates = result.certificates
     }
 
     fun addValidationQrContent(certId: String, validationQrContent: String) {
@@ -37,20 +30,19 @@ data class GroupedCertificatesList(
     }
 
     fun deleteCertificate(certId: String) {
-        certificates.removeIf {
-            it.matchesId(certId)
-        }
+        certificates.removeIf { it.matchesId(certId) }
     }
 
     fun toggleFavorite(certId: String) {
-        if (certId == favoriteCertId) {
-            favoriteCertId = null
+        favoriteCertId = if (certId == favoriteCertId) {
+            null
         } else {
-            favoriteCertId = certId
+            certId
         }
     }
 
-    fun isMarkedAsFavorite(certId: String): Boolean = certId == favoriteCertId
+    fun isMarkedAsFavorite(certId: String): Boolean =
+        certId == favoriteCertId
 
     fun getSortedCertificates(): List<GroupedCertificates> {
         val sortedCerts = certificates.toMutableList()
@@ -110,12 +102,12 @@ data class GroupedCertificatesList(
             certList: MutableList<ExtendedVaccinationCertificate>,
             startIndex: Int
         ): GroupedCertificates {
-            val startCert = certList.get(startIndex)
+            val startCert = certList[startIndex]
             val startVaccinationCert = startCert.vaccinationCertificate
             var currentIndex = startIndex + 1
             while (currentIndex < certList.size) {
                 // Check all remaining certs for matches
-                val currentCert = certList.get(currentIndex)
+                val currentCert = certList[currentIndex]
                 val currentVaccinationCert = currentCert.vaccinationCertificate
                 val equalNames = currentVaccinationCert.name == startVaccinationCert.name
                 val equalDates = currentVaccinationCert.birthDate == startVaccinationCert.birthDate
@@ -124,10 +116,8 @@ data class GroupedCertificatesList(
                 if (matchFound) {
                     // remove the matching cert, so it cannot be checked again
                     certList.removeAt(currentIndex)
-                    val completeCert =
-                        if (startVaccinationCert.isComplete) startCert else currentCert
-                    val incompleteCert =
-                        if (startVaccinationCert.isComplete) currentCert else startCert
+                    val completeCert = if (startVaccinationCert.isComplete) startCert else currentCert
+                    val incompleteCert = if (startVaccinationCert.isComplete) currentCert else startCert
                     return GroupedCertificates(completeCert, incompleteCert)
                 }
                 currentIndex++

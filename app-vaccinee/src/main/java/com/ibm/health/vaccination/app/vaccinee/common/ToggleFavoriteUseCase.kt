@@ -1,11 +1,11 @@
 package com.ibm.health.vaccination.app.vaccinee.common
 
-import com.ibm.health.vaccination.app.vaccinee.storage.Storage
+import com.ibm.health.vaccination.app.vaccinee.storage.CertRepository
 
-class ToggleFavoriteUseCase(private val storage: Storage) {
+class ToggleFavoriteUseCase(private val certRepository: CertRepository) {
 
     suspend fun toggleFavorite(certId: String) {
-        storage.certs.update {
+        certRepository.certs.update {
             it.toggleFavorite(certId)
         }
     }

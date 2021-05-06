@@ -8,7 +8,6 @@ import com.ibm.health.common.vaccination.app.errorhandling.isConnectionError
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
-import io.ktor.client.features.*
 import kotlinx.coroutines.CoroutineScope
 
 interface VaccinationQRScannerEvents : BaseEvents {
@@ -36,7 +35,7 @@ class VaccinationQRScannerState(
                     else -> throw error
                 }
             }
-            vaccineeDeps.storage.certs.update {
+            vaccineeDeps.certRepository.certs.update {
                 it.addCertificate(
                     ExtendedVaccinationCertificate(vaccinationCertificate, qrContent, validationCertContent)
                 )

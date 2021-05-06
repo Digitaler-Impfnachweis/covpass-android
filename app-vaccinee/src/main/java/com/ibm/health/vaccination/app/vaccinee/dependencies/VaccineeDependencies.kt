@@ -1,8 +1,9 @@
 package com.ibm.health.vaccination.app.vaccinee.dependencies
 
+import com.ibm.health.common.vaccination.app.utils.CborSharedPrefsStore
 import com.ibm.health.vaccination.app.vaccinee.common.ToggleFavoriteUseCase
 import com.ibm.health.vaccination.app.vaccinee.main.CertRefreshService
-import com.ibm.health.vaccination.app.vaccinee.storage.Storage
+import com.ibm.health.vaccination.app.vaccinee.storage.CertRepository
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 
 /**
@@ -15,12 +16,9 @@ lateinit var vaccineeDeps: VaccineeDependencies
  */
 abstract class VaccineeDependencies {
 
-    /**
-     * The [Storage].
-     */
-    val storage: Storage = Storage()
+    val certRepository: CertRepository = CertRepository(CborSharedPrefsStore("vaccinee_prefs"))
 
-    val toggleFavoriteUseCase by lazy { ToggleFavoriteUseCase(storage) }
+    val toggleFavoriteUseCase by lazy { ToggleFavoriteUseCase(certRepository) }
 
-    val certRefreshService by lazy { CertRefreshService(sdkDeps.mainScope, sdkDeps.certService, storage.certs) }
+    val certRefreshService by lazy { CertRefreshService(sdkDeps.mainScope, sdkDeps.certService, certRepository.certs) }
 }

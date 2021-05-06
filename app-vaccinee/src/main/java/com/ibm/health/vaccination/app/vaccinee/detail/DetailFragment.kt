@@ -50,7 +50,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        autoRun { updateViews(get(vaccineeDeps.storage.certs)) }
+        autoRun { updateViews(get(vaccineeDeps.certRepository.certs)) }
         binding.detailDeleteButton.setOnClickListener {
             val dialogModel = DialogModel(
                 titleRes = R.string.detail_delete_dialog_header,

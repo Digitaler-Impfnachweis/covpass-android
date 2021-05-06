@@ -1,4 +1,4 @@
-package com.ibm.health.common.vaccination.app.extensions
+package com.ibm.health.common.vaccination.app.utils
 
 import android.text.SpannableString
 import android.text.TextPaint

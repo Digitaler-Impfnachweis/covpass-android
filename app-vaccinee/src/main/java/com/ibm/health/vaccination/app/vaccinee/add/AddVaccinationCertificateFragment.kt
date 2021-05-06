@@ -7,7 +7,7 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseBottomSheet
-import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
+import com.ibm.health.common.vaccination.app.utils.stripUnderlines
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.databinding.AddVaccinationCertPopupContentBinding
 import com.ibm.health.vaccination.app.vaccinee.scanner.VaccinationQRScannerFragmentNav

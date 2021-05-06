@@ -38,7 +38,7 @@ class CertificateFragment : BaseFragment() {
 
         autoRun {
             // TODO: Optimize this, so we only update if our cert has changed and not something else
-            updateViews(get(vaccineeDeps.storage.certs), get(vaccineeDeps.certRefreshService.failingCertIds))
+            updateViews(get(vaccineeDeps.certRepository.certs), get(vaccineeDeps.certRefreshService.failingCertIds))
         }
     }
 
@@ -113,7 +113,7 @@ class CertificateFragment : BaseFragment() {
         binding.certificateLoadingText.setText(loadingTextRes)
     }
 
-    // FIXME move this to SDK and change return to Bitmap
+    // FIXME move to SDK
     private suspend fun generateQRCode(qrContent: String): Bitmap {
         return dispatchers.default {
             BarcodeEncoder().encodeBitmap(

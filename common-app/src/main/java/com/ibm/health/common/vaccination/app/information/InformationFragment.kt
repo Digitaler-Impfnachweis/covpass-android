@@ -12,7 +12,7 @@ import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.R
 import com.ibm.health.common.vaccination.app.databinding.InformationBinding
-import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
+import com.ibm.health.common.vaccination.app.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

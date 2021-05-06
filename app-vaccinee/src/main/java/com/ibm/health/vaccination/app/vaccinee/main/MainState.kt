@@ -10,6 +10,6 @@ class MainState(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
     var selectedCertId: String? = null
 
     fun onPageSelected(position: Int) {
-        selectedCertId = vaccineeDeps.storage.certs.value.getSortedCertificates()[position].getMainCertId()
+        selectedCertId = vaccineeDeps.certRepository.certs.value.getSortedCertificates()[position].getMainCertId()
     }
 }

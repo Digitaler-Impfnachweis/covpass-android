@@ -12,7 +12,7 @@ interface DetailEvents : BaseEvents {
 class DetailState(scope: CoroutineScope, private val certId: String) : BaseState<DetailEvents>(scope) {
     fun onDelete() {
         launch {
-            vaccineeDeps.storage.certs.update {
+            vaccineeDeps.certRepository.certs.update {
                 it.deleteCertificate(certId)
             }
             eventNotifier {

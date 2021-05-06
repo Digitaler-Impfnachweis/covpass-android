@@ -38,7 +38,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         autoRun {
-            updateCertificates(get(vaccineeDeps.storage.certs), state.selectedCertId)
+            updateCertificates(get(vaccineeDeps.certRepository.certs), state.selectedCertId)
         }
     }
 

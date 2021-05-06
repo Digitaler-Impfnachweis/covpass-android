@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import com.ibm.health.common.vaccination.app.databinding.CustomCheckboxBinding
-import com.ibm.health.common.vaccination.app.extensions.stripUnderlines
+import com.ibm.health.common.vaccination.app.utils.stripUnderlines
 
 public class VaccinationCheckBox @JvmOverloads constructor(
     context: Context,
