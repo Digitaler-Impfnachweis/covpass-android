@@ -4,8 +4,6 @@ import com.ibm.health.common.http.retry.RetryInterceptor
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
 import io.ktor.http.*
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
@@ -125,9 +123,6 @@ private class DefaultHttpConfig : HttpConfig {
                 connectTimeoutMillis = 15_000
                 requestTimeoutMillis = 15_000
                 socketTimeoutMillis = 15_000
-            }
-            install(JsonFeature) {
-                serializer = KotlinxSerializer()
             }
             defaultRequest {
                 url {

@@ -11,6 +11,7 @@ ext.trackCoverage = { boolean enableTestCoverage, boolean trackUI = true, List<S
 
     tasks.withType(Test) {
         jacoco.includeNoLocationClasses = true
+        jacoco.excludes = ['jdk.internal.*']
     }
 
     def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
