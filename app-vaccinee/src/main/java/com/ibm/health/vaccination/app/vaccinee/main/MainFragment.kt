@@ -3,6 +3,7 @@ package com.ibm.health.vaccination.app.vaccinee.main
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.get
@@ -54,6 +55,16 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
+        setupPageChangeCallback()
+    }
+
+    private fun setupPageChangeCallback() {
+        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                state.onPageSelected(position)
+            }
+        })
     }
 
     private fun updateCertificates(certificateList: GroupedCertificatesList, selectedCertId: String?) {
