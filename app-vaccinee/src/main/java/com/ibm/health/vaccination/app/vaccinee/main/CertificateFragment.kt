@@ -83,7 +83,7 @@ class CertificateFragment : BaseFragment() {
         }
         binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
 
-        binding.certificateNameTextview.text = mainCertificate.name
+        binding.certificateNameTextview.text = mainCertificate.fullName
 
         val protection = R.string.certificate_protection
         binding.certificateProtectionTextview.text = getString(protection)

@@ -72,7 +72,7 @@ data class GroupedCertificatesList(
          * Transforms a [VaccinationCertificateList] into a [GroupedCertificatesList].
          */
         fun fromVaccinationCertificateList(
-            vaccinationCertificateList: VaccinationCertificateList
+            vaccinationCertificateList: VaccinationCertificateList,
         ): GroupedCertificatesList {
             val certList = vaccinationCertificateList.certificates.toMutableList()
             val groupedCertificates = mutableListOf<GroupedCertificates>()
@@ -88,7 +88,9 @@ data class GroupedCertificatesList(
             var favoriteId = vaccinationCertificateList.favoriteCertId
             if (favoriteId != null) {
                 groupedCertificates.forEach {
-                    if (it.isComplete() && it.incompleteCertificate?.vaccinationCertificate?.id == favoriteId) {
+                    if (it.isComplete() &&
+                        it.incompleteCertificate?.vaccinationCertificate?.vaccinations?.first()?.id == favoriteId
+                    ) {
                         favoriteId = it.getMainCertId()
                         return@forEach
                     }
@@ -100,7 +102,7 @@ data class GroupedCertificatesList(
 
         private fun createGroupedCertificates(
             certList: MutableList<ExtendedVaccinationCertificate>,
-            startIndex: Int
+            startIndex: Int,
         ): GroupedCertificates {
             val startCert = certList[startIndex]
             val startVaccinationCert = startCert.vaccinationCertificate
@@ -109,15 +111,17 @@ data class GroupedCertificatesList(
                 // Check all remaining certs for matches
                 val currentCert = certList[currentIndex]
                 val currentVaccinationCert = currentCert.vaccinationCertificate
-                val equalNames = currentVaccinationCert.name == startVaccinationCert.name
+                val equalNames = currentVaccinationCert.fullName == startVaccinationCert.fullName
                 val equalDates = currentVaccinationCert.birthDate == startVaccinationCert.birthDate
                 val equalCompletion = currentVaccinationCert.isComplete == startVaccinationCert.isComplete
                 val matchFound = equalNames && equalDates && !equalCompletion
                 if (matchFound) {
                     // remove the matching cert, so it cannot be checked again
                     certList.removeAt(currentIndex)
-                    val completeCert = if (startVaccinationCert.isComplete) startCert else currentCert
-                    val incompleteCert = if (startVaccinationCert.isComplete) currentCert else startCert
+                    val completeCert = if (startVaccinationCert.isComplete) startCert
+                    else currentCert
+                    val incompleteCert = if (startVaccinationCert.isComplete) currentCert
+                    else startCert
                     return GroupedCertificates(completeCert, incompleteCert)
                 }
                 currentIndex++

@@ -34,7 +34,7 @@
 
   <string name="detail_favorite_title">Als Favorit markieren</string>
   <string name="detail_status_header_complete">Impfschutz vollständig</string>
-  <string name="detail_status_header_incomplete">%1$s von %2$s Impfungen vorhanden</string>
+  <string name="detail_status_header_incomplete">%1$d von %2$d Impfungen vorhanden</string>
   <string name="detail_status_text_complete">Teilen Sie jetzt den Impfschutz vertrauensvoll mit einer weiteren Person. Erstellen Sie dafür ein Prüfzertifikat.</string>
   <string name="detail_status_text_incomplete">Ihr Impfschutz ist nicht vollständig. Um ein Prüfzertifikat zu erstellen, fügen Sie bitte die zweite Impfung hinzu.</string>
   <string name="detail_show_proof_button_text_complete">Impfnachweis anzeigen</string>
@@ -44,7 +44,7 @@
   <string name="detail_personal_header">Persönliche Daten</string>
   <string name="detail_name_header">Name</string>
   <string name="detail_birthdate_header">Geburtsdatum</string>
-  <string name="detail_vaccination_header">Impfung %1$s von %2$s</string>
+  <string name="detail_vaccination_header">Impfung %1$d von %2$d</string>
   <string name="detail_vaccination_occurrence">Datum der Impfung</string>
   <string name="detail_vaccination_product">Impfstoff</string>
   <string name="detail_vaccination_manufacturer">Hersteller</string>

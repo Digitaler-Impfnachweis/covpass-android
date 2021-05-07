@@ -12,10 +12,16 @@ public data class VaccinationCertificateList(
 ) {
 
     public fun addCertificate(certificate: ExtendedVaccinationCertificate) {
-        if (certificates.none { it.vaccinationCertificate.id == certificate.vaccinationCertificate.id }) {
+        val vaccination = certificate.vaccinationCertificate.vaccinations
+        if (certificates.none {
+            vaccination.first().id ==
+                it.vaccinationCertificate.vaccination.id
+        }
+        ) {
             certificates.add(certificate)
             if (certificates.size == 1) {
-                favoriteCertId = certificate.vaccinationCertificate.id
+                favoriteCertId =
+                    vaccination.first().id
             }
         } else {
             throw CertAlreadyExistsException()

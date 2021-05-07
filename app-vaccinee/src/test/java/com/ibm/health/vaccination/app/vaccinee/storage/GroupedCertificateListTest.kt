@@ -4,10 +4,7 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
-import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccination
-import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
+import com.ibm.health.vaccination.sdk.android.cert.models.*
 import org.junit.Test
 import java.time.LocalDate
 
@@ -19,43 +16,47 @@ internal class GroupedCertificateListTest {
     private val date1 = LocalDate.of(1, 1, 1)
     private val date2 = LocalDate.of(2, 2, 2)
     private val date3 = LocalDate.of(3, 3, 3)
-    private val vaccinationsIncomplete = listOf(ExtendedVaccination(series = "1/2"))
-    private val vaccinationsComplete = listOf(ExtendedVaccination(series = "2/2"))
+    private val vaccinationsIncomplete1 =
+        listOf(VaccinationExtended(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete1"))
+    private val vaccinationsComplete1 =
+        listOf(VaccinationExtended(doseNumber = 2, totalSerialDoses = 2, id = "certComplete1"))
+    private val vaccinationsIncomplete2 =
+        listOf(VaccinationExtended(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete2"))
+    private val vaccinationsComplete2 =
+        listOf(VaccinationExtended(doseNumber = 2, totalSerialDoses = 2, id = "certComplete2"))
+    private val vaccinationsIncomplete3 =
+        listOf(VaccinationExtended(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete3"))
+    private val vaccinationsComplete3 =
+        listOf(VaccinationExtended(doseNumber = 2, totalSerialDoses = 2, id = "certComplete3"))
     private val certIncomplete1 = VaccinationCertificate(
-        name = name1,
+        name = Name(familyNameTransliterated = name1),
         birthDate = date1,
-        vaccination = vaccinationsIncomplete,
-        id = "certIncomplete1"
+        vaccinations = vaccinationsIncomplete1,
     )
     private val certComplete1 = VaccinationCertificate(
-        name = name1,
+        name = Name(familyNameTransliterated = name1),
         birthDate = date1,
-        vaccination = vaccinationsComplete,
-        id = "certComplete1"
+        vaccinations = vaccinationsComplete1,
     )
     private val certIncomplete2 = VaccinationCertificate(
-        name = name2,
+        name = Name(familyNameTransliterated = name2),
         birthDate = date2,
-        vaccination = vaccinationsIncomplete,
-        id = "certIncomplete2"
+        vaccinations = vaccinationsIncomplete2,
     )
     private val certComplete2 = VaccinationCertificate(
-        name = name2,
+        name = Name(familyNameTransliterated = name2),
         birthDate = date2,
-        vaccination = vaccinationsComplete,
-        id = "certComplete2"
+        vaccinations = vaccinationsComplete2,
     )
     private val certIncomplete3 = VaccinationCertificate(
-        name = name3,
+        name = Name(familyNameTransliterated = name3),
         birthDate = date3,
-        vaccination = vaccinationsIncomplete,
-        id = "certIncomplete3"
+        vaccinations = vaccinationsIncomplete3,
     )
     private val certComplete3 = VaccinationCertificate(
-        name = name3,
+        name = Name(familyNameTransliterated = name3),
         birthDate = date3,
-        vaccination = vaccinationsComplete,
-        id = "certComplete3"
+        vaccinations = vaccinationsComplete3,
     )
 
     @Test
@@ -77,7 +78,10 @@ internal class GroupedCertificateListTest {
 
         val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
-        assertThat(groupedCertificatesList.certificates.get(0).completeCertificate?.vaccinationCertificate?.name)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        )
             .isEqualTo(name1)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
@@ -94,11 +98,20 @@ internal class GroupedCertificateListTest {
 
         val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(3)
-        assertThat(groupedCertificatesList.certificates.get(0).getMainCertificate().vaccinationCertificate.name)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .getMainCertificate().vaccinationCertificate.name.familyNameTransliterated
+        )
             .isEqualTo(name1)
-        assertThat(groupedCertificatesList.certificates.get(1).getMainCertificate().vaccinationCertificate.name)
+        assertThat(
+            groupedCertificatesList.certificates.get(1)
+                .getMainCertificate().vaccinationCertificate.name.familyNameTransliterated
+        )
             .isEqualTo(name2)
-        assertThat(groupedCertificatesList.certificates.get(2).getMainCertificate().vaccinationCertificate.name)
+        assertThat(
+            groupedCertificatesList.certificates.get(2)
+                .getMainCertificate().vaccinationCertificate.name.familyNameTransliterated
+        )
             .isEqualTo(name3)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
@@ -113,10 +126,14 @@ internal class GroupedCertificateListTest {
 
         val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
-        assertThat(groupedCertificatesList.certificates.get(0).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
-        assertThat(groupedCertificatesList.certificates.get(0).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
         val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
@@ -140,18 +157,30 @@ internal class GroupedCertificateListTest {
         val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates)
             .hasSize(3)
-        assertThat(groupedCertificatesList.certificates.get(0).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
-        assertThat(groupedCertificatesList.certificates.get(0).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
-        assertThat(groupedCertificatesList.certificates.get(1).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name2)
-        assertThat(groupedCertificatesList.certificates.get(1).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name2)
-        assertThat(groupedCertificatesList.certificates.get(2).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name3)
-        assertThat(groupedCertificatesList.certificates.get(2).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name3)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(1)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name2)
+        assertThat(
+            groupedCertificatesList.certificates.get(1)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name2)
+        assertThat(
+            groupedCertificatesList.certificates.get(2)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name3)
+        assertThat(
+            groupedCertificatesList.certificates.get(2)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name3)
         assertThat(groupedCertificatesList.favoriteCertId)
             .isNull()
 
@@ -174,18 +203,30 @@ internal class GroupedCertificateListTest {
         val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates)
             .hasSize(3)
-        assertThat(groupedCertificatesList.certificates.get(0).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
-        assertThat(groupedCertificatesList.certificates.get(0).completeCertificate?.vaccinationCertificate?.name)
-            .isNull()
-        assertThat(groupedCertificatesList.certificates.get(1).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name2)
-        assertThat(groupedCertificatesList.certificates.get(1).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name2)
-        assertThat(groupedCertificatesList.certificates.get(2).incompleteCertificate?.vaccinationCertificate?.name)
-            .isNull()
-        assertThat(groupedCertificatesList.certificates.get(2).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name3)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isNull()
+        assertThat(
+            groupedCertificatesList.certificates.get(1)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name2)
+        assertThat(
+            groupedCertificatesList.certificates.get(1)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name2)
+        assertThat(
+            groupedCertificatesList.certificates.get(2)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isNull()
+        assertThat(
+            groupedCertificatesList.certificates.get(2)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name3)
         assertThat(groupedCertificatesList.favoriteCertId)
             .isNull()
 
@@ -206,10 +247,14 @@ internal class GroupedCertificateListTest {
 
         val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
-        assertThat(groupedCertificatesList.certificates.get(0).incompleteCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
-        assertThat(groupedCertificatesList.certificates.get(0).completeCertificate?.vaccinationCertificate?.name)
-            .isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .incompleteCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
+        assertThat(
+            groupedCertificatesList.certificates.get(0)
+                .completeCertificate?.vaccinationCertificate?.name?.familyNameTransliterated
+        ).isEqualTo(name1)
         assertThat(groupedCertificatesList.favoriteCertId)
             .isEqualTo("certComplete1")
 

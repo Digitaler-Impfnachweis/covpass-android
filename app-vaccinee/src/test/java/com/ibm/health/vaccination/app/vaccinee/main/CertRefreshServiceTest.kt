@@ -10,6 +10,7 @@ import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.sdk.android.cert.CertService
 import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationExtended
 import io.ktor.client.features.*
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -36,16 +37,16 @@ internal class CertRefreshServiceTest : CoroutineTest() {
         // As long we get errors we don't refresh
         addCert()
         advanceTimeBy(1000 * 20)
-        assertThat(certs.value.certificates.first().incompleteCertificate?.validationQrContent).isNull()
+        assertThat(certs.value.certificates.first().completeCertificate?.validationQrContent).isNull()
 
         // Due to exponential backoff we only notice the service becoming available again with a delay
         coEvery { certService.getValidationCert(vaccinationQrContent) } returns validationQrContent
         advanceTimeBy(1000 * 8)
-        assertThat(certs.value.certificates.first().incompleteCertificate?.validationQrContent).isNull()
+        assertThat(certs.value.certificates.first().completeCertificate?.validationQrContent).isNull()
 
         // Now we notice it
         advanceTimeBy(1000 * 8)
-        assertThat(certs.value.certificates.first().incompleteCertificate?.validationQrContent)
+        assertThat(certs.value.certificates.first().completeCertificate?.validationQrContent)
             .isEqualTo(validationQrContent)
     }
 
@@ -99,7 +100,7 @@ internal class CertRefreshServiceTest : CoroutineTest() {
         certs.update {
             it.addCertificate(
                 ExtendedVaccinationCertificate(
-                    VaccinationCertificate(id = certId),
+                    VaccinationCertificate(vaccinations = listOf(VaccinationExtended(id = certId))),
                     vaccinationQrContent,
                     null,
                 )

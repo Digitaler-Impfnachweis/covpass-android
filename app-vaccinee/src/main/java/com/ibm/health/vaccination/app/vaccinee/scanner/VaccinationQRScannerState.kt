@@ -24,7 +24,8 @@ class VaccinationQRScannerState(
     fun onQrContentReceived(qrContent: String) {
         launch {
             val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
-            lastCertificateId.value = vaccinationCertificate.id
+            lastCertificateId.value =
+                vaccinationCertificate.vaccination.id
             var connectionError: Throwable? = null
             var validationCertContent: String? = null
             try {
@@ -43,7 +44,11 @@ class VaccinationQRScannerState(
             if (connectionError != null) {
                 eventNotifier { onError(connectionError) }
             } else {
-                eventNotifier { onScanSuccess(vaccinationCertificate.id) }
+                eventNotifier {
+                    onScanSuccess(
+                        vaccinationCertificate.vaccination.id
+                    )
+                }
             }
         }
     }

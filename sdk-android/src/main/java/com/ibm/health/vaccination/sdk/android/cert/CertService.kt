@@ -23,7 +23,7 @@ public class CertService(httpClient: HttpClient, host: String, private val qrCod
 
     /** Gets the raw COSE validation cert for the given raw vaccination COSE object. */
     public suspend fun getValidationCertCose(rawVaccinationCose: ByteArray): ByteArray {
-        val response: HttpResponse = client.post("/api/certify/v1/reissue/cbor") {
+        val response: HttpResponse = client.post("/api/certify/v2/reissue/cbor") {
             contentType(ContentType.parse("application/cbor"))
             body = rawVaccinationCose
         }

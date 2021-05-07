@@ -11,13 +11,14 @@ data class GroupedCertificates(
     val incompleteCertificate: ExtendedVaccinationCertificate?,
 ) {
 
-    fun getMainCertId() = getMainCertificate().vaccinationCertificate.id
+    fun getMainCertId() =
+        getMainCertificate().vaccinationCertificate.vaccination.id
 
     // XXX: Usually always the [getMainCertId] should be considered, but right after scanning, the fragments can
     // still point to the "not main cert id". So it is necessary to check both ids.
     fun matchesId(certId: String) =
-        completeCertificate?.vaccinationCertificate?.id == certId ||
-            incompleteCertificate?.vaccinationCertificate?.id == certId
+        completeCertificate?.vaccinationCertificate?.vaccination?.id == certId ||
+            incompleteCertificate?.vaccinationCertificate?.vaccination?.id == certId
 
     fun getMainCertificate() =
         completeCertificate

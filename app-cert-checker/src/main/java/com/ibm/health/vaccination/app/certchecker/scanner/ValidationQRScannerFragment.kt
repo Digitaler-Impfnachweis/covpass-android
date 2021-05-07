@@ -39,7 +39,7 @@ class ValidationQRScannerFragment :
     override fun onValidationSuccess(certificate: ValidationCertificate) {
         findNavigator().push(
             ValidationResultSuccessFragmentNav(
-                certificate.name,
+                certificate.fullName,
                 certificate.birthDate
             )
         )
@@ -52,7 +52,7 @@ class ValidationQRScannerFragment :
     override fun onImmunizationIncomplete(certificate: ValidationCertificate) {
         findNavigator().push(
             ValidationResultIncompleteFragmentNav(
-                certificate.name,
+                certificate.fullName,
                 certificate.birthDate
             )
         )

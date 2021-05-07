@@ -94,12 +94,16 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         setHasOptionsMenu(certList.certificates.size > 1)
         activity?.invalidateOptionsMenu()
         mainCertificate.vaccinationCertificate.let { cert ->
-            binding.detailNameTextview.text = cert.name
+            binding.detailNameTextview.text = cert.fullName
 
             val statusHeaderText = if (isComplete) {
                 getString(R.string.detail_status_header_complete)
             } else {
-                getString(R.string.detail_status_header_incomplete, cert.currentSeries, cert.completeSeries)
+                getString(
+                    R.string.detail_status_header_incomplete,
+                    cert.currentSeries,
+                    cert.completeSeries
+                )
             }
             binding.detailStatusHeaderTextview.text = statusHeaderText
 
@@ -142,10 +146,10 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             binding.detailAddButton.isVisible = false
 
             binding.detailNameDataRow.detailDataHeaderTextview.setText(R.string.detail_name_header)
-            binding.detailNameDataRow.detailDataTextview.text = cert.name
-
+            binding.detailNameDataRow.detailDataTextview.text = cert.fullName
             binding.detailBirthdateDataRow.detailDataHeaderTextview.setText(R.string.detail_birthdate_header)
-            binding.detailBirthdateDataRow.detailDataTextview.text = cert.birthDate.formatDateOrEmpty()
+            binding.detailBirthdateDataRow.detailDataTextview.text =
+                cert.birthDate.formatDateOrEmpty()
 
             binding.detailVaccinationContainer.removeAllViews()
 
@@ -155,10 +159,10 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
     }
 
     private fun addVaccinationView(cert: VaccinationCertificate) {
-        if (cert.vaccination.isEmpty()) {
+        if (cert.vaccinations.isEmpty()) {
             return
         }
-        val vaccination = cert.vaccination.first()
+        val vaccination = cert.vaccination
 
         val vaccinationView = layoutInflater.inflate(
             R.layout.detail_vaccination_view,
@@ -201,13 +205,6 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         lotNumberRow.isVisible = vaccination.lotNumber.isNotBlank()
         lotNumberDivider.isVisible = vaccination.lotNumber.isNotBlank()
 
-        val locationRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_location_data_row)
-        val locationDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_location_data_divider)
-        findRowHeaderView(locationRow).setText(R.string.detail_vaccination_location)
-        findRowTextView(locationRow).text = vaccination.location
-        locationRow.isVisible = vaccination.location.isNotBlank()
-        locationDivider.isVisible = vaccination.location.isNotBlank()
-
         val issuerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_issuer_data_row)
         val issuerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_issuer_data_divider)
         findRowHeaderView(issuerRow).setText(R.string.detail_vaccination_issuer)
@@ -224,8 +221,8 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
         val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
         findRowHeaderView(uvciRow).setText(R.string.detail_vaccination_uvci)
-        findRowTextView(uvciRow).text = cert.id
-        uvciRow.isVisible = cert.id.isNotBlank()
+        findRowTextView(uvciRow).text = vaccination.id
+        uvciRow.isVisible = vaccination.id.isNotBlank()
 
         binding.detailVaccinationContainer.addView(vaccinationView)
     }
