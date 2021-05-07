@@ -6,7 +6,7 @@ import com.ibm.health.common.vaccination.app.utils.CborSharedPrefsStore
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 
 // FIXME move to SDK?
-class CertRepository(private val store: CborSharedPrefsStore) {
+class CertRepository(store: CborSharedPrefsStore) {
 
     private val certsPref = store.getData("vaccination_certificate_list", VaccinationCertificateList())
 
