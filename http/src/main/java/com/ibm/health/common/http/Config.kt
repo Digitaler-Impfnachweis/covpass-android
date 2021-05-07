@@ -3,15 +3,14 @@ package com.ibm.health.common.http
 import com.ibm.health.common.http.retry.RetryInterceptor
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
+import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.features.*
 import io.ktor.http.*
-import okhttp3.CipherSuite
-import okhttp3.ConnectionSpec
-import okhttp3.OkHttpClient
-import okhttp3.TlsVersion
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import java.security.KeyStore
 import java.security.SecureRandom
+import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
@@ -25,11 +24,40 @@ public interface HttpConfig {
     /** Activates request logging. You MUST NOT use this in release builds! */
     public fun enableLogging(logLevel: HttpLogLevel = HttpLogLevel.HEADERS)
 
+    /** Enables public key pinning for the given [pattern] and [pin] expression (e.g. sha256/...). */
+    public fun pinPublicKey(pattern: String, pin: String)
+
     /** An `OkHttpClient` with correct TLS settings. */
     public val okHttpClient: OkHttpClient
 
     /** Creates a Ktor `HttpClient` with correct TLS settings and optionally with an additional config [block]. */
     public fun ktorClient(block: HttpClientConfig<OkHttpConfig>.() -> Unit = {}): HttpClient
+}
+
+/**
+ * Enables public key pinning for the given list of [X509Certificates][X509Certificate] and the hosts defined within.
+ */
+public fun HttpConfig.pinPublicKey(certs: List<X509Certificate>) {
+    for (cert in certs) {
+        for (san in cert.subjectAlternativeNames) {
+            // Check if this is a DNS SAN (code 2)
+            if (san.size >= 2 && san[0] == 2 && san[1] is String) {
+                pinPublicKey(san[1] as String, cert)
+            }
+        }
+    }
+}
+
+/** Enables public key pinning for the given [pattern] using a list of [X509Certificates][X509Certificate]. */
+public fun HttpConfig.pinPublicKey(pattern: String, certs: List<X509Certificate>) {
+    for (cert in certs) {
+        pinPublicKey(pattern, cert)
+    }
+}
+
+/** Enables public key pinning for the given [pattern] using a list of [X509Certificates][X509Certificate]. */
+public fun HttpConfig.pinPublicKey(pattern: String, cert: X509Certificate) {
+    pinPublicKey(pattern, CertificatePinner.pin(cert))
 }
 
 /** The global [HttpConfig] instance. */
@@ -44,14 +72,16 @@ private class DefaultHttpConfig : HttpConfig {
     private var frozen = false
     private var logging: HttpLogLevel = HttpLogLevel.NONE
 
-    override fun enableLogging(logLevel: HttpLogLevel) {
-        // This is meant as a security measure, so you don't mistakenly enable logging in release builds.
-        // We want to enforce as much as possible that logging can only be enabled at app launch.
+    private fun checkFrozen() {
+        // This is meant as a security measure, so you don't mistakenly enable logging or change configs after the fact.
         if (frozen) {
             throw IllegalStateException("The HttpConfig is frozen already. Please enable logging only at app launch.")
         }
-        frozen = true
+    }
 
+    override fun enableLogging(logLevel: HttpLogLevel) {
+        // We want to enforce as much as possible that logging can only be enabled at app launch.
+        checkFrozen()
         logging = logLevel
     }
 
@@ -90,11 +120,19 @@ private class DefaultHttpConfig : HttpConfig {
         sslContext.socketFactory
     }
 
+    private val certPinnerBuilder = CertificatePinner.Builder()
+
+    override fun pinPublicKey(pattern: String, pin: String) {
+        checkFrozen()
+        certPinnerBuilder.add(pattern, pin)
+    }
+
     override val okHttpClient: OkHttpClient by lazy {
+        frozen = true
         OkHttpClient.Builder().apply {
-            frozen = true
             followRedirects(false)
             connectionSpecs(listOf(connectionSpec))
+            certificatePinner(certPinnerBuilder.build())
             sslSocketFactory(sslSocketFactory, trustManager)
 
             @Suppress("IMPLICIT_CAST_TO_ANY", "DEPRECATION")
