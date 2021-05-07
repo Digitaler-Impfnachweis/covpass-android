@@ -71,7 +71,7 @@ subprojects {
                 if (!isLibraryProject) {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")
                     defaultConfig {
-                        applicationId "${group}.app.${codeName}"
+                        applicationId "${group}.app.${codeName.replace("demo", "")}"
                         archivesBaseName = "$codeName-$version"
                     }
                 }

@@ -44,9 +44,6 @@ public abstract class CommonApplication : Application() {
         }
         sdkDeps = object : SdkDependencies() {
             override val application: Application = this@CommonApplication
-
-            // FIXME: Switch this based on the app variant
-            override val productionMode: Boolean = false
         }
     }
 }

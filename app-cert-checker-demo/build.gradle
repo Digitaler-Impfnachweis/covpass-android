@@ -1,0 +1,5 @@
+dependencies {
+    api project(":common-app-cert-checker")
+    api project(":sdk-android-demo")
+}
+apply plugin: 'maven-publish'

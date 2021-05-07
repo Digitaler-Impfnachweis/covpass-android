@@ -23,7 +23,7 @@ task generateVaccinationStrings(type: JRubyExec()) {
             '--lang', 'de'
     configuration 'twine'
 }
-generateVaccinationStrings.onlyIf { project.name == "app-vaccinee" }
+generateVaccinationStrings.onlyIf { project.name == "common-app-vaccinee" }
 generateVaccinationStrings.doLast {
     ant.replace(
             file: outputFile,
@@ -45,7 +45,7 @@ task generateValidationStrings(type: JRubyExec()) {
         '--lang', 'de'
     configuration 'twine'
 }
-generateValidationStrings.onlyIf { project.name == "app-cert-checker" }
+generateValidationStrings.onlyIf { project.name == "common-app-cert-checker" }
 generateValidationStrings.doLast {
     ant.replace(
         file: outputFile,
@@ -77,5 +77,5 @@ generateCommonStrings.doLast {
 }
 
 dependencies {
-    twine 'rubygems:twine:1.0.4'
+    twine 'rubygems:twine:1.1.0'
 }
