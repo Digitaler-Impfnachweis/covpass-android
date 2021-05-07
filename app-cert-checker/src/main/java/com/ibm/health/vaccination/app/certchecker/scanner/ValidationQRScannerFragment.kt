@@ -11,7 +11,7 @@ import com.ibm.health.vaccination.app.certchecker.validation.ValidationResultFai
 import com.ibm.health.vaccination.app.certchecker.validation.ValidationResultIncompleteFragmentNav
 import com.ibm.health.vaccination.app.certchecker.validation.ValidationResultListener
 import com.ibm.health.vaccination.app.certchecker.validation.ValidationResultSuccessFragmentNav
-import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.parcelize.Parcelize
 
@@ -36,7 +36,7 @@ class ValidationQRScannerFragment :
         scanEnabled.value = true
     }
 
-    override fun onValidationSuccess(certificate: ValidationCertificate) {
+    override fun onValidationSuccess(certificate: VaccinationCertificate) {
         findNavigator().push(
             ValidationResultSuccessFragmentNav(
                 certificate.fullName,
@@ -49,7 +49,7 @@ class ValidationQRScannerFragment :
         findNavigator().push(ValidationResultFailureFragmentNav())
     }
 
-    override fun onImmunizationIncomplete(certificate: ValidationCertificate) {
+    override fun onImmunizationIncomplete(certificate: VaccinationCertificate) {
         findNavigator().push(
             ValidationResultIncompleteFragmentNav(
                 certificate.fullName,

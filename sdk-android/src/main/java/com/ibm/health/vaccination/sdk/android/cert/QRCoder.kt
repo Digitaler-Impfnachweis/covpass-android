@@ -6,7 +6,6 @@ import COSE.Sign1Message
 import com.ibm.health.common.base45.Base45
 import com.ibm.health.vaccination.sdk.android.cert.models.CBORWebToken
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
 import com.ibm.health.vaccination.sdk.android.crypto.isCA
 import com.ibm.health.vaccination.sdk.android.utils.Zlib
@@ -68,9 +67,6 @@ public class QRCoder(private val validator: CertValidator) {
         throw HCertBadSignatureException()
     }
 
-    private inline fun <reified T> decode(cwt: CBORWebToken): T =
-        cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
-
     /**
      * Converts a [qrContent] to a [VaccinationCertificate] data model.
      *
@@ -81,21 +77,8 @@ public class QRCoder(private val validator: CertValidator) {
      */
     public fun decodeVaccinationCert(qrContent: String): VaccinationCertificate {
         val cwt = decodeCWT(qrContent)
-        val cert = decode<VaccinationCertificate>(cwt)
-        return cert.copy(issuer = cwt.issuer, validFrom = cwt.validFrom, validUntil = cwt.validUntil)
-    }
-
-    /**
-     * Converts a [qrContent] to a [ValidationCertificate] data model.
-     *
-     * @throws HCertExpiredException If the certificate has expired.
-     * @throws HCertBadSignatureException If the signature validation failed.
-     * @throws CoseException For generic COSE errors.
-     * @throws GeneralSecurityException For generic cryptography errors.
-     */
-    public fun decodeValidationCert(qrContent: String): ValidationCertificate {
-        val cwt = decodeCWT(qrContent)
-        val cert = decode<ValidationCertificate>(cwt)
+        val cert: VaccinationCertificate =
+            cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
         return cert.copy(issuer = cwt.issuer, validFrom = cwt.validFrom, validUntil = cwt.validUntil)
     }
 

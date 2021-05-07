@@ -26,11 +26,11 @@ public data class VaccinationCertificate(
     @SerialName("dob")
     val birthDate: LocalDate? = null,
     @SerialName("v")
-    val vaccinations: List<VaccinationExtended> = emptyList(),
+    val vaccinations: List<Vaccination> = emptyList(),
     @SerialName("ver")
     val version: String = "",
 ) {
-    public val vaccination: VaccinationExtended
+    public val vaccination: Vaccination
         get() = vaccinations.first()
 
     public val isComplete: Boolean

@@ -5,14 +5,14 @@ import com.ibm.health.common.android.utils.BaseState
 import com.ibm.health.common.logging.Lumber
 import com.ibm.health.vaccination.sdk.android.cert.HCertBadSignatureException
 import com.ibm.health.vaccination.sdk.android.cert.HCertExpiredException
-import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 interface ValidationQRScannerEvents : BaseEvents {
-    fun onValidationSuccess(certificate: ValidationCertificate)
+    fun onValidationSuccess(certificate: VaccinationCertificate)
     fun onValidationFailure()
-    fun onImmunizationIncomplete(certificate: ValidationCertificate)
+    fun onImmunizationIncomplete(certificate: VaccinationCertificate)
 }
 
 class ValidationQRScannerState(scope: CoroutineScope) : BaseState<ValidationQRScannerEvents>(scope) {
@@ -20,7 +20,7 @@ class ValidationQRScannerState(scope: CoroutineScope) : BaseState<ValidationQRSc
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                val validationCertificate = sdkDeps.qrCoder.decodeValidationCert(qrContent)
+                val validationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
                 if (validationCertificate.hasFullProtection) {
                     eventNotifier {
                         onValidationSuccess(validationCertificate)

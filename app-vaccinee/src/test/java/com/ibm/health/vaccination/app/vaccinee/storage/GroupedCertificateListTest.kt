@@ -17,17 +17,17 @@ internal class GroupedCertificateListTest {
     private val date2 = LocalDate.of(2, 2, 2)
     private val date3 = LocalDate.of(3, 3, 3)
     private val vaccinationsIncomplete1 =
-        listOf(VaccinationExtended(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete1"))
+        listOf(Vaccination(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete1"))
     private val vaccinationsComplete1 =
-        listOf(VaccinationExtended(doseNumber = 2, totalSerialDoses = 2, id = "certComplete1"))
+        listOf(Vaccination(doseNumber = 2, totalSerialDoses = 2, id = "certComplete1"))
     private val vaccinationsIncomplete2 =
-        listOf(VaccinationExtended(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete2"))
+        listOf(Vaccination(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete2"))
     private val vaccinationsComplete2 =
-        listOf(VaccinationExtended(doseNumber = 2, totalSerialDoses = 2, id = "certComplete2"))
+        listOf(Vaccination(doseNumber = 2, totalSerialDoses = 2, id = "certComplete2"))
     private val vaccinationsIncomplete3 =
-        listOf(VaccinationExtended(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete3"))
+        listOf(Vaccination(doseNumber = 1, totalSerialDoses = 2, id = "certIncomplete3"))
     private val vaccinationsComplete3 =
-        listOf(VaccinationExtended(doseNumber = 2, totalSerialDoses = 2, id = "certComplete3"))
+        listOf(Vaccination(doseNumber = 2, totalSerialDoses = 2, id = "certComplete3"))
     private val certIncomplete1 = VaccinationCertificate(
         name = Name(familyNameTransliterated = name1),
         birthDate = date1,

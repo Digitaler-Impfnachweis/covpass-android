@@ -10,7 +10,7 @@ import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.sdk.android.cert.CertService
 import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationExtended
+import com.ibm.health.vaccination.sdk.android.cert.models.Vaccination
 import io.ktor.client.features.*
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -100,7 +100,7 @@ internal class CertRefreshServiceTest : CoroutineTest() {
         certs.update {
             it.addCertificate(
                 ExtendedVaccinationCertificate(
-                    VaccinationCertificate(vaccinations = listOf(VaccinationExtended(id = certId))),
+                    VaccinationCertificate(vaccinations = listOf(Vaccination(id = certId))),
                     vaccinationQrContent,
                     null,
                 )
