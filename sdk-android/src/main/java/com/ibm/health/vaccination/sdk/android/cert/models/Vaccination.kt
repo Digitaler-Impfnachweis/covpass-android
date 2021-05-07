@@ -2,6 +2,7 @@
 
 package com.ibm.health.vaccination.sdk.android.cert.models
 
+import com.ibm.health.common.vaccination.app.utils.isOlderThanTwoWeeks
 import com.ibm.health.vaccination.sdk.android.utils.serialization.LocalDateSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -15,7 +16,7 @@ public data class ExtendedVaccination(
     val manufacturer: String = "",
     val series: String = "",
     val lotNumber: String = "",
-    val occurence: LocalDate? = null,
+    val occurrence: LocalDate? = null,
     val location: String = "",
     val performer: String = "",
     val country: String = "",
@@ -23,6 +24,9 @@ public data class ExtendedVaccination(
 ) {
     public val isComplete: Boolean
         get() = getCurrentSeries(series) == getCompleteSeries(series)
+
+    public val hasFullProtection: Boolean
+        get() = isComplete && occurrence.isOlderThanTwoWeeks()
 
     public val currentSeries: String
         get() = getCurrentSeries(series)
@@ -38,10 +42,13 @@ public data class Vaccination(
     val product: String = "",
     val manufacturer: String = "",
     val series: String = "",
-    val occurence: LocalDate? = null,
+    val occurrence: LocalDate? = null,
     val country: String = "",
 ) {
-    public val isComplete: Boolean
+    public val hasFullProtection: Boolean
+        get() = isComplete && occurrence.isOlderThanTwoWeeks()
+
+    private val isComplete: Boolean
         get() = getCurrentSeries(series) == getCompleteSeries(series)
 }
 

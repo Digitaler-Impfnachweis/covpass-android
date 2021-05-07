@@ -82,7 +82,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/grid_nine"
-            android:layout_marginHorizontal="@dimen/grid_three"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
@@ -106,6 +105,33 @@
               android:layout_marginHorizontal="@dimen/grid_seven_half"
               android:gravity="center_horizontal"
               android:text="@string/error_message_connection" />
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:id="@+id/certificate_waiting_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_eight"
+            android:layout_marginBottom="@dimen/grid_eleven"
+            android:layout_marginHorizontal="@dimen/grid_five"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+              android:id="@+id/certificate_waiting_title"
+              style="@style/Header.OnInfo.Small"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal" />
+
+            <TextView
+              android:id="@+id/certificate_waiting_text"
+              style="@style/DefaultText.OnInfo"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:text="@string/certificate_waiting_message" />
 
           </LinearLayout>
 

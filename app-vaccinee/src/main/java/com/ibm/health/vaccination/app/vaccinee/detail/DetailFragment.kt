@@ -176,9 +176,9 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         val occurrenceRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_occurrence_data_row)
         val occurrenceDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_occurrence_data_divider)
         findRowHeaderView(occurrenceRow).setText(R.string.detail_vaccination_occurrence)
-        findRowTextView(occurrenceRow).text = vaccination.occurence?.formatDate()
-        occurrenceRow.isVisible = !vaccination.occurence?.formatDate().isNullOrBlank()
-        occurrenceDivider.isVisible = !vaccination.occurence?.formatDate().isNullOrBlank()
+        findRowTextView(occurrenceRow).text = vaccination.occurrence?.formatDate()
+        occurrenceRow.isVisible = !vaccination.occurrence?.formatDate().isNullOrBlank()
+        occurrenceDivider.isVisible = !vaccination.occurrence?.formatDate().isNullOrBlank()
 
         val productRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_product_data_row)
         val productDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_product_data_divider)

@@ -29,6 +29,8 @@
   <string name="certificate_protection">Impfungen anzeigen</string>
   <string name="certificate_error_message_general">Es ist ein unerwarteter Fehler aufgetreten. Das Prüfzertifikat kann aktuell nicht geladen werden.</string>
   <string name="certificate_error_message_connection">Das Prüfzertifikat kann nicht geladen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
+  <string name="certificate_waiting_title">Das Prüfzertifikat wird ab dem %1$s hier angezeigt.</string>
+  <string name="certificate_waiting_message">Der Impfschutz ist erst 14 Tage nach der vollständigen Impfung wirksam.</string>
 
   <string name="detail_favorite_title">Als Favorit markieren</string>
   <string name="detail_status_header_complete">Impfschutz vollständig</string>

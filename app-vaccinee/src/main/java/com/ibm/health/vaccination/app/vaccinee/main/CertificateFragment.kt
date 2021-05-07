@@ -15,6 +15,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.vaccination.app.BaseFragment
+import com.ibm.health.common.vaccination.app.utils.formatDateOrEmpty
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.databinding.CertificateBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
@@ -103,7 +104,12 @@ class CertificateFragment : BaseFragment() {
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
         val qrCodeIsMissing = groupedCertificate.getMainCertificate().validationQrContent == null
-        binding.certificateQrCardview.isVisible = complete && !qrCodeIsMissing
+        val showQrCode = mainCertificate.hasFullProtection && !qrCodeIsMissing
+        val showLoading = complete && qrCodeIsMissing
+        val showWaiting = complete && !showQrCode && !showLoading
+
+        binding.certificateQrCardview.isVisible = showQrCode
+
         binding.certificateLoadingContainer.isVisible = complete && qrCodeIsMissing
         val loadingTextRes = if (failingCertIds.contains(groupedCertificate.getMainCertId())) {
             R.string.certificate_error_message_general
@@ -111,6 +117,10 @@ class CertificateFragment : BaseFragment() {
             R.string.certificate_error_message_connection
         }
         binding.certificateLoadingText.setText(loadingTextRes)
+
+        binding.certificateWaitingContainer.isVisible = showWaiting
+        binding.certificateWaitingTitle.text =
+            getString(R.string.certificate_waiting_title, mainCertificate.validDate.formatDateOrEmpty())
     }
 
     // FIXME move to SDK

@@ -27,9 +27,15 @@ public data class VaccinationCertificate(
     public val isComplete: Boolean
         get() = vaccination.any { it.isComplete }
 
+    public val hasFullProtection: Boolean
+        get() = vaccination.any { it.hasFullProtection }
+
     public val currentSeries: String
         get() = vaccination.first().currentSeries
 
     public val completeSeries: String
         get() = vaccination.first().completeSeries
+
+    public val validDate: LocalDate?
+        get() = vaccination.first().occurrence?.plusDays(15)
 }

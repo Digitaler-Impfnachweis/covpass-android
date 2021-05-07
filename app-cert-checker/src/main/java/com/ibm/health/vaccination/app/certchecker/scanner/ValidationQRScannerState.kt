@@ -20,7 +20,7 @@ class ValidationQRScannerState(scope: CoroutineScope) : BaseState<ValidationQRSc
         launch {
             try {
                 val validationCertificate = sdkDeps.qrCoder.decodeValidationCert(qrContent)
-                if (validationCertificate.isComplete) {
+                if (validationCertificate.hasFullProtection) {
                     eventNotifier {
                         onValidationSuccess(validationCertificate)
                     }
