@@ -26,7 +26,7 @@ class ValidationQRScannerFragment :
 
     private val state by buildState { ValidationQRScannerState(scope) }
 
-    override val loadingText = R.string.loading_text
+    override val loadingText = R.string.validation_check_loading_screen_message
 
     override fun onBarcodeResult(result: BarcodeResult) {
         state.onQrContentReceived(result.text)

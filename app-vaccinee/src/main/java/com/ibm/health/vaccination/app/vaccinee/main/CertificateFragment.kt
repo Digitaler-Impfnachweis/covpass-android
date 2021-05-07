@@ -58,24 +58,47 @@ class CertificateFragment : BaseFragment() {
             }
         }
 
-        val textColor = if (complete) R.color.onInfo else R.color.onBackground
+        val textColor = if (complete) {
+            R.color.onInfo
+        } else {
+            R.color.onBackground
+        }
         context?.let {
             binding.certificateHeaderTextview.setTextColor(ContextCompat.getColor(it, textColor))
             binding.certificateNameTextview.setTextColor(ContextCompat.getColor(it, textColor))
             binding.certificateProtectionTextview.setTextColor(ContextCompat.getColor(it, textColor))
         }
 
-        val backgroundColorResource = if (complete) R.color.info80 else R.color.info20
-        val backgroundFaderResource = if (complete)
-            R.drawable.common_gradient_card_fadeout_blue else R.drawable.common_gradient_card_fadeout_light_blue
+        val backgroundColorResource = if (complete) {
+            R.color.info80
+        } else {
+            R.color.info20
+        }
+        val backgroundFaderResource = if (complete) {
+            R.drawable.common_gradient_card_fadeout_blue
+        } else {
+            R.drawable.common_gradient_card_fadeout_light_blue
+        }
         context?.let {
             binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(it, backgroundColorResource))
             binding.cardBottomFadeout.setBackgroundResource(backgroundFaderResource)
         }
 
-        val activeRes = if (complete) R.drawable.star_white_fill else R.drawable.star_black_fill
-        val inactiveRes = if (complete) R.drawable.star_white else R.drawable.star_black
-        val favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) activeRes else inactiveRes
+        val activeRes = if (complete) {
+            R.drawable.star_white_fill
+        } else {
+            R.drawable.star_black_fill
+        }
+        val inactiveRes = if (complete) {
+            R.drawable.star_white
+        } else {
+            R.drawable.star_black
+        }
+        val favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
+            activeRes
+        } else {
+            inactiveRes
+        }
 
         binding.certificateFavoriteButton.setImageResource(favoriteIconResource)
         binding.certificateFavoriteButton.setOnClickListener {
@@ -83,12 +106,27 @@ class CertificateFragment : BaseFragment() {
         }
         binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
 
+        val headerText = if (complete) {
+            R.string.vaccination_full_immunization_title
+        } else {
+            R.string.vaccination_partial_immunization_title
+        }
+        binding.certificateHeaderTextview.text = getString(headerText)
+
         binding.certificateNameTextview.text = mainCertificate.fullName
 
-        val protection = R.string.certificate_protection
+        val protection = if (complete) {
+            R.string.vaccination_full_immunization_action_button
+        } else {
+            R.string.vaccination_partial_immunization_action_button
+        }
         binding.certificateProtectionTextview.text = getString(protection)
 
-        val arrowRightIconResource = if (complete) R.drawable.arrow_right_white else R.drawable.arrow_right_blue
+        val arrowRightIconResource = if (complete) {
+            R.drawable.arrow_right_white
+        } else {
+            R.drawable.arrow_right_blue
+        }
         binding.certificateArrowImageview.setImageResource(arrowRightIconResource)
 
         binding.certificateCardview.setOnClickListener {
@@ -99,8 +137,11 @@ class CertificateFragment : BaseFragment() {
             findNavigator().push(DetailFragmentNav(args.certId))
         }
 
-        val statusIconResource =
-            if (complete) R.drawable.main_vaccination_status_complete else R.drawable.main_vaccination_status_incomplete
+        val statusIconResource = if (complete) {
+            R.drawable.main_vaccination_status_complete
+        } else {
+            R.drawable.main_vaccination_status_incomplete
+        }
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
         val qrCodeIsMissing = groupedCertificate.getMainCertificate().validationQrContent == null
@@ -112,15 +153,18 @@ class CertificateFragment : BaseFragment() {
 
         binding.certificateLoadingContainer.isVisible = complete && qrCodeIsMissing
         val loadingTextRes = if (failingCertIds.contains(groupedCertificate.getMainCertId())) {
-            R.string.certificate_error_message_general
+            R.string.vaccination_full_immunization_loading_message_error
         } else {
-            R.string.certificate_error_message_connection
+            R.string.vaccination_full_immunization_loading_message_check_internet
         }
         binding.certificateLoadingText.setText(loadingTextRes)
 
         binding.certificateWaitingContainer.isVisible = showWaiting
         binding.certificateWaitingTitle.text =
-            getString(R.string.certificate_waiting_title, mainCertificate.validDate.formatDateOrEmpty())
+            getString(
+                R.string.vaccination_full_immunization_loading_message_14_days_title_pattern,
+                mainCertificate.validDate.formatDateOrEmpty()
+            )
     }
 
     // FIXME move to SDK

@@ -102,7 +102,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:layout_marginVertical="@dimen/grid_three"
-      android:text="@string/onboarding_welcome_start_button_text" />
+      android:text="@string/common_start_on_boarding_button_title" />
 
   </FrameLayout>
 

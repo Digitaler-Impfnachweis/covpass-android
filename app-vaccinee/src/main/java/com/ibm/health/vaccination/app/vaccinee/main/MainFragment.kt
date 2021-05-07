@@ -16,12 +16,12 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
-import com.ibm.health.common.vaccination.app.information.InformationFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.databinding.VaccineeMainBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailCallback
+import com.ibm.health.vaccination.app.vaccinee.information.VaccinationInformationFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
@@ -49,7 +49,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
     private fun setupViews() {
         binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
-        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(InformationFragmentNav()) }
+        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(VaccinationInformationFragmentNav()) }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         binding.mainViewPager.adapter = fragmentStateAdapter
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
@@ -83,9 +83,9 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
     override fun onDeletionCompleted() {
         val dialogModel = DialogModel(
-            titleRes = R.string.main_delete_dialog_header,
-            messageRes = R.string.main_delete_dialog_message,
-            positiveButtonTextRes = R.string.main_delete_dialog_positive,
+            titleRes = R.string.delete_result_dialog_header,
+            messageRes = R.string.delete_result_dialog_message,
+            positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
         )
         showDialog(dialogModel, childFragmentManager)
     }

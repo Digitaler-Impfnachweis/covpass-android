@@ -35,19 +35,11 @@
       android:layout_height="wrap_content"
       android:paddingHorizontal="@dimen/grid_three" />
 
-    <LinearLayout
-      android:id="@+id/consent_layout"
+    <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
+      android:id="@+id/data_protection_checkbox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_three"
-      android:orientation="vertical">
-
-      <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
-        android:id="@+id/data_protection_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    </LinearLayout>
+      android:layout_marginTop="@dimen/grid_three" />
 
   </LinearLayout>
 

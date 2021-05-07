@@ -10,13 +10,13 @@ class WelcomeFragmentNav : FragmentNav(WelcomeFragment::class)
 
 class WelcomeFragment : BaseWelcomeFragment() {
 
-    override fun getHeaderTextRes() = R.string.onboarding_welcome_header
+    override fun getHeaderTextRes() = R.string.start_onboarding_title
 
-    override fun getSubheaderTextRes() = R.string.onboarding_welcome_subheader
+    override fun getSubheaderTextRes() = R.string.start_onboarding_message
 
-    override fun getEncryptionHeaderTextRes() = R.string.onboarding_welcome_encryption_header
+    override fun getEncryptionHeaderTextRes() = R.string.start_onboarding_secure_title
 
-    override fun getEncryptionTextRes() = R.string.onboarding_welcome_encryption_text
+    override fun getEncryptionTextRes() = R.string.start_onboarding_secure_message
 
     override fun getMainImageRes() = R.drawable.onboarding_welcome
 

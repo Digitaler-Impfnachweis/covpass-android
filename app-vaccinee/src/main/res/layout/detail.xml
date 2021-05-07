@@ -115,7 +115,7 @@
         android:layout_marginHorizontal="@dimen/grid_three"
         android:layout_marginTop="@dimen/grid_five"
         android:layout_marginBottom="@dimen/grid_two"
-        android:text="@string/detail_personal_header" />
+        android:text="@string/vaccination_certificate_detail_view_personal_data_title" />
 
       <include
         android:id="@+id/detail_name_data_row"
@@ -143,7 +143,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/grid_seven"
         app:icon="@drawable/trash"
-        android:text="@string/detail_delete_button_text" />
+        android:text="@string/vaccination_certificate_detail_view_delete_button_title" />
 
     </LinearLayout>
 

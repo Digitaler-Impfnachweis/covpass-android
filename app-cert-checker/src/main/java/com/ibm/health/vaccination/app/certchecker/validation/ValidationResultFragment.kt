@@ -24,7 +24,6 @@ interface ValidationResultListener {
 
 abstract class ValidationResultFragment : BaseBottomSheet() {
 
-    override val buttonTextRes: String by lazy { getString(R.string.validation_result_button) }
     override val heightLayoutParams = ViewGroup.LayoutParams.MATCH_PARENT
 
     private val binding by viewBinding(ValidationResultBinding::inflate)
@@ -79,14 +78,15 @@ class ValidationResultSuccessFragmentNav(
 
 class ValidationResultSuccessFragment : ValidationResultFragment() {
     private val args: ValidationResultSuccessFragmentNav by lazy { getArgs() }
-    override val titleRes = R.string.validation_result_success_title
-    override val textRes = R.string.validation_result_success_text
+    override val titleRes = R.string.validation_check_popup_valid_vaccination_title
+    override val textRes = R.string.validation_check_popup_valid_vaccination_message
     override val imageRes = R.drawable.result_success_image
     override val titleInfo1String by lazy { args.name }
     override val textInfo1String by lazy {
-        getString(R.string.validation_result_birth_date, args.birthDate.formatDateOrEmpty())
+        getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
+    override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
 }
 
 @Parcelize
@@ -97,27 +97,33 @@ class ValidationResultIncompleteFragmentNav(
 
 class ValidationResultIncompleteFragment : ValidationResultFragment() {
     private val args: ValidationResultIncompleteFragmentNav by lazy { getArgs() }
-    override val titleRes = R.string.validation_result_incomplete_title
-    override val textRes = R.string.validation_result_incomplete_text
+    override val titleRes = R.string.validation_check_popup_partial_valid_vaccination_title
+    override val textRes = R.string.validation_check_popup_partial_valid_vaccination_message
     override val imageRes = R.drawable.result_incomplete_image
     override val titleInfo1String by lazy { args.name }
     override val textInfo1String by lazy {
-        getString(R.string.validation_result_birth_date, args.birthDate.formatDateOrEmpty())
+        getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
+    override val buttonTextRes = R.string.validation_check_popup_partial_valid_vaccination_button_title
 }
 
 @Parcelize
 class ValidationResultFailureFragmentNav : FragmentNav(ValidationResultFailureFragment::class)
 
 class ValidationResultFailureFragment : ValidationResultFragment() {
-    override val titleRes = R.string.validation_result_failure_title
-    override val textRes = R.string.validation_result_failure_text
+    override val titleRes = R.string.validation_check_popup_unsuccessful_test_title
+    override val textRes = R.string.validation_check_popup_unsuccessful_test_message
     override val imageRes = R.drawable.result_failure_image
-    override val titleInfo1String by lazy { getString(R.string.validation_result_failure_info1_title) }
-    override val textInfo1String by lazy { getString(R.string.validation_result_failure_info1_text) }
+    override val titleInfo1String by lazy {
+        getString(R.string.validation_check_popup_unsuccessful_test_first_reason_title)
+    }
+    override val textInfo1String by lazy {
+        getString(R.string.validation_check_popup_unsuccessful_test_first_reason_body)
+    }
     override val imageInfo1Res = R.drawable.result_search
-    override val titleInfo2Res = R.string.validation_result_failure_info2_title
-    override val textInfo2Res = R.string.validation_result_failure_info2_text
+    override val titleInfo2Res = R.string.validation_check_popup_unsuccessful_test_second_reason_title
+    override val textInfo2Res = R.string.validation_check_popup_unsuccessful_test_second_reason_body
     override val imageInfo2Res = R.drawable.hourglass
+    override val buttonTextRes = R.string.validation_check_popup_unsuccessful_test_button_title
 }

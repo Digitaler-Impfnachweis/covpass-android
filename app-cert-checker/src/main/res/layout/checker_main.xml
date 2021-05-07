@@ -21,7 +21,7 @@
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_six"
       android:layout_marginEnd="@dimen/grid_eight"
-      android:text="@string/main_header" />
+      android:text="@string/validation_start_screen_title" />
 
     <ImageButton
       android:id="@+id/main_settings_imagebutton"
@@ -59,7 +59,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/grid_three"
           android:layout_marginTop="@dimen/grid_two_half"
-          android:text="@string/main_check_cert_header"
+          android:text="@string/validation_start_screen_scan_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/grid_half"
-          android:text="@string/main_check_cert_info"
+          android:text="@string/validation_start_screen_scan_message"
           app:layout_constraintEnd_toEndOf="@id/main_check_cert_header_textview"
           app:layout_constraintStart_toStartOf="@id/main_check_cert_header_textview"
           app:layout_constraintTop_toBottomOf="@id/main_check_cert_header_textview" />
@@ -82,7 +82,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/grid_eightteen"
           android:layout_marginBottom="@dimen/grid_five"
-          android:text="@string/main_check_cert_button_text"
+          android:text="@string/validation_start_screen_scan_action_button_title"
           app:icon="@drawable/scan_qr"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +116,7 @@
           android:layout_marginStart="@dimen/grid_two_half"
           android:layout_marginTop="@dimen/grid_two_half"
           android:layout_marginEnd="@dimen/grid_one"
-          android:text="@string/main_availability_header"
+          android:text="@string/validation_start_screen_offline_modus_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
@@ -128,7 +128,7 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/grid_two_half"
           android:layout_marginTop="@dimen/grid_one_half"
-          android:text="@string/main_availability_info"
+          android:text="@string/validation_start_screen_offline_modus_message"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/main_availability_header_textview" />
@@ -155,7 +155,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/grid_three_half"
           android:layout_marginEnd="@dimen/grid_two_half"
-          android:text="@string/main_availability_status"
+          android:text="@string/validation_start_screen_offline_modus_note_latest_version"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/main_availability_status_imageview"
           app:layout_constraintTop_toBottomOf="@id/main_availability_info_textview" />
@@ -168,7 +168,6 @@
           android:layout_marginHorizontal="@dimen/grid_two_half"
           android:layout_marginTop="@dimen/grid_three_half"
           android:layout_marginBottom="@dimen/grid_two_half"
-          android:text="@string/main_availability_last_update"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

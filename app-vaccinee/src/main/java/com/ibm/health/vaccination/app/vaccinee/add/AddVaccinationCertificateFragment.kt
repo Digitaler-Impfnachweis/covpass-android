@@ -3,6 +3,7 @@ package com.ibm.health.vaccination.app.vaccinee.add
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -18,14 +19,17 @@ class AddVaccinationCertificateFragmentNav : FragmentNav(AddVaccinationCertifica
 
 class AddVaccinationCertificateFragment : BaseBottomSheet() {
 
-    override val buttonTextRes by lazy { getString(R.string.onboarding_welcome_start_button_text) }
+    override val buttonTextRes by lazy { R.string.vaccination_add_popup_scan_button_title }
     private val binding by viewBinding(AddVaccinationCertPopupContentBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bottomSheetBinding.bottomSheetTitle.text = getString(R.string.add_vaccination_cert_title)
-        bottomSheetBinding.bottomSheetActionButton.setText(R.string.add_vaccination_cert_action_button_text)
+        bottomSheetBinding.bottomSheetTitle.text = getString(R.string.vaccination_add_popup_title)
         binding.addVaccinationCertFaq.apply {
+            text = getSpanned(
+                getString(R.string.vaccination_add_popup_action_title_linked),
+                getString(R.string.vaccination_add_popup_link)
+            )
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }

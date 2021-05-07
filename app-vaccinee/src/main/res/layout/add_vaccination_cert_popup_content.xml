@@ -12,7 +12,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
-    android:text="@string/add_vaccination_cert_popup_content_text" />
+    android:text="@string/vaccination_add_popup_message" />
 
   <ImageView
     android:id="@+id/add_vaccination_cert_illustration"
@@ -25,8 +25,7 @@
 
   <TextView
     android:id="@+id/add_vaccination_cert_faq"
-    style="@style/NavigationField"
-    android:text="@string/add_vaccination_cert_question_link" />
+    style="@style/NavigationField" />
 
   <View
     android:layout_width="wrap_content"

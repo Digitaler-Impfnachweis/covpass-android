@@ -10,11 +10,11 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.dependencies.commonDeps
-import com.ibm.health.common.vaccination.app.information.InformationFragmentNav
 import com.ibm.health.common.vaccination.app.storage.DscRepository
 import com.ibm.health.common.vaccination.app.utils.formatDateTime
 import com.ibm.health.vaccination.app.certchecker.R
 import com.ibm.health.vaccination.app.certchecker.databinding.CheckerMainBinding
+import com.ibm.health.vaccination.app.certchecker.information.ValidationInformationFragmentNav
 import com.ibm.health.vaccination.app.certchecker.scanner.ValidationQRScannerFragmentNav
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
@@ -28,7 +28,7 @@ internal class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(InformationFragmentNav()) }
+        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(ValidationInformationFragmentNav()) }
         binding.mainCheckCertButton.setOnClickListener { findNavigator().push(ValidationQRScannerFragmentNav()) }
 
         autoRun {
@@ -40,7 +40,10 @@ internal class MainFragment : BaseFragment() {
 
         // TODO handle status text and icon correctly when the feature is implemented
 
-        val updateString = getString(R.string.main_availability_last_update, lastUpdate.formatDateTime())
+        val updateString = getString(
+            R.string.validation_start_screen_offline_modus_note_update_pattern,
+            lastUpdate.formatDateTime()
+        )
         binding.mainAvailabilityLastUpdateTextview.text = updateString
 
         binding.mainAvailabilityLastUpdateTextview.isInvisible = lastUpdate == DscRepository.NO_UPDATE_YET

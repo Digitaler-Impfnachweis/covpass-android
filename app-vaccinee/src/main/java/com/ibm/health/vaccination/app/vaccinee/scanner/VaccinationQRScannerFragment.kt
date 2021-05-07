@@ -23,7 +23,7 @@ class VaccinationQRScannerFragment : QRScannerFragment(), DialogListener, Vaccin
 
     private val state by buildState { VaccinationQRScannerState(scope, stateFlowStore) }
 
-    override val loadingText = R.string.loading_text
+    override val loadingText = R.string.vaccination_add_loading_screen_message
 
     override fun onBarcodeResult(result: BarcodeResult) {
         state.onQrContentReceived(result.text)

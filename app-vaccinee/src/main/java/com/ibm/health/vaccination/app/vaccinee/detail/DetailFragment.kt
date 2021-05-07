@@ -53,10 +53,10 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         autoRun { updateViews(get(vaccineeDeps.certRepository.certs)) }
         binding.detailDeleteButton.setOnClickListener {
             val dialogModel = DialogModel(
-                titleRes = R.string.detail_delete_dialog_header,
-                messageRes = R.string.detail_delete_dialog_message,
-                positiveButtonTextRes = R.string.detail_delete_dialog_positive,
-                negativeButtonTextRes = R.string.detail_delete_dialog_negative,
+                titleRes = R.string.dialog_delete_certificate_title,
+                messageRes = R.string.dialog_delete_certificate_message,
+                positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
+                negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
                 positiveActionColorRes = R.color.danger,
                 tag = DELETE_DIALOG_TAG,
             )
@@ -65,7 +65,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val favoriteItem = menu.add(Menu.NONE, FAVORITE_ITEM_ID, Menu.NONE, R.string.detail_favorite_title)
+        val favoriteItem = menu.add(Menu.NONE, FAVORITE_ITEM_ID, Menu.NONE, R.string.vaccination_favorite_button_hint)
         val favoriteIcon = if (isFavorite) R.drawable.star_black_fill else R.drawable.star_black
         favoriteItem.setIcon(favoriteIcon)
         favoriteItem.setShowAsAction(SHOW_AS_ACTION_IF_ROOM)
@@ -97,20 +97,20 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             binding.detailNameTextview.text = cert.fullName
 
             val statusHeaderText = if (isComplete) {
-                getString(R.string.detail_status_header_complete)
+                getString(R.string.vaccination_certificate_detail_view_complete_title)
             } else {
                 getString(
-                    R.string.detail_status_header_incomplete,
-                    cert.currentSeries,
-                    cert.completeSeries
+                    R.string.vaccination_certificate_detail_view_incomplete_title,
+                    cert.currentSeries.toString(),
+                    cert.completeSeries.toString()
                 )
             }
             binding.detailStatusHeaderTextview.text = statusHeaderText
 
             val statusTextRes = if (isComplete) {
-                R.string.detail_status_text_complete
+                R.string.vaccination_certificate_detail_view_complete_message
             } else {
-                R.string.detail_status_text_incomplete
+                R.string.vaccination_certificate_detail_view_incomplete_message
             }
             binding.detailStatusTextview.setText(statusTextRes)
 
@@ -122,11 +122,11 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             binding.detailStatusImageview.setImageResource(statusIconRes)
 
             val proofButtonRes = if (isComplete) {
-                R.string.detail_show_proof_button_text_complete
+                R.string.vaccination_certificate_detail_view_complete_action_button_title
             } else {
                 // TODO this is only temporary, change back again when feature shall be activated
                 // R.string.detail_show_proof_button_text_incomplete
-                R.string.detail_add_button_text
+                R.string.vaccination_certificate_detail_view_incomplete_action_button_title
             }
             binding.detailShowProofButton.setText(proofButtonRes)
 
@@ -139,17 +139,21 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                 }
             }
 
-            binding.detailAddButton.setText(R.string.detail_add_button_text)
+            binding.detailAddButton.setText(R.string.vaccination_certificate_detail_view_incomplete_action_button_title)
             binding.detailAddButton.isVisible = !isComplete
 
             // TODO this is only temporary, make it visible again when feature shall be activated
             binding.detailAddButton.isVisible = false
 
-            binding.detailNameDataRow.detailDataHeaderTextview.setText(R.string.detail_name_header)
+            binding.detailNameDataRow.detailDataHeaderTextview.setText(
+                R.string.vaccination_certificate_detail_view_name
+            )
             binding.detailNameDataRow.detailDataTextview.text = cert.fullName
-            binding.detailBirthdateDataRow.detailDataHeaderTextview.setText(R.string.detail_birthdate_header)
-            binding.detailBirthdateDataRow.detailDataTextview.text =
-                cert.birthDate.formatDateOrEmpty()
+
+            binding.detailBirthdateDataRow.detailDataHeaderTextview.setText(
+                R.string.vaccination_certificate_detail_view_birthdate
+            )
+            binding.detailBirthdateDataRow.detailDataTextview.text = cert.birthDate.formatDateOrEmpty()
 
             binding.detailVaccinationContainer.removeAllViews()
 
@@ -171,56 +175,56 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         ) as LinearLayout
 
         val headerText = getString(
-            R.string.detail_vaccination_header,
-            cert.currentSeries,
-            cert.completeSeries
+            R.string.vaccination_certificate_detail_view_vaccination_title,
+            cert.currentSeries.toString(),
+            cert.completeSeries.toString()
         )
         vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
 
         val occurrenceRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_occurrence_data_row)
         val occurrenceDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_occurrence_data_divider)
-        findRowHeaderView(occurrenceRow).setText(R.string.detail_vaccination_occurrence)
+        findRowHeaderView(occurrenceRow).setText(R.string.vaccination_certificate_detail_view_data_date)
         findRowTextView(occurrenceRow).text = vaccination.occurrence?.formatDate()
         occurrenceRow.isVisible = !vaccination.occurrence?.formatDate().isNullOrBlank()
         occurrenceDivider.isVisible = !vaccination.occurrence?.formatDate().isNullOrBlank()
 
         val productRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_product_data_row)
         val productDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_product_data_divider)
-        findRowHeaderView(productRow).setText(R.string.detail_vaccination_product)
+        findRowHeaderView(productRow).setText(R.string.vaccination_certificate_detail_view_data_vaccine)
         findRowTextView(productRow).text = vaccination.product
         productRow.isVisible = vaccination.product.isNotBlank()
         productDivider.isVisible = vaccination.product.isNotBlank()
 
         val manufacturerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_manufacturer_data_row)
         val manufacturerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_manufacturer_data_divider)
-        findRowHeaderView(manufacturerRow).setText(R.string.detail_vaccination_manufacturer)
+        findRowHeaderView(manufacturerRow).setText(R.string.vaccination_certificate_detail_view_data_producer)
         findRowTextView(manufacturerRow).text = vaccination.manufacturer
         manufacturerRow.isVisible = vaccination.manufacturer.isNotBlank()
         manufacturerDivider.isVisible = vaccination.manufacturer.isNotBlank()
 
         val lotNumberRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_lotnumber_data_row)
         val lotNumberDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_lotnumber_data_divider)
-        findRowHeaderView(lotNumberRow).setText(R.string.detail_vaccination_lotnumber)
+        findRowHeaderView(lotNumberRow).setText(R.string.vaccination_certificate_detail_view_data_bench_number)
         findRowTextView(lotNumberRow).text = vaccination.lotNumber
         lotNumberRow.isVisible = vaccination.lotNumber.isNotBlank()
         lotNumberDivider.isVisible = vaccination.lotNumber.isNotBlank()
 
         val issuerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_issuer_data_row)
         val issuerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_issuer_data_divider)
-        findRowHeaderView(issuerRow).setText(R.string.detail_vaccination_issuer)
+        findRowHeaderView(issuerRow).setText(R.string.vaccination_certificate_detail_view_data_exhibitor)
         findRowTextView(issuerRow).text = cert.issuer
         issuerRow.isVisible = cert.issuer.isNotBlank()
         issuerDivider.isVisible = cert.issuer.isNotBlank()
 
         val countryRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_country_data_row)
         val countryDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_country_data_divider)
-        findRowHeaderView(countryRow).setText(R.string.detail_vaccination_country)
+        findRowHeaderView(countryRow).setText(R.string.vaccination_certificate_detail_view_data_country)
         findRowTextView(countryRow).text = vaccination.country
         countryRow.isVisible = vaccination.country.isNotBlank()
         countryDivider.isVisible = vaccination.country.isNotBlank()
 
         val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
-        findRowHeaderView(uvciRow).setText(R.string.detail_vaccination_uvci)
+        findRowHeaderView(uvciRow).setText(R.string.vaccination_certificate_detail_view_data_identification_number)
         findRowTextView(uvciRow).text = vaccination.id
         uvciRow.isVisible = vaccination.id.isNotBlank()
 
@@ -243,7 +247,7 @@ class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                 val icon = R.drawable.back_arrow
                 setHomeAsUpIndicator(icon)
             }
-            binding.detailToolbar.title = getString(R.string.covid_header)
+            binding.detailToolbar.title = getString(R.string.vaccination_certificate_detail_view_title)
         }
     }
 

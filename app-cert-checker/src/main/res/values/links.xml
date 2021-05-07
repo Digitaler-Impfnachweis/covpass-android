@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="on_boarding_consent_data_protection_link">https://www.digitaler-impfnachweis-app.de/webviews/verification-app/privacy/</string>
+  <string name="information_faq_link">https://www.digitaler-impfnachweis-app.de/webviews/verification-app/faq/</string>
+  <string name="information_data_security_policy_link">https://www.digitaler-impfnachweis-app.de/webviews/verification-app/privacy/</string>
+  <string name="information_imprint_link">https://www.digitaler-impfnachweis-app.de/webviews/imprint/</string>
+</resources>

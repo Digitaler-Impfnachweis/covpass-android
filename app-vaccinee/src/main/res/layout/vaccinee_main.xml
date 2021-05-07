@@ -21,7 +21,7 @@
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_six"
       android:layout_marginEnd="@dimen/grid_eight"
-      android:text="@string/main_header" />
+      android:text="@string/vaccination_start_screen_title" />
 
     <ImageButton
       android:id="@+id/main_settings_imagebutton"
@@ -78,7 +78,7 @@
             android:layout_marginHorizontal="@dimen/grid_six"
             android:layout_marginTop="@dimen/grid_one_half"
             android:gravity="center_horizontal"
-            android:text="@string/main_empty_header" />
+            android:text="@string/vaccination_start_screen_note_title" />
 
           <TextView
             android:id="@+id/main_empty_textview"
@@ -88,7 +88,7 @@
             android:layout_marginHorizontal="@dimen/grid_six"
             android:layout_marginBottom="@dimen/grid_fourteen"
             android:gravity="center_horizontal"
-            android:text="@string/main_empty_text" />
+            android:text="@string/vaccination_start_screen_note_message" />
 
         </LinearLayout>
 

@@ -10,10 +10,10 @@ class ErrorHandler : CommonErrorHandler() {
     override fun getSpecificDialogModel(error: Throwable): DialogModel? =
         when (error) {
             is CertAlreadyExistsException -> DialogModel(
-                titleRes = R.string.scan_duplicate_warning_dialog_title,
-                messageRes = R.string.scan_duplicate_warning_dialog_message,
-                positiveButtonTextRes = R.string.scan_duplicate_warning_dialog_positive,
-                negativeButtonTextRes = R.string.scan_duplicate_warning_dialog_negative,
+                titleRes = R.string.duplicate_certificate_dialog_header,
+                messageRes = R.string.duplicate_certificate_dialog_message,
+                positiveButtonTextRes = R.string.duplicate_certificate_dialog_positive_button_text,
+                negativeButtonTextRes = R.string.duplicate_certificate_dialog_negative_button_text,
                 isCancelable = false,
                 tag = TAG_ERROR_DUPLICATE_CERTIFICATE
             )
