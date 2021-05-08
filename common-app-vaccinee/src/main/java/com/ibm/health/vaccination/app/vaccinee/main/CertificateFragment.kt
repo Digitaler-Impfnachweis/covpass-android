@@ -46,13 +46,13 @@ internal class CertificateFragment : BaseFragment() {
     private fun updateViews(certificateList: GroupedCertificatesList, failingCertIds: Set<String>) {
         val certId = args.certId
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
-        val mainExtendedCertificate = groupedCertificate.getMainCertificate()
-        val mainCertificate = groupedCertificate.getMainCertificate().vaccinationCertificate
+        val mainCombinedCertificate = groupedCertificate.getMainCertificate()
+        val mainCertificate = mainCombinedCertificate.vaccinationCertificate
         val complete = groupedCertificate.isComplete()
 
         launchWhenStarted {
             if (complete) {
-                mainExtendedCertificate.validationQrContent?.let {
+                mainCombinedCertificate.validationQrContent?.let {
                     binding.certificateQrImageview.setImageBitmap(generateQRCode(it))
                 }
             }

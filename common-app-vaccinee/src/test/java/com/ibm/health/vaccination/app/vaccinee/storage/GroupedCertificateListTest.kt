@@ -263,5 +263,5 @@ internal class GroupedCertificateListTest {
         assertThat(vaccinationCertificateList.favoriteCertId).isEqualTo("certComplete1")
     }
 
-    private fun extend(cert: VaccinationCertificate) = ExtendedVaccinationCertificate(cert, "", null)
+    private fun extend(cert: VaccinationCertificate) = CombinedVaccinationCertificate(cert, "", null)
 }

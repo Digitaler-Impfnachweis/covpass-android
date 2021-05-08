@@ -3,10 +3,10 @@ package com.ibm.health.vaccination.sdk.android.cert.models
 import kotlinx.serialization.Serializable
 
 /**
- * Data model which contains a [VaccinationCertificate] and additionally the raw validation qr content.
+ * Data model which contains a [VaccinationCertificate] and additionally the raw vaccination and validation qr string.
  */
 @Serializable
-public data class ExtendedVaccinationCertificate(
+public data class CombinedVaccinationCertificate(
 
     /** The [VaccinationCertificate]. */
     val vaccinationCertificate: VaccinationCertificate,

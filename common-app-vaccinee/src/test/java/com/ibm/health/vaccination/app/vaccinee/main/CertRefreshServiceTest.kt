@@ -8,9 +8,9 @@ import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ensody.reactivestate.test.CoroutineTest
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.sdk.android.cert.CertService
-import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.cert.models.Vaccination
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import io.ktor.client.features.*
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -99,7 +99,7 @@ internal class CertRefreshServiceTest : CoroutineTest() {
 
         certs.update {
             it.addCertificate(
-                ExtendedVaccinationCertificate(
+                CombinedVaccinationCertificate(
                     VaccinationCertificate(vaccinations = listOf(Vaccination(id = certId))),
                     vaccinationQrContent,
                     null,

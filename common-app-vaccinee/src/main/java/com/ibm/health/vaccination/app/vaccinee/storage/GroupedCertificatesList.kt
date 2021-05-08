@@ -1,6 +1,6 @@
 package com.ibm.health.vaccination.app.vaccinee.storage
 
-import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 
 /**
@@ -16,7 +16,7 @@ internal data class GroupedCertificatesList(
     fun getGroupedCertificates(certId: String): GroupedCertificates? =
         certificates.firstOrNull { it.matchesId(certId) }
 
-    fun addCertificate(certificate: ExtendedVaccinationCertificate) {
+    fun addCertificate(certificate: CombinedVaccinationCertificate) {
         val vaccinationCertificateList = toVaccinationCertificateList().apply {
             addCertificate(certificate)
         }
@@ -58,7 +58,7 @@ internal data class GroupedCertificatesList(
     }
 
     fun toVaccinationCertificateList(): VaccinationCertificateList {
-        val singleCertList = mutableListOf<ExtendedVaccinationCertificate>()
+        val singleCertList = mutableListOf<CombinedVaccinationCertificate>()
         certificates.forEach { groupedCerts ->
             groupedCerts.incompleteCertificate?.let { singleCertList.add(it) }
             groupedCerts.completeCertificate?.let { singleCertList.add(it) }
@@ -101,7 +101,7 @@ internal data class GroupedCertificatesList(
         }
 
         private fun createGroupedCertificates(
-            certList: MutableList<ExtendedVaccinationCertificate>,
+            certList: MutableList<CombinedVaccinationCertificate>,
             startIndex: Int,
         ): GroupedCertificates {
             val startCert = certList[startIndex]

@@ -6,7 +6,7 @@ import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import com.ibm.health.common.vaccination.app.errorhandling.isConnectionError
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
-import com.ibm.health.vaccination.sdk.android.cert.models.ExtendedVaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
@@ -38,7 +38,7 @@ internal class VaccinationQRScannerState(
             }
             vaccineeDeps.certRepository.certs.update {
                 it.addCertificate(
-                    ExtendedVaccinationCertificate(vaccinationCertificate, qrContent, validationCertContent)
+                    CombinedVaccinationCertificate(vaccinationCertificate, qrContent, validationCertContent)
                 )
             }
             if (connectionError != null) {
