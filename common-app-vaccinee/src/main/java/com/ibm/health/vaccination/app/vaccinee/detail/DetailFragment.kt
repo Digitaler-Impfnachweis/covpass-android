@@ -51,17 +51,6 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         autoRun { updateViews(get(vaccineeDeps.certRepository.certs)) }
-        binding.detailDeleteButton.setOnClickListener {
-            val dialogModel = DialogModel(
-                titleRes = R.string.dialog_delete_certificate_title,
-                messageRes = R.string.dialog_delete_certificate_message,
-                positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
-                negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
-                positiveActionColorRes = R.color.danger,
-                tag = DELETE_DIALOG_TAG,
-            )
-            showDialog(dialogModel, childFragmentManager)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -159,6 +148,19 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
             groupedCertificate.incompleteCertificate?.let { addVaccinationView(it.vaccinationCertificate) }
             groupedCertificate.completeCertificate?.let { addVaccinationView(it.vaccinationCertificate) }
+        }
+
+        binding.detailDeleteButton.setOnClickListener {
+            val dialogModel = DialogModel(
+                titleRes = R.string.dialog_delete_certificate_title,
+                titleParameter = mainCertificate.vaccinationCertificate.fullName,
+                messageRes = R.string.dialog_delete_certificate_message,
+                positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
+                negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
+                positiveActionColorRes = R.color.danger,
+                tag = DELETE_DIALOG_TAG,
+            )
+            showDialog(dialogModel, childFragmentManager)
         }
     }
 
