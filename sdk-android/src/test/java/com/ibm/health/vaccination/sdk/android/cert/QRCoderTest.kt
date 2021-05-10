@@ -2,8 +2,8 @@ package com.ibm.health.vaccination.sdk.android.cert
 
 import COSE.OneKey
 import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isNotEqualTo
+import assertk.assertions.isFailure
+import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
 import com.ibm.health.vaccination.sdk.android.crypto.readPem
@@ -29,19 +29,10 @@ internal class QRCoderTest {
         assertThat(cose.validate(OneKey(sealCert.publicKey, null))).isTrue()
     }
 
-    /**
-     * Makes sure we have a correct decoding a data from some QR code to the ValidationCertificate.
-     */
     @Test
-    fun `check data fields after decoding`() {
-        val qrDataModel = qrCoder.decodeVaccinationCert(data)
-        assertThat(qrDataModel).isNotEqualTo(null)
-        assertThat(qrDataModel.fullName).isEqualTo(TEST_NAME_IN_QR_DATA)
-        assertThat(qrDataModel.vaccinations[0].country).isEqualTo(TEST_COUNTRY_IN_QR_DATA)
-    }
-
-    companion object {
-        val TEST_NAME_IN_QR_DATA: String = "Erika Dörte Schmitt Mustermann"
-        val TEST_COUNTRY_IN_QR_DATA: String = "DE"
+    fun `expired certificate`() {
+        assertThat {
+            qrCoder.decodeVaccinationCert(data)
+        }.isFailure().isInstanceOf(HCertExpiredException::class)
     }
 }
