@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     sh('''
-                        VERSION=$(($(git rev-list --count HEAD) + 50))
+                        VERSION=$(($(git rev-list --count HEAD) + 80))
                         echo "versionCode=$VERSION" > generated.properties
                     ''')
                 }
@@ -189,6 +189,23 @@ pipeline {
                     }
                     steps {
                         gradle('assembleRelease')
+
+                        script {
+                            withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
+                                withCredentials([
+                                    file(credentialsId: 'release_vaccinee', variable: 'RELEASE_KEYSTORE'),
+                                    string(credentialsId: 'release_vaccinee_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
+                                ]) {
+                                    sh "./run-in-docker.sh ./sign.sh app-vaccinee-demo"
+                                }
+                                withCredentials([
+                                    file(credentialsId: 'release_verification', variable: 'RELEASE_KEYSTORE'),
+                                    string(credentialsId: 'release_verification_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
+                                ]) {
+                                    sh "./run-in-docker.sh ./sign.sh app-cert-checker-demo"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -232,13 +249,9 @@ pipeline {
                     }
 
                     // Only publish release if tag doesn't exist, yet.
+                    // TODO: Publish production release builds and SDK
 //                    if (toPush != "") {
-//                        withEnv(["PUBLISH_SOURCES=true"]) {
-//                            gradle('publish', '--stacktrace')
-//                        }
-//                        withEnv(["PUBLISH_SOURCES=false"]) {
-//                            gradle('publish', '--stacktrace')
-//                        }
+//                        gradle('publish', '--stacktrace')
 //                    }
                 }
                 finishRelease()
@@ -247,31 +260,21 @@ pipeline {
         stage('Play Store') {
             when {
                 anyOf {
-                    branch 'master-disabled'
+                    branch 'master'
                 }
             }
             steps {
                 script {
-                    gradle('app-vaccinee:publish')
-                    gradle('app-cert-checker:publish')
                     withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
                         withCredentials([
                             file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
-                            file(credentialsId: 'keystore', variable: 'RELEASE_KEYSTORE'),
-                            string(credentialsId: 'keystore-password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
                         ]) {
-                            sh '''
-                            ./deploy-app.sh "app-vaccinee"
-                             '''
+                            sh "./run-in-docker.sh ./deploy.sh app-vaccinee-demo"
                         }
                         withCredentials([
                             file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
-                            file(credentialsId: 'keystore', variable: 'RELEASE_KEYSTORE'),
-                            string(credentialsId: 'keystore-password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
                         ]) {
-                            sh '''
-                            ./deploy-app.sh "app-cert-checker"
-                            '''
+                            sh "./run-in-docker.sh ./deploy.sh app-cert-checker-demo"
                         }
                     }
                 }

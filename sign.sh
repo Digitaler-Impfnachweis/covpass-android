@@ -3,7 +3,14 @@ set -eu -o pipefail
 
 # Signs a bundle with the release key
 
-BUNDLE="$1"
+APP="$1"
+TYPE="${2:-release}"
+
+if [[ -f "$APP" ]]; then
+  BUNDLE="$APP"
+else
+  BUNDLE="$(ls "$APP/build/outputs/apk/${TYPE}"/*.apk | tail -1)"
+fi
 
 if [ -z "${RELEASE_KEYSTORE:-}" ]; then
   1>&2 echo "RELEASE_KEYSTORE environment variable must be set"

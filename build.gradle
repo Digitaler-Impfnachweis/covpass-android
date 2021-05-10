@@ -72,7 +72,12 @@ subprojects {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")
                     defaultConfig {
                         applicationId "${group}.app.${codeName.replace("demo", "")}"
-                        archivesBaseName = "$codeName-$version"
+                    }
+
+                    applicationVariants.all { variant ->
+                        variant.outputs.all {
+                            outputFileName = "$codeName-${defaultConfig.versionName}-${variant.buildType.name}.apk"
+                        }
                     }
                 }
 
@@ -129,8 +134,8 @@ subprojects {
         }
     }
 
-    // TODO:
-//    if (isLibraryProject && project.name != "common-app") {
+    // TODO: SDK modules
+//    if (isLibraryProject && !project.name.startsWith("common-app")) {
 //        apply from: "$rootDir/gradle/common/publish.gradle"
 //        def url = TODO
 //        publish(
@@ -139,5 +144,28 @@ subprojects {
 //            password: password,
 //            isPlatformProject: isPlatformProject,
 //        )
+//    }
+
+    // TODO: Production release builds
+//    if (!isLibraryProject && project.name.startsWith("app-") && project.name.endsWith("-prod")) {
+//        apply plugin: 'maven-publish'
+//        afterEvaluate {
+//            publishing {
+//                publications {
+//                    release(MavenPublication) {
+//                        from components.release_apk
+//                    }
+//                }
+//                repositories {
+//                    maven {
+//                        url "https://nexus.epa-dev.net/repository/epa-mobile-apps/"
+//                        credentials {
+//                            username repoConfig.nexusUsername
+//                            password repoConfig.nexusPassword
+//                        }
+//                    }
+//                }
+//            }
+//        }
 //    }
 }

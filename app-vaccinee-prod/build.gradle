@@ -1,4 +1,3 @@
 dependencies {
     api project(":common-app-vaccinee")
 }
-apply plugin: 'maven-publish'

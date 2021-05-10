@@ -2,4 +2,3 @@ dependencies {
     api project(":common-app-vaccinee")
     api project(":sdk-android-demo")
 }
-apply plugin: 'maven-publish'
