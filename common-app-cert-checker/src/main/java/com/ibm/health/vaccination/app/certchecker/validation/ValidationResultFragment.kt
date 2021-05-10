@@ -97,8 +97,8 @@ internal class ValidationResultIncompleteFragmentNav(
 
 internal class ValidationResultIncompleteFragment : ValidationResultFragment() {
     private val args: ValidationResultIncompleteFragmentNav by lazy { getArgs() }
-    override val titleRes = R.string.validation_check_popup_partial_valid_vaccination_title
-    override val textRes = R.string.validation_check_popup_partial_valid_vaccination_message
+    override val titleRes = R.string.validation_check_popup_vaccination_not_completely_title
+    override val textRes = R.string.validation_check_popup_vaccination_not_completely_message
     override val imageRes = R.drawable.result_incomplete_image
     override val titleInfo1String by lazy { args.name }
     override val textInfo1String by lazy {
