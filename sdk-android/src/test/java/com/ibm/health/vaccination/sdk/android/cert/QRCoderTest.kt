@@ -36,12 +36,12 @@ internal class QRCoderTest {
     fun `check data fields after decoding`() {
         val qrDataModel = qrCoder.decodeVaccinationCert(data)
         assertThat(qrDataModel).isNotEqualTo(null)
-        assertThat(qrDataModel.name).isEqualTo(TEST_NAME_IN_QR_DATA)
-        assertThat(qrDataModel.vaccination[0].country).isEqualTo(TEST_COUNTRY_IN_QR_DATA)
+        assertThat(qrDataModel.fullName).isEqualTo(TEST_NAME_IN_QR_DATA)
+        assertThat(qrDataModel.vaccinations[0].country).isEqualTo(TEST_COUNTRY_IN_QR_DATA)
     }
 
     companion object {
-        val TEST_NAME_IN_QR_DATA: String = "Lala Gaga"
+        val TEST_NAME_IN_QR_DATA: String = "Erika Dörte Schmitt Mustermann"
         val TEST_COUNTRY_IN_QR_DATA: String = "DE"
     }
 }

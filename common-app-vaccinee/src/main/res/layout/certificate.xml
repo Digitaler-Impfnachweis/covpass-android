@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/certificate_cardview"
+    style="@style/VaccinationCardView.Elevated"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/grid_one">
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+          android:id="@+id/certificate_cardview_scroll_content"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_three"
+            android:layout_marginTop="@dimen/grid_three"
+            android:layout_marginEnd="@dimen/grid_two"
+            android:layout_marginBottom="@dimen/grid_three">
+
+            <TextView
+              android:id="@+id/certificate_header_textview"
+              style="@style/DefaultText.OnBackground"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:layout_centerInParent="true"
+              android:layout_toStartOf="@id/certificate_favorite_button" />
+
+            <ImageButton
+              android:id="@+id/certificate_favorite_button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_centerInParent="true"
+              android:adjustViewBounds="true"
+              android:background="?attr/selectableItemBackgroundBorderless"
+              android:padding="@dimen/grid_one"
+              tools:ignore="ContentDescription" />
+
+          </RelativeLayout>
+
+          <com.google.android.material.card.MaterialCardView
+            android:id="@+id/certificate_qr_cardview"
+            style="@style/VaccinationCardView.Level"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/grid_three"
+            android:layout_marginBottom="@dimen/grid_three"
+            app:cardBackgroundColor="@color/backgroundSecondary">
+
+            <ImageView
+              android:id="@+id/certificate_qr_imageview"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:adjustViewBounds="true"
+              tools:ignore="ContentDescription" />
+
+          </com.google.android.material.card.MaterialCardView>
+
+          <LinearLayout
+            android:id="@+id/certificate_loading_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/grid_nine"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+              android:id="@+id/certificate_loading_animation"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:scaleType="centerCrop"
+              app:lottie_autoPlay="true"
+              app:lottie_colorFilter="@color/onInfo"
+              app:lottie_loop="true"
+              app:lottie_rawRes="@raw/loading_animation" />
+
+            <TextView
+              android:id="@+id/certificate_loading_text"
+              style="@style/DefaultText.OnInfo"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="@dimen/grid_seven_half"
+              android:layout_marginTop="@dimen/grid_two"
+              android:gravity="center_horizontal"
+              android:text="@string/error_no_connection_to_server_message" />
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:id="@+id/certificate_waiting_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_eight"
+            android:layout_marginBottom="@dimen/grid_eleven"
+            android:layout_marginHorizontal="@dimen/grid_five"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+              android:id="@+id/certificate_waiting_title"
+              style="@style/Header.OnInfo.Small"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal" />
+
+            <TextView
+              android:id="@+id/certificate_waiting_text"
+              style="@style/DefaultText.OnInfo"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:text="@string/vaccination_full_immunization_loading_message_14_days_message" />
+
+          </LinearLayout>
+
+          <TextView
+            android:id="@+id/certificate_name_textview"
+            style="@style/Header.OnInfo.Big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_three" />
+
+          <RelativeLayout
+            android:id="@+id/certificate_vaccination_status_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/grid_three"
+            android:paddingStart="@dimen/grid_three"
+            android:paddingEnd="@dimen/grid_two_half">
+
+            <ImageView
+              android:id="@+id/certificate_vaccination_status_imageview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:layout_centerInParent="true"
+              android:adjustViewBounds="true"
+              tools:ignore="ContentDescription" />
+
+            <TextView
+              android:id="@+id/certificate_protection_textview"
+              style="@style/Header.OnInfo.Small"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/grid_one"
+              android:layout_marginEnd="@dimen/grid_two"
+              android:layout_toEndOf="@id/certificate_vaccination_status_imageview" />
+
+            <ImageView
+              android:id="@+id/certificate_arrow_imageview"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:layout_toEndOf="@+id/certificate_protection_textview"
+              android:adjustViewBounds="true"
+              tools:ignore="ContentDescription" />
+
+          </RelativeLayout>
+
+        </LinearLayout>
+
+      </ScrollView>
+
+      <View
+        android:id="@+id/card_bottom_fadeout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_six"
+        android:layout_gravity="bottom" />
+    </FrameLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>
+

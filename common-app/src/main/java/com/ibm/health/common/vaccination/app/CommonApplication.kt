@@ -25,7 +25,6 @@ public abstract class CommonApplication : Application() {
 
         if (isDebuggable) {
             Lumber.plantDebugTreeIfNeeded()
-            // Make sure not to commit HttpLogLevel.BODY because that can break streaming requests
             httpConfig.enableLogging(HttpLogLevel.HEADERS)
             WebView.setWebContentsDebuggingEnabled(true)
         }

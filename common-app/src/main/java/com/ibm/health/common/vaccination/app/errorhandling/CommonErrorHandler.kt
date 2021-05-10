@@ -19,16 +19,16 @@ public abstract class CommonErrorHandler {
     private fun getCommonDialogModel(error: Throwable): DialogModel =
         if (isConnectionError(error)) {
             DialogModel(
-                titleRes = R.string.error_title_connection,
-                messageRes = R.string.error_message_connection,
-                positiveButtonTextRes = R.string.dialog_button_ok,
+                titleRes = R.string.common_error_no_connection_to_server_title,
+                messageRes = R.string.common_error_no_connection_to_server_message,
+                positiveButtonTextRes = R.string.common_error_no_connection_to_server_positive_button,
                 tag = TAG_ERROR_CONNECTION,
             )
         } else {
             DialogModel(
-                titleRes = R.string.error_title_general,
-                messageRes = R.string.error_message_general,
-                positiveButtonTextRes = R.string.dialog_button_ok,
+                titleRes = R.string.common_error_standard_unexpected_title,
+                messageRes = R.string.common_error_standard_unexpected_message,
+                positiveButtonTextRes = R.string.common_error_standard_unexpected_positive_button,
                 tag = TAG_ERROR_GENERAL,
             )
         }

@@ -19,7 +19,7 @@ class Config {
     Integer targetVersion = null
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
-    Boolean kotlinExplicitApiMode = false
+    Boolean kotlinExplicitApiMode = true
 }
 
 ext.androidApp = { args = [:] ->

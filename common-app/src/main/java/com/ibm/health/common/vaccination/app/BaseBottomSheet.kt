@@ -14,7 +14,7 @@ import com.ibm.health.common.vaccination.app.databinding.BottomSheetViewBinding
 /** Common base bottom sheet. */
 public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
-    public abstract val buttonTextRes: String
+    public abstract val buttonTextRes: Int
     public open val heightLayoutParams: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     protected var bottomSheetBinding: BottomSheetViewBinding by validUntil(::onDestroyView)
 
@@ -35,7 +35,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
         bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
         bottomSheetBinding.bottomSheetClose.setOnClickListener { triggerBackPress() }
-        bottomSheetBinding.bottomSheetActionButton.text = buttonTextRes
+        bottomSheetBinding.bottomSheetActionButton.text = getString(buttonTextRes)
         bottomSheetBinding.bottomSheetActionButton.setOnClickListener {
             onActionButtonClicked()
         }

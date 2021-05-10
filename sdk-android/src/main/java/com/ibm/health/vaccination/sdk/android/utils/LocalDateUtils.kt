@@ -15,3 +15,7 @@ public fun LocalDate.formatDate(): String {
 public fun LocalDate?.formatDateOrEmpty(): String {
     return this?.formatDate() ?: ""
 }
+
+public fun LocalDate?.isOlderThanTwoWeeks(): Boolean {
+    return this?.plusDays(14)?.isBefore(LocalDate.now()) ?: false
+}

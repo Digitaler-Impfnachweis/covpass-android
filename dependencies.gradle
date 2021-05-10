@@ -198,9 +198,6 @@ dependencies.ext.ktor = {
         api 'io.ktor:ktor-client-json-jvm'
         api 'io.ktor:ktor-client-okhttp'
 
-        kotlinxSerialization()
-        api 'io.ktor:ktor-client-serialization'
-
         api 'com.squareup.okhttp3:okhttp'
         api 'com.squareup.okhttp3:logging-interceptor'
 

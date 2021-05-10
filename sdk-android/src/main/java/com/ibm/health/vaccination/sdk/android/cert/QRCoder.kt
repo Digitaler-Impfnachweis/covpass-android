@@ -4,15 +4,15 @@ import COSE.CoseException
 import COSE.OneKey
 import COSE.Sign1Message
 import com.ibm.health.common.base45.Base45
+import com.ibm.health.vaccination.sdk.android.cert.models.CBORWebToken
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.crypto.CertValidator
 import com.ibm.health.vaccination.sdk.android.crypto.isCA
-import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.cert.models.ValidationCertificate
 import com.ibm.health.vaccination.sdk.android.utils.Zlib
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
-import java.time.LocalDate
+import java.time.Instant
 
 /**
  * Used to encode/decode QR code string.
@@ -21,23 +21,31 @@ public class QRCoder(private val validator: CertValidator) {
 
     private val cbor: Cbor = Cbor { ignoreUnknownKeys = true }
 
-    internal fun decodeRawCose(qr: String): ByteArray =
-        Zlib.decompress(Base45.decode(qr.toByteArray()))
+    /** Returns the raw COSE ByteArray contained within the certificate. */
+    internal fun decodeRawCose(qr: String): ByteArray {
+        var qrContent: String = qr
+        if (qrContent.startsWith("HC1:")) {
+            qrContent = qrContent.removePrefix("HC1:")
+        }
+        return Zlib.decompress(Base45.decode(qrContent.toByteArray()))
+    }
+
+    /** Encodes the raw COSE ByteArray into qr code data. */
+    internal fun encodeRawCose(cose: ByteArray): String =
+        String(Base45.encode(Zlib.compress(cose)))
 
     internal fun decodeCose(qr: String): Sign1Message =
         Sign1Message.DecodeFromBytes(decodeRawCose(qr)) as? Sign1Message
             ?: throw CoseException("Not a cose-sign1 message")
 
-    private inline fun <reified T> decode(qr: String): T {
-        val cose = decodeCose(qr)
-        validate(cose)
-        return cbor.decodeFromByteArray(cose.GetContent())
-    }
+    private fun decodeCWT(qr: String): CBORWebToken =
+        validate(decodeCose(qr))
 
-    private fun validate(cose: Sign1Message) {
-        val validationCert = cbor.decodeFromByteArray<ValidationCertificate>(cose.GetContent())
+    private fun validate(cose: Sign1Message): CBORWebToken {
+        val cwt = CBORWebToken.decode(cose.GetContent())
+
         // TODO/FIXME: Nullability should not be possible, but currently the certs don't have an expiry attribute
-        if (validationCert.validUntil?.isAfter(LocalDate.now()) == true) {
+        if (cwt.validUntil.isBefore(Instant.now())) {
             throw HCertExpiredException()
         }
 
@@ -48,7 +56,7 @@ public class QRCoder(private val validator: CertValidator) {
                 // Validate the COSE signature
                 if (cose.validate(OneKey(cert.publicKey, null))) {
                     // TODO: Clarify if we additionally want to validate the cert chain
-                    return
+                    return cwt
                 }
             } catch (e: CoseException) {
                 continue
@@ -67,19 +75,17 @@ public class QRCoder(private val validator: CertValidator) {
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
-    public fun decodeVaccinationCert(qrContent: String): VaccinationCertificate =
-        decode(qrContent)
+    public fun decodeVaccinationCert(qrContent: String): VaccinationCertificate {
+        val cwt = decodeCWT(qrContent)
+        val cert: VaccinationCertificate =
+            cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
+        return cert.copy(issuer = cwt.issuer, validFrom = cwt.validFrom, validUntil = cwt.validUntil)
+    }
 
-    /**
-     * Converts a [qrContent] to a [ValidationCertificate] data model.
-     *
-     * @throws HCertExpiredException If the certificate has expired.
-     * @throws HCertBadSignatureException If the signature validation failed.
-     * @throws CoseException For generic COSE errors.
-     * @throws GeneralSecurityException For generic cryptography errors.
-     */
-    public fun decodeValidationCert(qrContent: String): ValidationCertificate =
-        decode(qrContent)
+    private companion object {
+        private const val HEALTH_CERTIFICATE_CLAIM = -260
+        private const val DIGITAL_GREEN_CERTIFICATE = 1
+    }
 }
 
 /** Thrown when the HCert expiry validation failed. */

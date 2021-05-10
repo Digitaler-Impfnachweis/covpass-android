@@ -21,7 +21,5 @@ public abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
         commonDeps.errorHandler.handleError(error, childFragmentManager)
     }
 
-    override fun setLoading(isLoading: Boolean) {
-        // TODO: Implement this
-    }
+    override fun setLoading(isLoading: Boolean) {}
 }

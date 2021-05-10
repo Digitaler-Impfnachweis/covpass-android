@@ -22,7 +22,7 @@ public class OpenSourceLicenseFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        binding.openSourceLicenseWebView.loadUrl("file:///android_asset/open_source_licenses.html")
+        binding.openSourceLicenseWebView.loadUrl(getString(R.string.open_source_licenses_path))
     }
 
     private fun setupActionBar() {
@@ -33,7 +33,7 @@ public class OpenSourceLicenseFragment : BaseFragment() {
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
             }
-            binding.openSourceLicenseToolbar.title = getString(R.string.open_source_license_header)
+            binding.openSourceLicenseToolbar.title = getString(R.string.common_open_source_license_header)
         }
     }
 }

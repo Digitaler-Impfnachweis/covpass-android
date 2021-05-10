@@ -88,18 +88,10 @@
     <item name="colorSurface">@color/backgroundSecondary</item>
     <item name="elevation">0dp</item>
     <item name="android:textAllCaps">false</item>
-    <item name="materialAlertDialogTitleTextStyle">@style/DialogTitleTextStyle</item>
     <item name="materialAlertDialogBodyTextStyle">@style/DialogBodyTextStyle</item>
     <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle.Bold</item>
     <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
     <item name="shapeAppearanceOverlay">@style/DialogShapeAppearance</item>
-  </style>
-
-  <style name="DialogTitleTextStyle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
-    <item name="android:textColor">@color/onBackground</item>
-    <item name="android:textSize">@dimen/textsize_header_standard</item>
-    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
-    <item name="android:lineSpacingMultiplier">1.2</item>
   </style>
 
   <style name="DialogBodyTextStyle" parent="MaterialAlertDialog.MaterialComponents.Body.Text">

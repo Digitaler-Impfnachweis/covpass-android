@@ -2,23 +2,28 @@ buildscript {
     ext.kotlin_version = '1.4.32'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath 'com.android.tools.build:gradle:4.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2'
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
         classpath 'pl.allegro.tech.build:axion-release-plugin:1.12.1'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:1.6.0'
     }
 }
 
-apply plugin: 'com.github.ben-manes.versions'
+plugins {
+    id "com.github.ben-manes.versions" version "0.38.0"
+}
+
 apply plugin: 'pl.allegro.tech.build.axion-release'
+
+ext.JRubyExec = { -> com.github.jrubygradle.JRubyExec }
 
 apply from: "$rootDir/gradle/common/repos.gradle"
 setupRepos()
@@ -41,7 +46,7 @@ subprojects {
     if (!isPlatformProject) {
         if (!isLibraryProject) {
             apply from: "$rootDir/gradle/common/android-app.gradle"
-            androidApp(minVersion: 23, obfuscation: Obfuscation.Full)
+            androidApp(minVersion: 23, obfuscation: Obfuscation.Full, disableAndroidLints: ["UnusedResources"])
             apply plugin: 'com.jaredsburrows.license'
 
             licenseReport {
@@ -57,6 +62,7 @@ subprojects {
             kotlinLibrary()
         }
 
+        apply from: "$rootDir/twine.gradle"
         apply from: "$rootDir/gradle/common/ktlint.gradle"
         apply from: "$rootDir/gradle/common/detekt.gradle"
 
@@ -65,7 +71,7 @@ subprojects {
                 if (!isLibraryProject) {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")
                     defaultConfig {
-                        applicationId "${group}.app.${codeName}"
+                        applicationId "${group}.app.${codeName.replace("demo", "")}"
                         archivesBaseName = "$codeName-$version"
                     }
                 }

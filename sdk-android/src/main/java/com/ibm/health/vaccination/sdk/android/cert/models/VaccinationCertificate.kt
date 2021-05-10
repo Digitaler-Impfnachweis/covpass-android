@@ -1,10 +1,13 @@
-@file:UseSerializers(LocalDateSerializer::class, SexSerializer::class)
+@file:UseSerializers(LocalDateSerializer::class, InstantSerializer::class)
 
 package com.ibm.health.vaccination.sdk.android.cert.models
 
+import com.ibm.health.vaccination.sdk.android.utils.serialization.InstantSerializer
 import com.ibm.health.vaccination.sdk.android.utils.serialization.LocalDateSerializer
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
+import java.time.Instant
 import java.time.LocalDate
 
 /**
@@ -12,24 +15,43 @@ import java.time.LocalDate
  */
 @Serializable
 public data class VaccinationCertificate(
-    val name: String = "",
-    val birthDate: LocalDate? = null,
-    val identifier: String = "",
-    val sex: Sex? = null,
-    val vaccination: List<ExtendedVaccination> = emptyList(),
+
+    // Information inside the CWT
     val issuer: String = "",
-    val id: String = "",
-    val validFrom: LocalDate? = null,
-    val validUntil: LocalDate? = null,
+    val validFrom: Instant? = null,
+    val validUntil: Instant? = null,
+
+    @SerialName("nam")
+    val name: Name = Name(),
+    @SerialName("dob")
+    val birthDate: LocalDate? = null,
+    @SerialName("v")
+    val vaccinations: List<Vaccination> = emptyList(),
+    @SerialName("ver")
     val version: String = "",
 ) {
+    public val vaccination: Vaccination
+        get() = vaccinations.first()
 
     public val isComplete: Boolean
-        get() = vaccination.any { it.isComplete }
+        get() = vaccinations.any { it.isComplete }
 
-    public val currentSeries: String
-        get() = vaccination.first().currentSeries
+    public val hasFullProtection: Boolean
+        get() = vaccinations.any { it.hasFullProtection }
 
-    public val completeSeries: String
-        get() = vaccination.first().completeSeries
+    public val currentSeries: Int
+        get() = vaccination.doseNumber
+
+    public val completeSeries: Int
+        get() = vaccination.totalSerialDoses
+
+    public val fullName: String by lazy {
+        listOfNotNull(
+            name.givenName ?: name.givenNameTransliterated,
+            name.familyName ?: name.familyNameTransliterated
+        ).joinToString(" ")
+    }
+
+    public val validDate: LocalDate?
+        get() = vaccination.occurrence?.plusDays(15)
 }

@@ -15,6 +15,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
     public abstract val textRes: Int
     public abstract val imageRes: Int
     public abstract val buttonTextRes: Int
+    public abstract val dataProtectionLinkRes: Int
 
     private val binding by viewBinding(OnboardingConsentBinding::inflate)
 
@@ -25,19 +26,18 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingInfoTextview.setText(textRes)
         binding.onboardingImageview.setImageResource(imageRes)
-        binding.termsCheckbox.setText(R.string.onboarding_consent_terms_condition)
-        binding.dataProtectionCheckbox.setText(R.string.onboarding_consent_data_protection)
+        binding.dataProtectionCheckbox.setLinkedText(
+            R.string.common_fourth_on_boarding_page_second_selection,
+            dataProtectionLinkRes
+        )
         updateFormValidity()
 
-        binding.termsCheckbox.addOnCheckListener { _: CompoundButton, _: Boolean ->
-            updateFormValidity()
-        }
         binding.dataProtectionCheckbox.addOnCheckListener { _: CompoundButton, _: Boolean ->
             updateFormValidity()
         }
     }
 
     private fun updateFormValidity() {
-        isFormValid.value = binding.termsCheckbox.isChecked() && binding.dataProtectionCheckbox.isChecked()
+        isFormValid.value = binding.dataProtectionCheckbox.isChecked()
     }
 }

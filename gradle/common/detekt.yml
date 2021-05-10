@@ -26,6 +26,9 @@ formatting:
     active: false
 
 naming:
+  # ktlint already checks this
+  MatchingDeclarationName:
+    active: false
   MemberNameEqualsClassName:
     active: false
   # Way too often we want to name functions like classes. Don't require lowercase initial character, anymore.

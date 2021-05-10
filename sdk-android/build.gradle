@@ -2,6 +2,7 @@ apply plugin: 'kotlinx-serialization'
 
 dependencies {
     api project(":base45")
+    api project(":http")
     api project(":logging")
     kotlinxSerialization()
     coseJava()

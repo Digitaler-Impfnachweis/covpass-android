@@ -3,6 +3,7 @@ package com.ibm.health.common.vaccination.app.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -11,6 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ibm.health.common.navigation.android.FragmentDestination
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.withArgs
+import com.ibm.health.common.vaccination.app.databinding.DialogTitleBinding
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -32,6 +34,12 @@ public class InfoDialogFragment : DialogFragment() {
 
     @SuppressWarnings("ComplexMethod")
     private fun createDialog(dialogModel: DialogModel): AlertDialog? = activity?.let {
+        // Setting maxLines in DialogTitleTextStyle is somehow also working but has some very strange glitches,
+        // so doing a workaround for maxlines with custom title here is safer.
+        val titleBinding = DialogTitleBinding.inflate(LayoutInflater.from(context))
+        titleBinding.titleTextview.text = dialogModel.titleRes?.let { titleResId ->
+            getString(titleResId, dialogModel.titleParameter)
+        }
         MaterialAlertDialogBuilder(activity as FragmentActivity, dialogModel.styleRes)
             .setIcon(
                 dialogModel.iconRes.takeIf { it > 0 }
@@ -43,7 +51,7 @@ public class InfoDialogFragment : DialogFragment() {
                         }
                     }
             )
-            .setTitle(dialogModel.titleRes?.let { titleResId -> getString(titleResId, dialogModel.titleParameter) })
+            .setCustomTitle(titleBinding.titleTextview)
             .setMessage(getString(dialogModel.messageRes, dialogModel.messageParameter))
             .setPositiveButton(
                 dialogModel.positiveButtonTextRes?.let { positiveButtonTextResId ->

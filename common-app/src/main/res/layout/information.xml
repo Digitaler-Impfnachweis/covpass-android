@@ -35,40 +35,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/grid_three"
-        android:text="@string/information_information_subtitle" />
+        android:text="@string/common_information_content" />
 
       <TextView
         android:id="@+id/information_field_faq"
-        style="@style/NavigationField"
-        android:text="@string/information_faq_link" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_terms_and_conditions"
-        style="@style/NavigationField"
-        android:text="@string/information_terms_and_conditions_link" />
+        style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_data_security_policy"
-        style="@style/NavigationField"
-        android:text="@string/information_data_security_policy_link" />
+        style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_imprint"
-        style="@style/NavigationField"
-        android:text="@string/information_imprint_link" />
+        style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_open_source_licenses"
-        style="@style/NavigationField"
-        android:text="@string/information_open_source_licenses_link" />
+        style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
@@ -79,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:paddingTop="@dimen/grid_one_half" />
+        android:padding="@dimen/grid_one_half" />
 
     </LinearLayout>
 

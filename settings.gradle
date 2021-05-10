@@ -3,6 +3,7 @@ rootProject.name = 'android-vaccination-app'
 // SDK modules
 include ':dependency-versions-bom'
 include ':sdk-android'
+include ':sdk-android-demo'
 
 // SDK utils
 include ':annotations'
@@ -11,8 +12,12 @@ include ':http'
 include ':logging'
 
 // Apps
-include ':app-cert-checker'
-include ':app-vaccinee'
+include ':app-cert-checker-demo'
+include ':app-cert-checker-prod'
+include ':app-vaccinee-demo'
+include ':app-vaccinee-prod'
+include ':common-app-vaccinee'
+include ':common-app-cert-checker'
 include ':common-app'
 
 // App-only utils (not used by SDK)

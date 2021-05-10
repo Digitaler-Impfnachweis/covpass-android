@@ -24,7 +24,5 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
         commonDeps.errorHandler.handleError(error, supportFragmentManager)
     }
 
-    override fun setLoading(isLoading: Boolean) {
-        // TODO: Implement this
-    }
+    override fun setLoading(isLoading: Boolean) {}
 }

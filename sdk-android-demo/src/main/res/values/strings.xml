@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="cert_service_host">api.recertify.demo.ubirch.com</string>
+</resources>

@@ -126,8 +126,8 @@ pipeline {
                 }
                 stage('Assemble') {
                     steps {
-                        gradle('app-vaccinee:licenseReleaseReport')
-                        gradle('app-cert-checker:licenseReleaseReport')
+                        // Running licenseReleaseReport in parallel causes bugs, so we run serially.
+                        sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
                         gradleAssemble('assemble')
                     }
                 }
