@@ -15,7 +15,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.vaccination.app.BaseFragment
-import com.ibm.health.common.vaccination.app.utils.formatDateOrEmpty
+import com.ibm.health.vaccination.sdk.android.utils.formatDateOrEmpty
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.databinding.CertificateBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps

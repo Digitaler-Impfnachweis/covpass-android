@@ -11,7 +11,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.dependencies.commonDeps
 import com.ibm.health.common.vaccination.app.storage.DscRepository
-import com.ibm.health.common.vaccination.app.utils.formatDateTime
+import com.ibm.health.vaccination.sdk.android.utils.formatDateTime
 import com.ibm.health.vaccination.app.certchecker.R
 import com.ibm.health.vaccination.app.certchecker.databinding.CheckerMainBinding
 import com.ibm.health.vaccination.app.certchecker.information.ValidationInformationFragmentNav

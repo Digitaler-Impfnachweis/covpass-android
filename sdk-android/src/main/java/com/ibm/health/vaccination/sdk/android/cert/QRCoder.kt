@@ -44,7 +44,6 @@ public class QRCoder(private val validator: CertValidator) {
     private fun validate(cose: Sign1Message): CBORWebToken {
         val cwt = CBORWebToken.decode(cose.GetContent())
 
-        // TODO/FIXME: Nullability should not be possible, but currently the certs don't have an expiry attribute
         if (cwt.validUntil.isBefore(Instant.now())) {
             throw HCertExpiredException()
         }
@@ -55,7 +54,6 @@ public class QRCoder(private val validator: CertValidator) {
             try {
                 // Validate the COSE signature
                 if (cose.validate(OneKey(cert.publicKey, null))) {
-                    // TODO: Clarify if we additionally want to validate the cert chain
                     return cwt
                 }
             } catch (e: CoseException) {

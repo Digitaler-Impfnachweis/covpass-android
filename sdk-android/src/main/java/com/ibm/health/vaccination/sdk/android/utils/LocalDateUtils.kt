@@ -1,14 +1,14 @@
-package com.ibm.health.common.vaccination.app.utils
+package com.ibm.health.vaccination.sdk.android.utils
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 /**
  * Formats a local date to e.g. "12.03.1989".
  */
-// TODO support locale-dependent patterns automatically
 public fun LocalDate.formatDate(): String {
-    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
     return format(formatter)
 }
 

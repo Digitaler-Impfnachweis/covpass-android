@@ -12,7 +12,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.BaseBottomSheet
-import com.ibm.health.common.vaccination.app.utils.formatDateOrEmpty
+import com.ibm.health.vaccination.sdk.android.utils.formatDateOrEmpty
 import com.ibm.health.vaccination.app.certchecker.R
 import com.ibm.health.vaccination.app.certchecker.databinding.ValidationResultBinding
 import kotlinx.parcelize.Parcelize

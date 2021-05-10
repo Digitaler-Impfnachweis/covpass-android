@@ -2,7 +2,7 @@
 
 package com.ibm.health.vaccination.sdk.android.cert.models
 
-import com.ibm.health.common.vaccination.app.utils.isOlderThanTwoWeeks
+import com.ibm.health.vaccination.sdk.android.utils.isOlderThanTwoWeeks
 import com.ibm.health.vaccination.sdk.android.utils.serialization.LocalDateSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

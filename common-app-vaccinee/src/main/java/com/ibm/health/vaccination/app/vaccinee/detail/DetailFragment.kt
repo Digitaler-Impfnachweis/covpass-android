@@ -22,14 +22,14 @@ import com.ibm.health.common.vaccination.app.dialog.DialogAction
 import com.ibm.health.common.vaccination.app.dialog.DialogListener
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
-import com.ibm.health.common.vaccination.app.utils.formatDate
-import com.ibm.health.common.vaccination.app.utils.formatDateOrEmpty
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.add.AddVaccinationCertificateFragmentNav
 import com.ibm.health.vaccination.app.vaccinee.databinding.DetailBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.utils.formatDate
+import com.ibm.health.vaccination.sdk.android.utils.formatDateOrEmpty
 import kotlinx.parcelize.Parcelize
 
 internal interface DetailCallback {
