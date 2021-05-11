@@ -79,6 +79,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
                 binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(it), isResumed)
             }
         }
+        binding.mainTabLayout.isVisible = certificateList.certificates.size > 1
     }
 
     override fun onDeletionCompleted() {

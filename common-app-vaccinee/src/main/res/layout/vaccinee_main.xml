@@ -34,7 +34,7 @@
       android:adjustViewBounds="true"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:padding="@dimen/grid_one"
-      android:src="@drawable/ic_help_hui"
+      android:src="@drawable/questionmark_black"
       android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
       tools:ignore="ContentDescription" />
 
