@@ -8,7 +8,6 @@ if [[ ! -z "${SUPPLY_JSON_KEY:-}" ]]; then
   ARGS+=(-v "$SUPPLY_JSON_KEY:/tmp/api.json:ro" -e SUPPLY_JSON_KEY=/tmp/api.json)
 fi
 if [[ ! -z "${RELEASE_KEYSTORE:-}" ]]; then
-  ls -la "$RELEASE_KEYSTORE"
   ARGS+=(-v "$RELEASE_KEYSTORE:/tmp/release.keystore:ro" -e RELEASE_KEYSTORE=/tmp/release.keystore -e RELEASE_KEYSTORE_PASSWORD=$RELEASE_KEYSTORE_PASSWORD -e RELEASE_KEYSTORE_KEY=key -e "RELEASE_KEYSTORE_KEY_PASSWORD=$RELEASE_KEYSTORE_PASSWORD")
 fi
 
