@@ -34,7 +34,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
         }
 
         bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
-        bottomSheetBinding.bottomSheetClose.setOnClickListener { triggerBackPress() }
+        bottomSheetBinding.bottomSheetClose.setOnClickListener { onCloseButtonClicked() }
         bottomSheetBinding.bottomSheetActionButton.text = getString(buttonTextRes)
         bottomSheetBinding.bottomSheetActionButton.setOnClickListener {
             onActionButtonClicked()
@@ -59,6 +59,10 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
         }
 
         return bottomSheetBinding.root
+    }
+
+    public open fun onCloseButtonClicked() {
+        triggerBackPress()
     }
 
     protected abstract fun onActionButtonClicked()

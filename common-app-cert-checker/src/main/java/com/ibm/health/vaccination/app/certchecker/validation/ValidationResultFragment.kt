@@ -15,6 +15,7 @@ import com.ibm.health.common.vaccination.app.BaseBottomSheet
 import com.ibm.health.vaccination.sdk.android.utils.formatDateOrEmpty
 import com.ibm.health.vaccination.app.certchecker.R
 import com.ibm.health.vaccination.app.certchecker.databinding.ValidationResultBinding
+import com.ibm.health.vaccination.app.certchecker.main.MainFragment
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
@@ -67,6 +68,10 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
     override fun onActionButtonClicked() {
         triggerBackPress()
+    }
+
+    override fun onCloseButtonClicked() {
+        findNavigator().popUntil<MainFragment>()
     }
 }
 
