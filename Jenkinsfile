@@ -59,8 +59,8 @@ pipeline {
             steps {
                 script {
                     sh('''
-                        VERSION=$(($(git rev-list --count HEAD) + 80))
-                        echo "versionCode=$VERSION" > generated.properties
+                    VERSION=$(($(git rev-list --count HEAD) + 80))
+                    echo "versionCode=$VERSION" > generated.properties
                     ''')
                 }
             }
@@ -179,7 +179,7 @@ pipeline {
             when {
                 anyOf {
                     branch 'master'
-                    branch 'PR-*'
+                    branch 'release/*'
                 }
             }
             steps {
@@ -253,7 +253,7 @@ pipeline {
         stage('Play Store') {
             when {
                 anyOf {
-                    branch 'master'
+                    branch 'release/play-store'
                 }
             }
             steps {

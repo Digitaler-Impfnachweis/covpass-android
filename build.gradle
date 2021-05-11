@@ -46,7 +46,7 @@ subprojects {
     if (!isPlatformProject) {
         if (!isLibraryProject) {
             apply from: "$rootDir/gradle/common/android-app.gradle"
-            androidApp(minVersion: 23, obfuscation: Obfuscation.Full, disableAndroidLints: ["UnusedResources"])
+            androidApp(minVersion: 23, obfuscation: Obfuscation.None, disableAndroidLints: ["UnusedResources"])
             apply plugin: 'com.jaredsburrows.license'
 
             licenseReport {
