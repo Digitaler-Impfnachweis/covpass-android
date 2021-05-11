@@ -289,8 +289,8 @@ pipeline {
             }
             steps {
                 script {
-                    // Archive mappings
-                    sh 'zip -r mappings.zip */build/outputs/mapping/'
+                    // Archive mappings or an empty zip file if none can be found
+                    sh 'zip -r mappings.zip */build/outputs/mapping/ || { echo UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA== | base64 -d > mappings.zip }'
                     archiveArtifacts 'mappings.zip'
                 }
             }
