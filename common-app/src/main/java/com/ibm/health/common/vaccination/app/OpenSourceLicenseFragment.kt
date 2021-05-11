@@ -33,7 +33,7 @@ public class OpenSourceLicenseFragment : BaseFragment() {
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
             }
-            binding.openSourceLicenseToolbar.title = getString(R.string.common_open_source_license_header)
+            binding.openSourceLicenseToolbar.title = getString(R.string.app_information_title_open_source)
         }
     }
 }

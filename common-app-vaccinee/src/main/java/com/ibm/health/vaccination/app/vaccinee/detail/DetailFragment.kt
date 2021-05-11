@@ -90,8 +90,8 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             } else {
                 getString(
                     R.string.vaccination_certificate_detail_view_incomplete_title,
-                    cert.currentSeries.toString(),
-                    cert.completeSeries.toString()
+                    cert.currentSeries,
+                    cert.completeSeries
                 )
             }
             binding.detailStatusHeaderTextview.text = statusHeaderText
@@ -178,8 +178,8 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
         val headerText = getString(
             R.string.vaccination_certificate_detail_view_vaccination_title,
-            cert.currentSeries.toString(),
-            cert.completeSeries.toString()
+            cert.currentSeries,
+            cert.completeSeries
         )
         vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
 

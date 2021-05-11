@@ -1,3 +1,6 @@
 dependencies {
     api project(":common-app")
 }
+
+apply from: "$rootDir/gradle/common/twine.gradle"
+twineStrings("${project.rootDir}/text-vaccination/twine-validator.txt")

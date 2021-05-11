@@ -7,19 +7,20 @@
 	<string name="validator_app_name">CovPass Check</string>
 
 	<!-- SECTION: onboarding -->
-	<string name="start_onboarding_title">Willkommen in der CovPass Check App</string>
+	<string name="start_onboarding_title">Willkommen in der CovPassCheck-App</string>
 	<string name="start_onboarding_message">Finden Sie in wenigen Sekunden heraus, ob eine Person vollständig gegen Corona geimpft ist.</string>
 	<string name="start_onboarding_secure_title">Sicher und datensparsam</string>
 	<string name="start_onboarding_secure_message">Die Daten werden nur über den QR-Code eingelesen und nicht gespeichert. Sie sehen nur die nötigsten Informationen.</string>
 	<string name="start_onboarding_button_title">Los geht\'s</string>
 	<string name="next_onboarding_page_button_title">Weiter</string>
-	<string name="validation_first_onboarding_page_title">Erster Schritt: Das Prüfzertifikat mit der CovPass Check App scannen</string>
-	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPass Check App das Prüfzertifikat. Halten Sie dafür das Smartphone über den QR-Code. Die Daten werden nur zur Prüfung angezeigt und nicht im Smartphone gespeichert. Sie sehen direkt in der CovPass Check App, ob der Impfschutz der geimpften Person gültig ist. Hierfür ist nicht zwingend eine Internetverbindung nötig.</string>
+	<string name="validation_first_onboarding_page_title">Erster Schritt: Das Prüfzertifikat mit der CovPassCheck-App scannen</string>
+	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App das Prüfzertifikat. Halten Sie dafür das Smartphone über den QR-Code. Die Daten werden nur zur Prüfung angezeigt und nicht im Smartphone gespeichert. Sie sehen direkt in der CovPassCheck-App, ob der Impfschutz der geimpften Person gültig ist. Hierfür ist nicht zwingend eine Internetverbindung nötig.</string>
 	<string name="validation_second_onboarding_page_title">Zweiter Schritt: Die Identität mit einem Ausweisdokument überprüfen</string>
-	<string name="validation_second_onboarding_page_message">Als prüfende Person sehen Sie in der Prüf-App nur den Impfstatus sowie den Namen und das Geburtsdatum der geimpften Person. Gleichen Sie die Informationen mit einem Ausweisdokument ab.</string>
-	<string name="validation_fourth_onboarding_page_title">Zustimmung für die Nutzung der CovPass Check App</string>
-	<string name="validation_fourth_onboarding_page_message">Um die CovPass Check App zu nutzen, müssen Sie bestätigen, dass Sie die Datenschutzerklärung zur Kenntnis genommen haben.</string>
-	<string name="validation_fourth_onboarding_page_second_selection">Ich habe die Datenschutzerklärung zur Kenntnis genommen.</string>
+	<string name="validation_second_onboarding_page_message">Als prüfende Person sehen Sie in der CovPassCheck-App nur den Impfstatus sowie den Namen und das Geburtsdatum der geimpften Person. Gleichen Sie die Informationen mit einem Ausweisdokument ab.</string>
+	<string name="validation_fourth_onboarding_page_title">Zustimmung für die Nutzung der CovPassCheck-App</string>
+	<string name="validation_fourth_onboarding_page_message">Um die CovPassCheck-App zu nutzen, müssen Sie bestätigen, dass Sie die Datenschutzerklärung zur Kenntnis genommen haben.</string>
+	<string name="fourth_onboarding_page_second_selection">Ich habe die Datenschutzerklärung zur Kenntnis genommen.</string>
+	<string name="fourth_onboarding_page_second_selection_linked">Ich habe die #Datenschutzerklärung::$0# zur Kenntnis genommen.</string>
 	<string name="confirmation_fourth_onboarding_page_button_title">Fertig</string>
 	<string name="error_connect_internet_for_scan_title">Flugzeugmodus ausschalten oder Wi-Fi für den Datenzugriff verwenden</string>
 	<string name="error_connect_internet_for_scan_button_settings">Einstellungen</string>
@@ -31,17 +32,17 @@
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das Prüfzertifikat. Sie sehen sofort, ob die Person vollständig gegen Corona geimpft ist.</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
-	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPass Check App auf dem aktuellsten Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
+	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellsten Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Auf dem aktuellsten Stand</string>
 	<string name="validation_start_screen_offline_modus_note_old_version">App-Version veraltet</string>
 	<string name="validation_start_screen_offline_modus_note_update">Letztes Update</string>
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
 	<string name="error_old_version_title">App-Version veraltet</string>
-	<string name="error_old_version_message">Um offline prüfen zu können, halten Sie die CovPass Check App auf dem aktuellsten Stand. Stellen Sie dafür eine Verbindung mit dem Internet her.</string>
+	<string name="error_old_version_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellsten Stand. Stellen Sie dafür eine Verbindung mit dem Internet her.</string>
 	<string name="error_old_version_button_title">OK</string>
 
 	<!-- SECTION: popup: Check vaccination -->
-	<string name="error_camera_access_title">Die CovPass Check App möchte auf Ihre Kamera zugreifen.</string>
+	<string name="error_camera_access_title">Die CovPassCheck-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
 	<string name="error_camera_access_button_allow">Erlauben</string>
@@ -62,10 +63,30 @@
 	<string name="validation_check_popup_unsuccessful_test_message">Das kann folgende Gründe haben:</string>
 	<string name="validation_check_popup_unsuccessful_test_first_reason_title">Prüfzertifikat nicht gefunden:</string>
 	<string name="validation_check_popup_unsuccessful_test_second_reason_title">Prüfzertifikat abgelaufen:</string>
-	<string name="validation_check_popup_unsuccessful_test_first_reason_body">Es sind keine Daten auf dem Prüfzertifikat der geimpften Person gespeichert. Sollten Sie sich im Offline-Modus befinden, aktualisieren Sie die CovPass Check App.</string>
-	<string name="validation_check_popup_unsuccessful_test_second_reason_body">Das Prüfzertifikat ist nicht mehr gültig. Der aktuelle Status kann in der CovPass Check App eingesehen werden.</string>
+	<string name="validation_check_popup_unsuccessful_test_first_reason_body">Es sind keine Daten auf dem Prüfzertifikat der geimpften Person gespeichert. Sollten Sie sich im Offline-Modus befinden, aktualisieren Sie die CovPassCheck-App.</string>
+	<string name="validation_check_popup_unsuccessful_test_second_reason_body">Das Prüfzertifikat ist nicht mehr gültig. Der aktuelle Status kann in der CovPassCheck-App eingesehen werden.</string>
 	<string name="validation_check_popup_unsuccessful_test_button_title">Nächstes Zertifikat scannen</string>
 	<string name="validation_check_popup_vaccination_not_completely_title">Impfstatus nicht gültig</string>
 	<string name="validation_check_popup_vaccination_not_completely_message">Das geprüfte Zertifikat weist keine vollständige Impfung nach.</string>
 	<string name="validation_check_popup_vaccination_not_completely_button_title">Nächstes Zertifikat scannen</string>
+
+	<!-- SECTION: app information -->
+	<string name="app_information_title">Informationen</string>
+	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPassCheck-App.</string>
+	<string name="app_information_title_faq">Häufige Fragen</string>
+	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
+	<string name="app_information_title_datenschutz">Datenschutz</string>
+	<string name="app_information_title_datenschutz_linked">#Datenschutz::$0#</string>
+	<string name="app_information_title_company_details">Impressum</string>
+	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
+	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
+	<string name="app_information_version_label">Version %s</string>
+
+	<!-- SECTION: error handling -->
+	<string name="error_standard_unexpected_title">Entschuldigung</string>
+	<string name="error_standard_unexpected_message">Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es später erneut.</string>
+	<string name="error_standard_unexpected_button_title">OK</string>
+	<string name="error_no_connection_to_server_title">Verbindungsfehler</string>
+	<string name="error_no_connection_to_server_message">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
+	<string name="error_no_connection_to_server_button_title">OK</string>
 </resources>

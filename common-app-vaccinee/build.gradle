@@ -2,3 +2,6 @@ dependencies {
     api project(":common-app")
     testImplementation project(':android-utils-test')
 }
+
+apply from: "$rootDir/gradle/common/twine.gradle"
+twineStrings("${project.rootDir}/text-vaccination/twine-cert.txt")

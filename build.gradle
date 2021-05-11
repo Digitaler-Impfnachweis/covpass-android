@@ -62,7 +62,6 @@ subprojects {
             kotlinLibrary()
         }
 
-        apply from: "$rootDir/twine.gradle"
         apply from: "$rootDir/gradle/common/ktlint.gradle"
         apply from: "$rootDir/gradle/common/detekt.gradle"
 

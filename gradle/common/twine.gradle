@@ -1,0 +1,32 @@
+ext.twineStrings = { inputFile ->
+    apply plugin: 'com.github.jruby-gradle.base'
+
+    configurations.create("twine")
+
+    def outputFile = "${project.projectDir}/src/main/res/values/generated_strings.xml"
+
+    task generateStrings(type: JRubyExec()) {
+        inputs.file(inputFile)
+        outputs.file(outputFile)
+        dependsOn jrubyPrepare
+        jrubyArgs '-S'
+        script 'twine'
+        scriptArgs 'generate-localization-file',
+            inputFile,
+            outputFile,
+            '--format', 'android',
+            '--lang', 'de'
+        configuration 'twine'
+    }
+    generateStrings.doLast {
+        ant.replace(
+            file: outputFile,
+            token: '<resources>',
+            value: '<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">'
+        )
+    }
+
+    dependencies {
+        twine 'rubygems:twine:1.0.4'
+    }
+}

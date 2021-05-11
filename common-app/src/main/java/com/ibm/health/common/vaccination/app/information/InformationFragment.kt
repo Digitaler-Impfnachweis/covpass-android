@@ -1,5 +1,6 @@
 package com.ibm.health.common.vaccination.app.information
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -23,13 +24,14 @@ public abstract class InformationFragment : BaseFragment() {
 
     private val binding by viewBinding(InformationBinding::inflate)
 
+    @SuppressLint("StringFormatInvalid")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        binding.informationAppVersionLabel.text = getString(R.string.common_information_app_version_label, appVersion)
+        binding.informationAppVersionLabel.text = getString(R.string.app_information_version_label, appVersion)
         binding.informationFieldFaq.apply {
             text = getSpanned(
-                getString(R.string.common_information_row_faq),
+                getString(R.string.app_information_title_faq_linked),
                 getString(getFAQLinkRes())
             )
             movementMethod = LinkMovementMethod.getInstance()
@@ -37,7 +39,7 @@ public abstract class InformationFragment : BaseFragment() {
         }
         binding.informationFieldDataSecurityPolicy.apply {
             text = getSpanned(
-                getString(R.string.common_information_row_data_security_policy),
+                getString(R.string.app_information_title_datenschutz_linked),
                 getString(getDataSecurityPolicyLinkRes())
             )
             movementMethod = LinkMovementMethod.getInstance()
@@ -45,7 +47,7 @@ public abstract class InformationFragment : BaseFragment() {
         }
         binding.informationFieldImprint.apply {
             text = getSpanned(
-                getString(R.string.common_information_row_imprint),
+                getString(R.string.app_information_title_company_details_linked),
                 getString(getImprintLinkRes())
             )
             movementMethod = LinkMovementMethod.getInstance()
@@ -53,7 +55,7 @@ public abstract class InformationFragment : BaseFragment() {
         }
 
         binding.informationFieldOpenSourceLicenses.apply {
-            text = getString(R.string.common_information_row_open_source_licenses)
+            text = getString(R.string.app_information_title_open_source)
             setOnClickListener {
                 findNavigator().push(OpenSourceLicenseFragmentNav())
             }
@@ -68,7 +70,7 @@ public abstract class InformationFragment : BaseFragment() {
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
             }
-            binding.informationToolbar.title = getString(R.string.common_information_header)
+            binding.informationToolbar.setTitle(R.string.app_information_title)
         }
     }
     protected abstract fun getFAQLinkRes(): Int

@@ -27,7 +27,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         binding.onboardingInfoTextview.setText(textRes)
         binding.onboardingImageview.setImageResource(imageRes)
         binding.dataProtectionCheckbox.setLinkedText(
-            R.string.common_fourth_on_boarding_page_second_selection,
+            R.string.fourth_onboarding_page_second_selection_linked,
             dataProtectionLinkRes
         )
         updateFormValidity()
