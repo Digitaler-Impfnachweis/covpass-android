@@ -90,121 +90,114 @@ pipeline {
                 }
             }
         }
-        stage('Checks & Assemble') {
-            parallel {
-                stage('Kotlin Lint') {
-                    steps {
-                        gradle('ktlint')
-                    }
-                    post {
-                        always {
-                            recordIssues(tools: [checkStyle(id: 'ktlint', name: 'ktlint', pattern: '**/build/ktlint.xml')])
-                        }
-                        failure {
-                            script {
-                                // If this is a PR, push an automatic ktlintFormat self-cleanup to the original branch
-                                if (env.CHANGE_ID) {
-                                    gradle('ktlintFormat')
-                                    sh('git fetch')
-                                    sh("git checkout '${env.CHANGE_BRANCH}'")
-                                    sh("git commit -a -m 'Katy magic'")
-                                    sh("git push")
-                                }
-                            }
-                        }
-                    }
+        stage('Kotlin Lint') {
+            steps {
+                gradle('ktlint')
+            }
+            post {
+                always {
+                    recordIssues(tools: [checkStyle(id: 'ktlint', name: 'ktlint', pattern: '**/build/ktlint.xml')])
                 }
-                stage('Detekt') {
-                    steps {
-                        gradle('detekt')
-                    }
-                    post {
-                        always {
-                            recordIssues(tools: [checkStyle(id: 'detekt', name: 'detekt', pattern: "**/build/reports/detekt/detekt.xml")])
+                failure {
+                    script {
+                        // If this is a PR, push an automatic ktlintFormat self-cleanup to the original branch
+                        if (env.CHANGE_ID) {
+                            gradle('ktlintFormat')
+                            sh('git fetch')
+                            sh("git checkout '${env.CHANGE_BRANCH}'")
+                            sh("git commit -a -m 'Katy magic'")
+                            sh("git push")
                         }
-                    }
-                }
-                stage('Assemble') {
-                    steps {
-                        // Running licenseReleaseReport in parallel causes bugs, so we run serially.
-                        sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
-                        gradleAssemble('assemble')
                     }
                 }
             }
         }
-        stage('Tests & Lint') {
-            parallel {
-                stage('Android Lint') {
-                    steps {
-                        gradle('lint')
-                    }
+        stage('Detekt') {
+            steps {
+                gradle('detekt')
+            }
+            post {
+                always {
+                    recordIssues(tools: [checkStyle(id: 'detekt', name: 'detekt', pattern: "**/build/reports/detekt/detekt.xml")])
                 }
-                stage('Dependency Track') {
-                    when {
-                        anyOf {
-                            branch 'master'
-                            branch 'release/*'
-                        }
-                    }
-                    steps {
-                        // masterScan:"latest" -> suppress reporting of each built version, only report as "#latest" on master branches
-                        // cycloneDX plugin for other Android projects so far, otherwise it would fail during execution with submodule dependencies.
-                        // releaseVersions:"prefix" -> add the release branch name to the displayed version for better identification
-                        // To be removed, after the current configuration here is applicable to the other Android projects.
-                        dependencyTrack(masterScan:'latest', releaseVersions:'prefix', maxWorkers:2)
-                    }
+            }
+        }
+        stage('Assemble Debug') {
+            steps {
+                // Running licenseReleaseReport in parallel causes bugs, so we run serially.
+                sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
+                sh('./gradlew assembleDebug')
+            }
+        }
+        stage('Android Lint') {
+            steps {
+                gradle('lint')
+            }
+        }
+        stage('Dependency Track') {
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'release/*'
                 }
-                stage('Log Dependencies') {
-                    steps {
-                        script {
-                            sh('./gradlew depsTree > dependencies-tree.txt')
-                            sh('python3 extract-dependencies.py --modules APP > dependencies-app.txt')
-                            sh('python3 extract-dependencies.py > dependencies-sdk-with-test-modules.txt')
-                            sh('python3 extract-dependencies.py --exclude-modules TEST > dependencies-sdk-without-test-modules.txt')
-                            sh('python3 extract-dependencies.py --configurations ALL > dependencies-including-tests.txt')
-                            archiveArtifacts 'dependencies*.txt'
-                        }
-                    }
+            }
+            steps {
+                // masterScan:"latest" -> suppress reporting of each built version, only report as "#latest" on master branches
+                // cycloneDX plugin for other Android projects so far, otherwise it would fail during execution with submodule dependencies.
+                // releaseVersions:"prefix" -> add the release branch name to the displayed version for better identification
+                // To be removed, after the current configuration here is applicable to the other Android projects.
+                dependencyTrack(masterScan:'latest', releaseVersions:'prefix', maxWorkers:2)
+            }
+        }
+        stage('Log Dependencies') {
+            steps {
+                script {
+                    sh('./gradlew depsTree > dependencies-tree.txt')
+                    sh('python3 extract-dependencies.py --modules APP > dependencies-app.txt')
+                    sh('python3 extract-dependencies.py > dependencies-sdk-with-test-modules.txt')
+                    sh('python3 extract-dependencies.py --exclude-modules TEST > dependencies-sdk-without-test-modules.txt')
+                    sh('python3 extract-dependencies.py --configurations ALL > dependencies-including-tests.txt')
+                    archiveArtifacts 'dependencies*.txt'
                 }
-                stage('Unit Tests') {
-                    steps {
-                        gradle('testDebugUnitTest')
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                gradle('testDebugUnitTest')
 
-                        sh 'touch **/build/test-results/**/* || true'
-                        junit '**/build/test-results/**/*.xml'
+                sh 'touch **/build/test-results/**/* || true'
+                junit '**/build/test-results/**/*.xml'
 
-                        gradle('jacocoTestReportDefault')
-                        // Ignore coverage for some modules
-                        sh 'rm -rf android-utils-test/build/reports/jacoco'
-                        jacocoReport('', 9.0, true, 'jacocoTestReportDefault', true)
-                    }
+                gradle('jacocoTestReportDefault')
+                // Ignore coverage for some modules
+                sh 'rm -rf android-utils-test/build/reports/jacoco'
+                jacocoReport('', 9.0, true, 'jacocoTestReportDefault', true)
+            }
+        }
+        stage('Assemble Release') {
+            // This is only needed when publishing below, so we select published branches only.
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'PR-*'
                 }
-                stage('Assemble Release') {
-                    // This is only needed when publishing below, so we select published branches only.
-                    when {
-                        anyOf {
-                            branch 'master'
-                        }
-                    }
-                    steps {
-                        gradle('assembleRelease')
+            }
+            steps {
+                gradle('assembleRelease')
 
-                        script {
-                            withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
-                                withCredentials([
-                                    file(credentialsId: 'release_vaccinee', variable: 'RELEASE_KEYSTORE'),
-                                    string(credentialsId: 'release_vaccinee_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
-                                ]) {
-                                    sh "./run-in-docker.sh ./sign.sh app-vaccinee-demo"
-                                }
-                                withCredentials([
-                                    file(credentialsId: 'release_verification', variable: 'RELEASE_KEYSTORE'),
-                                    string(credentialsId: 'release_verification_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
-                                ]) {
-                                    sh "./run-in-docker.sh ./sign.sh app-cert-checker-demo"
-                                }
-                            }
+                script {
+                    withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
+                        withCredentials([
+                            file(credentialsId: 'release_vaccinee', variable: 'RELEASE_KEYSTORE'),
+                            string(credentialsId: 'release_vaccinee_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
+                        ]) {
+                            sh "./run-in-docker.sh ./sign.sh app-vaccinee-demo"
+                        }
+                        withCredentials([
+                            file(credentialsId: 'release_verification', variable: 'RELEASE_KEYSTORE'),
+                            string(credentialsId: 'release_verification_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
+                        ]) {
+                            sh "./run-in-docker.sh ./sign.sh app-cert-checker-demo"
                         }
                     }
                 }
