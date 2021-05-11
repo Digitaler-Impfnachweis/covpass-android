@@ -7,12 +7,14 @@ The most important modules are:
 * android-utils: Base classes for ViewModel, State, etc.
 * android-utils-test: Utils for unit testing State, ViewModel, etc.
 * annotations: Useful annotations/interfaces, e.g. for preventing R8/ProGuard obfuscation of JSON classes.
-* dependency-versions-bom: Defines a common set of dependency versions, so there won't be any conflicts.
 * gradle: Common infrastructure for linters, code coverage, R8/ProGuard.
 * gson: Gson default settings with detection for missing annotations which would be problematic with R8/ProGuard.
 * http: Ktor and OkHttp base clients with correct security configuration and Gson integration.
 * logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
 * navigation: A simple activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily.
+* vaccination-bom: Defines a common set of dependency versions, so there won't be any conflicts.
+* vaccination-sdk-android: The main vaccination SDK for Android.
+* vaccination-sdk-android-demo: Use this to override the SDK settings for the demo environment.
 
 ## SDK Installation
 
@@ -20,10 +22,10 @@ It's important that you include the BOM via `platform`. Those are the only modul
 
 ```
 dependencies {
-    api platform("com.ibm.health.vaccination:dependency-versions-bom:$version")
+    api platform("com.ibm.health.vaccination:vaccination-bom:$version")
 
     // No version needed here
-    implementation 'com.ibm.health.vaccination:sdk-android'
+    implementation 'com.ibm.health.vaccination:vaccination-sdk-android'
 }
 ```
 

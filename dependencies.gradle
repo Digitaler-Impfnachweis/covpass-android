@@ -94,7 +94,7 @@ dependencies.ext.testDependency = { dependency ->
 
 dependencies.ext.base = {
     dependencies {
-        api platform(project(':dependency-versions-bom'))
+        api platform(project(':vaccination-bom'))
 
         testImplementation 'junit:junit'
 

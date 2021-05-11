@@ -4,7 +4,7 @@
 pipeline {
     agent {
         node {
-            label 'Android'
+            label 'Android_1'
         }
     }
     tools {
