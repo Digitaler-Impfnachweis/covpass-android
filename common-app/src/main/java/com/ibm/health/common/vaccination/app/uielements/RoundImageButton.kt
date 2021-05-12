@@ -24,10 +24,9 @@ public class RoundImageButton
     defStyleAttributeSet
 ) {
 
-    private var binding: ButtonRoundImageBinding
+    private val binding: ButtonRoundImageBinding = ButtonRoundImageBinding.inflate(LayoutInflater.from(context))
 
     init {
-        binding = ButtonRoundImageBinding.inflate(LayoutInflater.from(context))
         addView(binding.root)
         val typedArray =
             context.theme.obtainStyledAttributes(

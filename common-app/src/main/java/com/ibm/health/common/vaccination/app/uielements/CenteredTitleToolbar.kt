@@ -2,11 +2,11 @@ package com.ibm.health.common.vaccination.app.uielements
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.TextViewCompat
 import com.ibm.health.common.vaccination.app.R
-import com.ibm.health.common.vaccination.app.utils.getScreenSize
 
 /**
  * Custom [Toolbar] with a centered title instead of left alignment as the actual [Toolbar].
@@ -21,33 +21,30 @@ public class CenteredTitleToolbar @JvmOverloads constructor(
     defStyleAttr
 ) {
 
-    private var screenWidth: Int = 0
-    private lateinit var title: TextView
+    private val title: TextView = TextView(context)
 
     init {
-        screenWidth = context.getScreenSize().x
-        title = TextView(context)
         TextViewCompat.setTextAppearance(title, R.style.Header_OnBackground_Standard)
         addView(title)
     }
 
     /** @suppress */
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        super.onLayout(changed, l, t, r, b)
-        title.width.let { width ->
-            title.left = screenWidth / 2 - width / 2
-            title.right = title.left + width
-        }
-    }
-
-    /** @suppress */
     override fun setTitle(resId: Int) {
-        title.setText(resId)
+        getCenteredTextView().setText(resId)
         requestLayout()
     }
 
     /** @suppress */
     override fun setTitle(title: CharSequence?) {
-        this.title.text = title
+        getCenteredTextView().text = title
+    }
+
+    private fun getCenteredTextView(): TextView {
+        return title.apply {
+            gravity = Gravity.CENTER
+            val lp = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            lp.gravity = Gravity.CENTER
+            layoutParams = lp
+        }
     }
 }

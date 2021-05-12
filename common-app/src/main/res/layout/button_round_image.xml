@@ -4,19 +4,20 @@
   android:id="@+id/round_button_container"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
+  android:background="?attr/selectableItemBackground"
   android:gravity="center"
   android:minWidth="@dimen/round_button_min_size"
   android:minHeight="@dimen/round_button_min_size"
   tools:background="@drawable/button_round_selector"
-  tools:ignore="UseCompoundDrawables">
+  tools:ignore="UseCompoundDrawables,Overdraw">
 
   <ImageView
     android:id="@+id/round_button_icon"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
     android:minWidth="@dimen/icon_size_round_button"
     android:minHeight="@dimen/icon_size_round_button"
-    android:adjustViewBounds="true"
     android:src="@drawable/plus"
     tools:ignore="ContentDescription" />
 

@@ -2,7 +2,7 @@ package com.ibm.health.vaccination.app.certchecker.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isInvisible
+import androidx.core.view.isGone
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
@@ -11,11 +11,11 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.dependencies.commonDeps
 import com.ibm.health.common.vaccination.app.storage.DscRepository
-import com.ibm.health.vaccination.sdk.android.utils.formatDateTime
 import com.ibm.health.vaccination.app.certchecker.R
 import com.ibm.health.vaccination.app.certchecker.databinding.CheckerMainBinding
 import com.ibm.health.vaccination.app.certchecker.information.ValidationInformationFragmentNav
 import com.ibm.health.vaccination.app.certchecker.scanner.ValidationQRScannerFragmentNav
+import com.ibm.health.vaccination.sdk.android.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -37,15 +37,12 @@ internal class MainFragment : BaseFragment() {
     }
 
     private fun updateAvailabilityCard(lastUpdate: LocalDateTime) {
-
         // TODO handle status text and icon correctly when the feature is implemented
-
         val updateString = getString(
             R.string.validation_start_screen_offline_modus_note_update_pattern,
             lastUpdate.formatDateTime()
         )
         binding.mainAvailabilityLastUpdateTextview.text = updateString
-
-        binding.mainAvailabilityLastUpdateTextview.isInvisible = lastUpdate == DscRepository.NO_UPDATE_YET
+        binding.mainAvailabilityLastUpdateTextview.isGone = lastUpdate == DscRepository.NO_UPDATE_YET
     }
 }

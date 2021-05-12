@@ -22,13 +22,12 @@ public abstract class BaseOnboardingContainerFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentStateAdapter.attachTo(binding.onboardingViewPager)
-        TabLayoutMediator(binding.onboardingTabLayout, binding.onboardingViewPager) { tab, position ->
+        TabLayoutMediator(binding.onboardingTabLayout, binding.onboardingViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
 
         autoRun {
-            val fragment = get(fragmentStateAdapter.currentFragment)
-            when (fragment) {
+            when (val fragment = get(fragmentStateAdapter.currentFragment)) {
                 is BaseOnboardingConsentFragment -> {
                     binding.onboardingContinueButton.text = getString(fragment.buttonTextRes)
                     binding.onboardingContinueButton.isEnabled = get(fragment.isFormValid)
