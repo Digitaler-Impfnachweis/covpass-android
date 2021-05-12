@@ -13,12 +13,12 @@
 	<string name="start_onboarding_secure_message">Ihre Daten werden nur lokal auf Ihrem Smartphone gespeichert. Sie entscheiden, wann und wem Sie Ihre Daten vorzeigen.</string>
 	<string name="start_onboarding_button_title">Los geht\'s</string>
 	<string name="next_onboarding_page_button_title">Weiter</string>
-	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Die Corona-Impfungen per QR-Code hinzufügen</string>
+	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Die Corona-Impfungen auf Ihr Smartphone übertragen</string>
 	<string name="vaccination_first_onboarding_page_message">Nach der Corona-Impfung erhalten Sie vom medizinischen Personal ein Impfzertifikat. Scannen Sie mit der CovPass-App das Impfzertifikat. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Die Corona-Impfung wird direkt auf Ihrem Smartphone gespeichert. Sie können in der CovPass-App die Impfzertifikate für mehrere Personen verwalten.</string>
-	<string name="vaccination_second_onboarding_page_title">Zweiter Schritt: Die CovPass-App erstellt das Prüfzertifikat</string>
-	<string name="vaccination_second_onboarding_page_message">Das Prüfzertifikat wird automatisch in der CovPass-App erstellt. Es bestätigt den vollständigen Impfschutz. Bei einer Überprüfung werden nur der Impfstatus, der Name und das Geburtsdatum angezeigt. Laden Sie dafür alle notwendigen Corona-Impfungen auf Ihr Smartphone.</string>
-	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Das Prüfzertifikat bei Bedarf vorzeigen</string>
-	<string name="vaccination_third_onboarding_page_message">Es können auch mehrere Prüfzertifikate von zum Beispiel Freunden und Angehörigen erstellt werden. Diese werden alle übersichtlich in der CovPass-App angezeigt. Lassen Sie das Prüfzertifikat ganz einfach von der prüfenden Person scannen. Bitte halten Sie ergänzend Ihr Ausweisdokument bzw. das Ausweisdokument der geimpften Person bereit.</string>
+	<string name="vaccination_second_onboarding_page_title">Zweiter Schritt: Die CovPass-App zeigt bei einem vollständigen Impfschutz den QR-Code an</string>
+	<string name="vaccination_second_onboarding_page_message">Der QR-Code ist der Nachweis für den vollständigen Impfschutz. Dieser wird in der CovPass-App angezeigt. Laden Sie dafür alle notwendigen Impfzertifikate in die CovPass-App. Bitte beachten Sie: Der QR-Code kann erst angezeigt werden, wenn 14 Tage nach der letzten Impfung vergangen sind.</string>
+	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Den QR-Code bei Bedarf vorzeigen</string>
+	<string name="vaccination_third_onboarding_page_message">Lassen Sie den QR-Code in der CovPass-App ganz einfach von der prüfenden Person scannen. Bei einer Überprüfung werden nur der Impfstatus, der Name und das Geburtsdatum angezeigt. Bitte halten Sie ergänzend Ihr Ausweisdokument bzw. das Ausweisdokument der geimpften Person bereit.</string>
 	<string name="vaccination_fourth_onboarding_page_title">Zustimmung für die Nutzung der CovPass-App</string>
 	<string name="vaccination_fourth_onboarding_page_message">Um die CovPass-App zu nutzen, müssen Sie bestätigen, dass Sie die Datenschutzerklärung zur Kenntnis genommen haben.</string>
 	<string name="fourth_onboarding_page_second_selection">Ich habe die Datenschutzerklärung zur Kenntnis genommen.</string>
@@ -33,8 +33,8 @@
 	<!-- SECTION: popup: add vaccination -->
 	<string name="vaccination_add_popup_title">Impfung hinzufügen</string>
 	<string name="vaccination_add_popup_message">Scannen Sie den QR-Code auf dem Impfzertifikat. Die Informationen werden direkt in die CovPass-App übertragen.</string>
-	<string name="vaccination_add_popup_action_title">Sie haben keinen QR-Code erhalten?</string>
-	<string name="vaccination_add_popup_action_title_linked">#Sie haben keinen QR-Code erhalten?::$0#</string>
+	<string name="vaccination_add_popup_action_title">Ich habe keinen QR-Code erhalten?</string>
+	<string name="vaccination_add_popup_action_title_linked">#Ich habe keinen QR-Code erhalten?::$0#</string>
 	<string name="vaccination_add_popup_scan_button_title">QR-Code scannen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
@@ -50,17 +50,17 @@
 	<string name="vaccination_partial_immunization_action_button">Impfungen anzeigen</string>
 
 	<!-- SECTION: start screen: full immunization certificate -->
-	<string name="vaccination_full_immunization_title">COVID-19-Prüfzertifikat</string>
+	<string name="vaccination_full_immunization_title">COVID-19-Impfzertifikat</string>
 	<string name="vaccination_full_immunization_action_button">Impfungen anzeigen</string>
 	<string name="vaccination_full_immunization_status_expired">Abgelaufen</string>
 	<string name="error_connect_to_internet_title">Flugzeugmodus ausschalten oder Wi-Fi für den Datenzugriff verwenden</string>
 	<string name="error_connect_to_internet_button_settings">Einstellungen</string>
 	<string name="error_connect_to_internet_button_ok">OK</string>
-	<string name="vaccination_full_immunization_loading_message_no_internet">Das Prüfzertifikat wird angezeigt, sobald Ihr Gerät mit dem Internet verbunden ist.</string>
-	<string name="vaccination_full_immunization_loading_message_check_internet">Das Prüfzertifikat kann nicht geladen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
-	<string name="vaccination_full_immunization_loading_message_error">Es ist ein unerwarteter Fehler aufgetreten. Das Prüfzertifikat kann aktuell nicht geladen werden.</string>
-	<string name="vaccination_full_immunization_loading_message_14_days_title">Das Prüfzertifikat wird ab dem %s hier angezeigt.</string>
-	<string name="vaccination_full_immunization_loading_message_14_days_title_pattern">Das Prüfzertifikat wird ab dem %s hier angezeigt.</string>
+	<string name="vaccination_full_immunization_loading_message_no_internet">Der QR-Code wird angezeigt, sobald Ihr Gerät mit dem Internet verbunden ist.</string>
+	<string name="vaccination_full_immunization_loading_message_check_internet">Der QR-Code kann nicht geladen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
+	<string name="vaccination_full_immunization_loading_message_error">Es ist ein unerwarteter Fehler aufgetreten. Der QR-Code kann aktuell nicht geladen werden.</string>
+	<string name="vaccination_full_immunization_loading_message_14_days_title">Der QR-Code wird ab dem %s hier angezeigt.</string>
+	<string name="vaccination_full_immunization_loading_message_14_days_title_pattern">Der QR-Code wird ab dem %s hier angezeigt.</string>
 	<string name="vaccination_full_immunization_loading_message_14_days_message">Der Impfschutz ist erst 14 Tage nach der vollständigen Impfung wirksam.</string>
 
 	<!-- SECTION: detail view vaccinations -->
@@ -68,11 +68,11 @@
 	<string name="vaccination_certificate_detail_view_name">Name</string>
 	<string name="vaccination_certificate_detail_view_birthdate">Geburtsdatum</string>
 	<string name="vaccination_certificate_detail_view_incomplete_title">%1$d von %2$d Impfungen vorhanden</string>
-	<string name="vaccination_certificate_detail_view_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um ein Prüfzertifikat erstellen zu lassen, fügen Sie bitte die 2. Impfung hinzu.</string>
+	<string name="vaccination_certificate_detail_view_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz anzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
 	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Impfung hinzufügen</string>
 	<string name="vaccination_certificate_detail_view_complete_title">Impfschutz vollständig</string>
-	<string name="vaccination_certificate_detail_view_complete_message">Teilen Sie jetzt den Impfschutz sicher mit dem Prüfzertifikat. Zu sehen sind nur Impfstatus, Name und Geburtsdatum.</string>
-	<string name="vaccination_certificate_detail_view_complete_action_button_title">Prüfzertifikat anzeigen</string>
+	<string name="vaccination_certificate_detail_view_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
+	<string name="vaccination_certificate_detail_view_complete_action_button_title">QR-Code anzeigen</string>
 	<string name="vaccination_certificate_detail_view_personal_data_title">Persönliche Daten</string>
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_data_date">Datum der Impfung</string>
