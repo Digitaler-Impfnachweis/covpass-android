@@ -171,7 +171,7 @@ pipeline {
                 gradle('jacocoTestReportDefault')
                 // Ignore coverage for some modules
                 sh 'rm -rf android-utils-test/build/reports/jacoco'
-                jacocoReport('', 28.0, true, 'jacocoTestReportDefault', true)
+                jacocoReport('', 22.0, true, 'jacocoTestReportDefault', true)
             }
         }
         stage('Assemble Release') {
