@@ -1,5 +1,6 @@
 package com.ibm.health.vaccination.app.vaccinee.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -28,8 +29,7 @@ import com.ibm.health.vaccination.app.vaccinee.databinding.DetailBinding
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
-import com.ibm.health.vaccination.sdk.android.utils.formatDate
-import com.ibm.health.vaccination.sdk.android.utils.formatDateOrEmpty
+import com.ibm.health.vaccination.sdk.android.utils.*
 import kotlinx.parcelize.Parcelize
 
 internal interface DetailCallback {
@@ -164,6 +164,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun addVaccinationView(cert: VaccinationCertificate) {
         if (cert.vaccinations.isEmpty()) {
             return
@@ -193,14 +194,15 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         val productRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_product_data_row)
         val productDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_product_data_divider)
         findRowHeaderView(productRow).setText(R.string.vaccination_certificate_detail_view_data_vaccine)
-        findRowTextView(productRow).text = vaccination.product
+        findRowTextView(productRow).text =
+            "${getProphylaxisName(vaccination.vaccineCode)} (${getProductName(vaccination.product)})"
         productRow.isVisible = vaccination.product.isNotBlank()
         productDivider.isVisible = vaccination.product.isNotBlank()
 
         val manufacturerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_manufacturer_data_row)
         val manufacturerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_manufacturer_data_divider)
         findRowHeaderView(manufacturerRow).setText(R.string.vaccination_certificate_detail_view_data_producer)
-        findRowTextView(manufacturerRow).text = vaccination.manufacturer
+        findRowTextView(manufacturerRow).text = getManufacturerName(vaccination.manufacturer)
         manufacturerRow.isVisible = vaccination.manufacturer.isNotBlank()
         manufacturerDivider.isVisible = vaccination.manufacturer.isNotBlank()
 
