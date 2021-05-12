@@ -25,10 +25,6 @@ internal data class GroupedCertificatesList(
         certificates = result.certificates
     }
 
-    fun addValidationQrContent(certId: String, validationQrContent: String) {
-        getGroupedCertificates(certId)?.getMainCertificate()?.validationQrContent = validationQrContent
-    }
-
     fun deleteCertificate(certId: String) {
         certificates.removeIf { it.matchesId(certId) }
     }

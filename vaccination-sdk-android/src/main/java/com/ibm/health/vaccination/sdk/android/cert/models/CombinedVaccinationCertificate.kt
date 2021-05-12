@@ -3,7 +3,7 @@ package com.ibm.health.vaccination.sdk.android.cert.models
 import kotlinx.serialization.Serializable
 
 /**
- * Data model which contains a [VaccinationCertificate] and additionally the raw vaccination and validation qr string.
+ * Data model which contains a [VaccinationCertificate] and additionally the raw qr string.
  */
 @Serializable
 public data class CombinedVaccinationCertificate(
@@ -12,11 +12,7 @@ public data class CombinedVaccinationCertificate(
     val vaccinationCertificate: VaccinationCertificate,
 
     /**
-     * The raw qr content of the full vaccination certificate. This is not really used right now, but stored as a
-     * safety fallback in case of e.g. data migration issues.
+     * The raw qr content of the [VaccinationCertificate].
      */
     val vaccinationQrContent: String,
-
-    /** The raw qr content of the simplified validation certificate. */
-    var validationQrContent: String?,
 )

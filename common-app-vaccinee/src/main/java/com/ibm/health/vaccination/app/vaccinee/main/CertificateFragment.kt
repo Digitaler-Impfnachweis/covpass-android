@@ -39,11 +39,11 @@ internal class CertificateFragment : BaseFragment() {
 
         autoRun {
             // TODO: Optimize this, so we only update if our cert has changed and not something else
-            updateViews(get(vaccineeDeps.certRepository.certs), get(vaccineeDeps.certRefreshService.failingCertIds))
+            updateViews(get(vaccineeDeps.certRepository.certs))
         }
     }
 
-    private fun updateViews(certificateList: GroupedCertificatesList, failingCertIds: Set<String>) {
+    private fun updateViews(certificateList: GroupedCertificatesList) {
         val certId = args.certId
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainCombinedCertificate = groupedCertificate.getMainCertificate()
@@ -52,9 +52,9 @@ internal class CertificateFragment : BaseFragment() {
 
         launchWhenStarted {
             if (complete) {
-                mainCombinedCertificate.validationQrContent?.let {
-                    binding.certificateQrImageview.setImageBitmap(generateQRCode(it))
-                }
+                binding.certificateQrImageview.setImageBitmap(
+                    generateQRCode(mainCombinedCertificate.vaccinationQrContent)
+                )
             }
         }
 
@@ -144,20 +144,10 @@ internal class CertificateFragment : BaseFragment() {
         }
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
 
-        val qrCodeIsMissing = groupedCertificate.getMainCertificate().validationQrContent == null
-        val showQrCode = mainCertificate.hasFullProtection && !qrCodeIsMissing
-        val showLoading = complete && qrCodeIsMissing
-        val showWaiting = complete && !showQrCode && !showLoading
+        val showQrCode = mainCertificate.hasFullProtection
+        val showWaiting = complete && !showQrCode
 
         binding.certificateQrCardview.isVisible = showQrCode
-
-        binding.certificateLoadingContainer.isVisible = complete && qrCodeIsMissing
-        val loadingTextRes = if (failingCertIds.contains(groupedCertificate.getMainCertId())) {
-            R.string.vaccination_full_immunization_loading_message_error
-        } else {
-            R.string.vaccination_full_immunization_loading_message_check_internet
-        }
-        binding.certificateLoadingText.setText(loadingTextRes)
 
         binding.certificateWaitingContainer.isVisible = showWaiting
         binding.certificateWaitingTitle.text =

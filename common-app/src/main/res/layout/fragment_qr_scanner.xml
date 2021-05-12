@@ -35,34 +35,4 @@
       app:round_button_icon="@drawable/common_ic_close" />
   </FrameLayout>
 
-  <RelativeLayout
-    android:id="@+id/loading_screen"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroundPrimary"
-    android:clickable="true"
-    android:focusable="true">
-
-    <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
-      android:scaleType="centerCrop"
-      app:lottie_autoPlay="true"
-      app:lottie_colorFilter="@color/brandAccent70"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_animation" />
-
-    <TextView
-      android:id="@+id/loading_text"
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/loading_animation"
-      android:layout_marginTop="@dimen/grid_four"
-      android:gravity="center_horizontal" />
-
-  </RelativeLayout>
-
 </RelativeLayout>

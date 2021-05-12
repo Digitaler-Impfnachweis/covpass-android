@@ -4,7 +4,6 @@ import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
-import com.ibm.health.common.vaccination.app.errorhandling.isConnectionError
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
@@ -24,31 +23,16 @@ internal class VaccinationQRScannerState(
     fun onQrContentReceived(qrContent: String) {
         launch {
             val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
-            lastCertificateId.value =
-                vaccinationCertificate.vaccination.id
-            var connectionError: Throwable? = null
-            var validationCertContent: String? = null
-            try {
-                validationCertContent = sdkDeps.certService.getValidationCert(qrContent)
-            } catch (error: Throwable) {
-                when {
-                    isConnectionError(error) -> connectionError = error
-                    else -> throw error
-                }
-            }
+            lastCertificateId.value = vaccinationCertificate.vaccination.id
             vaccineeDeps.certRepository.certs.update {
                 it.addCertificate(
-                    CombinedVaccinationCertificate(vaccinationCertificate, qrContent, validationCertContent)
+                    CombinedVaccinationCertificate(vaccinationCertificate, qrContent)
                 )
             }
-            if (connectionError != null) {
-                eventNotifier { onError(connectionError) }
-            } else {
-                eventNotifier {
-                    onScanSuccess(
-                        vaccinationCertificate.vaccination.id
-                    )
-                }
+            eventNotifier {
+                onScanSuccess(
+                    vaccinationCertificate.vaccination.id
+                )
             }
         }
     }

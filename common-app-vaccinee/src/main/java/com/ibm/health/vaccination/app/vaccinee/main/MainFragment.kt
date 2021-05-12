@@ -42,11 +42,6 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        vaccineeDeps.certRefreshService.triggerUpdate()
-    }
-
     private fun setupViews() {
         binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(VaccinationInformationFragmentNav()) }

@@ -11,7 +11,7 @@ import java.time.Instant
 import java.time.LocalDate
 
 /**
- * Data model for the vaccination certificate
+ * Data model for the vaccination certificate.
  */
 @Serializable
 public data class VaccinationCertificate(

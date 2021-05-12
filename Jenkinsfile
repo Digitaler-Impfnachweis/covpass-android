@@ -171,6 +171,7 @@ pipeline {
                 gradle('jacocoTestReportDefault')
                 // Ignore coverage for some modules
                 sh 'rm -rf android-utils-test/build/reports/jacoco'
+                sh 'rm -rf common-app-vaccinee/build/reports/jacoco'
                 jacocoReport('', 9.0, true, 'jacocoTestReportDefault', true)
             }
         }
