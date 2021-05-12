@@ -129,7 +129,7 @@ subprojects {
 
         if (isLibraryProject) {
             apply from: "$rootDir/gradle/common/coverage.gradle"
-            trackCoverage(isOnCI)
+            trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
         }
     }
 

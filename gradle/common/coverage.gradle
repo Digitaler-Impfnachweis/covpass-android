@@ -1,13 +1,21 @@
 ext.installCoverageDeps = {
     buildscript {
         dependencies {
-            classpath "org.jacoco:org.jacoco.core:0.8.5"
+            classpath "org.jacoco:org.jacoco.core:0.8.7"
         }
     }
 }
 
-ext.trackCoverage = { boolean enableTestCoverage, boolean trackUI = true, List<String> extraExcludes = [] ->
+class Config {
+    boolean enableTestCoverage = true
+    boolean trackUI = true
+    List<String> extraExcludes = []
+}
+
+ext.trackCoverage = { args = [:] ->
     apply plugin: 'jacoco'
+
+    Config config = new Config(args)
 
     tasks.withType(Test) {
         jacoco.includeNoLocationClasses = true
@@ -21,7 +29,7 @@ ext.trackCoverage = { boolean enableTestCoverage, boolean trackUI = true, List<S
         android {
             buildTypes {
                 debug {
-                    testCoverageEnabled = hasInstrumentationTests && enableTestCoverage
+                    testCoverageEnabled = hasInstrumentationTests && config.enableTestCoverage
                 }
             }
 
@@ -50,8 +58,9 @@ ext.trackCoverage = { boolean enableTestCoverage, boolean trackUI = true, List<S
             '**/Manifest*.*',
             '**/*Test*.*',
             'android/**/*.*',
+            '**/databinding/*.*',
         ]
-        if (!trackUI) {
+        if (!config.trackUI) {
             fileFilter.addAll([
                 '**/*BottomSheet*.*',
                 '**/*Fragment*.*',
@@ -67,7 +76,7 @@ ext.trackCoverage = { boolean enableTestCoverage, boolean trackUI = true, List<S
                 '**/*Decoration.*',
             ])
         }
-        fileFilter.addAll(extraExcludes)
+        fileFilter.addAll(config.extraExcludes)
 
         sourceDirectories.setFrom(files(["$project.projectDir/src/main/java", "$project.projectDir/src/main/kotlin"]))
         classDirectories.setFrom(files([

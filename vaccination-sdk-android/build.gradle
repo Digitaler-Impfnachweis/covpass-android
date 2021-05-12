@@ -4,6 +4,7 @@ dependencies {
     api project(":base45")
     api project(":http")
     api project(":logging")
+    coroutines()
     kotlinxSerialization()
     coseJava()
 }
