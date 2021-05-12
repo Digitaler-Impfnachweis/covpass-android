@@ -38,14 +38,6 @@
     style="@style/Divider" />
 
   <include
-    android:id="@+id/detail_vaccination_lotnumber_data_row"
-    layout="@layout/detail_data_row" />
-
-  <View
-    android:id="@+id/detail_vaccination_lotnumber_data_divider"
-    style="@style/Divider" />
-
-  <include
     android:id="@+id/detail_vaccination_issuer_data_row"
     layout="@layout/detail_data_row" />
 

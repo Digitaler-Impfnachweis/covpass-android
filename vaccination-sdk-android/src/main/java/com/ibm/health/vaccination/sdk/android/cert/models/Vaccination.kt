@@ -30,13 +30,7 @@ public data class Vaccination(
     @SerialName("is")
     val certificateIssuer: String = "",
     @SerialName("ci")
-    val id: String = "",
-    @SerialName("ln")
-    val lotNumber: String = "",
-    @SerialName("pf")
-    val performer: String = "",
-    @SerialName("nd")
-    val nextDate: LocalDate? = null,
+    val id: String = ""
 ) {
     public val isComplete: Boolean
         get() = doseNumber == totalSerialDoses

@@ -204,13 +204,6 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         manufacturerRow.isVisible = vaccination.manufacturer.isNotBlank()
         manufacturerDivider.isVisible = vaccination.manufacturer.isNotBlank()
 
-        val lotNumberRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_lotnumber_data_row)
-        val lotNumberDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_lotnumber_data_divider)
-        findRowHeaderView(lotNumberRow).setText(R.string.vaccination_certificate_detail_view_data_bench_number)
-        findRowTextView(lotNumberRow).text = vaccination.lotNumber
-        lotNumberRow.isVisible = vaccination.lotNumber.isNotBlank()
-        lotNumberDivider.isVisible = vaccination.lotNumber.isNotBlank()
-
         val issuerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_issuer_data_row)
         val issuerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_issuer_data_divider)
         findRowHeaderView(issuerRow).setText(R.string.vaccination_certificate_detail_view_data_exhibitor)
