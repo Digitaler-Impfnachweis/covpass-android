@@ -10,7 +10,8 @@
     style="@style/VaccinationCardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/grid_one">
+    android:layout_marginHorizontal="@dimen/grid_two"
+    app:cardUseCompatPadding="true">
 
     <FrameLayout
       android:layout_width="match_parent"
@@ -80,9 +81,9 @@
             android:id="@+id/certificate_waiting_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/grid_five"
             android:layout_marginTop="@dimen/grid_eight"
             android:layout_marginBottom="@dimen/grid_eleven"
-            android:layout_marginHorizontal="@dimen/grid_five"
             android:orientation="vertical"
             android:visibility="gone">
 

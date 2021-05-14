@@ -1,6 +1,7 @@
 package com.ibm.health.vaccination.sdk.android.utils
 
 import com.ibm.health.vaccination.sdk.android.storage.EUValueSetRepository
+import com.ibm.health.vaccination.sdk.android.storage.countryCodesToNames
 
 /**
  * Retrieves the Manufacturers name as defined in EU value set
@@ -33,4 +34,15 @@ public fun getProductName(rawName: String): String {
  */
 public fun getProphylaxisName(rawName: String): String {
     return EUValueSetRepository.vaccineProphylaxis.valueSetValues[rawName]?.display ?: rawName
+}
+
+/**
+ * Retrieves the Country name from the given Country code
+ *
+ * @param countryCode The country code in ISO-3166 (e.g. "DE")
+ *
+ * @return The matching Country name (e.g. "Deutschland")
+ */
+public fun getCountryName(countryCode: String): String {
+    return countryCodesToNames[countryCode] ?: countryCode
 }

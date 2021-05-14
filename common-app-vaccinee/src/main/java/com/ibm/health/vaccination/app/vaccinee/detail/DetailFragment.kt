@@ -209,14 +209,14 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         val issuerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_issuer_data_row)
         val issuerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_issuer_data_divider)
         findRowHeaderView(issuerRow).setText(R.string.vaccination_certificate_detail_view_data_exhibitor)
-        findRowTextView(issuerRow).text = cert.issuer
+        findRowTextView(issuerRow).text = vaccination.certificateIssuer
         issuerRow.isVisible = cert.issuer.isNotBlank()
         issuerDivider.isVisible = cert.issuer.isNotBlank()
 
         val countryRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_country_data_row)
         val countryDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_country_data_divider)
         findRowHeaderView(countryRow).setText(R.string.vaccination_certificate_detail_view_data_country)
-        findRowTextView(countryRow).text = vaccination.country
+        findRowTextView(countryRow).text = getCountryName(vaccination.country)
         countryRow.isVisible = vaccination.country.isNotBlank()
         countryDivider.isVisible = vaccination.country.isNotBlank()
 
