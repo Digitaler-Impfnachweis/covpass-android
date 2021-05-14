@@ -41,7 +41,7 @@ public class QRCoder(private val validator: CertValidator) {
         val cwt = CBORWebToken.decode(cose.GetContent())
 
         if (cwt.validUntil.isBefore(Instant.now())) {
-            throw HCertExpiredException()
+            throw ExpiredCwtException()
         }
 
         // TODO: Once the kid contains the correct value we can resolve the cert directly.
@@ -58,14 +58,15 @@ public class QRCoder(private val validator: CertValidator) {
                 continue
             }
         }
-        throw HCertBadSignatureException()
+        throw BadCoseSignatureException()
     }
 
     /**
      * Converts a [qrContent] to a [VaccinationCertificate] data model.
      *
-     * @throws HCertExpiredException If the certificate has expired.
-     * @throws HCertBadSignatureException If the signature validation failed.
+     * @throws ExpiredCwtException If the certificate has expired.
+     * @throws BadCoseSignatureException If the signature validation failed.
+     * @throws UnsupportedDgcVersionException If the DGC version is unsupported.
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
@@ -73,6 +74,9 @@ public class QRCoder(private val validator: CertValidator) {
         val cwt = decodeCWT(qrContent)
         val cert: VaccinationCertificate =
             cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
+        if (cert.version != "1.0.0") {
+            throw UnsupportedDgcVersionException()
+        }
         return cert.copy(issuer = cwt.issuer, validFrom = cwt.validFrom, validUntil = cwt.validUntil)
     }
 
@@ -82,8 +86,14 @@ public class QRCoder(private val validator: CertValidator) {
     }
 }
 
-/** Thrown when the HCert expiry validation failed. */
-public open class HCertExpiredException(message: String = "Certificate expired") : CoseException(message)
+/** Thrown when the CWT expiry validation failed. */
+public open class ExpiredCwtException(message: String = "Certificate expired") : DgcDecodeException(message)
 
-/** Thrown when the HCert signature validation failed. */
-public open class HCertBadSignatureException(message: String = "Validation failed") : CoseException(message)
+/** Thrown when the COSE signature validation failed. */
+public open class BadCoseSignatureException(message: String = "Validation failed") : DgcDecodeException(message)
+
+/** Thrown when the DGC has the wrong version. */
+public open class UnsupportedDgcVersionException(message: String = "Wrong Certificate Version") :
+    DgcDecodeException(message)
+
+public open class DgcDecodeException(message: String) : IllegalArgumentException(message)

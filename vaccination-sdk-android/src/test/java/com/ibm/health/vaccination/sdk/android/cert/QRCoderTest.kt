@@ -33,6 +33,6 @@ internal class QRCoderTest {
     fun `expired certificate`() {
         assertThat {
             qrCoder.decodeVaccinationCert(data)
-        }.isFailure().isInstanceOf(HCertExpiredException::class)
+        }.isFailure().isInstanceOf(ExpiredCwtException::class)
     }
 }

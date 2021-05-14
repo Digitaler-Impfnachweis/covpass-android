@@ -3,8 +3,8 @@ package com.ibm.health.vaccination.app.certchecker.scanner
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import com.ibm.health.common.logging.Lumber
-import com.ibm.health.vaccination.sdk.android.cert.HCertBadSignatureException
-import com.ibm.health.vaccination.sdk.android.cert.HCertExpiredException
+import com.ibm.health.vaccination.sdk.android.cert.BadCoseSignatureException
+import com.ibm.health.vaccination.sdk.android.cert.ExpiredCwtException
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +32,7 @@ internal class ValidationQRScannerState(scope: CoroutineScope) : BaseState<Valid
                 }
             } catch (exception: Exception) {
                 when (exception) {
-                    is HCertBadSignatureException, is HCertExpiredException -> {
+                    is BadCoseSignatureException, is ExpiredCwtException -> {
                         Lumber.e(exception)
                         eventNotifier {
                             onValidationFailure()

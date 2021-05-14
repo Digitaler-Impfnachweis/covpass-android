@@ -8,7 +8,7 @@ import java.time.format.FormatStyle
  * Formats a local date to e.g. "12.03.1989".
  */
 public fun LocalDate.formatDate(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
     return format(formatter)
 }
 
