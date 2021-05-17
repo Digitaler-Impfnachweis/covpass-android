@@ -41,7 +41,7 @@ We explicitly don't break with the library abstraction within the app by introdu
 
 We avoid unnecessary indirections and abstraction layers as long as a simple combination of the IDE's refactoring operations can trivially introduce those layers later.
 
-We use lifecycle-aware, reactive, demand-driven programming. See [UI and State](#ui-and-state) for more details and sample code.
+We use lifecycle-aware, reactive, demand-driven programming. See [UI, reactivity, events](#ui-reactivity-events) for more details and sample code.
 
 ### Dependency injection
 
