@@ -8,6 +8,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class VaccinationInformationFragmentNav : FragmentNav(VaccinationInformationFragment::class)
 
+/**
+ * Vaccinee specific Information screen. Overrides the abstract functions from [InformationFragment].
+ */
 internal class VaccinationInformationFragment : InformationFragment() {
 
     override fun getFAQLinkRes() = R.string.information_faq_link

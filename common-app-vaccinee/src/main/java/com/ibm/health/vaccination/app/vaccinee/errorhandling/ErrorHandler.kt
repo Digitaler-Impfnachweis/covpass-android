@@ -5,6 +5,9 @@ import com.ibm.health.common.vaccination.app.errorhandling.CommonErrorHandler
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.sdk.android.cert.models.CertAlreadyExistsException
 
+/**
+ * Vaccinee specific Error handling. Overrides the abstract functions from [CommonErrorHandler].
+ */
 internal class ErrorHandler : CommonErrorHandler() {
 
     override fun getSpecificDialogModel(error: Throwable): DialogModel? =

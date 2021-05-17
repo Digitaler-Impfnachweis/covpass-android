@@ -9,6 +9,9 @@ internal interface DetailEvents : BaseEvents {
     fun onDeleteDone()
 }
 
+/**
+ * State which provides the [onDelete] and [onFavoriteClick] functionality
+ */
 internal class DetailState(scope: CoroutineScope, private val certId: String) : BaseState<DetailEvents>(scope) {
     fun onDelete() {
         launch {

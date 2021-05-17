@@ -40,6 +40,10 @@ internal interface DetailCallback {
 @Parcelize
 internal class DetailFragmentNav(val certId: String) : FragmentNav(DetailFragment::class)
 
+/**
+ * Fragment which shows the Vaccination certificate details
+ * Further actions (Delete current certificate, Show Vaccination QR Code, Add Vaccination certificate)
+ */
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     private val args: DetailFragmentNav by lazy { getArgs() }

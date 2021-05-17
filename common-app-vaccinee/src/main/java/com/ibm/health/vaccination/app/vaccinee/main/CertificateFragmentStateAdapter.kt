@@ -4,6 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 
+/**
+ * [FragmentStateAdapter] which holds a list of [CertificateFragment]
+ */
 internal class CertificateFragmentStateAdapter(
     fragment: Fragment
 ) : FragmentStateAdapter(fragment) {
@@ -31,8 +34,6 @@ internal class CertificateFragmentStateAdapter(
             it.args.certId == certId
         }
     }
-
-    fun getFragment(position: Int): CertificateFragment = fragments[position]
 
     private fun getId(it: CertificateFragment) = it.args.certId.hashCode().toLong()
 }

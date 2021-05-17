@@ -5,6 +5,9 @@ import com.ibm.health.common.android.utils.BaseState
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import kotlinx.coroutines.CoroutineScope
 
+/**
+ * State class which provides the [onPageSelected] function and holds the [selectedCertId]
+ */
 internal class MainState(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
 
     var selectedCertId: String? = null

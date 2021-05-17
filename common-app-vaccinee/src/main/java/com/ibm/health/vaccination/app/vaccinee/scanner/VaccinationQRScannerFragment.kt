@@ -13,12 +13,12 @@ import com.ibm.health.vaccination.app.vaccinee.errorhandling.ErrorHandler.Compan
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.parcelize.Parcelize
 
-/**
- * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
- */
 @Parcelize
 internal class VaccinationQRScannerFragmentNav : FragmentNav(VaccinationQRScannerFragment::class)
 
+/**
+ * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
+ */
 internal class VaccinationQRScannerFragment : QRScannerFragment(), DialogListener, VaccinationQRScannerEvents {
 
     private val state by buildState { VaccinationQRScannerState(scope, stateFlowStore) }

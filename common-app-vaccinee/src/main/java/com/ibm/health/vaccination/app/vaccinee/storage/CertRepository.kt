@@ -5,6 +5,9 @@ import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ibm.health.common.vaccination.app.utils.CborSharedPrefsStore
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 
+/**
+ * Repository which contains the [GroupedCertificatesList]
+ */
 // FIXME move to SDK?
 internal class CertRepository(store: CborSharedPrefsStore) {
 

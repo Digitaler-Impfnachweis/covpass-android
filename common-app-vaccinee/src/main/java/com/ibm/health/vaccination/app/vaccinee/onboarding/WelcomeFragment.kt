@@ -8,6 +8,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class WelcomeFragmentNav : FragmentNav(WelcomeFragment::class)
 
+/**
+ * Vaccinee specific welcome screen. Overrides the abstract functions from [BaseWelcomeFragment].
+ */
 internal class WelcomeFragment : BaseWelcomeFragment() {
 
     override fun getHeaderTextRes() = R.string.start_onboarding_title

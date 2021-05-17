@@ -9,10 +9,16 @@ import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCer
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
+/**
+ * Event which is triggered after successful QR Code decoding
+ */
 internal interface VaccinationQRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: String)
 }
 
+/**
+ * State class which holds the business logic for decoding the Vaccination Certificate
+ */
 internal class VaccinationQRScannerState(
     scope: CoroutineScope,
     store: StateFlowStore,

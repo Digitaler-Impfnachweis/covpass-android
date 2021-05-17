@@ -28,6 +28,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class CertificateFragmentNav(val certId: String) : FragmentNav(CertificateFragment::class)
 
+/**
+ * Fragment which shows a incomplete or complete Vaccination certificate
+ */
 internal class CertificateFragment : BaseFragment() {
 
     internal val args: CertificateFragmentNav by lazy { getArgs() }

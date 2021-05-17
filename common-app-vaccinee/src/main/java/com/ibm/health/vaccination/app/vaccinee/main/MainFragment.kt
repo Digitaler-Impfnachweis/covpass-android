@@ -28,6 +28,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class MainFragmentNav : FragmentNav(MainFragment::class)
 
+/**
+ * The main fragment hosts a [ViewPager2] to display all Vaccination Certificates and serves as entry point for further actions
+ * (e.g. add new Vaccination certificate, show settings screen, show selected Vaccination certificate)
+ */
 internal class MainFragment : BaseFragment(), DetailCallback {
 
     private val state by buildState { MainState(scope) }

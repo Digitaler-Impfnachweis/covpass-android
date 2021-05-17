@@ -17,6 +17,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class AddVaccinationCertificateFragmentNav : FragmentNav(AddVaccinationCertificateFragment::class)
 
+/**
+ * Fragment which shows the instructions for QR code scan
+ */
 internal class AddVaccinationCertificateFragment : BaseBottomSheet() {
 
     override val buttonTextRes by lazy { R.string.vaccination_add_popup_scan_button_title }
