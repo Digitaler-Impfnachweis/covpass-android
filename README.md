@@ -66,6 +66,7 @@ What is a DI framework doing, anyway?
 In other words, Kotlin already provides everything you need for handling DI. So, we use pure, code-based DI.
 
 * It's checked at compile-time.
+* The compile-time error messages are clear and understandable.
 * You can explore the DI graph trivially with your normal IDE (find usages, go to definition, unused deps appear as gray text, etc.).
 * This solution works the same for libraries and internally within the app (we follow the library architecture, see above).
 * The learning curve is minimal and in our experience, every junior developer just "gets it" without much thought.
@@ -85,9 +86,10 @@ Typically you'd use `MutableStateFlow` (or the mutation-optimized `MutableValueF
 Simple example:
 
 ```kotlin
-// BaseEvents defines our always-available events. Currently this only contains onError(error: Throwable).
-// We use interfaces instead of sealed classes to represent events because that is more composable (like union types)
-// and results in less boilerplate.
+// BaseEvents defines our always-available events. Currently this only contains
+// onError(error: Throwable).
+// We use interfaces instead of sealed classes to represent events because that is more
+// composable (like union types) and results in less boilerplate.
 interface MyEvents : BaseEvents {
     fun onSomethingHappened(result: String)
 }
@@ -97,15 +99,18 @@ class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
     val data = MutableStateFlow<List<Entity>>(emptyList())
 
     fun refreshData() {
-        // This launches a coroutine, catches any exceptions and forwards them via eventNotifier { onError(error) }
+        // This launches a coroutine, catches any exceptions and forwards them via
+        // eventNotifier { onError(error) }
         // and activates the `isLoading` state (unless you pass withLoading = false).
         launch {
-            // If an exception is thrown here it'll automatically get caught trigger BaseFragment.onError(exception)
+            // If an exception is thrown here it'll automatically get caught trigger
+            // BaseFragment.onError(exception)
             data.value = requestLatestData()
         }
     }
 
-    // You can also compose states. The otherState.eventNotifier and otherState.isLoading will get merged into MyState.
+    // You can also compose states. The otherState.eventNotifier and otherState.isLoading
+    // will get merged into MyState.
     val otherState by buildState { OtherState(scope) }
 
     // A contrived event example to get the point across
@@ -125,7 +130,7 @@ class MyFragment : BaseFragment(), MyEvents {
     // The state's eventNotifier and isLoading are automatically processed.
     // The events are triggered as method calls on this fragment - e.g. onError(throwable).
     // Whenever isLoading changes this triggers setLoading(isLoading: Boolean).
-    val state by buildState { MyState(scope) }  // here, scope is an alias for the viewModelScope
+    val state by buildState { MyState(scope) }  // here, scope is an alias for viewModelScope
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
