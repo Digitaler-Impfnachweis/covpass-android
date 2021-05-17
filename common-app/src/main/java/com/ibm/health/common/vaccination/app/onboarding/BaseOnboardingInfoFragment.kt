@@ -6,6 +6,10 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.databinding.OnboardingInfoBinding
 
+/**
+ * Common base fragment for displaying an onboarding info page to the user. Both apps use multiple variations of
+ * basically the same fragment, only the different texts and icons are defined in the sub fragments.
+ */
 public abstract class BaseOnboardingInfoFragment : BaseFragment() {
 
     public abstract val titleRes: Int

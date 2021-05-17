@@ -8,18 +8,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ibm.health.common.android.utils.appVersion
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
-import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.OpenSourceLicenseFragmentNav
 import com.ibm.health.common.vaccination.app.R
 import com.ibm.health.common.vaccination.app.databinding.InformationBinding
 import com.ibm.health.common.vaccination.app.utils.stripUnderlines
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-public class InformationFragmentNav : FragmentNav(InformationFragment::class)
-
+/**
+ * Common base fragment to display the faq, imprint etc. Both apps use the same fragment, only the different links are
+ * defined inside the app-specific fragments.
+ */
 public abstract class InformationFragment : BaseFragment() {
 
     private val binding by viewBinding(InformationBinding::inflate)

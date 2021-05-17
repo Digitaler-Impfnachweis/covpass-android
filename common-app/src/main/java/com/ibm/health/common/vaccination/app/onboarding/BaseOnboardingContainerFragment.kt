@@ -13,6 +13,10 @@ import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.databinding.OnboardingContainerBinding
 import com.ibm.health.common.vaccination.app.utils.SimpleFragmentStateAdapter
 
+/**
+ * Abstract base container fragment for the onboarding fragments. It hosts a viewpager to add the actual onboarding
+ * fragments.
+ */
 public abstract class BaseOnboardingContainerFragment : BaseFragment() {
 
     private val binding by viewBinding(OnboardingContainerBinding::inflate)

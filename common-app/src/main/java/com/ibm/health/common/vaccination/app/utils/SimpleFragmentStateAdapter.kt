@@ -5,16 +5,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.onDestroyViewOnce
-import com.ibm.health.common.navigation.android.FragmentDestination
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-public fun SimpleFragmentStateAdapter(
-    parent: Fragment,
-    fragments: List<FragmentDestination>,
-): SimpleFragmentStateAdapter =
-    SimpleFragmentStateAdapter(parent, fragments.map { it.build() })
-
+/**
+ * Simple [FragmentStateAdapter] that takes a list of [Fragment] as argument.
+ */
 public class SimpleFragmentStateAdapter(
     private val parent: Fragment,
     fragments: List<Fragment>,

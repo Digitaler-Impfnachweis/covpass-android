@@ -10,6 +10,9 @@ import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.vaccination.app.databinding.CustomCheckboxBinding
 import com.ibm.health.common.vaccination.app.utils.stripUnderlines
 
+/**
+ * A custom view with a checkbox on the left and a text on the right.
+ */
 public class VaccinationCheckBox @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

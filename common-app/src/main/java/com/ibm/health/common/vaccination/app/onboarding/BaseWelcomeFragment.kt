@@ -8,6 +8,10 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.databinding.WelcomeBinding
 
+/**
+ * Common base fragment for displaying a welcome page to the user. Both apps use basically the same fragment,
+ * only the different texts and icons are defined in the app-specific fragments.
+ */
 public abstract class BaseWelcomeFragment : BaseFragment() {
 
     private val binding by viewBinding(WelcomeBinding::inflate)

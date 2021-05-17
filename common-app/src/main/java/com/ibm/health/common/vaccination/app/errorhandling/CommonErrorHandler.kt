@@ -6,6 +6,10 @@ import com.ibm.health.common.vaccination.app.R
 import com.ibm.health.common.vaccination.app.dialog.DialogModel
 import com.ibm.health.common.vaccination.app.dialog.showDialog
 
+/**
+ * Common abstract base class for the app-specific error handlers. This one covers handling of errors that can occur in
+ * both apps. Errors that only occur in one app should be handled inside the app-specific error handlers.
+ */
 public abstract class CommonErrorHandler {
 
     public fun handleError(error: Throwable, fragmentManager: FragmentManager) {

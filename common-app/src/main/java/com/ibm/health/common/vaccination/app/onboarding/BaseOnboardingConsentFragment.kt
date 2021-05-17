@@ -9,6 +9,10 @@ import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.R
 import com.ibm.health.common.vaccination.app.databinding.OnboardingConsentBinding
 
+/**
+ * Common base fragment for displaying a data privacy consent to the user. Both apps use basically the same fragment,
+ * only the different texts and icons are defined in the app-specific fragments.
+ */
 public abstract class BaseOnboardingConsentFragment : BaseFragment() {
 
     public abstract val titleRes: Int
