@@ -64,9 +64,9 @@ public class QRCoder(private val validator: CertValidator) {
     /**
      * Converts a [qrContent] to a [VaccinationCertificate] data model.
      *
-     * @throws ExpiredCwtException If the certificate has expired.
+     * @throws ExpiredCwtException If the [CBORWebToken] has expired.
      * @throws BadCoseSignatureException If the signature validation failed.
-     * @throws UnsupportedDgcVersionException If the DGC version is unsupported.
+     * @throws UnsupportedDgcVersionException If the Digital Green Certificate version is unsupported.
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
@@ -86,13 +86,13 @@ public class QRCoder(private val validator: CertValidator) {
     }
 }
 
-/** Thrown when the CWT expiry validation failed. */
+/** Thrown when the [CBORWebToken] expiry validation failed. */
 public open class ExpiredCwtException(message: String = "Certificate expired") : DgcDecodeException(message)
 
 /** Thrown when the COSE signature validation failed. */
 public open class BadCoseSignatureException(message: String = "Validation failed") : DgcDecodeException(message)
 
-/** Thrown when the DGC has the wrong version. */
+/** Thrown when the Digital Green Certificate has the wrong version. */
 public open class UnsupportedDgcVersionException(message: String = "Wrong Certificate Version") :
     DgcDecodeException(message)
 

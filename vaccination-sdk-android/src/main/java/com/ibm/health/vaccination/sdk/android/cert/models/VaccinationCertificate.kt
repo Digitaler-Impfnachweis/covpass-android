@@ -16,11 +16,12 @@ import java.time.LocalDate
 @Serializable
 public data class VaccinationCertificate(
 
-    // Information inside the CWT
+    // Information inside the CBOR Web Token (CWT)
     val issuer: String = "",
     val validFrom: Instant? = null,
     val validUntil: Instant? = null,
 
+    // The EU Digital Green Certificate
     @SerialName("nam")
     val name: Name = Name(),
     @SerialName("dob")
