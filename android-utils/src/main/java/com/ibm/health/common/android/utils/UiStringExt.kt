@@ -1,7 +1,9 @@
 package com.ibm.health.common.android.utils
 
 import android.text.Spanned
+import androidx.annotation.StringRes
 import androidx.core.text.HtmlCompat
+import com.ibm.health.common.logging.Lumber
 
 /**
  * A regular expression which is used to replace every match of the following format:
@@ -14,6 +16,11 @@ import androidx.core.text.HtmlCompat
  */
 private val linkRegex = Regex("#(.*)::(.*)#")
 
+/**
+ * A regular expression which is used to replace phone numbers with clickable links.
+ */
+private val phoneNumberRegex = Regex("""#(\+?[\d\s\-/]+)(?:::\$0)?#""")
+
 /** Used for index-based string interpolation. */
 private val interpolationRegex = Regex("""\$(\d+)""")
 
@@ -25,13 +32,17 @@ private val interpolationRegex = Regex("""\$(\d+)""")
  *
  * @return the [Spanned] string.
  */
-public fun getSpanned(twineString: String, vararg values: String, boldLinks: Boolean = true): Spanned {
-    val interpolatedText = interpolationRegex.replace(twineString) { match ->
+public fun getSpanned(twineString: String, vararg values: Any, boldLinks: Boolean = true): Spanned {
+    val textWithPhone = phoneNumberRegex.replace(twineString) { match ->
+        val phone = match.groups[1]!!.value
+        "#$phone::tel:$phone#"
+    }
+    val interpolatedText = interpolationRegex.replace(textWithPhone) { match ->
         try {
             val index = match.groups[1]!!.value.toInt()
-            values[index]
+            values.getOrNull(index)?.toString() ?: ""
         } catch (e: Throwable) {
-            // Bad format string or index
+            Lumber.e(e) { "Bad format string or index" }
             return@replace ""
         }
     }
@@ -45,6 +56,21 @@ public fun getSpanned(twineString: String, vararg values: String, boldLinks: Boo
         .convertStyleTags()
         .toSpanned()
 }
+
+/**
+ * Formats a string of the following formats:
+ * Ich habe die #Datenschutzerklärung::linkUrl# zur Kenntnis genommen.
+ *
+ * @param stringRes - string res id to be transformed.
+ *
+ * @return the [Spanned] string.
+ */
+public fun getSpanned(@StringRes stringRes: Int, vararg values: Any, boldLinks: Boolean = true): Spanned =
+    getSpanned(getString(stringRes, values = values), values = values, boldLinks = boldLinks)
+
+@Suppress("SpreadOperator")
+public fun getString(@StringRes stringRes: Int, vararg values: Any): String =
+    androidDeps.resourceProvider.getString(stringRes, *values)
 
 /**
  * Converts the bold and new line tags to their HTML tags ignoring the case.

@@ -30,7 +30,7 @@ internal class AddVaccinationCertificateFragment : BaseBottomSheet() {
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.vaccination_add_popup_title)
         binding.addVaccinationCertFaq.apply {
             text = getSpanned(
-                getString(R.string.vaccination_add_popup_action_title_linked),
+                R.string.vaccination_add_popup_action_title_linked,
                 getString(R.string.vaccination_add_popup_link)
             )
             movementMethod = LinkMovementMethod.getInstance()

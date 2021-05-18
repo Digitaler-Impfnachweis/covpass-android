@@ -30,7 +30,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationAppVersionLabel.text = getString(R.string.app_information_version_label, appVersion)
         binding.informationFieldFaq.apply {
             text = getSpanned(
-                getString(R.string.app_information_title_faq_linked),
+                R.string.app_information_title_faq_linked,
                 getString(getFAQLinkRes())
             )
             movementMethod = LinkMovementMethod.getInstance()
@@ -38,7 +38,7 @@ public abstract class InformationFragment : BaseFragment() {
         }
         binding.informationFieldDataSecurityPolicy.apply {
             text = getSpanned(
-                getString(R.string.app_information_title_datenschutz_linked),
+                R.string.app_information_title_datenschutz_linked,
                 getString(getDataSecurityPolicyLinkRes())
             )
             movementMethod = LinkMovementMethod.getInstance()
@@ -46,7 +46,7 @@ public abstract class InformationFragment : BaseFragment() {
         }
         binding.informationFieldImprint.apply {
             text = getSpanned(
-                getString(R.string.app_information_title_company_details_linked),
+                R.string.app_information_title_company_details_linked,
                 getString(getImprintLinkRes())
             )
             movementMethod = LinkMovementMethod.getInstance()

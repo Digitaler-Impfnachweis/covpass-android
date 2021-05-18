@@ -1,4 +1,5 @@
 dependencies {
+    api project(":logging")
     androidUI()
     coroutines()
     reactiveState()
