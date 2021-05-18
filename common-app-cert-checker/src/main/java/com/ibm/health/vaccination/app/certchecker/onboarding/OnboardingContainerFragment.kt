@@ -11,6 +11,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class OnboardingContainerFragmentNav : FragmentNav(OnboardingContainerFragment::class)
 
+/**
+ * Fragment which holds the [SimpleFragmentStateAdapter] with CovPass Check specific onboarding steps.
+ */
 internal class OnboardingContainerFragment : BaseOnboardingContainerFragment() {
 
     override val fragmentStateAdapter by lazy {

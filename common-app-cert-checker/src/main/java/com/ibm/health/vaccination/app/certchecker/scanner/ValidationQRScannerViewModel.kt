@@ -15,19 +15,22 @@ internal interface ValidationQRScannerEvents : BaseEvents {
     fun onImmunizationIncomplete(certificate: VaccinationCertificate)
 }
 
+/**
+ * ViewModel holding the business logic for decoding and validating a [VaccinationCertificate].
+ */
 internal class ValidationQRScannerViewModel(scope: CoroutineScope) : BaseState<ValidationQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                val validationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
-                if (validationCertificate.hasFullProtection) {
+                val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
+                if (vaccinationCertificate.hasFullProtection) {
                     eventNotifier {
-                        onValidationSuccess(validationCertificate)
+                        onValidationSuccess(vaccinationCertificate)
                     }
                 } else {
                     eventNotifier {
-                        onImmunizationIncomplete(validationCertificate)
+                        onImmunizationIncomplete(vaccinationCertificate)
                     }
                 }
             } catch (exception: Exception) {

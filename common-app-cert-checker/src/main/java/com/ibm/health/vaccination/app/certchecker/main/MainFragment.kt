@@ -22,6 +22,9 @@ import java.time.LocalDateTime
 @Parcelize
 public class MainFragmentNav : FragmentNav(MainFragment::class)
 
+/**
+ * Displays the start view of the app.
+ */
 internal class MainFragment : BaseFragment() {
 
     private val binding by viewBinding(CheckerMainBinding::inflate)

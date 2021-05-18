@@ -8,6 +8,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class ValidationInformationFragmentNav : FragmentNav(ValidationInformationFragment::class)
 
+/**
+ * Fragment to display the faq, imprint etc. This subclass only defines the links, the rest is included in
+ * [InformationFragment].
+ */
 internal class ValidationInformationFragment : InformationFragment() {
 
     override fun getFAQLinkRes() = R.string.information_faq_link

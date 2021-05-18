@@ -15,12 +15,12 @@ import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.parcelize.Parcelize
 
-/**
- * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
- */
 @Parcelize
 internal class ValidationQRScannerFragmentNav : FragmentNav(ValidationQRScannerFragment::class)
 
+/**
+ * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
+ */
 internal class ValidationQRScannerFragment :
     QRScannerFragment(), DialogListener, ValidationQRScannerEvents, ValidationResultListener {
 

@@ -19,10 +19,16 @@ import com.ibm.health.vaccination.app.certchecker.main.MainFragment
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
+/**
+ * Interface to get notified when the validation result fragment was closed.
+ */
 internal interface ValidationResultListener {
     fun onValidationResultClosed()
 }
 
+/**
+ * Common base class for displaying validation success, incomplete or failure result.
+ */
 internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
     override val heightLayoutParams = ViewGroup.LayoutParams.MATCH_PARENT
@@ -81,6 +87,9 @@ internal class ValidationResultSuccessFragmentNav(
     val birthDate: LocalDate?,
 ) : FragmentNav(ValidationResultSuccessFragment::class)
 
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display validation success.
+ */
 internal class ValidationResultSuccessFragment : ValidationResultFragment() {
     private val args: ValidationResultSuccessFragmentNav by lazy { getArgs() }
     override val titleRes = R.string.validation_check_popup_valid_vaccination_title
@@ -100,6 +109,9 @@ internal class ValidationResultIncompleteFragmentNav(
     val birthDate: LocalDate?,
 ) : FragmentNav(ValidationResultIncompleteFragment::class)
 
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display that the protection is not complete yet.
+ */
 internal class ValidationResultIncompleteFragment : ValidationResultFragment() {
     private val args: ValidationResultIncompleteFragmentNav by lazy { getArgs() }
     override val titleRes = R.string.validation_check_popup_vaccination_not_completely_title
@@ -116,6 +128,9 @@ internal class ValidationResultIncompleteFragment : ValidationResultFragment() {
 @Parcelize
 internal class ValidationResultFailureFragmentNav : FragmentNav(ValidationResultFailureFragment::class)
 
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display validation failure.
+ */
 internal class ValidationResultFailureFragment : ValidationResultFragment() {
     override val titleRes = R.string.validation_check_popup_unsuccessful_test_title
     override val textRes = R.string.validation_check_popup_unsuccessful_test_message
