@@ -38,12 +38,8 @@ internal class ValidationQRScannerViewModel(scope: CoroutineScope) : BaseState<V
                             onValidationFailure()
                         }
                     }
-                    // TODO this case should be handled more differentiated later
                     else -> {
-                        Lumber.e(exception)
-                        eventNotifier {
-                            onValidationFailure()
-                        }
+                        throw exception
                     }
                 }
             }
