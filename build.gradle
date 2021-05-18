@@ -46,7 +46,7 @@ subprojects {
     if (!isPlatformProject) {
         if (!isLibraryProject) {
             apply from: "$rootDir/gradle/common/android-app.gradle"
-            androidApp(minVersion: 23, obfuscation: Obfuscation.None, disableAndroidLints: ["UnusedResources"])
+            androidApp(minVersion: 23, obfuscation: Obfuscation.Full, disableAndroidLints: ["UnusedResources"])
             apply plugin: 'com.jaredsburrows.license'
 
             licenseReport {
@@ -99,6 +99,26 @@ subprojects {
                         abortOnError false
                     }
                 }
+                // for local release builds and debugging proguard
+                def debugKeystore = file("$rootDir/debug.keystore")
+                if (debugKeystore.exists()) {
+                    signingConfigs {
+                        debug {
+                            storeFile debugKeystore
+                            storePassword 'android'
+                            keyAlias 'androiddebugkey'
+                            keyPassword 'android'
+                        }
+                    }
+                    buildTypes {
+                        debug {
+                            signingConfig signingConfigs.debug
+                        }
+                        release {
+                            signingConfig signingConfigs.debug
+                        }
+                    }
+                }
             }
 
             dependencies {
@@ -132,39 +152,4 @@ subprojects {
             trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
         }
     }
-
-    // TODO: SDK modules
-//    if (isLibraryProject && !project.name.startsWith("common-app")) {
-//        apply from: "$rootDir/gradle/common/publish.gradle"
-//        def url = TODO
-//        publish(
-//            url: url,
-//            username: username,
-//            password: password,
-//            isPlatformProject: isPlatformProject,
-//        )
-//    }
-
-    // TODO: Production release builds
-//    if (!isLibraryProject && project.name.startsWith("app-") && project.name.endsWith("-prod")) {
-//        apply plugin: 'maven-publish'
-//        afterEvaluate {
-//            publishing {
-//                publications {
-//                    release(MavenPublication) {
-//                        from components.release_apk
-//                    }
-//                }
-//                repositories {
-//                    maven {
-//                        url "https://nexus.epa-dev.net/repository/epa-mobile-apps/"
-//                        credentials {
-//                            username repoConfig.nexusUsername
-//                            password repoConfig.nexusPassword
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

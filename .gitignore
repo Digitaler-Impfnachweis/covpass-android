@@ -155,3 +155,5 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 *interface_full-r8-config.txt
+
+/debug.keystore
