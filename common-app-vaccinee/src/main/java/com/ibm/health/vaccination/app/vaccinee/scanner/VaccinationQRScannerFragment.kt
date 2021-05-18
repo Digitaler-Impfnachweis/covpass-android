@@ -21,19 +21,19 @@ internal class VaccinationQRScannerFragmentNav : FragmentNav(VaccinationQRScanne
  */
 internal class VaccinationQRScannerFragment : QRScannerFragment(), DialogListener, VaccinationQRScannerEvents {
 
-    private val state by buildState { VaccinationQRScannerState(scope, stateFlowStore) }
+    private val viewModel by buildState { VaccinationQRScannerViewModel(scope, stateFlowStore) }
 
     override val loadingText = R.string.vaccination_add_loading_screen_message
 
     override fun onBarcodeResult(result: BarcodeResult) {
-        state.onQrContentReceived(result.text)
+        viewModel.onQrContentReceived(result.text)
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == TAG_ERROR_DUPLICATE_CERTIFICATE && action == DialogAction.NEGATIVE) {
             findNavigator().pop()
         } else if (tag == TAG_ERROR_CONNECTION) {
-            state.lastCertificateId.value?.also {
+            viewModel.lastCertificateId.value?.also {
                 onScanSuccess(it)
             } ?: run {
                 // This should not be possible, just as a safety fallback

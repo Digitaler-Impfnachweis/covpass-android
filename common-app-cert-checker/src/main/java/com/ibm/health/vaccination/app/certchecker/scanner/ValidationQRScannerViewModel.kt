@@ -15,7 +15,7 @@ internal interface ValidationQRScannerEvents : BaseEvents {
     fun onImmunizationIncomplete(certificate: VaccinationCertificate)
 }
 
-internal class ValidationQRScannerState(scope: CoroutineScope) : BaseState<ValidationQRScannerEvents>(scope) {
+internal class ValidationQRScannerViewModel(scope: CoroutineScope) : BaseState<ValidationQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {

@@ -6,9 +6,9 @@ import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * State class which provides the [onPageSelected] function and holds the [selectedCertId]
+ * ViewModel providing the [onPageSelected] function and holding the [selectedCertId].
  */
-internal class MainState(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
+internal class MainViewModel(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
 
     var selectedCertId: String? = null
 

@@ -24,12 +24,12 @@ internal class ValidationQRScannerFragmentNav : FragmentNav(ValidationQRScannerF
 internal class ValidationQRScannerFragment :
     QRScannerFragment(), DialogListener, ValidationQRScannerEvents, ValidationResultListener {
 
-    private val state by buildState { ValidationQRScannerState(scope) }
+    private val viewModel by buildState { ValidationQRScannerViewModel(scope) }
 
     override val loadingText = R.string.validation_check_loading_screen_message
 
     override fun onBarcodeResult(result: BarcodeResult) {
-        state.onQrContentReceived(result.text)
+        viewModel.onQrContentReceived(result.text)
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {

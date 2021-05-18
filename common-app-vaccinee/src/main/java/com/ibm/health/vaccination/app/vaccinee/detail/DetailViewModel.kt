@@ -10,9 +10,9 @@ internal interface DetailEvents : BaseEvents {
 }
 
 /**
- * State which provides the [onDelete] and [onFavoriteClick] functionality
+ * ViewModel providing the [onDelete] and [onFavoriteClick] functionality.
  */
-internal class DetailState(scope: CoroutineScope, private val certId: String) : BaseState<DetailEvents>(scope) {
+internal class DetailViewModel(scope: CoroutineScope, private val certId: String) : BaseState<DetailEvents>(scope) {
     fun onDelete() {
         launch {
             vaccineeDeps.certRepository.certs.update {

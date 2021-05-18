@@ -1,12 +1,6 @@
 package com.ibm.health.common.android.utils
 
-import com.ensody.reactivestate.CoroutineLauncher
-import com.ensody.reactivestate.ErrorEvents
-import com.ensody.reactivestate.EventNotifier
-import com.ensody.reactivestate.MutableValueFlow
-import com.ensody.reactivestate.derived
-import com.ensody.reactivestate.get
-import com.ensody.reactivestate.withErrorReporting
+import com.ensody.reactivestate.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
@@ -41,14 +35,14 @@ public interface BaseEvents : ErrorEvents
 /**
  * Base interface anything that holds [StateFlow]s, sends events and has its lifecycle bound to a [CoroutineScope].
  *
- * We can use this as the base class for stateful UseCases that behave almost like a ViewModel, but shouldn't have their
+ * We can use this as the base interface for stateful UseCases and ViewModels. These objects shouldn't have their
  * own [CoroutineScope] because then you'd have to manually cancel the scope and anything that can be forgotten
  * increases the potential for bugs. So, we provide a slightly safer general concept.
  *
  * Typical usage:
  *
  * ```kotlin
- * class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
+ * class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
  *     fun foo() {
  *         launch {
  *             // something with error handling.
@@ -64,6 +58,11 @@ public interface State<T : BaseEvents> : EventNotifierOwner<T>, CoroutineLaunche
     public val isLoading: IsLoading
 }
 
+/**
+ * This is the base class for our ViewModels and [State] classes and allows for composition via nesting.
+ *
+ * @see State for more details.
+ */
 public abstract class BaseState<T : BaseEvents>(scope: CoroutineScope) : State<T> {
     final override val launcherScope: CoroutineScope = scope
     override val eventNotifier: EventNotifier<T> = EventNotifier()

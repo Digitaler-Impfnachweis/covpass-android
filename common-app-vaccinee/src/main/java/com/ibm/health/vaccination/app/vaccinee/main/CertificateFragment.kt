@@ -34,7 +34,7 @@ internal class CertificateFragmentNav(val certId: String) : FragmentNav(Certific
 internal class CertificateFragment : BaseFragment() {
 
     internal val args: CertificateFragmentNav by lazy { getArgs() }
-    private val state by buildState { CertificateState(scope) }
+    private val viewModel by buildState { CertificateViewModel(scope) }
     private val binding by viewBinding(CertificateBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,7 +105,7 @@ internal class CertificateFragment : BaseFragment() {
 
         binding.certificateFavoriteButton.setImageResource(favoriteIconResource)
         binding.certificateFavoriteButton.setOnClickListener {
-            state.onFavoriteClick(certId)
+            viewModel.onFavoriteClick(certId)
         }
         binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
 

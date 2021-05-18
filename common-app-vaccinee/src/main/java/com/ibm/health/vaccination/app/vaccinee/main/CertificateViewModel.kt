@@ -6,9 +6,9 @@ import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * State class which provides the [onFavoriteClick] function to mark a Certificate as favorite
+ * ViewModel providing the [onFavoriteClick] function to mark a Certificate as favorite.
  */
-internal class CertificateState(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
+internal class CertificateViewModel(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
 
     fun onFavoriteClick(certId: String) {
         launch {

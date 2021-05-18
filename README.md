@@ -8,7 +8,6 @@ The most important modules are:
 * android-utils-test: Utils for unit testing State, ViewModel, etc.
 * annotations: Useful annotations/interfaces, e.g. for preventing R8/ProGuard obfuscation of JSON classes.
 * gradle: Common infrastructure for linters, code coverage, R8/ProGuard.
-* gson: Gson default settings with detection for missing annotations which would be problematic with R8/ProGuard.
 * http: Ktor and OkHttp base clients with correct security configuration and Gson integration.
 * logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
 * navigation: A simple activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily.
@@ -16,18 +15,17 @@ The most important modules are:
 * vaccination-sdk-android: The main vaccination SDK for Android.
 * vaccination-sdk-android-demo: Use this to override the SDK settings for the demo environment.
 
-## SDK Installation
+The apps live in these modules:
 
-It's important that you include the BOM via `platform`. Those are the only modules which should have a version number. All other modules will automatically get the correct version from the BOM.
+* common-app: Code shared between CovPass and CovPass Check.
+* common-app-vaccinee: The CovPass app's code.
+  * app-vaccinee-demo: The demo variant of the CovPass app.
+  * app-vaccinee-prod: The production variant of the CovPass app.
+* common-app-cert-checker: The CovPass Check app's code.
+  * app-cert-checker-demo: The demo variant of the CovPass Check app.
+  * app-cert-checker-prod: The production variant of the CovPass Check app.
 
-```
-dependencies {
-    api platform("com.ibm.health.vaccination:vaccination-bom:$version")
-
-    // No version needed here
-    implementation 'com.ibm.health.vaccination:vaccination-sdk-android'
-}
-```
+Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
 
 ## App architecture
 
@@ -41,7 +39,12 @@ We explicitly don't break with the library abstraction within the app by introdu
 
 We avoid unnecessary indirections and abstraction layers as long as a simple combination of the IDE's refactoring operations can trivially introduce those layers later.
 
-We use lifecycle-aware, reactive, demand-driven programming. See [UI, reactivity, events](#ui-reactivity-events) for more details and sample code.
+We use lifecycle-aware, reactive, demand-driven programming. See [UI, reactivity, error handling, events](#ui-reactivity-error-handling-events) for more details and sample code.
+
+Important architectural concerns and pitfalls that have to be taken care of in the whole codebase are abstracted away instead of plastering the code with error-prone copy-paste logic.
+This includes error handling, correct lifecycle handling and even trivial things like setting view bindings to null in `onDestroyView`.
+Everything is automated as much as possible behind simple APIs, so mistakes become less likely and complexity is kept low.
+As long as you follow these APIs you're on the safe side, avoiding Android's pitfalls.
 
 ### Dependency injection
 
@@ -61,12 +64,12 @@ What is a DI framework doing, anyway?
 * It's (internally) defining a global variable that holds the dependencies. => That's just a global variable.
 * It provides lazy singletons. => That's just `by lazy`.
 * It provides factories. => That's just a function.
-* It provides scoped dependencies. => That's just a factory function taking e.g. a `Context`.
+* It provides scoped dependencies. => That's just a factory function taking e.g. a `Fragment`.
 
 In other words, Kotlin already provides everything you need for handling DI. So, we use pure, code-based DI.
 
-* It's checked at compile-time.
-* The compile-time error messages are clear and understandable.
+* It's checked at compile-time and even the IDE immediately marks errors for you, so you don't have to wait for the compiler.
+* The error messages are clear and understandable.
 * You can explore the DI graph trivially with your normal IDE (find usages, go to definition, unused deps appear as gray text, etc.).
 * This solution works the same for libraries and internally within the app (we follow the library architecture, see above).
 * The learning curve is minimal and in our experience, every junior developer just "gets it" without much thought.
@@ -76,12 +79,17 @@ None of the existing DI frameworks provides a solution for that.
 
 In our much larger projects at IBM this solution has proven to work significantly better than Koin or Dagger.
 
-### UI, reactivity, events
+### UI, reactivity, error handling, events
 
-In order to automatically deal with Android's architecture we utilize `State` objects which are like ViewModels (or stateful UseCases/Interactors), but are independent of Android's `ViewModel` class and can be composed more easily.
-A `State` comes with an `eventNotifier` to communicate events out-of-band (e.g. outside of the fragment's lifecycle) and a `launch` method to launch coroutines with automatic error handling.
-Any errors are automatically forwarded to the UI via `eventNotifier` and trigger the fragment's `onError(error: Throwable)` method.
+In order to automatically deal with Android's architecture details and pitfalls we utilize `State`/`BaseState` subclasses which are like (multiplatform) ViewModels or stateful UseCases.
+Internally, they live on an Android `ViewModel`, but they can be composed and tested more easily and in theory they allow reuse in multiplatform projects (though that's just a minor aspect in this app).
+
+A `State` comes with an `eventNotifier` to communicate events out-of-band (e.g. outside of the Fragment's lifecycle).
+Also, `State` provides a `launch` method to launch coroutines with automatic error handling.
+Any errors are automatically forwarded to the UI via `eventNotifier` and trigger the Fragment's `onError(error: Throwable)` method.
 Typically you'd use `MutableStateFlow` (or the mutation-optimized `MutableValueFlow`) in order to provide observable values.
+
+A ViewModel / `State` implementation can be added to a Fragment using `by buildState` which is lifecycle-aware.
 
 Simple example:
 
@@ -89,13 +97,13 @@ Simple example:
 // BaseEvents defines our always-available events. Currently this only contains
 // onError(error: Throwable).
 // We use interfaces instead of sealed classes to represent events because that is more
-// composable (like union types) and results in less boilerplate.
+// composable (almost like union types) and results in less boilerplate.
 interface MyEvents : BaseEvents {
     fun onSomethingHappened(result: String)
 }
 
 // Usually the scope is passed from outside (in our case this will be the viewModelScope).
-class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
+class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
     val data = MutableStateFlow<List<Entity>>(emptyList())
 
     fun refreshData() {
@@ -103,14 +111,14 @@ class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
         // eventNotifier { onError(error) }
         // and activates the `isLoading` state (unless you pass withLoading = false).
         launch {
-            // If an exception is thrown here it'll automatically get caught trigger
-            // BaseFragment.onError(exception)
+            // If an exception is thrown here it'll automatically get caught and trigger
+            // MyFragment.onError(exception)
             data.value = requestLatestData()
         }
     }
 
     // You can also compose states. The otherState.eventNotifier and otherState.isLoading
-    // will get merged into MyState.
+    // will get merged into MyViewModel.
     val otherState by buildState { OtherState(scope) }
 
     // A contrived event example to get the point across
@@ -118,7 +126,8 @@ class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
         launch {
             val result: String = someBackendCommunication()
 
-            // Tell UI the result of doSomething
+            // Tell UI the result of doSomething (let's pretend this must be a one-time
+            // executed event e.g. showing a dialog)
             eventNotifier { onSomethingHappened(result) }
         }
     }
@@ -126,25 +135,29 @@ class MyState(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
 
 // The fragment has to implement the events interface.
 class MyFragment : BaseFragment(), MyEvents {
-    // buildState internally creates a ViewModel to hold the state instance.
-    // The state's eventNotifier and isLoading are automatically processed.
+    // buildState internally creates an Android ViewModel to hold the MyViewModel instance.
+    // MyViewModel's eventNotifier and isLoading are automatically processed in a
+    // lifecycle-aware way during the >= STARTED state.
     // The events are triggered as method calls on this fragment - e.g. onError(throwable).
-    // Whenever isLoading changes this triggers setLoading(isLoading: Boolean).
-    val state by buildState { MyState(scope) }  // here, scope is an alias for viewModelScope
+    // Whenever isLoading changes, this triggers setLoading(isLoading: Boolean).
+    val viewModel by buildState { MyViewModel(scope) }  // here, scope is an alias for viewModelScope
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Observe the data and update the UI whenever it changes.
-        // The autoRun block will re-execute whenever state.data is changed.
+        // Here we observe the data and update the UI whenever it changes by using autoRun.
+        // The autoRun block will re-execute whenever viewModel.data is changed.
+        // The get() call tells autoRun to get the viewModel.data.value and marks viewModel.data
+        // as a dependency of the autoRun block.
         // This principle also works with multiple get() calls and can even be
         // used together with if/when-branches to track some dependencies only under certain
-        // conditions (we even utilize this in our code).
+        // conditions (we even utilize this in our app - avoiding complicated Flow constructs).
+        // Moreover, autoRun is lifecycle-aware and only executes in the >= STARTED state.
         autoRun {
-            updateUI(get(state.data))
+            updateUI(get(viewModel.data))
         }
     }
 
-    fun updateUI(data: List<Entity>) {
+    private fun updateUI(data: List<Entity>) {
         // ...
     }
 
@@ -153,6 +166,46 @@ class MyFragment : BaseFragment(), MyEvents {
     }
 }
 ```
+
+Note, the equivalent of
+
+```kotlin
+autoRun {
+    updateUI(get(viewModel.data))
+}
+```
+
+is more or less this block of code:
+
+```kotlin
+lifecycleScope.launchWhenStarted {
+    viewModel.data.collect {
+        try {
+            updateUI(it)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Throwable) {
+            onError(e)
+        }
+    }
+}
+```
+
+This was just the trivial case with a single `StateFlow`.
+Imagine how complex things can become in the multi-`StateFlow` case combined with `if`/`when` and demand-driven resource allocation.
+We want to avoid this repetitive complexity/boilerplate and prevent common mistakes like forgetting to give `CancellationException` a special treat.
+
+### View Bindings
+
+Use the `by viewBinding` helper which takes care of the whole lifecycle handling for you:
+
+```kotlin
+class DetailFragment : BaseFragment() {
+    private val binding by viewBinding(DetailBinding::inflate)
+}
+```
+
+With a single line of code, the binding is automatically inflated in `onCreateView` and cleared in `onDestroyView`, so you can avoid the whole boilerplate.
 
 ## Screen navigation
 

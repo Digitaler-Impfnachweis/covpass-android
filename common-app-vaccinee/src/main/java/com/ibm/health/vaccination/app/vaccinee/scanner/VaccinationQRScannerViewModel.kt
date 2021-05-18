@@ -17,9 +17,9 @@ internal interface VaccinationQRScannerEvents : BaseEvents {
 }
 
 /**
- * State class which holds the business logic for decoding the Vaccination Certificate
+ * ViewModel holding the business logic for decoding the Vaccination Certificate.
  */
-internal class VaccinationQRScannerState(
+internal class VaccinationQRScannerViewModel(
     scope: CoroutineScope,
     store: StateFlowStore,
 ) : BaseState<VaccinationQRScannerEvents>(scope) {

@@ -34,7 +34,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
  */
 internal class MainFragment : BaseFragment(), DetailCallback {
 
-    private val state by buildState { MainState(scope) }
+    private val viewModel by buildState { MainViewModel(scope) }
     private val binding by viewBinding(VaccineeMainBinding::inflate)
     private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
 
@@ -42,7 +42,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         autoRun {
-            updateCertificates(get(vaccineeDeps.certRepository.certs), state.selectedCertId)
+            updateCertificates(get(vaccineeDeps.certRepository.certs), viewModel.selectedCertId)
         }
     }
 
@@ -61,7 +61,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                state.onPageSelected(position)
+                viewModel.onPageSelected(position)
             }
         })
     }
@@ -91,7 +91,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
     }
 
     override fun onShowCertClick(certId: String) {
-        state.selectedCertId = certId
+        viewModel.selectedCertId = certId
         binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(certId), isResumed)
     }
 

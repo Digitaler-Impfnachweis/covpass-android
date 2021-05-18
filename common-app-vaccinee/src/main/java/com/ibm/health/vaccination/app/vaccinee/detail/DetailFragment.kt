@@ -47,7 +47,7 @@ internal class DetailFragmentNav(val certId: String) : FragmentNav(DetailFragmen
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
-    private val state by buildState { DetailState(scope, args.certId) }
+    private val viewModel by buildState { DetailViewModel(scope, args.certId) }
     private val binding by viewBinding(DetailBinding::inflate)
     private var isFavorite = false
 
@@ -67,7 +67,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         if (item.itemId == FAVORITE_ITEM_ID) {
-            state.onFavoriteClick(args.certId)
+            viewModel.onFavoriteClick(args.certId)
             true
         } else {
             super.onOptionsItemSelected(item)
@@ -254,7 +254,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == DELETE_DIALOG_TAG && action == DialogAction.POSITIVE) {
-            state.onDelete()
+            viewModel.onDelete()
         }
     }
 
