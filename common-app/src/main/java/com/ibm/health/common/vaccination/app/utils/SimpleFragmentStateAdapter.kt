@@ -5,6 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.onDestroyViewOnce
+import com.ibm.health.common.android.utils.BaseFragmentStateAdapter
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -12,9 +13,9 @@ import kotlinx.coroutines.flow.asStateFlow
  * Simple [FragmentStateAdapter] that takes a list of [Fragment] as argument.
  */
 public class SimpleFragmentStateAdapter(
-    private val parent: Fragment,
+    parent: Fragment,
     fragments: List<Fragment>,
-) : FragmentStateAdapter(parent) {
+) : BaseFragmentStateAdapter(parent) {
 
     private val _currentFragment = MutableValueFlow<Fragment?>(null)
     public val currentFragment: StateFlow<Fragment?> = _currentFragment.asStateFlow()
@@ -25,18 +26,17 @@ public class SimpleFragmentStateAdapter(
             ?: fragment
     }
 
-    public fun attachTo(viewPager: ViewPager2) {
-        viewPager.adapter = this
-        parent.onDestroyViewOnce {
-            viewPager.adapter = null
-        }
+    public override fun attachTo(viewPager: ViewPager2) {
+        super.attachTo(viewPager)
 
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        val callback = object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 _currentFragment.value = fragments[viewPager.currentItem]
             }
-        })
+        }
+        viewPager.registerOnPageChangeCallback(callback)
+        parent.onDestroyViewOnce { viewPager.unregisterOnPageChangeCallback(callback) }
     }
 
     override fun getItemCount(): Int = fragments.size

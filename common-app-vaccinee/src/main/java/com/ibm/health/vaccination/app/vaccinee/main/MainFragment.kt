@@ -50,7 +50,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(VaccinationInformationFragmentNav()) }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
-        binding.mainViewPager.adapter = fragmentStateAdapter
+        fragmentStateAdapter.attachTo(binding.mainViewPager)
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()

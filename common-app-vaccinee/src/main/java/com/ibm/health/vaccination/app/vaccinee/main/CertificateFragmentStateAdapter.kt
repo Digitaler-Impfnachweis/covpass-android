@@ -2,14 +2,13 @@ package com.ibm.health.vaccination.app.vaccinee.main
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.ibm.health.common.android.utils.BaseFragmentStateAdapter
 import com.ibm.health.vaccination.app.vaccinee.storage.GroupedCertificatesList
 
 /**
  * [FragmentStateAdapter] which holds a list of [CertificateFragment]
  */
-internal class CertificateFragmentStateAdapter(
-    fragment: Fragment
-) : FragmentStateAdapter(fragment) {
+internal class CertificateFragmentStateAdapter(parent: Fragment) : BaseFragmentStateAdapter(parent) {
 
     private var fragments = listOf<CertificateFragment>()
 

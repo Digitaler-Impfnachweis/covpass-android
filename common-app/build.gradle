@@ -5,7 +5,6 @@ dependencies {
     api project(":securityprovider")
     api project(":vaccination-sdk-android")
     cryptographic()
-    kotlinxSerialization()
     androidUI()
     zxing()
 }
