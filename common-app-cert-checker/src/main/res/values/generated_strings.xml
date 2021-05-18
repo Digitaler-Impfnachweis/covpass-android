@@ -64,7 +64,7 @@
 	<string name="validation_check_popup_unsuccessful_test_first_reason_title">Zertifikat nicht gefunden:</string>
 	<string name="validation_check_popup_unsuccessful_test_second_reason_title">Zertifikat abgelaufen:</string>
 	<string name="validation_check_popup_unsuccessful_test_first_reason_body">Es sind keine Daten auf dem QR-Code der geimpften Person gespeichert. Sollten Sie sich im Offline-Modus befinden, aktualisieren Sie die CovPassCheck-App.</string>
-	<string name="validation_check_popup_unsuccessful_test_second_reason_body">Das Impfzertifikat ist nicht mehr gültig. Der aktuelle Status kann in der CovPassCheck-App eingesehen werden.</string>
+	<string name="validation_check_popup_unsuccessful_test_second_reason_body">Das Impfzertifikat ist nicht mehr gültig. Der aktuelle Status kann in der CovPass-App eingesehen werden.</string>
 	<string name="validation_check_popup_unsuccessful_test_button_title">Nächstes Zertifikat scannen</string>
 	<string name="validation_check_popup_vaccination_not_completely_title">Impfstatus nicht gültig</string>
 	<string name="validation_check_popup_vaccination_not_completely_message">Das geprüfte Zertifikat weist keine vollständige Impfung nach.</string>
@@ -75,8 +75,8 @@
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPassCheck-App.</string>
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
-	<string name="app_information_title_datenschutz">Datenschutz</string>
-	<string name="app_information_title_datenschutz_linked">#Datenschutz::$0#</string>
+	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
+	<string name="app_information_title_datenschutz_linked">#Datenschutzerklärug::$0#</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
@@ -89,4 +89,10 @@
 	<string name="error_no_connection_to_server_title">Verbindungsfehler</string>
 	<string name="error_no_connection_to_server_message">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
 	<string name="error_no_connection_to_server_button_title">OK</string>
+	<string name="error_scan_present_data_is_not_supported_title">Aktualisieren Sie die App</string>
+	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte aktualisieren Sie die App.</string>
+	<string name="error_scan_present_data_is_not_supported_button_title">OK</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Dieser QR-Code gehört offenbar nicht zu einem Impfzertifikat. Bitte scannen Sie den QR-Code des Impfzertifikats.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 </resources>

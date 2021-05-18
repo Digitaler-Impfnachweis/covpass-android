@@ -33,8 +33,8 @@
 	<!-- SECTION: popup: add vaccination -->
 	<string name="vaccination_add_popup_title">Impfung hinzufügen</string>
 	<string name="vaccination_add_popup_message">Scannen Sie den QR-Code auf dem Impfzertifikat. Die Informationen werden direkt in die CovPass-App übertragen.</string>
-	<string name="vaccination_add_popup_action_title">Ich habe keinen QR-Code erhalten?</string>
-	<string name="vaccination_add_popup_action_title_linked">#Ich habe keinen QR-Code erhalten?::$0#</string>
+	<string name="vaccination_add_popup_action_title">Sie haben keinen QR-Code erhalten?</string>
+	<string name="vaccination_add_popup_action_title_linked">#Sie haben keinen QR-Code erhalten?::$0#</string>
 	<string name="vaccination_add_popup_scan_button_title">QR-Code scannen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
@@ -90,6 +90,9 @@
 	<string name="dialog_delete_certificate_message">Alle enthaltenen Daten werden rückstandslos von diesem Gerät entfernt. Die Wiederherstellung der Daten ist nicht möglich.</string>
 	<string name="dialog_delete_certificate_button_delete">Löschen</string>
 	<string name="dialog_delete_certificate_button_cancel">Abbrechen</string>
+	<string name="delete_result_dialog_header">Erfolgreich gelöscht</string>
+	<string name="delete_result_dialog_message">Die Daten zur Impfung wurden erfolgreich von diesem Gerät entfernt.</string>
+	<string name="delete_result_dialog_positive_button_text">OK</string>
 
 	<!-- SECTION: error handling -->
 	<string name="error_standard_unexpected_title">Entschuldigung</string>
@@ -98,25 +101,33 @@
 	<string name="error_no_connection_to_server_title">Verbindungsfehler</string>
 	<string name="error_no_connection_to_server_message">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
 	<string name="error_no_connection_to_server_button_title">OK</string>
-
-	<!-- SECTION: dialog: delete result -->
-	<string name="delete_result_dialog_header">Erfolgreich gelöscht</string>
-	<string name="delete_result_dialog_message">Die Daten zur Impfung wurden erfolgreich von diesem Gerät entfernt.</string>
-	<string name="delete_result_dialog_positive_button_text">OK</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Dieser QR-Code gehört offenbar nicht zu einem Impfzertifikat. Bitte scannen Sie den QR-Code des Impfzertifikats.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
+	<string name="error_scan_present_data_is_not_supported_title">Aktualisieren Sie die App</string>
+	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte aktualisieren Sie die App.</string>
+	<string name="error_scan_present_data_is_not_supported_button_title">OK</string>
+	<string name="error_scan_qrcode_without_seal_title">Ungültiges Impfzertifikat</string>
+	<string name="error_scan_qrcode_without_seal_message">Das gescannte Impfzertifikat enthält keine gültige Signatur. Das Impfzertifikat wurde wohl von einer nicht autorisierten Person erstellt und kann daher nicht gespeichert werden.</string>
+	<string name="error_scan_qrcode_without_seal_button_title">OK</string>
 
 	<!-- SECTION: dialog: duplicate certificate -->
 	<string name="duplicate_certificate_dialog_header">Impfzertifikat wurde bereits hinzugefügt</string>
-	<string name="duplicate_certificate_dialog_message">Haben Sie aus Versehen ein Zertifikat doppelt gescannt?</string>
-	<string name="duplicate_certificate_dialog_positive_button_text">Erneut scannen</string>
-	<string name="duplicate_certificate_dialog_negative_button_text">Abbrechen</string>
+	<string name="duplicate_certificate_dialog_message">Das gescannte Impfzertifikat ist bereits in der App hinterlegt. Möglicherweise haben Sie das Impfzertifikat doppelt gescannt.</string>
+	<string name="duplicate_certificate_dialog_button_title">OK</string>
+
+	<!-- SECTION: dialog: certificate expired -->
+	<string name="vaccination_certificate_expired_title">Impfzertifikat abgelaufen</string>
+	<string name="error_vaccination_certificate_expired_message">Setzen Sie sich mit Ihrem Arzt oder Ihrer Ärztin in Verbindung und frischen Sie die Impfungen in der App auf.</string>
+	<string name="error_vaccination_certificate_expired_title">OK</string>
 
 	<!-- SECTION: app information -->
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPass-App.</string>
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
-	<string name="app_information_title_datenschutz">Datenschutz</string>
-	<string name="app_information_title_datenschutz_linked">#Datenschutz::$0#</string>
+	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
+	<string name="app_information_title_datenschutz_linked">#Datenschutzerklärung::$0#</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>

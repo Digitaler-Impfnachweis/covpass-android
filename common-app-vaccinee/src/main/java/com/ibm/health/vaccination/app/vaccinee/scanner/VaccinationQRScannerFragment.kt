@@ -9,7 +9,6 @@ import com.ibm.health.common.vaccination.app.errorhandling.CommonErrorHandler.Co
 import com.ibm.health.common.vaccination.app.scanner.QRScannerFragment
 import com.ibm.health.vaccination.app.vaccinee.R
 import com.ibm.health.vaccination.app.vaccinee.detail.DetailFragmentNav
-import com.ibm.health.vaccination.app.vaccinee.errorhandling.ErrorHandler.Companion.TAG_ERROR_DUPLICATE_CERTIFICATE
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.parcelize.Parcelize
 
@@ -30,9 +29,7 @@ internal class VaccinationQRScannerFragment : QRScannerFragment(), DialogListene
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == TAG_ERROR_DUPLICATE_CERTIFICATE && action == DialogAction.NEGATIVE) {
-            findNavigator().pop()
-        } else if (tag == TAG_ERROR_CONNECTION) {
+        if (tag == TAG_ERROR_CONNECTION) {
             viewModel.lastCertificateId.value?.also {
                 onScanSuccess(it)
             } ?: run {
