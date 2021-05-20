@@ -22,7 +22,7 @@ plugins {
 }
 
 apply plugin: 'pl.allegro.tech.build.axion-release'
-
+findProperty("gagagagaa")
 ext.JRubyExec = { -> com.github.jrubygradle.JRubyExec }
 
 apply from: "$rootDir/gradle/common/repos.gradle"
@@ -56,10 +56,19 @@ subprojects {
             }
         } else if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"
-            androidLibrary(minVersion: 23)
+            androidLibrary(
+                minVersion: 23,
+                kotlinCompilerArgs: [
+                    "-Xopt-in=kotlin.RequiresOptIn",
+                ],
+            )
         } else {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
-            kotlinLibrary()
+            kotlinLibrary(
+                kotlinCompilerArgs: [
+                    "-Xopt-in=kotlin.RequiresOptIn",
+                ],
+            )
         }
 
         apply from: "$rootDir/gradle/common/ktlint.gradle"

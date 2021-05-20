@@ -4,6 +4,7 @@ class Config {
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
     Boolean kotlinExplicitApiMode = true
+    List<String> kotlinCompilerArgs = []
 }
 
 ext.androidCommon = { args = [:] ->
@@ -32,7 +33,10 @@ ext.androidCommon = { args = [:] ->
 
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = getCompilerArgs(kotlinExplicitApiMode: config.kotlinExplicitApiMode)
+            freeCompilerArgs = getCompilerArgs(
+                kotlinExplicitApiMode: config.kotlinExplicitApiMode,
+                kotlinCompilerArgs: config.kotlinCompilerArgs,
+            )
         }
 
         defaultConfig {

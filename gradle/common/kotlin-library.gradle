@@ -1,5 +1,6 @@
 class Config {
     Boolean kotlinExplicitApiMode = true
+    List<String> kotlinCompilerArgs = []
 }
 
 ext.kotlinLibrary = { args = [:] ->
@@ -15,14 +16,20 @@ ext.kotlinLibrary = { args = [:] ->
     compileKotlin {
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = getCompilerArgs(kotlinExplicitApiMode: config.kotlinExplicitApiMode)
+            freeCompilerArgs = getCompilerArgs(
+                kotlinExplicitApiMode: config.kotlinExplicitApiMode,
+                kotlinCompilerArgs: config.kotlinCompilerArgs,
+            )
         }
     }
 
     compileTestKotlin {
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = getCompilerArgs(kotlinExplicitApiMode: config.kotlinExplicitApiMode)
+            freeCompilerArgs = getCompilerArgs(
+                kotlinExplicitApiMode: config.kotlinExplicitApiMode,
+                kotlinCompilerArgs: config.kotlinCompilerArgs,
+            )
         }
     }
 

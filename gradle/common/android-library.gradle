@@ -4,6 +4,7 @@ class Config {
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
     Boolean kotlinExplicitApiMode = true
+    List<String> kotlinCompilerArgs = []
 }
 
 ext.androidLibrary = { args = [:] ->
@@ -18,6 +19,7 @@ ext.androidLibrary = { args = [:] ->
         compileSdkVersion: config.compileSdkVersion,
         disableAndroidLints: config.disableAndroidLints,
         kotlinExplicitApiMode: config.kotlinExplicitApiMode,
+        kotlinCompilerArgs: config.kotlinCompilerArgs,
     )
 
     android {
