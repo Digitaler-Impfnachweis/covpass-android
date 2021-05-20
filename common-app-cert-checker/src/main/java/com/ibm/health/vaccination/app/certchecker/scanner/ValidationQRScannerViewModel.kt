@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 package com.ibm.health.vaccination.app.certchecker.scanner
 
 import com.ibm.health.common.android.utils.BaseEvents

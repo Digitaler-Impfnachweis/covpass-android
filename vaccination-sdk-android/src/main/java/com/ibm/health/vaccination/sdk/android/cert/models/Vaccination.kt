@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 @file:UseSerializers(LocalDateSerializer::class)
 
 package com.ibm.health.vaccination.sdk.android.cert.models

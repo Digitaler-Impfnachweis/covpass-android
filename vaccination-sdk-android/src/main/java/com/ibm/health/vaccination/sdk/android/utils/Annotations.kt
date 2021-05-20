@@ -1,5 +1,10 @@
 // ktlint-disable filename
 
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 package com.ibm.health.vaccination.sdk.android.utils
 
 /** This feature is not stable yet and can introduce breaking API changes in minor releases. */

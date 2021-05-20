@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
 <resources>
   <string name="open_source_licenses_path">file:///android_asset/open_source_licenses.html</string>
 </resources>

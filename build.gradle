@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 buildscript {
     ext.kotlin_version = '1.4.32'
     repositories {

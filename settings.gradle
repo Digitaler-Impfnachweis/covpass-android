@@ -1,5 +1,10 @@
 rootProject.name = 'android-vaccination-app'
 
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 // SDK modules
 include ':vaccination-bom'
 include ':vaccination-sdk-android'

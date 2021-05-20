@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 dependencies {
     api project(":common-app-cert-checker")
     api project(":vaccination-sdk-android-demo")

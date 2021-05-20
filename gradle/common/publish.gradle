@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 // Based on:
 // * https://gist.github.com/Robyer/a6578e60127418b380ca133a1291f017
 // * https://stackoverflow.com/questions/26874498/publish-an-android-library-to-maven-with-aar-and-source-jar

@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 package com.ibm.health.common.vaccination.app.information
 
 import android.annotation.SuppressLint

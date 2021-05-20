@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
 <lint>
   <issue id="RtlEnabled" severity="ignore" />
   <issue id="ObsoleteLintCustomCheck" severity="ignore" />

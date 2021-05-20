@@ -1,1 +1,6 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
 <manifest package="com.ibm.health.common.navigation.android" />

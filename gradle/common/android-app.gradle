@@ -4,6 +4,11 @@ if (_propertiesFile.exists()) {
     _propertiesFile.withInputStream { generatedProps.load(it) }
 }
 
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 enum Obfuscation {
     None,
     Debuggable,

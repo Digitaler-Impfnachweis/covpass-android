@@ -1,3 +1,8 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
@@ -27,7 +32,7 @@
         android:fillType="nonZero"
         android:strokeColor="#00000000">
       <aapt:attr name="android:fillColor">
-        <gradient 
+        <gradient
             android:startY="177.979"
             android:startX="102.84073"
             android:endY="37.352"

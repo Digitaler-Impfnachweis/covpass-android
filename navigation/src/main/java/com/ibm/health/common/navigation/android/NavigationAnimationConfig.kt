@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 package com.ibm.health.common.navigation.android
 
 import androidx.fragment.app.Fragment

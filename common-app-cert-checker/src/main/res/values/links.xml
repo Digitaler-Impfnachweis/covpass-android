@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
 <resources>
   <string name="on_boarding_consent_data_protection_link">https://www.digitaler-impfnachweis-app.de/webviews/verification-app/privacy/</string>
   <string name="information_faq_link">https://www.digitaler-impfnachweis-app.de/webviews/verification-app/faq/</string>

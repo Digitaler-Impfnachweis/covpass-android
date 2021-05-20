@@ -1,4 +1,10 @@
 #!/usr/bin/env groovy
+
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 @Library('declarative-jenkins-steps@v-1.143.0') _
 
 pipeline {
