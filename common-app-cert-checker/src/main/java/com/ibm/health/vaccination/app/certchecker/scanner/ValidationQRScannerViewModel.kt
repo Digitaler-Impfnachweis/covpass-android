@@ -9,6 +9,9 @@ import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
+/**
+ * Interface to communicate events from [ValidationQRScannerViewModel] to [ValidationQRScannerFragment].
+ */
 internal interface ValidationQRScannerEvents : BaseEvents {
     fun onValidationSuccess(certificate: VaccinationCertificate)
     fun onValidationFailure()

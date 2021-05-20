@@ -37,9 +37,12 @@ public class InfoDialogFragment : DialogFragment() {
         // Setting maxLines in DialogTitleTextStyle is somehow also working but has some very strange glitches,
         // so doing a workaround for maxlines with custom title here is safer.
         val titleBinding = DialogTitleBinding.inflate(LayoutInflater.from(context))
+
+        @Suppress("SpreadOperator")
         titleBinding.titleTextview.text = dialogModel.titleRes?.let { titleResId ->
-            getString(titleResId, dialogModel.titleParameter)
+            getString(titleResId, *dialogModel.titleFormatArgs.toTypedArray())
         }
+
         MaterialAlertDialogBuilder(activity as FragmentActivity, dialogModel.styleRes)
             .setIcon(
                 dialogModel.iconRes.takeIf { it > 0 }

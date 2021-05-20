@@ -90,7 +90,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         showDialog(dialogModel, childFragmentManager)
     }
 
-    override fun onShowCertClick(certId: String) {
+    override fun displayCert(certId: String) {
         viewModel.selectedCertId = certId
         binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(certId), isResumed)
     }

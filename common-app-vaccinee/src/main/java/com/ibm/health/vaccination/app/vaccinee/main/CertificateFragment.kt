@@ -160,7 +160,6 @@ internal class CertificateFragment : BaseFragment() {
             )
     }
 
-    // FIXME move to SDK
     private suspend fun generateQRCode(qrContent: String): Bitmap {
         return dispatchers.default {
             BarcodeEncoder().encodeBitmap(

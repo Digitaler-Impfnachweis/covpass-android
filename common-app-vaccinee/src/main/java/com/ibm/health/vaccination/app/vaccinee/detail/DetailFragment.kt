@@ -7,17 +7,22 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
+import com.google.android.material.button.MaterialButton
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
+import com.ibm.health.common.annotations.Abort
+import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
+import com.ibm.health.common.navigation.android.triggerBackPress
 import com.ibm.health.common.vaccination.app.BaseFragment
 import com.ibm.health.common.vaccination.app.dialog.DialogAction
 import com.ibm.health.common.vaccination.app.dialog.DialogListener
@@ -32,13 +37,19 @@ import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.utils.*
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Interface to communicate events from [DetailFragment] back to other fragments..
+ */
 internal interface DetailCallback {
     fun onDeletionCompleted()
-    fun onShowCertClick(certId: String)
+    fun displayCert(certId: String)
 }
 
 @Parcelize
-internal class DetailFragmentNav(val certId: String) : FragmentNav(DetailFragment::class)
+internal class DetailFragmentNav(
+    var mainCertId: String,
+    var certIdToDelete: String? = null
+) : FragmentNav(DetailFragment::class)
 
 /**
  * Fragment which shows the Vaccination certificate details
@@ -47,7 +58,7 @@ internal class DetailFragmentNav(val certId: String) : FragmentNav(DetailFragmen
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
-    private val viewModel by buildState { DetailViewModel(scope, args.certId) }
+    private val viewModel by buildState { DetailViewModel(scope) }
     private val binding by viewBinding(DetailBinding::inflate)
     private var isFavorite = false
 
@@ -67,18 +78,34 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         if (item.itemId == FAVORITE_ITEM_ID) {
-            viewModel.onFavoriteClick(args.certId)
+            viewModel.onFavoriteClick(args.mainCertId)
             true
         } else {
             super.onOptionsItemSelected(item)
         }
 
-    override fun onDeleteDone() {
-        findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
+    override fun onBackPressed(): Abortable {
+        findNavigator().popUntil<DetailCallback>()?.displayCert(args.mainCertId)
+        return Abort
+    }
+
+    override fun onDeleteDone(newMainCertId: String?) {
+        if (newMainCertId == null) {
+            findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
+        } else {
+            val dialogModel = DialogModel(
+                titleRes = R.string.delete_result_dialog_header,
+                messageRes = R.string.delete_result_dialog_message,
+                positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
+            )
+            showDialog(dialogModel, childFragmentManager)
+            args.mainCertId = newMainCertId
+            updateViews(vaccineeDeps.certRepository.certs.value)
+        }
     }
 
     private fun updateViews(certList: GroupedCertificatesList) {
-        val certId = args.certId
+        val certId = args.mainCertId
         // Can be null after deletion... in this case no update is necessary anymore
         val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
         val mainCertificate = groupedCertificate.getMainCertificate()
@@ -125,7 +152,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
             binding.detailShowProofButton.setOnClickListener {
                 if (isComplete) {
-                    findNavigator().popUntil<DetailCallback>()?.onShowCertClick(certId)
+                    triggerBackPress()
                 } else {
                     // TODO this is only temporary, change back again when feature shall be activated
                     findNavigator().push(AddVaccinationCertificateFragmentNav())
@@ -150,21 +177,8 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
             binding.detailVaccinationContainer.removeAllViews()
 
-            groupedCertificate.incompleteCertificate?.let { addVaccinationView(it.vaccinationCertificate) }
             groupedCertificate.completeCertificate?.let { addVaccinationView(it.vaccinationCertificate) }
-        }
-
-        binding.detailDeleteButton.setOnClickListener {
-            val dialogModel = DialogModel(
-                titleRes = R.string.dialog_delete_certificate_title,
-                titleParameter = mainCertificate.vaccinationCertificate.fullName,
-                messageRes = R.string.dialog_delete_certificate_message,
-                positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
-                negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
-                positiveActionColorRes = R.color.danger,
-                tag = DELETE_DIALOG_TAG,
-            )
-            showDialog(dialogModel, childFragmentManager)
+            groupedCertificate.incompleteCertificate?.let { addVaccinationView(it.vaccinationCertificate) }
         }
     }
 
@@ -187,6 +201,20 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             cert.completeSeries
         )
         vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
+
+        vaccinationView.findViewById<ImageButton>(R.id.detail_vaccination_delete_imagebutton).setOnClickListener {
+            args.certIdToDelete = cert.vaccination.id
+            val dialogModel = DialogModel(
+                titleRes = R.string.dialog_delete_certificate_title,
+                titleFormatArgs = listOf(cert.currentSeries, cert.completeSeries, cert.fullName),
+                messageRes = R.string.dialog_delete_certificate_message,
+                positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
+                negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
+                positiveActionColorRes = R.color.danger,
+                tag = DELETE_DIALOG_TAG,
+            )
+            showDialog(dialogModel, childFragmentManager)
+        }
 
         val occurrenceRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_occurrence_data_row)
         val occurrenceDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_occurrence_data_divider)
@@ -225,9 +253,16 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         countryDivider.isVisible = vaccination.country.isNotBlank()
 
         val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
+        val uvciDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_uvci_data_divider)
         findRowHeaderView(uvciRow).setText(R.string.vaccination_certificate_detail_view_data_identification_number)
         findRowTextView(uvciRow).text = vaccination.id
         uvciRow.isVisible = vaccination.id.isNotBlank()
+        uvciDivider.isVisible = vaccination.id.isNotBlank()
+
+        val qrButton = vaccinationView.findViewById<MaterialButton>(R.id.detail_vaccination_display_qr_button)
+        qrButton.setOnClickListener {
+            findNavigator().push(DisplayQrCodeFragmentNav(vaccination.id))
+        }
 
         binding.detailVaccinationContainer.addView(vaccinationView)
     }
@@ -254,7 +289,9 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == DELETE_DIALOG_TAG && action == DialogAction.POSITIVE) {
-            viewModel.onDelete()
+            args.certIdToDelete?.let {
+                viewModel.onDelete(it)
+            }
         }
     }
 

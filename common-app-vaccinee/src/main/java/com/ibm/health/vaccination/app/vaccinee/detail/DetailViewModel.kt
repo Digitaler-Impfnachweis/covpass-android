@@ -5,21 +5,26 @@ import com.ibm.health.common.android.utils.BaseState
 import com.ibm.health.vaccination.app.vaccinee.dependencies.vaccineeDeps
 import kotlinx.coroutines.CoroutineScope
 
+/**
+ * Interface to communicate events from [DetailViewModel] to [DetailFragment].
+ */
 internal interface DetailEvents : BaseEvents {
-    fun onDeleteDone()
+    fun onDeleteDone(newMainCertId: String?)
 }
 
 /**
  * ViewModel providing the [onDelete] and [onFavoriteClick] functionality.
  */
-internal class DetailViewModel(scope: CoroutineScope, private val certId: String) : BaseState<DetailEvents>(scope) {
-    fun onDelete() {
+internal class DetailViewModel(scope: CoroutineScope) : BaseState<DetailEvents>(scope) {
+
+    fun onDelete(certId: String) {
         launch {
+            var newMainCertId: String? = null
             vaccineeDeps.certRepository.certs.update {
-                it.deleteCertificate(certId)
+                newMainCertId = it.deleteVaccinationCertificate(certId)
             }
             eventNotifier {
-                onDeleteDone()
+                onDeleteDone(newMainCertId)
             }
         }
     }

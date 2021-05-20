@@ -13,7 +13,7 @@ import java.io.Serializable
  *
  * @param styleRes The style to be used in this dialog.
  * @param titleRes The title resource ID to be set in this dialog.
- * @param titleParameter Format argument for [titleRes]].
+ * @param titleFormatArgs Format arguments for [titleRes]].
  * @param messageRes The message resource ID to be set in this dialog.
  * @param messageParameter Format argument for [messageRes]].
  * @param positiveButtonTextRes The text resource ID to be used for the positive button of this dialog.
@@ -28,7 +28,7 @@ import java.io.Serializable
 public data class DialogModel(
     @StyleRes val styleRes: Int = R.style.RoundedCornersDialogTheme,
     @StringRes val titleRes: Int?,
-    val titleParameter: String = "",
+    val titleFormatArgs: List<Any> = emptyList(),
     @StringRes val messageRes: Int,
     val messageParameter: String = "",
     @StringRes val positiveButtonTextRes: Int?,

@@ -1,6 +1,7 @@
 package com.ibm.health.vaccination.app.vaccinee.storage
 
 import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCertificate
+import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificate
 import com.ibm.health.vaccination.sdk.android.cert.models.VaccinationCertificateList
 
 /**
@@ -13,9 +14,31 @@ internal data class GroupedCertificatesList(
     var favoriteCertId: String? = null,
 ) {
 
+    /**
+     * Returns a [GroupedCertificates] if the id of the incomplete or complete cert matches the given [certId].
+     */
     fun getGroupedCertificates(certId: String): GroupedCertificates? =
         certificates.firstOrNull { it.matchesId(certId) }
 
+    /**
+     * Returns the [CombinedVaccinationCertificate] with the given [certId] if existent, else null.
+     */
+    fun getCombinedCertificate(certId: String): CombinedVaccinationCertificate? {
+        certificates.forEach {
+            if (it.completeCertificate?.vaccinationCertificate?.vaccination?.id == certId) {
+                return it.completeCertificate
+            } else if (it.incompleteCertificate?.vaccinationCertificate?.vaccination?.id == certId) {
+                return it.incompleteCertificate
+            }
+        }
+        return null
+    }
+
+    /**
+     * Adds the given [CombinedVaccinationCertificate] to the [GroupedCertificatesList].
+     * The [CombinedVaccinationCertificate] will be grouped together if some existing cert matches, else it will be
+     * added as a single entry.
+     */
     fun addCertificate(certificate: CombinedVaccinationCertificate) {
         val vaccinationCertificateList = toVaccinationCertificateList().apply {
             addCertificate(certificate)
@@ -25,8 +48,28 @@ internal data class GroupedCertificatesList(
         certificates = result.certificates
     }
 
-    fun deleteCertificate(certId: String) {
-        certificates.removeIf { it.matchesId(certId) }
+    /**
+     * Deletes the [VaccinationCertificate] with the given id.
+     * If this is the only cert, the [GroupedCertificates] is deleted.
+     *
+     * @return The new main certificate id if the [GroupedCertificates] was not deleted, else null.
+     * @throws NoSuchElementException if the [certId] does not exist.
+     */
+    fun deleteVaccinationCertificate(certId: String): String? {
+        var newMainCertId: String? = null
+        val matchingGroupedCert = certificates.first {
+            it.matchesId(certId)
+        }
+        if (matchingGroupedCert.isSingleVaccination()) {
+            certificates.remove(matchingGroupedCert)
+        } else {
+            matchingGroupedCert.removeCert(certId)
+            newMainCertId = matchingGroupedCert.getMainCertId()
+        }
+        if (favoriteCertId == certId) {
+            favoriteCertId = newMainCertId
+        }
+        return newMainCertId
     }
 
     fun toggleFavorite(certId: String) {

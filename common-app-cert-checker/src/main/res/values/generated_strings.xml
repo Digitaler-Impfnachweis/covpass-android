@@ -17,11 +17,12 @@
 	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App das Impfzertifikat. Halten Sie dafür das Smartphone über den QR-Code. Die Daten werden nur zur Prüfung angezeigt und nicht im Smartphone gespeichert. Sie sehen direkt in der CovPassCheck-App, ob der Impfstatus der geimpften Person gültig ist. Hierfür ist nicht zwingend eine Internetverbindung nötig.</string>
 	<string name="validation_second_onboarding_page_title">Zweiter Schritt: Die Identität mit einem Ausweisdokument überprüfen</string>
 	<string name="validation_second_onboarding_page_message">Als prüfende Person sehen Sie in der CovPassCheck-App nur den Impfstatus sowie den Namen und das Geburtsdatum der geimpften Person. Gleichen Sie die Informationen mit einem Ausweisdokument ab.</string>
-	<string name="validation_fourth_onboarding_page_title">Zustimmung für die Nutzung der CovPassCheck-App</string>
-	<string name="validation_fourth_onboarding_page_message">Um die CovPassCheck-App zu nutzen, müssen Sie bestätigen, dass Sie die Datenschutzerklärung zur Kenntnis genommen haben.</string>
-	<string name="fourth_onboarding_page_second_selection">Ich habe die Datenschutzerklärung zur Kenntnis genommen.</string>
-	<string name="fourth_onboarding_page_second_selection_linked">Ich habe die #Datenschutzerklärung::$0# zur Kenntnis genommen.</string>
-	<string name="confirmation_fourth_onboarding_page_button_title">Fertig</string>
+	<string name="validation_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
+	<string name="validation_fourth_onboarding_first_list_item">Die Prüfung von Impfzertifikaten anderer Personen ist nur in den Fällen zulässig, die laut Gesetz vorgesehen sind.</string>
+	<string name="validation_fourth_onboarding_second_list_item">Die Daten aus fremden Impfzertifikaten dürfen nicht zu anderen Zwecken gespeichert, weitergegeben oder genutzt werden.</string>
+	<string name="validation_fourth_onboarding_third_list_item">Die Verwendung der CovPass-App ist freiwillig. Niemand darf zur Nutzung gezwungen werden. Der Nachweis des vollständigen Impfschutzes kann auch auf eine andere Weise erbracht werden (z. B. mit dem gelben Impfpass).</string>
+	<string name="confirmation_fourth_onboarding_page_button_title">Alles klar</string>
+	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
 	<string name="error_connect_internet_for_scan_title">Flugzeugmodus ausschalten oder Wi-Fi für den Datenzugriff verwenden</string>
 	<string name="error_connect_internet_for_scan_button_settings">Einstellungen</string>
 	<string name="error_connect_internet_for_scan_button_ok">OK</string>
@@ -63,7 +64,7 @@
 	<string name="validation_check_popup_unsuccessful_test_message">Das kann folgende Gründe haben:</string>
 	<string name="validation_check_popup_unsuccessful_test_first_reason_title">Zertifikat nicht gefunden:</string>
 	<string name="validation_check_popup_unsuccessful_test_second_reason_title">Zertifikat abgelaufen:</string>
-	<string name="validation_check_popup_unsuccessful_test_first_reason_body">Es sind keine Daten auf dem QR-Code der geimpften Person gespeichert. Sollten Sie sich im Offline-Modus befinden, aktualisieren Sie die CovPassCheck-App.</string>
+	<string name="validation_check_popup_unsuccessful_test_first_reason_body">Es sind keine Daten auf dem QR-Code der geimpften Person gespeichert.</string>
 	<string name="validation_check_popup_unsuccessful_test_second_reason_body">Das Impfzertifikat ist nicht mehr gültig. Der aktuelle Status kann in der CovPass-App eingesehen werden.</string>
 	<string name="validation_check_popup_unsuccessful_test_button_title">Nächstes Zertifikat scannen</string>
 	<string name="validation_check_popup_vaccination_not_completely_title">Impfstatus nicht gültig</string>

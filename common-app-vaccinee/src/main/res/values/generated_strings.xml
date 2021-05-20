@@ -16,14 +16,16 @@
 	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Die Corona-Impfungen auf Ihr Smartphone übertragen</string>
 	<string name="vaccination_first_onboarding_page_message">Nach der Corona-Impfung erhalten Sie vom medizinischen Personal ein Impfzertifikat. Scannen Sie mit der CovPass-App das Impfzertifikat. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Die Corona-Impfung wird direkt auf Ihrem Smartphone gespeichert. Sie können in der CovPass-App die Impfzertifikate für mehrere Personen verwalten.</string>
 	<string name="vaccination_second_onboarding_page_title">Zweiter Schritt: Die CovPass-App zeigt bei einem vollständigen Impfschutz den QR-Code an</string>
-	<string name="vaccination_second_onboarding_page_message">Der QR-Code ist der Nachweis für den vollständigen Impfschutz. Dieser wird in der CovPass-App angezeigt. Laden Sie dafür alle notwendigen Impfzertifikate in die CovPass-App. Bitte beachten Sie: Der QR-Code kann erst angezeigt werden, wenn 14 Tage nach der letzten Impfung vergangen sind.</string>
+	<string name="vaccination_second_onboarding_page_message">Der QR-Code ist der Nachweis für den vollständigen Impfschutz. Dieser wird in der CovPass-App angezeigt. Laden Sie dafür alle notwendigen Impfzertifikate in die CovPass-App. Bitte beachten Sie: Der QR-Code kann erst angezeigt werden, wenn 14 Tage nach der letzten notwendigen Impfung vergangen sind.</string>
 	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Den QR-Code bei Bedarf vorzeigen</string>
 	<string name="vaccination_third_onboarding_page_message">Lassen Sie den QR-Code in der CovPass-App ganz einfach von der prüfenden Person scannen. Bei einer Überprüfung werden nur der Impfstatus, der Name und das Geburtsdatum angezeigt. Bitte halten Sie ergänzend Ihr Ausweisdokument bzw. das Ausweisdokument der geimpften Person bereit.</string>
-	<string name="vaccination_fourth_onboarding_page_title">Zustimmung für die Nutzung der CovPass-App</string>
-	<string name="vaccination_fourth_onboarding_page_message">Um die CovPass-App zu nutzen, müssen Sie bestätigen, dass Sie die Datenschutzerklärung zur Kenntnis genommen haben.</string>
-	<string name="fourth_onboarding_page_second_selection">Ich habe die Datenschutzerklärung zur Kenntnis genommen.</string>
-	<string name="fourth_onboarding_page_second_selection_linked">Ich habe die #Datenschutzerklärung::$0# zur Kenntnis genommen.</string>
-	<string name="confirmation_fourth_onboarding_page_button_title">Fertig</string>
+	<string name="vaccination_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
+	<string name="vaccination_fourth_onboarding_page_first_list_item">Die Verwendung der CovPass-App ist freiwillig. Der Nachweis des vollständigen Impfschutzes kann auch auf eine andere Weise erbracht werden (z. B. mit dem gelben Impfpass).</string>
+	<string name="vaccination_fourth_onboarding_page_second_list_item">Private Personen oder Unternehmen dürfen von Ihnen nicht verlangen, dass Sie Impfzertifikate in der CovPass-App vorzeigen. Stellen Sie den QR-Code niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.</string>
+	<string name="vaccination_fourth_onboarding_page_third_list_item">Sie können Impfzertifikate in der CovPass-App jederzeit wieder entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert.</string>
+	<string name="vaccination_fourth_onboarding_page_fourth_list_item">Sie können Impfzertifikate anderer Personen in der CovPass-App speichern (z. B. von Familienmitgliedern). Es ist wichtig, dass Sie diese Personen zuvor über die Speicherung ihrer Impfzertifikate informieren. Verwenden Sie zudem die Impfzertifikate anderer Personen nur in den Fällen, die laut dem Gesetz vorgesehen sind.</string>
+	<string name="vaccination_fourth_onboarding_page_button_title">Alles klar</string>
+	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
 
 	<!-- SECTION: start Screen -->
 	<string name="vaccination_start_screen_title">Alle Zertifikate</string>
@@ -68,11 +70,11 @@
 	<string name="vaccination_certificate_detail_view_name">Name</string>
 	<string name="vaccination_certificate_detail_view_birthdate">Geburtsdatum</string>
 	<string name="vaccination_certificate_detail_view_incomplete_title">%1$d von %2$d Impfungen vorhanden</string>
-	<string name="vaccination_certificate_detail_view_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz anzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
+	<string name="vaccination_certificate_detail_view_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz vorzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
 	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Impfung hinzufügen</string>
 	<string name="vaccination_certificate_detail_view_complete_title">Impfschutz vollständig</string>
 	<string name="vaccination_certificate_detail_view_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
-	<string name="vaccination_certificate_detail_view_complete_action_button_title">QR-Code anzeigen</string>
+	<string name="vaccination_certificate_detail_view_complete_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_detail_view_personal_data_title">Persönliche Daten</string>
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_data_date">Datum der Impfung</string>
@@ -83,10 +85,13 @@
 	<string name="vaccination_certificate_detail_view_data_exhibitor">Aussteller</string>
 	<string name="vaccination_certificate_detail_view_data_country">Land</string>
 	<string name="vaccination_certificate_detail_view_data_identification_number">UVCI (Identifikationsnummer für das Zertifikat)</string>
-	<string name="vaccination_certificate_detail_view_delete_button_title">Zertifikat löschen</string>
+	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">Zum QR-Code dieser Impfung</string>
+	<string name="vaccination_certificate_detail_view_qrcode_screen_title">Impfung %1$d von %2$d von %3$s</string>
+	<string name="vaccination_certificate_detail_view_qrcode_screen_message">Zeigen Sie bei Bedarf den QR-Code vor.</string>
+	<string name="vaccination_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 
 	<!-- SECTION: certificate delete dialog -->
-	<string name="dialog_delete_certificate_title">Möchten Sie das Zertifikat von %s wirklich löschen?</string>
+	<string name="dialog_delete_certificate_title">Möchten Sie die Impfung %1$d von %2$d von %3$s wirklich löschen?</string>
 	<string name="dialog_delete_certificate_message">Alle enthaltenen Daten werden rückstandslos von diesem Gerät entfernt. Die Wiederherstellung der Daten ist nicht möglich.</string>
 	<string name="dialog_delete_certificate_button_delete">Löschen</string>
 	<string name="dialog_delete_certificate_button_cancel">Abbrechen</string>

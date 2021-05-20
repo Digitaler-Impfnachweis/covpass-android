@@ -10,7 +10,7 @@ import com.ibm.health.vaccination.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Event which is triggered after successful QR Code decoding
+ * Interface to communicate events from [VaccinationQRScannerViewModel] to [VaccinationQRScannerFragment].
  */
 internal interface VaccinationQRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: String)
@@ -29,12 +29,14 @@ internal class VaccinationQRScannerViewModel(
     fun onQrContentReceived(qrContent: String) {
         launch {
             val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
-            lastCertificateId.value = vaccinationCertificate.vaccination.id
-            vaccineeDeps.certRepository.certs.update {
+            val certsFlow = vaccineeDeps.certRepository.certs
+            certsFlow.update {
                 it.addCertificate(
                     CombinedVaccinationCertificate(vaccinationCertificate, qrContent)
                 )
             }
+            val groupedCert = certsFlow.value.getGroupedCertificates(vaccinationCertificate.vaccination.id)
+            lastCertificateId.value = groupedCert?.getMainCertId()
             eventNotifier {
                 onScanSuccess(
                     vaccinationCertificate.vaccination.id

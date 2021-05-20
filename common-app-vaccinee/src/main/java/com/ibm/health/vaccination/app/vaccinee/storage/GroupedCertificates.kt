@@ -7,15 +7,16 @@ import com.ibm.health.vaccination.sdk.android.cert.models.CombinedVaccinationCer
  */
 // TODO maybe move this to sdk later on
 internal data class GroupedCertificates(
-    val completeCertificate: CombinedVaccinationCertificate?,
-    val incompleteCertificate: CombinedVaccinationCertificate?,
+    var completeCertificate: CombinedVaccinationCertificate?,
+    var incompleteCertificate: CombinedVaccinationCertificate?,
 ) {
 
     fun getMainCertId() =
         getMainCertificate().vaccinationCertificate.vaccination.id
 
-    // XXX: Usually always the [getMainCertId] should be considered, but right after scanning, the fragments can
-    // still point to the "not main cert id". So it is necessary to check both ids.
+    /**
+     * @return True, if the id of the incomplete or complete cert matches the given [certId], else false.
+     */
     fun matchesId(certId: String) =
         completeCertificate?.vaccinationCertificate?.vaccination?.id == certId ||
             incompleteCertificate?.vaccinationCertificate?.vaccination?.id == certId
@@ -26,4 +27,15 @@ internal data class GroupedCertificates(
             ?: throw IllegalStateException("Either completeCertificate or incompleteCertificate must be set")
 
     fun isComplete() = completeCertificate != null
+
+    fun isSingleVaccination() = completeCertificate == null || incompleteCertificate == null
+
+    fun removeCert(certId: String) {
+        if (incompleteCertificate?.vaccinationCertificate?.vaccination?.id == certId) {
+            incompleteCertificate = null
+        }
+        if (completeCertificate?.vaccinationCertificate?.vaccination?.id == certId) {
+            completeCertificate = null
+        }
+    }
 }

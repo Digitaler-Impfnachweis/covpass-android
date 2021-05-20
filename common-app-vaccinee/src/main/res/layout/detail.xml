@@ -132,18 +132,7 @@
         android:id="@+id/detail_vaccination_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="@dimen/grid_five"/>
-
-      <com.google.android.material.button.MaterialButton
-        android:id="@+id/detail_delete_button"
-        style="@style/SecondaryButton.Delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/grid_seven"
-        app:icon="@drawable/trash"
-        android:text="@string/vaccination_certificate_detail_view_delete_button_title" />
+        android:orientation="vertical" />
 
     </LinearLayout>
 

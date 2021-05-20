@@ -31,11 +31,13 @@
 
     <TextView
       android:id="@+id/bottom_sheet_subtitle"
-      style="@style/DefaultText.OnBackground"
+      style="@style/DefaultText.OnBackground70"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_one_half"
       android:visibility="gone"
       tools:text="Subtitle" />
+
   </LinearLayout>
 
   <ImageView
