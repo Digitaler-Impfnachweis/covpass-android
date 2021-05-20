@@ -3,9 +3,9 @@
   android:shape="rectangle">
   <solid android:color="@color/backgroundSecondary" />
   <padding
-    android:bottom="@dimen/grid_one"
-    android:left="@dimen/grid_one"
-    android:right="@dimen/grid_one"
-    android:top="@dimen/grid_one" />
+    android:bottom="@dimen/grid_two"
+    android:left="@dimen/grid_two"
+    android:right="@dimen/grid_two"
+    android:top="@dimen/grid_two" />
   <corners android:radius="@dimen/grid_two" />
 </shape>

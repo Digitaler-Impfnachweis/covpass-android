@@ -20,10 +20,12 @@
 	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Den QR-Code bei Bedarf vorzeigen</string>
 	<string name="vaccination_third_onboarding_page_message">Lassen Sie den QR-Code in der CovPass-App ganz einfach von der prüfenden Person scannen. Bei einer Überprüfung werden nur der Impfstatus, der Name und das Geburtsdatum angezeigt. Bitte halten Sie ergänzend Ihr Ausweisdokument bzw. das Ausweisdokument der geimpften Person bereit.</string>
 	<string name="vaccination_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
-	<string name="vaccination_fourth_onboarding_page_first_list_item">Die Verwendung der CovPass-App ist freiwillig. Der Nachweis des vollständigen Impfschutzes kann auch auf eine andere Weise erbracht werden (z. B. mit dem gelben Impfpass).</string>
-	<string name="vaccination_fourth_onboarding_page_second_list_item">Private Personen oder Unternehmen dürfen von Ihnen nicht verlangen, dass Sie Impfzertifikate in der CovPass-App vorzeigen. Stellen Sie den QR-Code niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden.</string>
-	<string name="vaccination_fourth_onboarding_page_third_list_item">Sie können Impfzertifikate in der CovPass-App jederzeit wieder entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert.</string>
-	<string name="vaccination_fourth_onboarding_page_fourth_list_item">Sie können Impfzertifikate anderer Personen in der CovPass-App speichern (z. B. von Familienmitgliedern). Es ist wichtig, dass Sie diese Personen zuvor über die Speicherung ihrer Impfzertifikate informieren. Verwenden Sie zudem die Impfzertifikate anderer Personen nur in den Fällen, die laut dem Gesetz vorgesehen sind.</string>
+	<string name="vaccination_fourth_onboarding_page_first_list_item">Die Verwendung der CovPass-App ist freiwillig. Der Nachweis des vollständigen Impfschutzes kann auch auf andere Weise erbracht werden (z. B. mit dem gelben Impfpass).</string>
+	<string name="vaccination_fourth_onboarding_page_second_list_item">Das Impfzertifikat enthält die Daten über Ihre Corona-Impfung. Zum Nachweis Ihres Impfschutzes in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der CovPass-App. Stellen Sie die Impfzertifikate und QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden. </string>
+	<string name="vaccination_fourth_onboarding_page_third_list_item">Wenn Sie den QR-Code in der CovPass-App vorzeigen und dieser mit der offiziellen CovPassCheck-App gescannt wird, können andere Personen nachvollziehen, ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der CovPassCheck-App auch Ihr Name, Ihr Vorname und Ihr Geburtsdatum angezeigt. </string>
+	<string name="vaccination_fourth_onboarding_page_fourth_list_item">Sie haben jederzeit die Möglichkeit, Impfzertifikate in der App wieder zu entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert. </string>
+	<string name="vaccination_fourth_onboarding_page_fith_list_item">Sie können auch Impfzertifikate anderer Personen in der CovPass-App speichern (z. B. von Familienmitgliedern). Es ist wichtig, dass Sie diese Personen zuvor über die Speicherung ihrer Impfzertifikate informieren. Verwenden Sie zudem die Impfzertifikate anderer Personen nur in den Fällen, die laut dem Gesetz vorgesehen sind.</string>
+	<string name="vaccination_fourth_onboarding_page_message">Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
 	<string name="vaccination_fourth_onboarding_page_button_title">Alles klar</string>
 	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
 
@@ -31,6 +33,9 @@
 	<string name="vaccination_start_screen_title">Alle Zertifikate</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie eine Impfung hinzu</string>
 	<string name="vaccination_start_screen_note_message">Sie haben aktuell keine Impfungen gespeichert. Drücken Sie auf das Plus-Symbol, um eine Impfung hinzuzufügen.</string>
+	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Unvollständiger Impfschutz</string>
+	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Vollständiger Impfschutz ab %s</string>
+	<string name="vaccination_start_screen_qrcode_complete_subtitle">Vollständiger Impfschutz</string>
 
 	<!-- SECTION: popup: add vaccination -->
 	<string name="vaccination_add_popup_title">Impfung hinzufügen</string>

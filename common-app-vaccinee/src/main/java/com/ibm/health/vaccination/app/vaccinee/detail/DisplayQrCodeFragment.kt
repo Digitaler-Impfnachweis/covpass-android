@@ -8,6 +8,7 @@ import com.ensody.reactivestate.autoRun
 import com.ensody.reactivestate.dispatchers
 import com.ensody.reactivestate.get
 import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
@@ -71,7 +72,8 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
                 qrContent,
                 BarcodeFormat.QR_CODE,
                 resources.displayMetrics.widthPixels,
-                resources.displayMetrics.widthPixels
+                resources.displayMetrics.widthPixels,
+                mapOf(EncodeHintType.MARGIN to 0)
             )
         }
     }

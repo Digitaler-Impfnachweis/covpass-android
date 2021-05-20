@@ -9,6 +9,7 @@ import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.dispatchers
 import com.ensody.reactivestate.get
 import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -52,16 +53,24 @@ internal class CertificateFragment : BaseFragment() {
         val mainCombinedCertificate = groupedCertificate.getMainCertificate()
         val mainCertificate = mainCombinedCertificate.vaccinationCertificate
         val complete = groupedCertificate.isComplete()
+        val fullProtection = mainCertificate.hasFullProtection
 
         launchWhenStarted {
-            if (complete) {
-                binding.certificateQrImageview.setImageBitmap(
-                    generateQRCode(mainCombinedCertificate.vaccinationQrContent)
-                )
-            }
+            binding.certificateQrImageview.setImageBitmap(
+                generateQRCode(mainCombinedCertificate.vaccinationQrContent)
+            )
         }
 
-        val textColor = if (complete) {
+        binding.certificateStatusTextview.text = when {
+            fullProtection -> getString(R.string.vaccination_start_screen_qrcode_complete_subtitle)
+            (complete && !fullProtection) -> getString(
+                R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
+                mainCertificate.validDate.formatDateOrEmpty()
+            )
+            else -> getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+        }
+
+        val textColor = if (fullProtection) {
             R.color.onInfo
         } else {
             R.color.onBackground
@@ -72,12 +81,12 @@ internal class CertificateFragment : BaseFragment() {
             binding.certificateProtectionTextview.setTextColor(ContextCompat.getColor(it, textColor))
         }
 
-        val backgroundColorResource = if (complete) {
+        val backgroundColorResource = if (fullProtection) {
             R.color.info80
         } else {
             R.color.info20
         }
-        val backgroundFaderResource = if (complete) {
+        val backgroundFaderResource = if (fullProtection) {
             R.drawable.common_gradient_card_fadeout_blue
         } else {
             R.drawable.common_gradient_card_fadeout_light_blue
@@ -87,12 +96,12 @@ internal class CertificateFragment : BaseFragment() {
             binding.cardBottomFadeout.setBackgroundResource(backgroundFaderResource)
         }
 
-        val activeRes = if (complete) {
+        val activeRes = if (fullProtection) {
             R.drawable.star_white_fill
         } else {
             R.drawable.star_black_fill
         }
-        val inactiveRes = if (complete) {
+        val inactiveRes = if (fullProtection) {
             R.drawable.star_white
         } else {
             R.drawable.star_black
@@ -109,7 +118,7 @@ internal class CertificateFragment : BaseFragment() {
         }
         binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
 
-        val headerText = if (complete) {
+        val headerText = if (fullProtection) {
             R.string.vaccination_full_immunization_title
         } else {
             R.string.vaccination_partial_immunization_title
@@ -118,14 +127,14 @@ internal class CertificateFragment : BaseFragment() {
 
         binding.certificateNameTextview.text = mainCertificate.fullName
 
-        val protection = if (complete) {
+        val protection = if (fullProtection) {
             R.string.vaccination_full_immunization_action_button
         } else {
             R.string.vaccination_partial_immunization_action_button
         }
         binding.certificateProtectionTextview.text = getString(protection)
 
-        val arrowRightIconResource = if (complete) {
+        val arrowRightIconResource = if (fullProtection) {
             R.drawable.arrow_right_white
         } else {
             R.drawable.arrow_right_blue
@@ -140,24 +149,12 @@ internal class CertificateFragment : BaseFragment() {
             findNavigator().push(DetailFragmentNav(args.certId))
         }
 
-        val statusIconResource = if (complete) {
+        val statusIconResource = if (fullProtection) {
             R.drawable.main_vaccination_status_complete
         } else {
             R.drawable.main_vaccination_status_incomplete
         }
         binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
-
-        val showQrCode = mainCertificate.hasFullProtection
-        val showWaiting = complete && !showQrCode
-
-        binding.certificateQrImageview.isVisible = showQrCode
-
-        binding.certificateWaitingContainer.isVisible = showWaiting
-        binding.certificateWaitingTitle.text =
-            getString(
-                R.string.vaccination_full_immunization_loading_message_14_days_title_pattern,
-                mainCertificate.validDate.formatDateOrEmpty()
-            )
     }
 
     private suspend fun generateQRCode(qrContent: String): Bitmap {
@@ -166,7 +163,8 @@ internal class CertificateFragment : BaseFragment() {
                 qrContent,
                 BarcodeFormat.QR_CODE,
                 resources.displayMetrics.widthPixels,
-                resources.displayMetrics.widthPixels
+                resources.displayMetrics.widthPixels,
+                mapOf(EncodeHintType.MARGIN to 0)
             )
         }
     }
