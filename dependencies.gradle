@@ -38,6 +38,7 @@ dependencies {
                 api "org.bouncycastle:bcpkix-jdk15to18:$bouncyCastleVersion"
                 api "org.bouncycastle:bcpkix-jdk15on:$bouncyCastleVersion"
 
+                api "com.upokecenter:cbor:4.4.3"
                 api "com.augustcellars.cose:cose-java:1.1.0"
 
                 api 'androidx.appcompat:appcompat:1.2.0'
