@@ -4,143 +4,123 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/backgroundPrimary"
-  android:orientation="vertical"
-  tools:ignore="Overdraw" >
+  tools:ignore="Overdraw">
 
-  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
-    android:id="@+id/detail_toolbar"
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/elevation"
-    android:gravity="center_vertical"
-    android:minHeight="@dimen/grid_seven"
-    android:paddingStart="@dimen/grid_one"
-    android:paddingEnd="@dimen/grid_one"
     android:background="@color/backgroundPrimary"
-    android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
-    app:popupTheme="@style/VaccinationAppTheme.DarkControlHighlight" />
+    android:orientation="vertical">
 
-  <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+    <TextView
+      android:id="@+id/detail_name_textview"
+      style="@style/Header.OnBackground.Big"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/backgroundPrimary"
-      android:orientation="vertical">
+      android:layout_margin="@dimen/grid_three"
+      tools:text="Max Mustermann" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/backgroundSecondary">
 
       <TextView
-        android:id="@+id/detail_name_textview"
-        style="@style/Header.OnBackground.Big"
+        android:id="@+id/detail_status_header_textview"
+        style="@style/Header.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/grid_three"
-        tools:text="Max Mustermann" />
+        android:layout_marginStart="@dimen/grid_nine"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Impfschutz vollständig" />
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+      <TextView
+        android:id="@+id/detail_status_textview"
+        style="@style/DefaultText.OnBackground70"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundSecondary">
-
-        <TextView
-          android:id="@+id/detail_status_header_textview"
-          style="@style/Header.OnBackground.Small"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/grid_nine"
-          android:layout_marginTop="@dimen/grid_three"
-          android:layout_marginEnd="@dimen/grid_three"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:text="Impfschutz vollständig" />
-
-        <TextView
-          android:id="@+id/detail_status_textview"
-          style="@style/DefaultText.OnBackground70"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/grid_half"
-          app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
-          app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
-          app:layout_constraintTop_toBottomOf="@id/detail_status_header_textview"
-          tools:text="Weisen Sie Ihren Impfschutz mit dem Impfnachweis nach. Der Nachweis enthält nur Ihren Namen und
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
+        app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
+        app:layout_constraintTop_toBottomOf="@id/detail_status_header_textview"
+        tools:text="Weisen Sie Ihren Impfschutz mit dem Impfnachweis nach. Der Nachweis enthält nur Ihren Namen und
           Ihr Geburtsdatum." />
 
-        <ImageView
-          android:id="@+id/detail_status_imageview"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/grid_one"
-          android:layout_marginEnd="@dimen/grid_two"
-          app:layout_constraintEnd_toStartOf="@id/detail_status_header_textview"
-          app:layout_constraintTop_toTopOf="@id/detail_status_header_textview"
-          tools:ignore="ContentDescription" />
+      <ImageView
+        android:id="@+id/detail_status_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_one"
+        android:layout_marginEnd="@dimen/grid_two"
+        app:layout_constraintEnd_toStartOf="@id/detail_status_header_textview"
+        app:layout_constraintTop_toTopOf="@id/detail_status_header_textview"
+        tools:ignore="ContentDescription" />
 
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/detail_show_proof_button"
-          style="@style/PrimaryButton.Dark"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_margin="@dimen/grid_three"
-          app:layout_constrainedWidth="true"
-          app:layout_constrainedHeight="true"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toTopOf="@id/detail_add_button"
-          app:layout_constraintTop_toBottomOf="@id/detail_status_textview" />
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/detail_show_proof_button"
+        style="@style/PrimaryButton.Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_three"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/detail_add_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detail_status_textview" />
 
-        <com.google.android.material.button.MaterialButton
-          android:id="@+id/detail_add_button"
-          style="@style/SecondaryButton.Add"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/grid_three"
-          android:layout_marginHorizontal="@dimen/grid_three"
-          app:layout_constrainedHeight="true"
-          app:layout_constrainedWidth="true"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent" />
-
-      </androidx.constraintlayout.widget.ConstraintLayout>
-
-      <TextView
-        android:id="@+id/detail_personal_header_textview"
-        style="@style/Header.OnBackground.MediumBig"
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/detail_add_button"
+        style="@style/SecondaryButton.Add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginTop="@dimen/grid_five"
-        android:layout_marginBottom="@dimen/grid_two"
-        android:text="@string/vaccination_certificate_detail_view_personal_data_title" />
+        android:layout_marginBottom="@dimen/grid_three"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-      <include
-        android:id="@+id/detail_name_data_row"
-        layout="@layout/detail_data_row" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-      <View style="@style/Divider" />
+    <TextView
+      android:id="@+id/detail_personal_header_textview"
+      style="@style/Header.OnBackground.MediumBig"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_five"
+      android:layout_marginBottom="@dimen/grid_two"
+      android:text="@string/vaccination_certificate_detail_view_personal_data_title" />
 
-      <include
-        android:id="@+id/detail_birthdate_data_row"
-        layout="@layout/detail_data_row" />
+    <include
+      android:id="@+id/detail_name_data_row"
+      layout="@layout/detail_data_row" />
 
-      <!--   Vaccination views will be added here programmatically   -->
-      <LinearLayout
-        android:id="@+id/detail_vaccination_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
+    <View style="@style/Divider" />
 
-    </LinearLayout>
+    <include
+      android:id="@+id/detail_birthdate_data_row"
+      layout="@layout/detail_data_row" />
 
-  </ScrollView>
+    <!--   Vaccination views will be added here programmatically   -->
+    <LinearLayout
+      android:id="@+id/detail_vaccination_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical" />
 
-</LinearLayout>
+  </LinearLayout>
+
+</ScrollView>

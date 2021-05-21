@@ -9,11 +9,11 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.ibm.health.common.android.utils.appVersion
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
+import de.rki.covpass.commonapp.BaseActivity
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.OpenSourceLicenseFragmentNav
 import de.rki.covpass.commonapp.R
@@ -26,6 +26,9 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
  * defined inside the app-specific fragments.
  */
 public abstract class InformationFragment : BaseFragment() {
+
+    override val showActionBar: Boolean
+        get() = true
 
     private val binding by viewBinding(InformationBinding::inflate)
 
@@ -66,14 +69,13 @@ public abstract class InformationFragment : BaseFragment() {
     }
 
     private fun setupActionBar() {
-        (activity as? AppCompatActivity)?.run {
-            setSupportActionBar(binding.informationToolbar)
+        (activity as? BaseActivity)?.run {
             supportActionBar?.run {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
             }
-            binding.informationToolbar.setTitle(R.string.app_information_title)
+            binding.mainToolbar.title = getString(R.string.app_information_title)
         }
     }
     protected abstract fun getFAQLinkRes(): Int

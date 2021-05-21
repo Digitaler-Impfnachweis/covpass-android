@@ -15,7 +15,6 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
@@ -38,6 +37,7 @@ import de.rki.covpass.app.add.AddVaccinationCertificateFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.commonapp.BaseActivity
 import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
 import de.rki.covpass.sdk.android.utils.*
 import kotlinx.parcelize.Parcelize
@@ -61,6 +61,9 @@ internal class DetailFragmentNav(
  * Further actions (Delete current certificate, Show Vaccination QR Code, Add Vaccination certificate)
  */
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
+
+    override val showActionBar: Boolean
+        get() = true
 
     private val args: DetailFragmentNav by lazy { getArgs() }
     private val viewModel by buildState { DetailViewModel(scope) }
@@ -279,16 +282,15 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         dataRow.findViewById<TextView>(R.id.detail_data_textview)
 
     private fun setupActionBar() {
-        val activity = (activity as? AppCompatActivity)
+        val activity = (activity as? BaseActivity)
         activity?.run {
-            setSupportActionBar(binding.detailToolbar)
             supportActionBar?.run {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
                 val icon = R.drawable.back_arrow
                 setHomeAsUpIndicator(icon)
             }
-            binding.detailToolbar.title = getString(R.string.vaccination_certificate_detail_view_title)
+            binding.mainToolbar.title = getString(R.string.vaccination_certificate_detail_view_title)
         }
     }
 

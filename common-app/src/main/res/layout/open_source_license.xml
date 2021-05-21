@@ -3,30 +3,8 @@
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/open_source_license_web_view"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/backgroundPrimary"
-  android:orientation="vertical">
-
-  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
-    android:id="@+id/open_source_license_toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/backgroundPrimary"
-    android:elevation="@dimen/elevation"
-    android:gravity="center_vertical"
-    android:minHeight="@dimen/grid_seven"
-    android:paddingStart="@dimen/grid_one"
-    android:paddingEnd="@dimen/grid_one"
-    android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
-    app:popupTheme="@style/VaccinationAppTheme.DarkControlHighlight" />
-
-  <WebView
-    android:id="@+id/open_source_license_web_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
-
-</LinearLayout>
+  android:background="@color/backgroundPrimary" />
