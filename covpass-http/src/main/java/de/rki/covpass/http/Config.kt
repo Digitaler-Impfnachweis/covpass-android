@@ -6,6 +6,7 @@
 package de.rki.covpass.http
 
 import de.rki.covpass.http.retry.RetryInterceptor
+import de.rki.covpass.logging.Lumber
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.engine.okhttp.OkHttp
@@ -129,6 +130,7 @@ private class DefaultHttpConfig : HttpConfig {
 
     override fun pinPublicKey(pattern: String, pin: String) {
         checkFrozen()
+        Lumber.d { "Pinning host pattern $pattern to public key $pin" }
         certPinnerBuilder.add(pattern, pin)
     }
 

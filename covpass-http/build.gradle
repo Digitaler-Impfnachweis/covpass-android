@@ -4,5 +4,6 @@
  */
 
 dependencies {
+    api project(":covpass-logging")
     ktor()
 }
