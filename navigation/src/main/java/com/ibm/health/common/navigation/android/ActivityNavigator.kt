@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.ibm.health.common.logging.Lumber
+import de.rki.covpass.logging.Lumber
 import kotlin.reflect.KClass
 
 /**

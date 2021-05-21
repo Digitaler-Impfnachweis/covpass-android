@@ -1,4 +1,4 @@
-rootProject.name = 'android-vaccination-app'
+rootProject.name = 'android-covpass-app'
 
 /*
  * (C) Copyright IBM Deutschland GmbH 2021
@@ -6,23 +6,23 @@ rootProject.name = 'android-vaccination-app'
  */
 
 // SDK modules
-include ':vaccination-bom'
-include ':vaccination-sdk-android'
-include ':vaccination-sdk-android-demo'
+include ':covpass-bom'
+include ':covpass-sdk-android'
+include ':covpass-sdk-android-demo'
 
 // SDK utils
 include ':annotations'
-include ':base45'
-include ':http'
-include ':logging'
+include ':covpass-base45'
+include ':covpass-http'
+include ':covpass-logging'
 
 // Apps
-include ':app-cert-checker-demo'
-include ':app-cert-checker-prod'
-include ':app-vaccinee-demo'
-include ':app-vaccinee-prod'
-include ':common-app-vaccinee'
-include ':common-app-cert-checker'
+include ':app-covpass-check-demo'
+include ':app-covpass-check-prod'
+include ':app-covpass-demo'
+include ':app-covpass-prod'
+include ':common-app-covpass'
+include ':common-app-covpass-check'
 include ':common-app'
 
 // App-only utils (not used by SDK)

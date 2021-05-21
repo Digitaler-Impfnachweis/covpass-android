@@ -36,7 +36,7 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
-group = 'com.ibm.health.vaccination'
+group = 'de.rki.covpass'
 subprojects {
     group = rootProject.group
     version = rootProject.version
@@ -83,10 +83,6 @@ subprojects {
             android {
                 if (!isLibraryProject) {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")
-                    defaultConfig {
-                        applicationId "${group}.app.${codeName.replace("demo", "")}"
-                    }
-
                     applicationVariants.all { variant ->
                         variant.outputs.all {
                             outputFileName = "$codeName-${defaultConfig.versionName}-${variant.buildType.name}.apk"

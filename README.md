@@ -11,19 +11,19 @@ The most important modules are:
 * http: Ktor and OkHttp base clients with correct security configuration and Gson integration.
 * logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
 * navigation: A simple activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily.
-* vaccination-bom: Defines a common set of dependency versions, so there won't be any conflicts.
+* covpass-bom: Defines a common set of dependency versions, so there won't be any conflicts.
 * vaccination-sdk-android: The main vaccination SDK for Android.
 * vaccination-sdk-android-demo: Use this to override the SDK settings for the demo environment.
 
 The apps live in these modules:
 
 * common-app: Code shared between CovPass and CovPass Check.
-* common-app-vaccinee: The CovPass app's code.
-  * app-vaccinee-demo: The demo variant of the CovPass app.
-  * app-vaccinee-prod: The production variant of the CovPass app.
-* common-app-cert-checker: The CovPass Check app's code.
-  * app-cert-checker-demo: The demo variant of the CovPass Check app.
-  * app-cert-checker-prod: The production variant of the CovPass Check app.
+* common-app-covpass: The CovPass app's code.
+  * app-covpass-demo: The demo variant of the CovPass app.
+  * app-covpass-prod: The production variant of the CovPass app.
+* common-app-covpass-check: The CovPass Check app's code.
+  * app-covpass-check-demo: The demo variant of the CovPass Check app.
+  * app-covpass-check-prod: The production variant of the CovPass Check app.
 
 Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
 

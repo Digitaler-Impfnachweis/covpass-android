@@ -13,7 +13,7 @@
   android:orientation="vertical"
   tools:ignore="Overdraw">
 
-  <com.ibm.health.common.vaccination.app.uielements.CenteredTitleToolbar
+  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
     android:id="@+id/information_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

@@ -5,10 +5,10 @@
 
 dependencies {
     api project(":android-utils")
-    api project(":http")
+    api project(':covpass-http')
     api project(":navigation")
     api project(":securityprovider")
-    api project(":vaccination-sdk-android")
+    api project(':covpass-sdk-android')
     cryptographic()
     androidUI()
     zxing()

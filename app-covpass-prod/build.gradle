@@ -1,0 +1,14 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+android {
+    defaultConfig {
+        applicationId "de.rki.covpass.app"
+    }
+}
+
+dependencies {
+    api project(':common-app-covpass')
+}

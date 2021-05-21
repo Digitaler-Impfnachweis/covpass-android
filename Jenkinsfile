@@ -197,13 +197,13 @@ pipeline {
                             file(credentialsId: 'release_vaccinee', variable: 'RELEASE_KEYSTORE'),
                             string(credentialsId: 'release_vaccinee_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
                         ]) {
-                            sh "./run-in-docker.sh ./sign.sh app-vaccinee-demo"
+                            sh "./run-in-docker.sh ./sign.sh app-covpass-demo"
                         }
                         withCredentials([
                             file(credentialsId: 'release_verification', variable: 'RELEASE_KEYSTORE'),
                             string(credentialsId: 'release_verification_password', variable: 'RELEASE_KEYSTORE_PASSWORD'),
                         ]) {
-                            sh "./run-in-docker.sh ./sign.sh app-cert-checker-demo"
+                            sh "./run-in-docker.sh ./sign.sh app-covpass-check-demo"
                         }
                     }
                 }
@@ -268,12 +268,12 @@ pipeline {
                         withCredentials([
                             file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
                         ]) {
-                            sh "./run-in-docker.sh ./deploy.sh app-vaccinee-demo"
+                            sh "./run-in-docker.sh ./deploy.sh app-covpass-demo"
                         }
                         withCredentials([
                             file(credentialsId: 'internal-supply-key', variable: 'SUPPLY_JSON_KEY'),
                         ]) {
-                            sh "./run-in-docker.sh ./deploy.sh app-cert-checker-demo"
+                            sh "./run-in-docker.sh ./deploy.sh app-covpass-check-demo"
                         }
                     }
                 }

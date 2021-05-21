@@ -1,0 +1,16 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+android {
+    defaultConfig {
+        // Use initial app id for demo apps because it is already published to Playstore
+        applicationId "com.ibm.health.vaccination.app.certchecker"
+    }
+}
+
+dependencies {
+    api project(':common-app-covpass-check')
+    api project(':covpass-sdk-android-demo')
+}

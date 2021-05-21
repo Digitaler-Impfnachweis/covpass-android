@@ -8,7 +8,7 @@ package com.ibm.health.common.android.utils
 import android.text.Spanned
 import androidx.annotation.StringRes
 import androidx.core.text.HtmlCompat
-import com.ibm.health.common.logging.Lumber
+import de.rki.covpass.logging.Lumber
 
 /**
  * A regular expression which is used to replace every match of the following format:

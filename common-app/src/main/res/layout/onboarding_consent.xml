@@ -40,7 +40,7 @@
       android:layout_height="wrap_content"
       android:paddingHorizontal="@dimen/grid_three" />
 
-    <com.ibm.health.common.vaccination.app.uielements.VaccinationCheckBox
+    <de.rki.covpass.commonapp.uielements.VaccinationCheckBox
       android:id="@+id/data_protection_checkbox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
