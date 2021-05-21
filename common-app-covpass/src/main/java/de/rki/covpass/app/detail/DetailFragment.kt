@@ -29,17 +29,22 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.app.R
+import de.rki.covpass.app.add.AddVaccinationCertificateFragmentNav
+import de.rki.covpass.app.databinding.DetailBinding
+import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.app.add.AddVaccinationCertificateFragmentNav
-import de.rki.covpass.app.databinding.DetailBinding
-import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.sdk.android.cert.getCountryName
+import de.rki.covpass.sdk.android.cert.getManufacturerName
+import de.rki.covpass.sdk.android.cert.getProductName
+import de.rki.covpass.sdk.android.cert.getProphylaxisName
 import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
-import de.rki.covpass.sdk.android.utils.*
+import de.rki.covpass.sdk.android.utils.formatDate
+import de.rki.covpass.sdk.android.utils.formatDateOrEmpty
 import kotlinx.parcelize.Parcelize
 
 /**

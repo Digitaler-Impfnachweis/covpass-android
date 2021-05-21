@@ -5,5 +5,6 @@
   -->
 
 <resources>
-  <string name="cert_service_host">api.recertify.ubirch.com</string>
+  <!-- TODO: Verify trust_service_host -->
+  <string name="trust_service_host">de.dscg.ubirch.com</string>
 </resources>

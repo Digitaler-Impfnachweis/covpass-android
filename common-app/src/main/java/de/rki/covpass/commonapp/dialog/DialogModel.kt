@@ -49,5 +49,6 @@ public data class DialogModel(
 
     private companion object {
         val TAG: String = DialogModel::class.java.canonicalName ?: "DialogModel"
+        const val serialVersionUID = 1L
     }
 }

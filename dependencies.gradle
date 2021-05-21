@@ -27,6 +27,7 @@ dependencies {
                 def kotlinxSerializationVersion = "1.2.0"
                 api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
                 api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion"
+                api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
 
                 api 'org.conscrypt:conscrypt-android:2.5.2'
 
@@ -178,6 +179,7 @@ dependencies {
             api 'io.ktor:ktor-client-android'
             api 'io.ktor:ktor-client-json-jvm'
             api 'io.ktor:ktor-client-okhttp'
+            api 'io.ktor:ktor-client-serialization'
 
             api 'com.squareup.okhttp3:okhttp'
             api 'com.squareup.okhttp3:logging-interceptor'
@@ -209,6 +211,11 @@ dependencies {
         kotlinxSerialization = {
             api 'org.jetbrains.kotlinx:kotlinx-serialization-core'
             api 'org.jetbrains.kotlinx:kotlinx-serialization-cbor'
+            api 'org.jetbrains.kotlinx:kotlinx-serialization-json'
+        }
+
+        worker = {
+            api 'androidx.work:work-runtime-ktx:2.5.0'
         }
     }
 }

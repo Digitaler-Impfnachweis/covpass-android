@@ -5,17 +5,10 @@
 
 package de.rki.covpass.sdk.android.utils
 
-import de.rki.covpass.sdk.android.crypto.CertValidator
-import de.rki.covpass.sdk.android.crypto.readPem
+import java.io.File
 
 internal fun Any.readResource(path: String): String =
     String(javaClass.classLoader!!.getResourceAsStream(path).readBytes())
 
-internal fun Any.loadCAValidator(): CertValidator {
-    val pem = listOf(
-        readResource("seal-cert.pem"),
-        readResource("intermediate-cert.pem"),
-        readResource("root-cert.pem"),
-    ).joinToString("\n\n")
-    return CertValidator(readPem(pem).toSet())
-}
+internal fun readTextAssetFromTest(path: String): String =
+    File("src/main/assets/$path").readText()

@@ -7,18 +7,25 @@ package de.rki.covpass.commonapp.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
-import java.time.LocalDateTime
+import de.rki.covpass.sdk.android.cert.models.DscList
+import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import java.time.Instant
 
 /**
  * Repository that provides access to the Document Signer Certificates (DSC).
  */
 public class DscRepository(store: CborSharedPrefsStore) {
-    // TODO set the last update when the feature will be implemented
-    public val lastUpdate: SuspendMutableValueFlow<LocalDateTime> = store.getData("last_update", NO_UPDATE_YET)
 
-    // TODO add storage of dsc certs here
+    public val lastUpdate: SuspendMutableValueFlow<Instant> = store.getData("last_update", NO_UPDATE_YET)
+
+    public val dscList: SuspendMutableValueFlow<DscList> = store.getData("dcs_list", sdkDeps.dscList)
+
+    public suspend fun updateDscList(newDscList: DscList) {
+        dscList.set(newDscList)
+        lastUpdate.set(Instant.now())
+    }
 
     public companion object {
-        public val NO_UPDATE_YET: LocalDateTime = LocalDateTime.MIN
+        public val NO_UPDATE_YET: Instant = Instant.MIN
     }
 }

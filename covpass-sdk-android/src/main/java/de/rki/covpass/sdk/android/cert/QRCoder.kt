@@ -6,18 +6,14 @@
 package de.rki.covpass.sdk.android.cert
 
 import COSE.CoseException
-import COSE.OneKey
 import COSE.Sign1Message
 import de.rki.covpass.base45.Base45
 import de.rki.covpass.sdk.android.cert.models.CBORWebToken
 import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
-import de.rki.covpass.sdk.android.crypto.CertValidator
-import de.rki.covpass.sdk.android.crypto.isCA
 import de.rki.covpass.sdk.android.utils.Zlib
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
-import java.time.Instant
 
 /**
  * Used to encode/decode QR code string.
@@ -40,31 +36,7 @@ public class QRCoder(private val validator: CertValidator) {
             ?: throw CoseException("Not a cose-sign1 message")
 
     private fun decodeCWT(qr: String): CBORWebToken =
-        validate(decodeCose(qr))
-
-    private fun validate(cose: Sign1Message): CBORWebToken {
-        val cwt = CBORWebToken.decode(cose.GetContent())
-
-        if (cwt.validUntil.isBefore(Instant.now())) {
-            throw ExpiredCwtException()
-        }
-
-        // TODO: Once the kid contains the correct value we can resolve the cert directly.
-        //  Until then, try out all certificates.
-        for (cert in validator.trustedCerts.filter { !it.isCA }) {
-            try {
-                // Validate the COSE signature
-                if (cose.validate(OneKey(cert.publicKey, null))) {
-                    return cwt
-                }
-            } catch (e: CoseException) {
-                continue
-            } catch (e: GeneralSecurityException) {
-                continue
-            }
-        }
-        throw BadCoseSignatureException()
-    }
+        validator.validate(decodeCose(qr))
 
     /**
      * Converts a [qrContent] to a [VaccinationCertificate] data model.
@@ -90,12 +62,6 @@ public class QRCoder(private val validator: CertValidator) {
         private const val DIGITAL_GREEN_CERTIFICATE = 1
     }
 }
-
-/** Thrown when the [CBORWebToken] expiry validation failed. */
-public open class ExpiredCwtException(message: String = "Certificate expired") : DgcDecodeException(message)
-
-/** Thrown when the COSE signature validation failed. */
-public open class BadCoseSignatureException(message: String = "Validation failed") : DgcDecodeException(message)
 
 /** Thrown when the Digital Green Certificate has the wrong version. */
 public open class UnsupportedDgcVersionException(message: String = "Wrong Certificate Version") :

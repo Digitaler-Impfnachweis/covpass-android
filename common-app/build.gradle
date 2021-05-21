@@ -12,4 +12,5 @@ dependencies {
     cryptographic()
     androidUI()
     zxing()
+    worker()
 }

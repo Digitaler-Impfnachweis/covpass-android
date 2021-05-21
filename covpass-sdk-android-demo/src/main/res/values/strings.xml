@@ -5,5 +5,5 @@
   -->
 
 <resources>
-  <string name="cert_service_host">api.recertify.demo.ubirch.com</string>
+  <string name="trust_service_host">de.test.dscg.ubirch.com</string>
 </resources>

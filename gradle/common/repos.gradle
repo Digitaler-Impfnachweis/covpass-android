@@ -25,11 +25,7 @@ ext.setupRepos = { Set<RepoType> repos = new HashSet(RepoType.values().toList())
         repositories {
             google()
             mavenCentral()
-            flatDir {
-                dirs '../libs'
-            }
             maven { url 'https://jitpack.io' }
-            jcenter()
             mavenLocal()  // since we need this so often, let's just keep it as the last fallback
         }
     }

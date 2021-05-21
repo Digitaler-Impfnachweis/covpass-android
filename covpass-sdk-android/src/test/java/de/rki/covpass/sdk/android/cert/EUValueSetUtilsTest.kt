@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.android.utils
+package de.rki.covpass.sdk.android.cert
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

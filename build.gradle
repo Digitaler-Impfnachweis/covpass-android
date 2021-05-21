@@ -13,11 +13,11 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.14.2'
+        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.0'
         classpath 'pl.allegro.tech.build:axion-release-plugin:1.12.1'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
-        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:1.6.0'
+        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:2.0.1'
     }
 }
 

@@ -13,16 +13,18 @@ import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.storage.DscRepository
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.ValidationInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.ValidationQRScannerFragmentNav
+import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.DscRepository
 import de.rki.covpass.sdk.android.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 @Parcelize
 public class MainFragmentNav : FragmentNav(MainFragment::class)
@@ -44,11 +46,11 @@ internal class MainFragment : BaseFragment() {
         }
     }
 
-    private fun updateAvailabilityCard(lastUpdate: LocalDateTime) {
+    private fun updateAvailabilityCard(lastUpdate: Instant) {
         // TODO handle status text and icon correctly when the feature is implemented
         val updateString = getString(
             R.string.validation_start_screen_offline_modus_note_update_pattern,
-            lastUpdate.formatDateTime()
+            LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
         )
         binding.mainAvailabilityLastUpdateTextview.text = updateString
         binding.mainAvailabilityLastUpdateTextview.isGone = lastUpdate == DscRepository.NO_UPDATE_YET

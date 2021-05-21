@@ -10,22 +10,15 @@ import assertk.assertThat
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
-import de.rki.covpass.sdk.android.crypto.CertValidator
 import de.rki.covpass.sdk.android.crypto.readPem
+import de.rki.covpass.sdk.android.utils.BaseSdkTest
 import de.rki.covpass.sdk.android.utils.readResource
-import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.junit.Test
-import java.security.Security
 
-internal class QRCoderTest {
-
-    init {
-        Security.addProvider(BouncyCastleProvider())
-    }
-
+internal class QRCoderTest : BaseSdkTest() {
     val sealCert by lazy { readPem(readResource("seal-cert.pem")).first() }
     val data by lazy { readResource("vaccination-cert.txt").replace("\n", "") }
-    val validator by lazy { CertValidator(listOf(sealCert)) }
+    val validator by lazy { CertValidator(listOf(TrustedCert(country = "DE", kid = "asdf", certificate = sealCert))) }
     val qrCoder by lazy { QRCoder(validator) }
 
     @Test

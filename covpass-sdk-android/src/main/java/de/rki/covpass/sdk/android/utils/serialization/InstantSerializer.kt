@@ -12,7 +12,7 @@ import kotlinx.serialization.encoding.Encoder
 import java.time.Instant
 
 @Serializer(forClass = Instant::class)
-internal object InstantSerializer : KSerializer<Instant> {
+public object InstantSerializer : KSerializer<Instant> {
 
     override fun deserialize(decoder: Decoder): Instant =
         Instant.ofEpochSecond(decoder.decodeLong())

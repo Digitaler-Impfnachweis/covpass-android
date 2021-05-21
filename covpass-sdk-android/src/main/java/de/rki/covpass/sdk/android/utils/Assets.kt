@@ -8,4 +8,4 @@ package de.rki.covpass.sdk.android.utils
 import android.app.Application
 
 internal fun Application.readTextAsset(path: String): String =
-    assets.open(path).bufferedReader().use { it.readText() }
+    assets.open(path).bufferedReader().use { it.readText().replace("\r\n", "\n") }

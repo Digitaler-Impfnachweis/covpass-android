@@ -16,8 +16,13 @@ empty-blocks:
   EmptyFunctionBlock:
     active: false
 
+# This is so annoying and almost always wrong that we have to turn it off
 exceptions:
   TooGenericExceptionCaught:
+    active: false
+  SwallowedException:
+    active: false
+  RethrowCaughtException:
     active: false
 
 formatting:

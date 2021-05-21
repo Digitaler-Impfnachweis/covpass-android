@@ -8,10 +8,13 @@ package de.rki.covpass.commonapp.utils
 import android.util.Base64
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ibm.health.common.android.utils.SharedPrefsStore
+import de.rki.covpass.sdk.android.utils.serialization.InstantSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 
 /**
  * Wrapper around [SharedPrefsStore], encoding everything with CBOR.
@@ -20,7 +23,14 @@ public class CborSharedPrefsStore(public val prefs: SharedPrefsStore) {
 
     public constructor(preferencesName: String) : this(SharedPrefsStore(getEncryptedSharedPreferences(preferencesName)))
 
-    public val cbor: Cbor = Cbor { ignoreUnknownKeys = true }
+    private val module = SerializersModule {
+        contextual(InstantSerializer)
+    }
+
+    public val cbor: Cbor = Cbor {
+        ignoreUnknownKeys = true
+        serializersModule = module
+    }
 
     /**
      * @param key Used for access to the [T] object

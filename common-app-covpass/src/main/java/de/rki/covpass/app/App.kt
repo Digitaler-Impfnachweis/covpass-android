@@ -23,5 +23,6 @@ internal class App : CommonApplication() {
         commonDeps = object : CommonDependencies() {
             override val errorHandler = ErrorHandler()
         }
+        start()
     }
 }

@@ -7,31 +7,52 @@ package de.rki.covpass.sdk.android.crypto
 
 import android.app.Application
 import de.rki.covpass.sdk.android.utils.readTextAsset
-import java.io.InputStream
-import java.security.cert.CertificateFactory
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo
+import org.bouncycastle.cert.X509CertificateHolder
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter
+import org.bouncycastle.openssl.PEMParser
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
+import java.security.PublicKey
 import java.security.cert.X509Certificate
 
 /** Reads a PEM file and returns a list of the [X509Certificate]s contained in that file. */
 public fun Application.readPemAsset(path: String): List<X509Certificate> =
     readPem(readTextAsset(path))
 
-/** Reads a PEM file and returns a list of the [X509Certificate]s contained in that file. */
-public fun readPem(data: String): List<X509Certificate> =
-    readPem(data.byteInputStream())
+public fun Application.readPemKeyAsset(path: String): List<PublicKey> =
+    readPemKeys(readTextAsset(path))
 
 /** Reads a PEM file and returns a list of the [X509Certificate]s contained in that file. */
-public fun readPem(data: ByteArray): List<X509Certificate> =
-    readPem(data.inputStream())
-
-/** Reads a PEM file and returns a list of the [X509Certificate]s contained in that file. */
-public fun readPem(data: InputStream): List<X509Certificate> {
-    // XXX: Conscrypt handles the PEM format only if there are no empty lines before or between the certs. Strip them.
-    val raw = String(data.readBytes())
-    val stripped = raw.replace(commentRegex, "").replace(newlineRegex, "\n").trim()
-    val buffered = stripped.byteInputStream().buffered()
-    val certificateFactory = CertificateFactory.getInstance("X.509")
-    return certificateFactory.generateCertificates(buffered).mapNotNull { it as? X509Certificate }
+public fun readPem(data: String): List<X509Certificate> {
+    val converter = JcaX509CertificateConverter()
+    return readRawPem(data)
+        .mapNotNull { it as? X509CertificateHolder }
+        .map { converter.getCertificate(it) }
+        .toList()
 }
+
+/** Reads a PEM file and returns a list of the [PublicKey]s contained in that file. */
+public fun readPemKeys(data: String): List<PublicKey> {
+    val converter = JcaPEMKeyConverter()
+    return readRawPem(data)
+        .mapNotNull { it as? SubjectPublicKeyInfo }
+        .map { converter.getPublicKey(it) }
+        .toList()
+}
+
+/** Returns the raw objects contained in the PEM file. */
+public fun readRawPem(data: String): Sequence<Any> = sequence {
+    val parser = PEMParser(normalizePem(data).reader())
+    while (true) {
+        val item = parser.readObject()
+            ?: break
+        yield(item)
+    }
+}
+
+/** This removes comments and strips empty lines from the PEM string. */
+private fun normalizePem(data: String): String =
+    data.replace(commentRegex, "").replace(newlineRegex, "\n").trim()
 
 private val commentRegex = Regex("#[^\n]*")
 private val newlineRegex = Regex("\n\n+")
