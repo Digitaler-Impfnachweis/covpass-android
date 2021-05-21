@@ -14,9 +14,9 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.AddVaccinationCertPopupContentBinding
+import de.rki.covpass.app.scanner.VaccinationQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.utils.stripUnderlines
-import de.rki.covpass.app.scanner.VaccinationQRScannerFragmentNav
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -27,7 +27,7 @@ internal class AddVaccinationCertificateFragmentNav : FragmentNav(AddVaccination
  */
 internal class AddVaccinationCertificateFragment : BaseBottomSheet() {
 
-    override val buttonText by lazy { getString(R.string.vaccination_add_popup_scan_button_title) }
+    override val buttonTextRes = R.string.vaccination_add_popup_scan_button_title
     private val binding by viewBinding(AddVaccinationCertPopupContentBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -16,11 +16,11 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
+import de.rki.covpass.checkapp.R
+import de.rki.covpass.checkapp.databinding.ValidationResultBinding
+import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.android.utils.formatDateOrEmpty
-import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.main.MainFragment
-import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
@@ -105,7 +105,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
-    override val buttonText = getString(R.string.validation_check_popup_valid_vaccination_button_title)
+    override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
 }
 
 @Parcelize
@@ -127,7 +127,7 @@ internal class ValidationResultIncompleteFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
-    override val buttonText = getString(R.string.validation_check_popup_partial_valid_vaccination_button_title)
+    override val buttonTextRes = R.string.validation_check_popup_partial_valid_vaccination_button_title
 }
 
 @Parcelize
@@ -150,5 +150,5 @@ internal class ValidationResultFailureFragment : ValidationResultFragment() {
     override val titleInfo2Res = R.string.validation_check_popup_unsuccessful_test_second_reason_title
     override val textInfo2Res = R.string.validation_check_popup_unsuccessful_test_second_reason_body
     override val imageInfo2Res = R.drawable.hourglass
-    override val buttonText = getString(R.string.validation_check_popup_unsuccessful_test_button_title)
+    override val buttonTextRes = R.string.validation_check_popup_unsuccessful_test_button_title
 }

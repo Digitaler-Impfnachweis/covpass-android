@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.annotation.StringRes
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.validUntil
 import com.ibm.health.common.navigation.android.SheetPaneNavigation
@@ -19,7 +20,8 @@ import de.rki.covpass.commonapp.databinding.BottomSheetViewBinding
 /** Common base bottom sheet. */
 public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
-    public open val buttonText: String? = null
+    @StringRes
+    public open val buttonTextRes: Int? = null
     public open val heightLayoutParams: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     protected var bottomSheetBinding: BottomSheetViewBinding by validUntil(::onDestroyView)
 
@@ -40,7 +42,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
         bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
         bottomSheetBinding.bottomSheetClose.setOnClickListener { onCloseButtonClicked() }
-        buttonText?.let { bottomSheetBinding.bottomSheetActionButton.text = it }
+        buttonTextRes?.let { bottomSheetBinding.bottomSheetActionButton.text = getString(it) }
         bottomSheetBinding.bottomSheetActionButton.setOnClickListener {
             onActionButtonClicked()
         }

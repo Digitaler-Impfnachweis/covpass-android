@@ -17,12 +17,12 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
-import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.storage.GroupedCertificatesList
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DisplayQrCodeBottomsheetContentBinding
+import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 
@@ -36,9 +36,8 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
 
     private val args: DisplayQrCodeFragmentNav by lazy { getArgs() }
 
-    override val buttonText by lazy {
-        getString(R.string.vaccination_certificate_detail_view_qrcode_screen_action_button_title)
-    }
+    override val buttonTextRes =
+        R.string.vaccination_certificate_detail_view_qrcode_screen_action_button_title
 
     private val binding by viewBinding(DisplayQrCodeBottomsheetContentBinding::inflate)
 
