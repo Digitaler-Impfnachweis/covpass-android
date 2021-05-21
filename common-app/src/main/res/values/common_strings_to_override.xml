@@ -11,7 +11,6 @@
   <string name="app_information_message"/>
   <string name="app_information_title_open_source"/>
   <string name="app_information_title_faq_linked"/>
-  <string name="app_information_title_datenschutz_linked"/>
   <string name="app_information_title_company_details_linked"/>
   <string name="app_information_version_label"/>
 
@@ -31,5 +30,7 @@
   <string name="error_scan_qrcode_cannot_be_parsed_title"/>
   <string name="error_scan_qrcode_cannot_be_parsed_message"/>
   <string name="error_scan_qrcode_cannot_be_parsed_button_title"/>
+  <string name="vaccination_fourth_onboarding_page_message"/>
+  <string name="app_information_title_datenschutz"/>
 
 </resources>

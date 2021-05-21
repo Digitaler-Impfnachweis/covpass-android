@@ -19,7 +19,7 @@ import de.rki.covpass.commonapp.databinding.BottomSheetViewBinding
 /** Common base bottom sheet. */
 public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
-    public abstract val buttonTextRes: Int
+    public open val buttonText: String? = null
     public open val heightLayoutParams: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     protected var bottomSheetBinding: BottomSheetViewBinding by validUntil(::onDestroyView)
 
@@ -40,7 +40,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
         bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
         bottomSheetBinding.bottomSheetClose.setOnClickListener { onCloseButtonClicked() }
-        bottomSheetBinding.bottomSheetActionButton.text = getString(buttonTextRes)
+        buttonText?.let { bottomSheetBinding.bottomSheetActionButton.text = it }
         bottomSheetBinding.bottomSheetActionButton.setOnClickListener {
             onActionButtonClicked()
         }

@@ -5,7 +5,9 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/onboarding_scroll_view"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:fillViewport="true">
@@ -33,18 +35,28 @@
       android:paddingHorizontal="@dimen/grid_three"
       android:paddingBottom="@dimen/grid_one_half" />
 
+    <LinearLayout
+      android:id="@+id/consent_info_items_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingHorizontal="@dimen/grid_three" />
+
     <TextView
       android:id="@+id/onboarding_info_textview"
       style="@style/DefaultText.OnBackground70"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingHorizontal="@dimen/grid_three" />
+      android:layout_marginBottom="@dimen/grid_one_half"
+      android:paddingHorizontal="@dimen/grid_three"
+      android:text="@string/vaccination_fourth_onboarding_page_message" />
 
-    <de.rki.covpass.commonapp.uielements.VaccinationCheckBox
-      android:id="@+id/data_protection_checkbox"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_three" />
+    <TextView
+      android:id="@+id/onboarding_info_data_protection_field"
+      style="@style/NavigationField"
+      app:drawableTint="@color/onBackground" />
+
+    <View style="@style/Divider" />
 
   </LinearLayout>
 

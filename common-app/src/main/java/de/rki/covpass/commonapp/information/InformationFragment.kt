@@ -18,6 +18,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.OpenSourceLicenseFragmentNav
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
+import de.rki.covpass.commonapp.onboarding.DataProtectionFragmentNav
 import de.rki.covpass.commonapp.utils.stripUnderlines
 
 /**
@@ -42,12 +43,10 @@ public abstract class InformationFragment : BaseFragment() {
             stripUnderlines()
         }
         binding.informationFieldDataSecurityPolicy.apply {
-            text = getSpanned(
-                R.string.app_information_title_datenschutz_linked,
-                getString(getDataSecurityPolicyLinkRes())
-            )
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            text = getString(R.string.app_information_title_datenschutz)
+            setOnClickListener {
+                findNavigator().push(DataProtectionFragmentNav())
+            }
         }
         binding.informationFieldImprint.apply {
             text = getSpanned(
@@ -78,6 +77,5 @@ public abstract class InformationFragment : BaseFragment() {
         }
     }
     protected abstract fun getFAQLinkRes(): Int
-    protected abstract fun getDataSecurityPolicyLinkRes(): Int
     protected abstract fun getImprintLinkRes(): Int
 }

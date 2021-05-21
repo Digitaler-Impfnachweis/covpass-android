@@ -20,7 +20,5 @@ internal class VaccinationInformationFragment : InformationFragment() {
 
     override fun getFAQLinkRes() = R.string.information_faq_link
 
-    override fun getDataSecurityPolicyLinkRes() = R.string.information_data_security_policy_link
-
     override fun getImprintLinkRes() = R.string.information_imprint_link
 }

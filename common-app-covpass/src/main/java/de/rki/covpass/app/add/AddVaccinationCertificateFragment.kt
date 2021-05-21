@@ -27,7 +27,7 @@ internal class AddVaccinationCertificateFragmentNav : FragmentNav(AddVaccination
  */
 internal class AddVaccinationCertificateFragment : BaseBottomSheet() {
 
-    override val buttonTextRes by lazy { R.string.vaccination_add_popup_scan_button_title }
+    override val buttonText by lazy { getString(R.string.vaccination_add_popup_scan_button_title) }
     private val binding by viewBinding(AddVaccinationCertPopupContentBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

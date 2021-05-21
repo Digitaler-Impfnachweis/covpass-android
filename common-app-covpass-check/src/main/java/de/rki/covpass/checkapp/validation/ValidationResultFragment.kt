@@ -105,7 +105,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
-    override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
+    override val buttonText = getString(R.string.validation_check_popup_valid_vaccination_button_title)
 }
 
 @Parcelize
@@ -127,7 +127,7 @@ internal class ValidationResultIncompleteFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
-    override val buttonTextRes = R.string.validation_check_popup_partial_valid_vaccination_button_title
+    override val buttonText = getString(R.string.validation_check_popup_partial_valid_vaccination_button_title)
 }
 
 @Parcelize
@@ -150,5 +150,5 @@ internal class ValidationResultFailureFragment : ValidationResultFragment() {
     override val titleInfo2Res = R.string.validation_check_popup_unsuccessful_test_second_reason_title
     override val textInfo2Res = R.string.validation_check_popup_unsuccessful_test_second_reason_body
     override val imageInfo2Res = R.drawable.hourglass
-    override val buttonTextRes = R.string.validation_check_popup_unsuccessful_test_button_title
+    override val buttonText = getString(R.string.validation_check_popup_unsuccessful_test_button_title)
 }

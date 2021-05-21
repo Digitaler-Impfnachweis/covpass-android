@@ -29,7 +29,7 @@
 	<string name="vaccination_fourth_onboarding_page_second_list_item">Das Impfzertifikat enthält die Daten über Ihre Corona-Impfung. Zum Nachweis Ihres Impfschutzes in den gesetzlich vorgesehenen Fällen genügt das Vorzeigen des QR-Codes in der CovPass-App. Stellen Sie die Impfzertifikate und QR-Codes niemandem zur Verfügung, wenn Sie nicht wollen, dass die Daten ausgelesen werden. </string>
 	<string name="vaccination_fourth_onboarding_page_third_list_item">Wenn Sie den QR-Code in der CovPass-App vorzeigen und dieser mit der offiziellen CovPassCheck-App gescannt wird, können andere Personen nachvollziehen, ob Ihr Impfschutz vollständig ist. Bei der Prüfung werden in der CovPassCheck-App auch Ihr Name, Ihr Vorname und Ihr Geburtsdatum angezeigt. </string>
 	<string name="vaccination_fourth_onboarding_page_fourth_list_item">Sie haben jederzeit die Möglichkeit, Impfzertifikate in der App wieder zu entfernen. Bis dahin bleiben die Impfzertifikate auf Ihrem Smartphone gespeichert. </string>
-	<string name="vaccination_fourth_onboarding_page_fith_list_item">Sie können auch Impfzertifikate anderer Personen in der CovPass-App speichern (z. B. von Familienmitgliedern). Es ist wichtig, dass Sie diese Personen zuvor über die Speicherung ihrer Impfzertifikate informieren. Verwenden Sie zudem die Impfzertifikate anderer Personen nur in den Fällen, die laut dem Gesetz vorgesehen sind.</string>
+	<string name="vaccination_fourth_onboarding_page_fifth_list_item">Sie können auch Impfzertifikate anderer Personen in der CovPass-App speichern (z. B. von Familienmitgliedern). Es ist wichtig, dass Sie diese Personen zuvor über die Speicherung ihrer Impfzertifikate informieren. Verwenden Sie zudem die Impfzertifikate anderer Personen nur in den Fällen, die laut dem Gesetz vorgesehen sind.</string>
 	<string name="vaccination_fourth_onboarding_page_message">Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
 	<string name="vaccination_fourth_onboarding_page_button_title">Alles klar</string>
 	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
@@ -142,7 +142,6 @@
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
-	<string name="app_information_title_datenschutz_linked">#Datenschutzerklärung::$0#</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>

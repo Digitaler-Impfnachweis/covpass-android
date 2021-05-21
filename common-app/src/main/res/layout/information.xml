@@ -44,24 +44,28 @@
 
       <TextView
         android:id="@+id/information_field_faq"
+        android:background="@color/onBrandBase"
         style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_data_security_policy"
+        android:background="@color/onBrandBase"
         style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_imprint"
+        android:background="@color/onBrandBase"
         style="@style/NavigationField" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_open_source_licenses"
+        android:background="@color/onBrandBase"
         style="@style/NavigationField" />
 
       <View style="@style/Divider" />

@@ -37,8 +37,8 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
 
     private val args: DisplayQrCodeFragmentNav by lazy { getArgs() }
 
-    override val buttonTextRes by lazy {
-        R.string.vaccination_certificate_detail_view_qrcode_screen_action_button_title
+    override val buttonText by lazy {
+        getString(R.string.vaccination_certificate_detail_view_qrcode_screen_action_button_title)
     }
 
     private val binding by viewBinding(DisplayQrCodeBottomsheetContentBinding::inflate)

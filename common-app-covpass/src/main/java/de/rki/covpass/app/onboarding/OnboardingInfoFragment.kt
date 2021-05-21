@@ -48,8 +48,14 @@ internal class OnboardingInfo3Fragment : CommonOnboardingInfoFragment() {
  */
 internal class OnboardingConsentFragment : BaseOnboardingConsentFragment() {
     override val titleRes = R.string.vaccination_fourth_onboarding_page_title
-    override val textRes = R.string.vaccination_third_onboarding_page_message
     override val imageRes = R.drawable.onboarding_consent
-    override val buttonTextRes = R.string.start_onboarding_button_title
+    override val buttonTextRes = R.string.vaccination_fourth_onboarding_page_button_title
     override val dataProtectionLinkRes = R.string.on_boarding_consent_data_protection_link
+    override val contentItemsRes = listOf(
+        R.string.vaccination_fourth_onboarding_page_first_list_item,
+        R.string.vaccination_fourth_onboarding_page_second_list_item,
+        R.string.vaccination_fourth_onboarding_page_third_list_item,
+        R.string.vaccination_fourth_onboarding_page_fourth_list_item,
+        R.string.vaccination_fourth_onboarding_page_fifth_list_item
+    )
 }

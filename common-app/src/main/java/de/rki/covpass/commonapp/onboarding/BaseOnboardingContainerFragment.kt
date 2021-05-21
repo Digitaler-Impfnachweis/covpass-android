@@ -7,6 +7,7 @@ package de.rki.covpass.commonapp.onboarding
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isInvisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayoutMediator
@@ -38,12 +39,16 @@ public abstract class BaseOnboardingContainerFragment : BaseFragment() {
         autoRun {
             when (val fragment = get(fragmentStateAdapter.currentFragment)) {
                 is BaseOnboardingConsentFragment -> {
-                    binding.onboardingContinueButton.text = getString(fragment.buttonTextRes)
-                    binding.onboardingContinueButton.isEnabled = get(fragment.isFormValid)
+                    get(fragment.isScrolledToBottom).let {
+                        binding.onboardingContinueButton.isInvisible = !it
+                        binding.onboardingScrollDownButton.isInvisible = it
+                    }
+                    binding.onboardingContinueButton.setText(fragment.buttonTextRes)
                 }
                 is BaseOnboardingInfoFragment -> {
-                    binding.onboardingContinueButton.text = getString(fragment.buttonTextRes)
-                    binding.onboardingContinueButton.isEnabled = true
+                    binding.onboardingContinueButton.isInvisible = false
+                    binding.onboardingScrollDownButton.isInvisible = true
+                    binding.onboardingContinueButton.setText(fragment.buttonTextRes)
                 }
             }
         }
@@ -55,6 +60,9 @@ public abstract class BaseOnboardingContainerFragment : BaseFragment() {
             } else {
                 finishOnboarding()
             }
+        }
+        binding.onboardingScrollDownButton.setOnClickListener {
+            (fragmentStateAdapter.currentFragment.value as? BaseOnboardingConsentFragment)?.scrollToBottom()
         }
     }
 

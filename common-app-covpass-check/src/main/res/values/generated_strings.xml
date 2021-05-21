@@ -84,7 +84,6 @@
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
-	<string name="app_information_title_datenschutz_linked">#Datenschutzerklärung::$0#</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>

@@ -25,16 +25,28 @@
     android:paddingStart="@dimen/grid_two"
     android:paddingEnd="@dimen/grid_two">
 
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/onboarding_continue_button"
-      style="@style/PrimaryButton.Dark"
-      android:layout_width="wrap_content"
+    <FrameLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_above="@id/onboarding_tab_layout"
       android:layout_marginBottom="@dimen/grid_two"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_tab_layout"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent" />
+      android:animateLayoutChanges="true"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_tab_layout">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/onboarding_continue_button"
+        style="@style/PrimaryButton.Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/app_version" />
+
+      <de.rki.covpass.commonapp.uielements.RoundImageButton
+        android:id="@+id/onboarding_scroll_down_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:round_button_icon="@drawable/arrow_field_down" />
+    </FrameLayout>
 
     <com.google.android.material.tabs.TabLayout
       android:id="@+id/onboarding_tab_layout"

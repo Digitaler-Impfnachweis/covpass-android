@@ -8,6 +8,5 @@
   <string name="on_boarding_consent_data_protection_link">https://www.digitaler-impfnachweis-app.de/webviews/client-app/privacy/</string>
   <string name="vaccination_add_popup_link">https://www.digitaler-impfnachweis-app.de/webviews/client-app/faq/</string>
   <string name="information_faq_link">https://www.digitaler-impfnachweis-app.de/webviews/client-app/faq/</string>
-  <string name="information_data_security_policy_link">https://www.digitaler-impfnachweis-app.de/webviews/client-app/privacy/</string>
   <string name="information_imprint_link">https://www.digitaler-impfnachweis-app.de/webviews/imprint/</string>
 </resources>
