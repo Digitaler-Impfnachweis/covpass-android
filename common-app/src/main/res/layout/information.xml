@@ -4,61 +4,83 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/backgroundPrimary"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
 
-  <LinearLayout
+  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+    android:id="@+id/information_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@color/backgroundPrimary"
+    android:elevation="@dimen/elevation"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/grid_seven"
+    android:paddingStart="@dimen/grid_one"
+    android:paddingEnd="@dimen/grid_one"
+    android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/VaccinationAppTheme.DarkControlHighlight" />
 
-    <TextView
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="wrap_content"
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/grid_three"
-      android:text="@string/app_information_message" />
+      android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/information_field_faq"
-      android:background="@color/onBrandBase"
-      style="@style/NavigationField" />
+      <TextView
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_three"
+        android:text="@string/app_information_message"/>
 
-    <View style="@style/Divider" />
+      <TextView
+        android:id="@+id/information_field_faq"
+        android:background="@color/onBrandBase"
+        style="@style/NavigationField" />
 
-    <TextView
-      android:id="@+id/information_field_data_security_policy"
-      android:background="@color/onBrandBase"
-      style="@style/NavigationField" />
+      <View style="@style/Divider" />
 
-    <View style="@style/Divider" />
+      <TextView
+        android:id="@+id/information_field_data_security_policy"
+        android:background="@color/onBrandBase"
+        style="@style/NavigationField" />
 
-    <TextView
-      android:id="@+id/information_field_imprint"
-      android:background="@color/onBrandBase"
-      style="@style/NavigationField" />
+      <View style="@style/Divider" />
 
-    <View style="@style/Divider" />
+      <TextView
+        android:id="@+id/information_field_imprint"
+        android:background="@color/onBrandBase"
+        style="@style/NavigationField" />
 
-    <TextView
-      android:id="@+id/information_field_open_source_licenses"
-      android:background="@color/onBrandBase"
-      style="@style/NavigationField" />
+      <View style="@style/Divider" />
 
-    <View style="@style/Divider" />
+      <TextView
+        android:id="@+id/information_field_open_source_licenses"
+        android:background="@color/onBrandBase"
+        style="@style/NavigationField" />
 
-    <TextView
-      android:id="@+id/information_app_version_label"
-      style="DefaultText.OnBackground70"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:gravity="center"
-      android:padding="@dimen/grid_one_half" />
+      <View style="@style/Divider" />
 
-  </LinearLayout>
+      <TextView
+        android:id="@+id/information_app_version_label"
+        style="DefaultText.OnBackground70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="@dimen/grid_one_half" />
 
-</ScrollView>
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>
