@@ -8,12 +8,12 @@ The most important modules are:
 * android-utils-test: Utils for unit testing State, ViewModel, etc.
 * annotations: Useful annotations/interfaces, e.g. for preventing R8/ProGuard obfuscation of JSON classes.
 * gradle: Common infrastructure for linters, code coverage, R8/ProGuard.
-* http: Ktor and OkHttp base clients with correct security configuration and Gson integration.
-* logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
+* covpass-http: Ktor and OkHttp base clients with correct security configuration and Gson integration.
+* covpass-logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
 * navigation: A simple activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily.
 * covpass-bom: Defines a common set of dependency versions, so there won't be any conflicts.
-* vaccination-sdk-android: The main vaccination SDK for Android.
-* vaccination-sdk-android-demo: Use this to override the SDK settings for the demo environment.
+* covpass-sdk-android: The main vaccination SDK for Android.
+* covpass-sdk-android-demo: Use this to override the SDK settings for the demo environment.
 
 The apps live in these modules:
 

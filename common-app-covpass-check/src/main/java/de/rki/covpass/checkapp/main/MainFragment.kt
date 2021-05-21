@@ -20,6 +20,7 @@ import de.rki.covpass.checkapp.scanner.ValidationQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.DscRepository
+import de.rki.covpass.commonapp.utils.isDscListUpToDate
 import de.rki.covpass.sdk.android.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
@@ -47,12 +48,28 @@ internal class MainFragment : BaseFragment() {
     }
 
     private fun updateAvailabilityCard(lastUpdate: Instant) {
-        // TODO handle status text and icon correctly when the feature is implemented
-        val updateString = getString(
+        val upToDate = isDscListUpToDate(lastUpdate)
+
+        val availabilityStatusIconId = if (upToDate) {
+            R.drawable.availability_success
+        } else {
+            // FIXME use correct warning icon
+            R.drawable.close_bottom_sheet
+        }
+        binding.mainAvailabilityStatusImageview.setImageResource(availabilityStatusIconId)
+
+        val availabilityStatusString = if (upToDate) {
+            getString(R.string.validation_start_screen_offline_modus_note_latest_version)
+        } else {
+            getString(R.string.validation_start_screen_offline_modus_note_old_version)
+        }
+        binding.mainAvailabilityStatusTextview.text = availabilityStatusString
+
+        val lastUpdateString = getString(
             R.string.validation_start_screen_offline_modus_note_update_pattern,
             LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
         )
-        binding.mainAvailabilityLastUpdateTextview.text = updateString
+        binding.mainAvailabilityLastUpdateTextview.text = lastUpdateString
         binding.mainAvailabilityLastUpdateTextview.isGone = lastUpdate == DscRepository.NO_UPDATE_YET
     }
 }

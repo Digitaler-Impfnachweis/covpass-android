@@ -17,6 +17,7 @@ import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.navigation.android.*
 import com.ibm.health.common.securityprovider.initSecurityProvider
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.utils.DSC_UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.utils.DscListUpdater
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
@@ -64,7 +65,7 @@ public abstract class CommonApplication : Application() {
 
         val tag = "dscListWorker"
         val dscListWorker: PeriodicWorkRequest =
-            PeriodicWorkRequest.Builder(DscListUpdater::class.java, 24, TimeUnit.HOURS)
+            PeriodicWorkRequest.Builder(DscListUpdater::class.java, DSC_UPDATE_INTERVAL_HOURS, TimeUnit.HOURS)
                 .addTag(tag)
                 .build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(

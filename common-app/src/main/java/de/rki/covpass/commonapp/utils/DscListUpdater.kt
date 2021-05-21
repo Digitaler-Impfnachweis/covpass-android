@@ -12,6 +12,14 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.android.cert.toTrustedCerts
 import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import java.time.Instant
+
+public const val DSC_UPDATE_INTERVAL_HOURS: Long = 24
+
+public fun isDscListUpToDate(lastUpdate: Instant): Boolean {
+    val dscUpdateIntervalSeconds = DSC_UPDATE_INTERVAL_HOURS * 60 * 60
+    return lastUpdate.isAfter(Instant.now().minusSeconds(dscUpdateIntervalSeconds))
+}
 
 public class DscListUpdater(
     context: Context,
