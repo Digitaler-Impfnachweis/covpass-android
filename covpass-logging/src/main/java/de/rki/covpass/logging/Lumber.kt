@@ -81,7 +81,8 @@ private class LoggerTree : Timber.DebugTree() {
         val stackTrace = Throwable().stackTrace.toMutableList()
         stackTrace.removeAll {
             it.className == LoggerTree::class.java.name ||
-                it.className == Lumber::class.java.name
+                it.className == Lumber::class.java.name ||
+                it.className == Lumber.Companion::class.java.name
         }
         val stackTraceElement = if (stackTrace.size > callStackIndex) stackTrace[callStackIndex] else element
         return super.createStackElementTag(stackTraceElement)
