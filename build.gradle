@@ -26,7 +26,6 @@ plugins {
 }
 
 apply plugin: 'pl.allegro.tech.build.axion-release'
-findProperty("gagagagaa")
 ext.JRubyExec = { -> com.github.jrubygradle.JRubyExec }
 
 apply from: "$rootDir/gradle/common/repos.gradle"
