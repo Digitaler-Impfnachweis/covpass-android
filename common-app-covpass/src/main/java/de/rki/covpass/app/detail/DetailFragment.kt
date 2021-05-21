@@ -214,7 +214,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             args.certIdToDelete = cert.vaccination.id
             val dialogModel = DialogModel(
                 titleRes = R.string.dialog_delete_certificate_title,
-                titleFormatArgs = listOf(cert.currentSeries, cert.completeSeries, cert.fullName),
+                titleFormatArgs = listOf(cert.currentSeries, cert.completeSeries),
                 messageRes = R.string.dialog_delete_certificate_message,
                 positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
                 negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,

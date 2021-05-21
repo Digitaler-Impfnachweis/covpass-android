@@ -8,7 +8,6 @@ package de.rki.covpass.app.detail
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import com.ensody.reactivestate.autoRun
 import com.ensody.reactivestate.dispatchers
 import com.ensody.reactivestate.get
@@ -45,10 +44,6 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bottomSheetBinding.bottomSheetSubtitle.setText(
-            R.string.vaccination_certificate_detail_view_qrcode_screen_message
-        )
-        bottomSheetBinding.bottomSheetSubtitle.isVisible = true
         autoRun { updateViews(get(covpassDeps.certRepository.certs)) }
     }
 
@@ -57,8 +52,7 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
         bottomSheetBinding.bottomSheetTitle.text = getString(
             R.string.vaccination_certificate_detail_view_qrcode_screen_title,
             cert.vaccinationCertificate.currentSeries,
-            cert.vaccinationCertificate.completeSeries,
-            cert.vaccinationCertificate.fullName
+            cert.vaccinationCertificate.completeSeries
         )
         launchWhenStarted {
             binding.displayQrImageview.setImageBitmap(
