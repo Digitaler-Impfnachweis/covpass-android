@@ -7,7 +7,7 @@ package de.rki.covpass.commonapp.errorhandling
 
 import COSE.CoseException
 import androidx.fragment.app.FragmentManager
-import com.ibm.health.common.base45.Base45DecodeException
+import de.rki.covpass.base45.Base45DecodeException
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogModel

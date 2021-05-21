@@ -12,9 +12,6 @@ import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
 import assertk.fail
-import com.ibm.health.common.base45.Base45
-import com.ibm.health.common.base45.Base45DecodeException
-import com.ibm.health.common.base45.ENCODING_CHARSET
 import org.junit.Test
 
 internal class Base45Test {

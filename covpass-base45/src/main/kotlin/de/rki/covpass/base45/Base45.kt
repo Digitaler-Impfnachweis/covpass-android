@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package com.ibm.health.common.base45
+package de.rki.covpass.base45
 
 // Lookup tables for faster processing
 internal val ENCODING_CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:".encodeToByteArray()

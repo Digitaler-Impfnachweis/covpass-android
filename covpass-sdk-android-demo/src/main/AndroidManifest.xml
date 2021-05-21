@@ -4,4 +4,4 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<manifest package="com.ibm.health.vaccination.sdk.android.demo" />
+<manifest package="de.rki.covpass.sdk.android.demo" />

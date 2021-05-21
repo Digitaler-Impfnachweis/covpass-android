@@ -8,7 +8,7 @@ package de.rki.covpass.sdk.android.cert
 import COSE.CoseException
 import COSE.OneKey
 import COSE.Sign1Message
-import com.ibm.health.common.base45.Base45
+import de.rki.covpass.base45.Base45
 import de.rki.covpass.sdk.android.cert.models.CBORWebToken
 import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
 import de.rki.covpass.sdk.android.crypto.CertValidator

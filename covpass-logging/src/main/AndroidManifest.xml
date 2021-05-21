@@ -4,4 +4,4 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ibm.health.common.logging" />
+    package="de.rki.covpass.logging" />
