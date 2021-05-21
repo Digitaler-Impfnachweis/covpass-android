@@ -6,7 +6,6 @@
 package de.rki.covpass.commonapp.utils
 
 import android.util.Base64
-import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ibm.health.common.android.utils.SharedPrefsStore
 import kotlinx.serialization.SerializationException
@@ -35,7 +34,7 @@ public class CborSharedPrefsStore(public val prefs: SharedPrefsStore) {
         } catch (e: SerializationException) {
             default
         }
-        return SuspendMutableValueFlow(MutableValueFlow(value)) {
+        return SuspendMutableValueFlow(value) {
             flow.set(Base64.encodeToString(cbor.encodeToByteArray(it), Base64.DEFAULT))
         }
     }

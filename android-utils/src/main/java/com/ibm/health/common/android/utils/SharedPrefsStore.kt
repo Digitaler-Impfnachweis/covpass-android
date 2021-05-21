@@ -7,7 +7,6 @@ package com.ibm.health.common.android.utils
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ensody.reactivestate.dispatchers
 import kotlinx.coroutines.invoke
@@ -43,7 +42,7 @@ public class SharedPrefsStore(public val prefs: SharedPreferences) {
         }
 
     private fun <T> getFlow(default: T, setter: SharedPreferences.Editor.(value: T) -> Unit) =
-        SuspendMutableValueFlow(MutableValueFlow(default)) {
+        SuspendMutableValueFlow(default) {
             dispatchers.io {
                 prefs.edit { setter(it) }
             }

@@ -12,8 +12,8 @@ dependencies {
         // ------------------------------------------------------------------------------------------------
         versionConstraints = {
             api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.4.3")
-            api platform("io.ktor:ktor-bom:1.5.3")
-            api platform("com.ensody.reactivestate:dependency-versions-bom:3.8.2")
+            api platform("io.ktor:ktor-bom:1.5.4")
+            api platform("com.ensody.reactivestate:dependency-versions-bom:3.9.0")
             api platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
 
             constraints {
@@ -24,7 +24,7 @@ dependencies {
                 api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
                 api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-                def kotlinxSerializationVersion = "1.1.0"
+                def kotlinxSerializationVersion = "1.2.0"
                 api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
                 api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion"
 
