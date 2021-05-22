@@ -123,14 +123,20 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
         val mainCertificate = groupedCertificate.getMainCertificate()
         val isComplete = groupedCertificate.isComplete()
+        val hasFullProtection = groupedCertificate.getMainCertificate().vaccinationCertificate.hasFullProtection
         isFavorite = certList.isMarkedAsFavorite(certId)
         setHasOptionsMenu(certList.certificates.size > 1)
         activity?.invalidateOptionsMenu()
         mainCertificate.vaccinationCertificate.let { cert ->
             binding.detailNameTextview.text = cert.fullName
 
-            val statusHeaderText = if (isComplete) {
+            val statusHeaderText = if (hasFullProtection) {
                 getString(R.string.vaccination_certificate_detail_view_complete_title)
+            } else if (isComplete) {
+                getString(
+                    R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
+                    mainCertificate.vaccinationCertificate.validDate.formatDateOrEmpty()
+                )
             } else {
                 getString(
                     R.string.vaccination_certificate_detail_view_incomplete_title,
