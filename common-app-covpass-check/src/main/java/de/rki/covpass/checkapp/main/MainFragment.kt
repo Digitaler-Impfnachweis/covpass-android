@@ -65,11 +65,14 @@ internal class MainFragment : BaseFragment() {
         }
         binding.mainAvailabilityStatusTextview.text = availabilityStatusString
 
-        val lastUpdateString = getString(
-            R.string.validation_start_screen_offline_modus_note_update_pattern,
-            LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
-        )
-        binding.mainAvailabilityLastUpdateTextview.text = lastUpdateString
-        binding.mainAvailabilityLastUpdateTextview.isGone = lastUpdate == DscRepository.NO_UPDATE_YET
+        if (lastUpdate == DscRepository.NO_UPDATE_YET) {
+            binding.mainAvailabilityLastUpdateTextview.isGone = true
+        } else {
+            binding.mainAvailabilityLastUpdateTextview.isGone = false
+            binding.mainAvailabilityLastUpdateTextview.text = getString(
+                R.string.validation_start_screen_offline_modus_note_update_pattern,
+                LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
+            )
+        }
     }
 }
