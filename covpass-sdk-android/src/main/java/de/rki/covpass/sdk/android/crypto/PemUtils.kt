@@ -35,7 +35,7 @@ public fun readPem(data: String): List<X509Certificate> {
 public fun readPemKeys(data: String): List<PublicKey> {
     val converter = JcaPEMKeyConverter()
     return readRawPem(data)
-        .mapNotNull { it as? SubjectPublicKeyInfo }
+        .mapNotNull { SubjectPublicKeyInfo.getInstance(it) }
         .map { converter.getPublicKey(it) }
         .toList()
 }

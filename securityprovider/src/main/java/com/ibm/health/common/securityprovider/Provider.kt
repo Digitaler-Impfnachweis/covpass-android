@@ -22,6 +22,7 @@ public fun initSecurityProvider() {
 private val lazySecurityProviderInstaller by lazy {
     // Just in case we also integrate Bouncy Castle, disable patented algorithms
     System.setProperty("org.bouncycastle.ec.disable_mqv", "true")
+    Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
     Security.addProvider(BouncyCastleProvider())
     Security.insertProviderAt(Conscrypt.newProvider(), 1)
 }
