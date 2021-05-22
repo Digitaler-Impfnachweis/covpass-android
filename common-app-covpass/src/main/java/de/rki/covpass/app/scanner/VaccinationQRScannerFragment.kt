@@ -10,7 +10,6 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler.Companion.TAG_ERROR_CONNECTION
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.app.detail.DetailFragmentNav
 import com.journeyapps.barcodescanner.BarcodeResult
@@ -34,16 +33,7 @@ internal class VaccinationQRScannerFragment : QRScannerFragment(), DialogListene
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == TAG_ERROR_CONNECTION) {
-            viewModel.lastCertificateId.value?.also {
-                onScanSuccess(it)
-            } ?: run {
-                // This should not be possible, just as a safety fallback
-                findNavigator().pop()
-            }
-        } else {
-            scanEnabled.value = true
-        }
+        scanEnabled.value = true
     }
 
     override fun onScanSuccess(certificateId: String) {

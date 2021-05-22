@@ -13,6 +13,7 @@ import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.android.cert.models.CombinedVaccinationCertificate
 import de.rki.covpass.sdk.android.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
+import java.lang.IllegalStateException
 
 /**
  * Interface to communicate events from [VaccinationQRScannerViewModel] to [VaccinationQRScannerFragment].
@@ -41,11 +42,11 @@ internal class VaccinationQRScannerViewModel(
                 )
             }
             val groupedCert = certsFlow.value.getGroupedCertificates(vaccinationCertificate.vaccination.id)
-            lastCertificateId.value = groupedCert?.getMainCertId()
+                ?: throw IllegalStateException("No GroupedCertificate found.")
+            val mainCertId = groupedCert.getMainCertId()
+            lastCertificateId.value = mainCertId
             eventNotifier {
-                onScanSuccess(
-                    vaccinationCertificate.vaccination.id
-                )
+                onScanSuccess(mainCertId)
             }
         }
     }
