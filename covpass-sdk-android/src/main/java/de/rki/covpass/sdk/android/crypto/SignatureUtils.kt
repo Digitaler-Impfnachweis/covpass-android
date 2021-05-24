@@ -7,7 +7,6 @@ package de.rki.covpass.sdk.android.crypto
 
 import org.bouncycastle.asn1.ASN1Integer
 import org.bouncycastle.asn1.DERSequence
-import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.math.BigInteger
 import java.security.PublicKey
 import java.security.Signature
@@ -25,7 +24,7 @@ public fun validateSignature(key: PublicKey, data: ByteArray, signature: ByteArr
     } else {
         signature
     }
-    val verifier = Signature.getInstance(algorithm, BouncyCastleProvider()).apply {
+    val verifier = Signature.getInstance(algorithm).apply {
         initVerify(key)
         update(data)
     }
