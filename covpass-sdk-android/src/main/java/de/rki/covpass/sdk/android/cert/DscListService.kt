@@ -17,5 +17,5 @@ public class DscListService(httpClient: HttpClient, host: String) {
     }
 
     public suspend fun getTrustedList(): String =
-        client.get("/trustList/DSC/")
+        client.get("/trustList/DSC/DE/")
 }
