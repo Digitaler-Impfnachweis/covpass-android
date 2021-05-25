@@ -7,11 +7,12 @@ package de.rki.covpass.commonapp.errorhandling
 
 import COSE.CoseException
 import androidx.fragment.app.FragmentManager
+import com.upokecenter.cbor.CBORException
 import de.rki.covpass.base45.Base45DecodeException
-import de.rki.covpass.logging.Lumber
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.android.cert.UnsupportedDgcVersionException
 
 /**
@@ -37,7 +38,7 @@ public abstract class CommonErrorHandler {
                 tag = TAG_ERROR_UNSUPPORTED_VERSION_OF_CERTIFICATE_DATA
             )
             is Base45DecodeException,
-            is CoseException -> DialogModel(
+            is CoseException, is CBORException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_cannot_be_parsed_title,
                 messageRes = R.string.error_scan_qrcode_cannot_be_parsed_message,
                 positiveButtonTextRes = R.string.error_scan_qrcode_cannot_be_parsed_button_title,
