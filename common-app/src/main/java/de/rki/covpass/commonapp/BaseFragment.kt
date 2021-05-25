@@ -5,10 +5,7 @@
 
 package de.rki.covpass.commonapp
 
-import android.os.Bundle
-import android.view.View
 import androidx.annotation.LayoutRes
-import androidx.appcompat.widget.Toolbar
 import com.ibm.health.common.android.utils.BaseHookedFragment
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue
@@ -20,13 +17,6 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 public abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
     BaseHookedFragment(contentLayoutId = contentLayoutId),
     OnBackPressedNavigation {
-
-    public open val toolbar: Toolbar? = null
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        (activity as? BaseActivity)?.setSupportActionBar(toolbar)
-    }
 
     override fun onBackPressed(): Abortable =
         (this as? NavigatorOwner)?.navigator?.onBackPressed()

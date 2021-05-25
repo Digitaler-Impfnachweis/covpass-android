@@ -20,6 +20,7 @@ import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.button.MaterialButton
+import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abort
@@ -66,9 +67,6 @@ internal class DetailFragmentNav(
  * Further actions (Delete current certificate, Show Vaccination QR Code, Add Vaccination certificate)
  */
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
-
-    override val toolbar
-        get() = binding.detailToolbar
 
     private val args: DetailFragmentNav by lazy { getArgs() }
     private val viewModel by buildState { DetailViewModel(scope) }
@@ -293,6 +291,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         dataRow.findViewById<TextView>(R.id.detail_data_textview)
 
     private fun setupActionBar() {
+        attachToolbar(binding.detailToolbar)
         val activity = (activity as? AppCompatActivity)
         activity?.run {
             supportActionBar?.run {

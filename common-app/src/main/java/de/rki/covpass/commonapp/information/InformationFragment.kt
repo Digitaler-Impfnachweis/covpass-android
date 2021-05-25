@@ -10,8 +10,8 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.ibm.health.common.android.utils.appVersion
+import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
@@ -27,9 +27,6 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
  * defined inside the app-specific fragments.
  */
 public abstract class InformationFragment : BaseFragment() {
-
-    override val toolbar: Toolbar
-        get() = binding.informationToolbar
 
     private val binding by viewBinding(InformationBinding::inflate)
 
@@ -70,6 +67,7 @@ public abstract class InformationFragment : BaseFragment() {
     }
 
     private fun setupActionBar() {
+        attachToolbar(binding.informationToolbar)
         (activity as? AppCompatActivity)?.run {
             supportActionBar?.run {
                 setDisplayShowTitleEnabled(false)

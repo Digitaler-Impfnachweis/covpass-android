@@ -8,7 +8,7 @@ package de.rki.covpass.commonapp
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import de.rki.covpass.commonapp.databinding.OpenSourceLicenseBinding
@@ -23,9 +23,6 @@ public class OpenSourceLicenseFragmentNav : FragmentNav(OpenSourceLicenseFragmen
  */
 public class OpenSourceLicenseFragment : BaseFragment() {
 
-    override val toolbar: Toolbar
-        get() = binding.openSourceLicenseToolbar
-
     private val binding by viewBinding(OpenSourceLicenseBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,6 +32,7 @@ public class OpenSourceLicenseFragment : BaseFragment() {
     }
 
     private fun setupActionBar() {
+        attachToolbar(binding.openSourceLicenseToolbar)
         (activity as? AppCompatActivity)?.run {
             supportActionBar?.run {
                 setDisplayShowTitleEnabled(false)
