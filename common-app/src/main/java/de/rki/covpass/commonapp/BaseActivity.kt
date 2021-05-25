@@ -5,8 +5,11 @@
 
 package de.rki.covpass.commonapp
 
+import android.os.Bundle
+import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import com.ibm.health.common.android.utils.BaseHookedActivity
+import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.Navigator
 import com.ibm.health.common.navigation.android.NavigatorOwner
@@ -18,6 +21,16 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
     NavigatorOwner {
 
     override val navigator: Navigator = Navigator()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (!isDebuggable) {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE
+            )
+        }
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onBackPressed() {
         if (navigator.onBackPressed() == Continue) {
