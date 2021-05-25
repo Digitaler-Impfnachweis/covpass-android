@@ -26,7 +26,7 @@ private val lazySecurityProviderInstaller by lazy {
     try {
         Security.removeProvider("BC")
     } catch (e: Throwable) {
-        Lumber.w { "Provider BC not found. Removal failed." }
+        Lumber.w(e) { "Provider BC not found. Removal failed." }
     }
     Security.addProvider(BouncyCastleProvider())
     Security.insertProviderAt(Conscrypt.newProvider(), 1)
