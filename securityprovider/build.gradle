@@ -4,6 +4,7 @@
  */
 
 dependencies {
+    api project(":covpass-logging")
     conscrypt()
     bouncyCastle()
 }
