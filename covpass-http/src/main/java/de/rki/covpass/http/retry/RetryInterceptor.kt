@@ -9,6 +9,7 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
+import kotlin.math.min
 
 /**
  * Adding this interceptor will cause OkHttp to retry
@@ -26,6 +27,8 @@ internal class RetryInterceptor : Interceptor {
         var request = chain.request()
         val httpMethod = request.method
         var attempt = 0
+        var sleep = 250L
+        val maxSleep = 5000L
         val retryEnabled = isRetryEnabled(request)
 
         // If a retry header is set then it must be removed since it's only for internal use
@@ -41,7 +44,8 @@ internal class RetryInterceptor : Interceptor {
                 attempt += 1
                 val response = chain.proceed(request)
                 if (shouldRetry(httpMethod, response.code, attempt, retryEnabled)) {
-                    Thread.sleep(RETRY_DELAY_IN_MS)
+                    Thread.sleep(sleep)
+                    sleep = min(2 * sleep, maxSleep)
                     continue
                 }
                 return response
@@ -50,7 +54,8 @@ internal class RetryInterceptor : Interceptor {
                     // okHttp only sends IOExceptions over thread boundaries
                     throw exception as? IOException ?: IOException(exception)
                 }
-                Thread.sleep(RETRY_DELAY_IN_MS)
+                Thread.sleep(sleep)
+                sleep = min(2 * sleep, maxSleep)
             }
         }
     }
@@ -74,7 +79,6 @@ internal class RetryInterceptor : Interceptor {
 
     companion object {
         internal const val MAX_ATTEMPTS = 7
-        private const val RETRY_DELAY_IN_MS = 500L
         const val RETRY_ALLOWED_HEADER = "X-Retry-Allowed-6jNGI0d8vBVJg6X9YwUG"
         const val RETRY_ALLOWED_VALUE = "allowed"
         const val RETRY_DISABLED_VALUE = "disabled"

@@ -3,12 +3,10 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-ext.twineStrings = { inputFile ->
+ext.twineStrings = { inputFile, outputFile = "${project.projectDir}/src/main/res/values/generated_strings.xml" ->
     apply plugin: 'com.github.jruby-gradle.base'
 
     configurations.create("twine")
-
-    def outputFile = "${project.projectDir}/src/main/res/values/generated_strings.xml"
 
     task generateStrings(type: JRubyExec()) {
         inputs.file(inputFile)
