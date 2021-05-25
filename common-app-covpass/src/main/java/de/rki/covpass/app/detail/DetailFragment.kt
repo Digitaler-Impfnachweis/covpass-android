@@ -274,7 +274,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
         val uvciDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_uvci_data_divider)
         findRowHeaderView(uvciRow).setText(R.string.vaccination_certificate_detail_view_data_identification_number)
-        findRowTextView(uvciRow).text = vaccination.id
+        findRowTextView(uvciRow).text = vaccination.id.removePrefix("URN:UVCI:")
         uvciRow.isVisible = vaccination.id.isNotBlank()
         uvciDivider.isVisible = vaccination.id.isNotBlank()
 
