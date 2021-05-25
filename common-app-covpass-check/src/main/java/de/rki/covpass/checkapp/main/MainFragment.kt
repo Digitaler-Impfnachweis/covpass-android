@@ -53,8 +53,7 @@ internal class MainFragment : BaseFragment() {
         val availabilityStatusIconId = if (upToDate) {
             R.drawable.availability_success
         } else {
-            // FIXME use correct warning icon
-            R.drawable.close_bottom_sheet
+            R.drawable.availability_warning
         }
         binding.mainAvailabilityStatusImageview.setImageResource(availabilityStatusIconId)
 
