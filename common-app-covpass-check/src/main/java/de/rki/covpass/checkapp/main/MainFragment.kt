@@ -21,7 +21,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.DscRepository
 import de.rki.covpass.commonapp.utils.isDscListUpToDate
-import de.rki.covpass.sdk.android.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 import java.time.LocalDateTime

@@ -8,7 +8,7 @@ package de.rki.covpass.commonapp.utils
 import android.util.Base64
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ibm.health.common.android.utils.SharedPrefsStore
-import de.rki.covpass.sdk.android.utils.serialization.InstantSerializer
+import de.rki.covpass.sdk.utils.serialization.InstantSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray

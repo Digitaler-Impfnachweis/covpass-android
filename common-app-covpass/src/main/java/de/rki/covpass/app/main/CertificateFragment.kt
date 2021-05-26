@@ -24,7 +24,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.app.storage.GroupedCertificatesList
-import de.rki.covpass.sdk.android.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateBinding

@@ -13,7 +13,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.android.cert.UnsupportedDgcVersionException
+import de.rki.covpass.sdk.cert.UnsupportedDgcVersionException
 
 /**
  * Common abstract base class for the app-specific error handlers. This one covers handling of errors that can occur in

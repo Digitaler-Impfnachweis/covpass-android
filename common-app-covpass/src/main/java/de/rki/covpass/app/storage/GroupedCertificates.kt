@@ -5,7 +5,7 @@
 
 package de.rki.covpass.app.storage
 
-import de.rki.covpass.sdk.android.cert.models.CombinedVaccinationCertificate
+import de.rki.covpass.sdk.cert.models.CombinedVaccinationCertificate
 
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).

@@ -8,10 +8,10 @@ package de.rki.covpass.checkapp.scanner
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.android.cert.BadCoseSignatureException
-import de.rki.covpass.sdk.android.cert.ExpiredCwtException
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
-import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import de.rki.covpass.sdk.cert.BadCoseSignatureException
+import de.rki.covpass.sdk.cert.ExpiredCwtException
+import de.rki.covpass.sdk.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**

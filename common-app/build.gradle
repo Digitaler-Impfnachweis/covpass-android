@@ -8,7 +8,7 @@ dependencies {
     api project(':covpass-http')
     api project(":navigation")
     api project(":securityprovider")
-    api project(':covpass-sdk-android')
+    api project(':covpass-sdk')
     cryptographic()
     androidUI()
     zxing()

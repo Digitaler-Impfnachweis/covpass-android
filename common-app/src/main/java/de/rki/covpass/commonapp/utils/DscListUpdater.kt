@@ -10,8 +10,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.android.cert.toTrustedCerts
-import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import de.rki.covpass.sdk.cert.toTrustedCerts
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import java.time.Instant
 
 public const val DSC_UPDATE_INTERVAL_HOURS: Long = 24

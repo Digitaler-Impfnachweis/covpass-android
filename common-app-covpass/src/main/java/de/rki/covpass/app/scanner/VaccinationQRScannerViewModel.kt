@@ -10,8 +10,8 @@ import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.sdk.android.cert.models.CombinedVaccinationCertificate
-import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import de.rki.covpass.sdk.cert.models.CombinedVaccinationCertificate
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 import java.lang.IllegalStateException
 

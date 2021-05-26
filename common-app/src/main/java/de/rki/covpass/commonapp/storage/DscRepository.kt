@@ -7,8 +7,8 @@ package de.rki.covpass.commonapp.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
-import de.rki.covpass.sdk.android.cert.models.DscList
-import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import de.rki.covpass.sdk.cert.models.DscList
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import java.time.Instant
 
 /**

@@ -20,7 +20,7 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.sdk.android.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 

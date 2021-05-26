@@ -7,8 +7,8 @@ rootProject.name = 'android-covpass-app'
 
 // SDK modules
 include ':covpass-bom'
-include ':covpass-sdk-android'
-include ':covpass-sdk-android-demo'
+include ':covpass-sdk'
+include ':covpass-sdk-demo'
 
 // SDK utils
 include ':annotations'

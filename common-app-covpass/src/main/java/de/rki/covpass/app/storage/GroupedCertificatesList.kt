@@ -5,9 +5,9 @@
 
 package de.rki.covpass.app.storage
 
-import de.rki.covpass.sdk.android.cert.models.CombinedVaccinationCertificate
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificateList
+import de.rki.covpass.sdk.cert.models.CombinedVaccinationCertificate
+import de.rki.covpass.sdk.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.cert.models.VaccinationCertificateList
 
 /**
  * Data model which contains a list of [GroupedCertificates] and a pointer to the favorite / own certificate.

@@ -15,7 +15,7 @@ import de.rki.covpass.checkapp.validation.ValidationResultFailureFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultIncompleteFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
 import de.rki.covpass.checkapp.validation.ValidationResultSuccessFragmentNav
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.cert.models.VaccinationCertificate
 import com.journeyapps.barcodescanner.BarcodeResult
 import de.rki.covpass.checkapp.R
 import kotlinx.parcelize.Parcelize

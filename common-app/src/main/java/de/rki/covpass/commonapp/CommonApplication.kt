@@ -22,9 +22,9 @@ import de.rki.covpass.commonapp.utils.DscListUpdater
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.android.cert.toTrustedCerts
-import de.rki.covpass.sdk.android.dependencies.SdkDependencies
-import de.rki.covpass.sdk.android.dependencies.sdkDeps
+import de.rki.covpass.sdk.cert.toTrustedCerts
+import de.rki.covpass.sdk.dependencies.SdkDependencies
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import java.util.concurrent.TimeUnit
 
 /** Common base application with some common functionality like setting up logging. */

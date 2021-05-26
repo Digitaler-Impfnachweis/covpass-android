@@ -39,13 +39,13 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.sdk.android.cert.getCountryName
-import de.rki.covpass.sdk.android.cert.getManufacturerName
-import de.rki.covpass.sdk.android.cert.getProductName
-import de.rki.covpass.sdk.android.cert.getProphylaxisName
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
-import de.rki.covpass.sdk.android.utils.formatDate
-import de.rki.covpass.sdk.android.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.cert.getCountryName
+import de.rki.covpass.sdk.cert.getManufacturerName
+import de.rki.covpass.sdk.cert.getProductName
+import de.rki.covpass.sdk.cert.getProphylaxisName
+import de.rki.covpass.sdk.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.utils.formatDate
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import kotlinx.parcelize.Parcelize
 
 /**

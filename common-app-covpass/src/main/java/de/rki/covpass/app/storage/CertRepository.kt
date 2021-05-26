@@ -7,7 +7,7 @@ package de.rki.covpass.app.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificateList
+import de.rki.covpass.sdk.cert.models.VaccinationCertificateList
 
 /**
  * Repository which contains the [GroupedCertificatesList]

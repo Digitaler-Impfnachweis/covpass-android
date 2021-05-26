@@ -9,11 +9,11 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
-import de.rki.covpass.sdk.android.cert.models.CombinedVaccinationCertificate
-import de.rki.covpass.sdk.android.cert.models.Name
-import de.rki.covpass.sdk.android.cert.models.Vaccination
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificateList
+import de.rki.covpass.sdk.cert.models.CombinedVaccinationCertificate
+import de.rki.covpass.sdk.cert.models.Name
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.cert.models.VaccinationCertificateList
 import org.junit.Test
 import java.time.LocalDate
 
