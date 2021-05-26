@@ -52,6 +52,9 @@ style:
     active: false
   ReturnCount:
     active: false
+  # We don't pass Serializable classes around and we don't store them
+  SerialVersionUIDInSerializableClass:
+    active: false
   ThrowsCount:
     active: false
   UnnecessaryAbstractClass:
