@@ -14,6 +14,9 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
+/**
+ * Data model for the vaccinations inside a Digital Green Certificate.
+ */
 @Serializable
 public data class Vaccination(
     @SerialName("tg")

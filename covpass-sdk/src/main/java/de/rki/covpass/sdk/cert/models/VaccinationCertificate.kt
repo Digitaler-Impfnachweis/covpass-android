@@ -33,6 +33,10 @@ public data class VaccinationCertificate(
     val birthDate: LocalDate? = null,
     @SerialName("v")
     val vaccinations: List<Vaccination> = emptyList(),
+    @SerialName("t")
+    val tests: List<Test> = emptyList(),
+    @SerialName("r")
+    val recoveries: List<Recovery> = emptyList(),
     @SerialName("ver")
     val version: String = "",
 ) {
