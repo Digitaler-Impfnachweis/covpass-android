@@ -8,6 +8,7 @@ package de.rki.covpass.app.main
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ibm.health.common.android.utils.BaseFragmentStateAdapter
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.app.storage.GroupedCertificatesList
 
 /**
@@ -27,13 +28,13 @@ internal class CertificateFragmentStateAdapter(parent: Fragment) : BaseFragmentS
 
     fun createFragments(certificateList: GroupedCertificatesList) {
         fragments = certificateList.getSortedCertificates().map {
-            CertificateFragmentNav(it.getMainCertId()).build() as CertificateFragment
+            CertificateFragmentNav(it.id).build() as CertificateFragment
         }
         // TODO: Optimize this to only update what has really changed
         notifyDataSetChanged()
     }
 
-    fun getItemPosition(certId: String): Int {
+    fun getItemPosition(certId: GroupedCertificatesId): Int {
         return fragments.indexOfFirst {
             it.args.certId == certId
         }

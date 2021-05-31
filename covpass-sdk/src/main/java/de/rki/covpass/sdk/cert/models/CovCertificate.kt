@@ -16,10 +16,10 @@ import java.time.Instant
 import java.time.LocalDate
 
 /**
- * Data model for the vaccination certificate.
+ * Data model for the CovPass certificates, that can contain [Vaccination], [Test] or [Recovery].
  */
 @Serializable
-public data class VaccinationCertificate(
+public data class CovCertificate(
 
     // Information inside the CBOR Web Token (CWT)
     val issuer: String = "",
@@ -40,20 +40,17 @@ public data class VaccinationCertificate(
     @SerialName("ver")
     val version: String = "",
 ) {
-    public val vaccination: Vaccination
-        get() = vaccinations.first()
+    public val dgcEntry: DGCEntry
+        get() = (vaccinations + tests + recoveries).first()
+
+    public val vaccination: Vaccination?
+        get() = vaccinations.firstOrNull()
 
     public val isComplete: Boolean
         get() = vaccinations.any { it.isComplete }
 
     public val hasFullProtection: Boolean
         get() = vaccinations.any { it.hasFullProtection }
-
-    public val currentSeries: Int
-        get() = vaccination.doseNumber
-
-    public val completeSeries: Int
-        get() = vaccination.totalSerialDoses
 
     public val fullName: String by lazy {
         listOfNotNull(
@@ -63,5 +60,5 @@ public data class VaccinationCertificate(
     }
 
     public val validDate: LocalDate?
-        get() = vaccination.occurrence?.plusDays(15)
+        get() = vaccination?.occurrence?.plusDays(15)
 }

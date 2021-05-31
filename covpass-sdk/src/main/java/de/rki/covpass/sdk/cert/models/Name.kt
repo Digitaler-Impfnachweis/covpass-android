@@ -18,4 +18,4 @@ public data class Name(
     val givenNameTransliterated: String? = null,
     @SerialName("fnt")
     val familyNameTransliterated: String = ""
-)
+) : java.io.Serializable

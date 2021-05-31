@@ -28,11 +28,13 @@ import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateBinding
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.Vaccination
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class CertificateFragmentNav(val certId: String) : FragmentNav(CertificateFragment::class)
+internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : FragmentNav(CertificateFragment::class)
 
 /**
  * Fragment which shows a incomplete or complete Vaccination certificate
@@ -56,8 +58,7 @@ internal class CertificateFragment : BaseFragment() {
         val certId = args.certId
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainCombinedCertificate = groupedCertificate.getMainCertificate()
-        val mainCertificate = mainCombinedCertificate.vaccinationCertificate
-        val complete = groupedCertificate.isComplete()
+        val mainCertificate = mainCombinedCertificate.covCertificate
         val fullProtection = mainCertificate.hasFullProtection
 
         launchWhenStarted {
@@ -66,13 +67,17 @@ internal class CertificateFragment : BaseFragment() {
             )
         }
 
-        binding.certificateStatusTextview.text = when {
-            fullProtection -> getString(R.string.vaccination_start_screen_qrcode_complete_subtitle)
-            (complete && !fullProtection) -> getString(
-                R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
-                mainCertificate.validDate.formatDateOrEmpty()
-            )
-            else -> getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+        val dgcEntry = mainCertificate.dgcEntry
+        if (dgcEntry is Vaccination) {
+            val complete = dgcEntry.isComplete
+            binding.certificateStatusTextview.text = when {
+                fullProtection -> getString(R.string.vaccination_start_screen_qrcode_complete_subtitle)
+                (complete && !fullProtection) -> getString(
+                    R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
+                    mainCertificate.validDate.formatDateOrEmpty()
+                )
+                else -> getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+            }
         }
 
         val textColor = if (fullProtection) {

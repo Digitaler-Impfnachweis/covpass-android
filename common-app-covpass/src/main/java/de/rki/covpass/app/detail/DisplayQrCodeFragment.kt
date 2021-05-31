@@ -23,6 +23,7 @@ import de.rki.covpass.app.databinding.DisplayQrCodeBottomsheetContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.sdk.cert.models.Vaccination
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 
@@ -48,11 +49,14 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
 
     private fun updateViews(certificateList: GroupedCertificatesList) {
         val cert = certificateList.getCombinedCertificate(args.certId) ?: return
-        bottomSheetBinding.bottomSheetTitle.text = getString(
-            R.string.vaccination_certificate_detail_view_qrcode_screen_title,
-            cert.vaccinationCertificate.currentSeries,
-            cert.vaccinationCertificate.completeSeries
-        )
+        val dgcEntry = cert.covCertificate.dgcEntry
+        if (dgcEntry is Vaccination) {
+            bottomSheetBinding.bottomSheetTitle.text = getString(
+                R.string.vaccination_certificate_detail_view_qrcode_screen_title,
+                dgcEntry.doseNumber,
+                dgcEntry.totalSerialDoses
+            )
+        }
         launchWhenStarted {
             binding.displayQrImageview.setImageBitmap(
                 generateQRCode(cert.vaccinationQrContent)

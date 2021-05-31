@@ -37,5 +37,5 @@ public data class Test(
     @SerialName("is")
     val certificateIssuer: String = "",
     @SerialName("ci")
-    val id: String = ""
-)
+    override val id: String = ""
+) : DGCEntry

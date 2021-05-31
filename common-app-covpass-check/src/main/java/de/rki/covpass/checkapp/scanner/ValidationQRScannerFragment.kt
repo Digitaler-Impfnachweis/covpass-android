@@ -15,7 +15,7 @@ import de.rki.covpass.checkapp.validation.ValidationResultFailureFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultIncompleteFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
 import de.rki.covpass.checkapp.validation.ValidationResultSuccessFragmentNav
-import de.rki.covpass.sdk.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.cert.models.CovCertificate
 import com.journeyapps.barcodescanner.BarcodeResult
 import de.rki.covpass.checkapp.R
 import kotlinx.parcelize.Parcelize
@@ -41,7 +41,7 @@ internal class ValidationQRScannerFragment :
         scanEnabled.value = true
     }
 
-    override fun onValidationSuccess(certificate: VaccinationCertificate) {
+    override fun onValidationSuccess(certificate: CovCertificate) {
         findNavigator().push(
             ValidationResultSuccessFragmentNav(
                 certificate.fullName,
@@ -54,7 +54,7 @@ internal class ValidationQRScannerFragment :
         findNavigator().push(ValidationResultFailureFragmentNav())
     }
 
-    override fun onImmunizationIncomplete(certificate: VaccinationCertificate) {
+    override fun onImmunizationIncomplete(certificate: CovCertificate) {
         findNavigator().push(
             ValidationResultIncompleteFragmentNav(
                 certificate.fullName,

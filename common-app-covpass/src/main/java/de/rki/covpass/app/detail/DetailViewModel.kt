@@ -8,13 +8,14 @@ package de.rki.covpass.app.detail
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.coroutines.CoroutineScope
 
 /**
  * Interface to communicate events from [DetailViewModel] to [DetailFragment].
  */
 internal interface DetailEvents : BaseEvents {
-    fun onDeleteDone(newMainCertId: String?)
+    fun onDeleteDone(isGroupedCertDeleted: Boolean)
 }
 
 /**
@@ -24,17 +25,17 @@ internal class DetailViewModel(scope: CoroutineScope) : BaseState<DetailEvents>(
 
     fun onDelete(certId: String) {
         launch {
-            var newMainCertId: String? = null
+            var isGroupedCertDeleted = false
             covpassDeps.certRepository.certs.update {
-                newMainCertId = it.deleteVaccinationCertificate(certId)
+                isGroupedCertDeleted = it.deleteVaccinationCertificate(certId)
             }
             eventNotifier {
-                onDeleteDone(newMainCertId)
+                onDeleteDone(isGroupedCertDeleted)
             }
         }
     }
 
-    fun onFavoriteClick(certId: String) {
+    fun onFavoriteClick(certId: GroupedCertificatesId) {
         launch {
             covpassDeps.toggleFavoriteUseCase.toggleFavorite(certId)
         }

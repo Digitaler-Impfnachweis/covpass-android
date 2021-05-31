@@ -14,6 +14,7 @@ import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.app.detail.DetailFragmentNav
 import com.journeyapps.barcodescanner.BarcodeResult
 import de.rki.covpass.app.R
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -36,7 +37,7 @@ internal class VaccinationQRScannerFragment : QRScannerFragment(), DialogListene
         scanEnabled.value = true
     }
 
-    override fun onScanSuccess(certificateId: String) {
+    override fun onScanSuccess(certificateId: GroupedCertificatesId) {
         findNavigator().popAll()
         findNavigator().push(DetailFragmentNav(certificateId))
     }

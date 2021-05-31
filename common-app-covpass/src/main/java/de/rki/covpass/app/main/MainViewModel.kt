@@ -8,6 +8,7 @@ package de.rki.covpass.app.main
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -15,9 +16,9 @@ import kotlinx.coroutines.CoroutineScope
  */
 internal class MainViewModel(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
 
-    var selectedCertId: String? = null
+    var selectedCertId: GroupedCertificatesId? = null
 
     fun onPageSelected(position: Int) {
-        selectedCertId = covpassDeps.certRepository.certs.value.getSortedCertificates()[position].getMainCertId()
+        selectedCertId = covpassDeps.certRepository.certs.value.getSortedCertificates()[position].id
     }
 }

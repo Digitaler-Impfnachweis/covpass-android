@@ -38,8 +38,8 @@ public data class Vaccination(
     @SerialName("is")
     val certificateIssuer: String = "",
     @SerialName("ci")
-    val id: String = ""
-) {
+    override val id: String = ""
+) : DGCEntry {
     public val isComplete: Boolean
         get() = doseNumber == totalSerialDoses
 

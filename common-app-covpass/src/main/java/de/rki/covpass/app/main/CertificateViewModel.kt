@@ -8,6 +8,7 @@ package de.rki.covpass.app.main
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -15,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
  */
 internal class CertificateViewModel(scope: CoroutineScope) : BaseState<BaseEvents>(scope) {
 
-    fun onFavoriteClick(certId: String) {
+    fun onFavoriteClick(certId: GroupedCertificatesId) {
         launch {
             covpassDeps.toggleFavoriteUseCase.toggleFavorite(certId)
         }

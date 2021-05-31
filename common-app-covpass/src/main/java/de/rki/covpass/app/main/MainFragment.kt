@@ -27,6 +27,7 @@ import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.information.VaccinationInformationFragmentNav
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.app.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
@@ -71,7 +72,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         })
     }
 
-    private fun updateCertificates(certificateList: GroupedCertificatesList, selectedCertId: String?) {
+    private fun updateCertificates(certificateList: GroupedCertificatesList, selectedCertId: GroupedCertificatesId?) {
         if (certificateList.certificates.isEmpty()) {
             binding.mainEmptyCardview.isVisible = true
             binding.mainViewPager.isVisible = false
@@ -95,7 +96,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         showDialog(dialogModel, childFragmentManager)
     }
 
-    override fun displayCert(certId: String) {
+    override fun displayCert(certId: GroupedCertificatesId) {
         viewModel.selectedCertId = certId
         binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(certId), isResumed)
     }

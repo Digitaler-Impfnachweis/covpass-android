@@ -10,16 +10,16 @@ import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.sdk.cert.models.CombinedVaccinationCertificate
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
-import java.lang.IllegalStateException
 
 /**
  * Interface to communicate events from [VaccinationQRScannerViewModel] to [VaccinationQRScannerFragment].
  */
 internal interface VaccinationQRScannerEvents : BaseEvents {
-    fun onScanSuccess(certificateId: String)
+    fun onScanSuccess(certificateId: GroupedCertificatesId)
 }
 
 /**
@@ -30,23 +30,23 @@ internal class VaccinationQRScannerViewModel(
     store: StateFlowStore,
 ) : BaseState<VaccinationQRScannerEvents>(scope) {
 
-    val lastCertificateId by store.getData<String?>(null)
+    val lastCertificateId by store.getData<GroupedCertificatesId?>(null)
 
     fun onQrContentReceived(qrContent: String) {
         launch {
             val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
             val certsFlow = covpassDeps.certRepository.certs
+            var certId: GroupedCertificatesId? = null
             certsFlow.update {
-                it.addCertificate(
-                    CombinedVaccinationCertificate(vaccinationCertificate, qrContent)
+                certId = it.addNewCertificate(
+                    CombinedCovCertificate(vaccinationCertificate, qrContent)
                 )
             }
-            val groupedCert = certsFlow.value.getGroupedCertificates(vaccinationCertificate.vaccination.id)
-                ?: throw IllegalStateException("No GroupedCertificate found.")
-            val mainCertId = groupedCert.getMainCertId()
-            lastCertificateId.value = mainCertId
-            eventNotifier {
-                onScanSuccess(mainCertId)
+            certId?.let {
+                lastCertificateId.value = it
+                eventNotifier {
+                    onScanSuccess(it)
+                }
             }
         }
     }

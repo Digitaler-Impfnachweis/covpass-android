@@ -9,11 +9,17 @@ import COSE.CoseException
 import COSE.Sign1Message
 import de.rki.covpass.base45.Base45
 import de.rki.covpass.sdk.cert.models.CBORWebToken
-import de.rki.covpass.sdk.cert.models.VaccinationCertificate
+import de.rki.covpass.sdk.cert.models.Name
+import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.Zlib
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 
 /**
  * Used to encode/decode QR code string.
@@ -39,7 +45,7 @@ public class QRCoder(private val validator: CertValidator) {
         validator.validate(decodeCose(qr))
 
     /**
-     * Converts a [qrContent] to a [VaccinationCertificate] data model.
+     * Converts a [qrContent] to a [CovCertificate] data model.
      *
      * @throws ExpiredCwtException If the [CBORWebToken] has expired.
      * @throws BadCoseSignatureException If the signature validation failed.
@@ -47,10 +53,42 @@ public class QRCoder(private val validator: CertValidator) {
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
-    public fun decodeVaccinationCert(qrContent: String): VaccinationCertificate {
+    public fun decodeVaccinationCert(qrContent: String): CovCertificate {
         val cwt = decodeCWT(qrContent)
-        val cert: VaccinationCertificate =
+        var cert: CovCertificate =
             cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
+
+        // FIXME remove this mock code when we have real QR codes for tests and recoveries
+        val mock = true
+        if (mock) {
+            when (LocalDateTime.now().second / 10) {
+                0 -> cert = CovCertificate(
+                    name = Name(givenName = "Vorname1", familyName = "Nachname1"),
+                    birthDate = LocalDate.of(2020, 12, 24),
+                    tests = listOf(Test(id = (0..9999).random().toString())),
+                    version = "1.0.0"
+                )
+                1 -> cert = CovCertificate(
+                    name = Name(givenName = "Vorname2", familyName = "Nachname2"),
+                    birthDate = LocalDate.of(2020, 12, 24),
+                    tests = listOf(Test(id = (0..9999).random().toString())),
+                    version = "1.0.0"
+                )
+                2 -> cert = CovCertificate(
+                    name = Name(givenName = "Vorname1", familyName = "Nachname1"),
+                    birthDate = LocalDate.of(2020, 12, 24),
+                    recoveries = listOf(Recovery(id = (0..9999).random().toString())),
+                    version = "1.0.0"
+                )
+                3 -> cert = CovCertificate(
+                    name = Name(givenName = "Vorname2", familyName = "Nachname2"),
+                    birthDate = LocalDate.of(2020, 12, 24),
+                    recoveries = listOf(Recovery(id = (0..9999).random().toString())),
+                    version = "1.0.0"
+                )
+            }
+        }
+
         if (cert.version != "1.0.0") {
             throw UnsupportedDgcVersionException()
         }

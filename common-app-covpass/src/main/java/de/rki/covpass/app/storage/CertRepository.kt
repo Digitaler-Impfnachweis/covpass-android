@@ -7,7 +7,7 @@ package de.rki.covpass.app.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
-import de.rki.covpass.sdk.cert.models.VaccinationCertificateList
+import de.rki.covpass.sdk.cert.models.CovCertificateList
 
 /**
  * Repository which contains the [GroupedCertificatesList]
@@ -15,7 +15,7 @@ import de.rki.covpass.sdk.cert.models.VaccinationCertificateList
 // FIXME move to SDK?
 internal class CertRepository(store: CborSharedPrefsStore) {
 
-    private val certsPref = store.getData("vaccination_certificate_list", VaccinationCertificateList())
+    private val certsPref = store.getData("vaccination_certificate_list", CovCertificateList())
 
     val certs = SuspendMutableValueFlow(GroupedCertificatesList.fromVaccinationCertificateList(certsPref.value)) {
         certsPref.set(value = it.toVaccinationCertificateList(), force = true)

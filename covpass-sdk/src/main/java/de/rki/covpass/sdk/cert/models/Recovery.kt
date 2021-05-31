@@ -31,5 +31,5 @@ public data class Recovery(
     @SerialName("is")
     val certificateIssuer: String = "",
     @SerialName("ci")
-    val id: String = ""
-)
+    override val id: String = ""
+) : DGCEntry
