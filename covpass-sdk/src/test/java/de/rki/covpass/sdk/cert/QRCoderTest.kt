@@ -8,8 +8,10 @@ package de.rki.covpass.sdk.cert
 import COSE.OneKey
 import assertk.assertThat
 import assertk.assertions.isFailure
+import assertk.assertions.isFalse
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
+import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.crypto.readPem
 import de.rki.covpass.sdk.utils.BaseSdkTest
 import de.rki.covpass.sdk.utils.readResource
@@ -32,5 +34,37 @@ internal class QRCoderTest : BaseSdkTest() {
         assertThat {
             qrCoder.decodeVaccinationCert(data)
         }.isFailure().isInstanceOf(ExpiredCwtException::class)
+    }
+
+    @Test
+    fun `check vaccination with supported version`() {
+        val cert = CovCertificate(
+            version = "${CovCertificate.supportedMajorVersion - 1}.${CovCertificate.supportedMinorVersion - 1}.0"
+        )
+        assertThat(qrCoder.isVersionSupported(cert)).isTrue()
+    }
+
+    @Test
+    fun `check vaccination with unsupported version`() {
+        val cert = CovCertificate(
+            version = "${CovCertificate.supportedMajorVersion + 1}.${CovCertificate.supportedMinorVersion + 1}.0"
+        )
+        assertThat(qrCoder.isVersionSupported(cert)).isFalse()
+    }
+
+    @Test
+    fun `check vaccination with supported major and missing minor version is accepted`() {
+        val cert = CovCertificate(
+            version = "${CovCertificate.supportedMajorVersion}"
+        )
+        assertThat(qrCoder.isVersionSupported(cert)).isTrue()
+    }
+
+    @Test
+    fun `check vaccination with unsupported major and missing minor version is rejected`() {
+        val cert = CovCertificate(
+            version = "${CovCertificate.supportedMajorVersion + 1}"
+        )
+        assertThat(qrCoder.isVersionSupported(cert)).isFalse()
     }
 }
