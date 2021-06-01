@@ -43,8 +43,7 @@ pipeline {
             steps {
                 script {
                     if (env.CHANGE_ID) {
-                        // TODO: re-enable checks
-                        def shouldIgnoreChecks = true || pullRequest.labels.contains("ignore-pr-naming")
+                        def shouldIgnoreChecks = pullRequest.labels.contains("ignore-pr-naming")
                         if (!shouldIgnoreChecks && !(pullRequest.headRef ==~ /[\w_\-]+\/(bump.*|revert.*|refactor.*|[A-Z]{3,}-\d+(,[A-Z]{3,}-\d+)*(([_\-]).+)?)/)) {
                             error("PR branch name ${pullRequest.headRef} doesn't start with ticket ID after first slash")
                         }
