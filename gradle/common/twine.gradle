@@ -3,33 +3,32 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-ext.twineStrings = { inputFile, outputFile = "${project.projectDir}/src/main/res/values/generated_strings.xml" ->
-    apply plugin: 'com.github.jruby-gradle.base'
+class Config {
+    def input
+    def output = null
+}
 
-    configurations.create("twine")
-
-    task generateStrings(type: JRubyExec()) {
-        inputs.file(inputFile)
-        outputs.file(outputFile)
-        dependsOn jrubyPrepare
-        jrubyArgs '-S'
-        script 'twine'
-        scriptArgs 'generate-localization-file',
-            inputFile,
-            outputFile,
-            '--format', 'android',
-            '--lang', 'de'
-        configuration 'twine'
-    }
-    generateStrings.doLast {
-        ant.replace(
-            file: outputFile,
-            token: '<resources>',
-            value: '<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">'
-        )
+ext.twineStrings = { args ->
+    def config = new Config(args)
+    if (config.output == null) {
+        config.output = "${project.projectDir}/src/main/res/values/generated_strings.xml"
     }
 
-    dependencies {
-        twine 'rubygems:twine:1.0.4'
+    task generateStrings {
+        inputs.file(config.input)
+        outputs.file(config.output)
+
+        doFirst {
+            exec {
+                commandLine("twine", 'generate-localization-file', config.input, config.output, '--format', "android", '--lang', 'de')
+            }
+        }
+        doLast {
+            ant.replace(
+                file: config.output,
+                token: '<resources>',
+                value: '<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">'
+            )
+        }
     }
 }

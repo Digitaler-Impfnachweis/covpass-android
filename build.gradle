@@ -17,7 +17,6 @@ buildscript {
         classpath 'pl.allegro.tech.build:axion-release-plugin:1.12.1'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
-        classpath 'com.github.jruby-gradle:jruby-gradle-plugin:2.0.1'
     }
 }
 
@@ -26,7 +25,6 @@ plugins {
 }
 
 apply plugin: 'pl.allegro.tech.build.axion-release'
-ext.JRubyExec = { -> com.github.jrubygradle.JRubyExec }
 
 apply from: "$rootDir/gradle/common/repos.gradle"
 setupRepos()

@@ -9,4 +9,4 @@ dependencies {
 }
 
 apply from: "$rootDir/gradle/common/twine.gradle"
-twineStrings("${project.rootDir}/text-vaccination/twine-cert.txt")
+twineStrings input: "${project.rootDir}/text-vaccination/twine-cert.txt"
