@@ -11,12 +11,12 @@ import de.rki.covpass.commonapp.information.InformationFragment
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class VaccinationInformationFragmentNav : FragmentNav(VaccinationInformationFragment::class)
+internal class CovPassInformationFragmentNav : FragmentNav(CovPassInformationFragment::class)
 
 /**
  * Covpass specific Information screen. Overrides the abstract functions from [InformationFragment].
  */
-internal class VaccinationInformationFragment : InformationFragment() {
+internal class CovPassInformationFragment : InformationFragment() {
 
     override fun getFAQLinkRes() = R.string.information_faq_link
 

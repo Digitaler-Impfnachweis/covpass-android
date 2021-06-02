@@ -15,8 +15,8 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
-import de.rki.covpass.checkapp.information.ValidationInformationFragmentNav
-import de.rki.covpass.checkapp.scanner.ValidationQRScannerFragmentNav
+import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
+import de.rki.covpass.checkapp.scanner.QRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.DscRepository
@@ -39,8 +39,10 @@ internal class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(ValidationInformationFragmentNav()) }
-        binding.mainCheckCertButton.setOnClickListener { findNavigator().push(ValidationQRScannerFragmentNav()) }
+        binding.mainSettingsImagebutton.setOnClickListener {
+            findNavigator().push(CovPassCheckInformationFragmentNav())
+        }
+        binding.mainCheckCertButton.setOnClickListener { findNavigator().push(QRScannerFragmentNav()) }
 
         autoRun {
             updateAvailabilityCard(get(commonDeps.dscRepository.lastUpdate))

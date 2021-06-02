@@ -16,7 +16,7 @@
     <activity
       android:name="de.rki.covpass.checkapp.main.MainActivity"
       android:screenOrientation="portrait"
-      android:theme="@style/VaccinationAppTheme">
+      android:theme="@style/CovPassAppTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

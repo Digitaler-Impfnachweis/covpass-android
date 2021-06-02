@@ -28,6 +28,7 @@ import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateBinding
+import de.rki.covpass.app.storage.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.Vaccination
 import kotlinx.coroutines.invoke
@@ -37,7 +38,7 @@ import kotlinx.parcelize.Parcelize
 internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : FragmentNav(CertificateFragment::class)
 
 /**
- * Fragment which shows a incomplete or complete Vaccination certificate
+ * Fragment which shows a [GroupedCertificates].
  */
 internal class CertificateFragment : BaseFragment() {
 
@@ -160,11 +161,11 @@ internal class CertificateFragment : BaseFragment() {
         }
 
         val statusIconResource = if (fullProtection) {
-            R.drawable.main_vaccination_status_complete
+            R.drawable.main_cert_status_complete
         } else {
-            R.drawable.main_vaccination_status_incomplete
+            R.drawable.main_cert_status_incomplete
         }
-        binding.certificateVaccinationStatusImageview.setImageResource(statusIconResource)
+        binding.certificateStatusImageview.setImageResource(statusIconResource)
     }
 
     private suspend fun generateQRCode(qrContent: String): Bitmap {

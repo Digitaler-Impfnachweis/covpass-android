@@ -11,35 +11,36 @@ import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Interface to communicate events from [VaccinationQRScannerViewModel] to [VaccinationQRScannerFragment].
+ * Interface to communicate events from [QRScannerViewModel] to [QRScannerFragment].
  */
-internal interface VaccinationQRScannerEvents : BaseEvents {
+internal interface QRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: GroupedCertificatesId)
 }
 
 /**
- * ViewModel holding the business logic for decoding the Vaccination Certificate.
+ * ViewModel holding the business logic for decoding the [CovCertificate].
  */
-internal class VaccinationQRScannerViewModel(
+internal class QRScannerViewModel(
     scope: CoroutineScope,
     store: StateFlowStore,
-) : BaseState<VaccinationQRScannerEvents>(scope) {
+) : BaseState<QRScannerEvents>(scope) {
 
     val lastCertificateId by store.getData<GroupedCertificatesId?>(null)
 
     fun onQrContentReceived(qrContent: String) {
         launch {
-            val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
+            val covCertificate = sdkDeps.qrCoder.decodeCovCert(qrContent)
             val certsFlow = covpassDeps.certRepository.certs
             var certId: GroupedCertificatesId? = null
             certsFlow.update {
                 certId = it.addNewCertificate(
-                    CombinedCovCertificate(vaccinationCertificate, qrContent)
+                    CombinedCovCertificate(covCertificate, qrContent)
                 )
             }
             certId?.let {

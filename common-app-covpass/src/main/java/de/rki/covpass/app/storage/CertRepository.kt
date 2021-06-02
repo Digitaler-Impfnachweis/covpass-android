@@ -17,7 +17,7 @@ internal class CertRepository(store: CborSharedPrefsStore) {
 
     private val certsPref = store.getData("vaccination_certificate_list", CovCertificateList())
 
-    val certs = SuspendMutableValueFlow(GroupedCertificatesList.fromVaccinationCertificateList(certsPref.value)) {
-        certsPref.set(value = it.toVaccinationCertificateList(), force = true)
+    val certs = SuspendMutableValueFlow(GroupedCertificatesList.fromCovCertificateList(certsPref.value)) {
+        certsPref.set(value = it.toCovCertificateList(), force = true)
     }
 }

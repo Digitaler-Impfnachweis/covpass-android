@@ -23,6 +23,7 @@ import de.rki.covpass.app.databinding.DisplayQrCodeBottomsheetContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
@@ -31,7 +32,7 @@ import kotlinx.parcelize.Parcelize
 internal class DisplayQrCodeFragmentNav(val certId: String) : FragmentNav(DisplayQrCodeFragment::class)
 
 /**
- * Fragment which displays the QR code of a vaccination on a bottom sheet.
+ * Fragment which displays the QR code of a [CovCertificate] on a bottom sheet.
  */
 internal class DisplayQrCodeFragment : BaseBottomSheet() {
 

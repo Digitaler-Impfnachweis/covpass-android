@@ -27,7 +27,7 @@ internal class DetailViewModel(scope: CoroutineScope) : BaseState<DetailEvents>(
         launch {
             var isGroupedCertDeleted = false
             covpassDeps.certRepository.certs.update {
-                isGroupedCertDeleted = it.deleteVaccinationCertificate(certId)
+                isGroupedCertDeleted = it.deleteCovCertificate(certId)
             }
             eventNotifier {
                 onDeleteDone(isGroupedCertDeleted)

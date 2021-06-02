@@ -6,7 +6,7 @@
 
 <resources>
 
-  <style name="VaccinationAppTheme" parent="Theme.MaterialComponents.NoActionBar">
+  <style name="CovPassAppTheme" parent="Theme.MaterialComponents.NoActionBar">
     <item name="android:colorPrimary">@color/brandAccent</item>
     <item name="android:colorPrimaryDark">@color/brandBaseDark</item>
     <item name="android:colorAccent">@color/brandAccent</item>
@@ -28,7 +28,7 @@
     <item name="colorOnSurface">@color/onBackground</item>
   </style>
 
-  <style name="VaccinationAppTheme.DarkControlHighlight">
+  <style name="CovPassAppTheme.DarkControlHighlight">
     <item name="colorControlHighlight">@color/brandAccent40</item>
   </style>
 

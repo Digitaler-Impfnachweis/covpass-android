@@ -49,7 +49,7 @@ public class QRCoder(private val validator: CertValidator) {
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
-    public fun decodeVaccinationCert(qrContent: String): CovCertificate {
+    public fun decodeCovCert(qrContent: String): CovCertificate {
         val cwt = decodeCWT(qrContent)
         val cert: CovCertificate =
             cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())

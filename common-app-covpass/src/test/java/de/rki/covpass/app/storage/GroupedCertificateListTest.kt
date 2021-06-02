@@ -79,23 +79,23 @@ internal class GroupedCertificateListTest {
     )
 
     @Test
-    fun `Empty VaccinationCertificateList transformed to GroupedCertificatesList and backwards`() {
+    fun `Empty CovCertificateList transformed to GroupedCertificatesList and backwards`() {
         val originalList = CovCertificateList()
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(0)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList).isEqualTo(originalList)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList).isEqualTo(originalList)
     }
 
     @Test
-    fun `One element VaccinationCertificateList transformed to GroupedCertificatesList and backwards`() {
+    fun `One element CovCertificateList transformed to GroupedCertificatesList and backwards`() {
 
         val originalList = CovCertificateList(mutableListOf(toCombinedCert(certComplete1)))
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
         assertThat(
             groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
@@ -103,18 +103,18 @@ internal class GroupedCertificateListTest {
             .isEqualTo(name1)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList).isEqualTo(originalList)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList).isEqualTo(originalList)
     }
 
     @Test
-    fun `Three single elements VaccinationCertificateList transformed to GroupedCertificatesList and backwards`() {
+    fun `Three single elements CovCertificateList transformed to GroupedCertificatesList and backwards`() {
 
         val originalList = CovCertificateList(
             mutableListOf(toCombinedCert(certComplete1), toCombinedCert(certComplete2), toCombinedCert(certComplete3))
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(3)
         assertThat(
             groupedCertificatesList.certificates[0]
@@ -133,18 +133,18 @@ internal class GroupedCertificateListTest {
             .isEqualTo(name3)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList).isEqualTo(originalList)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList).isEqualTo(originalList)
     }
 
     @Test
-    fun `Two matching element VaccinationCertificateList transformed to GroupedCertificatesList and backwards`() {
+    fun `Two matching element CovCertificateList transformed to GroupedCertificatesList and backwards`() {
 
         val originalList = CovCertificateList(
             mutableListOf(toCombinedCert(certIncomplete1), toCombinedCert(certComplete1))
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
         assertThat(
             groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
@@ -154,12 +154,12 @@ internal class GroupedCertificateListTest {
         ).isEqualTo(name1)
         assertThat(groupedCertificatesList.favoriteCertId).isNull()
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList).isEqualTo(originalList)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList).isEqualTo(originalList)
     }
 
     @Test
-    fun `Six matching element VaccinationCertificateList transformed to GroupedCertificatesList and backwards`() {
+    fun `Six matching element CovCertificateList transformed to GroupedCertificatesList and backwards`() {
 
         val originalList = CovCertificateList(
             mutableListOf(
@@ -172,7 +172,7 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates)
             .hasSize(3)
         assertThat(
@@ -196,8 +196,8 @@ internal class GroupedCertificateListTest {
         assertThat(groupedCertificatesList.favoriteCertId)
             .isNull()
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList).isEqualTo(originalList)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList).isEqualTo(originalList)
     }
 
     @Test
@@ -212,7 +212,7 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates)
             .hasSize(3)
 
@@ -242,8 +242,8 @@ internal class GroupedCertificateListTest {
         assertThat(groupedCertificatesList.favoriteCertId)
             .isNull()
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList).isEqualTo(originalList)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList).isEqualTo(originalList)
     }
 
     @Test
@@ -258,7 +258,7 @@ internal class GroupedCertificateListTest {
             testId
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
         assertThat(
             groupedCertificatesList.certificates[0].certificates[0].covCertificate?.name?.familyNameTransliterated
@@ -269,9 +269,9 @@ internal class GroupedCertificateListTest {
         assertThat(groupedCertificatesList.favoriteCertId)
             .isEqualTo(testId)
 
-        val vaccinationCertificateList = groupedCertificatesList.toVaccinationCertificateList()
-        assertThat(vaccinationCertificateList.certificates).isEqualTo(originalList.certificates)
-        assertThat(vaccinationCertificateList.favoriteCertId).isEqualTo(testId)
+        val covCertificateList = groupedCertificatesList.toCovCertificateList()
+        assertThat(covCertificateList.certificates).isEqualTo(originalList.certificates)
+        assertThat(covCertificateList.favoriteCertId).isEqualTo(testId)
     }
 
     @Test
@@ -293,7 +293,7 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
 
         assertThat(groupedCertificatesList.getCombinedCertificate(idIncomplete1))
             .isEqualTo(toCombinedCert(certIncomplete1))
@@ -320,7 +320,7 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
 
         assertThat(groupedCertificatesList.getCombinedCertificate(idIncomplete1))
             .isEqualTo(toCombinedCert(certIncomplete1))
@@ -337,13 +337,13 @@ internal class GroupedCertificateListTest {
     }
 
     @Test
-    fun `deleteVaccinationCertificate on empty list returns false`() {
+    fun `deleteCovCertificate on empty list returns false`() {
         val emptyList = GroupedCertificatesList()
-        assertThat(emptyList.deleteVaccinationCertificate(idComplete1)).isFalse()
+        assertThat(emptyList.deleteCovCertificate(idComplete1)).isFalse()
     }
 
     @Test
-    fun `deleteVaccinationCertificate with non-existent id returns false`() {
+    fun `deleteCovCertificate with non-existent id returns false`() {
         val originalList = CovCertificateList(
             mutableListOf(
                 toCombinedCert(certIncomplete1),
@@ -353,13 +353,13 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
 
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idComplete1)).isFalse()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idComplete1)).isFalse()
     }
 
     @Test
-    fun `deleteVaccinationCertificate for all elements results in empty list`() {
+    fun `deleteCovCertificate for all elements results in empty list`() {
         val originalList = CovCertificateList(
             mutableListOf(
                 toCombinedCert(certIncomplete1),
@@ -371,19 +371,19 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
 
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idIncomplete1)).isFalse()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idComplete1)).isTrue()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idComplete2)).isFalse()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idIncomplete2)).isTrue()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idIncomplete3)).isFalse()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idComplete3)).isTrue()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idIncomplete1)).isFalse()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idComplete1)).isTrue()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idComplete2)).isFalse()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idIncomplete2)).isTrue()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idIncomplete3)).isFalse()
+        assertThat(groupedCertificatesList.deleteCovCertificate(idComplete3)).isTrue()
         assertThat(groupedCertificatesList).isEqualTo(GroupedCertificatesList())
     }
 
     @Test
-    fun `deleteVaccinationCertificate for some elements results in partial list`() {
+    fun `deleteCovCertificate for some elements results in partial list`() {
         val originalList = CovCertificateList(
             mutableListOf(
                 toCombinedCert(certIncomplete1),
@@ -395,13 +395,13 @@ internal class GroupedCertificateListTest {
             )
         )
 
-        val groupedCertificatesList = GroupedCertificatesList.fromVaccinationCertificateList(originalList)
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
 
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idIncomplete1))
+        assertThat(groupedCertificatesList.deleteCovCertificate(idIncomplete1))
             .isFalse()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idComplete2))
+        assertThat(groupedCertificatesList.deleteCovCertificate(idComplete2))
             .isFalse()
-        assertThat(groupedCertificatesList.deleteVaccinationCertificate(idIncomplete2))
+        assertThat(groupedCertificatesList.deleteCovCertificate(idIncomplete2))
             .isTrue()
         assertThat(groupedCertificatesList.certificates)
             .hasSize(2)

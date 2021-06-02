@@ -38,7 +38,7 @@
       android:background="?attr/selectableItemBackgroundBorderless"
       android:padding="@dimen/grid_one"
       android:src="@drawable/trash"
-      android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
+      android:theme="@style/CovPassAppTheme.DarkControlHighlight"
       tools:ignore="ContentDescription" />
 
   </RelativeLayout>

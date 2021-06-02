@@ -24,7 +24,7 @@ internal class QRCoderTest : BaseSdkTest() {
     val qrCoder by lazy { QRCoder(validator) }
 
     @Test
-    fun `validate vaccination`() {
+    fun `validate cert`() {
         val cose = qrCoder.decodeCose(data)
         assertThat(cose.validate(OneKey(sealCert.publicKey, null))).isTrue()
     }
@@ -32,12 +32,12 @@ internal class QRCoderTest : BaseSdkTest() {
     @Test
     fun `expired certificate`() {
         assertThat {
-            qrCoder.decodeVaccinationCert(data)
+            qrCoder.decodeCovCert(data)
         }.isFailure().isInstanceOf(ExpiredCwtException::class)
     }
 
     @Test
-    fun `check vaccination with supported version`() {
+    fun `check cert with supported version`() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion - 1}.${CovCertificate.supportedMinorVersion - 1}.0"
         )
@@ -45,7 +45,7 @@ internal class QRCoderTest : BaseSdkTest() {
     }
 
     @Test
-    fun `check vaccination with unsupported version`() {
+    fun `check cert with unsupported version`() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion + 1}.${CovCertificate.supportedMinorVersion + 1}.0"
         )
@@ -53,7 +53,7 @@ internal class QRCoderTest : BaseSdkTest() {
     }
 
     @Test
-    fun `check vaccination with supported major and missing minor version is accepted`() {
+    fun `check cert with supported major and missing minor version is accepted`() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion}"
         )
@@ -61,7 +61,7 @@ internal class QRCoderTest : BaseSdkTest() {
     }
 
     @Test
-    fun `check vaccination with unsupported major and missing minor version is rejected`() {
+    fun `check cert with unsupported major and missing minor version is rejected`() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion + 1}"
         )

@@ -90,7 +90,7 @@ internal data class GroupedCertificatesList(
      *
      * @return True, if the complete [GroupedCertificates] was deleted, else false.
      */
-    fun deleteVaccinationCertificate(certId: String): Boolean {
+    fun deleteCovCertificate(certId: String): Boolean {
         var matchingGroupedCert: GroupedCertificates? = null
         var matchingCombinedCert: CombinedCovCertificate? = null
         certificates.forEach outer@{ groupedCert ->
@@ -135,7 +135,7 @@ internal data class GroupedCertificatesList(
         return sortedCerts
     }
 
-    fun toVaccinationCertificateList(): CovCertificateList {
+    fun toCovCertificateList(): CovCertificateList {
         val singleCertList = mutableListOf<CombinedCovCertificate>()
         certificates.forEach { groupedCerts ->
             groupedCerts.certificates.forEach { combinedCert ->
@@ -150,7 +150,7 @@ internal data class GroupedCertificatesList(
         /**
          * Transforms a [CovCertificateList] into a [GroupedCertificatesList].
          */
-        fun fromVaccinationCertificateList(
+        fun fromCovCertificateList(
             covCertificateList: CovCertificateList,
         ): GroupedCertificatesList {
             val groupedCertificatesList = GroupedCertificatesList(

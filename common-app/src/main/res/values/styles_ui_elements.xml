@@ -77,15 +77,15 @@
     <item name="cornerSize">100dp</item>
   </style>
 
-  <style name="VaccinationCardView">
+  <style name="CovPassCardView">
     <item name="cardCornerRadius">@dimen/grid_two</item>
   </style>
 
-  <style name="VaccinationCardView.Elevated">
+  <style name="CovPassCardView.Elevated">
     <item name="cardElevation">@dimen/elevation</item>
   </style>
 
-  <style name="VaccinationCardView.Level">
+  <style name="CovPassCardView.Level">
     <item name="cardElevation">0dp</item>
   </style>
 

@@ -1,6 +1,6 @@
-# android-vaccination-app
+# android-covpass-app
 
-This repo contains the vaccination app and commonly needed modules for Kotlin + Android.
+This repo contains the CovPass app and commonly needed modules for Kotlin + Android.
 
 The most important modules are:
 
@@ -12,7 +12,7 @@ The most important modules are:
 * covpass-logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
 * navigation: A simple activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily.
 * covpass-bom: Defines a common set of dependency versions, so there won't be any conflicts.
-* covpass-sdk: The main vaccination SDK for Android.
+* covpass-sdk: The main CovPass SDK for Android.
 * covpass-sdk-demo: Use this to override the SDK settings for the demo environment.
 
 The apps live in these modules:

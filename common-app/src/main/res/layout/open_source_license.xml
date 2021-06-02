@@ -21,8 +21,8 @@
     android:minHeight="@dimen/grid_seven"
     android:paddingStart="@dimen/grid_one"
     android:paddingEnd="@dimen/grid_one"
-    android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
-    app:popupTheme="@style/VaccinationAppTheme.DarkControlHighlight" />
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
 
   <WebView
     android:id="@+id/open_source_license_web_view"

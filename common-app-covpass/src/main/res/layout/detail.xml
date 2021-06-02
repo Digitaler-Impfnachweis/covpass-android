@@ -23,8 +23,8 @@
     android:paddingStart="@dimen/grid_one"
     android:paddingEnd="@dimen/grid_one"
     android:background="@color/backgroundPrimary"
-    android:theme="@style/VaccinationAppTheme.DarkControlHighlight"
-    app:popupTheme="@style/VaccinationAppTheme.DarkControlHighlight" />
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
 
   <ScrollView
     android:layout_width="match_parent"
@@ -134,7 +134,7 @@
 
       <!--   Vaccination views will be added here programmatically   -->
       <LinearLayout
-        android:id="@+id/detail_vaccination_container"
+        android:id="@+id/detail_cert_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />

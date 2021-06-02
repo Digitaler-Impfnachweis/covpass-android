@@ -22,11 +22,12 @@ import de.rki.covpass.app.R
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.app.add.AddVaccinationCertificateFragmentNav
+import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
-import de.rki.covpass.app.information.VaccinationInformationFragmentNav
+import de.rki.covpass.app.information.CovPassInformationFragmentNav
+import de.rki.covpass.app.storage.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.app.storage.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
@@ -35,8 +36,8 @@ import kotlinx.parcelize.Parcelize
 internal class MainFragmentNav : FragmentNav(MainFragment::class)
 
 /**
- * The main fragment hosts a [ViewPager2] to display all Vaccination Certificates and serves as entry point for further actions
- * (e.g. add new Vaccination certificate, show settings screen, show selected Vaccination certificate)
+ * The main fragment hosts a [ViewPager2] to display all [GroupedCertificates] and serves as entry point for further
+ * actions (e.g. add new certificate, show settings screen, show selected certificate)
  */
 internal class MainFragment : BaseFragment(), DetailCallback {
 
@@ -53,8 +54,8 @@ internal class MainFragment : BaseFragment(), DetailCallback {
     }
 
     private fun setupViews() {
-        binding.mainAddButton.setOnClickListener { showAddVaccinationCertificatePopup() }
-        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(VaccinationInformationFragmentNav()) }
+        binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
+        binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(CovPassInformationFragmentNav()) }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
@@ -101,7 +102,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(certId), isResumed)
     }
 
-    private fun showAddVaccinationCertificatePopup() {
-        findNavigator().push(AddVaccinationCertificateFragmentNav())
+    private fun showAddCovCertificatePopup() {
+        findNavigator().push(AddCovCertificateFragmentNav())
     }
 }

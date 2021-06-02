@@ -30,9 +30,10 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.app.R
-import de.rki.covpass.app.add.AddVaccinationCertificateFragmentNav
+import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.storage.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
@@ -65,8 +66,8 @@ internal class DetailFragmentNav(
 ) : FragmentNav(DetailFragment::class)
 
 /**
- * Fragment which shows the Vaccination certificate details
- * Further actions (Delete current certificate, Show Vaccination QR Code, Add Vaccination certificate)
+ * Fragment which shows the [GroupedCertificates] details
+ * Further actions (Delete current certificate, Show QR Code, Add cov certificate)
  */
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
@@ -155,9 +156,9 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                 binding.detailStatusTextview.setText(statusTextRes)
 
                 val statusIconRes = if (isComplete) {
-                    R.drawable.detail_vaccination_status_complete
+                    R.drawable.detail_cert_status_complete
                 } else {
-                    R.drawable.detail_vaccination_status_incomplete
+                    R.drawable.detail_cert_status_incomplete
                 }
                 binding.detailStatusImageview.setImageResource(statusIconRes)
 
@@ -175,7 +176,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                         triggerBackPress()
                     } else {
                         // TODO this is only temporary, change back again when feature shall be activated
-                        findNavigator().push(AddVaccinationCertificateFragmentNav())
+                        findNavigator().push(AddCovCertificateFragmentNav())
                     }
                 }
 
@@ -198,7 +199,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                 binding.detailBirthdateDataRow.detailDataTextview.text = cert.birthDate.formatDateOrEmpty()
             }
 
-            binding.detailVaccinationContainer.removeAllViews()
+            binding.detailCertContainer.removeAllViews()
 
             groupedCertificate.certificates.forEach {
                 if (cert.vaccination != null) {
@@ -214,29 +215,29 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
     @SuppressLint("SetTextI18n")
     private fun addMockTestView(cert: CovCertificate) {
 
-        val vaccinationView = layoutInflater.inflate(
+        val certView = layoutInflater.inflate(
             R.layout.detail_vaccination_view,
-            binding.detailVaccinationContainer,
+            binding.detailCertContainer,
             false
         ) as LinearLayout
 
         val headerText = cert.dgcEntry.toString()
 
-        vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
+        certView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
 
-        val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
-        val uvciDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_uvci_data_divider)
+        val uvciRow = certView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
+        val uvciDivider = certView.findViewById<View>(R.id.detail_vaccination_uvci_data_divider)
         findRowHeaderView(uvciRow).setText(R.string.vaccination_certificate_detail_view_data_identification_number)
         findRowTextView(uvciRow).text = cert.dgcEntry.id.removePrefix("URN:UVCI:")
         uvciRow.isVisible = cert.dgcEntry.id.isNotBlank()
         uvciDivider.isVisible = cert.dgcEntry.id.isNotBlank()
 
-        val qrButton = vaccinationView.findViewById<MaterialButton>(R.id.detail_vaccination_display_qr_button)
+        val qrButton = certView.findViewById<MaterialButton>(R.id.detail_vaccination_display_qr_button)
         qrButton.setOnClickListener {
             findNavigator().push(DisplayQrCodeFragmentNav(cert.dgcEntry.id))
         }
 
-        binding.detailVaccinationContainer.addView(vaccinationView)
+        binding.detailCertContainer.addView(certView)
     }
 
     @SuppressLint("SetTextI18n")
@@ -245,7 +246,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
         val vaccinationView = layoutInflater.inflate(
             R.layout.detail_vaccination_view,
-            binding.detailVaccinationContainer,
+            binding.detailCertContainer,
             false
         ) as LinearLayout
 
@@ -318,7 +319,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
             findNavigator().push(DisplayQrCodeFragmentNav(vaccination.id))
         }
 
-        binding.detailVaccinationContainer.addView(vaccinationView)
+        binding.detailCertContainer.addView(vaccinationView)
     }
 
     private fun findRowHeaderView(dataRow: LinearLayout) =

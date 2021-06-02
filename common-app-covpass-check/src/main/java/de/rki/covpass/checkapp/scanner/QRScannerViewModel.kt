@@ -15,9 +15,9 @@ import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Interface to communicate events from [ValidationQRScannerViewModel] to [ValidationQRScannerFragment].
+ * Interface to communicate events from [QRScannerViewModel] to [QRScannerFragment].
  */
-internal interface ValidationQRScannerEvents : BaseEvents {
+internal interface QRScannerEvents : BaseEvents {
     fun onValidationSuccess(certificate: CovCertificate)
     fun onValidationFailure()
     fun onImmunizationIncomplete(certificate: CovCertificate)
@@ -26,19 +26,19 @@ internal interface ValidationQRScannerEvents : BaseEvents {
 /**
  * ViewModel holding the business logic for decoding and validating a [CovCertificate].
  */
-internal class ValidationQRScannerViewModel(scope: CoroutineScope) : BaseState<ValidationQRScannerEvents>(scope) {
+internal class QRScannerViewModel(scope: CoroutineScope) : BaseState<QRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                val vaccinationCertificate = sdkDeps.qrCoder.decodeVaccinationCert(qrContent)
-                if (vaccinationCertificate.hasFullProtection) {
+                val covCertificate = sdkDeps.qrCoder.decodeCovCert(qrContent)
+                if (covCertificate.hasFullProtection) {
                     eventNotifier {
-                        onValidationSuccess(vaccinationCertificate)
+                        onValidationSuccess(covCertificate)
                     }
                 } else {
                     eventNotifier {
-                        onImmunizationIncomplete(vaccinationCertificate)
+                        onImmunizationIncomplete(covCertificate)
                     }
                 }
             } catch (exception: Exception) {
