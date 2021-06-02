@@ -17,19 +17,19 @@ import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Interface to communicate events from [QRScannerViewModel] to [QRScannerFragment].
+ * Interface to communicate events from [CovPassQRScannerViewModel] to [CovPassQRScannerFragment].
  */
-internal interface QRScannerEvents : BaseEvents {
+internal interface CovPassQRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: GroupedCertificatesId)
 }
 
 /**
  * ViewModel holding the business logic for decoding the [CovCertificate].
  */
-internal class QRScannerViewModel(
+internal class CovPassQRScannerViewModel(
     scope: CoroutineScope,
     store: StateFlowStore,
-) : BaseState<QRScannerEvents>(scope) {
+) : BaseState<CovPassQRScannerEvents>(scope) {
 
     val lastCertificateId by store.getData<GroupedCertificatesId?>(null)
 

@@ -21,15 +21,15 @@ import de.rki.covpass.checkapp.R
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class QRScannerFragmentNav : FragmentNav(QRScannerFragment::class)
+internal class CovPassCheckQRScannerFragmentNav : FragmentNav(CovPassCheckQRScannerFragment::class)
 
 /**
  * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
  */
-internal class QRScannerFragment :
-    QRScannerFragment(), DialogListener, QRScannerEvents, ValidationResultListener {
+internal class CovPassCheckQRScannerFragment :
+    QRScannerFragment(), DialogListener, CovPassCheckQRScannerEvents, ValidationResultListener {
 
-    private val viewModel by buildState { QRScannerViewModel(scope) }
+    private val viewModel by buildState { CovPassCheckQRScannerViewModel(scope) }
 
     override val loadingText = R.string.validation_check_loading_screen_message
 

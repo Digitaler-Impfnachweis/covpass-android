@@ -15,9 +15,9 @@ import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Interface to communicate events from [QRScannerViewModel] to [QRScannerFragment].
+ * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
  */
-internal interface QRScannerEvents : BaseEvents {
+internal interface CovPassCheckQRScannerEvents : BaseEvents {
     fun onValidationSuccess(certificate: CovCertificate)
     fun onValidationFailure()
     fun onImmunizationIncomplete(certificate: CovCertificate)
@@ -26,7 +26,7 @@ internal interface QRScannerEvents : BaseEvents {
 /**
  * ViewModel holding the business logic for decoding and validating a [CovCertificate].
  */
-internal class QRScannerViewModel(scope: CoroutineScope) : BaseState<QRScannerEvents>(scope) {
+internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) : BaseState<CovPassCheckQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {

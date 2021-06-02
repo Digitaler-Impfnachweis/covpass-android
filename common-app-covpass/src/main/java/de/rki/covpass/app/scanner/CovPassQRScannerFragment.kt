@@ -18,14 +18,14 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class QRScannerFragmentNav : FragmentNav(QRScannerFragment::class)
+internal class CovPassQRScannerFragmentNav : FragmentNav(CovPassQRScannerFragment::class)
 
 /**
  * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
  */
-internal class QRScannerFragment : QRScannerFragment(), DialogListener, QRScannerEvents {
+internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, CovPassQRScannerEvents {
 
-    private val viewModel by buildState { QRScannerViewModel(scope, stateFlowStore) }
+    private val viewModel by buildState { CovPassQRScannerViewModel(scope, stateFlowStore) }
 
     override val loadingText = R.string.vaccination_add_loading_screen_message
 

@@ -14,7 +14,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.AddCovCertPopupContentBinding
-import de.rki.covpass.app.scanner.QRScannerFragmentNav
+import de.rki.covpass.app.scanner.CovPassQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
@@ -45,6 +45,6 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
 
     override fun onActionButtonClicked() {
         findNavigator().pop()
-        findNavigator().push(QRScannerFragmentNav())
+        findNavigator().push(CovPassQRScannerFragmentNav())
     }
 }
