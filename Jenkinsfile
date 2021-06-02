@@ -64,8 +64,10 @@ pipeline {
         stage('Version code') {
             steps {
                 script {
+                    // FIXME remove the +15, this is only a little hack to make it possible to upload version 160.1,
+                    //  because there are later versions uploaded already
                     sh('''
-                    VERSION=$(($(git rev-list --count HEAD) + 80))
+                    VERSION=$(($(git rev-list --count HEAD) + 80 + 15))
                     echo "versionCode=$VERSION" > generated.properties
                     ''')
                 }
