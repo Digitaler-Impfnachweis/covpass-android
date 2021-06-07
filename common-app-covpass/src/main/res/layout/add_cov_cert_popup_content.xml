@@ -5,35 +5,29 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical">
+
+  <ImageView
+    android:id="@+id/add_cov_cert_illustration"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:src="@drawable/add_certificate_illustration"
+    tools:ignore="ContentDescription" />
 
   <TextView
     android:id="@+id/add_cov_cert_content"
     style="@style/DefaultText.OnBackground"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_margin="@dimen/grid_three"
     android:text="@string/vaccination_add_popup_message" />
-
-  <ImageView
-    android:id="@+id/add_cov_cert_illustration"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/grid_three"
-    android:adjustViewBounds="true"
-    app:srcCompat="@drawable/add_cov_certificate_illustration"
-    tools:ignore="ContentDescription" />
 
   <TextView
     android:id="@+id/add_cov_cert_faq"
     style="@style/NavigationField" />
 
-  <View
-    android:layout_width="wrap_content"
-    android:layout_height="1dp"
-    android:background="@color/onBackground20" />
 </LinearLayout>
