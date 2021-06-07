@@ -8,6 +8,11 @@
 @Library('declarative-jenkins-steps@v-1.143.0') _
 
 pipeline {
+    agent {
+        node {
+            label 'Android'
+        }
+    }
     tools {
         jdk 'jdk_8'
     }
