@@ -11,8 +11,8 @@ import androidx.annotation.VisibleForTesting
 import de.rki.covpass.base45.Base45
 import de.rki.covpass.sdk.cert.models.CBORWebToken
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.Zlib
-import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.lang.IndexOutOfBoundsException
 import java.security.GeneralSecurityException
@@ -21,8 +21,6 @@ import java.security.GeneralSecurityException
  * Used to encode/decode QR code string.
  */
 public class QRCoder(private val validator: CertValidator) {
-
-    private val cbor: Cbor = Cbor { ignoreUnknownKeys = true }
 
     /** Returns the raw COSE ByteArray contained within the certificate. */
     internal fun decodeRawCose(qr: String): ByteArray {
@@ -52,7 +50,9 @@ public class QRCoder(private val validator: CertValidator) {
     public fun decodeCovCert(qrContent: String): CovCertificate {
         val cwt = decodeCWT(qrContent)
         val cert: CovCertificate =
-            cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
+            sdkDeps.cbor.decodeFromByteArray(
+                cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes()
+            )
         if (!isVersionSupported(cert)) {
             throw UnsupportedDgcVersionException()
         }

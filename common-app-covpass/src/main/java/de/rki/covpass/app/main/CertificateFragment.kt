@@ -64,7 +64,7 @@ internal class CertificateFragment : BaseFragment() {
 
         launchWhenStarted {
             binding.certificateQrImageview.setImageBitmap(
-                generateQRCode(mainCombinedCertificate.vaccinationQrContent)
+                generateQRCode(mainCombinedCertificate.qrContent)
             )
         }
 

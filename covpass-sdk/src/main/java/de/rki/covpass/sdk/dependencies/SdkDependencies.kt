@@ -14,6 +14,10 @@ import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
 import de.rki.covpass.sdk.utils.readTextAsset
+import de.rki.covpass.sdk.utils.serialization.InstantSerializer
+import kotlinx.serialization.cbor.Cbor
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 
 /**
  * Global var for making the [SdkDependencies] accessible.
@@ -60,6 +64,20 @@ public abstract class SdkDependencies {
      * The [QRCoder].
      */
     public val qrCoder: QRCoder by lazy { QRCoder(validator) }
+
+    public val cbor: Cbor by lazy {
+        Cbor {
+            ignoreUnknownKeys = true
+            serializersModule = module
+            encodeDefaults = true
+        }
+    }
+
+    private val module by lazy {
+        SerializersModule {
+            contextual(InstantSerializer)
+        }
+    }
 
     internal fun init() {
         httpConfig.pinPublicKey(backendCa)

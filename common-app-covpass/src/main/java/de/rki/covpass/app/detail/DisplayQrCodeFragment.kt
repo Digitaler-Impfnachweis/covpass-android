@@ -60,7 +60,7 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
         }
         launchWhenStarted {
             binding.displayQrImageview.setImageBitmap(
-                generateQRCode(cert.vaccinationQrContent)
+                generateQRCode(cert.qrContent)
             )
         }
     }

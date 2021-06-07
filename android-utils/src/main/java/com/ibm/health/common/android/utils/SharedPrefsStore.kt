@@ -41,6 +41,8 @@ public class SharedPrefsStore(public val prefs: SharedPreferences) {
             putBoolean(key, it)
         }
 
+    public operator fun contains(key: String): Boolean = key in prefs
+
     private fun <T> getFlow(default: T, setter: SharedPreferences.Editor.(value: T) -> Unit) =
         SuspendMutableValueFlow(default) {
             dispatchers.io {

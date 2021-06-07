@@ -5,6 +5,7 @@
 
 package de.rki.covpass.sdk.cert.models
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,10 +15,12 @@ import kotlinx.serialization.Serializable
 public data class CombinedCovCertificate(
 
     /** The [CovCertificate]. */
+    @SerialName("vaccinationCertificate")
     val covCertificate: CovCertificate,
 
     /**
      * The raw qr content of the [CovCertificate].
      */
-    val vaccinationQrContent: String,
+    @SerialName("vaccinationQrContent")
+    val qrContent: String,
 )
