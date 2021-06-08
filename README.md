@@ -109,7 +109,7 @@ class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
     fun refreshData() {
         // This launches a coroutine, catches any exceptions and forwards them via
         // eventNotifier { onError(error) }
-        // and activates the `isLoading` state (unless you pass withLoading = false).
+        // and activates the `loading` state (unless you pass withLoading = null).
         launch {
             // If an exception is thrown here it'll automatically get caught and trigger
             // MyFragment.onError(exception)
@@ -117,7 +117,7 @@ class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
         }
     }
 
-    // You can also compose states. The otherState.eventNotifier and otherState.isLoading
+    // You can also compose states. The otherState.eventNotifier and otherState.loading
     // will get merged into MyViewModel.
     val otherState by buildState { OtherState(scope) }
 
@@ -136,10 +136,10 @@ class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
 // The fragment has to implement the events interface.
 class MyFragment : BaseFragment(), MyEvents {
     // buildState internally creates an Android ViewModel to hold the MyViewModel instance.
-    // MyViewModel's eventNotifier and isLoading are automatically processed in a
+    // MyViewModel's eventNotifier and loading are automatically processed in a
     // lifecycle-aware way during the >= STARTED state.
     // The events are triggered as method calls on this fragment - e.g. onError(throwable).
-    // Whenever isLoading changes, this triggers setLoading(isLoading: Boolean).
+    // Whenever `loading` changes, this triggers setLoading(isLoading: Boolean).
     val viewModel by buildState { MyViewModel(scope) }  // here, scope is an alias for viewModelScope
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

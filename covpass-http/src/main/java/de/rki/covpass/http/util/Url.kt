@@ -10,7 +10,6 @@ import io.ktor.http.*
 import java.net.MalformedURLException
 import java.net.URI
 import java.net.URL
-import java.util.*
 
 /** Returns true, if the given [url] is a subdomain of [parent], else false. */
 public fun isSubdomainOf(url: String, parent: String): Boolean {
@@ -18,8 +17,8 @@ public fun isSubdomainOf(url: String, parent: String): Boolean {
         URL(url).host
     } catch (e: MalformedURLException) {
         url
-    }.toLowerCase(Locale.ROOT)
-    return isHostSubdomainOf(host, parent.toLowerCase(Locale.ROOT))
+    }.lowercase()
+    return isHostSubdomainOf(host, parent.lowercase())
 }
 
 private fun isHostSubdomainOf(host: String, parent: String) =

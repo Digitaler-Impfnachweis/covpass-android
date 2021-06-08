@@ -4,7 +4,7 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.4.32'
+    ext.kotlin_version = '1.5.10'
     repositories {
         google()
         mavenCentral()
@@ -13,8 +13,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.0'
-        classpath 'pl.allegro.tech.build:axion-release-plugin:1.12.1'
+        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1'
+        classpath 'pl.allegro.tech.build:axion-release-plugin:1.13.2'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
     }

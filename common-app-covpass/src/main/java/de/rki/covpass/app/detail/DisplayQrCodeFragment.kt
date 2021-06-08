@@ -8,7 +8,7 @@ package de.rki.covpass.app.detail
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import com.ensody.reactivestate.autoRun
+import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.dispatchers
 import com.ensody.reactivestate.get
 import com.google.zxing.BarcodeFormat

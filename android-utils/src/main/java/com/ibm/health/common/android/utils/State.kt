@@ -5,14 +5,11 @@
 
 package com.ibm.health.common.android.utils
 
-import com.ensody.reactivestate.*
+import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.ErrorEvents
+import com.ensody.reactivestate.ReactiveState
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Base interface for an event listener receiving events from [State.eventNotifier].
@@ -32,7 +29,7 @@ import kotlin.coroutines.CoroutineContext
  * an event wouldn't be triggered again. In contrast, observable state is used to always reproduce the exact same
  * UI (even if the `Activity` is re-created), so use `StateFlow` for things that should be re-executed on re-creation.
  * For example, [onError] is usually an event, consumed only once, because you want to log the error exactly once
- * and trigger an error dialog exactly once. In contrast, [State.isLoading] is an observable state because when
+ * and trigger an error dialog exactly once. In contrast, [State.loading] is an observable state because when
  * the UI is re-created you usually want to set the loading indicator to visible again and again and again.
  */
 public interface BaseEvents : ErrorEvents
@@ -58,49 +55,11 @@ public interface BaseEvents : ErrorEvents
  *
  * You can then add a State to a fragment, activity or even as a child within another state by using [buildState].
  */
-public interface State<T : BaseEvents> : EventNotifierOwner<T>, CoroutineLauncher {
-    /** Whether this object is currently loading data. Coroutines launched `withLoading = false` aren't tracked. */
-    public val isLoading: IsLoading
-}
+public interface State<T : BaseEvents> : ReactiveState<T>
 
 /**
  * This is the base class for our ViewModels and [State] classes and allows for composition via nesting.
  *
  * @see State for more details.
  */
-public abstract class BaseState<T : BaseEvents>(scope: CoroutineScope) : State<T> {
-    final override val launcherScope: CoroutineScope = scope
-    override val eventNotifier: EventNotifier<T> = EventNotifier()
-    private val loadingCount = MutableValueFlow(AtomicInteger(0))
-    override val isLoading: IsLoading by lazy {
-        IsLoading().apply {
-            add(
-                derived {
-                    get(loadingCount).get() > 0
-                }
-            )
-        }
-    }
-
-    override fun launch(
-        context: CoroutineContext,
-        start: CoroutineStart,
-        withLoading: Boolean,
-        onError: (suspend (Throwable) -> Unit)?,
-        block: suspend CoroutineScope.() -> Unit,
-    ): Job =
-        launcherScope.launch(context = context, start = start) {
-            try {
-                if (withLoading) {
-                    loadingCount.update { it.incrementAndGet() }
-                }
-                withErrorReporting(eventNotifier, onError) {
-                    block()
-                }
-            } finally {
-                if (withLoading) {
-                    loadingCount.update { it.decrementAndGet() }
-                }
-            }
-        }
-}
+public abstract class BaseState<T : BaseEvents>(scope: CoroutineScope) : State<T>, BaseReactiveState<T>(scope)

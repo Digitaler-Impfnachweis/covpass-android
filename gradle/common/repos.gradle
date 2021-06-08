@@ -19,7 +19,7 @@ ext {
 }
 
 ext.setupRepos = { Set<RepoType> repos = new HashSet(RepoType.values().toList()) ->
-    subprojects {
+    allprojects {
         task depsTree(type: DependencyReportTask) {}
 
         repositories {

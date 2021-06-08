@@ -5,25 +5,13 @@
 
 package com.ibm.health.common.android.utils.test.reactive
 
+import com.ensody.reactivestate.ReactiveState
+import com.ensody.reactivestate.test.ReactiveStateTest
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.State
-import com.ibm.health.common.android.utils.test.BaseTest
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestCoroutineScope
 
-/** Base class for testing an [State]. */
-public abstract class BaseStateTest<E : BaseEvents, S : State<E>> : BaseTest() {
-    protected abstract val events: E
-    protected abstract val state: S
-
-    override fun runBlockingTest(block: suspend TestCoroutineScope.() -> Unit) {
-        super.runBlockingTest {
-            coroutineTestRule.testCoroutineScope.launch {
-                state.eventNotifier.collect { events.it() }
-            }
-            advanceUntilIdle()
-            block()
-        }
-    }
+/** Base class for testing a [State]. */
+public abstract class BaseStateTest<E : BaseEvents> : ReactiveStateTest<E>() {
+    public abstract val state: State<E>
+    override val reactiveState: ReactiveState<E> get() = state
 }

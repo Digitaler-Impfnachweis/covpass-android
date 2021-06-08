@@ -11,9 +11,9 @@ dependencies {
         // Additionally, we ensure a consistent set of versions here.
         // ------------------------------------------------------------------------------------------------
         versionConstraints = {
-            api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.4.3")
-            api platform("io.ktor:ktor-bom:1.5.4")
-            api platform("com.ensody.reactivestate:dependency-versions-bom:3.9.0")
+            api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.0")
+            api platform("io.ktor:ktor-bom:1.6.0")
+            api platform("com.ensody.reactivestate:reactivestate-bom:4.1.0")
             api platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
 
             constraints {
@@ -74,11 +74,10 @@ dependencies {
 
                 api 'androidx.test.ext:junit:1.1.2'
                 api 'androidx.test.ext:junit-ktx:1.1.2'
-                api "com.willowtreeapps.assertk:assertk-jvm:0.22"
+                api "com.willowtreeapps.assertk:assertk:0.24"
                 api "io.mockk:mockk:1.10.6"
-                api 'junit:junit:4.13.1'
+                api 'junit:junit:4.13.2'
                 api 'org.robolectric:robolectric:4.5.1'
-                api 'org.opentest4j:opentest4j:1.2.0'
 
                 api 'com.google.android.material:material:1.2.1'
             }
@@ -98,9 +97,7 @@ dependencies {
 
             testImplementation 'junit:junit'
 
-            // Workaround for assertk-related IntelliJ bug: https://youtrack.jetbrains.com/issue/IDEA-214533
-            testImplementation 'org.opentest4j:opentest4j'
-            testImplementation 'com.willowtreeapps.assertk:assertk-jvm'
+            testImplementation 'com.willowtreeapps.assertk:assertk'
 
             testImplementation "io.mockk:mockk"
         }
@@ -124,9 +121,8 @@ dependencies {
         }
 
         reactiveState = {
-            api 'com.ensody.reactivestate:core'
             api 'com.ensody.reactivestate:reactivestate'
-            testDependency 'com.ensody.reactivestate:core-test'
+            testDependency 'com.ensody.reactivestate:reactivestate-test'
         }
 
         androidTestLib = {

@@ -7,6 +7,7 @@ package com.ibm.health.common.android.utils
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 
 /** Global var for making the [AndroidDependencies] accessible. */
 public lateinit var androidDeps: AndroidDependencies
@@ -19,6 +20,9 @@ public abstract class AndroidDependencies {
 
     /** The current [Activity]. */
     public open fun currentActivityOrNull(): Activity? = null
+
+    /** The current [Activity] with fallback to [Application]. */
+    public open fun currentActivityOrApplication(): Context = currentActivityOrNull() ?: application
 
     /** The [ResourceProvider]. */
     public val resourceProvider: ResourceProvider by lazy {

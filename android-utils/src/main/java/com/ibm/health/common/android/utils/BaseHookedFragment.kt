@@ -12,25 +12,26 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenStarted
-import com.ensody.reactivestate.CoroutineLauncher
+import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.withErrorReporting
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 /** Base class that comes with hook support. */
 public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
     Fragment(contentLayoutId),
-    CoroutineLauncher,
     LoadingStateHook,
     BaseEvents {
 
     internal var inflaterHook: ((LayoutInflater, ViewGroup?) -> View)? = null
 
-    override val isLoading: IsLoading = IsLoading()
+    override val loading: MutableValueFlow<Int> = MutableValueFlow(0)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launchWhenStarted {
+            watchLoading(loading, ::setLoading)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return this.inflaterHook?.invoke(inflater, container)
@@ -44,27 +45,4 @@ public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
             }
         }
     }
-
-    @Deprecated(
-        "Temporary solution until we integrate ReactiveState 4.x",
-        ReplaceWith("lifecycleScope")
-    )
-    override val launcherScope: CoroutineScope get() = lifecycleScope
-
-    @Deprecated(
-        "Temporary solution until we integrate ReactiveState 4.x",
-        ReplaceWith("launchWhenStarted")
-    )
-    override fun launch(
-        context: CoroutineContext,
-        start: CoroutineStart,
-        withLoading: Boolean,
-        onError: (suspend (Throwable) -> Unit)?,
-        block: suspend CoroutineScope.() -> Unit
-    ): Job =
-        lifecycleScope.launch(context, start) {
-            withErrorReporting(::onError) {
-                whenStarted(block)
-            }
-        }
 }

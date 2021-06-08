@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.withErrorReporting
 import kotlinx.coroutines.CoroutineScope
 
@@ -24,13 +25,16 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
     /** Override this to define a [ViewBinding] that is automatically inflated. */
     public open val binding: ViewBinding? = null
 
-    override val isLoading: IsLoading = IsLoading()
+    override val loading: MutableValueFlow<Int> = MutableValueFlow(0)
 
     /** Helper to abstract away activity and fragment differences. */
     public open fun requireActivity(): FragmentActivity = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycleScope.launchWhenStarted {
+            watchLoading(loading, ::setLoading)
+        }
         binding?.also {
             setContentView(it.root)
         }
