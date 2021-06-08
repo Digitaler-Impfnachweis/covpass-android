@@ -10,7 +10,6 @@ import de.rki.covpass.app.storage.CertAlreadyExistsException
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
-import de.rki.covpass.sdk.cert.ExpiredCwtException
 
 /**
  * Covpass specific Error handling. Overrides the abstract functions from [CommonErrorHandler].
@@ -25,12 +24,13 @@ internal class ErrorHandler : CommonErrorHandler() {
                 positiveButtonTextRes = R.string.duplicate_certificate_dialog_button_title,
                 tag = TAG_ERROR_DUPLICATE_CERTIFICATE
             )
-            is ExpiredCwtException -> DialogModel(
-                titleRes = R.string.vaccination_certificate_expired_title,
-                messageRes = R.string.error_vaccination_certificate_expired_message,
-                positiveButtonTextRes = R.string.error_vaccination_certificate_expired_title,
-                tag = TAG_ERROR_EXPIRED_CERTIFICATE
-            )
+            // FIXME BVC-1370
+//            is ExpiredCwtException -> DialogModel(
+//                titleRes = R.string.vaccination_certificate_expired_title,
+//                messageRes = R.string.error_vaccination_certificate_expired_message,
+//                positiveButtonTextRes = R.string.error_vaccination_certificate_expired_title,
+//                tag = TAG_ERROR_EXPIRED_CERTIFICATE
+//            )
             is BadCoseSignatureException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_without_seal_title,
                 messageRes = R.string.error_scan_qrcode_without_seal_message,

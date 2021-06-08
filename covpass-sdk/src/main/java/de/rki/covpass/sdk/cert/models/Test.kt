@@ -38,4 +38,13 @@ public data class Test(
     val certificateIssuer: String = "",
     @SerialName("ci")
     override val id: String = ""
-) : DGCEntry
+) : DGCEntry {
+    public companion object {
+        public const val PCR_TEST: String = "LP6464-4"
+        public const val ANTIGEN_TEST: String = "LP217198-3"
+        public const val POSITIVE_RESULT: String = "260373001"
+        public const val NEGATIVE_RESULT: String = "260415000"
+        public const val PCR_TEST_EXPIRY_TIME_HOURS: Long = 72
+        public const val ANTIGEN_TEST_EXPIRY_TIME_HOURS: Long = 48
+    }
+}

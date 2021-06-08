@@ -5,21 +5,10 @@
 
 package de.rki.covpass.app.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import com.ensody.reactivestate.android.autoRun
-import com.ensody.reactivestate.get
-import com.google.android.material.button.MaterialButton
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
@@ -28,27 +17,15 @@ import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
-import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.app.R
-import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
-import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.storage.GroupedCertificates
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
-import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.sdk.cert.getCountryName
-import de.rki.covpass.sdk.cert.getManufacturerName
-import de.rki.covpass.sdk.cert.getProductName
-import de.rki.covpass.sdk.cert.getProphylaxisName
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Vaccination
-import de.rki.covpass.sdk.utils.formatDate
-import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -69,25 +46,16 @@ internal class DetailFragmentNav(
  * Fragment which shows the [GroupedCertificates] details
  * Further actions (Delete current certificate, Show QR Code, Add cov certificate)
  */
+// FIXME BVC-1370
 internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
     private val viewModel by buildState { DetailViewModel(scope) }
     private val binding by viewBinding(DetailBinding::inflate)
-    private var isFavorite = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        autoRun { updateViews(get(covpassDeps.certRepository.certs)) }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val favoriteItem = menu.add(Menu.NONE, FAVORITE_ITEM_ID, Menu.NONE, R.string.vaccination_favorite_button_hint)
-        val favoriteIcon = if (isFavorite) R.drawable.star_black_fill else R.drawable.star_black
-        favoriteItem.setIcon(favoriteIcon)
-        favoriteItem.setShowAsAction(SHOW_AS_ACTION_IF_ROOM)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -113,220 +81,8 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                 positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
             )
             showDialog(dialogModel, childFragmentManager)
-            updateViews(covpassDeps.certRepository.certs.value)
         }
     }
-
-    private fun updateViews(certList: GroupedCertificatesList) {
-        val certId = args.certId
-        // Can be null after deletion... in this case no update is necessary anymore
-        val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
-        val mainCertificate = groupedCertificate.getMainCertificate()
-        val hasFullProtection = groupedCertificate.getMainCertificate().covCertificate.hasFullProtection
-        isFavorite = certList.isMarkedAsFavorite(certId)
-        setHasOptionsMenu(certList.certificates.size > 1)
-        activity?.invalidateOptionsMenu()
-        mainCertificate.covCertificate.let { cert ->
-            binding.detailNameTextview.text = cert.fullName
-
-            val dgcEntry = cert.dgcEntry
-            if (dgcEntry is Vaccination) {
-                val isComplete = dgcEntry.isComplete
-                val statusHeaderText = if (hasFullProtection) {
-                    getString(R.string.vaccination_certificate_detail_view_complete_title)
-                } else if (isComplete) {
-                    getString(
-                        R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
-                        mainCertificate.covCertificate.validDate.formatDateOrEmpty()
-                    )
-                } else {
-                    getString(
-                        R.string.vaccination_certificate_detail_view_incomplete_title,
-                        dgcEntry.doseNumber,
-                        dgcEntry.totalSerialDoses
-                    )
-                }
-                binding.detailStatusHeaderTextview.text = statusHeaderText
-
-                val statusTextRes = if (isComplete) {
-                    R.string.vaccination_certificate_detail_view_complete_message
-                } else {
-                    R.string.vaccination_certificate_detail_view_incomplete_message
-                }
-                binding.detailStatusTextview.setText(statusTextRes)
-
-                val statusIconRes = if (isComplete) {
-                    R.drawable.detail_cert_status_complete
-                } else {
-                    R.drawable.detail_cert_status_incomplete
-                }
-                binding.detailStatusImageview.setImageResource(statusIconRes)
-
-                val proofButtonRes = if (isComplete) {
-                    R.string.vaccination_certificate_detail_view_complete_action_button_title
-                } else {
-                    // TODO this is only temporary, change back again when feature shall be activated
-                    // R.string.detail_show_proof_button_text_incomplete
-                    R.string.vaccination_certificate_detail_view_incomplete_action_button_title
-                }
-                binding.detailShowProofButton.setText(proofButtonRes)
-
-                binding.detailShowProofButton.setOnClickListener {
-                    if (isComplete) {
-                        triggerBackPress()
-                    } else {
-                        // TODO this is only temporary, change back again when feature shall be activated
-                        findNavigator().push(AddCovCertificateFragmentNav())
-                    }
-                }
-
-                binding.detailAddButton.setText(
-                    R.string.vaccination_certificate_detail_view_incomplete_action_button_title
-                )
-                binding.detailAddButton.isVisible = !isComplete
-
-                // TODO this is only temporary, make it visible again when feature shall be activated
-                binding.detailAddButton.isVisible = false
-
-                binding.detailNameDataRow.detailDataHeaderTextview.setText(
-                    R.string.vaccination_certificate_detail_view_name
-                )
-                binding.detailNameDataRow.detailDataTextview.text = cert.fullName
-
-                binding.detailBirthdateDataRow.detailDataHeaderTextview.setText(
-                    R.string.vaccination_certificate_detail_view_birthdate
-                )
-                binding.detailBirthdateDataRow.detailDataTextview.text = cert.birthDate.formatDateOrEmpty()
-            }
-
-            binding.detailCertContainer.removeAllViews()
-
-            groupedCertificate.certificates.forEach {
-                if (cert.vaccination != null) {
-                    addVaccinationView(it.covCertificate)
-                } else {
-                    addMockTestView(it.covCertificate)
-                }
-            }
-        }
-    }
-
-    // FIXME remove this when the real implementation is ready
-    @SuppressLint("SetTextI18n")
-    private fun addMockTestView(cert: CovCertificate) {
-
-        val certView = layoutInflater.inflate(
-            R.layout.detail_vaccination_view,
-            binding.detailCertContainer,
-            false
-        ) as LinearLayout
-
-        val headerText = cert.dgcEntry.toString()
-
-        certView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
-
-        val uvciRow = certView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
-        val uvciDivider = certView.findViewById<View>(R.id.detail_vaccination_uvci_data_divider)
-        findRowHeaderView(uvciRow).setText(R.string.vaccination_certificate_detail_view_data_identification_number)
-        findRowTextView(uvciRow).text = cert.dgcEntry.id.removePrefix("URN:UVCI:")
-        uvciRow.isVisible = cert.dgcEntry.id.isNotBlank()
-        uvciDivider.isVisible = cert.dgcEntry.id.isNotBlank()
-
-        val qrButton = certView.findViewById<MaterialButton>(R.id.detail_vaccination_display_qr_button)
-        qrButton.setOnClickListener {
-            findNavigator().push(DisplayQrCodeFragmentNav(cert.dgcEntry.id))
-        }
-
-        binding.detailCertContainer.addView(certView)
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun addVaccinationView(cert: CovCertificate) {
-        val vaccination = cert.vaccination ?: return
-
-        val vaccinationView = layoutInflater.inflate(
-            R.layout.detail_vaccination_view,
-            binding.detailCertContainer,
-            false
-        ) as LinearLayout
-
-        val headerText = getString(
-            R.string.vaccination_certificate_detail_view_vaccination_title,
-            vaccination.doseNumber,
-            vaccination.totalSerialDoses
-        )
-        vaccinationView.findViewById<TextView>(R.id.detail_vaccination_header_textview).text = headerText
-
-        vaccinationView.findViewById<ImageButton>(R.id.detail_vaccination_delete_imagebutton).setOnClickListener {
-            args.certIdToDelete = cert.dgcEntry.id
-            val dialogModel = DialogModel(
-                titleRes = R.string.dialog_delete_certificate_title,
-                titleFormatArgs = listOf(vaccination.doseNumber, vaccination.totalSerialDoses),
-                messageRes = R.string.dialog_delete_certificate_message,
-                positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
-                negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
-                positiveActionColorRes = R.color.danger,
-                tag = DELETE_DIALOG_TAG,
-            )
-            showDialog(dialogModel, childFragmentManager)
-        }
-
-        val occurrenceRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_occurrence_data_row)
-        val occurrenceDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_occurrence_data_divider)
-        findRowHeaderView(occurrenceRow).setText(R.string.vaccination_certificate_detail_view_data_date)
-        findRowTextView(occurrenceRow).text = vaccination.occurrence?.formatDate()
-        occurrenceRow.isVisible = !vaccination.occurrence?.formatDate().isNullOrBlank()
-        occurrenceDivider.isVisible = !vaccination.occurrence?.formatDate().isNullOrBlank()
-
-        val productRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_product_data_row)
-        val productDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_product_data_divider)
-        findRowHeaderView(productRow).setText(R.string.vaccination_certificate_detail_view_data_vaccine)
-        findRowTextView(productRow).text =
-            "${getProphylaxisName(vaccination.vaccineCode)} (${getProductName(vaccination.product)})"
-        productRow.isVisible = vaccination.product.isNotBlank()
-        productDivider.isVisible = vaccination.product.isNotBlank()
-
-        val manufacturerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_manufacturer_data_row)
-        val manufacturerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_manufacturer_data_divider)
-        findRowHeaderView(manufacturerRow).setText(R.string.vaccination_certificate_detail_view_data_producer)
-        findRowTextView(manufacturerRow).text = getManufacturerName(vaccination.manufacturer)
-        manufacturerRow.isVisible = vaccination.manufacturer.isNotBlank()
-        manufacturerDivider.isVisible = vaccination.manufacturer.isNotBlank()
-
-        val issuerRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_issuer_data_row)
-        val issuerDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_issuer_data_divider)
-        findRowHeaderView(issuerRow).setText(R.string.vaccination_certificate_detail_view_data_exhibitor)
-        findRowTextView(issuerRow).text = vaccination.certificateIssuer
-        issuerRow.isVisible = cert.issuer.isNotBlank()
-        issuerDivider.isVisible = cert.issuer.isNotBlank()
-
-        val countryRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_country_data_row)
-        val countryDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_country_data_divider)
-        findRowHeaderView(countryRow).setText(R.string.vaccination_certificate_detail_view_data_country)
-        findRowTextView(countryRow).text = getCountryName(vaccination.country)
-        countryRow.isVisible = vaccination.country.isNotBlank()
-        countryDivider.isVisible = vaccination.country.isNotBlank()
-
-        val uvciRow = vaccinationView.findViewById<LinearLayout>(R.id.detail_vaccination_uvci_data_row)
-        val uvciDivider = vaccinationView.findViewById<View>(R.id.detail_vaccination_uvci_data_divider)
-        findRowHeaderView(uvciRow).setText(R.string.vaccination_certificate_detail_view_data_identification_number)
-        findRowTextView(uvciRow).text = vaccination.id.removePrefix("URN:UVCI:")
-        uvciRow.isVisible = vaccination.id.isNotBlank()
-        uvciDivider.isVisible = vaccination.id.isNotBlank()
-
-        val qrButton = vaccinationView.findViewById<MaterialButton>(R.id.detail_vaccination_display_qr_button)
-        qrButton.setOnClickListener {
-            findNavigator().push(DisplayQrCodeFragmentNav(vaccination.id))
-        }
-
-        binding.detailCertContainer.addView(vaccinationView)
-    }
-
-    private fun findRowHeaderView(dataRow: LinearLayout) =
-        dataRow.findViewById<TextView>(R.id.detail_data_header_textview)
-
-    private fun findRowTextView(dataRow: LinearLayout) =
-        dataRow.findViewById<TextView>(R.id.detail_data_textview)
 
     private fun setupActionBar() {
         attachToolbar(binding.detailToolbar)
@@ -338,7 +94,6 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
                 val icon = R.drawable.back_arrow
                 setHomeAsUpIndicator(icon)
             }
-            binding.detailToolbar.title = getString(R.string.vaccination_certificate_detail_view_title)
         }
     }
 

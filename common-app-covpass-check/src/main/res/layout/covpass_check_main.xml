@@ -75,6 +75,7 @@
           style="@style/DefaultText.OnInfo"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/grid_one_half"
           android:text="@string/validation_start_screen_scan_message"
           app:layout_constraintEnd_toEndOf="@id/main_check_cert_header_textview"
           app:layout_constraintStart_toStartOf="@id/main_check_cert_header_textview"

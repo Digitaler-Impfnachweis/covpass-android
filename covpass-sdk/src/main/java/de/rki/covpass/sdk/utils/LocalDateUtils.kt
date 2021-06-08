@@ -24,3 +24,9 @@ public fun LocalDate?.formatDateOrEmpty(): String {
 public fun LocalDate?.isOlderThanTwoWeeks(): Boolean {
     return this?.plusDays(14)?.isBefore(LocalDate.now()) ?: false
 }
+
+public fun isValid(validFrom: LocalDate?, validUntil: LocalDate?): Boolean {
+    if (validFrom == null || validUntil == null) { return false }
+    val now = LocalDate.now()
+    return now >= validFrom && now <= validUntil
+}

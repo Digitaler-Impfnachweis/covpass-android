@@ -23,8 +23,8 @@
     style="@style/DefaultText.OnBackground"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/grid_three"
-    android:text="@string/vaccination_add_popup_message" />
+    android:layout_margin="@dimen/grid_three" />
+<!--  FIXME BVC-1370 android:text="@string/vaccination_add_popup_message" -->
 
   <TextView
     android:id="@+id/add_cov_cert_faq"

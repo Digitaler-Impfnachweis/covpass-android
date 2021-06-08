@@ -119,8 +119,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/grid_three"
         android:layout_marginTop="@dimen/grid_five"
-        android:layout_marginBottom="@dimen/grid_two"
-        android:text="@string/vaccination_certificate_detail_view_personal_data_title" />
+        android:layout_marginBottom="@dimen/grid_two" />
+<!--      FIXME BVC-1370 android:text="@string/vaccination_certificate_detail_view_personal_data_title" -->
 
       <include
         android:id="@+id/detail_name_data_row"

@@ -20,7 +20,8 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="ContentDescription" />
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/result_success_image" />
 
   <TextView
     android:id="@+id/result_title"
@@ -41,6 +42,17 @@
     android:layout_marginTop="@dimen/grid_two"
     app:layout_constraintTop_toBottomOf="@+id/result_title"
     tools:text="@tools:sample/lorem[3]" />
+
+  <ImageView
+    android:id="@+id/result_info_image_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/result_info_layout_1"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/result_search" />
 
   <LinearLayout
     android:id="@+id/result_info_layout_1"
@@ -67,17 +79,20 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:text="@tools:sample/lorem[3]" />
+
   </LinearLayout>
 
   <ImageView
-    android:id="@+id/result_info_image_1"
+    android:id="@+id/result_info_image_2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/grid_three"
-    app:layout_constraintBottom_toBottomOf="@+id/result_info_layout_1"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintBottom_toBottomOf="@+id/result_info_layout_2"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/result_info_layout_1"
-    tools:ignore="ContentDescription" />
+    app:layout_constraintTop_toTopOf="@+id/result_info_layout_2"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/result_invalid" />
 
   <LinearLayout
     android:id="@+id/result_info_layout_2"
@@ -104,16 +119,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:text="@tools:sample/lorem[3]" />
-  </LinearLayout>
 
-  <ImageView
-    android:id="@+id/result_info_image_2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_three"
-    app:layout_constraintBottom_toBottomOf="@+id/result_info_layout_2"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/result_info_layout_2"
-    tools:ignore="ContentDescription" />
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

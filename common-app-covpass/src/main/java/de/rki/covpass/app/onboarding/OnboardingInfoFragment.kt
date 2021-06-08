@@ -55,7 +55,6 @@ internal class OnboardingConsentFragment : BaseOnboardingConsentFragment() {
         R.string.vaccination_fourth_onboarding_page_first_list_item,
         R.string.vaccination_fourth_onboarding_page_second_list_item,
         R.string.vaccination_fourth_onboarding_page_third_list_item,
-        R.string.vaccination_fourth_onboarding_page_fourth_list_item,
-        R.string.vaccination_fourth_onboarding_page_fifth_list_item
+        R.string.vaccination_fourth_onboarding_page_fourth_list_item
     )
 }

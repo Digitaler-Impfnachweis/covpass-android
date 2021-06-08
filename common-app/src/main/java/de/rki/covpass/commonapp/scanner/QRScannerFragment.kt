@@ -19,10 +19,10 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
-import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.utils.getScreenSize
 import com.journeyapps.barcodescanner.*
+import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
+import de.rki.covpass.commonapp.utils.getScreenSize
 
 /**
  * QR Scanner Fragment extending from BaseFragment to display a custom layout form scanner view.
@@ -30,8 +30,6 @@ import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
 public abstract class QRScannerFragment : BaseFragment() {
 
     private val binding by viewBinding(FragmentQrScannerBinding::inflate)
-
-    protected abstract val loadingText: Int
 
     protected val scanEnabled: MutableValueFlow<Boolean> by savedInstanceState(true)
 

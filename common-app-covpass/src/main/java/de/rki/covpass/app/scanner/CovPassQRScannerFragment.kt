@@ -8,12 +8,11 @@ package de.rki.covpass.app.scanner
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
+import com.journeyapps.barcodescanner.BarcodeResult
+import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
-import de.rki.covpass.app.detail.DetailFragmentNav
-import com.journeyapps.barcodescanner.BarcodeResult
-import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
 
@@ -26,8 +25,6 @@ internal class CovPassQRScannerFragmentNav : FragmentNav(CovPassQRScannerFragmen
 internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, CovPassQRScannerEvents {
 
     private val viewModel by buildState { CovPassQRScannerViewModel(scope, stateFlowStore) }
-
-    override val loadingText = R.string.vaccination_add_loading_screen_message
 
     override fun onBarcodeResult(result: BarcodeResult) {
         viewModel.onQrContentReceived(result.text)

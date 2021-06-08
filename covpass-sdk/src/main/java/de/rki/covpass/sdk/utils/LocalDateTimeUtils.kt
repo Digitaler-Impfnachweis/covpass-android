@@ -16,3 +16,19 @@ public fun LocalDateTime.formatDateTime(): String {
     val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
     return format(formatter)
 }
+
+/**
+ * Formats a local time to e.g. "14:52".
+ */
+public fun LocalDateTime.formatTime(): String {
+    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+    return format(formatter)
+}
+
+/**
+ * Formats a local date to e.g. "12.03.1989".
+ */
+public fun LocalDateTime.formatDate(): String {
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+    return format(formatter)
+}
