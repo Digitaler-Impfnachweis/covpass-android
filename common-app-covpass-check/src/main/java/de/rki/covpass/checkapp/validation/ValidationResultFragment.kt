@@ -169,8 +169,7 @@ internal class NegativeValidPcrTestResultFragment : ValidationResultFragment() {
     override val titleInfo2 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_less_than_72_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDate(),
-            args.sampleCollection?.toLocalDateTime()?.formatTime()
+            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
         )
     }
     // FIXME BVC-1370
@@ -217,8 +216,7 @@ internal class NegativeExpiredPcrTestResultFragment : ValidationResultFragment()
     override val titleInfo2 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_older_than_72_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDate(),
-            args.sampleCollection?.toLocalDateTime()?.formatTime()
+            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
         )
     }
     // FIXME BVC-1370
@@ -265,8 +263,7 @@ internal class PositivePcrTestResultFragment : ValidationResultFragment() {
     override val titleInfo2 by lazy {
         getString(
             R.string.validation_check_popup_pcr_test_positive_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDate(),
-            args.sampleCollection?.toLocalDateTime()?.formatTime()
+            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
         )
     }
     override val textInfo2 by lazy {
@@ -312,8 +309,7 @@ internal class NegativeValidAntigenTestResultFragment : ValidationResultFragment
     override val titleInfo2 by lazy {
         getString(
             R.string.validation_check_popup_test_less_than_24_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDate(),
-            args.sampleCollection?.toLocalDateTime()?.formatTime()
+            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
         )
     }
     override val textInfo2 by lazy {
@@ -359,8 +355,7 @@ internal class NegativeExpiredAntigenTestResultFragment : ValidationResultFragme
     override val titleInfo2 by lazy {
         getString(
             R.string.validation_check_popup_test_older_than_24_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDate(),
-            args.sampleCollection?.toLocalDateTime()?.formatTime()
+            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
         )
     }
     override val textInfo2 by lazy {

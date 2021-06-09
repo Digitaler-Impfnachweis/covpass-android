@@ -28,8 +28,12 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
 
     private val args: TestDetailFragmentNav by lazy { getArgs() }
 
-    // FIXME BVC-1213 map the values correctly
-    override fun getToolbarTitleText(cert: CovCertificate): String = cert.test?.testType.orEmpty()
+    override fun getToolbarTitleText(cert: CovCertificate): String =
+        if (cert.test?.testType == Test.PCR_TEST) {
+            getString(R.string.test_certificate_detail_view_pcr_test_title)
+        } else {
+            getString(R.string.test_certificate_detail_view_title)
+        }
 
     override fun getHeaderText(): String = getString(R.string.test_certificate_detail_view_headline)
 

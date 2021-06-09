@@ -55,23 +55,19 @@
 	<string name="certificate_favorite_button_hint">Als Favorit markieren</string>
 
 	<!-- SECTION: start Screen: partial immunization certificate -->
-	<string name="vaccination_partial_immunization_title">Impfzertifikat</string>
 	<string name="vaccination_partial_immunization_action_button">Zertifikate anzeigen</string>
 
 	<!-- SECTION: start screen: full immunization certificate -->
-	<string name="vaccination_full_immunization_title">Impfzertifikat</string>
 	<string name="vaccination_full_immunization_action_button">Zertifikate anzeigen</string>
 	<string name="vaccination_full_immunization_status_expired">Abgelaufen</string>
 
 	<!-- SECTION: start screen: test certificate -->
-	<string name="test_certification_title">Antigen-Schnelltest</string>
-	<string name="test_certificate_time_of_test">%1$s, %2$d:%3$d Uhr</string>
 	<string name="test_certificate_action_button">Zertifikate anzeigen</string>
 
+	<!-- SECTION: start screen: pcr test certificate -->
+	<string name="pcr_test_certificate_action_button">Zertifikate anzeigen</string>
+
 	<!-- SECTION: start screen: recovery certificate -->
-	<string name="recovery_certificate_title">Genesenenzertifikat</string>
-	<string name="recovery_certificate_valid_until_date">Gültig bis %s</string>
-	<string name="recovery_certificate_valid_from_date">Gültig ab %s</string>
 	<string name="recovery_certificate_action_button">Zertifikate anzeigen</string>
 	<string name="error_connect_to_internet_title">Flugzeugmodus ausschalten oder WLAN für den Datenzugriff verwenden</string>
 	<string name="error_connect_to_internet_button_settings">Einstellungen</string>
@@ -87,12 +83,17 @@
 	<string name="vaccination_certificate_overview_incomplete_title">Unvollständig: %1$d von %2$d Impfungen</string>
 	<string name="vaccination_certificate_overview_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz vorzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
 	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Impfung hinzufügen</string>
-	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz ab %s</string>
-	<string name="vaccination_certificate_overview_complete_message">Ihr Impfschutz ist noch nicht vollständig. Der Impfschutz ist erst 14 Tage nach der letzten Impfung vollständig.</string>
+	<string name="vaccination_certificate_overview_complete_from_title">Vollständiger Impfschutz ab %s</string>
+	<string name="vaccination_certificate_overview_complete_from_message">Ihr Impfschutz ist noch nicht vollständig. Der Impfschutz ist erst 14 Tage nach der letzten Impfung vollständig.</string>
+	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz</string>
+	<string name="vaccination_certificate_overview_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Aktuellen QR-Code anzeigen</string>
-	<string name="test_certificate_overview_title">Negativer Antigen-Schnelltest vom %1$s, %2$d:%3$d Uhr</string>
+	<string name="test_certificate_overview_title">Negativer Antigen-Schnelltest vom %s</string>
 	<string name="test_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="test_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
+	<string name="pcr_test_certificate_overview_title">Negativer PCR-Test vom %s</string>
+	<string name="pcr_test_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
+	<string name="pcr_test_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="recovery_certificate_overview_valid_until_title">Genesung gültig bis %s</string>
 	<string name="recovery_certificate_overview_valid_from_title">Genesung gültig ab %s</string>
 	<string name="recovery_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
@@ -111,10 +112,10 @@
 	<string name="certificates_overview_recovery_certificate_valid_from_date">Gültig ab %s</string>
 	<string name="certificates_overview_test_certificate_title">Testzertifikat</string>
 	<string name="certificates_overview_test_certificate_message">Antigen-Schnelltest</string>
-	<string name="certificates_overview_test_certificate_date">Getestet am %1$s, %2$d:%3$d Uhr</string>
+	<string name="certificates_overview_test_certificate_date">Getestet am %s</string>
 	<string name="certificates_overview_pcr_test_certificate_title">Testzertifikat</string>
 	<string name="certificates_overview_pcr_test_certificate_message">PCR-Test</string>
-	<string name="certificates_overview_pcr_test_certificate_date">Probenahme am %1$s, %2$d:%3$d Uhr</string>
+	<string name="certificates_overview_pcr_test_certificate_date">Probenahme am %s</string>
 
 	<!-- SECTION: detail view: delete certificate -->
 	<string name="certificate_delete_button_hint">Löschen</string>
@@ -158,7 +159,6 @@
 	<string name="test_certificate_detail_view_qrcode_action_button_title">QR-Code anzeigen</string>
 	<string name="test_certificate_detail_view_test_qrcode_screen_title">Antigen-Schnelltest</string>
 	<string name="test_certificate_detail_view_pcr_test_qrcode_screen_title">PCR-Test</string>
-	<string name="test_certificate_detail_view_qrcode_screen_message">%1$s, %2$d:%3$d Uhr</string>
 	<string name="test_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="recovery_certificate_detail_view_title">Vollständige Genesung</string>
 	<string name="recovery_certificate_detail_view_headline">EU Digitales COVID-Genesenenzertifikat</string>

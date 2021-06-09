@@ -91,9 +91,7 @@ internal class CertificateFragment : BaseFragment() {
                         ZoneId.systemDefault()
                     ).formatDateTime()
                 headerText = when ((mainCertificate.dgcEntry as Test).testType) {
-                    "Rapid immunoassay" -> R.string.certificates_overview_test_certificate_message
-                    "Nucleic acid amplification with probe detection" ->
-                        R.string.certificates_overview_pcr_test_certificate_message
+                    Test.PCR_TEST -> R.string.certificates_overview_pcr_test_certificate_message
                     else -> R.string.certificates_overview_test_certificate_message
                 }
                 cardFadeout = R.drawable.common_gradient_card_fadeout_purple
@@ -109,14 +107,13 @@ internal class CertificateFragment : BaseFragment() {
                     ) == true
                 ) {
                     getString(
-                        // TODO BVC-1185 change to the new string
-                        R.string.recovery_certificate_valid_from_date,
+                        R.string.certificates_overview_recovery_certificate_valid_from_date,
                         LocalDateTime.ofInstant(mainCertificate.validFrom, ZoneId.systemDefault())
                             .toLocalDate().formatDateOrEmpty()
                     )
                 } else {
                     getString(
-                        R.string.recovery_certificate_valid_until_date,
+                        R.string.certificates_overview_recovery_certificate_valid_until_date,
                         LocalDateTime.ofInstant(mainCertificate.validUntil, ZoneId.systemDefault())
                             .toLocalDate().formatDateOrEmpty()
                     )
@@ -129,7 +126,7 @@ internal class CertificateFragment : BaseFragment() {
                 backgroundColor = R.color.brandAccent90
             }
             else -> {
-                headerText = R.string.vaccination_full_immunization_title
+                headerText = R.string.certificates_overview_vaccination_certificate_title
                 if (fullProtection) {
                     certificateStatus =
                         getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
