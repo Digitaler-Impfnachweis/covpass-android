@@ -5,14 +5,11 @@
 
 package com.ibm.health.common.android.utils
 
-import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.ErrorEvents
 import com.ensody.reactivestate.ReactiveState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Base interface for an event listener receiving events from [State.eventNotifier].
+ * Base interface for an event listener receiving events from [ReactiveState.eventNotifier].
  *
  * The events are implemented as simple methods (e.g. [onError]).
  *
@@ -29,37 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
  * an event wouldn't be triggered again. In contrast, observable state is used to always reproduce the exact same
  * UI (even if the `Activity` is re-created), so use `StateFlow` for things that should be re-executed on re-creation.
  * For example, [onError] is usually an event, consumed only once, because you want to log the error exactly once
- * and trigger an error dialog exactly once. In contrast, [State.loading] is an observable state because when
+ * and trigger an error dialog exactly once. In contrast, [ReactiveState.loading] is an observable state because when
  * the UI is re-created you usually want to set the loading indicator to visible again and again and again.
  */
 public interface BaseEvents : ErrorEvents
-
-/**
- * Base interface anything that holds [StateFlow]s, sends events and has its lifecycle bound to a [CoroutineScope].
- *
- * We can use this as the base interface for stateful UseCases and ViewModels. These objects shouldn't have their
- * own [CoroutineScope] because then you'd have to manually cancel the scope and anything that can be forgotten
- * increases the potential for bugs. So, we provide a slightly safer general concept.
- *
- * Typical usage:
- *
- * ```kotlin
- * class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
- *     fun foo() {
- *         launch {
- *             // something with error handling.
- *         }
- *     }
- * }
- * ```
- *
- * You can then add a State to a fragment, activity or even as a child within another state by using [buildState].
- */
-public interface State<T : BaseEvents> : ReactiveState<T>
-
-/**
- * This is the base class for our ViewModels and [State] classes and allows for composition via nesting.
- *
- * @see State for more details.
- */
-public abstract class BaseState<T : BaseEvents>(scope: CoroutineScope) : State<T>, BaseReactiveState<T>(scope)

@@ -5,10 +5,10 @@
 
 package de.rki.covpass.app.scanner
 
+import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
-import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
@@ -29,7 +29,7 @@ internal interface CovPassQRScannerEvents : BaseEvents {
 internal class CovPassQRScannerViewModel(
     scope: CoroutineScope,
     store: StateFlowStore,
-) : BaseState<CovPassQRScannerEvents>(scope) {
+) : BaseReactiveState<CovPassQRScannerEvents>(scope) {
 
     val lastCertificateId by store.getData<GroupedCertificatesId?>(null)
 

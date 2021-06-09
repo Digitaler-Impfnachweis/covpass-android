@@ -11,25 +11,25 @@ import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
+import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ensody.reactivestate.validUntil
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
-import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
 import de.rki.covpass.app.storage.GroupedCertificates
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.dialog.DialogModel
+import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -41,7 +41,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
  */
 internal class MainFragment : BaseFragment(), DetailCallback {
 
-    private val viewModel by buildState { MainViewModel(scope) }
+    private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
     private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
 

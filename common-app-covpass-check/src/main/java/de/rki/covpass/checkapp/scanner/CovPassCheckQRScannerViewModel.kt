@@ -5,8 +5,8 @@
 
 package de.rki.covpass.checkapp.scanner
 
-import com.ibm.health.common.android.utils.BaseEvents
-import com.ibm.health.common.android.utils.BaseState
+import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.ErrorEvents
 import de.rki.covpass.commonapp.utils.CertificateHelper
 import de.rki.covpass.commonapp.utils.CertificateType
 import de.rki.covpass.logging.Lumber
@@ -24,7 +24,7 @@ import java.time.ZonedDateTime
 /**
  * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
  */
-internal interface CovPassCheckQRScannerEvents : BaseEvents {
+internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     // Vaccination
     fun onFullVaccination(certificate: CovCertificate)
     fun onPartialVaccination()
@@ -49,7 +49,8 @@ internal interface CovPassCheckQRScannerEvents : BaseEvents {
 /**
  * ViewModel holding the business logic for decoding and validating a [CovCertificate].
  */
-internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) : BaseState<CovPassCheckQRScannerEvents>(scope) {
+internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) :
+    BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {

@@ -15,9 +15,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.attachToolbar
-import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
@@ -50,7 +50,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
     protected abstract val certId: String
 
-    private val viewModel by buildState { DgcEntryDetailViewModel(scope) }
+    private val viewModel by reactiveState { DgcEntryDetailViewModel(scope) }
     private val binding by viewBinding(DgcEntryDetailBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

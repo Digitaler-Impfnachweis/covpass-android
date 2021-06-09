@@ -7,13 +7,13 @@ package com.ibm.health.common.android.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.*
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /** Implement this in your fragment/activity to get automatic tracking of dependencies' loading states. */
-public interface LoadingStateHook {
+public interface LoadingStateHook : OnReactiveStateAttached {
     public val loading: MutableValueFlow<Int>
 
     /**
@@ -22,6 +22,12 @@ public interface LoadingStateHook {
      * If you need more fine-grained loading states you can ignore this and track the individual dependencies.
      */
     public fun setLoading(isLoading: Boolean)
+
+    override fun onReactiveStateAttached(reactiveState: ReactiveState<out ErrorEvents>) {
+        (this as? LifecycleOwner)?.lifecycleScope?.launchWhenStarted {
+            loading.incrementFrom(reactiveState.loading)
+        }
+    }
 }
 
 /** Observes a Boolean and triggers the [setLoading] function, taking lifecycle handling into account. */

@@ -13,9 +13,9 @@ import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.attachToolbar
-import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
@@ -67,7 +67,7 @@ internal class DetailFragmentNav(
 internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailClickListener {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
-    private val viewModel by buildState { DetailViewModel(scope) }
+    private val viewModel by reactiveState { DetailViewModel(scope) }
     private val binding by viewBinding(DetailBinding::inflate)
     private var isFavorite = false
 

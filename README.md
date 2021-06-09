@@ -89,7 +89,7 @@ Also, `State` provides a `launch` method to launch coroutines with automatic err
 Any errors are automatically forwarded to the UI via `eventNotifier` and trigger the Fragment's `onError(error: Throwable)` method.
 Typically you'd use `MutableStateFlow` (or the mutation-optimized `MutableValueFlow`) in order to provide observable values.
 
-A ViewModel / `State` implementation can be added to a Fragment using `by buildState` which is lifecycle-aware.
+A ViewModel / `State` implementation can be added to a Fragment using `by reactiveState` which is lifecycle-aware.
 
 Simple example:
 
@@ -119,7 +119,7 @@ class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
 
     // You can also compose states. The otherState.eventNotifier and otherState.loading
     // will get merged into MyViewModel.
-    val otherState by buildState { OtherState(scope) }
+    val otherState by reactiveState { OtherState(scope) }
 
     // A contrived event example to get the point across
     fun doSomething() {
@@ -135,12 +135,12 @@ class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
 
 // The fragment has to implement the events interface.
 class MyFragment : BaseFragment(), MyEvents {
-    // buildState internally creates an Android ViewModel to hold the MyViewModel instance.
+    // "by reactiveState" internally creates an Android ViewModel to hold the MyViewModel instance.
     // MyViewModel's eventNotifier and loading are automatically processed in a
     // lifecycle-aware way during the >= STARTED state.
     // The events are triggered as method calls on this fragment - e.g. onError(throwable).
     // Whenever `loading` changes, this triggers setLoading(isLoading: Boolean).
-    val viewModel by buildState { MyViewModel(scope) }  // here, scope is an alias for viewModelScope
+    val viewModel by reactiveState { MyViewModel(scope) }  // here, scope is an alias for viewModelScope
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

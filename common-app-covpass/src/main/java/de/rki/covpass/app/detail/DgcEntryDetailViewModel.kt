@@ -5,8 +5,8 @@
 
 package de.rki.covpass.app.detail
 
+import com.ensody.reactivestate.BaseReactiveState
 import com.ibm.health.common.android.utils.BaseEvents
-import com.ibm.health.common.android.utils.BaseState
 import de.rki.covpass.app.dependencies.covpassDeps
 import kotlinx.coroutines.CoroutineScope
 
@@ -20,7 +20,7 @@ internal interface DgcEntryDetailEvents : BaseEvents {
 /**
  * ViewModel to handle business logic related to [DgcEntryDetailFragment].
  */
-internal class DgcEntryDetailViewModel(scope: CoroutineScope) : BaseState<DgcEntryDetailEvents>(scope) {
+internal class DgcEntryDetailViewModel(scope: CoroutineScope) : BaseReactiveState<DgcEntryDetailEvents>(scope) {
 
     fun onDelete(certId: String) {
         launch {

@@ -26,7 +26,6 @@ include ':common-app-covpass-check'
 include ':common-app'
 
 // App-only utils (not used by SDK)
-include ':android-utils-test'
 include ':android-utils'
 include ':navigation'
 include ':securityprovider'

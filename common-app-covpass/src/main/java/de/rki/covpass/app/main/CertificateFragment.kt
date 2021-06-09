@@ -11,11 +11,11 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.dispatchers
 import com.ensody.reactivestate.get
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
-import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -50,7 +50,7 @@ internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : Fragm
 internal class CertificateFragment : BaseFragment() {
 
     internal val args: CertificateFragmentNav by lazy { getArgs() }
-    private val viewModel by buildState { CertificateViewModel(scope) }
+    private val viewModel by reactiveState { CertificateViewModel(scope) }
     private val binding by viewBinding(CertificateBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
