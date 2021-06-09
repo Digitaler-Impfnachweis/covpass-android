@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -31,75 +30,87 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/grid_three"
-          android:layout_marginTop="@dimen/grid_three"
-          android:layout_marginEnd="@dimen/grid_two"
-          android:layout_marginBottom="@dimen/grid_three">
-
-          <TextView
-            android:id="@+id/certificate_header_textview"
-            style="@style/DefaultText.OnBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:layout_toStartOf="@id/certificate_favorite_button" />
-
-          <ImageButton
-            android:id="@+id/certificate_favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/grid_one"
-            tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/grid_three"
+          android:layout_marginTop="@dimen/grid_three"
           android:layout_marginBottom="@dimen/grid_three"
-          android:background="@drawable/imageview_rounded">
+          android:background="@drawable/imageview_rounded_qrcode_background">
+
+          <ImageView
+            android:id="@+id/certificate_status_imageview"
+            android:layout_width="@dimen/grid_three"
+            android:layout_height="@dimen/grid_three"
+            android:layout_marginStart="@dimen/grid_quarter"
+            app:layout_constraintBottom_toBottomOf="@+id/certificate_status_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/certificate_header_textview"
+            tools:ignore="ContentDescription" />
+
+          <TextView
+            android:id="@+id/certificate_header_textview"
+            style="@style/Header.OnBackground.Standard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_one"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+            android:id="@+id/certificate_status_textview"
+            style="@style/DefaultText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_one"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/certificate_header_textview" />
 
           <ImageView
             android:id="@+id/certificate_qr_imageview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginTop="@dimen/grid_two"
             android:adjustViewBounds="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/certificate_status_textview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/certificate_status_textview"
             tools:ignore="ContentDescription" />
-
-          <TextView
-            android:id="@+id/certificate_status_textview"
-            style="@style/DefaultText.OnBackground70"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/grid_half"
-            app:layout_constraintEnd_toEndOf="@id/certificate_qr_imageview"
-            app:layout_constraintStart_toStartOf="@id/certificate_qr_imageview"
-            app:layout_constraintTop_toBottomOf="@id/certificate_qr_imageview"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-          android:id="@+id/certificate_name_textview"
-          style="@style/Header.OnInfo.Big"
+        <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_three" />
+          android:layout_marginHorizontal="@dimen/grid_three">
+
+          <TextView
+            android:id="@+id/certificate_name_textview"
+            style="@style/Header.OnInfo.Big"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/certificate_favorite_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageButton
+            android:id="@+id/certificate_favorite_button"
+            android:layout_width="@dimen/grid_three"
+            android:layout_height="@dimen/grid_three"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/grid_one"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/grid_one"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
           android:id="@+id/certificate_status_container"
@@ -109,23 +120,13 @@
           android:paddingStart="@dimen/grid_three"
           android:paddingEnd="@dimen/grid_two_half">
 
-          <ImageView
-            android:id="@+id/certificate_status_imageview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            tools:ignore="ContentDescription" />
-
           <TextView
             android:id="@+id/certificate_protection_textview"
-            style="@style/Header.OnInfo.Small"
+            style="@style/DefaultText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_one"
-            android:layout_marginEnd="@dimen/grid_two"
-            android:layout_toEndOf="@id/certificate_status_imageview" />
+            android:layout_marginEnd="@dimen/grid_two" />
 
           <ImageView
             android:id="@+id/certificate_arrow_imageview"
@@ -151,4 +152,3 @@
   </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>
-

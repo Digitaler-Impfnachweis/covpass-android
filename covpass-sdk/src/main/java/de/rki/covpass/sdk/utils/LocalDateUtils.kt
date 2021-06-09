@@ -33,6 +33,10 @@ public fun LocalDate?.isOlderThanTwoWeeks(): Boolean {
     return this?.plusDays(14)?.isBefore(LocalDate.now()) ?: false
 }
 
+public fun LocalDate?.isOlderThan(days: Long): Boolean {
+    return this?.plusDays(days)?.isBefore(LocalDate.now()) ?: false
+}
+
 public fun isValid(validFrom: LocalDate?, validUntil: LocalDate?): Boolean {
     if (validFrom == null || validUntil == null) { return false }
     val now = LocalDate.now()

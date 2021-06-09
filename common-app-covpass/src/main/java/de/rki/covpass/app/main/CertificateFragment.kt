@@ -20,25 +20,27 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
-import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.detail.DetailFragmentNav
-import de.rki.covpass.app.storage.GroupedCertificatesList
-import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateBinding
-import de.rki.covpass.app.storage.GroupedCertificates
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
-import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.detail.DetailFragmentNav
+import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 @Parcelize
 internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : FragmentNav(CertificateFragment::class)
 
 /**
- * Fragment which shows a [GroupedCertificates].
+ * Fragment which shows a [CovCertificate]
  */
 internal class CertificateFragment : BaseFragment() {
 
@@ -61,6 +63,19 @@ internal class CertificateFragment : BaseFragment() {
         val mainCombinedCertificate = groupedCertificate.getMainCertificate()
         val mainCertificate = mainCombinedCertificate.covCertificate
         val fullProtection = mainCertificate.vaccination?.hasFullProtection == true
+        val headerText: Int
+        val textColor: Int
+        val backgroundColor: Int
+        val cardFadeout: Int
+        val certificateStatus: String
+        val certificateStatusIcon: Int
+        val certificateProtectionText: Int
+        var arrowIcon: Int = R.drawable.arrow_right_white
+        var favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
+            R.drawable.star_white_fill
+        } else {
+            R.drawable.star_white
+        }
 
         launchWhenStarted {
             binding.certificateQrImageview.setImageBitmap(
@@ -68,89 +83,119 @@ internal class CertificateFragment : BaseFragment() {
             )
         }
 
-        val dgcEntry = mainCertificate.dgcEntry
-        if (dgcEntry is Vaccination) {
-            val complete = dgcEntry.isComplete
-            binding.certificateStatusTextview.text = when {
-                fullProtection -> getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
-                (complete && !fullProtection) -> getString(
-                    R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
-                    mainCertificate.validDate.formatDateOrEmpty()
-                )
-                else -> getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+        when (mainCertificate.dgcEntry) {
+            is Test -> {
+                certificateStatus =
+                    LocalDateTime.ofInstant(
+                        mainCertificate.validFrom,
+                        ZoneId.systemDefault()
+                    ).formatDateTime()
+                headerText = when ((mainCertificate.dgcEntry as Test).testType) {
+                    "Rapid immunoassay" -> R.string.certificates_overview_test_certificate_message
+                    "Nucleic acid amplification with probe detection" ->
+                        R.string.certificates_overview_pcr_test_certificate_message
+                    else -> R.string.certificates_overview_test_certificate_message
+                }
+                cardFadeout = R.drawable.common_gradient_card_fadeout_purple
+                certificateProtectionText = R.string.test_certificate_action_button
+                certificateStatusIcon = R.drawable.main_cert_test
+                textColor = R.color.onInfo
+                backgroundColor = R.color.test_certificate_background
+            }
+            is Recovery -> {
+                certificateStatus = if (
+                    (mainCertificate.dgcEntry as Recovery).validFrom?.isAfter(
+                        LocalDate.now()
+                    ) == true
+                ) {
+                    getString(
+                        // TODO BVC-1185 change to the new string
+                        R.string.recovery_certificate_valid_from_date,
+                        LocalDateTime.ofInstant(mainCertificate.validFrom, ZoneId.systemDefault())
+                            .toLocalDate().formatDateOrEmpty()
+                    )
+                } else {
+                    getString(
+                        R.string.recovery_certificate_valid_until_date,
+                        LocalDateTime.ofInstant(mainCertificate.validUntil, ZoneId.systemDefault())
+                            .toLocalDate().formatDateOrEmpty()
+                    )
+                }
+                headerText = R.string.certificates_overview_recovery_certificate_title
+                cardFadeout = R.drawable.common_gradient_card_fadeout_dark_blue
+                certificateProtectionText = R.string.recovery_certificate_action_button
+                certificateStatusIcon = R.drawable.main_cert_recovery
+                textColor = R.color.onInfo
+                backgroundColor = R.color.brandAccent90
+            }
+            else -> {
+                headerText = R.string.vaccination_full_immunization_title
+                if (fullProtection) {
+                    certificateStatus =
+                        getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
+                    cardFadeout = R.drawable.common_gradient_card_fadeout_blue
+                    certificateProtectionText = R.string.vaccination_full_immunization_action_button
+                    certificateStatusIcon = R.drawable.main_cert_status_complete
+                    textColor = R.color.onInfo
+                    backgroundColor = R.color.info70
+                } else if (
+                    (mainCertificate.dgcEntry as Vaccination).isComplete && !fullProtection
+                ) {
+                    certificateStatus =
+                        getString(
+                            R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
+                            mainCertificate.validDate.formatDateOrEmpty()
+                        )
+                    favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
+                        R.drawable.star_black_fill
+                    } else {
+                        R.drawable.star_black
+                    }
+                    cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
+                    certificateProtectionText = R.string.vaccination_partial_immunization_action_button
+                    arrowIcon = R.drawable.arrow_right_blue
+                    certificateStatusIcon = R.drawable.main_cert_status_incomplete
+                    textColor = R.color.onBackground
+                    backgroundColor = R.color.info20
+                } else {
+                    certificateStatus =
+                        getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+                    favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
+                        R.drawable.star_black_fill
+                    } else {
+                        R.drawable.star_black
+                    }
+                    cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
+                    certificateProtectionText = R.string.vaccination_partial_immunization_action_button
+                    arrowIcon = R.drawable.arrow_right_blue
+                    certificateStatusIcon = R.drawable.main_cert_status_incomplete
+                    textColor = R.color.onBackground
+                    backgroundColor = R.color.info20
+                }
             }
         }
-
-        val textColor = if (fullProtection) {
-            R.color.onInfo
-        } else {
-            R.color.onBackground
-        }
-        context?.let {
-            binding.certificateHeaderTextview.setTextColor(ContextCompat.getColor(it, textColor))
-            binding.certificateNameTextview.setTextColor(ContextCompat.getColor(it, textColor))
-            binding.certificateProtectionTextview.setTextColor(ContextCompat.getColor(it, textColor))
-        }
-
-        val backgroundColorResource = if (fullProtection) {
-            R.color.info80
-        } else {
-            R.color.info20
-        }
-        val backgroundFaderResource = if (fullProtection) {
-            R.drawable.common_gradient_card_fadeout_blue
-        } else {
-            R.drawable.common_gradient_card_fadeout_light_blue
-        }
-        context?.let {
-            binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(it, backgroundColorResource))
-            binding.cardBottomFadeout.setBackgroundResource(backgroundFaderResource)
-        }
-
-        val activeRes = if (fullProtection) {
-            R.drawable.star_white_fill
-        } else {
-            R.drawable.star_black_fill
-        }
-        val inactiveRes = if (fullProtection) {
-            R.drawable.star_white
-        } else {
-            R.drawable.star_black
-        }
-        val favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
-            activeRes
-        } else {
-            inactiveRes
-        }
-
+        binding.certificateHeaderTextview.text = getString(headerText)
+        binding.certificateStatusTextview.text = certificateStatus
+        binding.certificateStatusImageview.setImageResource(certificateStatusIcon)
+        binding.cardBottomFadeout.setBackgroundResource(cardFadeout)
+        binding.certificateArrowImageview.setImageResource(arrowIcon)
+        binding.certificateProtectionTextview.text = getString(certificateProtectionText)
         binding.certificateFavoriteButton.setImageResource(favoriteIconResource)
+        context?.let {
+            binding.certificateNameTextview
+                .setTextColor(ContextCompat.getColor(it, textColor))
+            binding.certificateProtectionTextview
+                .setTextColor(ContextCompat.getColor(it, textColor))
+            binding.certificateCardview.setCardBackgroundColor(
+                ContextCompat.getColor(it, backgroundColor)
+            )
+        }
+
         binding.certificateFavoriteButton.setOnClickListener {
             viewModel.onFavoriteClick(certId)
         }
         binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
-
-        val headerText = if (fullProtection) {
-            R.string.vaccination_full_immunization_title
-        } else {
-            R.string.vaccination_partial_immunization_title
-        }
-        binding.certificateHeaderTextview.text = getString(headerText)
-
         binding.certificateNameTextview.text = mainCertificate.fullName
-
-        val protection = if (fullProtection) {
-            R.string.vaccination_full_immunization_action_button
-        } else {
-            R.string.vaccination_partial_immunization_action_button
-        }
-        binding.certificateProtectionTextview.text = getString(protection)
-
-        val arrowRightIconResource = if (fullProtection) {
-            R.drawable.arrow_right_white
-        } else {
-            R.drawable.arrow_right_blue
-        }
-        binding.certificateArrowImageview.setImageResource(arrowRightIconResource)
 
         binding.certificateCardview.setOnClickListener {
             findNavigator().push(DetailFragmentNav(args.certId))
@@ -159,13 +204,6 @@ internal class CertificateFragment : BaseFragment() {
         binding.certificateCardviewScrollContent.setOnClickListener {
             findNavigator().push(DetailFragmentNav(args.certId))
         }
-
-        val statusIconResource = if (fullProtection) {
-            R.drawable.main_cert_status_complete
-        } else {
-            R.drawable.main_cert_status_incomplete
-        }
-        binding.certificateStatusImageview.setImageResource(statusIconResource)
     }
 
     private suspend fun generateQRCode(qrContent: String): Bitmap {

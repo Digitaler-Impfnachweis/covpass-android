@@ -5,8 +5,9 @@
 
 package de.rki.covpass.app.storage
 
-import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.utils.isOlderThan
+import java.time.LocalDate
 
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).
@@ -21,6 +22,35 @@ internal data class GroupedCertificates(
             certificates.first().covCertificate.name, certificates.first().covCertificate.birthDate
         )
 
-    // FIXME implement correct priority logic
-    fun getMainCertificate() = certificates.first()
+    fun getMainCertificate(): CombinedCovCertificate {
+        return certificates.find {
+            val dgcEntry = it.covCertificate.dgcEntry
+            dgcEntry is Test &&
+                dgcEntry.sampleCollection?.isOlderThan(48) == false &&
+                dgcEntry.testType == Test.PCR_TEST &&
+                dgcEntry.testResult == Test.NEGATIVE_RESULT
+        } ?: certificates.find {
+            val dgcEntry = it.covCertificate.dgcEntry
+            dgcEntry is Test &&
+                dgcEntry.sampleCollection?.isOlderThan(24) == false &&
+                dgcEntry.testType == Test.ANTIGEN_TEST &&
+                dgcEntry.testResult == Test.NEGATIVE_RESULT
+        } ?: certificates.find {
+            val dgcEntry = it.covCertificate.dgcEntry
+            dgcEntry is Vaccination &&
+                dgcEntry.hasFullProtection
+        } ?: certificates.find {
+            val dgcEntry = it.covCertificate.dgcEntry
+            dgcEntry is Recovery &&
+                dgcEntry.validUntil?.isBefore(LocalDate.now()) == false
+        } ?: certificates.find {
+            val dgcEntry = it.covCertificate.dgcEntry
+            dgcEntry is Vaccination &&
+                dgcEntry.isComplete
+        } ?: certificates.find {
+            it.covCertificate.dgcEntry is Vaccination
+        } ?: certificates.find {
+            it.covCertificate.dgcEntry is Recovery
+        } ?: certificates.first()
+    }
 }
