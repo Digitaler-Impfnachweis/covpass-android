@@ -5,7 +5,12 @@
 
 package de.rki.covpass.app.storage
 
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.commonapp.utils.CertificateHelper
+import de.rki.covpass.commonapp.utils.CertificateType
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.Test
 import de.rki.covpass.sdk.utils.isOlderThan
 import java.time.LocalDate
 
@@ -25,32 +30,27 @@ internal data class GroupedCertificates(
     fun getMainCertificate(): CombinedCovCertificate {
         return certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Test &&
-                dgcEntry.sampleCollection?.isOlderThan(48) == false &&
-                dgcEntry.testType == Test.PCR_TEST &&
-                dgcEntry.testResult == Test.NEGATIVE_RESULT
+            CertificateHelper.resolveCertificateType(dgcEntry) == CertificateType.NEGATIVE_PCR_TEST &&
+                (dgcEntry as? Test)?.sampleCollection?.isOlderThan(48) == false
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Test &&
-                dgcEntry.sampleCollection?.isOlderThan(24) == false &&
-                dgcEntry.testType == Test.ANTIGEN_TEST &&
-                dgcEntry.testResult == Test.NEGATIVE_RESULT
+            CertificateHelper.resolveCertificateType(dgcEntry) == CertificateType.NEGATIVE_ANTIGEN_TEST &&
+                (dgcEntry as? Test)?.sampleCollection?.isOlderThan(24) == false
+        } ?: certificates.find {
+            CertificateHelper.resolveCertificateType(it.covCertificate.dgcEntry) ==
+                CertificateType.VACCINATION_FULL_PROTECTION
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Vaccination &&
-                dgcEntry.hasFullProtection
+            CertificateHelper.resolveCertificateType(it.covCertificate.dgcEntry) == CertificateType.RECOVERY &&
+                (dgcEntry as? Recovery)?.validUntil?.isBefore(LocalDate.now()) == false
         } ?: certificates.find {
-            val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Recovery &&
-                dgcEntry.validUntil?.isBefore(LocalDate.now()) == false
+            CertificateHelper.resolveCertificateType(it.covCertificate.dgcEntry) ==
+                CertificateType.VACCINATION_COMPLETE
         } ?: certificates.find {
-            val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Vaccination &&
-                dgcEntry.isComplete
+            CertificateHelper.resolveCertificateType(it.covCertificate.dgcEntry) ==
+                CertificateType.VACCINATION_INCOMPLETE
         } ?: certificates.find {
-            it.covCertificate.dgcEntry is Vaccination
-        } ?: certificates.find {
-            it.covCertificate.dgcEntry is Recovery
+            CertificateHelper.resolveCertificateType(it.covCertificate.dgcEntry) == CertificateType.RECOVERY
         } ?: certificates.first()
     }
 
