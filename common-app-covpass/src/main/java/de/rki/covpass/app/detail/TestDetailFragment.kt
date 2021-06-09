@@ -9,6 +9,10 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.getCountryName
+import de.rki.covpass.sdk.cert.getDiseaseAgentName
+import de.rki.covpass.sdk.cert.getTestManufacturerName
+import de.rki.covpass.sdk.cert.getTestResultName
+import de.rki.covpass.sdk.cert.getTestTypeName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Test
 import de.rki.covpass.sdk.utils.formatDateInternational
@@ -53,12 +57,12 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.test_certificate_detail_view_data_disease),
-            test.targetDisease,
+            getDiseaseAgentName(test.targetDisease),
             dataRows
         )
         addDataRow(
             getString(R.string.test_certificate_detail_view_data_test_type),
-            test.testType,
+            getTestTypeName(test.testType),
             dataRows
         )
         addDataRow(
@@ -68,7 +72,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.test_certificate_detail_view_data_test_manufactur),
-            test.manufacturer,
+            getTestManufacturerName(test.manufacturer),
             dataRows
         )
         addDataRow(
@@ -78,7 +82,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.test_certificate_detail_view_data_test_results),
-            test.testResult,
+            getTestResultName(test.testResult),
             dataRows
         )
         addDataRow(

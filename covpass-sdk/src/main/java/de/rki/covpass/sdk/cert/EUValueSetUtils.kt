@@ -42,11 +42,55 @@ public fun getProphylaxisName(rawName: String): String {
 }
 
 /**
+ * Retrieves the test type as defined in EU value set
+ *
+ * @param rawName The raw consent of the EU JSON Schema (e.g. "LP6464-4")
+ *
+ * @return The matching EU value set (e.g. "Nucleic acid amplification with probe detection")
+ */
+public fun getTestTypeName(rawName: String): String {
+    return EUValueSetRepository.testType.valueSetValues[rawName]?.display ?: rawName
+}
+
+/**
+ * Retrieves the test result as defined in EU value set
+ *
+ * @param rawName The raw consent of the EU JSON Schema (e.g. "260415000")
+ *
+ * @return The matching EU value set (e.g. "Not detected")
+ */
+public fun getTestResultName(rawName: String): String {
+    return EUValueSetRepository.testResult.valueSetValues[rawName]?.display ?: rawName
+}
+
+/**
+ * Retrieves the test manufacturer as defined in EU value set
+ *
+ * @param rawName The raw consent of the EU JSON Schema (e.g. "1232")
+ *
+ * @return The matching EU value set (e.g. "Abbott Rapid Diagnostics, Panbio COVID-19 Ag Test")
+ */
+public fun getTestManufacturerName(rawName: String): String {
+    return EUValueSetRepository.testManufacturer.valueSetValues[rawName]?.display ?: rawName
+}
+
+/**
+ * Retrieves the disease agent as defined in EU value set
+ *
+ * @param rawName The raw consent of the EU JSON Schema (e.g. "LP6464-4")
+ *
+ * @return The matching EU value set (e.g. "COVID-19")
+ */
+public fun getDiseaseAgentName(rawName: String): String {
+    return EUValueSetRepository.diseaseAgent.valueSetValues[rawName]?.display ?: rawName
+}
+
+/**
  * Retrieves the Country name from the given Country code
  *
  * @param countryCode The country code in ISO-3166 (e.g. "DE")
  *
- * @return The matching Country name (e.g. "Deutschland")
+ * @return The matching Country name (e.g. "Germany")
  */
 public fun getCountryName(countryCode: String): String {
     return countryCodesToNames[countryCode] ?: countryCode

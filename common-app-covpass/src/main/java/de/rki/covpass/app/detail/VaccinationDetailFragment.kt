@@ -9,6 +9,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.getCountryName
+import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.getManufacturerName
 import de.rki.covpass.sdk.cert.getProductName
 import de.rki.covpass.sdk.cert.getProphylaxisName
@@ -54,7 +55,7 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.vaccination_certificate_detail_view_data_disease),
-            vaccination.targetDisease,
+            getDiseaseAgentName(vaccination.targetDisease),
             dataRows
         )
         addDataRow(
