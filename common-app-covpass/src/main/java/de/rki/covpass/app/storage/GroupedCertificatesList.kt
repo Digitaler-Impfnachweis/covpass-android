@@ -5,10 +5,12 @@
 
 package de.rki.covpass.app.storage
 
+import de.rki.covpass.commonapp.utils.CertificateHelper
+import de.rki.covpass.commonapp.utils.CertificateType
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.CovCertificateList
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 
 /**
  * Data model which contains a list of [GroupedCertificates] and a pointer to the favorite / own certificate.
@@ -63,6 +65,9 @@ internal data class GroupedCertificatesList(
      * [GroupedCertificatesId].
      */
     private fun addCertificate(addedCert: CombinedCovCertificate): GroupedCertificatesId {
+        if (addedCert.isPositivePcrOrAntigenTest()) {
+            throw CertTestPositiveException()
+        }
         var matchingGroupedCert: GroupedCertificates? = certificates.firstOrNull { groupedCerts ->
             groupedCerts.id == GroupedCertificatesId(addedCert.covCertificate.name, addedCert.covCertificate.birthDate)
         }
@@ -81,6 +86,17 @@ internal data class GroupedCertificatesList(
             return matchingGroupedCert.id
         } else {
             throw CertAlreadyExistsException()
+        }
+    }
+
+    /**
+     * @return the Boolean flag which indicates a positive PCR or Antigen test
+     */
+    private fun CombinedCovCertificate.isPositivePcrOrAntigenTest(): Boolean {
+        return when (CertificateHelper.resolveCertificateType(this.covCertificate.dgcEntry)) {
+            CertificateType.POSITIVE_PCR_TEST,
+            CertificateType.POSITIVE_ANTIGEN_TEST -> true
+            else -> false
         }
     }
 
@@ -167,3 +183,6 @@ internal data class GroupedCertificatesList(
 
 /** This exception is thrown when certificates list already has such certificate */
 public class CertAlreadyExistsException : RuntimeException()
+
+/** This exception is thrown when the certificate is a positive PCR or Antigen test */
+public class CertTestPositiveException : RuntimeException()

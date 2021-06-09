@@ -7,6 +7,7 @@ package de.rki.covpass.app.errorhandling
 
 import de.rki.covpass.app.R
 import de.rki.covpass.app.storage.CertAlreadyExistsException
+import de.rki.covpass.app.storage.CertTestPositiveException
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
@@ -23,6 +24,12 @@ internal class ErrorHandler : CommonErrorHandler() {
                 messageRes = R.string.duplicate_certificate_dialog_message,
                 positiveButtonTextRes = R.string.duplicate_certificate_dialog_button_title,
                 tag = TAG_ERROR_DUPLICATE_CERTIFICATE
+            )
+            is CertTestPositiveException -> DialogModel(
+                titleRes = R.string.error_test_certificate_not_valid_title,
+                messageRes = R.string.error_test_certificate_not_valid_message,
+                positiveButtonTextRes = R.string.error_test_certificate_not_valid_button_title,
+                tag = TAG_ERROR_POSITIVE_CERTIFICATE
             )
             // FIXME BVC-1370
 //            is ExpiredCwtException -> DialogModel(
@@ -42,6 +49,7 @@ internal class ErrorHandler : CommonErrorHandler() {
 
     companion object {
         const val TAG_ERROR_DUPLICATE_CERTIFICATE: String = "error_duplicate_certificate"
+        const val TAG_ERROR_POSITIVE_CERTIFICATE: String = "error_positive_certificate"
         const val TAG_ERROR_EXPIRED_CERTIFICATE: String = "error_expired_certificate"
         const val TAG_ERROR_BAD_CERTIFICATE_SIGNATURE: String = "error_bad_signature_certificate"
     }
