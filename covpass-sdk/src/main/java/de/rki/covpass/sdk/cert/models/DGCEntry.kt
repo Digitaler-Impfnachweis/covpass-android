@@ -5,4 +5,6 @@ package de.rki.covpass.sdk.cert.models
  */
 public interface DGCEntry {
     public val id: String
+    public val idWithoutPrefix: String
+        get() = id.removePrefix("URN:UVCI:")
 }

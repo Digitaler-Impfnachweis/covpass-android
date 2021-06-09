@@ -6,8 +6,10 @@
 package de.rki.covpass.sdk.utils
 
 import java.time.Duration
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 public fun ZonedDateTime.isOlderThan(hours: Long): Boolean {
     return this.plusHours(hours).isBefore(ZonedDateTime.now())
@@ -23,4 +25,19 @@ public fun ZoneOffset.getOffset1(): String {
         "Z" -> "+00:00"
         else -> this.toString()
     }
+}
+
+/**
+ * Formats a [ZonedDateTime] to e.g. "1989-03-28, 14:52".
+ */
+public fun ZonedDateTime.formatDateTimeInternational(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, hh:mm")
+    return format(formatter)
+}
+
+/**
+ * Converts a [ZonedDateTime] to the default system timezone.
+ */
+public fun ZonedDateTime.toDeviceTimeZone(): ZonedDateTime {
+    return withZoneSameInstant(ZoneId.systemDefault())
 }

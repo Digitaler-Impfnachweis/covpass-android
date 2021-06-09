@@ -21,6 +21,14 @@ public fun LocalDate?.formatDateOrEmpty(): String {
     return this?.formatDate() ?: ""
 }
 
+/**
+ * Formats a local date to e.g. "1989-03-28".
+ */
+public fun LocalDate.formatDateInternational(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    return format(formatter)
+}
+
 public fun LocalDate?.isOlderThanTwoWeeks(): Boolean {
     return this?.plusDays(14)?.isBefore(LocalDate.now()) ?: false
 }

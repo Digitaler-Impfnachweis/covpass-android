@@ -60,7 +60,7 @@ internal class CertificateFragment : BaseFragment() {
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainCombinedCertificate = groupedCertificate.getMainCertificate()
         val mainCertificate = mainCombinedCertificate.covCertificate
-        val fullProtection = mainCertificate.hasFullProtection
+        val fullProtection = mainCertificate.vaccination?.hasFullProtection == true
 
         launchWhenStarted {
             binding.certificateQrImageview.setImageBitmap(
@@ -72,7 +72,7 @@ internal class CertificateFragment : BaseFragment() {
         if (dgcEntry is Vaccination) {
             val complete = dgcEntry.isComplete
             binding.certificateStatusTextview.text = when {
-                fullProtection -> getString(R.string.vaccination_start_screen_qrcode_complete_subtitle)
+                fullProtection -> getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
                 (complete && !fullProtection) -> getString(
                     R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
                     mainCertificate.validDate.formatDateOrEmpty()

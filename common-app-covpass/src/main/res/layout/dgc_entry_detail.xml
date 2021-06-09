@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/backgroundPrimary"
+  android:orientation="vertical"
+  tools:ignore="Overdraw" >
+
+  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+    android:id="@+id/dgc_detail_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/elevation"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/grid_seven"
+    android:paddingStart="@dimen/grid_one"
+    android:paddingEnd="@dimen/grid_one"
+    android:background="@color/backgroundPrimary"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/backgroundPrimary"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/dgc_detail_header_textview"
+        style="@style/Header.OnBackground.Big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hyphenationFrequency="full"
+        android:layout_margin="@dimen/grid_three" />
+
+      <LinearLayout
+        android:id="@+id/dgc_detail_data_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/dgc_detail_display_qr_button"
+        style="@style/SecondaryButton.Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginVertical="@dimen/grid_five"
+        android:text="@string/vaccination_certificate_detail_view_qrcode_action_button_title"
+        app:icon="@drawable/scan_qr" />
+
+      <TextView
+        android:id="@+id/dgc_detail_info_footer_german"
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundSecondary"
+        android:padding="@dimen/grid_three" />
+
+      <TextView
+        android:id="@+id/dgc_detail_info_footer_english"
+        style="@style/DefaultText.OnBackground70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundSecondary"
+        android:paddingHorizontal="@dimen/grid_three"
+        android:paddingBottom="@dimen/grid_three" />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

@@ -21,9 +21,8 @@ internal class MigrationFromVersion1To2(store: CborSharedPrefsStore) {
         val version1CertList = version1CertsPref.value
         var newFavoriteId: GroupedCertificatesId? = null
         version1CertList.certificates.forEach { cert ->
-            val isFavorite = cert.covCertificate.vaccinations.any { vaccination ->
-                vaccination.id == version1CertList.favoriteCertId
-            }
+            val id = cert.covCertificate.vaccination?.id
+            val isFavorite = !id.isNullOrBlank() && id == version1CertList.favoriteCertId
             if (isFavorite) {
                 newFavoriteId = GroupedCertificatesId(cert.covCertificate.name, cert.covCertificate.birthDate)
                 return@forEach

@@ -5,10 +5,14 @@
 
 package de.rki.covpass.app.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.buildState
 import com.ibm.health.common.android.utils.viewBinding
@@ -19,13 +23,16 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DetailBinding
+import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.storage.GroupedCertificates
+import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.Vaccination
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -39,15 +46,14 @@ internal interface DetailCallback {
 @Parcelize
 internal class DetailFragmentNav(
     var certId: GroupedCertificatesId,
-    var certIdToDelete: String? = null
 ) : FragmentNav(DetailFragment::class)
 
 /**
  * Fragment which shows the [GroupedCertificates] details
- * Further actions (Delete current certificate, Show QR Code, Add cov certificate)
+ * Further actions (Show QR Code, Add cov certificate)
  */
 // FIXME BVC-1370
-internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
+internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
     private val viewModel by buildState { DetailViewModel(scope) }
@@ -56,6 +62,36 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
+        autoRun { updateViews(get(covpassDeps.certRepository.certs)) }
+    }
+
+    // FIXME just a mock implementation, delete or implement later
+    @SuppressLint("SetTextI18n")
+    private fun updateViews(certs: GroupedCertificatesList) {
+        certs.getGroupedCertificates(args.certId)?.certificates?.forEach { cert ->
+            val button = Button(context)
+            when (cert.covCertificate.dgcEntry) {
+                is Vaccination -> {
+                    button.text = "Vaccination"
+                    button.setOnClickListener {
+                        findNavigator().push(VaccinationDetailFragmentNav(cert.covCertificate.dgcEntry.id))
+                    }
+                }
+                is Test -> {
+                    button.text = "Test"
+                    button.setOnClickListener {
+                        findNavigator().push(TestDetailFragmentNav(cert.covCertificate.dgcEntry.id))
+                    }
+                }
+                is Recovery -> {
+                    button.text = "Recovery"
+                    button.setOnClickListener {
+                        findNavigator().push(RecoveryDetailFragmentNav(cert.covCertificate.dgcEntry.id))
+                    }
+                }
+            }
+            binding.detailMainContainer.addView(button)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -71,7 +107,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         return Abort
     }
 
-    override fun onDeleteDone(isGroupedCertDeleted: Boolean) {
+    override fun onDeletionCompleted(isGroupedCertDeleted: Boolean) {
         if (isGroupedCertDeleted) {
             findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
         } else {
@@ -97,16 +133,7 @@ internal class DetailFragment : BaseFragment(), DetailEvents, DialogListener {
         }
     }
 
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == DELETE_DIALOG_TAG && action == DialogAction.POSITIVE) {
-            args.certIdToDelete?.let {
-                viewModel.onDelete(it)
-            }
-        }
-    }
-
     private companion object {
         private const val FAVORITE_ITEM_ID = 82957
-        private const val DELETE_DIALOG_TAG = "delete_dialog"
     }
 }

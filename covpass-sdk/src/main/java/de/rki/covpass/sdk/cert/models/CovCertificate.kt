@@ -32,31 +32,47 @@ public data class CovCertificate(
     @SerialName("dob")
     val birthDate: LocalDate? = null,
     @SerialName("v")
-    val vaccinations: List<Vaccination> = emptyList(),
+    private val vaccinations: List<Vaccination> = emptyList(),
     @SerialName("t")
-    val tests: List<Test> = emptyList(),
+    private val tests: List<Test> = emptyList(),
     @SerialName("r")
-    val recoveries: List<Recovery> = emptyList(),
+    private val recoveries: List<Recovery> = emptyList(),
     @SerialName("ver")
     val version: String = "",
 ) {
     public val dgcEntry: DGCEntry
         get() = (vaccinations + tests + recoveries).first()
 
+    /**
+     * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
+     */
     public val vaccination: Vaccination?
         get() = vaccinations.firstOrNull()
 
-    public val isComplete: Boolean
-        get() = vaccinations.any { it.isComplete }
+    /**
+     * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
+     */
+    public val test: Test?
+        get() = tests.firstOrNull()
 
-    public val hasFullProtection: Boolean
-        get() = vaccinations.any { it.hasFullProtection }
+    /**
+     * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
+     */
+    public val recovery: Recovery?
+        get() = recoveries.firstOrNull()
 
     public val fullName: String by lazy {
         listOfNotNull(
             name.givenName ?: name.givenNameTransliterated,
             name.familyName ?: name.familyNameTransliterated
         ).joinToString(" ")
+    }
+
+    public val fullNameReverse: String by lazy {
+        listOfNotNull(
+            name.familyName ?: name.familyNameTransliterated,
+            name.givenName ?: name.givenNameTransliterated
+        ).joinToString(", ")
     }
 
     public val validDate: LocalDate?
