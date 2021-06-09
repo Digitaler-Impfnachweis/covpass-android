@@ -20,8 +20,7 @@ public fun ZonedDateTime.hoursTillNow(): Int {
     return Duration.between(this, ZonedDateTime.now()).toHours().toInt()
 }
 
-// FIXME BVC-1385 temp solution needs to be refactored after alignment
-public fun ZoneOffset.getOffset1(): String {
+public fun ZoneOffset.adjustToString(): String {
     return when (this.toString()) {
         "Z" -> "+00:00"
         else -> this.toString()
