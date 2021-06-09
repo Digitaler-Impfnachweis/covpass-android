@@ -53,4 +53,6 @@ internal data class GroupedCertificates(
             it.covCertificate.dgcEntry is Recovery
         } ?: certificates.first()
     }
+
+    fun getSortedCertificates() = certificates.sortedByDescending { it.timestamp }
 }

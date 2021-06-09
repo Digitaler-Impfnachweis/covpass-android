@@ -10,6 +10,7 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 public fun ZonedDateTime.isOlderThan(hours: Long): Boolean {
     return this.plusHours(hours).isBefore(ZonedDateTime.now())
@@ -32,6 +33,14 @@ public fun ZoneOffset.getOffset1(): String {
  */
 public fun ZonedDateTime.formatDateTimeInternational(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, hh:mm")
+    return format(formatter)
+}
+
+/**
+ * Formats a [ZonedDateTime] to e.g. "12.03.1989, 14:52".
+ */
+public fun ZonedDateTime.formatDateTime(): String {
+    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
     return format(formatter)
 }
 

@@ -23,4 +23,10 @@ public data class CombinedCovCertificate(
      */
     @SerialName("vaccinationQrContent")
     val qrContent: String,
+
+    /**
+     * Timestamp when the certificate was scanned
+     */
+    @SerialName("certificateTimestamp")
+    val timestamp: Long = Long.MIN_VALUE
 )

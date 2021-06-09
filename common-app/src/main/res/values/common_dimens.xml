@@ -60,4 +60,7 @@
   <dimen name="dots_tab_max_width">22dp</dimen>
   <dimen name="elevation">4dp</dimen>
   <dimen name="dialog_corner_size">8dp</dimen>
+
+  <dimen name="certificate_item_status_layout_width">49dp</dimen>
+
 </resources>

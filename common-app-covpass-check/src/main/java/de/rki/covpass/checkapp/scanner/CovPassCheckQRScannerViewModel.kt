@@ -7,13 +7,14 @@ package de.rki.covpass.checkapp.scanner
 
 import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.BaseState
+import de.rki.covpass.commonapp.utils.CertificateHelper
+import de.rki.covpass.commonapp.utils.CertificateType
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.ExpiredCwtException
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Test
-import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.isOlderThan
 import de.rki.covpass.sdk.utils.isValid
@@ -54,21 +55,35 @@ internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) : BaseState
         launch {
             try {
                 val covCertificate = sdkDeps.qrCoder.decodeCovCert(qrContent)
-                when (val dgcEntry = covCertificate.dgcEntry) {
-                    is Vaccination -> {
-                        if (dgcEntry.hasFullProtection) {
-                            eventNotifier { onFullVaccination(covCertificate) }
-                        } else {
-                            eventNotifier { onPartialVaccination() }
+                val dgcEntry = covCertificate.dgcEntry
+                when (CertificateHelper.resolveCertificateType(dgcEntry)) {
+                    CertificateType.VACCINATION_FULL_PROTECTION -> {
+                        eventNotifier { onFullVaccination(covCertificate) }
+                    }
+                    CertificateType.VACCINATION_COMPLETE,
+                    CertificateType.VACCINATION_INCOMPLETE -> {
+                        eventNotifier { onPartialVaccination() }
+                    }
+                    CertificateType.NEGATIVE_PCR_TEST -> {
+                        handleNegativePcrResult(covCertificate)
+                    }
+                    CertificateType.POSITIVE_PCR_TEST -> {
+                        dgcEntry as Test
+                        eventNotifier {
+                            onPositivePcrTest(covCertificate, dgcEntry.sampleCollection)
                         }
                     }
-                    is Test -> {
-                        when (dgcEntry.testType) {
-                            Test.PCR_TEST -> handlePcrTest(covCertificate, dgcEntry)
-                            Test.ANTIGEN_TEST -> handleAntigenTest(covCertificate, dgcEntry)
+                    CertificateType.NEGATIVE_ANTIGEN_TEST -> {
+                        handleNegativeAntigenResult(covCertificate)
+                    }
+                    CertificateType.POSITIVE_ANTIGEN_TEST -> {
+                        dgcEntry as Test
+                        eventNotifier {
+                            onPositiveAntigenTest(dgcEntry.sampleCollection)
                         }
                     }
-                    is Recovery -> {
+                    CertificateType.RECOVERY -> {
+                        dgcEntry as Recovery
                         if (isValid(dgcEntry.validFrom, dgcEntry.validUntil)) {
                             eventNotifier { onValidRecoveryCert(covCertificate) }
                         } else {
@@ -82,53 +97,16 @@ internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) : BaseState
                         Lumber.e(exception)
                         eventNotifier { onValidationFailure() }
                     }
-                    else -> {
-                        throw exception
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handlePcrTest(
-        covCertificate: CovCertificate,
-        test: Test
-    ) {
-        when (test.testResult) {
-            Test.NEGATIVE_RESULT ->
-                handleNegativePcrResult(covCertificate, test)
-            Test.POSITIVE_RESULT -> {
-                eventNotifier {
-                    onPositivePcrTest(
-                        covCertificate,
-                        test.sampleCollection
-                    )
-                }
-            }
-        }
-    }
-
-    private fun handleAntigenTest(
-        covCertificate: CovCertificate,
-        test: Test
-    ) {
-        when (test.testResult) {
-            Test.NEGATIVE_RESULT ->
-                handleNegativeAntigenResult(covCertificate, test)
-            Test.POSITIVE_RESULT -> {
-                eventNotifier {
-                    onPositiveAntigenTest(
-                        test.sampleCollection
-                    )
+                    else -> throw exception
                 }
             }
         }
     }
 
     private fun handleNegativePcrResult(
-        covCertificate: CovCertificate,
-        test: Test
+        covCertificate: CovCertificate
     ) {
+        val test = covCertificate.dgcEntry as Test
         val isOlder = test.sampleCollection?.isOlderThan(
             Test.PCR_TEST_EXPIRY_TIME_HOURS
         ) ?: false
@@ -150,9 +128,9 @@ internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) : BaseState
     }
 
     private fun handleNegativeAntigenResult(
-        covCertificate: CovCertificate,
-        test: Test
+        covCertificate: CovCertificate
     ) {
+        val test = covCertificate.dgcEntry as Test
         val isOlder = test.sampleCollection?.isOlderThan(
             Test.ANTIGEN_TEST_EXPIRY_TIME_HOURS
         ) ?: false

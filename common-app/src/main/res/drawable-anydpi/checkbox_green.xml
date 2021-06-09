@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/checkbox_circle">
+    <shape android:shape="oval">
+      <solid android:color="@color/success" />
+      <size
+        android:width="@dimen/grid_two_half"
+        android:height="@dimen/grid_two_half" />
+    </shape>
+  </item>
+  <item
+    android:id="@+id/checkbox_inner_icon"
+    android:drawable="@drawable/checkmark" />
+</layer-list>

@@ -40,7 +40,11 @@ internal class CovPassQRScannerViewModel(
             var certId: GroupedCertificatesId? = null
             certsFlow.update {
                 certId = it.addNewCertificate(
-                    CombinedCovCertificate(covCertificate, qrContent)
+                    CombinedCovCertificate(
+                        covCertificate,
+                        qrContent,
+                        System.currentTimeMillis()
+                    )
                 )
             }
             certId?.let {

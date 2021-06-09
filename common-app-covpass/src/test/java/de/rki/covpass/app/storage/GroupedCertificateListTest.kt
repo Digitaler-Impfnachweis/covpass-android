@@ -6,18 +6,8 @@
 package de.rki.covpass.app.storage
 
 import assertk.assertThat
-import assertk.assertions.hasSize
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isNotNull
-import assertk.assertions.isNull
-import assertk.assertions.isTrue
-import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Name
-import de.rki.covpass.sdk.cert.models.Vaccination
-import de.rki.covpass.sdk.cert.models.CovCertificateList
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import assertk.assertions.*
+import de.rki.covpass.sdk.cert.models.*
 import org.junit.Test
 import java.time.LocalDate
 
@@ -442,6 +432,32 @@ internal class GroupedCertificateListTest {
             .isEqualTo(toCombinedCert(certIncomplete3))
         assertThat(certificatesComplete3?.certificates?.get(1))
             .isEqualTo(toCombinedCert(certComplete3))
+    }
+
+    @Test
+    fun `addNewCertificate to empty list and check favoriteCertId`() {
+        val originalList = CovCertificateList(
+            mutableListOf()
+        )
+        val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
+        assertThat(
+            groupedCertificatesList.favoriteCertId
+        ).isEqualTo(null)
+
+        groupedCertificatesList.addNewCertificate(toCombinedCert(certIncomplete1))
+        assertThat(
+            groupedCertificatesList.favoriteCertId
+        ).isEqualTo(
+            GroupedCertificatesId(certIncomplete1.name, certIncomplete1.birthDate)
+        )
+
+        groupedCertificatesList.addNewCertificate(toCombinedCert(certIncomplete2))
+        assertThat(
+            groupedCertificatesList.certificates[0].certificates[0].covCertificate.dgcEntry.id
+        ).isEqualTo(idIncomplete1)
+        assertThat(
+            groupedCertificatesList.certificates[1].certificates[0].covCertificate.dgcEntry.id
+        ).isEqualTo(idIncomplete2)
     }
 
     private fun toCombinedCert(cert: CovCertificate) =
