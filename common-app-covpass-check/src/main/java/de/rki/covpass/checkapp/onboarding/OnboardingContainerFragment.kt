@@ -11,6 +11,7 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.BaseOnboardingContainerFragment
 import de.rki.covpass.commonapp.utils.SimpleFragmentStateAdapter
 import de.rki.covpass.checkapp.main.MainFragmentNav
+import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -34,7 +35,8 @@ internal class OnboardingContainerFragment : BaseOnboardingContainerFragment() {
 
     override fun finishOnboarding() {
         launchWhenStarted {
-            commonDeps.onboardingRepository.onboardingDone.set(true)
+            commonDeps.onboardingRepository.dataPrivacyVersionAccepted
+                .set(CURRENT_DATA_PRIVACY_VERSION)
             findNavigator().popAll()
             findNavigator().push(MainFragmentNav(), true)
         }
