@@ -35,11 +35,10 @@ import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Test
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
 
 @Parcelize
 internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : FragmentNav(CertificateFragment::class)
@@ -92,9 +91,9 @@ internal class CertificateFragment : BaseFragment() {
             CertificateType.NEGATIVE_PCR_TEST,
             CertificateType.POSITIVE_ANTIGEN_TEST,
             CertificateType.NEGATIVE_ANTIGEN_TEST -> {
-                certificateStatus =
-                    LocalDateTime.ofInstant(mainCertificate.validFrom, ZoneId.systemDefault()).formatDateTime()
-                headerText = when ((mainCertificate.dgcEntry as Test).testType) {
+                val test = mainCertificate.dgcEntry as Test
+                certificateStatus = test.sampleCollection?.toDeviceTimeZone()?.formatDateTime().orEmpty()
+                headerText = when (test.testType) {
                     Test.PCR_TEST -> R.string.certificates_overview_pcr_test_certificate_message
                     else -> R.string.certificates_overview_test_certificate_message
                 }
@@ -105,19 +104,16 @@ internal class CertificateFragment : BaseFragment() {
                 backgroundColor = R.color.test_certificate_background
             }
             CertificateType.RECOVERY -> {
-                certificateStatus = if (
-                    (mainCertificate.dgcEntry as Recovery).validFrom?.isAfter(LocalDate.now()) == true
-                ) {
+                val recovery = mainCertificate.dgcEntry as Recovery
+                certificateStatus = if (recovery.validFrom?.isAfter(LocalDate.now()) == true) {
                     getString(
                         R.string.certificates_overview_recovery_certificate_valid_from_date,
-                        LocalDateTime.ofInstant(mainCertificate.validFrom, ZoneId.systemDefault())
-                            .toLocalDate().formatDateOrEmpty()
+                        recovery.validFrom.formatDateOrEmpty()
                     )
                 } else {
                     getString(
                         R.string.certificates_overview_recovery_certificate_valid_until_date,
-                        LocalDateTime.ofInstant(mainCertificate.validUntil, ZoneId.systemDefault())
-                            .toLocalDate().formatDateOrEmpty()
+                        recovery.validUntil.formatDateOrEmpty()
                     )
                 }
                 headerText = R.string.certificates_overview_recovery_certificate_title
