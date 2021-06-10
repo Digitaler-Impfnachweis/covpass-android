@@ -171,7 +171,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                         DetailItem.Widget(
                             title = getString(
                                 R.string.pcr_test_certificate_overview_title,
-                                dgcEntry.sampleCollection?.formatDateTime()
+                                dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                             ),
                             statusIcon = R.drawable.detail_cert_status_complete,
                             message = getString(R.string.pcr_test_certificate_overview_message),
@@ -183,7 +183,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                         DetailItem.Widget(
                             title = getString(
                                 R.string.test_certificate_overview_title,
-                                dgcEntry.sampleCollection?.formatDateTime()
+                                dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                             ),
                             statusIcon = R.drawable.detail_cert_status_complete,
                             message = getString(R.string.test_certificate_overview_message),

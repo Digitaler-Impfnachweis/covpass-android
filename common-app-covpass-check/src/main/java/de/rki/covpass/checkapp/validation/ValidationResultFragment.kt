@@ -56,6 +56,16 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     open val textInfo2: String? = null
     open val imageInfo2Res: Int = 0
 
+    open val titleInfo3: String? = null
+    open val textInfo3: String? = null
+    open val imageInfo3Res: Int = 0
+
+    open val titleInfo4: String? = null
+    open val textInfo4: String? = null
+    open val imageInfo4Res: Int = 0
+
+    open val textFooter: String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,7 +75,6 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
         binding.resultInfoLayout1.isVisible = textInfo1 != null
         binding.resultInfoImage1.isVisible = imageInfo1Res != 0
-
         textInfo1?.let {
             binding.resultInfoImage1.setImageResource(imageInfo1Res)
             binding.resultInfoTitle1.text = titleInfo1
@@ -78,6 +87,27 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             binding.resultInfoImage2.setImageResource(imageInfo2Res)
             binding.resultInfoTitle2.text = titleInfo2
             binding.resultInfoText2.text = textInfo2
+        }
+
+        binding.resultInfoLayout3.isVisible = textInfo3 != null
+        binding.resultInfoImage3.isVisible = textInfo3 != null
+        if (textInfo3 != null) {
+            binding.resultInfoImage3.setImageResource(imageInfo3Res)
+            binding.resultInfoTitle3.text = titleInfo3
+            binding.resultInfoText3.text = textInfo3
+        }
+
+        binding.resultInfoLayout4.isVisible = textInfo4 != null
+        binding.resultInfoImage4.isVisible = textInfo4 != null
+        if (textInfo4 != null) {
+            binding.resultInfoImage4.setImageResource(imageInfo4Res)
+            binding.resultInfoTitle4.text = titleInfo4
+            binding.resultInfoText4.text = textInfo4
+        }
+
+        binding.resultInfoFooter.isVisible = textFooter != null
+        if (textFooter != null) {
+            binding.resultInfoFooter.text = textFooter
         }
     }
 
@@ -96,46 +126,35 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 }
 
 @Parcelize
-internal class FullVaccinationFragmentNav(
+internal class ValidationResultSuccessNav(
     val name: String,
     val birthDate: LocalDate?
-) : FragmentNav(FullVaccinationResultFragment::class)
+) : FragmentNav(ValidationResultSuccessFragment::class)
 
 /**
  * Overrides the texts and icons from [ValidationResultFragment] to display validation success.
  */
-internal class FullVaccinationResultFragment : ValidationResultFragment() {
-    private val args: FullVaccinationFragmentNav by lazy { getArgs() }
+internal class ValidationResultSuccessFragment : ValidationResultFragment() {
+    private val args: ValidationResultSuccessNav by lazy { getArgs() }
     override val title by lazy {
-        getString(R.string.validation_check_popup_valid_vaccination_title)
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_title)
     }
     override val text by lazy {
-        getString(R.string.validation_check_popup_valid_vaccination_message)
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_message)
     }
     override val imageRes = R.drawable.result_success_image
+
     override val titleInfo1 by lazy { args.name }
     override val textInfo1 by lazy {
-        getString(R.string.validation_check_popup_date_of_birth_at_pattern, args.birthDate.formatDateOrEmpty())
+        getString(R.string.validation_check_popup_valid_vaccination_date_of_birth, args.birthDate.formatDateOrEmpty())
     }
     override val imageInfo1Res = R.drawable.result_person
+
+    override val textFooter by lazy {
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_note)
+    }
+
     override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
-}
-
-@Parcelize
-internal class PartialVaccinationFragmentNav : FragmentNav(PartialVaccinationResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the protection is not complete yet.
- */
-internal class PartialVaccinationResultFragment : ValidationResultFragment() {
-    override val imageRes = R.drawable.result_incomplete_image
-    override val title by lazy {
-        getString(R.string.validation_check_popup_vaccination_not_completely_title)
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_vaccination_not_completely_message)
-    }
-    override val buttonTextRes = R.string.validation_check_popup_partial_valid_vaccination_button_title
 }
 
 @Parcelize
@@ -231,52 +250,6 @@ internal class NegativeExpiredPcrTestResultFragment : ValidationResultFragment()
 }
 
 @Parcelize
-internal class PositivePcrTestFragmentNav(
-    val name: String,
-    val birthDate: LocalDate?,
-    val sampleCollection: ZonedDateTime?
-) : FragmentNav(PositivePcrTestResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display the Positive PCR test.
- */
-internal class PositivePcrTestResultFragment : ValidationResultFragment() {
-    private val args: PositivePcrTestFragmentNav by lazy { getArgs() }
-    override val imageRes = R.drawable.result_test_image
-    override val title by lazy {
-        getString(
-            R.string.validation_check_popup_pcr_test_positive_title,
-            args.sampleCollection?.toLocalDate().formatDateOrEmpty()
-        )
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_pcr_test_positive_message)
-    }
-    override val imageInfo1Res = R.drawable.result_person
-    override val titleInfo1 by lazy { args.name }
-    override val textInfo1 by lazy {
-        getString(
-            R.string.validation_check_popup_pcr_test_positive_date_of_birth,
-            args.birthDate.formatDateOrEmpty()
-        )
-    }
-    override val imageInfo2Res = R.drawable.result_calendar
-    override val titleInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_pcr_test_positive_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
-        )
-    }
-    override val textInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_pcr_test_positive_utc,
-            args.sampleCollection?.offset?.adjustToString()
-        )
-    }
-    override val buttonTextRes = R.string.validation_check_popup_pcr_test_positive_button_title
-}
-
-@Parcelize
 internal class NegativeValidAntigenTestFragmentNav(
     val name: String,
     val birthDate: LocalDate?,
@@ -369,75 +342,6 @@ internal class NegativeExpiredAntigenTestResultFragment : ValidationResultFragme
 }
 
 @Parcelize
-internal class PositiveAntigenTestFragmentNav(
-    val sampleCollection: ZonedDateTime?
-) : FragmentNav(PositiveAntigenTestResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display the Positive Antigen test.
- */
-internal class PositiveAntigenTestResultFragment : ValidationResultFragment() {
-    private val args: PositiveAntigenTestFragmentNav by lazy { getArgs() }
-    override val imageRes = R.drawable.result_failure_image
-    override val title by lazy {
-        getString(
-            R.string.validation_check_popup_test_positive_title,
-            args.sampleCollection?.toLocalDate().formatDateOrEmpty()
-        )
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_test_positive_message)
-    }
-    override val buttonTextRes = R.string.validation_check_popup_test_positive_button_title
-}
-
-@Parcelize
-internal class ValidRecoveryCertFragmentNav(
-    val name: String,
-    val birthDate: LocalDate?
-) : FragmentNav(ValidRecoveryCertResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the Recovery Certificate is within 180 days.
- */
-internal class ValidRecoveryCertResultFragment : ValidationResultFragment() {
-    private val args: ValidRecoveryCertFragmentNav by lazy { getArgs() }
-    override val imageRes = R.drawable.result_success_image
-    override val title by lazy {
-        getString(R.string.validation_check_popup_recovery_proven_title)
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_recovery_proven_message)
-    }
-    override val imageInfo1Res = R.drawable.result_person
-    override val titleInfo1 by lazy { args.name }
-    override val textInfo1 by lazy {
-        getString(
-            R.string.validation_check_popup_recovery_proven_date_of_birth,
-            args.birthDate.formatDateOrEmpty()
-        )
-    }
-    override val buttonTextRes = R.string.validation_check_popup_recovery_proven_button_title
-}
-
-@Parcelize
-internal class ExpiredRecoveryCertFragmentNav : FragmentNav(ExpiredRecoveryCertResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the Recovery Certificate is after 180 days.
- */
-internal class ExpiredRecoveryCertResultFragment : ValidationResultFragment() {
-    override val imageRes = R.drawable.result_failure_image
-    override val title by lazy {
-        getString(R.string.validation_check_popup_recovery_expired_title)
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_recovery_expired_message)
-    }
-    override val buttonTextRes = R.string.validation_check_popup_recovery_expired_button_title
-}
-
-@Parcelize
 internal class ValidationResultFailureFragmentNav : FragmentNav(ValidationResultFailureFragment::class)
 
 /**
@@ -446,24 +350,43 @@ internal class ValidationResultFailureFragmentNav : FragmentNav(ValidationResult
 internal class ValidationResultFailureFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_failure_image
     override val title by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_test_title)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_title)
     }
     override val text by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_test_message)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_message)
     }
-    override val imageInfo1Res = R.drawable.result_search
+
+    override val imageInfo1Res = R.drawable.result_cert_recovery
     override val titleInfo1 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_test_first_reason_title)
+        getString(R.string.validation_check_popup_unsuccessful_certificate__recovery_title)
     }
     override val textInfo1 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_test_first_reason_body)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_recovery_body)
     }
-    override val imageInfo2Res = R.drawable.result_invalid
+
+    override val imageInfo2Res = R.drawable.result_cert_vaccination
     override val titleInfo2 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_test_second_reason_title)
+        getString(R.string.validation_check_popup_unsuccessful_certificate__vaccination_title)
     }
     override val textInfo2 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_test_second_reason_body)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_vaccination_body)
     }
-    override val buttonTextRes = R.string.validation_check_popup_unsuccessful_test_button_title
+
+    override val imageInfo3Res = R.drawable.result_cert_test
+    override val titleInfo3 by lazy {
+        getString(R.string.validation_check_popup_unsuccessful_certificate__test_title)
+    }
+    override val textInfo3 by lazy {
+        getString(R.string.validation_check_popup_unsuccessful_certificate_test_body)
+    }
+
+    override val imageInfo4Res = R.drawable.result_invalid
+    override val titleInfo4 by lazy {
+        getString(R.string.validation_check_popup_unsuccessful_certificate__problem_title)
+    }
+    override val textInfo4 by lazy {
+        getString(R.string.validation_check_popup_unsuccessful_certificate_problem_body)
+    }
+
+    override val buttonTextRes = R.string.validation_check_popup_unsuccessful_certificate_button_title
 }

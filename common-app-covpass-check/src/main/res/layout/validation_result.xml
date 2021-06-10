@@ -45,8 +45,8 @@
 
   <ImageView
     android:id="@+id/result_info_image_1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/icon_size_result"
+    android:layout_height="@dimen/icon_size_result"
     android:layout_marginStart="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_half"
     app:layout_constraintStart_toStartOf="parent"
@@ -84,11 +84,10 @@
 
   <ImageView
     android:id="@+id/result_info_image_2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/icon_size_result"
+    android:layout_height="@dimen/icon_size_result"
     android:layout_marginStart="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_half"
-    app:layout_constraintBottom_toBottomOf="@+id/result_info_layout_2"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@+id/result_info_layout_2"
     tools:ignore="ContentDescription"
@@ -121,5 +120,97 @@
       tools:text="@tools:sample/lorem[3]" />
 
   </LinearLayout>
+
+  <ImageView
+    android:id="@+id/result_info_image_3"
+    android:layout_width="@dimen/icon_size_result"
+    android:layout_height="@dimen/icon_size_result"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/result_info_layout_3"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/result_invalid" />
+
+  <LinearLayout
+    android:id="@+id/result_info_layout_3"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_one_half"
+    android:layout_marginTop="@dimen/grid_three"
+    android:layout_marginEnd="@dimen/grid_three"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/result_info_image_3"
+    app:layout_constraintTop_toBottomOf="@+id/result_info_layout_2">
+
+    <TextView
+      android:id="@+id/result_info_title_3"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+      android:id="@+id/result_info_text_3"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]" />
+
+  </LinearLayout>
+
+  <ImageView
+    android:id="@+id/result_info_image_4"
+    android:layout_width="@dimen/icon_size_result"
+    android:layout_height="@dimen/icon_size_result"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/result_info_layout_4"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/result_invalid" />
+
+  <LinearLayout
+    android:id="@+id/result_info_layout_4"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_one_half"
+    android:layout_marginTop="@dimen/grid_three"
+    android:layout_marginEnd="@dimen/grid_three"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/result_info_image_4"
+    app:layout_constraintTop_toBottomOf="@+id/result_info_layout_3"
+    app:layout_constraintBottom_toTopOf="@id/result_info_footer">
+
+    <TextView
+      android:id="@+id/result_info_title_4"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+      android:id="@+id/result_info_text_4"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]" />
+
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/result_info_footer"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/grid_three"
+    android:paddingTop="@dimen/grid_three"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/result_info_layout_4"
+    app:layout_constraintBottom_toBottomOf="parent"
+    tools:text="@tools:sample/lorem[3]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

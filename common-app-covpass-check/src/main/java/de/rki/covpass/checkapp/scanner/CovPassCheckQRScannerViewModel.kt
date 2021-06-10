@@ -25,25 +25,16 @@ import java.time.ZonedDateTime
  * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
  */
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
-    // Vaccination
-    fun onFullVaccination(certificate: CovCertificate)
-    fun onPartialVaccination()
+    fun onValidationSuccess(certificate: CovCertificate)
+    fun onValidationFailure()
 
     // Test - PCR
-    fun onPositivePcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun onNegativeValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun onNegativeExpiredPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
 
     // Test - Antigen
-    fun onPositiveAntigenTest(sampleCollection: ZonedDateTime?)
     fun onNegativeValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun onNegativeExpiredAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
-
-    // Recovery
-    fun onValidRecoveryCert(certificate: CovCertificate)
-    fun onExpiredRecoveryCert()
-
-    fun onValidationFailure()
 }
 
 /**
@@ -59,36 +50,32 @@ internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) :
                 val dgcEntry = covCertificate.dgcEntry
                 when (CertificateHelper.resolveCertificateType(dgcEntry)) {
                     CertificateType.VACCINATION_FULL_PROTECTION -> {
-                        eventNotifier { onFullVaccination(covCertificate) }
+                        eventNotifier { onValidationSuccess(covCertificate) }
                     }
                     CertificateType.VACCINATION_COMPLETE,
                     CertificateType.VACCINATION_INCOMPLETE -> {
-                        eventNotifier { onPartialVaccination() }
+                        eventNotifier { onValidationFailure() }
                     }
                     CertificateType.NEGATIVE_PCR_TEST -> {
                         handleNegativePcrResult(covCertificate)
                     }
                     CertificateType.POSITIVE_PCR_TEST -> {
                         dgcEntry as Test
-                        eventNotifier {
-                            onPositivePcrTest(covCertificate, dgcEntry.sampleCollection)
-                        }
+                        eventNotifier { onValidationFailure() }
                     }
                     CertificateType.NEGATIVE_ANTIGEN_TEST -> {
                         handleNegativeAntigenResult(covCertificate)
                     }
                     CertificateType.POSITIVE_ANTIGEN_TEST -> {
                         dgcEntry as Test
-                        eventNotifier {
-                            onPositiveAntigenTest(dgcEntry.sampleCollection)
-                        }
+                        eventNotifier { onValidationFailure() }
                     }
                     CertificateType.RECOVERY -> {
                         dgcEntry as Recovery
                         if (isValid(dgcEntry.validFrom, dgcEntry.validUntil)) {
-                            eventNotifier { onValidRecoveryCert(covCertificate) }
+                            eventNotifier { onValidationSuccess(covCertificate) }
                         } else {
-                            eventNotifier { onExpiredRecoveryCert() }
+                            eventNotifier { onValidationFailure() }
                         }
                     }
                 }

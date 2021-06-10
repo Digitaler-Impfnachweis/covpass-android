@@ -55,6 +55,7 @@
 
   <!-- Icons -->
   <dimen name="icon_size_round_button">14dp</dimen>
+  <dimen name="icon_size_result">24dp</dimen>
 
   <!-- Misc -->
   <dimen name="dots_tab_max_width">22dp</dimen>
