@@ -32,7 +32,6 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
 
     override fun getHeaderText(): String = getString(R.string.recovery_certificate_detail_view_headline)
 
-    // FIXME BVC-1213 map the values correctly
     override fun getDataRows(cert: CovCertificate): List<Pair<String, String>> {
         val dataRows = mutableListOf<Pair<String, String>>()
         val recovery = cert.dgcEntry as? Recovery ?: return dataRows

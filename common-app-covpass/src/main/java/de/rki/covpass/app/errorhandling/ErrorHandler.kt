@@ -31,13 +31,6 @@ internal class ErrorHandler : CommonErrorHandler() {
                 positiveButtonTextRes = R.string.error_test_certificate_not_valid_button_title,
                 tag = TAG_ERROR_POSITIVE_CERTIFICATE
             )
-            // FIXME BVC-1370
-//            is ExpiredCwtException -> DialogModel(
-//                titleRes = R.string.vaccination_certificate_expired_title,
-//                messageRes = R.string.error_vaccination_certificate_expired_message,
-//                positiveButtonTextRes = R.string.error_vaccination_certificate_expired_title,
-//                tag = TAG_ERROR_EXPIRED_CERTIFICATE
-//            )
             is BadCoseSignatureException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_without_seal_title,
                 messageRes = R.string.error_scan_qrcode_without_seal_message,
@@ -50,7 +43,6 @@ internal class ErrorHandler : CommonErrorHandler() {
     companion object {
         const val TAG_ERROR_DUPLICATE_CERTIFICATE: String = "error_duplicate_certificate"
         const val TAG_ERROR_POSITIVE_CERTIFICATE: String = "error_positive_certificate"
-        const val TAG_ERROR_EXPIRED_CERTIFICATE: String = "error_expired_certificate"
         const val TAG_ERROR_BAD_CERTIFICATE_SIGNATURE: String = "error_bad_signature_certificate"
     }
 }

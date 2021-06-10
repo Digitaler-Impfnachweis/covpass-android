@@ -39,7 +39,6 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
 
     override fun getHeaderText(): String = getString(R.string.vaccination_certificate_detail_view_vaccination_headline)
 
-    // FIXME BVC-1213 map the values correctly
     override fun getDataRows(cert: CovCertificate): List<Pair<String, String>> {
         val dataRows = mutableListOf<Pair<String, String>>()
         val vaccination = cert.dgcEntry as? Vaccination ?: return dataRows
