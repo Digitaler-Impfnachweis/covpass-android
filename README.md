@@ -247,7 +247,12 @@ findNavigator().push(DetailFragmentNav(args.certId))
 findNavigator().pop()
 findNavigator().popAll()
 findNavigator().popUntil(SomeFragment::class)
-triggerBackPress() // triggers onBackPressed()
+
+// For passing results
+findNavigator().popUntil<SomeInterface>()?.someCallback(someValue)
+
+// triggers onBackPressed()
+triggerBackPress()
 ```
 
 So, the API is similar to the Navigation component, but everything is code-based (no XML) and thus easier to reason about and you get more control.
