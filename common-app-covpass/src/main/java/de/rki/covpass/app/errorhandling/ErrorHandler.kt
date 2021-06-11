@@ -11,6 +11,7 @@ import de.rki.covpass.app.storage.CertTestPositiveException
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
+import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
 
 /**
  * Covpass specific Error handling. Overrides the abstract functions from [CommonErrorHandler].
@@ -31,7 +32,8 @@ internal class ErrorHandler : CommonErrorHandler() {
                 positiveButtonTextRes = R.string.error_test_certificate_not_valid_button_title,
                 tag = TAG_ERROR_POSITIVE_CERTIFICATE
             )
-            is BadCoseSignatureException -> DialogModel(
+            is BadCoseSignatureException,
+            is NoMatchingExtendedKeyUsageException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_without_seal_title,
                 messageRes = R.string.error_scan_qrcode_without_seal_message,
                 positiveButtonTextRes = R.string.error_scan_qrcode_without_seal_button_title,

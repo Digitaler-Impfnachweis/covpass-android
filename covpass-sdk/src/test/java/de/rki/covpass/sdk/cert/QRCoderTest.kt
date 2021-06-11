@@ -8,8 +8,8 @@ package de.rki.covpass.sdk.cert
 import COSE.OneKey
 import assertk.assertThat
 import assertk.assertions.isFailure
-import assertk.assertions.isFalse
 import assertk.assertions.isInstanceOf
+import assertk.assertions.isSuccess
 import assertk.assertions.isTrue
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.crypto.readPem
@@ -41,7 +41,7 @@ internal class QRCoderTest : BaseSdkTest() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion - 1}.${CovCertificate.supportedMinorVersion - 1}.0"
         )
-        assertThat(qrCoder.isVersionSupported(cert)).isTrue()
+        assertThat { cert.checkVersionSupported() }.isSuccess()
     }
 
     @Test
@@ -49,7 +49,7 @@ internal class QRCoderTest : BaseSdkTest() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion + 1}.${CovCertificate.supportedMinorVersion + 1}.0"
         )
-        assertThat(qrCoder.isVersionSupported(cert)).isFalse()
+        assertThat { cert.checkVersionSupported() }.isFailure()
     }
 
     @Test
@@ -57,7 +57,7 @@ internal class QRCoderTest : BaseSdkTest() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion}"
         )
-        assertThat(qrCoder.isVersionSupported(cert)).isTrue()
+        assertThat { cert.checkVersionSupported() }.isSuccess()
     }
 
     @Test
@@ -65,6 +65,6 @@ internal class QRCoderTest : BaseSdkTest() {
         val cert = CovCertificate(
             version = "${CovCertificate.supportedMajorVersion + 1}"
         )
-        assertThat(qrCoder.isVersionSupported(cert)).isFalse()
+        assertThat { cert.checkVersionSupported() }.isFailure()
     }
 }

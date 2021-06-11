@@ -10,6 +10,7 @@ import com.ensody.reactivestate.ErrorEvents
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.ExpiredCwtException
+import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Test
@@ -92,7 +93,9 @@ internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) :
                 }.let {}
             } catch (exception: Exception) {
                 when (exception) {
-                    is BadCoseSignatureException, is ExpiredCwtException -> {
+                    is BadCoseSignatureException,
+                    is ExpiredCwtException,
+                    is NoMatchingExtendedKeyUsageException -> {
                         Lumber.e(exception)
                         eventNotifier { onValidationFailure() }
                     }
