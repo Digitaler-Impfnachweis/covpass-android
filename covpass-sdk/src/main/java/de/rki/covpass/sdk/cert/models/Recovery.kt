@@ -14,6 +14,13 @@ import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
 /**
+ * Enum to mark the type of a [Recovery].
+ */
+public enum class RecoveryCertType : DGCEntryType {
+    RECOVERY,
+}
+
+/**
  * Data model for the recoveries inside a Digital Green Certificate.
  */
 @Serializable
@@ -32,4 +39,8 @@ public data class Recovery(
     val certificateIssuer: String = "",
     @SerialName("ci")
     override val id: String = ""
-) : DGCEntry
+) : DGCEntry {
+
+    override val type: DGCEntryType
+        get() = RecoveryCertType.RECOVERY
+}

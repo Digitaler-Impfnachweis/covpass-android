@@ -7,14 +7,15 @@ package de.rki.covpass.checkapp.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.ErrorEvents
-import de.rki.covpass.commonapp.utils.CertificateHelper
-import de.rki.covpass.commonapp.utils.CertificateType
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.ExpiredCwtException
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCertType
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.VaccinationCertType
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.isOlderThan
 import de.rki.covpass.sdk.utils.isValid
@@ -48,37 +49,47 @@ internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) :
             try {
                 val covCertificate = sdkDeps.qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
-                when (CertificateHelper.resolveCertificateType(dgcEntry)) {
-                    CertificateType.VACCINATION_FULL_PROTECTION -> {
-                        eventNotifier { onValidationSuccess(covCertificate) }
+                when (dgcEntry) {
+                    is Vaccination -> {
+                        when (dgcEntry.type) {
+                            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                                eventNotifier {
+                                    onValidationSuccess(covCertificate)
+                                }
+                            }
+                            else -> {
+                                eventNotifier {
+                                    onValidationFailure()
+                                }
+                            }
+                        }
                     }
-                    CertificateType.VACCINATION_COMPLETE,
-                    CertificateType.VACCINATION_INCOMPLETE -> {
-                        eventNotifier { onValidationFailure() }
+                    is Test -> {
+                        when (dgcEntry.type) {
+                            TestCertType.NEGATIVE_PCR_TEST -> {
+                                handleNegativePcrResult(covCertificate)
+                            }
+                            TestCertType.POSITIVE_PCR_TEST -> {
+                                eventNotifier { onValidationFailure() }
+                            }
+                            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                                handleNegativeAntigenResult(covCertificate)
+                            }
+                            TestCertType.POSITIVE_ANTIGEN_TEST -> {
+                                eventNotifier { onValidationFailure() }
+                            }
+                            // .let{} to enforce exhaustiveness
+                        }.let {}
                     }
-                    CertificateType.NEGATIVE_PCR_TEST -> {
-                        handleNegativePcrResult(covCertificate)
-                    }
-                    CertificateType.POSITIVE_PCR_TEST -> {
-                        dgcEntry as Test
-                        eventNotifier { onValidationFailure() }
-                    }
-                    CertificateType.NEGATIVE_ANTIGEN_TEST -> {
-                        handleNegativeAntigenResult(covCertificate)
-                    }
-                    CertificateType.POSITIVE_ANTIGEN_TEST -> {
-                        dgcEntry as Test
-                        eventNotifier { onValidationFailure() }
-                    }
-                    CertificateType.RECOVERY -> {
-                        dgcEntry as Recovery
+                    is Recovery -> {
                         if (isValid(dgcEntry.validFrom, dgcEntry.validUntil)) {
                             eventNotifier { onValidationSuccess(covCertificate) }
                         } else {
                             eventNotifier { onValidationFailure() }
                         }
                     }
-                }
+                    // .let{} to enforce exhaustiveness
+                }.let {}
             } catch (exception: Exception) {
                 when (exception) {
                     is BadCoseSignatureException, is ExpiredCwtException -> {

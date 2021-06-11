@@ -14,6 +14,16 @@ import kotlinx.serialization.UseSerializers
 import java.time.ZonedDateTime
 
 /**
+ * Enum to mark the type of a [Test].
+ */
+public enum class TestCertType : DGCEntryType {
+    POSITIVE_PCR_TEST,
+    NEGATIVE_PCR_TEST,
+    POSITIVE_ANTIGEN_TEST,
+    NEGATIVE_ANTIGEN_TEST,
+}
+
+/**
  * Data model for the tests inside a Digital Green Certificate.
  */
 @Serializable
@@ -39,6 +49,32 @@ public data class Test(
     @SerialName("ci")
     override val id: String = ""
 ) : DGCEntry {
+
+    public override val type: TestCertType
+        get() = when (testType) {
+            PCR_TEST -> {
+                when (testResult) {
+                    POSITIVE_RESULT -> { TestCertType.POSITIVE_PCR_TEST }
+                    NEGATIVE_RESULT -> { TestCertType.NEGATIVE_PCR_TEST }
+                    // Handle invalid testResult as positive test
+                    else -> { TestCertType.POSITIVE_PCR_TEST }
+                }
+            }
+            ANTIGEN_TEST -> {
+                when (testResult) {
+                    POSITIVE_RESULT -> { TestCertType.POSITIVE_ANTIGEN_TEST }
+                    NEGATIVE_RESULT -> { TestCertType.NEGATIVE_ANTIGEN_TEST }
+                    // Handle invalid testResult as positive test
+                    else -> { TestCertType.POSITIVE_ANTIGEN_TEST }
+                }
+            }
+            // Handle invalid testType as positive pcr test
+            else -> { TestCertType.POSITIVE_PCR_TEST }
+        }
+
+    public val isPositive: Boolean
+        get() = testResult == POSITIVE_RESULT
+
     public companion object {
         public const val PCR_TEST: String = "LP6464-4"
         public const val ANTIGEN_TEST: String = "LP217198-3"

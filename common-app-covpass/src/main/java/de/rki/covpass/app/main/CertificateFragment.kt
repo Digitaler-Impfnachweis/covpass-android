@@ -27,12 +27,12 @@ import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.utils.CertificateHelper
-import de.rki.covpass.commonapp.utils.CertificateType
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.VaccinationCertType
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
@@ -86,11 +86,57 @@ internal class CertificateFragment : BaseFragment() {
             )
         }
 
-        when (CertificateHelper.resolveCertificateType(mainCertificate.dgcEntry)) {
-            CertificateType.POSITIVE_PCR_TEST,
-            CertificateType.NEGATIVE_PCR_TEST,
-            CertificateType.POSITIVE_ANTIGEN_TEST,
-            CertificateType.NEGATIVE_ANTIGEN_TEST -> {
+        val dgcEntry = mainCertificate.dgcEntry
+        when (dgcEntry) {
+            is Vaccination -> {
+                when (dgcEntry.type) {
+                    VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                        headerText = R.string.certificates_overview_vaccination_certificate_title
+                        certificateStatus =
+                            getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
+                        cardFadeout = R.drawable.common_gradient_card_fadeout_blue
+                        certificateProtectionText = R.string.vaccination_full_immunization_action_button
+                        certificateStatusIcon = R.drawable.main_cert_status_complete
+                        textColor = R.color.onInfo
+                        backgroundColor = R.color.info70
+                    }
+                    VaccinationCertType.VACCINATION_COMPLETE -> {
+                        headerText = R.string.certificates_overview_vaccination_certificate_title
+                        certificateStatus =
+                            getString(
+                                R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
+                                mainCertificate.validDate.formatDateOrEmpty()
+                            )
+                        favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
+                            R.drawable.star_black_fill
+                        } else {
+                            R.drawable.star_black
+                        }
+                        cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
+                        certificateProtectionText = R.string.vaccination_partial_immunization_action_button
+                        arrowIcon = R.drawable.arrow_right_blue
+                        certificateStatusIcon = R.drawable.main_cert_status_incomplete
+                        textColor = R.color.onBackground
+                        backgroundColor = R.color.info20
+                    }
+                    VaccinationCertType.VACCINATION_INCOMPLETE -> {
+                        headerText = R.string.certificates_overview_vaccination_certificate_title
+                        certificateStatus = getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+                        favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
+                            R.drawable.star_black_fill
+                        } else {
+                            R.drawable.star_black
+                        }
+                        cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
+                        certificateProtectionText = R.string.vaccination_partial_immunization_action_button
+                        arrowIcon = R.drawable.arrow_right_blue
+                        certificateStatusIcon = R.drawable.main_cert_status_incomplete
+                        textColor = R.color.onBackground
+                        backgroundColor = R.color.info20
+                    }
+                }
+            }
+            is Test -> {
                 val test = mainCertificate.dgcEntry as Test
                 certificateStatus = test.sampleCollection?.toDeviceTimeZone()?.formatDateTime().orEmpty()
                 headerText = when (test.testType) {
@@ -103,7 +149,7 @@ internal class CertificateFragment : BaseFragment() {
                 textColor = R.color.onInfo
                 backgroundColor = R.color.test_certificate_background
             }
-            CertificateType.RECOVERY -> {
+            is Recovery -> {
                 val recovery = mainCertificate.dgcEntry as Recovery
                 certificateStatus = if (recovery.validFrom?.isAfter(LocalDate.now()) == true) {
                     getString(
@@ -123,50 +169,8 @@ internal class CertificateFragment : BaseFragment() {
                 textColor = R.color.onInfo
                 backgroundColor = R.color.brandAccent90
             }
-            CertificateType.VACCINATION_FULL_PROTECTION -> {
-                headerText = R.string.certificates_overview_vaccination_certificate_title
-                certificateStatus = getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
-                cardFadeout = R.drawable.common_gradient_card_fadeout_blue
-                certificateProtectionText = R.string.vaccination_full_immunization_action_button
-                certificateStatusIcon = R.drawable.main_cert_status_complete
-                textColor = R.color.onInfo
-                backgroundColor = R.color.info70
-            }
-            CertificateType.VACCINATION_COMPLETE -> {
-                headerText = R.string.certificates_overview_vaccination_certificate_title
-                certificateStatus =
-                    getString(
-                        R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
-                        mainCertificate.validDate.formatDateOrEmpty()
-                    )
-                favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
-                    R.drawable.star_black_fill
-                } else {
-                    R.drawable.star_black
-                }
-                cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
-                certificateProtectionText = R.string.vaccination_partial_immunization_action_button
-                arrowIcon = R.drawable.arrow_right_blue
-                certificateStatusIcon = R.drawable.main_cert_status_incomplete
-                textColor = R.color.onBackground
-                backgroundColor = R.color.info20
-            }
-            CertificateType.VACCINATION_INCOMPLETE -> {
-                headerText = R.string.certificates_overview_vaccination_certificate_title
-                certificateStatus = getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
-                favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
-                    R.drawable.star_black_fill
-                } else {
-                    R.drawable.star_black
-                }
-                cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
-                certificateProtectionText = R.string.vaccination_partial_immunization_action_button
-                arrowIcon = R.drawable.arrow_right_blue
-                certificateStatusIcon = R.drawable.main_cert_status_incomplete
-                textColor = R.color.onBackground
-                backgroundColor = R.color.info20
-            }
-        }
+            // .let{} to enforce exhaustiveness
+        }.let {}
         binding.certificateHeaderTextview.text = getString(headerText)
         binding.certificateStatusTextview.text = certificateStatus
         binding.certificateStatusImageview.setImageResource(certificateStatusIcon)

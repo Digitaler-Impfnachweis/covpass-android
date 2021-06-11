@@ -5,8 +5,6 @@
 
 package de.rki.covpass.app.storage
 
-import de.rki.covpass.commonapp.utils.CertificateHelper
-import de.rki.covpass.commonapp.utils.CertificateType
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificateList
@@ -86,17 +84,6 @@ internal data class GroupedCertificatesList(
             return matchingGroupedCert.id
         } else {
             throw CertAlreadyExistsException()
-        }
-    }
-
-    /**
-     * @return the Boolean flag which indicates a positive PCR or Antigen test
-     */
-    private fun CombinedCovCertificate.isPositivePcrOrAntigenTest(): Boolean {
-        return when (CertificateHelper.resolveCertificateType(this.covCertificate.dgcEntry)) {
-            CertificateType.POSITIVE_PCR_TEST,
-            CertificateType.POSITIVE_ANTIGEN_TEST -> true
-            else -> false
         }
     }
 

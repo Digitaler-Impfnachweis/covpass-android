@@ -15,6 +15,15 @@ import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
 /**
+ * Enum to mark the type of a [Vaccination].
+ */
+public enum class VaccinationCertType : DGCEntryType {
+    VACCINATION_FULL_PROTECTION,
+    VACCINATION_COMPLETE,
+    VACCINATION_INCOMPLETE,
+}
+
+/**
  * Data model for the vaccinations inside a Digital Green Certificate.
  */
 @Serializable
@@ -45,4 +54,11 @@ public data class Vaccination(
 
     public val hasFullProtection: Boolean
         get() = isComplete && occurrence.isOlderThanTwoWeeks()
+
+    public override val type: VaccinationCertType
+        get() = when {
+            hasFullProtection -> { VaccinationCertType.VACCINATION_FULL_PROTECTION }
+            isComplete -> { VaccinationCertType.VACCINATION_COMPLETE }
+            else -> VaccinationCertType.VACCINATION_INCOMPLETE
+        }
 }

@@ -33,12 +33,14 @@ import de.rki.covpass.app.storage.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.commonapp.utils.CertificateHelper
-import de.rki.covpass.commonapp.utils.CertificateType
+import de.rki.covpass.sdk.cert.models.DGCEntryType
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.RecoveryCertType
 import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCertType
 import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.VaccinationCertType
 import de.rki.covpass.sdk.utils.*
 import kotlinx.parcelize.Parcelize
 
@@ -52,7 +54,7 @@ internal interface DetailCallback {
 
 public interface DetailClickListener {
     public fun onShowCertificateClicked()
-    public fun onCovCertificateClicked(id: String, certificateType: CertificateType)
+    public fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType)
 }
 
 @Parcelize
@@ -125,73 +127,77 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
             val dgcEntry = cert.dgcEntry
             val personalDataList = listOf(
                 DetailItem.Name(cert.fullName),
-                when (CertificateHelper.resolveCertificateType(dgcEntry)) {
-                    CertificateType.VACCINATION_FULL_PROTECTION -> {
-                        dgcEntry as Vaccination
-                        DetailItem.Widget(
-                            title = getString(R.string.vaccination_certificate_overview_complete_title),
-                            statusIcon = R.drawable.detail_cert_status_complete,
-                            message = getString(R.string.vaccination_certificate_overview_complete_message),
-                            buttonText = getString(
-                                R.string.vaccination_certificate_overview_complete_action_button_title
-                            )
-                        )
+                when (dgcEntry) {
+                    is Vaccination -> {
+                        when (dgcEntry.type) {
+                            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                                DetailItem.Widget(
+                                    title = getString(R.string.vaccination_certificate_overview_complete_title),
+                                    statusIcon = R.drawable.detail_cert_status_complete,
+                                    message = getString(R.string.vaccination_certificate_overview_complete_message),
+                                    buttonText = getString(
+                                        R.string.vaccination_certificate_overview_complete_action_button_title
+                                    )
+                                )
+                            }
+                            VaccinationCertType.VACCINATION_COMPLETE -> {
+                                DetailItem.Widget(
+                                    title = getString(
+                                        R.string.vaccination_certificate_overview_complete_from_title,
+                                        mainCertificate.covCertificate.validDate.formatDateOrEmpty()
+                                    ),
+                                    statusIcon = R.drawable.detail_cert_status_complete,
+                                    message =
+                                    getString(R.string.vaccination_certificate_overview_complete_from_message),
+                                    buttonText = getString(
+                                        R.string.vaccination_certificate_overview_complete_action_button_title
+                                    )
+                                )
+                            }
+                            VaccinationCertType.VACCINATION_INCOMPLETE -> {
+                                DetailItem.Widget(
+                                    title = getString(
+                                        R.string.vaccination_certificate_overview_incomplete_title,
+                                        dgcEntry.doseNumber,
+                                        dgcEntry.totalSerialDoses
+                                    ),
+                                    statusIcon = R.drawable.detail_cert_status_incomplete,
+                                    message = getString(R.string.vaccination_certificate_overview_incomplete_message),
+                                    buttonText = getString(
+                                        R.string.vaccination_certificate_detail_view_incomplete_action_button_title
+                                    )
+                                )
+                            }
+                        }
                     }
-                    CertificateType.VACCINATION_COMPLETE -> {
-                        dgcEntry as Vaccination
-                        DetailItem.Widget(
-                            title = getString(
-                                R.string.vaccination_certificate_overview_complete_from_title,
-                                mainCertificate.covCertificate.validDate.formatDateOrEmpty()
-                            ),
-                            statusIcon = R.drawable.detail_cert_status_complete,
-                            message = getString(R.string.vaccination_certificate_overview_complete_from_message),
-                            buttonText = getString(
-                                R.string.vaccination_certificate_overview_complete_action_button_title
-                            )
-                        )
+                    is Test -> {
+                        when (dgcEntry.type) {
+                            TestCertType.NEGATIVE_PCR_TEST -> {
+                                DetailItem.Widget(
+                                    title = getString(
+                                        R.string.pcr_test_certificate_overview_title,
+                                        dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                    ),
+                                    statusIcon = R.drawable.detail_cert_status_complete,
+                                    message = getString(R.string.pcr_test_certificate_overview_message),
+                                    buttonText = getString(R.string.pcr_test_certificate_overview_action_button_title)
+                                )
+                            }
+                            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                                DetailItem.Widget(
+                                    title = getString(
+                                        R.string.test_certificate_overview_title,
+                                        dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                    ),
+                                    statusIcon = R.drawable.detail_cert_status_complete,
+                                    message = getString(R.string.test_certificate_overview_message),
+                                    buttonText = getString(R.string.test_certificate_overview_action_button_title)
+                                )
+                            }
+                            else -> return
+                        }
                     }
-                    CertificateType.VACCINATION_INCOMPLETE -> {
-                        dgcEntry as Vaccination
-                        DetailItem.Widget(
-                            title = getString(
-                                R.string.vaccination_certificate_overview_incomplete_title,
-                                dgcEntry.doseNumber,
-                                dgcEntry.totalSerialDoses
-                            ),
-                            statusIcon = R.drawable.detail_cert_status_incomplete,
-                            message = getString(R.string.vaccination_certificate_overview_incomplete_message),
-                            buttonText = getString(
-                                R.string.vaccination_certificate_detail_view_incomplete_action_button_title
-                            )
-                        )
-                    }
-                    CertificateType.NEGATIVE_PCR_TEST -> {
-                        dgcEntry as Test
-                        DetailItem.Widget(
-                            title = getString(
-                                R.string.pcr_test_certificate_overview_title,
-                                dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
-                            ),
-                            statusIcon = R.drawable.detail_cert_status_complete,
-                            message = getString(R.string.pcr_test_certificate_overview_message),
-                            buttonText = getString(R.string.pcr_test_certificate_overview_action_button_title)
-                        )
-                    }
-                    CertificateType.NEGATIVE_ANTIGEN_TEST -> {
-                        dgcEntry as Test
-                        DetailItem.Widget(
-                            title = getString(
-                                R.string.test_certificate_overview_title,
-                                dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
-                            ),
-                            statusIcon = R.drawable.detail_cert_status_complete,
-                            message = getString(R.string.test_certificate_overview_message),
-                            buttonText = getString(R.string.test_certificate_overview_action_button_title)
-                        )
-                    }
-                    CertificateType.RECOVERY -> {
-                        dgcEntry as Recovery
+                    is Recovery -> {
                         val title = if (dgcEntry.validFrom.isInFuture()) {
                             getString(
                                 R.string.recovery_certificate_overview_valid_from_title,
@@ -210,8 +216,6 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                             buttonText = getString(R.string.recovery_certificate_overview_action_button_title)
                         )
                     }
-                    CertificateType.POSITIVE_PCR_TEST,
-                    CertificateType.POSITIVE_ANTIGEN_TEST -> return
                 },
                 DetailItem.Header(
                     getString(R.string.certificates_overview_personal_data_title)
@@ -231,14 +235,11 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
 
             val sortedCertificatesList = groupedCertificate.getSortedCertificates().mapNotNull {
                 val groupedDgcEntry = it.covCertificate.dgcEntry
-                when (val certificateType = CertificateHelper.resolveCertificateType(groupedDgcEntry)) {
-                    CertificateType.VACCINATION_FULL_PROTECTION,
-                    CertificateType.VACCINATION_COMPLETE,
-                    CertificateType.VACCINATION_INCOMPLETE -> {
-                        groupedDgcEntry as Vaccination
+                when (groupedDgcEntry) {
+                    is Vaccination -> {
                         DetailItem.Certificate(
                             id = groupedDgcEntry.id,
-                            type = certificateType,
+                            type = groupedDgcEntry.type,
                             title = getString(R.string.certificates_overview_vaccination_certificate_title),
                             subtitle = getString(
                                 R.string.certificates_overview_vaccination_certificate_message,
@@ -251,36 +252,38 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
                         )
                     }
-                    CertificateType.NEGATIVE_PCR_TEST -> {
-                        groupedDgcEntry as Test
-                        DetailItem.Certificate(
-                            id = groupedDgcEntry.id,
-                            type = certificateType,
-                            title = getString(R.string.certificates_overview_test_certificate_title),
-                            subtitle = getString(R.string.certificates_overview_pcr_test_certificate_message),
-                            date = getString(
-                                R.string.certificates_overview_pcr_test_certificate_date,
-                                groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
-                            ),
-                            isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
-                        )
+                    is Test -> {
+                        when (groupedDgcEntry.type) {
+                            TestCertType.NEGATIVE_PCR_TEST -> {
+                                DetailItem.Certificate(
+                                    id = groupedDgcEntry.id,
+                                    type = groupedDgcEntry.type,
+                                    title = getString(R.string.certificates_overview_test_certificate_title),
+                                    subtitle = getString(R.string.certificates_overview_pcr_test_certificate_message),
+                                    date = getString(
+                                        R.string.certificates_overview_pcr_test_certificate_date,
+                                        groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                    ),
+                                    isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
+                                )
+                            }
+                            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                                DetailItem.Certificate(
+                                    id = groupedDgcEntry.id,
+                                    type = groupedDgcEntry.type,
+                                    title = getString(R.string.certificates_overview_test_certificate_title),
+                                    subtitle = getString(R.string.certificates_overview_test_certificate_message),
+                                    date = getString(
+                                        R.string.certificates_overview_test_certificate_date,
+                                        groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                    ),
+                                    isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
+                                )
+                            }
+                            else -> return@mapNotNull null
+                        }
                     }
-                    CertificateType.NEGATIVE_ANTIGEN_TEST -> {
-                        groupedDgcEntry as Test
-                        DetailItem.Certificate(
-                            id = groupedDgcEntry.id,
-                            type = certificateType,
-                            title = getString(R.string.certificates_overview_test_certificate_title),
-                            subtitle = getString(R.string.certificates_overview_test_certificate_message),
-                            date = getString(
-                                R.string.certificates_overview_test_certificate_date,
-                                groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
-                            ),
-                            isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
-                        )
-                    }
-                    CertificateType.RECOVERY -> {
-                        groupedDgcEntry as Recovery
+                    is Recovery -> {
                         val date = if (groupedDgcEntry.validFrom.isInFuture()) {
                             getString(
                                 R.string.certificates_overview_recovery_certificate_valid_from_date,
@@ -294,15 +297,13 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                         }
                         DetailItem.Certificate(
                             id = groupedDgcEntry.id,
-                            type = certificateType,
+                            type = groupedDgcEntry.type,
                             title = getString(R.string.certificates_overview_recovery_certificate_title),
                             subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                             date = date,
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
                         )
                     }
-                    CertificateType.POSITIVE_PCR_TEST,
-                    CertificateType.POSITIVE_ANTIGEN_TEST -> return@mapNotNull null
                 }
             }
             binding.detailVaccinationList.adapter =
@@ -314,23 +315,24 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         triggerBackPress()
     }
 
-    override fun onCovCertificateClicked(id: String, certificateType: CertificateType) {
-        when (certificateType) {
-            CertificateType.VACCINATION_INCOMPLETE,
-            CertificateType.VACCINATION_COMPLETE,
-            CertificateType.VACCINATION_FULL_PROTECTION -> {
+    override fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType) {
+        when (dgcEntryType) {
+            VaccinationCertType.VACCINATION_INCOMPLETE,
+            VaccinationCertType.VACCINATION_COMPLETE,
+            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                 findNavigator().push(VaccinationDetailFragmentNav(id))
             }
-            CertificateType.NEGATIVE_PCR_TEST,
-            CertificateType.NEGATIVE_ANTIGEN_TEST -> {
+            TestCertType.NEGATIVE_PCR_TEST,
+            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
                 findNavigator().push(TestDetailFragmentNav(id))
             }
-            CertificateType.RECOVERY -> {
+            RecoveryCertType.RECOVERY -> {
                 findNavigator().push(RecoveryDetailFragmentNav(id))
             }
-            CertificateType.POSITIVE_PCR_TEST,
-            CertificateType.POSITIVE_ANTIGEN_TEST -> return
-        }
+            TestCertType.POSITIVE_PCR_TEST,
+            TestCertType.POSITIVE_ANTIGEN_TEST -> return
+            // .let{} to enforce exhaustiveness
+        }.let {}
     }
 
     private fun setupActionBar() {

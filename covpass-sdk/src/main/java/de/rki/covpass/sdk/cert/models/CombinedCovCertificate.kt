@@ -29,4 +29,12 @@ public data class CombinedCovCertificate(
      */
     @SerialName("certificateTimestamp")
     val timestamp: Long = Long.MIN_VALUE
-)
+) {
+
+    /**
+     * @return the Boolean flag which indicates a positive PCR or Antigen test
+     */
+    public fun isPositivePcrOrAntigenTest(): Boolean {
+        return (this.covCertificate.dgcEntry as? Test)?.isPositive == true
+    }
+}

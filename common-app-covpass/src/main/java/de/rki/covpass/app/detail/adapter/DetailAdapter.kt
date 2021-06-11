@@ -18,11 +18,14 @@ import androidx.viewbinding.ViewBinding
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.*
 import de.rki.covpass.app.detail.DetailClickListener
-import de.rki.covpass.commonapp.utils.CertificateType
+import de.rki.covpass.sdk.cert.models.DGCEntryType
+import de.rki.covpass.sdk.cert.models.RecoveryCertType
+import de.rki.covpass.sdk.cert.models.TestCertType
+import de.rki.covpass.sdk.cert.models.VaccinationCertType
 
 /**
  * Adapter which holds the data for Detail screen.
- * Holds all possible [CertificateType]'s
+ * Holds all possible [DGCEntryType]'s
  */
 public class DetailAdapter(
     private val items: List<DetailItem>,
@@ -137,7 +140,7 @@ public class DetailAdapter(
         override fun onItemBind(item: DetailItem) {
             (item as DetailItem.Certificate).let { cert ->
                 when (cert.type) {
-                    CertificateType.VACCINATION_FULL_PROTECTION -> {
+                    VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_complete)
                         binding.certificateStatusLayout.setLayoutBackgroundColor(
                             if (cert.isActual) {
@@ -147,8 +150,8 @@ public class DetailAdapter(
                             }
                         )
                     }
-                    CertificateType.VACCINATION_COMPLETE,
-                    CertificateType.VACCINATION_INCOMPLETE -> {
+                    VaccinationCertType.VACCINATION_COMPLETE,
+                    VaccinationCertType.VACCINATION_INCOMPLETE -> {
                         binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_incomplete)
                         binding.certificateStatusLayout.setLayoutBackgroundColor(
                             if (cert.isActual) {
@@ -158,8 +161,8 @@ public class DetailAdapter(
                             }
                         )
                     }
-                    CertificateType.NEGATIVE_PCR_TEST,
-                    CertificateType.NEGATIVE_ANTIGEN_TEST -> {
+                    TestCertType.NEGATIVE_PCR_TEST,
+                    TestCertType.NEGATIVE_ANTIGEN_TEST -> {
                         binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_test)
                         binding.certificateStatusLayout.setLayoutBackgroundColor(
                             if (cert.isActual) {
@@ -169,7 +172,7 @@ public class DetailAdapter(
                             }
                         )
                     }
-                    CertificateType.RECOVERY -> {
+                    RecoveryCertType.RECOVERY -> {
                         binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_recovery)
                         binding.certificateStatusLayout.setLayoutBackgroundColor(
                             if (cert.isActual) {
@@ -179,9 +182,10 @@ public class DetailAdapter(
                             }
                         )
                     }
-                    CertificateType.POSITIVE_PCR_TEST,
-                    CertificateType.POSITIVE_ANTIGEN_TEST -> return
-                }
+                    TestCertType.POSITIVE_PCR_TEST,
+                    TestCertType.POSITIVE_ANTIGEN_TEST -> return
+                    // .let{} to enforce exhaustiveness
+                }.let {}
                 binding.certificateTypeIcon.setTint(
                     if (cert.isActual) {
                         R.color.backgroundSecondary

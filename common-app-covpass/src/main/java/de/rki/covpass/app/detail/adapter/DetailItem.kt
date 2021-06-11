@@ -5,7 +5,7 @@
 
 package de.rki.covpass.app.detail.adapter
 
-import de.rki.covpass.commonapp.utils.CertificateType
+import de.rki.covpass.sdk.cert.models.DGCEntryType
 
 /**
  * Sealed class which represents the possible data sources for the [DetailAdapter]
@@ -34,7 +34,7 @@ public sealed class DetailItem {
 
     public class Certificate(
         public val id: String,
-        public val type: CertificateType,
+        public val type: DGCEntryType,
         public val title: String,
         public val subtitle: String,
         public val date: String,

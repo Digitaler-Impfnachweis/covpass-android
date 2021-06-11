@@ -148,7 +148,7 @@
 	<string name="test_certificate_detail_view_data_test_type">Art des Tests / Type of test</string>
 	<string name="test_certificate_detail_view_data_test_name">Produktname / Test name</string>
 	<string name="test_certificate_detail_view_data_test_manufactur">Testhersteller / Test manufacturer</string>
-	<string name="test_certificate_detail_view_data_test_date_and_time">Datum und Uhrzeit der Probenahme / Date and time of the sample collection (YYYY-MM-DD)</string>
+	<string name="test_certificate_detail_view_data_test_date_and_time">Datum und Uhrzeit der Probenahme / Date and time of the sample collection (YYYY-MM-DD, HH:MM)</string>
 	<string name="test_certificate_detail_view_data_test_results">Testergebnis / Test result</string>
 	<string name="test_certificate_detail_view_data_test_centre">Testzentrum oder -einrichtung / Testing centre or facility</string>
 	<string name="test_certificate_detail_view_data_test_country">Land der Testung / Member State of test</string>
@@ -169,7 +169,7 @@
 	<string name="recovery_certificate_detail_view_data_country">Land der Testung / Member State of test</string>
 	<string name="recovery_certificate_detail_view_data_issuer">Zertifikataussteller / Certificate issuer</string>
 	<string name="recovery_certificate_detail_view_data_valid_from">Zertifikat gültig ab / Certificate valid from (YYYY-MM-DD)</string>
-	<string name="recovery_certificate_detail_view_data_valid_until">Zertifikat gültig bis (höchstens 180 Tage ab dem Datum des ersten positiven Testergebnisses) / Certificate valid until (no more than 180 days after the date of first positive test result)</string>
+	<string name="recovery_certificate_detail_view_data_valid_until">Zertifikat gültig bis (höchstens 180 Tage ab dem Datum des ersten positiven Testergebnisses) / Certificate valid until (no more than 180 days after the date of first positive test result)(YYYY-MM-DD)</string>
 	<string name="recovery_certificate_detail_view_data_identifier">Zertifikatkennung / Unique certificate identifier</string>
 	<string name="recovery_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen. Informationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific evidence on COVID-19 vaccination, testing and recovery continues to evolve, also in view of new variants of concern of the virus. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination. Information on the current travel restrictions that apply to EU countries can be found via #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
