@@ -82,7 +82,7 @@
 	<!-- SECTION: overview certificates -->
 	<string name="vaccination_certificate_overview_incomplete_title">Unvollständig: %1$d von %2$d Impfungen</string>
 	<string name="vaccination_certificate_overview_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz vorzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
-	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Impfung hinzufügen</string>
+	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_overview_complete_from_title">Vollständiger Impfschutz ab %s</string>
 	<string name="vaccination_certificate_overview_complete_from_message">Ihr Impfschutz ist noch nicht vollständig. Der Impfschutz ist erst 14 Tage nach der letzten Impfung vollständig.</string>
 	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz</string>
