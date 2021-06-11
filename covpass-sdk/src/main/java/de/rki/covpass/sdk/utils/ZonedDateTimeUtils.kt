@@ -31,7 +31,7 @@ public fun ZoneOffset.adjustToString(): String {
  * Formats a [ZonedDateTime] to e.g. "1989-03-28, 14:52".
  */
 public fun ZonedDateTime.formatDateTimeInternational(): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, hh:mm")
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm")
     return format(formatter)
 }
 
