@@ -10,7 +10,6 @@ import assertk.assertThat
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isTrue
-import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
 import de.rki.covpass.sdk.android.crypto.readPem
 import de.rki.covpass.sdk.android.utils.BaseSdkTest
 import de.rki.covpass.sdk.android.utils.readResource
