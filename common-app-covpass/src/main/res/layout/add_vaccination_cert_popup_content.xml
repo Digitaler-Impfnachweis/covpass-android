@@ -25,7 +25,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/grid_three"
     android:adjustViewBounds="true"
-    app:srcCompat="@drawable/add_vaccination_certificate_illustration"
+    app:srcCompat="@drawable/add_certificate_illustration"
     tools:ignore="ContentDescription" />
 
   <TextView
