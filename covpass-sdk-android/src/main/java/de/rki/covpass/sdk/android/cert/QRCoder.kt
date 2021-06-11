@@ -7,14 +7,12 @@ package de.rki.covpass.sdk.android.cert
 
 import COSE.CoseException
 import COSE.Sign1Message
-import androidx.annotation.VisibleForTesting
 import de.rki.covpass.base45.Base45
 import de.rki.covpass.sdk.android.cert.models.CBORWebToken
 import de.rki.covpass.sdk.android.cert.models.VaccinationCertificate
 import de.rki.covpass.sdk.android.utils.Zlib
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
-import java.lang.IndexOutOfBoundsException
 import java.security.GeneralSecurityException
 
 /**
@@ -53,25 +51,10 @@ public class QRCoder(private val validator: CertValidator) {
         val cwt = decodeCWT(qrContent)
         val cert: VaccinationCertificate =
             cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
-        if (!isVersionSupported(cert)) {
+        if (cert.version != "1.0.0") {
             throw UnsupportedDgcVersionException()
         }
         return cert.copy(issuer = cwt.issuer, validFrom = cwt.validFrom, validUntil = cwt.validUntil)
-    }
-
-    @VisibleForTesting
-    internal fun isVersionSupported(cert: VaccinationCertificate): Boolean {
-        val versionSplitted = cert.version.split(".")
-        val major = versionSplitted[0].toInt()
-        var minor: Int
-        try {
-            minor = versionSplitted[1].toInt()
-        } catch (exception: IndexOutOfBoundsException) {
-            // If the minor version is not set, interpret this as 0
-            minor = 0
-        }
-        return major <= VaccinationCertificate.supportedMajorVersion &&
-            minor <= VaccinationCertificate.supportedMinorVersion
     }
 
     private companion object {
