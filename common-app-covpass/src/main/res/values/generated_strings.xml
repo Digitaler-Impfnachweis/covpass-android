@@ -44,9 +44,9 @@
 
 	<!-- SECTION: popup: add vaccination -->
 	<string name="vaccination_add_popup_title">Impfung hinzufügen</string>
-	<string name="vaccination_add_popup_message">Scannen Sie den QR-Code auf dem Impfzertifikat. Die Informationen werden direkt in die CovPass-App übertragen.</string>
-	<string name="vaccination_add_popup_action_title">Sie haben keinen QR-Code erhalten?</string>
-	<string name="vaccination_add_popup_action_title_linked">#Sie haben keinen QR-Code erhalten?::$0#</string>
+	<string name="vaccination_add_popup_message">Scannen Sie den QR-Code von einem Digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.</string>
+	<string name="vaccination_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
+	<string name="vaccination_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
 	<string name="vaccination_add_popup_scan_button_title">QR-Code scannen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
@@ -116,7 +116,7 @@
 	<string name="error_no_connection_to_server_message">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
 	<string name="error_no_connection_to_server_button_title">OK</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
-	<string name="error_scan_qrcode_cannot_be_parsed_message">Dieser QR-Code gehört offenbar nicht zu einem Impfzertifikat. Bitte scannen Sie den QR-Code des Impfzertifikats.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem Digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 	<string name="error_scan_present_data_is_not_supported_title">Aktualisieren Sie die App</string>
 	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte aktualisieren Sie die App.</string>

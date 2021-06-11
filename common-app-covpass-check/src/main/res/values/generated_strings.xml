@@ -100,6 +100,6 @@
 	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte aktualisieren Sie die App.</string>
 	<string name="error_scan_present_data_is_not_supported_button_title">OK</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
-	<string name="error_scan_qrcode_cannot_be_parsed_message">Dieser QR-Code gehört offenbar nicht zu einem Impfzertifikat. Bitte scannen Sie den QR-Code des Impfzertifikats.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem Digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 </resources>
