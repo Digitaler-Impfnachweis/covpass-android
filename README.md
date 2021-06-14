@@ -4,14 +4,13 @@ This repo contains the CovPass app and commonly needed modules for Kotlin + Andr
 
 The most important modules are:
 
-* android-utils: Base classes for ViewModel, State, etc.
-* android-utils-test: Utils for unit testing State, ViewModel, etc.
-* annotations: Useful annotations/interfaces, e.g. for preventing R8/ProGuard obfuscation of JSON classes.
+* android-utils: Useful lifecycle-aware helpers for view bindings, ViewPager2, etc.
+* annotations: Useful annotations and marker interfaces, e.g. for preventing R8/ProGuard obfuscation.
 * gradle: Common infrastructure for linters, code coverage, R8/ProGuard.
-* covpass-http: Ktor and OkHttp base clients with correct security configuration and Gson integration.
+* covpass-http: Ktor and OkHttp base clients with correct security configuration.
 * covpass-logging: Simple wrapper (`Lumber`) around Timber which allows for full R8/ProGuard obfuscation.
-* navigation: A simple activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily.
-* covpass-bom: Defines a common set of dependency versions, so there won't be any conflicts.
+* navigation: A simple, yet flexible activity and fragment based navigation system that uses `@Parcelize` to safely define arguments easily. This solution is most useful when building SDKs and modularizing your code.
+* covpass-bom: Our BOM - a common set of dependency versions, so there won't be any conflicts.
 * covpass-sdk: The main CovPass SDK for Android.
 * covpass-sdk-demo: Use this to override the SDK settings for the demo environment.
 
@@ -25,7 +24,7 @@ The apps live in these modules:
   * app-covpass-check-demo: The demo variant of the CovPass Check app.
   * app-covpass-check-prod: The production variant of the CovPass Check app.
 
-Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
+Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, switching flavors takes time (whereas apps in modules can be switched and launched directly), etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
 
 ## App architecture
 
@@ -42,8 +41,8 @@ We avoid unnecessary indirections and abstraction layers as long as a simple com
 We use lifecycle-aware, reactive, demand-driven programming. See [UI, reactivity, error handling, events](#ui-reactivity-error-handling-events) for more details and sample code.
 
 Important architectural concerns and pitfalls that have to be taken care of in the whole codebase are abstracted away instead of plastering the code with error-prone copy-paste logic.
-This includes error handling, correct lifecycle handling and even trivial things like setting view bindings to null in `onDestroyView`.
-Everything is automated as much as possible behind simple APIs, so mistakes become less likely and complexity is kept low.
+This includes error handling, correct lifecycle handling, and avoiding memory leaks - i.e. even trivial things like setting view bindings to null in `onDestroyView`.
+Everything is automated as much as possible behind simple APIs, so mistakes become less likely and complexity is kept low outside of these helpful abstractions/APIs.
 As long as you follow these APIs you're on the safe side, avoiding Android's pitfalls.
 
 ### Dependency injection
@@ -69,27 +68,25 @@ What is a DI framework doing, anyway?
 In other words, Kotlin already provides everything you need for handling DI. So, we use pure, code-based DI.
 
 * It's checked at compile-time and even the IDE immediately marks errors for you, so you don't have to wait for the compiler.
+* It works without code generation, so builds are faster and you're never in an inconsistent state (e.g. classes getting marked as red because they can't be found).
 * The error messages are clear and understandable.
 * You can explore the DI graph trivially with your normal IDE (find usages, go to definition, unused deps appear as gray text, etc.).
 * This solution works the same for libraries and internally within the app (we follow the library architecture, see above).
 * The learning curve is minimal and in our experience, every junior developer just "gets it" without much thought.
 
-This even allows much more flexibility e.g. by implementing demand-driven singletons that get destroyed when nobody uses them anymore (which can be important for security or resource usage).
-None of the existing DI frameworks provides a solution for that.
-
 In our much larger projects at IBM this solution has proven to work significantly better than Koin or Dagger.
 
 ### UI, reactivity, error handling, events
 
-In order to automatically deal with Android's architecture details and pitfalls we utilize `State`/`BaseState` subclasses which are like (multiplatform) ViewModels or stateful UseCases.
-Internally, they live on an Android `ViewModel`, but they can be composed and tested more easily and in theory they allow reuse in multiplatform projects (though that's just a minor aspect in this app).
+In order to automatically deal with Android's architecture details and pitfalls we utilize `ReactiveState`/`BaseReactiveState` subclasses which can be used for (multiplatform) ViewModels or stateful UseCases.
+Internally, the instances live on an Android `ViewModel` (having the desired lifecycle), but they can be composed and tested more easily and in theory they allow reuse in multiplatform projects (though that's just a minor aspect in this app).
 
-A `State` comes with an `eventNotifier` to communicate events out-of-band (e.g. outside of the Fragment's lifecycle).
-Also, `State` provides a `launch` method to launch coroutines with automatic error handling.
+A `ReactiveState` comes with an `eventNotifier` to communicate events out-of-band (e.g. outside of the Fragment's lifecycle).
+Also, `ReactiveState` provides a `launch` method to launch coroutines with automatic error handling.
 Any errors are automatically forwarded to the UI via `eventNotifier` and trigger the Fragment's `onError(error: Throwable)` method.
 Typically you'd use `MutableStateFlow` (or the mutation-optimized `MutableValueFlow`) in order to provide observable values.
 
-A ViewModel / `State` implementation can be added to a Fragment using `by reactiveState` which is lifecycle-aware.
+A ViewModel / `ReactiveState` implementation can be attached to a Fragment using `by reactiveState` which is lifecycle-aware.
 
 Simple example:
 
@@ -103,7 +100,7 @@ interface MyEvents : BaseEvents {
 }
 
 // Usually the scope is passed from outside (in our case this will be the viewModelScope).
-class MyViewModel(scope: CoroutineScope) : BaseState<MyEvents>(scope) {
+class MyViewModel(scope: CoroutineScope) : BaseReactiveState<MyEvents>(scope) {
     val data = MutableStateFlow<List<Entity>>(emptyList())
 
     fun refreshData() {
@@ -207,16 +204,26 @@ class DetailFragment : BaseFragment() {
 
 With a single line of code, the binding is automatically inflated in `onCreateView` and cleared in `onDestroyView`, so you can avoid the whole boilerplate.
 
+## Custom FragmentStateAdapter
+
+Use `BaseFragmentStateAdapter` which automatically avoids memory leaks.
+If that doesn't work for you, at least use `Fragment.attachViewPager`.
+
+## Custom Toolbars
+
+Use `Fragment.attachToolbar` to have automatically correct lifecycle handling and to avoid memory leaks.
+
 ## Screen navigation
 
 Some of the modules in this repo were taken from our internal IBM projects.
 The code-based navigation system is one of them.
 Among the IBM developers who have worked with Android's Navigation component the experience was more on the negative side.
-Also, in our other internal projects we have more complex requirements.
-So, instead of using the Navigation components we came up with a very simple code-based navigation system.
+Especially when creating SDKs and modularizing your code, the Navigation component can have its pitfalls, runtime crashes and it can get in your way.
+So, instead of using the Navigation components, we created a very simple code-based navigation system.
 
 In this project we don't utilize the full flexibility of the navigation system.
 When we started out we simply wanted to build on the same infrastructure that we were already most familiar with and not risk regretting the decision to use the Navigation components.
+Moreover, this project is supposed to become a set of SDKs - one of them providing flexible, partial integration of the UI and navigation subgraphs.
 
 This is how you define a navigation point and access the arguments:
 
@@ -248,8 +255,10 @@ findNavigator().pop()
 findNavigator().popAll()
 findNavigator().popUntil(SomeFragment::class)
 
-// For passing results
-findNavigator().popUntil<SomeInterface>()?.someCallback(someValue)
+// For passing results you define an interface and popUntil a fragment that
+// implements the interface
+interface DetailFragmentListener { fun onDetailResult(value: String) }
+findNavigator().popUntil<DetailFragmentListener>()?.onDetailResult(someValue)
 
 // triggers onBackPressed()
 triggerBackPress()
