@@ -137,7 +137,7 @@ internal fun CovCertificate.checkVersionSupported(): CovCertificate {
         0
     }
     val isSupported =
-        major <= CovCertificate.supportedMajorVersion && minor <= CovCertificate.supportedMinorVersion
+        major <= CovCertificate.SUPPORTED_MAJOR_VERSION && minor <= CovCertificate.SUPPORTED_MINOR_VERSION
     if (isSupported) {
         return this
     } else {

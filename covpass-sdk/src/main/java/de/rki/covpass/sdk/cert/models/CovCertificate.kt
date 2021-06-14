@@ -80,7 +80,7 @@ public data class CovCertificate(
 
     public companion object {
         // The first two numbers of e.g. 1.0.0
-        public const val supportedMajorVersion: Int = 1
-        public const val supportedMinorVersion: Int = 0
+        public const val SUPPORTED_MAJOR_VERSION: Int = 1
+        public const val SUPPORTED_MINOR_VERSION: Int = 3
     }
 }

@@ -39,7 +39,7 @@ internal class QRCoderTest : BaseSdkTest() {
     @Test
     fun `check cert with supported version`() {
         val cert = CovCertificate(
-            version = "${CovCertificate.supportedMajorVersion - 1}.${CovCertificate.supportedMinorVersion - 1}.0"
+            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION - 1}.${CovCertificate.SUPPORTED_MINOR_VERSION - 1}.0"
         )
         assertThat { cert.checkVersionSupported() }.isSuccess()
     }
@@ -47,7 +47,7 @@ internal class QRCoderTest : BaseSdkTest() {
     @Test
     fun `check cert with unsupported version`() {
         val cert = CovCertificate(
-            version = "${CovCertificate.supportedMajorVersion + 1}.${CovCertificate.supportedMinorVersion + 1}.0"
+            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION + 1}.${CovCertificate.SUPPORTED_MINOR_VERSION + 1}.0"
         )
         assertThat { cert.checkVersionSupported() }.isFailure()
     }
@@ -55,7 +55,7 @@ internal class QRCoderTest : BaseSdkTest() {
     @Test
     fun `check cert with supported major and missing minor version is accepted`() {
         val cert = CovCertificate(
-            version = "${CovCertificate.supportedMajorVersion}"
+            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION}"
         )
         assertThat { cert.checkVersionSupported() }.isSuccess()
     }
@@ -63,7 +63,7 @@ internal class QRCoderTest : BaseSdkTest() {
     @Test
     fun `check cert with unsupported major and missing minor version is rejected`() {
         val cert = CovCertificate(
-            version = "${CovCertificate.supportedMajorVersion + 1}"
+            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION + 1}"
         )
         assertThat { cert.checkVersionSupported() }.isFailure()
     }
