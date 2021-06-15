@@ -44,8 +44,4 @@ public class QRCoder(private val validator: CertValidator) {
         validator.validate(decodeCose(qrContent))
 }
 
-/** Thrown when the Digital Green Certificate has the wrong version. */
-public open class UnsupportedDgcVersionException(message: String = "Wrong Certificate Version") :
-    DgcDecodeException(message)
-
 public open class DgcDecodeException(message: String) : IllegalArgumentException(message)

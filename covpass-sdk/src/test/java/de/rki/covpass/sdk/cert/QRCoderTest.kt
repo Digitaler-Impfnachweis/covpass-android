@@ -9,11 +9,8 @@ import COSE.OneKey
 import assertk.assertThat
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
-import assertk.assertions.isSuccess
 import assertk.assertions.isTrue
 import de.rki.covpass.sdk.cert.models.CBORWebToken
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.crypto.readPem
 import de.rki.covpass.sdk.dependencies.defaultCbor
 import de.rki.covpass.sdk.utils.BaseSdkTest
@@ -49,41 +46,5 @@ internal class QRCoderTest : BaseSdkTest() {
         val cose = qrCoder.decodeCose(data)
         // Skip seal validation and only decode + validate the QR data itself
         validator.decodeAndValidate(CBORWebToken.decode(cose.GetContent()), sealCert)
-    }
-
-    @Test
-    fun `check cert with supported version`() {
-        val cert = CovCertificate(
-            vaccinations = listOf(Vaccination()),
-            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION - 1}.${CovCertificate.SUPPORTED_MINOR_VERSION - 1}.0"
-        )
-        assertThat { cert.checkVersionSupported() }.isSuccess()
-    }
-
-    @Test
-    fun `check cert with unsupported version`() {
-        val cert = CovCertificate(
-            vaccinations = listOf(Vaccination()),
-            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION + 1}.${CovCertificate.SUPPORTED_MINOR_VERSION + 1}.0"
-        )
-        assertThat { cert.checkVersionSupported() }.isFailure()
-    }
-
-    @Test
-    fun `check cert with supported major and missing minor version is accepted`() {
-        val cert = CovCertificate(
-            vaccinations = listOf(Vaccination()),
-            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION}"
-        )
-        assertThat { cert.checkVersionSupported() }.isSuccess()
-    }
-
-    @Test
-    fun `check cert with unsupported major and missing minor version is rejected`() {
-        val cert = CovCertificate(
-            vaccinations = listOf(Vaccination()),
-            version = "${CovCertificate.SUPPORTED_MAJOR_VERSION + 1}"
-        )
-        assertThat { cert.checkVersionSupported() }.isFailure()
     }
 }

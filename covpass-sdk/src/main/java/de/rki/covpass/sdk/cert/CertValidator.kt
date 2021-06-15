@@ -9,7 +9,6 @@ import COSE.CoseException
 import COSE.OneKey
 import COSE.Sign1Message
 import android.util.Base64
-import androidx.annotation.VisibleForTesting
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.crypto.KeyIdentifier
 import de.rki.covpass.sdk.dependencies.defaultCbor
@@ -58,7 +57,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
     }
 
     internal fun decodeAndValidate(cwt: CBORWebToken, cert: X509Certificate): CovCertificate {
-        val covCertificate = decodeCovCert(cwt).checkVersionSupported()
+        val covCertificate = decodeCovCert(cwt)
         if (!cert.checkCertOid(covCertificate.dgcEntry)) {
             throw NoMatchingExtendedKeyUsageException()
         }
@@ -123,25 +122,6 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
     private companion object {
         private const val HEALTH_CERTIFICATE_CLAIM = -260
         private const val DIGITAL_GREEN_CERTIFICATE = 1
-    }
-}
-
-@VisibleForTesting
-internal fun CovCertificate.checkVersionSupported(): CovCertificate {
-    val versionSplitted = version.split(".")
-    val major = versionSplitted[0].toInt()
-    val minor: Int = try {
-        versionSplitted[1].toInt()
-    } catch (exception: IndexOutOfBoundsException) {
-        // If the minor version is not set, interpret this as 0
-        0
-    }
-    val isSupported =
-        major <= CovCertificate.SUPPORTED_MAJOR_VERSION && minor <= CovCertificate.SUPPORTED_MINOR_VERSION
-    if (isSupported) {
-        return this
-    } else {
-        throw UnsupportedDgcVersionException()
     }
 }
 

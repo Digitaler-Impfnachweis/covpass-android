@@ -13,7 +13,6 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.cert.UnsupportedDgcVersionException
 
 /**
  * Common abstract base class for the app-specific error handlers. This one covers handling of errors that can occur in
@@ -31,12 +30,6 @@ public abstract class CommonErrorHandler {
 
     private fun getCommonDialogModel(error: Throwable): DialogModel =
         when (error) {
-            is UnsupportedDgcVersionException -> DialogModel(
-                titleRes = R.string.error_scan_present_data_is_not_supported_title,
-                messageRes = R.string.error_scan_present_data_is_not_supported_message,
-                positiveButtonTextRes = R.string.error_scan_present_data_is_not_supported_button_title,
-                tag = TAG_ERROR_UNSUPPORTED_VERSION_OF_CERTIFICATE_DATA
-            )
             is Base45DecodeException,
             is CoseException, is CBORException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_cannot_be_parsed_title,
@@ -65,7 +58,5 @@ public abstract class CommonErrorHandler {
         public const val TAG_ERROR_GENERAL: String = "error_general"
         public const val TAG_ERROR_CONNECTION: String = "error_connection"
         public const val TAG_ERROR_UNREADABLE_CERTIFICATE: String = "error_unreadable_certificate"
-        public const val TAG_ERROR_UNSUPPORTED_VERSION_OF_CERTIFICATE_DATA: String =
-            "error_unsupported_version_of_certificate_data"
     }
 }

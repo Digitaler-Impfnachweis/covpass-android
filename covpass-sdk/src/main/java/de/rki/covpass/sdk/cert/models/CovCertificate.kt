@@ -91,10 +91,4 @@ public data class CovCertificate(
 
     public val validDate: LocalDate?
         get() = vaccination?.occurrence?.plusDays(15)
-
-    public companion object {
-        // The first two numbers of e.g. 1.0.0
-        public const val SUPPORTED_MAJOR_VERSION: Int = 1
-        public const val SUPPORTED_MINOR_VERSION: Int = 3
-    }
 }
