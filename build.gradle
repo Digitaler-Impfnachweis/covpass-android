@@ -32,7 +32,8 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
-group = 'de.rki.covpass'
+// FIXME: Change this when we switch to Maven Central
+group = 'com.ibm.health.de.rki.covpass'
 subprojects {
     group = rootProject.group
     version = rootProject.version
@@ -41,6 +42,7 @@ subprojects {
     def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
     def isPlatformProject = project.name.endsWith('-bom')
     def isTestProject = project.name.endsWith('-test') || project.name == 'test'
+    def shouldPublish = isLibraryProject && project.name.startsWith("covpass-")
 
     apply from: "$rootDir/dependencies.gradle"
 
@@ -159,5 +161,15 @@ subprojects {
             apply from: "$rootDir/gradle/common/coverage.gradle"
             trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
         }
+    }
+
+    if (shouldPublish) {
+        apply from: "$rootDir/gradle/common/publish.gradle"
+        publish(
+            url: nexus.egaPublicurl,
+            username: repoConfig.nexusUsername,
+            password: repoConfig.nexusPassword,
+            isPlatformProject: isPlatformProject,
+        )
     }
 }

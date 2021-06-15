@@ -247,10 +247,9 @@ pipeline {
                     }
 
                     // Only publish release if tag doesn't exist, yet.
-                    // TODO: Publish production release builds and SDK
-//                    if (toPush != "") {
-//                        gradle('publish', '--stacktrace')
-//                    }
+                    if (toPush != "") {
+                        gradle('publish', '--stacktrace')
+                    }
                 }
                 finishRelease()
             }
