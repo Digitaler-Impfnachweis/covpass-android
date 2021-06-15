@@ -5,6 +5,7 @@
 
 enum RepoType {
 }
+
 ext.RepoType = RepoType
 ext {
     repoConfig = new Properties()
@@ -15,6 +16,7 @@ ext {
     shouldUseEpaDebugRepos = { shouldUseDebugRepos() && repoConfig.getProperty('useEpaDebugRepos') == 'true' }
 
     nexus = [
+        egaPublic: "https://nexus.open-insurance-platform.com/repository/ega-releases/",
     ]
 }
 

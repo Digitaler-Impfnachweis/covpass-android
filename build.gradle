@@ -166,7 +166,7 @@ subprojects {
     if (shouldPublish) {
         apply from: "$rootDir/gradle/common/publish.gradle"
         publish(
-            url: nexus.egaPublicurl,
+            url: nexus.egaPublic,
             username: repoConfig.nexusUsername,
             password: repoConfig.nexusPassword,
             isPlatformProject: isPlatformProject,
