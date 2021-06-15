@@ -3,14 +3,11 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-@file:UseSerializers(LocalDateSerializer::class)
-
 package de.rki.covpass.sdk.cert.models
 
-import de.rki.covpass.sdk.utils.serialization.LocalDateSerializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
 /**
@@ -27,10 +24,13 @@ public enum class RecoveryCertType : DGCEntryType {
 public data class Recovery(
     @SerialName("tg")
     val targetDisease: String = "",
+    @Contextual
     @SerialName("fr")
     val firstResult: LocalDate? = null,
+    @Contextual
     @SerialName("df")
     val validFrom: LocalDate? = null,
+    @Contextual
     @SerialName("du")
     val validUntil: LocalDate? = null,
     @SerialName("co")

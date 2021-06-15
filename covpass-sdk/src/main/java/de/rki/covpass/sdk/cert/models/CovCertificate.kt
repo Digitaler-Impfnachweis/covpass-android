@@ -3,15 +3,11 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-@file:UseSerializers(LocalDateSerializer::class, InstantSerializer::class)
-
 package de.rki.covpass.sdk.cert.models
 
-import de.rki.covpass.sdk.utils.serialization.InstantSerializer
-import de.rki.covpass.sdk.utils.serialization.LocalDateSerializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import java.time.Instant
 import java.time.LocalDate
 
@@ -23,12 +19,15 @@ public data class CovCertificate(
 
     // Information inside the CBOR Web Token (CWT)
     val issuer: String = "",
+    @Contextual
     val validFrom: Instant? = null,
+    @Contextual
     val validUntil: Instant? = null,
 
     // The EU Digital Green Certificate
     @SerialName("nam")
     val name: Name = Name(),
+    @Contextual
     @SerialName("dob")
     val birthDate: LocalDate? = null,
     @SerialName("v")

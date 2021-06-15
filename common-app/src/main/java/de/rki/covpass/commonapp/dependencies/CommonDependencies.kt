@@ -9,6 +9,9 @@ import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.commonapp.storage.DscRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
+import de.rki.covpass.sdk.cert.models.DscList
+import de.rki.covpass.sdk.dependencies.sdkDeps
+import kotlinx.serialization.cbor.Cbor
 
 /**
  * Global var for making the [CommonDependencies] accessible.
@@ -25,10 +28,14 @@ public abstract class CommonDependencies {
      */
     public abstract val errorHandler: CommonErrorHandler
 
+    private val cbor: Cbor = sdkDeps.cbor
+
     public val onboardingRepository: OnboardingRepository = OnboardingRepository(
-        CborSharedPrefsStore("onboarding_prefs")
+        CborSharedPrefsStore("onboarding_prefs", cbor)
     )
 
+    private val dscList: DscList = sdkDeps.dscList
+
     public val dscRepository: DscRepository =
-        DscRepository(CborSharedPrefsStore("dsc_cert_prefs"))
+        DscRepository(CborSharedPrefsStore("dsc_cert_prefs", cbor), dscList)
 }

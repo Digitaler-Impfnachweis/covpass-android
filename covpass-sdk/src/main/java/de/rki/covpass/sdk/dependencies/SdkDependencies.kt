@@ -14,10 +14,7 @@ import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
 import de.rki.covpass.sdk.utils.readTextAsset
-import de.rki.covpass.sdk.utils.serialization.InstantSerializer
 import kotlinx.serialization.cbor.Cbor
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.contextual
 
 /**
  * Global var for making the [SdkDependencies] accessible.
@@ -54,7 +51,7 @@ public abstract class SdkDependencies {
 
     public val dscListService: DscListService by lazy { DscListService(httpClient, trustServiceHost) }
 
-    public val validator: CertValidator by lazy { CertValidator(dscList.toTrustedCerts()) }
+    public val validator: CertValidator by lazy { CertValidator(dscList.toTrustedCerts(), cbor) }
 
     public val decoder: DscListDecoder by lazy { DscListDecoder(publicKey.first()) }
 
@@ -65,19 +62,7 @@ public abstract class SdkDependencies {
      */
     public val qrCoder: QRCoder by lazy { QRCoder(validator) }
 
-    public val cbor: Cbor by lazy {
-        Cbor {
-            ignoreUnknownKeys = true
-            serializersModule = module
-            encodeDefaults = true
-        }
-    }
-
-    private val module by lazy {
-        SerializersModule {
-            contextual(InstantSerializer)
-        }
-    }
+    public val cbor: Cbor = defaultCbor
 
     internal fun init() {
         httpConfig.pinPublicKey(backendCa)

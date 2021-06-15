@@ -11,12 +11,8 @@ import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.ExpiredCwtException
 import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Test
-import de.rki.covpass.sdk.cert.models.TestCertType
-import de.rki.covpass.sdk.cert.models.Vaccination
-import de.rki.covpass.sdk.cert.models.VaccinationCertType
+import de.rki.covpass.sdk.cert.QRCoder
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.isOlderThan
 import de.rki.covpass.sdk.utils.isValid
@@ -42,13 +38,15 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
 /**
  * ViewModel holding the business logic for decoding and validating a [CovCertificate].
  */
-internal class CovPassCheckQRScannerViewModel(scope: CoroutineScope) :
-    BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
+internal class CovPassCheckQRScannerViewModel(
+    scope: CoroutineScope,
+    private val qrCoder: QRCoder = sdkDeps.qrCoder,
+) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                val covCertificate = sdkDeps.qrCoder.decodeCovCert(qrContent)
+                val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
                 when (dgcEntry) {
                     is Vaccination -> {

@@ -12,7 +12,8 @@ import android.util.Base64
 import androidx.annotation.VisibleForTesting
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.crypto.KeyIdentifier
-import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.dependencies.defaultCbor
+import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
 import java.security.cert.X509Certificate
@@ -29,7 +30,7 @@ public data class TrustedCert(
  *
  * @constructor The constructor takes a set of trusted certificates.
  */
-public class CertValidator(trusted: Iterable<TrustedCert>) {
+public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbor = defaultCbor) {
 
     private var state = CertValidatorState(trusted)
 
@@ -56,7 +57,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>) {
         state = CertValidatorState(trusted)
     }
 
-    private fun decodeAndValidate(cwt: CBORWebToken, cert: X509Certificate): CovCertificate {
+    internal fun decodeAndValidate(cwt: CBORWebToken, cert: X509Certificate): CovCertificate {
         val covCertificate = decodeCovCert(cwt).checkVersionSupported()
         if (!cert.checkCertOid(covCertificate.dgcEntry)) {
             throw NoMatchingExtendedKeyUsageException()
@@ -68,22 +69,21 @@ public class CertValidator(trusted: Iterable<TrustedCert>) {
         )
     }
 
-    private fun decodeCovCert(cwt: CBORWebToken): CovCertificate =
-        sdkDeps.cbor.decodeFromByteArray(
+    internal fun decodeCovCert(cwt: CBORWebToken): CovCertificate =
+        cbor.decodeFromByteArray(
             cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes()
         )
 
     public fun validate(cose: Sign1Message): CovCertificate {
         val cwt = CBORWebToken.decode(cose.GetContent())
-        val kid = KeyIdentifier(
-            cose.protectedAttributes?.get(4)?.GetByteString()?.sliceArray(0..7)
-                ?: cose.unprotectedAttributes.get(4).GetByteString().sliceArray(0..7)
-        )
-
         if (cwt.validUntil.isBefore(Instant.now())) {
             throw ExpiredCwtException()
         }
 
+        val kid = KeyIdentifier(
+            cose.protectedAttributes?.get(4)?.GetByteString()?.sliceArray(0..7)
+                ?: cose.unprotectedAttributes.get(4).GetByteString().sliceArray(0..7)
+        )
         var certs = findByKid(kid)
         if (certs.isNullOrEmpty()) {
             certs = state.trustedCerts.toList()

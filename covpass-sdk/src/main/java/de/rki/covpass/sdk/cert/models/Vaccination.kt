@@ -3,15 +3,12 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-@file:UseSerializers(LocalDateSerializer::class)
-
 package de.rki.covpass.sdk.cert.models
 
 import de.rki.covpass.sdk.utils.isOlderThanTwoWeeks
-import de.rki.covpass.sdk.utils.serialization.LocalDateSerializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
 /**
@@ -40,6 +37,7 @@ public data class Vaccination(
     val doseNumber: Int = 0,
     @SerialName("sd")
     val totalSerialDoses: Int = 0,
+    @Contextual
     @SerialName("dt")
     val occurrence: LocalDate? = null,
     @SerialName("co")

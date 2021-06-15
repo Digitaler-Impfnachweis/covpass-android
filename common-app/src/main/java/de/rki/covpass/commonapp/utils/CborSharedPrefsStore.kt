@@ -8,17 +8,23 @@ package de.rki.covpass.commonapp.utils
 import android.util.Base64
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.ibm.health.common.android.utils.SharedPrefsStore
-import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
 
 /**
  * Wrapper around [SharedPrefsStore], encoding everything with CBOR.
  */
-public class CborSharedPrefsStore(public val prefs: SharedPrefsStore) {
+public class CborSharedPrefsStore(
+    public val prefs: SharedPrefsStore,
+    public val cbor: Cbor,
+) {
 
-    public constructor(preferencesName: String) : this(SharedPrefsStore(getEncryptedSharedPreferences(preferencesName)))
+    public constructor(
+        preferencesName: String,
+        cbor: Cbor,
+    ) : this(SharedPrefsStore(getEncryptedSharedPreferences(preferencesName)), cbor)
 
     /**
      * @param key Used for access to the [T] object
@@ -28,12 +34,12 @@ public class CborSharedPrefsStore(public val prefs: SharedPrefsStore) {
         val flow = prefs.getData(key, "")
         val value = try {
             if (flow.value.isEmpty()) default
-            else sdkDeps.cbor.decodeFromByteArray(Base64.decode(flow.value, Base64.DEFAULT))
+            else cbor.decodeFromByteArray(Base64.decode(flow.value, Base64.DEFAULT))
         } catch (e: SerializationException) {
             default
         }
         return SuspendMutableValueFlow(value) {
-            flow.set(Base64.encodeToString(sdkDeps.cbor.encodeToByteArray(it), Base64.DEFAULT))
+            flow.set(Base64.encodeToString(cbor.encodeToByteArray(it), Base64.DEFAULT))
         }
     }
 

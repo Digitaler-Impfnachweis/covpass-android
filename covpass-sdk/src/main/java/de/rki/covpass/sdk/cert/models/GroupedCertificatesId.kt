@@ -3,13 +3,9 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-@file:UseSerializers(LocalDateSerializer::class)
-
 package de.rki.covpass.sdk.cert.models
 
-import de.rki.covpass.sdk.utils.serialization.LocalDateSerializer
-import kotlinx.serialization.UseSerializers
-
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
@@ -19,5 +15,6 @@ import java.time.LocalDate
 @Serializable
 public data class GroupedCertificatesId(
     val name: Name,
+    @Contextual
     val birthDate: LocalDate?,
 ) : java.io.Serializable

@@ -3,14 +3,11 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-@file:UseSerializers(ZonedDateTimeSerializer::class)
-
 package de.rki.covpass.sdk.cert.models
 
-import de.rki.covpass.sdk.utils.serialization.ZonedDateTimeSerializer
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 import java.time.ZonedDateTime
 
 /**
@@ -36,6 +33,7 @@ public data class Test(
     val testName: String = "",
     @SerialName("ma")
     val manufacturer: String = "",
+    @Contextual
     @SerialName("sc")
     val sampleCollection: ZonedDateTime? = null,
     @SerialName("tr")
