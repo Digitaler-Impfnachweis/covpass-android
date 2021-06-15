@@ -18,24 +18,6 @@ internal class CovCertificateTest : BaseSdkTest() {
         CovCertificate(vaccinations = null, tests = null, recoveries = null)
     }
 
-    @Test(expected = IllegalStateException::class)
-    fun `CovCertificate with multiple DGCEntries of different type shall not be possible`() {
-        CovCertificate(
-            vaccinations = listOf(Vaccination()),
-            tests = null,
-            recoveries = listOf(Recovery())
-        )
-    }
-
-    @Test(expected = IllegalStateException::class)
-    fun `CovCertificate with multiple DGCEntries of same type shall not be possible`() {
-        CovCertificate(
-            vaccinations = listOf(Vaccination(), Vaccination()),
-            tests = null,
-            recoveries = null
-        )
-    }
-
     @Test
     fun `Different name combinations shall produce correct display name`() {
         val givenName = "givenName"

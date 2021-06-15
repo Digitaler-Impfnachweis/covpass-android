@@ -46,11 +46,8 @@ public data class CovCertificate(
 ) {
 
     init {
-        // EU data model does not automatically enforce the EU specification, so we have an additional check here.
-        val dgcEntryCount = (vaccinations?.size ?: 0) + (tests?.size ?: 0) + (recoveries?.size ?: 0)
-        if (dgcEntryCount != 1) {
-            throw IllegalStateException("CovCertificates must contain exactly one DGCEntry.")
-        }
+        // Access dgcEntry to throw exception directly if no dgcEntry is contained.
+        dgcEntry
     }
 
     public val dgcEntry: DGCEntry
