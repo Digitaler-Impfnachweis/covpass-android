@@ -43,7 +43,6 @@ public class QRCoder(private val validator: CertValidator) {
      *
      * @throws ExpiredCwtException If the [CBORWebToken] has expired.
      * @throws BadCoseSignatureException If the signature validation failed.
-     * @throws UnsupportedDgcVersionException If the Digital Green Certificate version is unsupported.
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
@@ -51,9 +50,6 @@ public class QRCoder(private val validator: CertValidator) {
         val cwt = decodeCWT(qrContent)
         val cert: VaccinationCertificate =
             cbor.decodeFromByteArray(cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes())
-        if (cert.version != "1.0.0") {
-            throw UnsupportedDgcVersionException()
-        }
         return cert.copy(issuer = cwt.issuer, validFrom = cwt.validFrom, validUntil = cwt.validUntil)
     }
 
