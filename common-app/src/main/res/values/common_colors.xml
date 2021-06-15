@@ -226,4 +226,8 @@
     <color name="scanner_overlay">#000000</color>
 
     <color name="test_certificate_background">#7D29B7</color>
+
+    <color name="qr_bottomsheet_background">#3A4450</color>
+
+
 </resources>
