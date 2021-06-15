@@ -8,6 +8,7 @@ package de.rki.covpass.sdk.cert.models
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import java.lang.IllegalStateException
 import java.time.Instant
 import java.time.LocalDate
 
@@ -30,35 +31,49 @@ public data class CovCertificate(
     @Contextual
     @SerialName("dob")
     val birthDate: LocalDate? = null,
+
+    // According to latest EU specification the lists should not be nullable.
+    // But some countries use null values here, so we have to support it.
     @SerialName("v")
-    private val vaccinations: List<Vaccination> = emptyList(),
+    private val vaccinations: List<Vaccination>? = emptyList(),
     @SerialName("t")
-    private val tests: List<Test> = emptyList(),
+    private val tests: List<Test>? = emptyList(),
     @SerialName("r")
-    private val recoveries: List<Recovery> = emptyList(),
+    private val recoveries: List<Recovery>? = emptyList(),
+
     @SerialName("ver")
     val version: String = "",
 ) {
+
+    init {
+        // EU data model does not automatically enforce the EU specification, so we have an additional check here.
+        val dgcEntryCount = (vaccinations?.size ?: 0) + (tests?.size ?: 0) + (recoveries?.size ?: 0)
+        if (dgcEntryCount != 1) {
+            throw IllegalStateException("CovCertificates must contain exactly one DGCEntry.")
+        }
+    }
+
     public val dgcEntry: DGCEntry
-        get() = (vaccinations + tests + recoveries).first()
+        get() = vaccinations?.firstOrNull() ?: tests?.firstOrNull() ?: recoveries?.firstOrNull()
+            ?: throw IllegalStateException("CovCertificates without any DGCEntries are not allowed.")
 
     /**
      * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
      */
     public val vaccination: Vaccination?
-        get() = vaccinations.firstOrNull()
+        get() = vaccinations?.firstOrNull()
 
     /**
      * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
      */
     public val test: Test?
-        get() = tests.firstOrNull()
+        get() = tests?.firstOrNull()
 
     /**
      * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
      */
     public val recovery: Recovery?
-        get() = recoveries.firstOrNull()
+        get() = recoveries?.firstOrNull()
 
     public val fullName: String by lazy {
         listOfNotNull(
