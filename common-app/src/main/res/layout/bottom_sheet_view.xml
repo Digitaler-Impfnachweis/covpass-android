@@ -4,99 +4,106 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/bottom_sheet"
+  android:id="@+id/bottom_sheet_container"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_gravity="bottom"
-  android:layout_marginTop="@dimen/grid_eight"
-  android:background="@drawable/common_rounded_sheet_bg">
-
-  <LinearLayout
-    android:id="@+id/bottom_sheet_header"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_three"
-    android:focusable="true"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toStartOf="@id/bottom_sheet_close"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <TextView
-      android:id="@+id/bottom_sheet_title"
-      style="@style/Header.OnBackground.MediumBig"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      tools:text="Title" />
-
-    <TextView
-      android:id="@+id/bottom_sheet_subtitle"
-      style="@style/DefaultText.OnBackground70"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_one_half"
-      android:visibility="gone"
-      tools:text="Subtitle" />
-
-  </LinearLayout>
-
-  <ImageView
-    android:id="@+id/bottom_sheet_close"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_margin="@dimen/grid_two"
-    android:background="?android:attr/selectableItemBackgroundBorderless"
-    android:padding="@dimen/grid_one"
-    android:src="@drawable/close_bottom_sheet"
-    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="ContentDescription" />
-
-  <ScrollView
-    android:id="@+id/bottom_sheet_content"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_three"
-    app:layout_constrainedHeight="true"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_default="spread"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/bottom_sheet_header"
-    app:layout_constraintVertical_bias="0"
-    app:layout_constraintWidth_default="wrap" />
+  android:layout_height="match_parent">
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/bottom_sheet_bottom_view"
-    android:layout_width="0dp"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/common_gradient_fadeout"
-    android:paddingStart="@dimen/grid_two"
-    android:paddingEnd="@dimen/grid_two"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    android:layout_gravity="bottom"
+    android:layout_marginTop="@dimen/grid_eight"
+    android:background="@drawable/common_rounded_sheet_bg">
 
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/bottom_sheet_action_button"
-      style="@style/PrimaryButton.Dark"
+    <LinearLayout
+      android:id="@+id/bottom_sheet_header"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_three"
+      android:focusable="true"
+      android:orientation="vertical"
+      app:layout_constraintEnd_toStartOf="@id/bottom_sheet_close"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        android:id="@+id/bottom_sheet_title"
+        style="@style/Header.OnBackground.MediumBig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        tools:text="Title" />
+
+      <TextView
+        android:id="@+id/bottom_sheet_subtitle"
+        style="@style/DefaultText.OnBackground70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_one_half"
+        android:visibility="gone"
+        tools:text="Subtitle" />
+
+    </LinearLayout>
+
+    <ImageView
+      android:id="@+id/bottom_sheet_close"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_margin="@dimen/grid_two"
+      android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:padding="@dimen/grid_one"
+      android:src="@drawable/close_bottom_sheet"
+      android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription" />
+
+    <ScrollView
+      android:id="@+id/bottom_sheet_content"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/grid_three"
-      android:layout_marginBottom="@dimen/grid_three"
-      android:textSize="@dimen/textsize_default"
+      app:layout_constrainedHeight="true"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHeight_default="spread"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@id/bottom_sheet_header"
+      app:layout_constraintVertical_bias="0"
+      app:layout_constraintWidth_default="wrap" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/bottom_sheet_bottom_view"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="@drawable/common_gradient_fadeout"
+      android:paddingStart="@dimen/grid_two"
+      android:paddingEnd="@dimen/grid_two"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottom_sheet_action_button"
+        style="@style/PrimaryButton.Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginBottom="@dimen/grid_three"
+        android:textSize="@dimen/textsize_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
