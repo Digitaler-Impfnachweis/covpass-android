@@ -13,7 +13,7 @@ dependencies {
         versionConstraints = {
             api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.0")
             api platform("io.ktor:ktor-bom:1.6.0")
-            api platform("com.ensody.reactivestate:reactivestate-bom:4.2.0")
+            api platform("com.ensody.reactivestate:reactivestate-bom:4.2.1")
             api platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
 
             constraints {
