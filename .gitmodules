@@ -1,3 +1,3 @@
 [submodule "text-vaccination"]
 	path = text-vaccination
-	url = git@github.ibmgcloud.net:eGA/text-vaccination.git
+	url = git@github.com:Digitaler-Impfnachweis/covpass-apps-i18n.git
