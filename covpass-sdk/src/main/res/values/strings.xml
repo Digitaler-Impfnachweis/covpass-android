@@ -5,6 +5,5 @@
   -->
 
 <resources>
-  <!-- TODO: Verify trust_service_host -->
   <string name="trust_service_host">de.dscg.ubirch.com</string>
 </resources>

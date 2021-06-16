@@ -28,8 +28,8 @@ import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DetailAdapter
 import de.rki.covpass.app.detail.adapter.DetailItem
-import de.rki.covpass.app.storage.GroupedCertificates
-import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.GroupedCertificates
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog

@@ -3,11 +3,10 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.app.storage
+package de.rki.covpass.sdk.cert.models
 
 import assertk.assertThat
 import assertk.assertions.*
-import de.rki.covpass.sdk.cert.models.*
 import org.junit.Test
 import java.time.LocalDate
 
@@ -251,10 +250,10 @@ internal class GroupedCertificateListTest {
         val groupedCertificatesList = GroupedCertificatesList.fromCovCertificateList(originalList)
         assertThat(groupedCertificatesList.certificates).hasSize(1)
         assertThat(
-            groupedCertificatesList.certificates[0].certificates[0].covCertificate?.name?.familyNameTransliterated
+            groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
         ).isEqualTo(name1)
         assertThat(
-            groupedCertificatesList.certificates[0].certificates[1].covCertificate?.name?.familyNameTransliterated
+            groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated
         ).isEqualTo(name1)
         assertThat(groupedCertificatesList.favoriteCertId)
             .isEqualTo(testId)

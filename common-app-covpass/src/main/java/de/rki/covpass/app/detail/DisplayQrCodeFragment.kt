@@ -24,7 +24,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DisplayQrCodeBottomsheetContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import kotlinx.coroutines.invoke

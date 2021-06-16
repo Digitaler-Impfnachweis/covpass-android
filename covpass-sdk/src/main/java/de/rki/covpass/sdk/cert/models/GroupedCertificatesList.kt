@@ -3,19 +3,14 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.app.storage
-
-import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.CovCertificateList
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+package de.rki.covpass.sdk.cert.models
 
 /**
  * Data model which contains a list of [GroupedCertificates] and a pointer to the favorite / own certificate.
  * This data model is used at runtime, while for the persistent data the [CovCertificateList] is used.
  * So for storing / loading, the two models have to be transformed into each other.
  */
-internal data class GroupedCertificatesList(
+public data class GroupedCertificatesList(
     var certificates: MutableList<GroupedCertificates> = mutableListOf(),
     var favoriteCertId: GroupedCertificatesId? = null,
 ) {
@@ -23,13 +18,13 @@ internal data class GroupedCertificatesList(
     /**
      * Returns a [GroupedCertificates] if the id of the cert matches the given [certId].
      */
-    fun getGroupedCertificates(certId: GroupedCertificatesId): GroupedCertificates? =
+    public fun getGroupedCertificates(certId: GroupedCertificatesId): GroupedCertificates? =
         certificates.firstOrNull { it.id == certId }
 
     /**
      * Returns the [CombinedCovCertificate] with the given [certId] if existent, else null.
      */
-    fun getCombinedCertificate(certId: String): CombinedCovCertificate? {
+    public fun getCombinedCertificate(certId: String): CombinedCovCertificate? {
         certificates.forEach { groupedCert ->
             groupedCert.certificates.forEach { combinedCert ->
                 if (combinedCert.covCertificate.dgcEntry.id == certId) {
@@ -50,7 +45,7 @@ internal data class GroupedCertificatesList(
      * [GroupedCertificatesId].
      * @throws CertAlreadyExistsException If the cert was already added.
      */
-    fun addNewCertificate(addedCert: CombinedCovCertificate): GroupedCertificatesId {
+    public fun addNewCertificate(addedCert: CombinedCovCertificate): GroupedCertificatesId {
         val certId = addCertificate(addedCert)
         if (certificates.size == 1) {
             favoriteCertId = certId
@@ -93,7 +88,7 @@ internal data class GroupedCertificatesList(
      *
      * @return True, if the complete [GroupedCertificates] was deleted, else false.
      */
-    fun deleteCovCertificate(certId: String): Boolean {
+    public fun deleteCovCertificate(certId: String): Boolean {
         var matchingGroupedCert: GroupedCertificates? = null
         var matchingCombinedCert: CombinedCovCertificate? = null
         certificates.forEach outer@{ groupedCert ->
@@ -114,7 +109,10 @@ internal data class GroupedCertificatesList(
         }
     }
 
-    fun toggleFavorite(certId: GroupedCertificatesId) {
+    /**
+     * Sets the [certId] as favorite, or unfavorites the cert if it was already favorite.
+     */
+    public fun toggleFavorite(certId: GroupedCertificatesId) {
         favoriteCertId = if (certId == favoriteCertId) {
             null
         } else {
@@ -122,10 +120,16 @@ internal data class GroupedCertificatesList(
         }
     }
 
-    fun isMarkedAsFavorite(certId: GroupedCertificatesId): Boolean =
+    /**
+     * @return True if the [certId] is currently set as favorite.
+     */
+    public fun isMarkedAsFavorite(certId: GroupedCertificatesId): Boolean =
         certId == favoriteCertId
 
-    fun getSortedCertificates(): List<GroupedCertificates> {
+    /**
+     * Moves the favorite cert to first position, the rest of the cert order is determined by when they were stored.
+     */
+    public fun getSortedCertificates(): List<GroupedCertificates> {
         val sortedCerts = certificates.toMutableList()
         val favoriteIndex = sortedCerts.indexOfFirst {
             isMarkedAsFavorite(it.id)
@@ -138,7 +142,10 @@ internal data class GroupedCertificatesList(
         return sortedCerts
     }
 
-    fun toCovCertificateList(): CovCertificateList {
+    /**
+     * Transforms this [GroupedCertificatesList] to a [CovCertificateList].
+     */
+    public fun toCovCertificateList(): CovCertificateList {
         val singleCertList = mutableListOf<CombinedCovCertificate>()
         certificates.forEach { groupedCerts ->
             groupedCerts.certificates.forEach { combinedCert ->
@@ -148,12 +155,12 @@ internal data class GroupedCertificatesList(
         return CovCertificateList(singleCertList, favoriteCertId)
     }
 
-    companion object {
+    public companion object {
 
         /**
          * Transforms a [CovCertificateList] into a [GroupedCertificatesList].
          */
-        fun fromCovCertificateList(
+        public fun fromCovCertificateList(
             covCertificateList: CovCertificateList,
         ): GroupedCertificatesList {
             val groupedCertificatesList = GroupedCertificatesList(

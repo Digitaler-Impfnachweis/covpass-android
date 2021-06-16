@@ -11,6 +11,7 @@ import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
 import de.rki.covpass.sdk.cert.models.CERT_DATA_MODEL_VERSION
 import de.rki.covpass.sdk.cert.models.CovCertificateList
 import de.rki.covpass.sdk.cert.models.CovCertificateListVersion
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import kotlinx.coroutines.runBlocking
 
 /**

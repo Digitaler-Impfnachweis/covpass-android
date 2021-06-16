@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ibm.health.common.android.utils.BaseFragmentStateAdapter
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
-import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 
 /**
  * [FragmentStateAdapter] which holds a list of [CertificateFragment]

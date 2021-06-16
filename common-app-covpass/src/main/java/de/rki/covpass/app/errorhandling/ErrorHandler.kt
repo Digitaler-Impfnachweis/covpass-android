@@ -6,8 +6,8 @@
 package de.rki.covpass.app.errorhandling
 
 import de.rki.covpass.app.R
-import de.rki.covpass.app.storage.CertAlreadyExistsException
-import de.rki.covpass.app.storage.CertTestPositiveException
+import de.rki.covpass.sdk.cert.models.CertAlreadyExistsException
+import de.rki.covpass.sdk.cert.models.CertTestPositiveException
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.cert.BadCoseSignatureException

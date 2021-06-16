@@ -25,7 +25,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
-import de.rki.covpass.app.storage.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
