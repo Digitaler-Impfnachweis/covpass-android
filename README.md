@@ -116,7 +116,7 @@ class MyViewModel(scope: CoroutineScope) : BaseReactiveState<MyEvents>(scope) {
 
     // You can also compose states. The otherState.eventNotifier and otherState.loading
     // will get merged into MyViewModel.
-    val otherState by reactiveState { OtherState(scope) }
+    val otherState by childReactiveState { OtherReactiveState(scope) }
 
     // A contrived event example to get the point across
     fun doSomething() {
