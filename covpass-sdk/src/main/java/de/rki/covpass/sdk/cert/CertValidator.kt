@@ -91,7 +91,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             try {
                 cert.certificate.checkValidity()
                 // Validate the COSE signature and the country issuer
-                if (cert.country == cwt.issuer && cose.validate(OneKey(cert.certificate.publicKey, null))) {
+                if (cose.validate(OneKey(cert.certificate.publicKey, null))) {
                     return decodeAndValidate(cwt, cert.certificate)
                 }
             } catch (e: CoseException) {
