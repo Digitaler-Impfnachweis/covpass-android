@@ -12,6 +12,11 @@ import java.security.PublicKey
 import java.security.Signature
 import java.security.SignatureException
 
+/**
+ * Validates the given [signature].
+ *
+ * @throws SignatureException if validation fails.
+ */
 public fun validateSignature(key: PublicKey, data: ByteArray, signature: ByteArray, algorithm: String) {
     val javaSignature = if (algorithm.endsWith("withECDSA")) {
         val (r, s) = signature.splitHalves()

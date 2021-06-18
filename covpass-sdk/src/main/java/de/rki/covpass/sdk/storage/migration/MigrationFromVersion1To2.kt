@@ -1,7 +1,7 @@
-package de.rki.covpass.app.storage.migration
+package de.rki.covpass.sdk.storage.migration
 
-import de.rki.covpass.app.storage.CertRepository.Companion.PREFS_KEY_CERT_LIST
-import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.CertRepository.Companion.PREFS_KEY_CERT_LIST
+import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.cert.models.CovCertificateList
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.migration.Version1CertList

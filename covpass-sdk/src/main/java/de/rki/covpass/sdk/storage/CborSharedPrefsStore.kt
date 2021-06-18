@@ -3,11 +3,12 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.commonapp.utils
+package de.rki.covpass.sdk.storage
 
+import android.content.SharedPreferences
 import android.util.Base64
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import com.ibm.health.common.android.utils.SharedPrefsStore
+import de.rki.covpass.commonapp.utils.getEncryptedSharedPreferences
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
@@ -43,5 +44,8 @@ public class CborSharedPrefsStore(
         }
     }
 
+    /**
+     * @see SharedPreferences.contains
+     */
     public operator fun contains(key: String): Boolean = key in prefs
 }

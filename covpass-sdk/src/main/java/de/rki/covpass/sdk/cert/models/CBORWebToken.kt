@@ -8,6 +8,9 @@ package de.rki.covpass.sdk.cert.models
 import com.upokecenter.cbor.CBORObject
 import java.time.Instant
 
+/**
+ * Data model for a cbor web token.
+ */
 public data class CBORWebToken(
     val issuer: String = "",
     val validFrom: Instant? = null,
@@ -15,6 +18,10 @@ public data class CBORWebToken(
     val rawCbor: CBORObject,
 ) {
     public companion object {
+
+        /**
+         * Decodes the given [ByteArray] to [CBORWebToken].
+         */
         public fun decode(data: ByteArray): CBORWebToken {
             val cbor = CBORObject.DecodeFromBytes(data)
             return CBORWebToken(

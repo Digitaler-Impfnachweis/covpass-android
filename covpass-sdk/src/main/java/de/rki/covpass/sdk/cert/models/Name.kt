@@ -8,6 +8,9 @@ package de.rki.covpass.sdk.cert.models
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Data model which contains the representation of a name according to the EU data model.
+ */
 @Serializable
 public data class Name(
     @SerialName("gn")

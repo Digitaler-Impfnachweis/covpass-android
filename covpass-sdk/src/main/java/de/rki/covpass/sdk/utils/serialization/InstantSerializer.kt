@@ -11,6 +11,9 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.time.Instant
 
+/**
+ * [KSerializer] for [Instant].
+ */
 @Serializer(forClass = Instant::class)
 public object InstantSerializer : KSerializer<Instant> {
 

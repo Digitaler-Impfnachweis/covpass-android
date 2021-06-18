@@ -35,11 +35,22 @@ public suspend fun <T> retry(
     }
 }
 
+/**
+ * Strategy that defines the delay of the retry mechanism.
+ */
 @ExperimentalHCertApi
 public interface RetryStrategy {
+
+    /**
+     * Delays for a certain amount of time and eventually adds some additional delay logic.
+     * E.g. for exponential backoff, the delay time is increased exponentially.
+     */
     public suspend fun delayRetry()
 }
 
+/**
+ * [RetryStrategy] that implements exponential backoff.
+ */
 @ExperimentalHCertApi
 public open class ExponentialBackoffRetryStrategy(
     public val startDelayMillis: Long = 1000,
@@ -49,10 +60,16 @@ public open class ExponentialBackoffRetryStrategy(
     public var delay: Long = startDelayMillis
         private set
 
+    /**
+     * Sets back the delay to the start value.
+     */
     public fun resetDelay() {
         delay = startDelayMillis
     }
 
+    /**
+     * Multiplies the delay with [delayFactor], as long as the [maxDelayMillis] are not exceeded.
+     */
     public fun increaseDelay() {
         delay = min((delay * delayFactor).toLong(), maxDelayMillis)
     }

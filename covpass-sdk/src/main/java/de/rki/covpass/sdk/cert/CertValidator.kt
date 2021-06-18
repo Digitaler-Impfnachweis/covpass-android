@@ -18,6 +18,9 @@ import java.security.GeneralSecurityException
 import java.security.cert.X509Certificate
 import java.time.Instant
 
+/**
+ * Compact representation of a [DscListEntry] with decoded raw data as [X509Certificate].
+ */
 public data class TrustedCert(
     val country: String,
     val kid: String,
@@ -73,7 +76,15 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes()
         )
 
-    public fun validate(cose: Sign1Message): CovCertificate {
+    /**
+     * Decodes a [Sign1Message] and asserts that the [CBORWebToken] is valid.
+     *
+     * @returns The decoded [CovCertificate], if the validation was successful.
+     *
+     * @throws ExpiredCwtException If the [CBORWebToken] has expired.
+     * @throws BadCoseSignatureException If the signature validation failed.
+     */
+    public fun decodeAndValidate(cose: Sign1Message): CovCertificate {
         val cwt = CBORWebToken.decode(cose.GetContent())
         if (cwt.validUntil.isBefore(Instant.now())) {
             throw ExpiredCwtException()
@@ -90,7 +101,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
         for (cert in certs) {
             try {
                 cert.certificate.checkValidity()
-                // Validate the COSE signature and the country issuer
+                // Validate the COSE signature
                 if (cose.validate(OneKey(cert.certificate.publicKey, null))) {
                     return decodeAndValidate(cwt, cert.certificate)
                 }

@@ -18,10 +18,10 @@ import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.storage.DscRepository
-import de.rki.covpass.commonapp.utils.isDscListUpToDate
+import de.rki.covpass.sdk.storage.DscRepository
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.isDscListUpToDate
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 import java.time.LocalDateTime
@@ -45,7 +45,7 @@ internal class MainFragment : BaseFragment() {
         binding.mainCheckCertButton.setOnClickListener { findNavigator().push(CovPassCheckQRScannerFragmentNav()) }
 
         autoRun {
-            updateAvailabilityCard(get(commonDeps.dscRepository.lastUpdate))
+            updateAvailabilityCard(get(sdkDeps.dscRepository.lastUpdate))
         }
     }
 

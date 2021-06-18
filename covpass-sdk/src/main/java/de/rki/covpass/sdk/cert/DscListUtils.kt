@@ -8,7 +8,11 @@ package de.rki.covpass.sdk.cert
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPem
+import de.rki.covpass.sdk.cert.models.DscListEntry
 
+/**
+ * Converts the list of [DscListEntry] to a list of [TrustedCert].
+ */
 public fun DscList.toTrustedCerts(): List<TrustedCert> {
     return certificates.mapNotNull { dscEntry ->
         val certificate = readPem(

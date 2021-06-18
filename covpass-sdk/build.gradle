@@ -12,4 +12,7 @@ dependencies {
     coroutines()
     kotlinxSerialization()
     coseJava()
+    reactiveState()
+    cryptographic()
+    worker()
 }

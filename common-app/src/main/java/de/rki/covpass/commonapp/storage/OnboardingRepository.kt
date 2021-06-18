@@ -6,7 +6,7 @@
 package de.rki.covpass.commonapp.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 
 /**
  * Repository that provides access to the information of the current data privacy version and if onboarding was

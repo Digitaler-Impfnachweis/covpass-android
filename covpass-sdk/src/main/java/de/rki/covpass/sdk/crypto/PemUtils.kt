@@ -19,6 +19,7 @@ import java.security.cert.X509Certificate
 public fun Application.readPemAsset(path: String): List<X509Certificate> =
     readPem(readTextAsset(path))
 
+/** Reads a PEM file and returns a list of the [PublicKey]s contained in that file. */
 public fun Application.readPemKeyAsset(path: String): List<PublicKey> =
     readPemKeys(readTextAsset(path))
 

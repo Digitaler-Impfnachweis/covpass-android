@@ -9,8 +9,6 @@ dependencies {
     api project(":navigation")
     api project(":securityprovider")
     api project(':covpass-sdk')
-    cryptographic()
     androidUI()
     zxing()
-    worker()
 }

@@ -6,8 +6,8 @@
 package de.rki.covpass.app.dependencies
 
 import de.rki.covpass.app.common.ToggleFavoriteUseCase
-import de.rki.covpass.app.storage.CertRepository
-import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.CertRepository
+import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.serialization.cbor.Cbor
 

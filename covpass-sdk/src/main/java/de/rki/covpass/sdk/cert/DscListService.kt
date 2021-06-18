@@ -9,6 +9,9 @@ import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 
+/**
+ * Service to fetch the Document Signer Certificates from backend.
+ */
 public class DscListService(httpClient: HttpClient, host: String) {
     private val client = httpClient.config {
         defaultRequest {
@@ -16,6 +19,9 @@ public class DscListService(httpClient: HttpClient, host: String) {
         }
     }
 
+    /**
+     * Fetch the Document Signer Certificates from backend.
+     */
     public suspend fun getTrustedList(): String =
         client.get("/trustList/DSC/")
 }

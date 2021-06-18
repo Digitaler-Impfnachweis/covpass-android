@@ -16,15 +16,14 @@ import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.navigation.android.*
 import com.ibm.health.common.securityprovider.initSecurityProvider
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.utils.DSC_UPDATE_INTERVAL_HOURS
-import de.rki.covpass.commonapp.utils.DscListUpdater
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.utils.DSC_UPDATE_INTERVAL_HOURS
+import de.rki.covpass.sdk.utils.DscListUpdater
 import java.util.concurrent.TimeUnit
 
 /** Common base application with some common functionality like setting up logging. */
@@ -61,7 +60,7 @@ public abstract class CommonApplication : Application() {
     }
 
     public fun start() {
-        sdkDeps.validator.updateTrustedCerts(commonDeps.dscRepository.dscList.value.toTrustedCerts())
+        sdkDeps.validator.updateTrustedCerts(sdkDeps.dscRepository.dscList.value.toTrustedCerts())
 
         val tag = "dscListWorker"
         val dscListWorker: PeriodicWorkRequest =

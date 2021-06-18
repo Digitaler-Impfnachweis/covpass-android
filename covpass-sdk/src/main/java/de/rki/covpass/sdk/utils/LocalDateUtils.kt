@@ -17,6 +17,9 @@ public fun LocalDate.formatDate(): String {
     return format(formatter)
 }
 
+/**
+ * Formats a local date to e.g. "12.03.1989". Returns an empty string for null.
+ */
 public fun LocalDate?.formatDateOrEmpty(): String {
     return this?.formatDate() ?: ""
 }
@@ -29,19 +32,31 @@ public fun LocalDate.formatDateInternational(): String {
     return format(formatter)
 }
 
+/**
+ * @return True, if the [LocalDate] is older than 14 days, else false.
+ */
 public fun LocalDate?.isOlderThanTwoWeeks(): Boolean {
     return this?.plusDays(14)?.isBefore(LocalDate.now()) ?: false
 }
 
+/**
+ * @return True, if the [LocalDate] is older than given [days], else false.
+ */
 public fun LocalDate?.isOlderThan(days: Long): Boolean {
     return this?.plusDays(days)?.isBefore(LocalDate.now()) ?: false
 }
 
+/**
+ * @return True, if the [LocalDate] is in the future, else false.
+ */
 public fun LocalDate?.isInFuture(): Boolean {
     if (this == null) { return false }
     return LocalDate.now().isBefore(this)
 }
 
+/**
+ * @return True, if the [LocalDate] does not exceed [validFrom] or [validUntil], else false.
+ */
 public fun isValid(validFrom: LocalDate?, validUntil: LocalDate?): Boolean {
     if (validFrom == null || validUntil == null) { return false }
     val now = LocalDate.now()

@@ -9,11 +9,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.ibm.health.common.android.utils.androidDeps
+import de.rki.covpass.sdk.dependencies.sdkDeps
 
+/**
+ * @return Encrypted [SharedPreferences] for the given [preferencesName] using application context.
+ */
 public fun getEncryptedSharedPreferences(preferencesName: String): SharedPreferences =
-    getEncryptedSharedPreferences(context = androidDeps.application, preferencesName = preferencesName)
+    getEncryptedSharedPreferences(context = sdkDeps.application, preferencesName = preferencesName)
 
+/**
+ * @return Encrypted [SharedPreferences] for the given [preferencesName] and [context].
+ */
 public fun getEncryptedSharedPreferences(context: Context, preferencesName: String): SharedPreferences {
     val masterKey = MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)

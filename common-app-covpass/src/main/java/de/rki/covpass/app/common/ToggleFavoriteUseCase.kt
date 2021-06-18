@@ -5,7 +5,7 @@
 
 package de.rki.covpass.app.common
 
-import de.rki.covpass.app.storage.CertRepository
+import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 
 /**

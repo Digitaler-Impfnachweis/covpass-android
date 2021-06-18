@@ -3,10 +3,9 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.commonapp.storage
+package de.rki.covpass.sdk.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
 import de.rki.covpass.sdk.cert.models.DscList
 import java.time.Instant
 
@@ -22,6 +21,9 @@ public class DscRepository(
 
     public val dscList: SuspendMutableValueFlow<DscList> = store.getData("dcs_list", dscList)
 
+    /**
+     * Update the [DscList] in the repository. Also update the [lastUpdate].
+     */
     public suspend fun updateDscList(newDscList: DscList) {
         dscList.set(newDscList)
         lastUpdate.set(Instant.now())

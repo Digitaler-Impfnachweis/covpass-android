@@ -13,6 +13,8 @@ import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
+import de.rki.covpass.sdk.storage.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.utils.readTextAsset
 import kotlinx.serialization.cbor.Cbor
 
@@ -50,6 +52,10 @@ public abstract class SdkDependencies {
     }
 
     public val dscListService: DscListService by lazy { DscListService(httpClient, trustServiceHost) }
+
+    public val dscRepository: DscRepository by lazy {
+        DscRepository(CborSharedPrefsStore("dsc_cert_prefs", cbor), dscList)
+    }
 
     public val validator: CertValidator by lazy { CertValidator(dscList.toTrustedCerts(), cbor) }
 

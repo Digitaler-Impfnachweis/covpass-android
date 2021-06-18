@@ -3,24 +3,22 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.app.storage
+package de.rki.covpass.sdk.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import de.rki.covpass.app.storage.migration.MigrationFromVersion1To2
-import de.rki.covpass.commonapp.utils.CborSharedPrefsStore
 import de.rki.covpass.sdk.cert.models.CERT_DATA_MODEL_VERSION
 import de.rki.covpass.sdk.cert.models.CovCertificateList
 import de.rki.covpass.sdk.cert.models.CovCertificateListVersion
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.storage.migration.MigrationFromVersion1To2
 import kotlinx.coroutines.runBlocking
 
 /**
  * Repository which contains the [GroupedCertificatesList]
  */
-// FIXME move to SDK?
-internal class CertRepository(private val store: CborSharedPrefsStore) {
+public class CertRepository(private val store: CborSharedPrefsStore) {
 
-    val certs: SuspendMutableValueFlow<GroupedCertificatesList>
+    public val certs: SuspendMutableValueFlow<GroupedCertificatesList>
 
     private val certsPref: SuspendMutableValueFlow<CovCertificateList>
 

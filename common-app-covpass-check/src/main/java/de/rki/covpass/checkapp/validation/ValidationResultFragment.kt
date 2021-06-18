@@ -20,7 +20,7 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.sdk.utils.adjustToString
+import de.rki.covpass.sdk.utils.getDisplayString
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.hoursTillNow
@@ -197,7 +197,7 @@ internal class NegativeValidPcrTestResultFragment : ValidationResultFragment() {
     override val textInfo2 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_less_than_72_h_utc,
-            args.sampleCollection?.offset?.adjustToString()
+            args.sampleCollection?.offset?.getDisplayString()
         )
     }
     override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_less_than_72_h_button_title
@@ -243,7 +243,7 @@ internal class NegativeExpiredPcrTestResultFragment : ValidationResultFragment()
     override val textInfo2 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_older_than_72_h_utc,
-            args.sampleCollection?.offset?.adjustToString()
+            args.sampleCollection?.offset?.getDisplayString()
         )
     }
     override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_older_than_72_h_button_title
@@ -289,7 +289,7 @@ internal class NegativeValidAntigenTestResultFragment : ValidationResultFragment
     override val textInfo2 by lazy {
         getString(
             R.string.validation_check_popup_test_less_than_24_h_utc,
-            args.sampleCollection?.offset?.adjustToString()
+            args.sampleCollection?.offset?.getDisplayString()
         )
     }
     override val buttonTextRes = R.string.validation_check_popup_test_less_than_24_h_button_title
@@ -335,7 +335,7 @@ internal class NegativeExpiredAntigenTestResultFragment : ValidationResultFragme
     override val textInfo2 by lazy {
         getString(
             R.string.validation_check_popup_test_older_than_24_h_utc,
-            args.sampleCollection?.offset?.adjustToString()
+            args.sampleCollection?.offset?.getDisplayString()
         )
     }
     override val buttonTextRes = R.string.validation_check_popup_test_older_than_24_h_button_title

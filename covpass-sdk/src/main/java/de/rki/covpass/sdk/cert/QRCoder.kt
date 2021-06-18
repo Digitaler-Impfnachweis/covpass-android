@@ -36,12 +36,12 @@ public class QRCoder(private val validator: CertValidator) {
      *
      * @throws ExpiredCwtException If the [CBORWebToken] has expired.
      * @throws BadCoseSignatureException If the signature validation failed.
-     * @throws UnsupportedDgcVersionException If the Digital Green Certificate version is unsupported.
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
     public fun decodeCovCert(qrContent: String): CovCertificate =
-        validator.validate(decodeCose(qrContent))
+        validator.decodeAndValidate(decodeCose(qrContent))
 }
 
+/** Thrown when the decoding of a Document Signer Certificate fails. */
 public open class DgcDecodeException(message: String) : IllegalArgumentException(message)
