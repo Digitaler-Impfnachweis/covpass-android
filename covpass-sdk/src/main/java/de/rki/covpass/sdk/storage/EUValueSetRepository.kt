@@ -29,7 +29,7 @@ internal object EUValueSetRepository {
                 system = "https://ec.europa.eu/health/documents/community-register/html/",
                 version = ""
             ),
-            "EU/1/20/1529" to EUValueSetValue(
+            "EU/1/21/1529" to EUValueSetValue(
                 display = "Vaxzevria",
                 lang = "en",
                 active = true,
