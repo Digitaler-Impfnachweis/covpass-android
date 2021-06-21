@@ -15,9 +15,9 @@ internal class GroupedCertificateListTest {
     private val name1 = "Hans"
     private val name2 = "Franz"
     private val name3 = "Silke"
-    private val date1 = LocalDate.of(1, 1, 1)
-    private val date2 = LocalDate.of(2, 2, 2)
-    private val date3 = LocalDate.of(3, 3, 3)
+    private val date1 = BirthDate(LocalDate.parse("2021-01-01"))
+    private val date2 = BirthDate(LocalDate.parse("2021-02-02"))
+    private val date3 = BirthDate(LocalDate.parse("2021-03-03"))
     private val idComplete1 = "certComplete1"
     private val idComplete2 = "certComplete2"
     private val idComplete3 = "certComplete3"
@@ -237,7 +237,7 @@ internal class GroupedCertificateListTest {
 
     @Test
     fun `Ensure favoriteId is set to main certificate after transformation`() {
-        val testId = GroupedCertificatesId(Name(name1), birthDate = LocalDate.of(2011, 11, 11))
+        val testId = GroupedCertificatesId(Name(name1), birthDate = BirthDate(LocalDate.parse("2011-11-11")))
 
         val originalList = CovCertificateList(
             mutableListOf(

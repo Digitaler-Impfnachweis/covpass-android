@@ -7,7 +7,6 @@ package de.rki.covpass.sdk.cert.models
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import java.time.LocalDate
 
 /**
  * Data model which represents an identifier of [GroupedCertificates].
@@ -16,5 +15,5 @@ import java.time.LocalDate
 public data class GroupedCertificatesId(
     val name: Name,
     @Contextual
-    val birthDate: LocalDate?,
+    val birthDate: BirthDate
 ) : java.io.Serializable

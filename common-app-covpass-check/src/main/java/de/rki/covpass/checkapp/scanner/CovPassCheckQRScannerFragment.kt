@@ -14,6 +14,7 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.utils.formatOrEmpty
 import kotlinx.parcelize.Parcelize
 import java.time.ZonedDateTime
 
@@ -40,7 +41,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             ValidationResultSuccessNav(
                 certificate.fullName,
-                certificate.birthDate
+                certificate.birthDate.formatOrEmpty()
             )
         )
     }
@@ -52,7 +53,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             NegativeValidPcrTestFragmentNav(
                 certificate.fullName,
-                certificate.birthDate,
+                certificate.birthDate.formatOrEmpty(),
                 sampleCollection
             )
         )
@@ -65,7 +66,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             NegativeExpiredPcrTestFragmentNav(
                 certificate.fullName,
-                certificate.birthDate,
+                certificate.birthDate.formatOrEmpty(),
                 sampleCollection
             )
         )
@@ -78,7 +79,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             NegativeValidAntigenTestFragmentNav(
                 certificate.fullName,
-                certificate.birthDate,
+                certificate.birthDate.formatOrEmpty(),
                 sampleCollection
             )
         )
@@ -91,7 +92,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             NegativeExpiredAntigenTestFragmentNav(
                 certificate.fullName,
-                certificate.birthDate,
+                certificate.birthDate.formatOrEmpty(),
                 sampleCollection
             )
         )

@@ -28,19 +28,10 @@ import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DetailAdapter
 import de.rki.covpass.app.detail.adapter.DetailItem
-import de.rki.covpass.sdk.cert.models.GroupedCertificates
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.sdk.cert.models.DGCEntryType
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.RecoveryCertType
-import de.rki.covpass.sdk.cert.models.Test
-import de.rki.covpass.sdk.cert.models.TestCertType
-import de.rki.covpass.sdk.cert.models.Vaccination
-import de.rki.covpass.sdk.cert.models.VaccinationCertType
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.*
 import kotlinx.parcelize.Parcelize
 
@@ -226,7 +217,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                 ),
                 DetailItem.Personal(
                     getString(R.string.certificates_overview_personal_data_date_of_birth),
-                    cert.birthDate?.formatDateInternational()
+                    cert.birthDate.formatInternationalOrEmpty()
                 ),
                 DetailItem.Header(
                     getString(R.string.certificates_overview_all_certificates_title)

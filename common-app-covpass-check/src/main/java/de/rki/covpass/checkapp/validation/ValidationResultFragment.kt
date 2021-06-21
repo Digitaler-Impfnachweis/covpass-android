@@ -25,7 +25,6 @@ import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.hoursTillNow
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
 import java.time.ZonedDateTime
 
 /**
@@ -128,7 +127,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 @Parcelize
 internal class ValidationResultSuccessNav(
     val name: String,
-    val birthDate: LocalDate?
+    val birthDate: String
 ) : FragmentNav(ValidationResultSuccessFragment::class)
 
 /**
@@ -146,7 +145,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
 
     override val titleInfo1 by lazy { args.name }
     override val textInfo1 by lazy {
-        getString(R.string.validation_check_popup_valid_vaccination_date_of_birth, args.birthDate.formatDateOrEmpty())
+        getString(R.string.validation_check_popup_valid_vaccination_date_of_birth, args.birthDate)
     }
     override val imageInfo1Res = R.drawable.result_person
 
@@ -160,7 +159,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
 @Parcelize
 internal class NegativeValidPcrTestFragmentNav(
     val name: String,
-    val birthDate: LocalDate?,
+    val birthDate: String,
     val sampleCollection: ZonedDateTime?
 ) : FragmentNav(NegativeValidPcrTestResultFragment::class)
 
@@ -184,7 +183,7 @@ internal class NegativeValidPcrTestResultFragment : ValidationResultFragment() {
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_less_than_72_h_date_of_birth,
-            args.birthDate.formatDateOrEmpty()
+            args.birthDate
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
@@ -206,7 +205,7 @@ internal class NegativeValidPcrTestResultFragment : ValidationResultFragment() {
 @Parcelize
 internal class NegativeExpiredPcrTestFragmentNav(
     val name: String,
-    val birthDate: LocalDate?,
+    val birthDate: String,
     val sampleCollection: ZonedDateTime?
 ) : FragmentNav(NegativeExpiredPcrTestResultFragment::class)
 
@@ -230,7 +229,7 @@ internal class NegativeExpiredPcrTestResultFragment : ValidationResultFragment()
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_older_than_72_h_date_of_birth,
-            args.birthDate.formatDateOrEmpty()
+            args.birthDate
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
@@ -252,7 +251,7 @@ internal class NegativeExpiredPcrTestResultFragment : ValidationResultFragment()
 @Parcelize
 internal class NegativeValidAntigenTestFragmentNav(
     val name: String,
-    val birthDate: LocalDate?,
+    val birthDate: String,
     val sampleCollection: ZonedDateTime?
 ) : FragmentNav(NegativeValidAntigenTestResultFragment::class)
 
@@ -276,7 +275,7 @@ internal class NegativeValidAntigenTestResultFragment : ValidationResultFragment
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_test_less_than_24_h_date_of_birth,
-            args.birthDate.formatDateOrEmpty()
+            args.birthDate
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
@@ -298,7 +297,7 @@ internal class NegativeValidAntigenTestResultFragment : ValidationResultFragment
 @Parcelize
 internal class NegativeExpiredAntigenTestFragmentNav(
     val name: String,
-    val birthDate: LocalDate?,
+    val birthDate: String,
     val sampleCollection: ZonedDateTime?
 ) : FragmentNav(NegativeExpiredAntigenTestResultFragment::class)
 
@@ -322,7 +321,7 @@ internal class NegativeExpiredAntigenTestResultFragment : ValidationResultFragme
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_test_older_than_24_h_date_of_birth,
-            args.birthDate.formatDateOrEmpty()
+            args.birthDate
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar

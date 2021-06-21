@@ -8,14 +8,11 @@ package de.rki.covpass.app.detail
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
-import de.rki.covpass.sdk.cert.getCountryName
-import de.rki.covpass.sdk.cert.getDiseaseAgentName
-import de.rki.covpass.sdk.cert.getManufacturerName
-import de.rki.covpass.sdk.cert.getProductName
-import de.rki.covpass.sdk.cert.getProphylaxisName
+import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatInternationalOrEmpty
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -49,7 +46,7 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
-            cert.birthDate?.formatDateInternational(),
+            cert.birthDate.formatInternationalOrEmpty(),
             dataRows
         )
         addDataRow(

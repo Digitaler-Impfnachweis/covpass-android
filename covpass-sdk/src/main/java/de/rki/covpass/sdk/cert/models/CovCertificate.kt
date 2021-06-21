@@ -8,7 +8,6 @@ package de.rki.covpass.sdk.cert.models
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.lang.IllegalStateException
 import java.time.Instant
 import java.time.LocalDate
 
@@ -30,7 +29,7 @@ public data class CovCertificate(
     val name: Name = Name(),
     @Contextual
     @SerialName("dob")
-    val birthDate: LocalDate? = null,
+    val birthDate: BirthDate = BirthDate(),
 
     // According to latest EU specification the lists should not be nullable.
     // But some countries use null values here, so we have to support it.
