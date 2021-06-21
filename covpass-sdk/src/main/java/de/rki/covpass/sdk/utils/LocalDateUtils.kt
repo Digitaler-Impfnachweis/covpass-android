@@ -33,21 +33,19 @@ public fun LocalDate.formatDateInternational(): String {
 }
 
 /**
- * @return True, if the [LocalDate] is older than 14 days, else false.
+ * Checks if this [LocalDate] is older than given number [days].
+ *
+ * IMPORTANT: The date must be literally **older**.
+ * So, passing `days = 1` would check if it's older than 1 day, which means at least 2 days old.
+ *
+ * @return `true` if this [LocalDate] is older than given [days], else `false`.
  */
-public fun LocalDate?.isOlderThanTwoWeeks(): Boolean {
-    return this?.plusDays(14)?.isBefore(LocalDate.now()) ?: false
+public fun LocalDate.isOlderThan(days: Long): Boolean {
+    return plusDays(days).isBefore(LocalDate.now())
 }
 
 /**
- * @return True, if the [LocalDate] is older than given [days], else false.
- */
-public fun LocalDate?.isOlderThan(days: Long): Boolean {
-    return this?.plusDays(days)?.isBefore(LocalDate.now()) ?: false
-}
-
-/**
- * @return True, if the [LocalDate] is in the future, else false.
+ * @return `true` if this [LocalDate] is in the future, else false.
  */
 public fun LocalDate?.isInFuture(): Boolean {
     if (this == null) { return false }
@@ -55,7 +53,7 @@ public fun LocalDate?.isInFuture(): Boolean {
 }
 
 /**
- * @return True, if the [LocalDate] does not exceed [validFrom] or [validUntil], else false.
+ * @return `true` if this [LocalDate] does not exceed [validFrom] or [validUntil], else false.
  */
 public fun isValid(validFrom: LocalDate?, validUntil: LocalDate?): Boolean {
     if (validFrom == null || validUntil == null) { return false }

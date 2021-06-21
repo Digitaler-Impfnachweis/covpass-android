@@ -5,7 +5,7 @@
 
 package de.rki.covpass.sdk.cert.models
 
-import de.rki.covpass.sdk.utils.isOlderThanTwoWeeks
+import de.rki.covpass.sdk.utils.isOlderThan
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -51,7 +51,8 @@ public data class Vaccination(
         get() = doseNumber == totalSerialDoses
 
     public val hasFullProtection: Boolean
-        get() = isComplete && occurrence.isOlderThanTwoWeeks()
+        // Full protection is reached on day 15 after the complete vaccination
+        get() = isComplete && occurrence?.isOlderThan(days = 14) == true
 
     public override val type: VaccinationCertType
         get() = when {
