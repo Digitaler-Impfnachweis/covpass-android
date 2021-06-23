@@ -46,12 +46,12 @@ internal class CovPassCheckQRScannerFragment :
         )
     }
 
-    override fun onNegativeValidPcrTest(
+    override fun onValidPcrTest(
         certificate: CovCertificate,
         sampleCollection: ZonedDateTime?
     ) {
         findNavigator().push(
-            NegativeValidPcrTestFragmentNav(
+            ValidPcrTestFragmentNav(
                 certificate.fullName,
                 certificate.birthDate.formatOrEmpty(),
                 sampleCollection
@@ -59,38 +59,12 @@ internal class CovPassCheckQRScannerFragment :
         )
     }
 
-    override fun onNegativeExpiredPcrTest(
+    override fun onValidAntigenTest(
         certificate: CovCertificate,
         sampleCollection: ZonedDateTime?
     ) {
         findNavigator().push(
-            NegativeExpiredPcrTestFragmentNav(
-                certificate.fullName,
-                certificate.birthDate.formatOrEmpty(),
-                sampleCollection
-            )
-        )
-    }
-
-    override fun onNegativeValidAntigenTest(
-        certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?
-    ) {
-        findNavigator().push(
-            NegativeValidAntigenTestFragmentNav(
-                certificate.fullName,
-                certificate.birthDate.formatOrEmpty(),
-                sampleCollection
-            )
-        )
-    }
-
-    override fun onNegativeExpiredAntigenTest(
-        certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?
-    ) {
-        findNavigator().push(
-            NegativeExpiredAntigenTestFragmentNav(
+            ValidAntigenTestFragmentNav(
                 certificate.fullName,
                 certificate.birthDate.formatOrEmpty(),
                 sampleCollection

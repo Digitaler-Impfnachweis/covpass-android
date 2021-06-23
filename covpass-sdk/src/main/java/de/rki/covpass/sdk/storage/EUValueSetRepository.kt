@@ -36,6 +36,13 @@ internal object EUValueSetRepository {
                 system = "https://ec.europa.eu/health/documents/community-register/html/",
                 version = ""
             ),
+            "EU/1/20/1525" to EUValueSetValue(
+                display = "COVID-19 Vaccine Janssen",
+                lang = "en",
+                active = true,
+                system = "https://ec.europa.eu/health/documents/community-register/html/",
+                version = ""
+            ),
             "CVnCoV" to EUValueSetValue(
                 display = "CVnCoV",
                 lang = "en",

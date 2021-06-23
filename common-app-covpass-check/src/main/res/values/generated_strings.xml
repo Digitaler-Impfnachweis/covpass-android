@@ -14,7 +14,7 @@
 	<string name="start_onboarding_button_title">Los geht\'s</string>
 	<string name="next_onboarding_page_button_title">Weiter</string>
 	<string name="validation_first_onboarding_page_title">Erster Schritt: Den QR-Code mit der CovPassCheck-App scannen</string>
-	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronische Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
+	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat der EU. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronische Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate der EU hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
 	<string name="validation_second_onboarding_page_title">Zweiter Schritt: Die Identität mit einem Ausweisdokument überprüfen</string>
 	<string name="validation_second_onboarding_page_message">Als prüfende Person sehen Sie in der CovPassCheck-App nur den Gültigkeitsstatus des digitalen COVID-Zertifikats sowie den Namen und das Geburtsdatum des Zertifikatsinhabers. Gleichen Sie diese Informationen mit einem Ausweisdokument (z. B. Personalausweis, Reisepass) ab. Eine aktive Internetverbindung ist für die Prüfung nicht erforderlich.</string>
 	<string name="validation_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
@@ -31,16 +31,16 @@
 	<!-- SECTION: start screen -->
 	<string name="validation_start_screen_title">Übersicht</string>
 	<string name="validation_start_screen_scan_title">Zertifikat prüfen</string>
-	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das EU Digitale COVID-Zertifikat. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
+	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
-	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellsten Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
+	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Offline-Modus verfügbar</string>
 	<string name="validation_start_screen_offline_modus_note_old_version">Internetverbindung erforderlich</string>
 	<string name="validation_start_screen_offline_modus_note_update">Letztes Update</string>
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
 	<string name="error_old_version_title">Internetverbindung erforderlich</string>
-	<string name="error_old_version_message">Das letzte Update ist eine Weile her. Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellsten Stand. Stellen Sie dafür eine Verbindung mit dem Internet her.</string>
+	<string name="error_old_version_message">Das letzte Update ist eine Weile her. Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür eine Verbindung mit dem Internet her.</string>
 	<string name="error_old_version_button_title">OK</string>
 
 	<!-- SECTION: popup: Check vaccination -->
@@ -98,6 +98,7 @@
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
+	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->
@@ -111,6 +112,6 @@
 	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte überprüfen Sie, ob Sie die aktuelle Version der App aus dem App Store auf Ihrem Smartphone installiert haben.</string>
 	<string name="error_scan_present_data_is_not_supported_button_title">OK</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
-	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem Digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 </resources>

@@ -8,13 +8,10 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.ErrorEvents
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.cert.BadCoseSignatureException
-import de.rki.covpass.sdk.cert.ExpiredCwtException
-import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
 import de.rki.covpass.sdk.cert.QRCoder
+import de.rki.covpass.sdk.cert.assertGermanValidationRuleSet
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.utils.isOlderThan
 import de.rki.covpass.sdk.utils.isValid
 import kotlinx.coroutines.CoroutineScope
 import java.time.ZonedDateTime
@@ -25,14 +22,8 @@ import java.time.ZonedDateTime
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     fun onValidationSuccess(certificate: CovCertificate)
     fun onValidationFailure()
-
-    // Test - PCR
-    fun onNegativeValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
-    fun onNegativeExpiredPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
-
-    // Test - Antigen
-    fun onNegativeValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
-    fun onNegativeExpiredAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
+    fun onValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
+    fun onValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
 }
 
 /**
@@ -48,6 +39,7 @@ internal class CovPassCheckQRScannerViewModel(
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
+                assertGermanValidationRuleSet(dgcEntry)
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
@@ -90,15 +82,8 @@ internal class CovPassCheckQRScannerViewModel(
                     // .let{} to enforce exhaustiveness
                 }.let {}
             } catch (exception: Exception) {
-                when (exception) {
-                    is BadCoseSignatureException,
-                    is ExpiredCwtException,
-                    is NoMatchingExtendedKeyUsageException -> {
-                        Lumber.e(exception)
-                        eventNotifier { onValidationFailure() }
-                    }
-                    else -> throw exception
-                }
+                Lumber.e(exception)
+                eventNotifier { onValidationFailure() }
             }
         }
     }
@@ -107,23 +92,11 @@ internal class CovPassCheckQRScannerViewModel(
         covCertificate: CovCertificate
     ) {
         val test = covCertificate.dgcEntry as Test
-        val isOlder = test.sampleCollection?.isOlderThan(
-            Test.PCR_TEST_EXPIRY_TIME_HOURS
-        ) ?: false
-        if (isOlder) {
-            eventNotifier {
-                onNegativeExpiredPcrTest(
-                    covCertificate,
-                    test.sampleCollection
-                )
-            }
-        } else {
-            eventNotifier {
-                onNegativeValidPcrTest(
-                    covCertificate,
-                    test.sampleCollection
-                )
-            }
+        eventNotifier {
+            onValidPcrTest(
+                covCertificate,
+                test.sampleCollection
+            )
         }
     }
 
@@ -131,23 +104,11 @@ internal class CovPassCheckQRScannerViewModel(
         covCertificate: CovCertificate
     ) {
         val test = covCertificate.dgcEntry as Test
-        val isOlder = test.sampleCollection?.isOlderThan(
-            Test.ANTIGEN_TEST_EXPIRY_TIME_HOURS
-        ) ?: false
         eventNotifier {
-            if (isOlder) {
-                eventNotifier {
-                    onNegativeExpiredAntigenTest(
-                        covCertificate,
-                        test.sampleCollection
-                    )
-                }
-            } else {
-                onNegativeValidAntigenTest(
-                    covCertificate,
-                    test.sampleCollection
-                )
-            }
+            onValidAntigenTest(
+                covCertificate,
+                test.sampleCollection
+            )
         }
     }
 }

@@ -8,13 +8,13 @@
 
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Willkommen in der CovPass-App</string>
-	<string name="start_onboarding_message">Weisen Sie EU Digitale COVID-Zertifikate ganz einfach mit dem Smartphone nach.</string>
+	<string name="start_onboarding_message">Weisen Sie digitale COVID-Zertifikate der EU ganz einfach mit dem Smartphone nach.</string>
 	<string name="start_onboarding_secure_title">Absolute Sicherheit Ihrer Daten</string>
 	<string name="start_onboarding_secure_message">Ihre Daten werden nur lokal auf Ihrem Smartphone gespeichert. Sie entscheiden, wann und wem Sie Ihre Daten vorzeigen.</string>
 	<string name="start_onboarding_button_title">Los geht\'s</string>
 	<string name="next_onboarding_page_button_title">Weiter</string>
 	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Übertragen Sie das COVID-Zertifikat auf Ihr Smartphone</string>
-	<string name="vaccination_first_onboarding_page_message">Scannen Sie mit der CovPass-App das EU Digitale COVID-Zertifikat für eine Corona-Impfung, ein negatives Corona-Testergebnis oder eine Genesung von der Corona-Infektion. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Das COVID-Zertifikat wird sofort auf Ihr Smartphone übertragen.</string>
+	<string name="vaccination_first_onboarding_page_message">Scannen Sie mit der CovPass-App das digitale COVID-Zertifikat der EU für eine Corona-Impfung, ein negatives Corona-Testergebnis oder eine Genesung von der Corona-Infektion. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Das COVID-Zertifikat wird sofort auf Ihr Smartphone übertragen.</string>
 	<string name="vaccination_second_onboarding_page_title">Zweiter Schritt: Rufen Sie den QR-Code in der CovPass-App auf</string>
 	<string name="vaccination_second_onboarding_page_message">Mit dem QR-Code können Sie eine Corona-Impfung, ein negatives Corona-Testergebnis oder eine Genesung von einer Corona-Infektion nachweisen. Nach dem Scannen wird der QR-Code direkt in der CovPass-App angezeigt. Bitte beachten Sie, dass eine ausreichende Wirksamkeit des Impfschutzes erst etwa 14 Tage nach der letzten Impfung eintritt. Der QR-Code für den vollständigen Impfschutz ist deshalb erst nach Ablauf der 14 Tage gültig.</string>
 	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Zeigen Sie den QR-Code bei Bedarf vor</string>
@@ -29,16 +29,16 @@
 	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
 
 	<!-- SECTION: start Screen -->
-	<string name="vaccination_start_screen_title">EU Digitales COVID-Zertifikat</string>
+	<string name="vaccination_start_screen_title">Digitale COVID-Zertifikate der EU</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie einen Nachweis hinzu</string>
-	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein Digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf das Plus-Symbol, um einen digitalen Nachweis hinzuzufügen.</string>
+	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf das Plus-Symbol, um einen digitalen Nachweis hinzuzufügen.</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Unvollständiger Impfschutz</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Vollständig ab %s</string>
 	<string name="vaccination_start_screen_qrcode_complete_protection_subtitle">Vollständiger Impfschutz</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
-	<string name="certificate_add_popup_message">Scannen Sie den QR-Code von einem Digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.</string>
+	<string name="certificate_add_popup_message">Scannen Sie den QR-Code von einem digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.</string>
 	<string name="certificate_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
 	<string name="certificate_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
 	<string name="certificate_add_popup_scan_button_title">QR-Code scannen</string>
@@ -122,7 +122,7 @@
 
 	<!-- SECTION: detail view: certificate -->
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
-	<string name="vaccination_certificate_detail_view_vaccination_headline">EU Digitales COVID-Impfzertifikat</string>
+	<string name="vaccination_certificate_detail_view_vaccination_headline">Digitales COVID-Impfzertifikat der EU</string>
 	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="vaccination_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or agent targeted</string>
@@ -141,7 +141,7 @@
 	<string name="vaccination_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="test_certificate_detail_view_title">Antigen-Schnelltest</string>
 	<string name="test_certificate_detail_view_pcr_test_title">PCR-Test</string>
-	<string name="test_certificate_detail_view_headline">EU Digitales COVID-Testzertifikat</string>
+	<string name="test_certificate_detail_view_headline">Digitales COVID-Testzertifikat der EU</string>
 	<string name="test_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="test_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="test_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or agent targeted</string>
@@ -161,7 +161,7 @@
 	<string name="test_certificate_detail_view_pcr_test_qrcode_screen_title">PCR-Test</string>
 	<string name="test_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="recovery_certificate_detail_view_title">Vollständige Genesung</string>
-	<string name="recovery_certificate_detail_view_headline">EU Digitales COVID-Genesenenzertifikat</string>
+	<string name="recovery_certificate_detail_view_headline">Digitales COVID-Genesenenzertifikat der EU</string>
 	<string name="recovery_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="recovery_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="recovery_certificate_detail_view_data_disease">Krankheit oder Erreger, von dem die Bürgerin oder der Bürger genesen ist / Disease or agent the citizen has recovered from</string>
@@ -184,7 +184,7 @@
 	<string name="dialog_delete_certificate_button_delete">Löschen</string>
 	<string name="dialog_delete_certificate_button_cancel">Abbrechen</string>
 	<string name="delete_result_dialog_header">Erfolgreich gelöscht</string>
-	<string name="delete_result_dialog_message">Das Digitale COVID-Zertifikat wurde erfolgreich von diesem Gerät entfernt.</string>
+	<string name="delete_result_dialog_message">Das digitale COVID-Zertifikat der EU wurde erfolgreich von diesem Gerät entfernt.</string>
 	<string name="delete_result_dialog_positive_button_text">OK</string>
 
 	<!-- SECTION: error handling -->
@@ -195,7 +195,7 @@
 	<string name="error_no_connection_to_server_message">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
 	<string name="error_no_connection_to_server_button_title">OK</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
-	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem Digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 	<string name="error_scan_present_data_is_not_supported_title">Aktualisieren Sie die App</string>
 	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte überprüfen Sie, ob Sie die aktuelle Version der App aus dem App Store auf Ihrem Smartphone installiert haben.</string>
@@ -218,5 +218,6 @@
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
+	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="app_information_version_label">Version %s</string>
 </resources>

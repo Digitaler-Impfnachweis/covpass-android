@@ -5,6 +5,7 @@
 
 package de.rki.covpass.sdk.utils
 
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -16,14 +17,14 @@ import java.time.format.FormatStyle
  * @return True, if the [ZonedDateTime] is older than given [hours], else false.
  */
 public fun ZonedDateTime.isOlderThan(hours: Long): Boolean {
-    return this.plusHours(hours).isBefore(ZonedDateTime.now())
+    return this.plusHours(hours).isBefore(ZonedDateTime.now(sdkDeps.clock))
 }
 
 /**
  * @return The duration in hours between this [ZonedDateTime] and now.
  */
 public fun ZonedDateTime.hoursTillNow(): Int {
-    return Duration.between(this, ZonedDateTime.now()).toHours().toInt()
+    return Duration.between(this, ZonedDateTime.now(sdkDeps.clock)).toHours().toInt()
 }
 
 /**

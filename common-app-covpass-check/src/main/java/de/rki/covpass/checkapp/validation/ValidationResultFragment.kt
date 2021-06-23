@@ -21,7 +21,6 @@ import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.utils.getDisplayString
-import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.hoursTillNow
 import kotlinx.parcelize.Parcelize
@@ -157,17 +156,17 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
 }
 
 @Parcelize
-internal class NegativeValidPcrTestFragmentNav(
+internal class ValidPcrTestFragmentNav(
     val name: String,
     val birthDate: String,
     val sampleCollection: ZonedDateTime?
-) : FragmentNav(NegativeValidPcrTestResultFragment::class)
+) : FragmentNav(ValidPcrTestResultFragment::class)
 
 /**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the Negative PCR test is within 72h.
+ * Overrides the texts and icons from [ValidationResultFragment] to display that the PCR test is valid.
  */
-internal class NegativeValidPcrTestResultFragment : ValidationResultFragment() {
-    private val args: NegativeValidPcrTestFragmentNav by lazy { getArgs() }
+internal class ValidPcrTestResultFragment : ValidationResultFragment() {
+    private val args: ValidPcrTestFragmentNav by lazy { getArgs() }
     override val imageRes = R.drawable.result_test_image
     override val title by lazy {
         getString(
@@ -203,63 +202,17 @@ internal class NegativeValidPcrTestResultFragment : ValidationResultFragment() {
 }
 
 @Parcelize
-internal class NegativeExpiredPcrTestFragmentNav(
+internal class ValidAntigenTestFragmentNav(
     val name: String,
     val birthDate: String,
     val sampleCollection: ZonedDateTime?
-) : FragmentNav(NegativeExpiredPcrTestResultFragment::class)
+) : FragmentNav(ValidAntigenTestResultFragment::class)
 
 /**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the Negative PCR test after 72h.
+ * Overrides the texts and icons from [ValidationResultFragment] to display that the Antigen test is valid.
  */
-internal class NegativeExpiredPcrTestResultFragment : ValidationResultFragment() {
-    private val args: NegativeExpiredPcrTestFragmentNav by lazy { getArgs() }
-    override val imageRes = R.drawable.result_test_image
-    override val title by lazy {
-        getString(
-            R.string.validation_check_popup_valid_pcr_test_older_than_72_h_title,
-            args.sampleCollection?.toLocalDate().formatDateOrEmpty()
-        )
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_valid_pcr_test_older_than_72_h_message)
-    }
-    override val imageInfo1Res = R.drawable.result_person
-    override val titleInfo1 by lazy { args.name }
-    override val textInfo1 by lazy {
-        getString(
-            R.string.validation_check_popup_valid_pcr_test_older_than_72_h_date_of_birth,
-            args.birthDate
-        )
-    }
-    override val imageInfo2Res = R.drawable.result_calendar
-    override val titleInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_valid_pcr_test_older_than_72_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
-        )
-    }
-    override val textInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_valid_pcr_test_older_than_72_h_utc,
-            args.sampleCollection?.offset?.getDisplayString()
-        )
-    }
-    override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_older_than_72_h_button_title
-}
-
-@Parcelize
-internal class NegativeValidAntigenTestFragmentNav(
-    val name: String,
-    val birthDate: String,
-    val sampleCollection: ZonedDateTime?
-) : FragmentNav(NegativeValidAntigenTestResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the Negative Antigen test is within 48h.
- */
-internal class NegativeValidAntigenTestResultFragment : ValidationResultFragment() {
-    private val args: NegativeValidAntigenTestFragmentNav by lazy { getArgs() }
+internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
+    private val args: ValidAntigenTestFragmentNav by lazy { getArgs() }
     override val imageRes = R.drawable.result_test_image
     override val title by lazy {
         getString(
@@ -292,52 +245,6 @@ internal class NegativeValidAntigenTestResultFragment : ValidationResultFragment
         )
     }
     override val buttonTextRes = R.string.validation_check_popup_test_less_than_24_h_button_title
-}
-
-@Parcelize
-internal class NegativeExpiredAntigenTestFragmentNav(
-    val name: String,
-    val birthDate: String,
-    val sampleCollection: ZonedDateTime?
-) : FragmentNav(NegativeExpiredAntigenTestResultFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display that the Negative Antigen test is after 48h.
- */
-internal class NegativeExpiredAntigenTestResultFragment : ValidationResultFragment() {
-    private val args: NegativeExpiredAntigenTestFragmentNav by lazy { getArgs() }
-    override val imageRes = R.drawable.result_test_image
-    override val title by lazy {
-        getString(
-            R.string.validation_check_popup_test_older_than_24_h_title,
-            args.sampleCollection?.toLocalDate().formatDateOrEmpty()
-        )
-    }
-    override val text by lazy {
-        getString(R.string.validation_check_popup_test_older_than_24_h_message)
-    }
-    override val imageInfo1Res = R.drawable.result_person
-    override val titleInfo1 by lazy { args.name }
-    override val textInfo1 by lazy {
-        getString(
-            R.string.validation_check_popup_test_older_than_24_h_date_of_birth,
-            args.birthDate
-        )
-    }
-    override val imageInfo2Res = R.drawable.result_calendar
-    override val titleInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_test_older_than_24_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
-        )
-    }
-    override val textInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_test_older_than_24_h_utc,
-            args.sampleCollection?.offset?.getDisplayString()
-        )
-    }
-    override val buttonTextRes = R.string.validation_check_popup_test_older_than_24_h_button_title
 }
 
 @Parcelize

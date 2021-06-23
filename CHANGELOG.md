@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 * TBD
 
-## 1.16.0 (TBD assert that 1.16.0 is the correct version after release)
+## 1.16.0
 
 * Addition of test and recovery certificates (UI and data model changes)
 * Introduction of data migration for new data model versions
@@ -18,7 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 * Bugfixes
 * Cleanups
 
-## 0.160.7 (TBD assert that 0.160.7 is the correct version after release)
+## 0.160.7
 
 * Disable JSON schema version check
 

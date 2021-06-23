@@ -17,6 +17,8 @@ import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.utils.readTextAsset
 import kotlinx.serialization.cbor.Cbor
+import java.security.cert.X509Certificate
+import java.time.Clock
 
 /**
  * Global var for making the [SdkDependencies] accessible.
@@ -43,7 +45,7 @@ public abstract class SdkDependencies {
 
     private val httpClient by lazy { httpConfig.ktorClient() }
 
-    private val backendCa by lazy { application.readPemAsset("covpass-sdk/backend-ca.pem") }
+    public open val backendCa: List<X509Certificate> by lazy { application.readPemAsset("covpass-sdk/backend-ca.pem") }
 
     public val dscList: DscList by lazy {
         decoder.decodeDscList(
@@ -69,6 +71,8 @@ public abstract class SdkDependencies {
     public val qrCoder: QRCoder by lazy { QRCoder(validator) }
 
     public val cbor: Cbor = defaultCbor
+
+    public open val clock: Clock = Clock.systemDefaultZone()
 
     internal fun init() {
         httpConfig.pinPublicKey(backendCa)
