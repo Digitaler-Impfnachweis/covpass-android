@@ -26,8 +26,10 @@ public data class CBORWebToken(
             val cbor = CBORObject.DecodeFromBytes(data)
             return CBORWebToken(
                 issuer = cbor[1].AsString(),
-                validFrom = cbor[6]?.AsInt64Value()?.let { Instant.ofEpochSecond(it) },
-                validUntil = Instant.ofEpochSecond(cbor[4].AsInt64Value()),
+                // Some countries use a strange timestamp format like "1624550210.984", so we have to parse first to
+                // CBORNumber and then to Int.
+                validFrom = cbor[6]?.AsNumber()?.ToInt64Checked()?.let { Instant.ofEpochSecond(it) },
+                validUntil = Instant.ofEpochSecond(cbor[4].AsNumber().ToInt64Checked()),
                 rawCbor = cbor
             )
         }
