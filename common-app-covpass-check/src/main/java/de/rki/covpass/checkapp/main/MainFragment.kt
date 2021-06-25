@@ -16,10 +16,12 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
+import de.rki.covpass.checkapp.scanner.CameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.DscRepository
+import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.commonapp.utils.isDscListUpToDate
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
