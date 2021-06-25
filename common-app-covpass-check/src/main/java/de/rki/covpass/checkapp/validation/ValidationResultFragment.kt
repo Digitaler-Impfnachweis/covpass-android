@@ -20,9 +20,9 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.sdk.utils.getDisplayString
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.hoursTillNow
+import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
 import java.time.ZonedDateTime
 
@@ -54,14 +54,6 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     open val textInfo2: String? = null
     open val imageInfo2Res: Int = 0
 
-    open val titleInfo3: String? = null
-    open val textInfo3: String? = null
-    open val imageInfo3Res: Int = 0
-
-    open val titleInfo4: String? = null
-    open val textInfo4: String? = null
-    open val imageInfo4Res: Int = 0
-
     open val textFooter: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,22 +77,6 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             binding.resultInfoImage2.setImageResource(imageInfo2Res)
             binding.resultInfoTitle2.text = titleInfo2
             binding.resultInfoText2.text = textInfo2
-        }
-
-        binding.resultInfoLayout3.isVisible = textInfo3 != null
-        binding.resultInfoImage3.isVisible = textInfo3 != null
-        if (textInfo3 != null) {
-            binding.resultInfoImage3.setImageResource(imageInfo3Res)
-            binding.resultInfoTitle3.text = titleInfo3
-            binding.resultInfoText3.text = textInfo3
-        }
-
-        binding.resultInfoLayout4.isVisible = textInfo4 != null
-        binding.resultInfoImage4.isVisible = textInfo4 != null
-        if (textInfo4 != null) {
-            binding.resultInfoImage4.setImageResource(imageInfo4Res)
-            binding.resultInfoTitle4.text = titleInfo4
-            binding.resultInfoText4.text = textInfo4
         }
 
         binding.resultInfoFooter.isVisible = textFooter != null
@@ -170,35 +146,29 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_test_image
     override val title by lazy {
         getString(
-            R.string.validation_check_popup_valid_pcr_test_less_than_72_h_title,
+            R.string.validation_check_popup_valid_pcr_test_title,
             args.sampleCollection?.hoursTillNow() ?: 0
         )
     }
     override val text by lazy {
-        getString(R.string.validation_check_popup_valid_pcr_test_less_than_72_h_message)
+        getString(R.string.validation_check_popup_valid_pcr_test_message)
     }
     override val imageInfo1Res = R.drawable.result_person
     override val titleInfo1 by lazy { args.name }
     override val textInfo1 by lazy {
         getString(
-            R.string.validation_check_popup_valid_pcr_test_less_than_72_h_date_of_birth,
+            R.string.validation_check_popup_valid_pcr_test_date_of_birth,
             args.birthDate
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
     override val titleInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_valid_pcr_test_less_than_72_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
-        )
+        args.sampleCollection?.toDeviceTimeZone()?.toLocalDateTime()?.formatDateTime()
     }
     override val textInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_valid_pcr_test_less_than_72_h_utc,
-            args.sampleCollection?.offset?.getDisplayString()
-        )
+        getString(R.string.validation_check_popup_valid_pcr_test_date_of_issue)
     }
-    override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_less_than_72_h_button_title
+    override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_button_title
 }
 
 @Parcelize
@@ -216,35 +186,29 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_test_image
     override val title by lazy {
         getString(
-            R.string.validation_check_popup_test_less_than_24_h_title,
+            R.string.validation_check_popup_test_title,
             args.sampleCollection?.hoursTillNow() ?: 0
         )
     }
     override val text by lazy {
-        getString(R.string.validation_check_popup_test_less_than_24_h_message)
+        getString(R.string.validation_check_popup_test_message)
     }
     override val imageInfo1Res = R.drawable.result_person
     override val titleInfo1 by lazy { args.name }
     override val textInfo1 by lazy {
         getString(
-            R.string.validation_check_popup_test_less_than_24_h_date_of_birth,
+            R.string.validation_check_popup_test_date_of_birth,
             args.birthDate
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
     override val titleInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_test_less_than_24_h_date_of_issue,
-            args.sampleCollection?.toLocalDateTime()?.formatDateTime()
-        )
+        args.sampleCollection?.toDeviceTimeZone()?.toLocalDateTime()?.formatDateTime()
     }
     override val textInfo2 by lazy {
-        getString(
-            R.string.validation_check_popup_test_less_than_24_h_utc,
-            args.sampleCollection?.offset?.getDisplayString()
-        )
+        getString(R.string.validation_check_popup_test_date_of_issue)
     }
-    override val buttonTextRes = R.string.validation_check_popup_test_less_than_24_h_button_title
+    override val buttonTextRes = R.string.validation_check_popup_test_button_title
 }
 
 @Parcelize
@@ -264,34 +228,18 @@ internal class ValidationResultFailureFragment : ValidationResultFragment() {
 
     override val imageInfo1Res = R.drawable.result_cert_recovery
     override val titleInfo1 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate__recovery_title)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_not_valid_title)
     }
     override val textInfo1 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_recovery_body)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_not_valid_message)
     }
 
-    override val imageInfo2Res = R.drawable.result_cert_vaccination
+    override val imageInfo2Res = R.drawable.result_invalid
     override val titleInfo2 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate__vaccination_title)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_technical_problems_title)
     }
     override val textInfo2 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_vaccination_body)
-    }
-
-    override val imageInfo3Res = R.drawable.result_cert_test
-    override val titleInfo3 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate__test_title)
-    }
-    override val textInfo3 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_test_body)
-    }
-
-    override val imageInfo4Res = R.drawable.result_invalid
-    override val titleInfo4 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate__problem_title)
-    }
-    override val textInfo4 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_problem_body)
+        getString(R.string.validation_check_popup_unsuccessful_certificate_technical_problems_message)
     }
 
     override val buttonTextRes = R.string.validation_check_popup_unsuccessful_certificate_button_title
