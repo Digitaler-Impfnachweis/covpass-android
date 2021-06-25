@@ -15,10 +15,23 @@ import java.time.format.DateTimeFormatter
 @Serializer(forClass = ZonedDateTime::class)
 internal object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
 
-    private val formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME
+    // We need to support different timezone formats, so we implement a custom timezone pattern here:
+    // "sc": "2021-08-20T10:03:12Z"
+    // "sc": "2021-08-20T12:03:12+02"
+    // "sc": "2021-08-20T12:03:12+0200"
+    // "sc": "2021-08-20T12:03:12+02:00"
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[XXX][X]")
 
-    override fun deserialize(decoder: Decoder): ZonedDateTime =
-        ZonedDateTime.parse(decoder.decodeString(), formatter)
+    override fun deserialize(decoder: Decoder): ZonedDateTime {
+        val dateString = decoder.decodeString()
+
+        // Some countries use milliseconds etc. which is not really conform to the EU specification, like
+        // "sc": "2021-08-20T12:03:12.000.000.000+02".
+        // We remove them from the string before parsing it.
+        val correctedDateString = dateString.replace("\\.[0-9]*".toRegex(), "")
+
+        return ZonedDateTime.parse(correctedDateString, formatter)
+    }
 
     override fun serialize(encoder: Encoder, value: ZonedDateTime) {
         encoder.encodeString(value.format(formatter))
