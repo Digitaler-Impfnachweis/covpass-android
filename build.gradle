@@ -54,8 +54,8 @@ subprojects {
 
             licenseReport {
                 generateCsvReport = false
-                generateHtmlReport = true
-                generateJsonReport = false
+                generateHtmlReport = false
+                generateJsonReport = true
             }
         } else if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"

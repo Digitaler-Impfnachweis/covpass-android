@@ -297,8 +297,8 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                     }
                 }
             }
-            binding.detailVaccinationList.adapter =
-                DetailAdapter(personalDataList + sortedCertificatesList, this)
+            DetailAdapter(personalDataList + sortedCertificatesList, this, this)
+                .attachTo(binding.detailVaccinationList)
         }
     }
 

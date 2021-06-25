@@ -5,7 +5,7 @@
 
 package de.rki.covpass.sdk.crypto
 
-import android.app.Application
+import android.content.Context
 import de.rki.covpass.sdk.utils.readTextAsset
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo
 import org.bouncycastle.cert.X509CertificateHolder
@@ -16,11 +16,11 @@ import java.security.PublicKey
 import java.security.cert.X509Certificate
 
 /** Reads a PEM file and returns a list of the [X509Certificate]s contained in that file. */
-public fun Application.readPemAsset(path: String): List<X509Certificate> =
+public fun Context.readPemAsset(path: String): List<X509Certificate> =
     readPem(readTextAsset(path))
 
 /** Reads a PEM file and returns a list of the [PublicKey]s contained in that file. */
-public fun Application.readPemKeyAsset(path: String): List<PublicKey> =
+public fun Context.readPemKeyAsset(path: String): List<PublicKey> =
     readPemKeys(readTextAsset(path))
 
 /** Reads a PEM file and returns a list of the [X509Certificate]s contained in that file. */

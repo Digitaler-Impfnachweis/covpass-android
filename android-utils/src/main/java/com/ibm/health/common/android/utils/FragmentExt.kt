@@ -8,6 +8,7 @@ package com.ibm.health.common.android.utils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.onDestroyViewOnce
@@ -21,6 +22,21 @@ public fun Fragment.attachViewPager(adapter: FragmentStateAdapter, viewPager: Vi
     viewPager.adapter = adapter
     onDestroyViewOnce {
         viewPager.adapter = null
+    }
+}
+
+/**
+ * Attaches a [RecyclerView.Adapter] to a [RecyclerView] and sets the adapter to `null` in `onDestroyView`.
+ *
+ * Use this function to prevent memory leaks.
+ */
+public fun Fragment.attachRecyclerView(
+    adapter: RecyclerView.Adapter<*>,
+    recyclerView: RecyclerView
+) {
+    recyclerView.adapter = adapter
+    onDestroyViewOnce {
+        recyclerView.adapter = null
     }
 }
 

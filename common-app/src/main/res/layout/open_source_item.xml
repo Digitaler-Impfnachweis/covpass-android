@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingHorizontal="@dimen/grid_three"
+  android:paddingBottom="@dimen/grid_three">
+
+  <TextView
+    android:id="@+id/title"
+    style="@style/Header.OnBackground.MediumBig"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/grid_three"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/copyright"
+    style="@style/DefaultText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/grid_three"
+    app:layout_constraintTop_toBottomOf="@+id/title" />
+
+  <TextView
+    android:id="@+id/description"
+    style="@style/DefaultText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_three"
+    app:layout_constraintTop_toBottomOf="@+id/copyright" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,8 @@
  * (C) Copyright IBM Corp. 2021
  */
 
+apply plugin: 'kotlinx-serialization'
+
 dependencies {
     api project(":android-utils")
     api project(':covpass-http')

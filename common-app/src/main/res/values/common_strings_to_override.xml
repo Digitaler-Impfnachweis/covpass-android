@@ -32,5 +32,6 @@
   <string name="error_scan_qrcode_cannot_be_parsed_button_title"/>
   <string name="vaccination_fourth_onboarding_page_message"/>
   <string name="app_information_title_datenschutz"/>
+  <string name="app_information_message_open_source"/>
 
 </resources>

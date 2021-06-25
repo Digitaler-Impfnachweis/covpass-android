@@ -5,6 +5,5 @@
   -->
 
 <resources>
-  <string name="open_source_licenses_path">file:///android_asset/open_source_licenses.html</string>
   <string name="data_protection_path"></string>
 </resources>

@@ -5,10 +5,10 @@
 
 package de.rki.covpass.sdk.utils
 
-import android.app.Application
+import android.content.Context
 
 /**
  * @return The content of the asset file at given [path] as string.
  */
-internal fun Application.readTextAsset(path: String): String =
+public fun Context.readTextAsset(path: String): String =
     assets.open(path).bufferedReader().use { it.readText().replace("\r\n", "\n") }

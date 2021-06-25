@@ -13,8 +13,10 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
+import com.ibm.health.common.android.utils.BindingViewHolder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.*
 import de.rki.covpass.app.detail.DetailClickListener
@@ -27,10 +29,11 @@ import de.rki.covpass.sdk.cert.models.VaccinationCertType
  * Adapter which holds the data for Detail screen.
  * Holds all possible [DGCEntryType]'s
  */
-public class DetailAdapter(
+internal class DetailAdapter(
     private val items: List<DetailItem>,
-    private val listener: DetailClickListener
-) : RecyclerView.Adapter<DetailAdapter.BaseViewHolder>() {
+    private val listener: DetailClickListener,
+    parent: Fragment
+) : BaseRecyclerViewAdapter<BaseViewHolder<*>>(parent) {
 
     private companion object {
         private const val ITEM_VIEW_TYPE_NAME = 0
@@ -42,31 +45,18 @@ public class DetailAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when (viewType) {
-            ITEM_VIEW_TYPE_NAME -> FullnameViewHolder(
-                DetailFullnameItemBinding.inflate(inflater, parent, false)
-            )
-            ITEM_VIEW_TYPE_WIDGET -> WidgetViewHolder(
-                DetailWidgetItemBinding.inflate(inflater, parent, false),
-                listener
-            )
-            ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder(
-                DetailHeaderItemBinding.inflate(inflater, parent, false)
-            )
-            ITEM_VIEW_TYPE_PERSONAL -> PersonalDataViewHolder(
-                DetailDataRowBinding.inflate(inflater, parent, false)
-            )
-            ITEM_VIEW_TYPE_CERTIFICATE -> CertificateViewHolder(
-                CertificateItemBinding.inflate(inflater, parent, false),
-                listener
-            )
+            ITEM_VIEW_TYPE_NAME -> FullnameViewHolder(parent)
+            ITEM_VIEW_TYPE_WIDGET -> WidgetViewHolder(parent, listener)
+            ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder(parent)
+            ITEM_VIEW_TYPE_PERSONAL -> PersonalDataViewHolder(parent)
+            ITEM_VIEW_TYPE_CERTIFICATE -> CertificateViewHolder(parent, listener)
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         holder.onItemBind(items[position])
     }
 
@@ -79,136 +69,138 @@ public class DetailAdapter(
             is DetailItem.Certificate -> ITEM_VIEW_TYPE_CERTIFICATE
         }
     }
+}
 
-    public class FullnameViewHolder(
-        private val binding: DetailFullnameItemBinding
-    ) : BaseViewHolder(binding) {
+private class FullnameViewHolder(
+    parent: ViewGroup,
+) : BaseViewHolder<DetailFullnameItemBinding>(parent, DetailFullnameItemBinding::inflate) {
 
-        override fun onItemBind(item: DetailItem) {
-            (item as DetailItem.Name).let {
-                binding.detailNameTextview.text = it.fullname
+    override fun onItemBind(item: DetailItem) {
+        (item as DetailItem.Name).let {
+            binding.detailNameTextview.text = it.fullname
+        }
+    }
+}
+
+private class WidgetViewHolder(
+    parent: ViewGroup,
+    private val listener: DetailClickListener
+) : BaseViewHolder<DetailWidgetItemBinding>(parent, DetailWidgetItemBinding::inflate) {
+
+    override fun onItemBind(item: DetailItem) {
+        (item as DetailItem.Widget).let { widget ->
+            binding.detailStatusHeaderTextview.text = widget.title
+            binding.detailStatusImageview.setImageResource(widget.statusIcon)
+            binding.detailStatusTextview.text = widget.message
+            binding.detailShowCertificateButton.text = widget.buttonText
+            binding.detailShowCertificateButton.setOnClickListener {
+                listener.onShowCertificateClicked()
             }
         }
     }
+}
 
-    public class WidgetViewHolder(
-        private val binding: DetailWidgetItemBinding,
-        private val listener: DetailClickListener
-    ) : BaseViewHolder(binding) {
+private class HeaderViewHolder(
+    parent: ViewGroup,
+) : BaseViewHolder<DetailHeaderItemBinding>(parent, DetailHeaderItemBinding::inflate) {
 
-        override fun onItemBind(item: DetailItem) {
-            (item as DetailItem.Widget).let { widget ->
-                binding.detailStatusHeaderTextview.text = widget.title
-                binding.detailStatusImageview.setImageResource(widget.statusIcon)
-                binding.detailStatusTextview.text = widget.message
-                binding.detailShowCertificateButton.text = widget.buttonText
-                binding.detailShowCertificateButton.setOnClickListener {
-                    listener.onShowCertificateClicked()
+    override fun onItemBind(item: DetailItem) {
+        (item as DetailItem.Header).let {
+            binding.detailPersonalHeaderTextview.text = it.title
+        }
+    }
+}
+
+private class PersonalDataViewHolder(
+    parent: ViewGroup,
+) : BaseViewHolder<DetailDataRowBinding>(parent, DetailDataRowBinding::inflate) {
+
+    override fun onItemBind(item: DetailItem) {
+        (item as DetailItem.Personal).let {
+            binding.detailDataHeaderTextview.text = it.title
+            binding.detailDataTextview.text = it.subtitle
+        }
+    }
+}
+
+private class CertificateViewHolder(
+    parent: ViewGroup,
+    private val listener: DetailClickListener
+) : BaseViewHolder<CertificateItemBinding>(parent, CertificateItemBinding::inflate) {
+
+    override fun onItemBind(item: DetailItem) {
+        (item as DetailItem.Certificate).let { cert ->
+            when (cert.type) {
+                VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                    binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_complete)
+                    binding.certificateStatusLayout.setLayoutBackgroundColor(
+                        if (cert.isActual) {
+                            R.color.info
+                        } else {
+                            R.color.backgroundSecondary20
+                        }
+                    )
                 }
-            }
-        }
-    }
-
-    public class HeaderViewHolder(
-        private val binding: DetailHeaderItemBinding
-    ) : BaseViewHolder(binding) {
-
-        override fun onItemBind(item: DetailItem) {
-            (item as DetailItem.Header).let {
-                binding.detailPersonalHeaderTextview.text = it.title
-            }
-        }
-    }
-
-    public class PersonalDataViewHolder(
-        private val binding: DetailDataRowBinding
-    ) : BaseViewHolder(binding) {
-
-        override fun onItemBind(item: DetailItem) {
-            (item as DetailItem.Personal).let {
-                binding.detailDataHeaderTextview.text = it.title
-                binding.detailDataTextview.text = it.subtitle
-            }
-        }
-    }
-
-    public class CertificateViewHolder(
-        private val binding: CertificateItemBinding,
-        private val listener: DetailClickListener
-    ) : BaseViewHolder(binding) {
-
-        override fun onItemBind(item: DetailItem) {
-            (item as DetailItem.Certificate).let { cert ->
-                when (cert.type) {
-                    VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
-                        binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_complete)
-                        binding.certificateStatusLayout.setLayoutBackgroundColor(
-                            if (cert.isActual) {
-                                R.color.info
-                            } else {
-                                R.color.backgroundSecondary20
-                            }
-                        )
-                    }
-                    VaccinationCertType.VACCINATION_COMPLETE,
-                    VaccinationCertType.VACCINATION_INCOMPLETE -> {
-                        binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_incomplete)
-                        binding.certificateStatusLayout.setLayoutBackgroundColor(
-                            if (cert.isActual) {
-                                R.color.info20
-                            } else {
-                                R.color.backgroundSecondary20
-                            }
-                        )
-                    }
-                    TestCertType.NEGATIVE_PCR_TEST,
-                    TestCertType.NEGATIVE_ANTIGEN_TEST -> {
-                        binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_test)
-                        binding.certificateStatusLayout.setLayoutBackgroundColor(
-                            if (cert.isActual) {
-                                R.color.test_certificate_background
-                            } else {
-                                R.color.backgroundSecondary20
-                            }
-                        )
-                    }
-                    RecoveryCertType.RECOVERY -> {
-                        binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_recovery)
-                        binding.certificateStatusLayout.setLayoutBackgroundColor(
-                            if (cert.isActual) {
-                                R.color.infoDark
-                            } else {
-                                R.color.backgroundSecondary20
-                            }
-                        )
-                    }
-                    TestCertType.POSITIVE_PCR_TEST,
-                    TestCertType.POSITIVE_ANTIGEN_TEST -> return
-                    // .let{} to enforce exhaustiveness
-                }.let {}
-                binding.certificateTypeIcon.setTint(
-                    if (cert.isActual) {
-                        R.color.backgroundSecondary
-                    } else {
-                        R.color.backgroundSecondary50
-                    }
-                )
-                binding.certificateItemActualTitle.isVisible = cert.isActual
-                binding.certificateItemTitle.text = cert.title
-                binding.certificateItemSubtitle.text = cert.subtitle
-                binding.certificateItemDate.text = cert.date
-                binding.root.setOnClickListener {
-                    listener.onCovCertificateClicked(cert.id, cert.type)
+                VaccinationCertType.VACCINATION_COMPLETE,
+                VaccinationCertType.VACCINATION_INCOMPLETE -> {
+                    binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_incomplete)
+                    binding.certificateStatusLayout.setLayoutBackgroundColor(
+                        if (cert.isActual) {
+                            R.color.info20
+                        } else {
+                            R.color.backgroundSecondary20
+                        }
+                    )
                 }
+                TestCertType.NEGATIVE_PCR_TEST,
+                TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                    binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_test)
+                    binding.certificateStatusLayout.setLayoutBackgroundColor(
+                        if (cert.isActual) {
+                            R.color.test_certificate_background
+                        } else {
+                            R.color.backgroundSecondary20
+                        }
+                    )
+                }
+                RecoveryCertType.RECOVERY -> {
+                    binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_recovery)
+                    binding.certificateStatusLayout.setLayoutBackgroundColor(
+                        if (cert.isActual) {
+                            R.color.infoDark
+                        } else {
+                            R.color.backgroundSecondary20
+                        }
+                    )
+                }
+                TestCertType.POSITIVE_PCR_TEST,
+                TestCertType.POSITIVE_ANTIGEN_TEST -> return
+                // .let{} to enforce exhaustiveness
+            }.let {}
+            binding.certificateTypeIcon.setTint(
+                if (cert.isActual) {
+                    R.color.backgroundSecondary
+                } else {
+                    R.color.backgroundSecondary50
+                }
+            )
+            binding.certificateItemActualTitle.isVisible = cert.isActual
+            binding.certificateItemTitle.text = cert.title
+            binding.certificateItemSubtitle.text = cert.subtitle
+            binding.certificateItemDate.text = cert.date
+            binding.root.setOnClickListener {
+                listener.onCovCertificateClicked(cert.id, cert.type)
             }
         }
     }
+}
 
-    public abstract class BaseViewHolder(binding: ViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+internal abstract class BaseViewHolder<B : ViewBinding>(
+    parent: ViewGroup,
+    inflater: (LayoutInflater, ViewGroup, Boolean) -> B,
+) : BindingViewHolder<B>(parent, inflater) {
 
-        public abstract fun onItemBind(item: DetailItem)
-    }
+    abstract fun onItemBind(item: DetailItem)
 }
 
 private fun ImageView.setTint(@ColorRes color: Int) {
