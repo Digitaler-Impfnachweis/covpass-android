@@ -6,12 +6,10 @@
 package de.rki.covpass.commonapp.scanner
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.savedInstanceState
 import com.ensody.reactivestate.withErrorReporting
@@ -23,6 +21,7 @@ import com.journeyapps.barcodescanner.*
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
 import de.rki.covpass.commonapp.utils.getScreenSize
+import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 
 /**
  * QR Scanner Fragment extending from BaseFragment to display a custom layout form scanner view.
@@ -71,15 +70,16 @@ public abstract class QRScannerFragment : BaseFragment() {
         val screenSize = requireContext().getScreenSize()
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
-        checkPermission(Manifest.permission.CAMERA) { startScanning() }
+        checkPermission()
     }
 
     protected abstract fun onBarcodeResult(result: BarcodeResult)
 
-    private fun checkPermission(targetPermission: String, targetAction: () -> Unit) {
-        when (PackageManager.PERMISSION_GRANTED) {
-            ContextCompat.checkSelfPermission(requireContext(), targetPermission) -> targetAction.invoke()
-            else -> requestPermissionLauncher.launch(targetPermission)
+    private fun checkPermission() {
+        if (isCameraPermissionGranted(requireContext())) {
+            startScanning()
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 

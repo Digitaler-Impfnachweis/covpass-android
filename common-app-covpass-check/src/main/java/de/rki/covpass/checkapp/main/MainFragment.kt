@@ -16,8 +16,10 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
+import de.rki.covpass.checkapp.scanner.CameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -42,8 +44,13 @@ internal class MainFragment : BaseFragment() {
         binding.mainSettingsImagebutton.setOnClickListener {
             findNavigator().push(CovPassCheckInformationFragmentNav())
         }
-        binding.mainCheckCertButton.setOnClickListener { findNavigator().push(CovPassCheckQRScannerFragmentNav()) }
-
+        binding.mainCheckCertButton.setOnClickListener {
+            if (isCameraPermissionGranted(requireContext())) {
+                findNavigator().push(CovPassCheckQRScannerFragmentNav())
+            } else {
+                findNavigator().push(CameraDisclosureFragmentNav())
+            }
+        }
         autoRun {
             updateAvailabilityCard(get(sdkDeps.dscRepository.lastUpdate))
         }

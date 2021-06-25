@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:ignore="UseCompoundDrawables">
+
+  <ImageView
+    android:id="@+id/camera_disclosure_illustration"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:src="@drawable/camera_disclosure"
+    tools:ignore="ContentDescription" />
+
+  <TextView
+    android:id="@+id/camera_disclosure_content"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_three"
+    android:text="@string/scan_dialog_camera_access_message" />
+
+</LinearLayout>
