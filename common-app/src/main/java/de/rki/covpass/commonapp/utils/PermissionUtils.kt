@@ -1,0 +1,19 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+package de.rki.covpass.commonapp.utils
+
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+
+/**
+ * @return True, if the camera permission is granted, else false.
+ */
+public fun isCameraPermissionGranted(context: Context): Boolean {
+    val permissionCheckResult = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+    return permissionCheckResult == PackageManager.PERMISSION_GRANTED
+}

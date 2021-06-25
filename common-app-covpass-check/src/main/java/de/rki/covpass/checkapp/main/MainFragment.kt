@@ -44,8 +44,13 @@ internal class MainFragment : BaseFragment() {
         binding.mainSettingsImagebutton.setOnClickListener {
             findNavigator().push(CovPassCheckInformationFragmentNav())
         }
-        binding.mainCheckCertButton.setOnClickListener { findNavigator().push(CovPassCheckQRScannerFragmentNav()) }
-
+        binding.mainCheckCertButton.setOnClickListener {
+            if (isCameraPermissionGranted(requireContext())) {
+                findNavigator().push(CovPassCheckQRScannerFragmentNav())
+            } else {
+                findNavigator().push(CameraDisclosureFragmentNav())
+            }
+        }
         autoRun {
             updateAvailabilityCard(get(commonDeps.dscRepository.lastUpdate))
         }
