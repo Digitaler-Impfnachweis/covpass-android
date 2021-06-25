@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 * TBD
 
+## 1.16.1 (TBD assert that 1.16.1 is the correct version after release)
+
+* Added prominent disclosure for camera
+* Bugfixes
+
 ## 1.16.0
 
 * Addition of test and recovery certificates (UI and data model changes)
