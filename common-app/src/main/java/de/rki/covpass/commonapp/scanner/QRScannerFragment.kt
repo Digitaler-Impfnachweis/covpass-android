@@ -60,7 +60,7 @@ public abstract class QRScannerFragment : BaseFragment() {
             if (isGranted) {
                 startScanning()
             } else {
-                findNavigator().pop()
+                findNavigator().popAll()
             }
         }
 
