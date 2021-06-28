@@ -25,10 +25,9 @@ internal class CameraDisclosureFragment : BaseBottomSheet() {
 
     override val buttonTextRes = R.string.scan_dialog_camera_access_action_button
 
-    // Unused member here, because the BaseHookedFragment / ViewBindings mechanism works with
-    // ViewBindingInflaterProperties.
-    @Suppress("UnusedPrivateMember")
-    private val binding by viewBinding(CameraDisclosurePopupContentBinding::inflate)
+    init {
+        viewBinding(CameraDisclosurePopupContentBinding::inflate)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
