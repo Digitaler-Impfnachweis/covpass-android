@@ -50,6 +50,9 @@ public data class Vaccination(
     public val isComplete: Boolean
         get() = doseNumber == totalSerialDoses
 
+    public val isCompleteSingleDose: Boolean
+        get() = doseNumber == 1 && totalSerialDoses == 1
+
     public val hasFullProtection: Boolean
         get() = isComplete && occurrence.isOlderThanTwoWeeks()
 

@@ -123,7 +123,8 @@
 	<!-- SECTION: detail view: certificate -->
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_vaccination_headline">EU Digitales COVID-Impfzertifikat</string>
-	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
+  <string name="vaccination_certificate_detail_view_vaccination_note">Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigen.</string>
+  <string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="vaccination_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or agent targeted</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine">Impfstoff / Vaccine</string>
