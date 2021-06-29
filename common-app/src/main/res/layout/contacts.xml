@@ -33,58 +33,47 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
       android:orientation="vertical">
 
       <TextView
-        style="@style/DefaultText.OnBackground"
-        android:layout_width="wrap_content"
+        android:id="@+id/title_technical_contacts"
+        style="@style/Header.OnBackground.MediumBig"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/grid_three"
-        android:text="@string/app_information_message" />
+        android:layout_marginTop="@dimen/grid_six"
+        tools:text="@tools:sample/lorem[7]" />
 
       <TextView
-        android:id="@+id/information_field_contacts"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_faq"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_data_security_policy"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_imprint"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_open_source_licenses"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_app_version_label"
-        style="DefaultText.OnBackground70"
-        android:layout_width="wrap_content"
+        android:id="@+id/text_technical_phone"
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:padding="@dimen/grid_one_half" />
+        android:layout_marginTop="@dimen/grid_one_half"
+        tools:text="@tools:sample/lorem[5]" />
+
+      <TextView
+        android:id="@+id/text_technical_email"
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem[5]" />
+
+      <TextView
+        android:id="@+id/title_general_contacts"
+        style="@style/Header.OnBackground.Standard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_six"
+        tools:text="@tools:sample/lorem[7]" />
+
+      <TextView
+        android:id="@+id/text_general_email"
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_one_half"
+        tools:text="@tools:sample/lorem[5]" />
 
     </LinearLayout>
 

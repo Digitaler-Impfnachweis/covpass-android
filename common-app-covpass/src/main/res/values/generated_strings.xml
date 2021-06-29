@@ -212,6 +212,12 @@
 	<!-- SECTION: app information -->
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPass-App.</string>
+	<string name="app_information_title_contact">Kontakt</string>
+	<string name="app_information_message_contact_support">Kontakt bei technischen Fragen zur CovPass-App</string>
+	<string name="app_information_message_contact_support_phone">Telefon: #0800–4747–001::tel:0800–4747–001#</string>
+	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpass-app.de::mailto:support\@covpass-app.de#</string>
+	<string name="app_information_message_contact_info">Kontakt bei sonstigen Fragen</string>
+	<string name="app_information_message_contact_info_mail">E-Mail: #info\@covpass-app.de::mailto:info\@covpass-app.de#</string>
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>

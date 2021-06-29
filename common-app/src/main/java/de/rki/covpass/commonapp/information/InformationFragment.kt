@@ -64,6 +64,13 @@ public abstract class InformationFragment : BaseFragment() {
                 findNavigator().push(OpenSourceLicenseFragmentNav())
             }
         }
+
+        binding.informationFieldContacts.apply {
+            setText(R.string.app_information_title_contact)
+            setOnClickListener {
+                findNavigator().push(ContactsFragmentNav())
+            }
+        }
     }
 
     private fun setupActionBar() {
@@ -77,6 +84,7 @@ public abstract class InformationFragment : BaseFragment() {
             binding.informationToolbar.setTitle(R.string.app_information_title)
         }
     }
+
     protected abstract fun getFAQLinkRes(): Int
     protected abstract fun getImprintLinkRes(): Int
 }
