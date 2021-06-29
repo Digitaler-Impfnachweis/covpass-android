@@ -14,6 +14,7 @@ import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
@@ -24,17 +25,13 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DgcEntryDetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.utils.stripUnderlines
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Test
-import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.*
 
 /**
  * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments..
@@ -99,6 +96,8 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
     abstract fun getHeaderText(): String
 
+    open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
+
     abstract fun getDataRows(cert: CovCertificate): List<Pair<String, String>>
 
     protected fun addDataRow(key: String, value: String?, dataRows: MutableList<Pair<String, String>>) {
@@ -111,6 +110,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         val cert = certs.getCombinedCertificate(certId)?.covCertificate ?: return
         setupActionBar(cert)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
+        binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(cert)
 
         binding.dgcDetailDataContainer.removeAllViews()
         getDataRows(cert).forEach {
