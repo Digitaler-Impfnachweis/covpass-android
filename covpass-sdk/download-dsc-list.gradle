@@ -1,0 +1,17 @@
+ext.addDscList = { url ->
+    task downloadDscList() {
+        def path = "src/main/assets/covpass-sdk/dsc-list.json"
+        outputs.file(path)
+        doLast {
+            new URL(url).withInputStream { i ->
+                def out = new ByteArrayOutputStream()
+                out << i
+                def content = out.toString()
+                def result = project.file(path)
+                if (!result.exists() || result.text != content) {
+                    result.text = content
+                }
+            }
+        }
+    }
+}

@@ -26,6 +26,20 @@ The apps live in these modules:
 
 Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, switching flavors takes time (whereas apps in modules can be switched and launched directly), etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
 
+## Usage
+
+To build the app:
+
+* Open the project with Android Studio.
+* In the toolbar at the top, select the app you want to run (e.g. app-covpass-demo) and the device.
+* Press the "play"/run button.
+
+To fetch the latest DSC list:
+
+```
+./gradlew downloadDscList
+```
+
 ## App architecture
 
 The architecture in this project is based on our experience with significantly larger projects at IBM.
