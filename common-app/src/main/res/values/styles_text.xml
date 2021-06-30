@@ -38,6 +38,10 @@
     <item name="android:textColor">@color/onInfo</item>
   </style>
 
+  <style name="Header.Info">
+    <item name="android:textColor">@color/info</item>
+  </style>
+
   <style name="Header.OnBackground.Small">
     <item name="android:textSize">@dimen/textsize_default</item>
   </style>
@@ -68,6 +72,10 @@
 
   <style name="Header.OnInfo.Big">
     <item name="android:textSize">@dimen/textsize_header_big</item>
+  </style>
+
+  <style name="Header.Info.Small">
+    <item name="android:textSize">@dimen/textsize_default</item>
   </style>
 
   <style name="SubHeader">

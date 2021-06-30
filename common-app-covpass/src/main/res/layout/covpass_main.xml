@@ -11,14 +11,21 @@
   android:layout_height="match_parent">
 
   <TextView
-    android:id="@+id/main_header_textview"
-    style="@style/Header.OnBackground.Standard"
+    android:id="@+id/main_validity_check_textview"
+    style="@style/Header.Info.Small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_six"
-    android:text="@string/vaccination_start_screen_title"
+    android:layout_marginStart="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_five"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:drawablePadding="@dimen/grid_one"
+    android:focusable="true"
     app:layout_constraintStart_toStartOf="parent"
+    android:padding="@dimen/grid_one"
+    android:text="@string/certificate_action_button_check_validity"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:drawableEndCompat="@drawable/arrow_right_blue"
     app:layout_constraintTop_toTopOf="parent" />
 
   <ImageButton
@@ -31,9 +38,9 @@
     android:padding="@dimen/grid_one"
     android:src="@drawable/questionmark_black"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
-    app:layout_constraintBottom_toBottomOf="@id/main_header_textview"
+    app:layout_constraintBottom_toBottomOf="@id/main_validity_check_textview"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="@id/main_header_textview"
+    app:layout_constraintTop_toTopOf="@id/main_validity_check_textview"
     tools:ignore="ContentDescription" />
 
   <com.google.android.material.card.MaterialCardView
@@ -42,11 +49,11 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_marginHorizontal="@dimen/grid_two"
-    android:layout_marginTop="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_one"
     app:cardBackgroundColor="@color/onBackground20"
     app:cardUseCompatPadding="true"
     app:layout_constraintBottom_toTopOf="@id/main_tab_layout"
-    app:layout_constraintTop_toBottomOf="@id/main_header_textview">
+    app:layout_constraintTop_toBottomOf="@id/main_validity_check_textview">
 
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -106,12 +113,12 @@
     android:id="@+id/main_view_pager"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:layout_marginTop="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_one"
     android:visibility="gone"
     app:layout_constraintBottom_toTopOf="@id/main_tab_layout"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/main_header_textview" />
+    app:layout_constraintTop_toBottomOf="@id/main_validity_check_textview" />
 
   <com.google.android.material.tabs.TabLayout
     android:id="@+id/main_tab_layout"

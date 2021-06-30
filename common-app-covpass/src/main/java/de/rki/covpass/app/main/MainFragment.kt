@@ -24,6 +24,7 @@ import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
+import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
@@ -55,6 +56,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
     private fun setupViews() {
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
+        binding.mainValidityCheckTextview.setOnClickListener { findNavigator().push(ValidityCheckFragmentNav()) }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(CovPassInformationFragmentNav()) }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
