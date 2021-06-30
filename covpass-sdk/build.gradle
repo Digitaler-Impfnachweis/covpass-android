@@ -16,3 +16,6 @@ dependencies {
     cryptographic()
     worker()
 }
+
+apply from: "$projectDir/download-dsc-list.gradle"
+addDscList("https://de.dscg.ubirch.com/trustList/DSC/")
