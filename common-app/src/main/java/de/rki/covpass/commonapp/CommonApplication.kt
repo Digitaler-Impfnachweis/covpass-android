@@ -70,7 +70,7 @@ public abstract class CommonApplication : Application() {
                 .build()
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             tag,
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.KEEP,
             dscListWorker,
         )
     }
