@@ -6,6 +6,3 @@
 dependencies {
     api project(':covpass-sdk')
 }
-
-apply from: project(":covpass-sdk").file("download-dsc-list.gradle")
-addDscList("https://de.test.dscg.ubirch.com/trustList/DSC/")
