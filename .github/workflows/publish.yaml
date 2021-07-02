@@ -1,0 +1,39 @@
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.incremental=false"
+  RUNNING_ON_CI: "true"
+  LC_ALL: C.UTF-8
+  LANG: C.UTF-8
+
+on:
+  push:
+    tags:
+      - "v-[0-9]**"
+
+jobs:
+  publish:
+    name: Publish packages
+    runs-on: ubuntu-latest
+    env:
+      PUBLISHING: "true"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Install JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: "11"
+          distribution: adopt
+      - name: Configure Gradle
+        run: ./gradlew clean
+      - name: Build project
+        run: ./gradlew assemble --stacktrace
+      - name: Publish package
+        run: ./gradlew publish
+        env:
+          PUBLICATION_URL: https://maven.pkg.github.com/Digitaler-Impfnachweis/covpass-android
+          PUBLICATION_USERNAME: ${{ github.actor }}
+          PUBLICATION_PASSWORD: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,45 @@
+env:
+  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false -Dkotlin.incremental=false"
+  RUNNING_ON_CI: "true"
+  LC_ALL: C.UTF-8
+  LANG: C.UTF-8
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build and test (JDK ${{ matrix.java_version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java_version: ["11"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Install JDK ${{ matrix.java_version }}
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java_version }}
+          distribution: adopt
+      - name: Configure Gradle
+        run: ./gradlew help
+      - name: Build project
+        run: ./gradlew assemble --stacktrace
+      - name: Run tests
+        run: ./gradlew testDebugUnitTest --stacktrace
+      - name: Create coverage report
+        run: ./gradlew jacocoTestReportDefault
+      - name: Final checks
+        run: ./gradlew check --stacktrace
+
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip

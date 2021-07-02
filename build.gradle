@@ -166,9 +166,17 @@ subprojects {
     if (shouldPublish) {
         apply from: "$rootDir/gradle/common/publish.gradle"
         publish(
-            url: nexus.egaPublic,
-            username: repoConfig.nexusUsername,
-            password: repoConfig.nexusPassword,
+            url: System.getenv("PUBLICATION_URL") ?: nexus.egaPublic,
+            username: repoConfig.nexusUsername ?: System.getenv("PUBLICATION_USERNAME"),
+            password: repoConfig.nexusPassword ?: System.getenv("PUBLICATION_PASSWORD"),
+            repoUrl: "https://github.com/Digitaler-Impfnachweis/covpass-android",
+            pomAction: {
+                description = "The official CovPass(-Check) SDK"
+                url = "https://github.com/Digitaler-Impfnachweis/covpass-android"
+                licenses {
+                    license(LICENSE.APACHE2)
+                }
+            },
             isPlatformProject: isPlatformProject,
         )
     }
