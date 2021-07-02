@@ -6,9 +6,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 * TBD
 
-## 1.16.2 (TBD assert that 1.16.2 is the correct version after release)
+## 1.16.4
 
 * Added note to 1/1 Vaccination Certificates
+* Bugfixes
 
 ## 1.16.1
 
