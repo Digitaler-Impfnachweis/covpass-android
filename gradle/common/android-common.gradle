@@ -51,6 +51,7 @@ ext.androidCommon = { args = [:] ->
             versionName version
             buildConfigField("String", "MODULE_VERSION", "\"$version\"")
 
+            vectorDrawables.useSupportLibrary = true
             multiDexEnabled true
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
