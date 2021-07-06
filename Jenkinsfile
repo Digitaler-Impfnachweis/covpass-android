@@ -117,16 +117,17 @@ pipeline {
                 }
             }
         }
-        stage('Detekt') {
-            steps {
-                gradle('detekt')
-            }
-            post {
-                always {
-                    recordIssues(tools: [checkStyle(id: 'detekt', name: 'detekt', pattern: "**/build/reports/detekt/detekt.xml")])
-                }
-            }
-        }
+        // FIXME: Once detekt fixes its random NPE we can turn this on again
+//        stage('Detekt') {
+//            steps {
+//                gradle('detekt')
+//            }
+//            post {
+//                always {
+//                    recordIssues(tools: [checkStyle(id: 'detekt', name: 'detekt', pattern: "**/build/reports/detekt/detekt.xml")])
+//                }
+//            }
+//        }
         stage('Assemble Debug') {
             steps {
                 // Running licenseReleaseReport in parallel causes bugs, so we run serially.
