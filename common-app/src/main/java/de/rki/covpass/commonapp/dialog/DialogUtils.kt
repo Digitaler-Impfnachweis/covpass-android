@@ -18,7 +18,7 @@ public fun showDialog(dialogModel: DialogModel, fragmentManager: FragmentManager
 
 /**
  * Forwards the click action on this dialog to the first listening parent of this [DialogFragment]
- * by searching in the hierachy starting with the parent fragment up until the containing activity.
+ * by searching in the hierarchy starting with the parent fragment up until the containing activity.
  *
  * @param action The invoked [DialogAction].
  * @param tag The fragment tag.
