@@ -5,9 +5,12 @@
 
 package de.rki.covpass.app.add
 
+import android.app.KeyguardManager
+import android.content.Context
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.view.isGone
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -41,6 +44,11 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
+        binding.warningElement.isGone = requireContext().isDeviceSecure()
+    }
+
+    private fun Context.isDeviceSecure(): Boolean {
+        return (getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager).isDeviceSecure
     }
 
     override fun onActionButtonClicked() {

@@ -38,6 +38,8 @@
 
 	<!-- SECTION: popup: add certification -->
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
+	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
+	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, eine Code zum Entsperren Ihres Smartphones einzurichten.</string>
 	<string name="certificate_add_popup_message">Scannen Sie den QR-Code von einem digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.</string>
 	<string name="certificate_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
 	<string name="certificate_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
@@ -54,6 +56,55 @@
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="certificate_favorite_button_hint">Als Favorit markieren</string>
 	<string name="certificate_action_button_check_validity">Gültigkeit prüfen</string>
+
+	<!-- SECTION: Screen: check validity -->
+	<string name="certificate_check_validity_title">Gültigkeit prüfen</string>
+	<string name="certificate_check_validity_message">Prüfen Sie vorab, ob Ihre Zertifikate in verschiedenen Ländern gültig sind. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselands berücksichtigt.</string>
+	<string name="certificate_check_validity_selection_country">Land</string>
+	<string name="certificate_check_validity_selection_country_title">Reiseland wählen</string>
+	<string name="certificate_check_validity_selection_country_action_button">Übernehmen</string>
+	<string name="certificate_check_validity_selection_date">Datum</string>
+	<string name="certificate_check_validity_selection_date_title">Datum wählen</string>
+	<string name="certificate_check_validity_selection_date_action_button">Weiter</string>
+	<string name="certificate_check_validity_selection_time_title">Zeit wählen</string>
+	<string name="certificate_check_validity_selection_time_action_button">OK</string>
+	<string name="certificate_check_validity_loading">Zertifikate werden geprüft</string>
+	<string name="certificate_check_validity_no_certificate_saved_title">Sie haben noch keine Zertifikate gespeichert</string>
+	<string name="certificate_check_validity_no_certificate_saved_message">Fügen Sie ein Zertifikat hinzu, um dessen Gültigkeit zu überprüfen.</string>
+	<string name="certificate_check_validity_vaccination">Impfzertifikat</string>
+	<string name="certificate_check_validity_test">Testzertifikat</string>
+	<string name="certificate_check_validity_recovery">Genesenenzertifikat</string>
+	<string name="certificate_check_validity_result_valid">Gültig</string>
+	<string name="certificate_check_validity_result_not_valid">Berechtigt nicht zur Einreise</string>
+	<string name="certificate_check_validity_result_not_testable">Nicht vollständig prüfbar</string>
+	<string name="certificate_check_validity_note">Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher die Zertifikate mindestens 48 Stunden vorher. Es können in einzelnen Regionen weitere Regeln oder Einschränkungen gelten. Zudem ist es möglich, dass weitere Dokumente für eine Einreise notwendig sind.\n\nMehr Informationen finden Sie in den #Häufigen Fragen::Häufigen Fragen#.</string>
+	<string name="certificate_check_validity_detail_view_vaccination_result_title">Digitales COVID-Impfzertifikat der EU</string>
+	<string name="certificate_check_validity_detail_view_vaccination_result_button">QR-Code anzeigen</string>
+	<string name="certificate_check_validity_detail_view_vaccination_result_note_de">Das Impfzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den #Häufigen Fragen::Häufigen Fragen#. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen. Informationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
+	<string name="certificate_check_validity_detail_view_vaccination_result_note_en">The vaccination certificate is valid proof for travel within the EU. The member countries have different entry requirements. You can find more information in the #Frequently Asked Questions::Frequently Asked Questions#. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination. Information on the current travel restrictions that apply to EU countries can be found via #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
+	<string name="certificate_check_validity_detail_view_test_result_title">Digitales COVID-Testzertifikat der EU</string>
+	<string name="certificate_check_validity_detail_view_test_result_button">QR-Code anzeigen</string>
+	<string name="certificate_check_validity_detail_view_test_result_note_de">Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den #Häufigen Fragen::Häufigen Fragen#.  Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen. Informationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
+	<string name="certificate_check_validity_detail_view_test_result_note_en">The test certificate is valid proof for travel within the EU. The member countries have different entry requirements. You can find more information in the #Frequently Asked Questions::Frequently Asked Questions#. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination. Information on the current travel restrictions that apply to EU countries can be found via #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
+	<string name="certificate_check_validity_detail_view_recovery_result_title">Digitales COVID-Genesenenzertifikat der EU</string>
+	<string name="certificate_check_validity_detail_view_recovery_result_button">QR-Code anzeigen</string>
+	<string name="certificate_check_validity_detail_view_recovery_result_note_de">Das Genesenenzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den #Häufigen Fragen::Häufigen Fragen#. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen. Informationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
+	<string name="certificate_check_validity_detail_view_recovery_result_note_en">The recovery certificate is valid proof for travel within the EU. The member countries have different entry requirements. You can find more information in the #Frequently Asked Questions::Frequently Asked Questions#. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination. Information on the current travel restrictions that apply to EU countries can be found via #https://reopen.europa.eu/de::https://reopen.europa.eu/de#.</string>
+	<string name="certificate_check_validity_detail_view_result_valid_title">Dieses Zertifikat ist am Reisedatum gültig</string>
+	<string name="certificate_check_validity_detail_view_result_valid_message">Für %1$s, am %2$s</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_title">Dieses Zertifikat ist nicht vollständig prüfbar</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_first_message">Für %1$s, am %2$s</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_second_message">Leider ist eine automatische Prüfung nicht möglich. Überprüfen Sie die unten markierten Werte bitte selbst.</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_note_title">Überprüfen Sie diesen Wert</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_note_message">Regel des Ziellands: Ein Antigentest ist maximal 48 h gültig.</string>
+	<string name="certificate_check_validity_detail_view_result_not_valid_title">Dieses Zertifikat ist am Reisedatum nicht gültig</string>
+	<string name="certificate_check_validity_detail_view_result_not_valid_message">Für %1$s, am %2$s</string>
+	<string name="certificate_check_validity_detail_view_result_not_valid_note_title">Dieser Wert erfüllt nicht Regel „TR01\"</string>
+	<string name="certificate_check_validity_detail_view_result_not_valid_note_message">Regel des Ziellands: Genesenenzertifikate sind bis zu 180 Tage gültig.</string>
+	<string name="error_check_validity_no_internet_title">Keine Internetverbindung</string>
+	<string name="error_check_validity_no_internet_message">Um die Gültigkeit des Zertifikats prüfen zu können, stellen Sie bitte eine Verbindung mit dem Internet her.</string>
+	<string name="error_check_validity_no_internet_button_try_again">Nochmal versuchen</string>
+	<string name="error_check_validity_no_internet_button_cancel">Abbrechen</string>
 
 	<!-- SECTION: start Screen: partial immunization certificate -->
 	<string name="vaccination_partial_immunization_action_button">Zertifikate anzeigen</string>
