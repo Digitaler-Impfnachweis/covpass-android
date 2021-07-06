@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="InfoElement">
+    <attr name="title" format="string" />
+    <attr name="subtitle" format="string" />
+    <attr name="description" format="string" />
+    <attr name="icon" format="reference" />
+    <attr name="elementColor" format="reference" />
+  </declare-styleable>
+</resources>

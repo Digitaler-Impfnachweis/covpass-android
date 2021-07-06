@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<resources>
+
+  <style name="InfoElement">
+    <item name="icon">@null</item>
+    <item name="elementColor">@null</item>
+  </style>
+
+  <style name="InfoElement.Warning">
+    <item name="icon">@drawable/info_warning</item>
+    <item name="elementColor">@drawable/info_warning_background</item>
+  </style>
+
+  <style name="InfoElement.Error">
+    <item name="icon">@drawable/detail_cert_status_incomplete</item>
+    <item name="elementColor">@drawable/info_error_background</item>
+  </style>
+
+  <style name="InfoElement.Success">
+    <item name="icon">@drawable/detail_cert_status_complete</item>
+    <item name="elementColor">@drawable/info_success_background</item>
+  </style>
+
+</resources>
