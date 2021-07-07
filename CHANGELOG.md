@@ -6,6 +6,17 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 * TBD
 
+## 1.28.4
+
+* Adding Service Hotline to Settings
+* Adding warning before scanning certificate that the passcode is missing
+* Bugfixes
+
+## 1.28.3
+
+* Implemented German Rule Set
+* Updated Result screens
+
 ## 1.16.4
 
 * Added note to 1/1 Vaccination Certificates
