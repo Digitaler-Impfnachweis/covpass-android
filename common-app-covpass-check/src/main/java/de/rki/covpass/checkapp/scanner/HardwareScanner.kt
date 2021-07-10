@@ -45,7 +45,7 @@ public class HardwareScanner(public val receiver: ScanReceiver) {
     public fun start(ctx: Context) {
         val filter = IntentFilter()
         filter.addAction("scan.rcv.message")  // LECOM
-        filter.addAction("eu.pretix.SCAN")  // Zebra DataWedge
+        filter.addAction("de.rki.covpass.checkapp")  // Zebra DataWedge
         filter.addAction("kr.co.bluebird.android.bbapi.action.BARCODE_CALLBACK_DECODING_DATA")  // Bluebird
         filter.addAction("nlscan.action.SCANNER_RESULT")  // NewLand
         ctx.registerReceiver(scanReceiver, filter)
