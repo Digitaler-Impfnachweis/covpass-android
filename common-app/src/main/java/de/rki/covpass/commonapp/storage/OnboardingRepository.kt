@@ -11,10 +11,15 @@ import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 /**
  * Repository that provides access to the information of the current data privacy version and if onboarding was
  * already done on this device and which version of the data privacy was accepted
+ * Also stores the version number of the installed Zebra DataWedge profile used for devices with hardware barcode
+ * scanners
  */
 public class OnboardingRepository(store: CborSharedPrefsStore) {
     public val dataPrivacyVersionAccepted: SuspendMutableValueFlow<Int> =
         store.getData("data_privacy_version_accepted", 0)
+
+    public val dataDataWedgeVersionInstalled: SuspendMutableValueFlow<Int> =
+        store.getData("data_datawedge_version_installed", 0)
 
     public companion object {
         public const val CURRENT_DATA_PRIVACY_VERSION: Int = 1

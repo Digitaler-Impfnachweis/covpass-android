@@ -33,6 +33,7 @@
 	<string name="validation_start_screen_scan_title">Zertifikat prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
+  <string name="validation_start_screen_scan_message_hwscanner">Sie können auch den eingebauten Barcodescanner verwenden.</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
 	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Offline-Modus verfügbar</string>

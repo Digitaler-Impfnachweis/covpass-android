@@ -17,3 +17,11 @@ public fun isCameraPermissionGranted(context: Context): Boolean {
     val permissionCheckResult = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
     return permissionCheckResult == PackageManager.PERMISSION_GRANTED
 }
+
+/**
+ * @return True, if the permission to write to external storage is granted, else false.
+ */
+public fun isWriteExternalStoragePermissionGranted(context: Context): Boolean {
+    val permissionCheckResult = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    return permissionCheckResult == PackageManager.PERMISSION_GRANTED
+}

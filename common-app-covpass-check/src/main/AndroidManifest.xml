@@ -5,7 +5,11 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="de.rki.covpass.checkapp">
+
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    tools:ignore="ScopedStorage" />
 
   <application
     android:name="de.rki.covpass.checkapp.App"

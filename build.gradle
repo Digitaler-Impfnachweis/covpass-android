@@ -98,6 +98,7 @@ subprojects {
 
                 buildFeatures {
                     viewBinding true
+                    dataBinding true
                 }
 
                 // Resolve build conflicts for test modules
