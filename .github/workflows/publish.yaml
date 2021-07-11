@@ -36,7 +36,9 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: covpass-${{ steps.vars.outputs.tag }}
-          path: app-covpass-prod/build/outputs/apk/debug/covpassprod-*-debug.apk
+          path: |
+            app-covpass-prod/build/outputs/apk/debug/covpassprod-*-debug.apk
+            app-covpass-check-prod/build/outputs/apk/debug/covpasscheckprod-*-debug.apk
       - name: Publish package
         run: ./gradlew publish
         env:
