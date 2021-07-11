@@ -16,8 +16,9 @@ jobs:
     env:
       PUBLISHING: "true"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Get tag
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Validate Gradle Wrapper
@@ -31,6 +32,11 @@ jobs:
         run: ./gradlew clean
       - name: Build project
         run: ./gradlew assemble --stacktrace
+      - name: Upload the apk
+        uses: actions/upload-artifact@master
+        with:
+          name: covpass-${{ steps.vars.outputs.tag }}
+          path: app-covpass-prod/build/outputs/apk/debug/covpassprod-*-debug.apk
       - name: Publish package
         run: ./gradlew publish
         env:
