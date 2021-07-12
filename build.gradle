@@ -32,6 +32,7 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
+
 // FIXME: Change this when we switch to Maven Central
 group = 'com.ibm.health.de.rki.covpass'
 subprojects {
@@ -160,6 +161,27 @@ subprojects {
         if (isLibraryProject) {
             apply from: "$rootDir/gradle/common/coverage.gradle"
             trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
+        }
+        if (!isLibraryProject) {
+            apply plugin: 'maven-publish'
+            afterEvaluate {
+                publishing {
+                    publications {
+                        release(MavenPublication) {
+                            from components.release_apk
+                        }
+                    }
+                    repositories {
+                        maven {
+                            url "https://nexus.open-insurance-platform.com/repository/covpass-releases"
+                            credentials {
+                                username repoConfig.nexusUsername
+                                password repoConfig.nexusPassword
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
