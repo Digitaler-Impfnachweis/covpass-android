@@ -8,4 +8,4 @@ dependencies {
 }
 
 apply from: "$rootDir/gradle/common/twine.gradle"
-twineStrings input: "${project.rootDir}/text-vaccination/twine-validator.txt"
+twineStrings input: "${project.rootDir}/text/twine-validator.txt"
