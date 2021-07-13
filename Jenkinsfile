@@ -73,6 +73,7 @@ pipeline {
         stage('Create Release') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
@@ -142,12 +143,13 @@ pipeline {
         stage('Dependency Track') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
             }
             steps {
-                // masterScan:"latest" -> suppress reporting of each built version, only report as "#latest" on master branches
+                // masterScan:"latest" -> suppress reporting of each built version, only report as "#latest" on main/master branches
                 // cycloneDX plugin for other Android projects so far, otherwise it would fail during execution with submodule dependencies.
                 // releaseVersions:"prefix" -> add the release branch name to the displayed version for better identification
                 // To be removed, after the current configuration here is applicable to the other Android projects.
@@ -183,6 +185,7 @@ pipeline {
             // This is only needed when publishing below, so we select published branches only.
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
@@ -212,6 +215,7 @@ pipeline {
 //        stage('Documentation') {
 //            when {
 //                anyOf {
+//                    branch 'main'
 //                    branch 'master'
 //                    branch 'release/*'
 //                    branch 'snapshot/*'
@@ -224,6 +228,7 @@ pipeline {
         stage('Publish Release') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
@@ -240,7 +245,7 @@ pipeline {
                     ).trim()
 
                     // Add extra tag for release branches, so we can track them even when doing fast-forward merges.
-                    if (env.BRANCH_NAME != "master") {
+                    if (env.BRANCH_NAME != "main" && env.BRANCH_NAME != "master") {
                         def prefix = env.BRANCH_NAME.replaceAll(/[^\/a-zA-Z0-9_\-]+/, '-')
                         def version = currentBuild.displayName
                         sh("git tag $prefix-$version || true")
@@ -287,6 +292,7 @@ pipeline {
         stage('Archive Mappings') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
@@ -298,15 +304,6 @@ pipeline {
                     // Add mappings if they exist
                     sh 'zip -r mappings.zip */build/outputs/mapping/ || true'
                     archiveArtifacts 'mappings.zip'
-                }
-            }
-        }
-    }
-    post {
-        failure {
-            script {
-                if (env.CHANGE_BRANCH =~ 'master|release/.*') {
-                    slackNotifyBuildFailed('#android_community')
                 }
             }
         }
