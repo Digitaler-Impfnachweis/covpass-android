@@ -4,17 +4,20 @@
  */
 
 apply plugin: 'kotlinx-serialization'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     api project(':covpass-base45')
     api project(':covpass-http')
     api project(':covpass-logging')
+    api project(':covpass-dgc-certlogic')
     coroutines()
     kotlinxSerialization()
     coseJava()
     reactiveState()
     cryptographic()
     worker()
+    kapt 'androidx.room:room-compiler:2.3.0'
 }
 
 apply from: "$projectDir/download-dsc-list.gradle"

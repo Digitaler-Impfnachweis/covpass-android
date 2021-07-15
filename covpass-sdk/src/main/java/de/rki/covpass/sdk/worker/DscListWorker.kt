@@ -3,16 +3,16 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.utils
+package de.rki.covpass.sdk.worker
 
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import de.rki.covpass.logging.Lumber
+import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import java.time.Instant
-import de.rki.covpass.sdk.cert.models.DscList
 
 public const val DSC_UPDATE_INTERVAL_HOURS: Long = 24
 
@@ -27,7 +27,7 @@ public fun isDscListUpToDate(lastUpdate: Instant): Boolean {
 /**
  * [CoroutineWorker] for updating the [DscList] periodically.
  */
-public class DscListUpdater(
+public class DscListWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {

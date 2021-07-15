@@ -39,6 +39,8 @@
 	<string name="validation_start_screen_offline_modus_note_old_version">Internetverbindung erforderlich</string>
 	<string name="validation_start_screen_offline_modus_note_update">Letztes Update</string>
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
+	<string name="validation_start_screen_offline_modus_certificates">Zertifikate: %s</string>
+	<string name="validation_start_screen_offline_modus_rules">Regelsets: %s</string>
 	<string name="error_old_version_title">Internetverbindung erforderlich</string>
 	<string name="error_old_version_message">Das letzte Update ist eine Weile her. Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür eine Verbindung mit dem Internet her.</string>
 	<string name="error_old_version_button_title">OK</string>

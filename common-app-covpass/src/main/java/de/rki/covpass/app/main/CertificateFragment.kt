@@ -25,14 +25,8 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Test
-import de.rki.covpass.sdk.cert.models.Vaccination
-import de.rki.covpass.sdk.cert.models.VaccinationCertType
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.toDeviceTimeZone

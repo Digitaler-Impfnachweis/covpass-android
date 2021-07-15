@@ -83,25 +83,46 @@ public open class ExponentialBackoffRetryStrategy(
 /**
  * A parallel version of [Iterable.map], executing [block] on each element of [values].
  *
- * This function ensures maximum progress under errors. If any [block] execution throws an exception this function
- * still waits for all other [block] executions to finish and only after that it re-throws any one of the exceptions
- * that happened.
+ * With [failFast] set to `false` (the default), this function ensures maximum progress under errors.
+ * If any [block] execution throws an exception this function still waits for all other [block] executions to finish
+ * and only after that it re-throws any one of the exceptions that happened.
  */
 @ExperimentalHCertApi
-public suspend fun <T, R> parallelMap(values: Iterable<T>, block: suspend (value: T) -> R): List<R> =
+public suspend fun <T, R> Iterable<T>.parallelMap(
+    failFast: Boolean = false,
+    block: suspend (value: T) -> R,
+): List<R> =
     supervisorScope {
-        // Run update jobs in parallel, but wait for all of them to finish and only rethrow an exception at the end.
+        // Run update jobs in parallel, but with failFast = false wait for all of them to finish and only rethrow an exception at the end.
         // This way we can guarantee maximum progress if some jobs succeed and others fail.
-        val results = values.map {
+        val results = map {
             async {
                 try {
                     Result.success(block(it))
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Throwable) {
+                    if (failFast) {
+                        throw e
+                    }
                     Result.failure(e)
                 }
             }
         }.awaitAll()
         results.map { it.getOrThrow() }
     }
+
+
+/**
+ * A parallel version of [Iterable.mapNotNull], executing [block] on each element of [values].
+ *
+ * With [failFast] set to `false` (the default), this function ensures maximum progress under errors.
+ * If any [block] execution throws an exception this function still waits for all other [block] executions to finish
+ * and only after that it re-throws any one of the exceptions that happened.
+ */
+@ExperimentalHCertApi
+public suspend fun <T, R : Any> Iterable<T>.parallelMapNotNull(
+    failFast: Boolean = false,
+    block: suspend (value: T) -> R?,
+): List<R> =
+    parallelMap(failFast = failFast, block = block).filterNotNull()

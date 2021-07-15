@@ -1,0 +1,12 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    coroutines()
+    certLogic()
+    kapt 'androidx.room:room-compiler:2.3.0'
+}

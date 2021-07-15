@@ -18,6 +18,7 @@ public class DscRepository(
 ) {
 
     public val lastUpdate: SuspendMutableValueFlow<Instant> = store.getData("last_update", NO_UPDATE_YET)
+    public val lastRulesUpdate: SuspendMutableValueFlow<Instant> = store.getData("last_rules_update", NO_UPDATE_YET)
 
     public val dscList: SuspendMutableValueFlow<DscList> = store.getData("dcs_list", dscList)
 
@@ -27,6 +28,10 @@ public class DscRepository(
     public suspend fun updateDscList(newDscList: DscList) {
         dscList.set(newDscList)
         lastUpdate.set(Instant.now())
+    }
+
+    public suspend fun rulesUpdate() {
+        lastRulesUpdate.set(Instant.now())
     }
 
     public companion object {

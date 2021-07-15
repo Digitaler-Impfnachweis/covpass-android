@@ -20,10 +20,10 @@ import de.rki.covpass.checkapp.scanner.CameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
-import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.utils.formatDateTime
-import de.rki.covpass.sdk.utils.isDscListUpToDate
+import de.rki.covpass.sdk.worker.isDscListUpToDate
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 import java.time.LocalDateTime
@@ -52,11 +52,14 @@ internal class MainFragment : BaseFragment() {
             }
         }
         autoRun {
-            updateAvailabilityCard(get(sdkDeps.dscRepository.lastUpdate))
+            updateAvailabilityCard(
+                get(sdkDeps.dscRepository.lastUpdate),
+                get(sdkDeps.dscRepository.lastRulesUpdate)
+            )
         }
     }
 
-    private fun updateAvailabilityCard(lastUpdate: Instant) {
+    private fun updateAvailabilityCard(lastUpdate: Instant, lastRulesUpdate: Instant) {
         val upToDate = isDscListUpToDate(lastUpdate)
 
         val availabilityStatusIconId = if (upToDate) {
@@ -73,13 +76,19 @@ internal class MainFragment : BaseFragment() {
         }
         binding.mainAvailabilityStatusTextview.text = availabilityStatusString
 
-        if (lastUpdate == DscRepository.NO_UPDATE_YET) {
+        if (lastUpdate == DscRepository.NO_UPDATE_YET || lastRulesUpdate == DscRepository.NO_UPDATE_YET) {
             binding.mainAvailabilityLastUpdateTextview.isGone = true
+            binding.mainRulesAvailabilityLastUpdateTextview.isGone = true
         } else {
             binding.mainAvailabilityLastUpdateTextview.isGone = false
             binding.mainAvailabilityLastUpdateTextview.text = getString(
-                R.string.validation_start_screen_offline_modus_note_update_pattern,
+                R.string.validation_start_screen_offline_modus_certificates,
                 LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
+            )
+            binding.mainRulesAvailabilityLastUpdateTextview.isGone = false
+            binding.mainRulesAvailabilityLastUpdateTextview.text = getString(
+                R.string.validation_start_screen_offline_modus_rules,
+                LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTime()
             )
         }
     }

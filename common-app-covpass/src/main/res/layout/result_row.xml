@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/backgroundSecondary"
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
+
+  <TextView
+    android:id="@+id/result_row_header_textview"
+    style="@style/Header.OnBackground.Small"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_one_half"
+    tools:text="@tools:sample/lorem[3]" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    android:layout_marginBottom="@dimen/grid_one_half">
+
+    <ImageView
+      android:id="@+id/result_row_data_icon"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      android:layout_marginEnd="@dimen/grid_half"
+      android:visibility="gone"
+      tools:ignore="ContentDescription" />
+    
+    <TextView
+      android:id="@+id/result_row_data_textview"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]" />
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/info_element_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:overScrollMode="never"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+  <View style="@style/Divider" />
+
+</LinearLayout>

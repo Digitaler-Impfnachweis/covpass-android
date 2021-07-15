@@ -36,7 +36,7 @@ import de.rki.covpass.sdk.utils.*
 import kotlinx.parcelize.Parcelize
 
 /**
- * Interface to communicate events from [DetailFragment] back to other fragments..
+ * Interface to communicate events from [DetailFragment] back to other fragments.
  */
 internal interface DetailCallback {
     fun onDeletionCompleted()
@@ -225,8 +225,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
             )
 
             val sortedCertificatesList = groupedCertificate.getSortedCertificates().mapNotNull {
-                val groupedDgcEntry = it.covCertificate.dgcEntry
-                when (groupedDgcEntry) {
+                when (val groupedDgcEntry = it.covCertificate.dgcEntry) {
                     is Vaccination -> {
                         DetailItem.Certificate(
                             id = groupedDgcEntry.id,

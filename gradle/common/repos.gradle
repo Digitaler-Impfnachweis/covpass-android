@@ -38,14 +38,15 @@ repoConfig.setProperty('publishWithSources', 'false')
 repoConfig.setProperty('useDebugRepos', (!isOnCI).toString())
 
 // Copy settings from global gradle properties if they exist
-for (key in ["nexusUsername", "nexusPassword", "publishWithSources", "useDebugRepos", "useEpaDebugRepos"]) {
+for (key in ["nexusUsername", "nexusPassword", "publishWithSources",
+             "useDebugRepos", "useEpaDebugRepos", "githubUsername", "githubPassword"]) {
     if (hasProperty(key) && !repoConfig.hasProperty(key)) {
         repoConfig.setProperty(key, getProperty(key))
     }
 }
 
 // Load local config
-def _propertiesFile = file("$rootDir/../vaccination.properties")
+def _propertiesFile = file("$rootDir/../covpass.properties")
 if (_propertiesFile.exists()) {
     _propertiesFile.withInputStream { ext.repoConfig.load(it) }
 }

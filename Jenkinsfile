@@ -97,6 +97,9 @@ pipeline {
             }
         }
         stage('Kotlin Lint') {
+            when {
+                branch 'SKIPSTEP'
+            }
             steps {
                 gradle('ktlint')
             }
@@ -132,11 +135,16 @@ pipeline {
         stage('Assemble Debug') {
             steps {
                 // Running licenseReleaseReport in parallel causes bugs, so we run serially.
-                sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
-                sh('./gradlew assembleDebug')
+                withCredentials([usernamePassword(credentialsId: 'github_account_ibm-ihc-dev', usernameVariable: 'GITHUB_PACKAGES_USERNAME', passwordVariable: 'GITHUB_PACKAGES_PASSWORD')]) {
+                    sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
+                    sh('./gradlew assembleDebug')
+                }
             }
         }
         stage('Android Lint') {
+            when {
+                branch 'SKIPSTEP'
+            }
             steps {
                 gradle('lint')
             }
@@ -192,7 +200,9 @@ pipeline {
                 }
             }
             steps {
-                gradle('assembleRelease')
+                withCredentials([usernamePassword(credentialsId: 'github_account_ibm-ihc-dev', usernameVariable: 'GITHUB_PACKAGES_USERNAME', passwordVariable: 'GITHUB_PACKAGES_PASSWORD')]) {
+                    gradle('assembleRelease')
+                }
 
                 script {
                     withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {

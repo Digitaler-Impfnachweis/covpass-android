@@ -26,4 +26,11 @@
     <item name="elementColor">@drawable/info_success_background</item>
   </style>
 
+  <style name="TimePickerTheme">
+    <item name="android:textColorPrimary">@color/brandAccent70</item>
+    <item name="android:textColorSecondary">@android:color/transparent</item>
+    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:textSize">@dimen/textsize_header_standard</item>
+  </style>
+
 </resources>

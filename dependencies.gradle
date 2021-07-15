@@ -209,5 +209,14 @@ dependencies {
         worker = {
             api 'androidx.work:work-runtime-ktx:2.5.0'
         }
+
+        certLogic = {
+            api 'eu.ehn.dcc.certlogic:certlogic-kotlin:v0.7.7-kotlin'
+            api 'com.squareup.retrofit2:retrofit:2.9.0'
+            api 'com.squareup.retrofit2:converter-jackson:2.1.0'
+            api 'androidx.room:room-ktx:2.4.0-alpha03'
+            api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+            api 'androidx.room:room-runtime:2.3.0'
+        }
     }
 }

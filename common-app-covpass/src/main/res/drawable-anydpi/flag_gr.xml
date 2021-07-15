@@ -1,0 +1,49 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:width="512dp"
+  android:height="512dp"
+  android:viewportWidth="512"
+  android:viewportHeight="512"
+  tools:ignore="VectorRaster">
+  <path
+    android:fillColor="#F0F0F0"
+    android:fillType="nonZero"
+    android:pathData="M256,256m-256,0a256,256 0,1 1,512 0a256,256 0,1 1,-512 0"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+  <path
+    android:fillColor="#338AF3"
+    android:fillType="nonZero"
+    android:pathData="M256,189.217L503.181,189.217C496.762,165.403 487.007,142.962 474.426,122.434L256,122.434L256,189.217Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+  <path
+    android:fillColor="#338AF3"
+    android:fillType="nonZero"
+    android:pathData="M96.644,456.348L415.356,456.348C438.719,437.74 458.755,415.138 474.425,389.565L37.575,389.565C53.245,415.137 73.282,437.74 96.644,456.348Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+  <path
+    android:fillColor="#338AF3"
+    android:fillType="nonZero"
+    android:pathData="M89.044,61.939C68.918,79.27 51.519,99.679 37.575,122.435L89.044,122.435L89.044,61.939Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+  <path
+    android:fillColor="#338AF3"
+    android:fillType="nonZero"
+    android:pathData="M256,256C256,229.924 256,208.101 256,189.217L155.827,189.217L155.827,256L89.044,256L89.044,189.217L8.819,189.217C3.08,210.511 0.001,232.893 0.001,256C0.001,279.107 3.08,301.489 8.819,322.783L503.182,322.783C508.921,301.489 512,279.107 512,256L256,256Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+  <path
+    android:fillColor="#338AF3"
+    android:fillType="nonZero"
+    android:pathData="M256,0C220.452,0 186.596,7.253 155.827,20.348L155.827,122.435L256,122.435C256,99.123 256,79.296 256,55.652L415.357,55.652C371.626,20.824 316.249,0 256,0Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+</vector>

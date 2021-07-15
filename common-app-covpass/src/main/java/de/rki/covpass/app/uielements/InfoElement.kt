@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -17,7 +17,7 @@ public class InfoElement @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(
+) : RelativeLayout(
     context,
     attrs,
     defStyleAttr
@@ -85,29 +85,32 @@ private fun InfoElement.setValues(
 public fun InfoElement.showWarning(
     title: String,
     subtitle: String? = null,
-    description: String? = null
+    description: String? = null,
+    iconRes: Int? = null
 ) {
     setValues(title, subtitle, description)
-    icon = ContextCompat.getDrawable(context, R.drawable.info_warning)
+    icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.info_warning_background)
 }
 
 public fun InfoElement.showError(
     title: String,
     subtitle: String? = null,
-    description: String? = null
+    description: String? = null,
+    iconRes: Int? = null
 ) {
     setValues(title, subtitle, description)
-    icon = ContextCompat.getDrawable(context, R.drawable.detail_cert_status_incomplete)
+    icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.info_error_background)
 }
 
 public fun InfoElement.showSuccess(
     title: String,
     subtitle: String? = null,
-    description: String? = null
+    description: String? = null,
+    iconRes: Int? = null
 ) {
     setValues(title, subtitle, description)
-    icon = ContextCompat.getDrawable(context, R.drawable.detail_cert_status_complete)
+    icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.info_success_background)
 }

@@ -33,14 +33,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_five"
     android:adjustViewBounds="true"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:padding="@dimen/grid_one"
     android:src="@drawable/questionmark_black"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
-    app:layout_constraintBottom_toBottomOf="@id/main_validity_check_textview"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="@id/main_validity_check_textview"
+    app:layout_constraintTop_toTopOf="parent"
     tools:ignore="ContentDescription" />
 
   <com.google.android.material.card.MaterialCardView
@@ -53,7 +53,7 @@
     app:cardBackgroundColor="@color/onBackground20"
     app:cardUseCompatPadding="true"
     app:layout_constraintBottom_toTopOf="@id/main_tab_layout"
-    app:layout_constraintTop_toBottomOf="@id/main_validity_check_textview">
+    app:layout_constraintTop_toBottomOf="@id/main_settings_imagebutton">
 
     <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"

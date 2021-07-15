@@ -88,6 +88,7 @@ internal class MainFragment : BaseFragment(), DetailCallback {
             }
         }
         binding.mainTabLayout.isVisible = certificateList.certificates.size > 1
+        binding.mainValidityCheckTextview.isVisible = certificateList.certificates.size > 0
     }
 
     override fun onDeletionCompleted() {

@@ -45,8 +45,19 @@ subprojects {
     def isPlatformProject = project.name.endsWith('-bom')
     def isTestProject = project.name.endsWith('-test') || project.name == 'test'
     def shouldPublish = isLibraryProject && project.name.startsWith("covpass-")
+    def kotlinExplicitApiMode = project.name != "covpass-dgc-certlogic"
 
     apply from: "$rootDir/dependencies.gradle"
+
+    repositories {
+        maven {
+            url 'https://maven.pkg.github.com/ehn-dcc-development/*'
+            credentials {
+                username repoConfig.githubUsername ?: System.getenv("GITHUB_PACKAGES_USERNAME")
+                password repoConfig.githubPassword ?: System.getenv("GITHUB_PACKAGES_PASSWORD")
+            }
+        }
+    }
 
     if (!isPlatformProject) {
         if (!isLibraryProject) {
@@ -67,6 +78,7 @@ subprojects {
                     "-Xopt-in=kotlin.RequiresOptIn",
                     "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
                 ],
+                kotlinExplicitApiMode: kotlinExplicitApiMode
             )
         } else {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
@@ -75,6 +87,7 @@ subprojects {
                     "-Xopt-in=kotlin.RequiresOptIn",
                     "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
                 ],
+                kotlinExplicitApiMode: kotlinExplicitApiMode
             )
         }
 
