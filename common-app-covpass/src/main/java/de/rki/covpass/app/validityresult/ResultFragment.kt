@@ -32,6 +32,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
     protected abstract val derivedValidationResults: List<DerivedValidationResult>
     protected abstract val country: Country
     protected abstract val dateTime: LocalDateTime
+    protected abstract val rulesCount: Int
 
     public abstract fun getRowList(cert: CovCertificate): List<ResultRowData>
 
@@ -46,9 +47,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
             derivedValidationResults.find { it.result == LocalResult.OPEN } != null -> {
                 LocalResult.OPEN
             }
-            else -> {
-                LocalResult.PASSED
-            }
+            else -> LocalResult.PASSED
         }
 
         startRecyclerView()
@@ -62,7 +61,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
         val cert = certs.value.getCombinedCertificate(certId)?.covCertificate ?: return
         ResultAdapter(this).apply {
             updateCert(certId)
-            updateHeaderWarning(resultType, country, dateTime)
+            updateHeaderWarning(resultType, country, dateTime, rulesCount)
             updateList(getRowList(cert))
             attachTo(binding.resultRecyclerView)
         }

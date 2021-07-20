@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.validitycheck.countries
 
+import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 
 public object CountryRepository {
@@ -168,6 +169,10 @@ public object CountryRepository {
             R.drawable.flag_ch
         )
     )
+
+    public fun getSortedCountryList(): List<Country> {
+        return countryList.sortedBy { getString(it.nameRes) }
+    }
 
     public fun getCountryByCode(countryCode: String): Country =
         countryList.find { country -> country.countryCode == countryCode } ?: defaultCountry

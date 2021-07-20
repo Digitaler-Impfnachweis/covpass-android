@@ -31,6 +31,7 @@ public class ResultAdapter(parent: Fragment) :
     private var country: Country = getCountryByCode("DE")
     private var dateTime: LocalDateTime = LocalDateTime.now()
     private var certId: String = ""
+    private var rulesCount: Int = 0
 
     public fun updateList(newResultItems: List<ResultFragment.ResultRowData>) {
         resultItems = newResultItems
@@ -41,10 +42,12 @@ public class ResultAdapter(parent: Fragment) :
         resultType: LocalResult,
         countryName: Country,
         dateTime: LocalDateTime,
+        noRules: Int = 0
     ) {
         this.resultType = resultType
         this.country = countryName
         this.dateTime = dateTime
+        this.rulesCount = noRules
         notifyDataSetChanged()
     }
 
@@ -64,7 +67,7 @@ public class ResultAdapter(parent: Fragment) :
     override fun onBindViewHolder(holder: BindingViewHolder<*>, position: Int) {
         when (getItemViewType(position)) {
             TYPE_HEADER -> {
-                (holder as? HeaderViewHolder)?.bind(resultType, country, dateTime)
+                (holder as? HeaderViewHolder)?.bind(resultType, country, dateTime, rulesCount)
             }
             TYPE_NORMAL -> {
                 (holder as? NormalViewHolder)?.bind(resultItems[position - 1])
@@ -88,42 +91,50 @@ public class ResultAdapter(parent: Fragment) :
             parent,
             ResultHeaderBinding::inflate
         ) {
-        public fun bind(resultType: LocalResult, country: Country, dateTime: LocalDateTime) {
+        public fun bind(
+            resultType: LocalResult,
+            country: Country,
+            dateTime: LocalDateTime,
+            rulesCount: Int
+        ) {
             when (resultType) {
                 LocalResult.FAIL -> {
                     binding.resutlWarningElement.showError(
-                        getString(R.string.certificate_check_validity_detail_view_result_not_valid_title),
-                        getString(
+                        title = getString(R.string.certificate_check_validity_detail_view_result_not_valid_title),
+                        subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_not_valid_message,
                             getString(country.nameRes),
                             dateTime.formatDateTime()
                         ),
-                        null,
-                        R.drawable.info_error_icon
+                        iconRes = R.drawable.info_error_icon
                     )
                 }
                 LocalResult.OPEN -> {
                     binding.resutlWarningElement.showWarning(
-                        getString(R.string.certificate_check_validity_detail_view_result_not_testable_title),
-                        getString(
+                        title = getString(R.string.certificate_check_validity_detail_view_result_not_testable_title),
+                        subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                             getString(country.nameRes),
                             dateTime.formatDateTime()
                         ),
-                        getString(R.string.certificate_check_validity_detail_view_result_not_testable_second_message),
-                        R.drawable.info_warning_icon
+                        description = getString(R.string.certificate_check_validity_detail_view_result_not_testable_second_message),
+                        iconRes = R.drawable.info_warning_icon
                     )
                 }
                 else -> {
                     binding.resutlWarningElement.showSuccess(
-                        getString(R.string.certificate_check_validity_detail_view_result_valid_title),
-                        getString(
+                        title = getString(R.string.certificate_check_validity_detail_view_result_valid_title),
+                        subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_valid_message,
                             getString(country.nameRes),
                             dateTime.formatDateTime()
                         ),
-                        null,
-                        R.drawable.info_success_icon
+                        description = if (rulesCount > 0) {
+                            getString(R.string.certificate_check_validity_detail_view_result_valid_info, rulesCount)
+                        } else {
+                            getString(R.string.certificate_check_validity_detail_view_result_valid_info_no_rules)
+                        },
+                        iconRes = R.drawable.info_success_icon
                     )
                 }
             }

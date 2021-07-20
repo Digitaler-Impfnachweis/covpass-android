@@ -129,7 +129,6 @@
 
   </LinearLayout>
 
-
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_certificates"
     android:layout_width="match_parent"
@@ -137,40 +136,6 @@
     android:layout_marginTop="@dimen/grid_four_half"
     android:orientation="vertical"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-  <LinearLayout
-    android:id="@+id/layout_no_certs"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:ignore="UseCompoundDrawables">
-
-    <TextView
-      style="@style/Header.OnBackground"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginHorizontal="@dimen/grid_twelve"
-      android:layout_marginTop="@dimen/grid_five"
-      android:drawablePadding="@dimen/grid_two"
-      android:gravity="center"
-      android:text="@string/certificate_check_validity_no_certificate_saved_title"
-      android:textAlignment="center"
-      app:drawableTopCompat="@drawable/no_certs_saved"
-      tools:text="@tools:sample/lorem[5]" />
-
-    <TextView
-      style="@style/DefaultText"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginHorizontal="@dimen/grid_nine"
-      android:gravity="center"
-      android:text="@string/certificate_check_validity_no_certificate_saved_message"
-      android:textAlignment="center"
-      tools:text="@tools:sample/lorem[7]" />
-
-  </LinearLayout>
 
   <TextView
     android:id="@+id/note_validity"

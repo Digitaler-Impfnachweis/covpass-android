@@ -24,6 +24,7 @@ internal class TestResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val countryName: Country,
     val dateTime: LocalDateTime,
+    val rulesCount: Int
 ) : FragmentNav(TestResultFragment::class)
 
 internal class TestResultFragment : ResultFragment() {
@@ -38,6 +39,7 @@ internal class TestResultFragment : ResultFragment() {
     override val derivedValidationResults: List<DerivedValidationResult> by lazy { args.derivedValidationResults }
     override val country: Country by lazy { args.countryName }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
+    override val rulesCount: Int by lazy { args.rulesCount }
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
         val test = cert.dgcEntry as? Test ?: return emptyList()

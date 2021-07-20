@@ -23,6 +23,7 @@ internal class VaccinationResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val country: Country,
     val dateTime: LocalDateTime,
+    val rulesCount: Int
 ) : FragmentNav(VaccinationResultFragment::class)
 
 internal class VaccinationResultFragment : ResultFragment() {
@@ -37,6 +38,7 @@ internal class VaccinationResultFragment : ResultFragment() {
     override val derivedValidationResults: List<DerivedValidationResult> by lazy { args.derivedValidationResults }
     override val country: Country by lazy { args.country }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
+    override val rulesCount: Int by lazy { args.rulesCount }
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
         val vaccination = cert.dgcEntry as? Vaccination ?: return emptyList()
@@ -94,7 +96,6 @@ internal class VaccinationResultFragment : ResultFragment() {
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
                 vaccination.idWithoutPrefix
             )
-
         )
     }
 }

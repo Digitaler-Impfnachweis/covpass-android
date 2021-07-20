@@ -62,7 +62,6 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
                 get(validityCheckViewModel.validationResults)
             )
         }
-        autoRun { showNoCertsView(get(validityCheckViewModel.isCertListEmpty)) }
         autoRun {
             val country = get(validityCheckViewModel.country)
             binding.countryValue.setText(country.nameRes)
@@ -79,11 +78,6 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
             }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
         }
-    }
-
-    private fun showNoCertsView(isCertListEmpty: Boolean) {
-        binding.layoutNoCerts.isVisible = isCertListEmpty
-        binding.recyclerCertificates.isGone = isCertListEmpty
     }
 
     override fun setLoading(isLoading: Boolean) {

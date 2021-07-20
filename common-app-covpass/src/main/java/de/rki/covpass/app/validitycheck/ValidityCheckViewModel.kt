@@ -33,17 +33,8 @@ internal class ValidityCheckViewModel(
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     val validationResults: MutableValueFlow<List<CertsValidationResults>> = MutableValueFlow(emptyList())
-    val isCertListEmpty: MutableValueFlow<Boolean> = MutableValueFlow(false)
     val country: MutableValueFlow<Country> = MutableValueFlow(defaultCountry)
     val date: MutableValueFlow<LocalDateTime> = MutableValueFlow(LocalDateTime.now())
-
-    init {
-        checkCertListSize()
-    }
-
-    private fun checkCertListSize() {
-        isCertListEmpty.value = certRepository.certs.value.certificates.size == 0
-    }
 
     @ExperimentalHCertApi
     fun loadRulesAndValueSets() {

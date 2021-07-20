@@ -70,7 +70,8 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                     cert.dgcEntry.id,
                                     item.results.toTempClassList("v"),
                                     country,
-                                    dateTime
+                                    dateTime,
+                                    item.results.size
                                 )
                                 )
                         }
@@ -80,7 +81,8 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                     cert.dgcEntry.id,
                                     item.results.toTempClassList("t"),
                                     country,
-                                    dateTime
+                                    dateTime,
+                                    item.results.size
                                 )
                                 )
                         }
@@ -90,7 +92,8 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                     cert.dgcEntry.id,
                                     item.results.toTempClassList("r"),
                                     country,
-                                    dateTime
+                                    dateTime,
+                                    item.results.size
                                 )
                                 )
                         }

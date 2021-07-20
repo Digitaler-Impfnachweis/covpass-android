@@ -7,9 +7,6 @@ package de.rki.covpass.app.validitycheck
 
 import android.os.Bundle
 import android.view.View
-import com.ensody.reactivestate.android.autoRun
-import com.ensody.reactivestate.android.reactiveState
-import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -17,6 +14,7 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ChangeCountryPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
+import de.rki.covpass.app.validitycheck.countries.CountryRepository
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 
@@ -36,26 +34,16 @@ internal class ChangeCountryFragmentNav(val countryCode: String) : FragmentNav(C
 internal class ChangeCountryFragment : BaseBottomSheet() {
 
     private val args: ChangeCountryFragmentNav by lazy { getArgs() }
-    private val changeCountryViewModel by reactiveState { ChangeCountryViewModel(scope) }
     private val binding by viewBinding(ChangeCountryPopupContentBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        launchWhenStarted {
-            changeCountryViewModel.getCountryCodes()
-        }
-
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_selection_country_title)
         bottomSheetBinding.bottomSheetActionButton.setText(R.string.certificate_check_validity_selection_country_action_button)
 
         ChangeCountryAdapter(this, args.countryCode).attachTo(binding.countryList)
-
-        autoRun {
-            (binding.countryList.adapter as? ChangeCountryAdapter)?.updateList(
-                get(changeCountryViewModel.countryList)
-            )
-        }
+        (binding.countryList.adapter as? ChangeCountryAdapter)?.updateList(CountryRepository.getSortedCountryList())
     }
 
     override fun onActionButtonClicked() {
