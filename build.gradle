@@ -45,7 +45,8 @@ subprojects {
     def isPlatformProject = project.name.endsWith('-bom')
     def isTestProject = project.name.endsWith('-test') || project.name == 'test'
     def shouldPublish = isLibraryProject && project.name.startsWith("covpass-")
-    def kotlinExplicitApiMode = project.name != "covpass-dgc-certlogic"
+    def isThirdPartyProject = project.name == "covpass-dgc-certlogic"
+    def kotlinExplicitApiMode = !isThirdPartyProject
 
     apply from: "$rootDir/dependencies.gradle"
 
@@ -116,7 +117,9 @@ subprojects {
                         pickFirst 'META-INF/AL2.0'
                         pickFirst 'META-INF/LGPL2.1'
                     }
+                }
 
+                if (isTestProject || isThirdPartyProject) {
                     lintOptions {
                         abortOnError false
                     }

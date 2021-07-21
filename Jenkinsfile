@@ -142,9 +142,6 @@ pipeline {
             }
         }
         stage('Android Lint') {
-            when {
-                branch 'SKIPSTEP'
-            }
             steps {
                 gradle('lint')
             }
