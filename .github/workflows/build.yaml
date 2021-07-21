@@ -3,6 +3,8 @@ env:
   RUNNING_ON_CI: "true"
   LC_ALL: C.UTF-8
   LANG: C.UTF-8
+  GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
+  GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
 on: [push, pull_request]
 
