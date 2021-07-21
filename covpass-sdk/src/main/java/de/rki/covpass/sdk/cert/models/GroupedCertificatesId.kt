@@ -5,7 +5,6 @@
 
 package de.rki.covpass.sdk.cert.models
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,6 +13,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class GroupedCertificatesId(
     val name: Name,
-    @Contextual
-    val birthDate: BirthDate
+    val birthDate: String
 ) : java.io.Serializable

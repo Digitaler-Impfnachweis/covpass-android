@@ -10,6 +10,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.Instant
 import java.time.LocalDate
+import java.time.Year
+import java.time.YearMonth
+import java.time.format.DateTimeParseException
 
 /**
  * Data model for the CovPass certificates, that can contain [Vaccination], [Test] or [Recovery].
@@ -27,9 +30,8 @@ public data class CovCertificate(
     // The EU Digital Green Certificate
     @SerialName("nam")
     val name: Name = Name(),
-    @Contextual
     @SerialName("dob")
-    val birthDate: BirthDate = BirthDate(),
+    val birthDate: String = "",
 
     // According to latest EU specification the lists should not be nullable.
     // But some countries use null values here, so we have to support it.
@@ -49,9 +51,15 @@ public data class CovCertificate(
         dgcEntry
     }
 
+    private val dateTimeSeparator = "T"
+    private val empty = 0  // ""
+    private val yearCount = 4  // "2021"
+    private val yearMonthCount = 7 // "2021-01"
+    private val yearMonthDayCount = 10 // "2021-01-03"
+
     public val dgcEntry: DGCEntry
         get() = vaccinations?.firstOrNull() ?: tests?.firstOrNull() ?: recoveries?.firstOrNull()
-            ?: throw IllegalStateException("CovCertificates without any DGCEntries are not allowed.")
+        ?: throw IllegalStateException("CovCertificates without any DGCEntries are not allowed.")
 
     /**
      * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
@@ -87,4 +95,23 @@ public data class CovCertificate(
 
     public val validDate: LocalDate?
         get() = vaccination?.occurrence?.plusDays(15)
+
+    public val birthDateFormatted: String
+        get() = try {
+            when (birthDate.count()) {
+                empty -> "XXXX-XX-XX"
+                yearCount -> "${Year.parse(birthDate)}-XX-XX"
+                yearMonthCount -> "${YearMonth.parse(birthDate)}-XX"
+                yearMonthDayCount -> "${LocalDate.parse(birthDate)}"
+                else -> {
+                    if (birthDate.contains(dateTimeSeparator)) {
+                        birthDate.substringBefore(dateTimeSeparator)
+                    } else {
+                        birthDate
+                    }
+                }
+            }
+        } catch (e: DateTimeParseException) {
+            birthDate
+        }
 }

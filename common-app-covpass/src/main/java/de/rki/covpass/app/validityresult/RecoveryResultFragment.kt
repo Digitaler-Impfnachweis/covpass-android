@@ -14,7 +14,6 @@ import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
-import de.rki.covpass.sdk.utils.formatInternationalOrEmpty
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -50,7 +49,7 @@ internal class RecoveryResultFragment : ResultFragment() {
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
-                cert.birthDate.formatInternationalOrEmpty()
+                cert.birthDateFormatted
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_disease),

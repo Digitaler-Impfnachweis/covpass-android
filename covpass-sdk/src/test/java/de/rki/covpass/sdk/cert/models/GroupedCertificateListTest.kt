@@ -8,16 +8,15 @@ package de.rki.covpass.sdk.cert.models
 import assertk.assertThat
 import assertk.assertions.*
 import org.junit.Test
-import java.time.LocalDate
 
 internal class GroupedCertificateListTest {
 
     private val name1 = "Hans"
     private val name2 = "Franz"
     private val name3 = "Silke"
-    private val date1 = BirthDate(LocalDate.parse("2021-01-01"))
-    private val date2 = BirthDate(LocalDate.parse("2021-02-02"))
-    private val date3 = BirthDate(LocalDate.parse("2021-03-03"))
+    private val date1 = "2021-01-01"
+    private val date2 = "2021-02-02"
+    private val date3 = "2021-03-03"
     private val idComplete1 = "certComplete1"
     private val idComplete2 = "certComplete2"
     private val idComplete3 = "certComplete3"
@@ -237,7 +236,7 @@ internal class GroupedCertificateListTest {
 
     @Test
     fun `Ensure favoriteId is set to main certificate after transformation`() {
-        val testId = GroupedCertificatesId(Name(name1), birthDate = BirthDate(LocalDate.parse("2011-11-11")))
+        val testId = GroupedCertificatesId(Name(name1), birthDate = "2011-11-11")
 
         val originalList = CovCertificateList(
             mutableListOf(

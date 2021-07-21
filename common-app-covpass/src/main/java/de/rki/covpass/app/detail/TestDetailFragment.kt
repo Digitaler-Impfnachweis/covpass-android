@@ -12,7 +12,6 @@ import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Test
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
-import de.rki.covpass.sdk.utils.formatInternationalOrEmpty
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
 
@@ -47,7 +46,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.test_certificate_detail_view_data_date_of_birth),
-            cert.birthDate.formatInternationalOrEmpty(),
+            cert.birthDateFormatted,
             dataRows
         )
         addDataRow(

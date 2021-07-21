@@ -217,7 +217,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                 ),
                 DetailItem.Personal(
                     getString(R.string.certificates_overview_personal_data_date_of_birth),
-                    cert.birthDate.formatInternationalOrEmpty()
+                    cert.birthDateFormatted
                 ),
                 DetailItem.Header(
                     getString(R.string.certificates_overview_all_certificates_title)

@@ -13,7 +13,6 @@ import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
-import de.rki.covpass.sdk.utils.formatInternationalOrEmpty
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -43,7 +42,7 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
-            cert.birthDate.formatInternationalOrEmpty(),
+            cert.birthDateFormatted,
             dataRows
         )
         addDataRow(
