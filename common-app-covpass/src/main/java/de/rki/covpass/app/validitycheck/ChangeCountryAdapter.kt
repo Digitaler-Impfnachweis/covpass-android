@@ -28,7 +28,7 @@ public class ChangeCountryAdapter(
     private var countryItems: List<Country> = emptyList()
     private var checked = -1
 
-    public fun getSelectedItem(): Country = countryItems[checked-1]
+    public fun getSelectedItem(): Country = countryItems[checked - 1]
 
     public fun updateList(newCountryItems: List<Country>) {
         countryItems = newCountryItems
@@ -41,14 +41,13 @@ public class ChangeCountryAdapter(
         else -> ChangeCountryViewHolder(parent)
     }
 
-
     override fun onBindViewHolder(holder: BindingViewHolder<*>, position: Int) {
         when (getItemViewType(position)) {
             TYPE_HEADER -> {
                 (holder as? HeaderChangeCountryViewHolder)?.bind()
             }
             TYPE_NORMAL -> {
-                (holder as? ChangeCountryViewHolder)?.bind(countryItems[position-1], position)
+                (holder as? ChangeCountryViewHolder)?.bind(countryItems[position - 1], position)
             }
         }
     }

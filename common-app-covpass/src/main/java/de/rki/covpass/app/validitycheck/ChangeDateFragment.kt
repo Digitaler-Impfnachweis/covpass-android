@@ -33,7 +33,9 @@ internal class ChangeDateFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_selection_date_title)
-        bottomSheetBinding.bottomSheetActionButton.setText(R.string.certificate_check_validity_selection_date_action_button)
+        bottomSheetBinding.bottomSheetActionButton.setText(
+            R.string.certificate_check_validity_selection_date_action_button
+        )
         val dateTime = args.dateTime
         binding.datePicker.minDate = Instant.now().toEpochMilli()
         binding.datePicker.updateDate(dateTime.year, dateTime.monthValue - 1, dateTime.dayOfMonth)
@@ -48,5 +50,4 @@ internal class ChangeDateFragment : BaseBottomSheet() {
             )
         )
     }
-
 }

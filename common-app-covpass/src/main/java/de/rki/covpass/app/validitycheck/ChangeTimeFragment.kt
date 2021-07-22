@@ -20,7 +20,6 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-
 /**
  * Interface to communicate events from [ChangeDateFragment] back to other fragments.
  */
@@ -49,7 +48,9 @@ internal class ChangeTimeFragment : BaseBottomSheet() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_selection_time_title)
-        bottomSheetBinding.bottomSheetActionButton.setText(R.string.certificate_check_validity_selection_time_action_button)
+        bottomSheetBinding.bottomSheetActionButton.setText(
+            R.string.certificate_check_validity_selection_time_action_button
+        )
 
         startPickers()
     }

@@ -92,9 +92,12 @@ subprojects {
             )
         }
 
-        apply from: "$rootDir/gradle/common/ktlint.gradle"
+        if (!isThirdPartyProject) {
+            apply from: "$rootDir/gradle/common/ktlint.gradle"
+        }
         // FIXME: Once detekt fixes its random NPE we can turn this on again
 //        apply from: "$rootDir/gradle/common/detekt.gradle"
+        task detekt() {}
 
         if (isAndroidProject) {
             android {
@@ -162,7 +165,9 @@ subprojects {
         }
 
         task verifyAll(group: 'verification') {
-            dependsOn 'ktlint'
+            if (!isThirdPartyProject) {
+                dependsOn 'ktlint'
+            }
             // FIXME: Once detekt fixes its random NPE we can turn this on again
 //            dependsOn 'detekt'
             if (isAndroidProject) {

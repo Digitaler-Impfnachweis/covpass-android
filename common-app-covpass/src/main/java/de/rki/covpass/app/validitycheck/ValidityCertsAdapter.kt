@@ -66,35 +66,38 @@ public class ValidityCertsAdapter(parent: Fragment) :
                     when (cert.dgcEntry) {
                         is Vaccination -> {
                             parent.findNavigator()
-                                .push(VaccinationResultFragmentNav(
-                                    cert.dgcEntry.id,
-                                    item.results.toTempClassList("v"),
-                                    country,
-                                    dateTime,
-                                    item.results.size
-                                )
+                                .push(
+                                    VaccinationResultFragmentNav(
+                                        cert.dgcEntry.id,
+                                        item.results.toTempClassList("v"),
+                                        country,
+                                        dateTime,
+                                        item.results.size
+                                    )
                                 )
                         }
                         is Test -> {
                             parent.findNavigator()
-                                .push(TestResultFragmentNav(
-                                    cert.dgcEntry.id,
-                                    item.results.toTempClassList("t"),
-                                    country,
-                                    dateTime,
-                                    item.results.size
-                                )
+                                .push(
+                                    TestResultFragmentNav(
+                                        cert.dgcEntry.id,
+                                        item.results.toTempClassList("t"),
+                                        country,
+                                        dateTime,
+                                        item.results.size
+                                    )
                                 )
                         }
                         is Recovery -> {
                             parent.findNavigator()
-                                .push(RecoveryResultFragmentNav(
-                                    cert.dgcEntry.id,
-                                    item.results.toTempClassList("r"),
-                                    country,
-                                    dateTime,
-                                    item.results.size
-                                )
+                                .push(
+                                    RecoveryResultFragmentNav(
+                                        cert.dgcEntry.id,
+                                        item.results.toTempClassList("r"),
+                                        country,
+                                        dateTime,
+                                        item.results.size
+                                    )
                                 )
                         }
                     }

@@ -117,7 +117,9 @@ public class ResultAdapter(parent: Fragment) :
                             getString(country.nameRes),
                             dateTime.formatDateTime()
                         ),
-                        description = getString(R.string.certificate_check_validity_detail_view_result_not_testable_second_message),
+                        description = getString(
+                            R.string.certificate_check_validity_detail_view_result_not_testable_second_message
+                        ),
                         iconRes = R.drawable.info_warning_icon
                     )
                 }

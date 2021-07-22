@@ -87,4 +87,4 @@ public data class DerivedValidationResult(
     val result: LocalResult,
     val description: String,
     val affectedString: String
-): Parcelable
+) : Parcelable

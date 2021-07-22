@@ -40,7 +40,9 @@ internal class ChangeCountryFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_selection_country_title)
-        bottomSheetBinding.bottomSheetActionButton.setText(R.string.certificate_check_validity_selection_country_action_button)
+        bottomSheetBinding.bottomSheetActionButton.setText(
+            R.string.certificate_check_validity_selection_country_action_button
+        )
 
         ChangeCountryAdapter(this, args.countryCode).attachTo(binding.countryList)
         (binding.countryList.adapter as? ChangeCountryAdapter)?.updateList(CountryRepository.getSortedCountryList())
