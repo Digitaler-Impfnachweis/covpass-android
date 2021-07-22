@@ -112,7 +112,6 @@ public suspend fun <T, R> Iterable<T>.parallelMap(
         results.map { it.getOrThrow() }
     }
 
-
 /**
  * A parallel version of [Iterable.mapNotNull], executing [block] on each element of [values].
  *

@@ -21,7 +21,7 @@ import java.time.ZonedDateTime
 // here with the separate getAllRuleIdentifiers and getAllRules calls.
 //
 // What we really want is to have a single Rule object that also stores the hash. Then we don't need the RuleIdentifier.
-public interface CovPassRulesLocalDataSource: RulesDataSource {
+public interface CovPassRulesLocalDataSource : RulesDataSource {
 
     /**
      * Transactionally deletes all rules except for [keep] and then adds the given [Rule]s and [RuleIdentifier]s.

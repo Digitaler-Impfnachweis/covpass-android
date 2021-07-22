@@ -19,7 +19,7 @@ internal class BirthDateFormatterTest {
 
     @Test
     fun `test valid birth date format XXXX-XX-XX`() {
-        val covCertificate = cert.copy(birthDate ="2021-03-15")
+        val covCertificate = cert.copy(birthDate = "2021-03-15")
         assertThat(covCertificate.birthDateFormatted).isEqualTo(covCertificate.birthDate)
     }
 
@@ -31,43 +31,43 @@ internal class BirthDateFormatterTest {
 
     @Test
     fun `test valid birth date format XXXX`() {
-        val covCertificate = cert.copy(birthDate ="2021")
+        val covCertificate = cert.copy(birthDate = "2021")
         assertThat(covCertificate.birthDateFormatted).isEqualTo("${covCertificate.birthDate}-XX-XX")
     }
 
     @Test
     fun `test empty birth date`() {
-        val covCertificate = cert.copy(birthDate ="")
+        val covCertificate = cert.copy(birthDate = "")
         assertThat(covCertificate.birthDateFormatted).isEqualTo("XXXX-XX-XX")
     }
 
     @Test
     fun `test invalid birth date format XX-XX-XXXX`() {
-        val covCertificate = cert.copy(birthDate ="15-03-2021")
+        val covCertificate = cert.copy(birthDate = "15-03-2021")
         assertThat(covCertificate.birthDateFormatted).isEqualTo(covCertificate.birthDate)
     }
 
     @Test
     fun `test invalid birth date format XX-XXXX`() {
-        val covCertificate = cert.copy(birthDate ="03-2021")
+        val covCertificate = cert.copy(birthDate = "03-2021")
         assertThat(covCertificate.birthDateFormatted).isEqualTo(covCertificate.birthDate)
     }
 
     @Test
     fun `test invalid birth date format`() {
-        val covCertificate = cert.copy(birthDate ="15.03.2021")
+        val covCertificate = cert.copy(birthDate = "15.03.2021")
         assertThat(covCertificate.birthDateFormatted).isEqualTo(covCertificate.birthDate)
     }
 
     @Test
     fun `test invalid birth date format 123a`() {
-        val covCertificate = cert.copy(birthDate ="123a")
+        val covCertificate = cert.copy(birthDate = "123a")
         assertThat(covCertificate.birthDateFormatted).isEqualTo(covCertificate.birthDate)
     }
 
     @Test
     fun `test invalid birth date format 'unknown date'`() {
-        val covCertificate = cert.copy(birthDate ="unknown date")
+        val covCertificate = cert.copy(birthDate = "unknown date")
         assertThat(covCertificate.birthDateFormatted).isEqualTo(covCertificate.birthDate)
     }
 }

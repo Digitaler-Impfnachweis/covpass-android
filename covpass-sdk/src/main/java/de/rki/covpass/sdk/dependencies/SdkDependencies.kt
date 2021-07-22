@@ -166,7 +166,7 @@ public class CertLogicDeps(
 
     private val ruleIdentifiersDatabase: RuleIdentifiersDatabase by lazy { createDb("rule-identifiers") }
 
-    private inline fun <reified T: RoomDatabase> createDb(name: String): T =
+    private inline fun <reified T : RoomDatabase> createDb(name: String): T =
         Room.databaseBuilder(application, T::class.java, name)
             .fallbackToDestructiveMigration()
             .build()
@@ -208,15 +208,16 @@ public class CertLogicDeps(
     public val bundledRuleIdentifiers: List<RuleIdentifier> by lazy {
         objectMapper.readValue(
             application.readTextAsset(
-                "covpass-sdk/eu-rules-identifier.json"),
-            object : TypeReference<List<RuleIdentifierRemote>>(){}
+                "covpass-sdk/eu-rules-identifier.json"
+            ),
+            object : TypeReference<List<RuleIdentifierRemote>>() {}
         ).toRuleIdentifiers()
     }
 
     public val bundledRules: List<Rule> by lazy {
         objectMapper.readValue(
             application.readTextAsset("covpass-sdk/eu-rules.json"),
-            object : TypeReference<List<RuleRemote>>(){}
+            object : TypeReference<List<RuleRemote>>() {}
         ).toRules()
     }
 

@@ -15,7 +15,7 @@ import kotlinx.coroutines.invoke
 
 public class DefaultCovPassValueSetsLocalDataSource(
     private val valueSetsDao: ValueSetsDao,
-): ValueSetsLocalDataSource {
+) : ValueSetsLocalDataSource {
 
     override suspend fun getValueSets(): List<ValueSet> {
         return dispatchers.io {

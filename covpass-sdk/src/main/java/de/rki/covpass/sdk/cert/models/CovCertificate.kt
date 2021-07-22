@@ -52,14 +52,14 @@ public data class CovCertificate(
     }
 
     private val dateTimeSeparator = "T"
-    private val empty = 0  // ""
-    private val yearCount = 4  // "2021"
+    private val empty = 0 // ""
+    private val yearCount = 4 // "2021"
     private val yearMonthCount = 7 // "2021-01"
     private val yearMonthDayCount = 10 // "2021-01-03"
 
     public val dgcEntry: DGCEntry
         get() = vaccinations?.firstOrNull() ?: tests?.firstOrNull() ?: recoveries?.firstOrNull()
-        ?: throw IllegalStateException("CovCertificates without any DGCEntries are not allowed.")
+            ?: throw IllegalStateException("CovCertificates without any DGCEntries are not allowed.")
 
     /**
      * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.

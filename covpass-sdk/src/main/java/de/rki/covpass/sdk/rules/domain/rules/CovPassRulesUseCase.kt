@@ -17,4 +17,3 @@ public interface CovPassRulesUseCase : GetRulesUseCase {
         region: String? = null
     ): List<Rule>
 }
-
