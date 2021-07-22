@@ -59,7 +59,7 @@ ext.androidCommon = { args = [:] ->
 
         lintOptions {
             disable(*config.disableAndroidLints)
-            checkGeneratedSources = true
+            checkGeneratedSources false
             abortOnError true
             warningsAsErrors true
             textReport true
