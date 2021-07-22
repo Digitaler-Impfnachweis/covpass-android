@@ -21,4 +21,13 @@ public data class Name(
     val givenNameTransliterated: String? = null,
     @SerialName("fnt")
     val familyNameTransliterated: String = ""
-) : java.io.Serializable
+) : java.io.Serializable {
+
+    val trimmedName: Name
+        get() = Name(
+            givenName?.trim(),
+            familyName?.trim(),
+            givenNameTransliterated?.trim(),
+            familyNameTransliterated.trim()
+        )
+}

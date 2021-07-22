@@ -21,7 +21,7 @@ public data class GroupedCertificates(
      */
     val id: GroupedCertificatesId
         get() = GroupedCertificatesId(
-            certificates.first().covCertificate.name, certificates.first().covCertificate.birthDate
+            certificates.first().covCertificate.name.trimmedName, certificates.first().covCertificate.birthDate
         )
 
     /**

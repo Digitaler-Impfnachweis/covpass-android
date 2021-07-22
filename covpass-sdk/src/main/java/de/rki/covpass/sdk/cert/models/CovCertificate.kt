@@ -81,15 +81,15 @@ public data class CovCertificate(
 
     public val fullName: String by lazy {
         listOfNotNull(
-            name.givenName ?: name.givenNameTransliterated,
-            name.familyName ?: name.familyNameTransliterated
+            name.trimmedName.givenName ?: name.trimmedName.givenNameTransliterated,
+            name.trimmedName.familyName ?: name.trimmedName.familyNameTransliterated
         ).joinToString(" ")
     }
 
     public val fullNameReverse: String by lazy {
         listOfNotNull(
-            name.familyName ?: name.familyNameTransliterated,
-            name.givenName ?: name.givenNameTransliterated
+            name.trimmedName.familyName ?: name.trimmedName.familyNameTransliterated,
+            name.trimmedName.givenName ?: name.trimmedName.givenNameTransliterated
         ).joinToString(", ")
     }
 
