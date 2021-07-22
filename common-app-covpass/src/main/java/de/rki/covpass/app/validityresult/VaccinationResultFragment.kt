@@ -53,43 +53,43 @@ internal class VaccinationResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_disease),
                 getDiseaseAgentName(vaccination.targetDisease),
-                args.derivedValidationResults.filter { it.affectedString == "tg" }
+                args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine),
                 getProductName(vaccination.product),
-                args.derivedValidationResults.filter { it.affectedString == "mp" }
+                args.derivedValidationResults.getResultsBy("mp")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
                 getProphylaxisName(vaccination.vaccineCode),
-                args.derivedValidationResults.filter { it.affectedString == "vp" }
+                args.derivedValidationResults.getResultsBy("vp")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
                 getManufacturerName(vaccination.manufacturer),
-                args.derivedValidationResults.filter { it.affectedString == "ma" }
+                args.derivedValidationResults.getResultsBy("ma")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
                 "${vaccination.doseNumber}/${vaccination.totalSerialDoses}",
-                args.derivedValidationResults.filter { it.affectedString == "dn" } +
-                    args.derivedValidationResults.filter { it.affectedString == "sd" }
+                args.derivedValidationResults.getResultsBy("dn") +
+                    args.derivedValidationResults.getResultsBy("sd")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
                 vaccination.occurrence?.formatDateInternational() ?: "",
-                args.derivedValidationResults.filter { it.affectedString == "dt" }
+                args.derivedValidationResults.getResultsBy("dt")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
                 getCountryName(vaccination.country),
-                args.derivedValidationResults.filter { it.affectedString == "co" }
+                args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_issuer),
                 vaccination.certificateIssuer,
-                args.derivedValidationResults.filter { it.affectedString == "is" }
+                args.derivedValidationResults.getResultsBy("is")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),

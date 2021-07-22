@@ -54,47 +54,47 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_disease),
                 getDiseaseAgentName(test.targetDisease),
-                args.derivedValidationResults.filter { it.affectedString == "tg" }
+                args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_type),
                 getTestTypeName(test.testType),
-                args.derivedValidationResults.filter { it.affectedString == "tt" }
+                args.derivedValidationResults.getResultsBy("tt")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_name),
                 test.testName,
-                args.derivedValidationResults.filter { it.affectedString == "nm" }
+                args.derivedValidationResults.getResultsBy("nm")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
                 getTestManufacturerName(test.manufacturer),
-                args.derivedValidationResults.filter { it.affectedString == "ma" }
+                args.derivedValidationResults.getResultsBy("ma")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_date_and_time),
                 test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational() ?: "",
-                args.derivedValidationResults.filter { it.affectedString == "sc" }
+                args.derivedValidationResults.getResultsBy("sc")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_results),
                 getTestResultName(test.testResult),
-                args.derivedValidationResults.filter { it.affectedString == "tr" }
+                args.derivedValidationResults.getResultsBy("tr")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_centre),
                 test.testingCentre,
-                args.derivedValidationResults.filter { it.affectedString == "tc" }
+                args.derivedValidationResults.getResultsBy("tc")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_country),
                 getCountryName(test.country),
-                args.derivedValidationResults.filter { it.affectedString == "co" }
+                args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_issuer),
                 test.certificateIssuer,
-                args.derivedValidationResults.filter { it.affectedString == "is" }
+                args.derivedValidationResults.getResultsBy("is")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_identifier),

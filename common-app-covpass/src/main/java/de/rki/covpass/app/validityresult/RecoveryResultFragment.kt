@@ -54,33 +54,33 @@ internal class RecoveryResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_disease),
                 getDiseaseAgentName(recovery.targetDisease),
-                args.derivedValidationResults.filter { it.affectedString == "tg" }
+                args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),
                 recovery.firstResult?.formatDateInternational() ?: "",
-                args.derivedValidationResults.filter { it.affectedString == "fr" }
+                args.derivedValidationResults.getResultsBy("fr")
 
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_country),
                 getCountryName(recovery.country),
-                args.derivedValidationResults.filter { it.affectedString == "co" }
+                args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_issuer),
                 recovery.certificateIssuer,
-                args.derivedValidationResults.filter { it.affectedString == "is" }
+                args.derivedValidationResults.getResultsBy("is")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_valid_from),
                 recovery.validFrom?.formatDateInternational() ?: "",
-                args.derivedValidationResults.filter { it.affectedString == "df" }
+                args.derivedValidationResults.getResultsBy("df")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_valid_until),
                 recovery.validUntil?.formatDateInternational() ?: "",
-                args.derivedValidationResults.filter { it.affectedString == "du" }
+                args.derivedValidationResults.getResultsBy("du")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_identifier),

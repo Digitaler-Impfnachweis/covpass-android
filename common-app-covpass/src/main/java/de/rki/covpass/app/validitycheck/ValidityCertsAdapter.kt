@@ -155,7 +155,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                 DerivedValidationResult(
                     result = validationResult.result.toTempResult(),
                     description = validationResult.rule.getDescriptionFor("de"),
-                    affectedString = validationResult.rule.affectedString.last().drop("$certType.0.".length)
+                    affectedString = validationResult.rule.affectedString.map { it.drop("$certType.0.".length) }
                 )
             }
     }
