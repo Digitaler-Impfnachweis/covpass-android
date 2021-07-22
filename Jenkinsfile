@@ -225,40 +225,6 @@ pipeline {
 //                javadocAndroid()
 //            }
 //        }
-        stage('Publish Release') {
-            when {
-                anyOf {
-                    branch 'main'
-                    branch 'master'
-                    branch 'release/*'
-                }
-            }
-            steps {
-                script {
-                    // Prevent conflicts for parallel builds
-                    sh('git fetch --tags')
-
-                    // Check if we have any tags to push.
-                    def toPush = sh(
-                        returnStdout: true,
-                        script: "git push --dry-run --porcelain --tags | grep '^*' || [ \$? -eq 1 ]"
-                    ).trim()
-
-                    // Add extra tag for release branches, so we can track them even when doing fast-forward merges.
-                    if (env.BRANCH_NAME != "main" && env.BRANCH_NAME != "master") {
-                        def prefix = env.BRANCH_NAME.replaceAll(/[^\/a-zA-Z0-9_\-]+/, '-')
-                        def version = currentBuild.displayName
-                        sh("git tag $prefix-$version || true")
-                    }
-
-                    // Only publish release if tag doesn't exist, yet.
-                    if (toPush != "") {
-                        gradle('publish', '--stacktrace')
-                    }
-                }
-                finishRelease()
-            }
-        }
         stage('Play Store') {
             when {
                 anyOf {
@@ -305,6 +271,40 @@ pipeline {
                     sh 'zip -r mappings.zip */build/outputs/mapping/ || true'
                     archiveArtifacts 'mappings.zip'
                 }
+            }
+        }
+        stage('Publish Release') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'master'
+                    branch 'release/*'
+                }
+            }
+            steps {
+                script {
+                    // Prevent conflicts for parallel builds
+                    sh('git fetch --tags')
+
+                    // Check if we have any tags to push.
+                    def toPush = sh(
+                        returnStdout: true,
+                        script: "git push --dry-run --porcelain --tags | grep '^*' || [ \$? -eq 1 ]"
+                    ).trim()
+
+                    // Add extra tag for release branches, so we can track them even when doing fast-forward merges.
+                    if (env.BRANCH_NAME != "main" && env.BRANCH_NAME != "master") {
+                        def prefix = env.BRANCH_NAME.replaceAll(/[^\/a-zA-Z0-9_\-]+/, '-')
+                        def version = currentBuild.displayName
+                        sh("git tag $prefix-$version || true")
+                    }
+
+                    // Only publish release if tag doesn't exist, yet.
+                    if (toPush != "") {
+                        gradle('publish', '--stacktrace')
+                    }
+                }
+                finishRelease()
             }
         }
     }
