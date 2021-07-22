@@ -118,7 +118,6 @@ pipeline {
                 }
             }
         }
-        // FIXME: Once detekt fixes its random NPE we can turn this on again
         stage('Detekt') {
             steps {
                 gradle('detekt')
