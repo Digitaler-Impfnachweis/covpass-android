@@ -157,7 +157,7 @@ public class CertLogicDeps(
         }
         Retrofit.Builder()
             .addConverterFactory(converterFactory)
-            .baseUrl("https://distribution-dfe4f5c711db.dcc-rules.de/")
+            .baseUrl("https://distribution.dcc-rules.de/")
             .callFactory { okHttpClient.newCall(it) }
             .build()
     }
