@@ -70,7 +70,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         if (item.itemId == DELETE_ITEM_ID) {
             val dialogModel = DialogModel(
                 titleRes = R.string.dialog_delete_certificate_title,
-                messageRes = R.string.dialog_delete_certificate_message,
+                messageString = getString(R.string.dialog_delete_certificate_message),
                 positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
                 negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
                 positiveActionColorRes = R.color.danger,

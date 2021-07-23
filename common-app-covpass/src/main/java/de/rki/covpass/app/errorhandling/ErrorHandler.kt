@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.errorhandling
 
+import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.models.CertAlreadyExistsException
 import de.rki.covpass.sdk.cert.models.CertTestPositiveException
@@ -22,20 +23,23 @@ internal class ErrorHandler : CommonErrorHandler() {
         when (error) {
             is CertAlreadyExistsException -> DialogModel(
                 titleRes = R.string.duplicate_certificate_dialog_header,
-                messageRes = R.string.duplicate_certificate_dialog_message,
+                messageString = getString(R.string.duplicate_certificate_dialog_message) +
+                    " (Error $ERROR_CODE_QR_CODE_DUPLICATED)",
                 positiveButtonTextRes = R.string.duplicate_certificate_dialog_button_title,
                 tag = TAG_ERROR_DUPLICATE_CERTIFICATE
             )
             is CertTestPositiveException -> DialogModel(
                 titleRes = R.string.error_test_certificate_not_valid_title,
-                messageRes = R.string.error_test_certificate_not_valid_message,
+                messageString = getString(R.string.error_test_certificate_not_valid_message) +
+                    " (Error $ERROR_CODE_CERTIFICATE_POSITIVE_RESULT)",
                 positiveButtonTextRes = R.string.error_test_certificate_not_valid_button_title,
                 tag = TAG_ERROR_POSITIVE_CERTIFICATE
             )
             is BadCoseSignatureException,
             is NoMatchingExtendedKeyUsageException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_without_seal_title,
-                messageRes = R.string.error_scan_qrcode_without_seal_message,
+                messageString = getString(R.string.error_scan_qrcode_without_seal_message) +
+                    " (Error $ERROR_CODE_CERTIFICATE_BAD_SIGNATURE)",
                 positiveButtonTextRes = R.string.error_scan_qrcode_without_seal_button_title,
                 tag = TAG_ERROR_BAD_CERTIFICATE_SIGNATURE
             )
@@ -46,5 +50,10 @@ internal class ErrorHandler : CommonErrorHandler() {
         const val TAG_ERROR_DUPLICATE_CERTIFICATE: String = "error_duplicate_certificate"
         const val TAG_ERROR_POSITIVE_CERTIFICATE: String = "error_positive_certificate"
         const val TAG_ERROR_BAD_CERTIFICATE_SIGNATURE: String = "error_bad_signature_certificate"
+
+        // Error codes
+        const val ERROR_CODE_QR_CODE_DUPLICATED: Int = 201
+        const val ERROR_CODE_CERTIFICATE_BAD_SIGNATURE: Int = 413
+        const val ERROR_CODE_CERTIFICATE_POSITIVE_RESULT: Int = 421
     }
 }

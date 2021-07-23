@@ -97,7 +97,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         } else {
             val dialogModel = DialogModel(
                 titleRes = R.string.delete_result_dialog_header,
-                messageRes = R.string.delete_result_dialog_message,
+                messageString = getString(R.string.delete_result_dialog_message),
                 positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
             )
             showDialog(dialogModel, childFragmentManager)
