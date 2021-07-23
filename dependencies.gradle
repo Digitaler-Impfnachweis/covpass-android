@@ -218,5 +218,9 @@ dependencies {
             api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
             api 'androidx.room:room-runtime:2.3.0'
         }
+
+        inAppUpdate = {
+            implementation 'com.google.android.play:core-ktx:1.8.1'
+        }
     }
 }
