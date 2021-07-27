@@ -9,4 +9,4 @@ set -eu -o pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT"
 
-echo -n $(($(git rev-list --count HEAD) + 80))
+echo -n $(($(git rev-list --count HEAD) + 97))
