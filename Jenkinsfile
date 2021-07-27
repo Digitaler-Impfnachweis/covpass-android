@@ -63,10 +63,7 @@ pipeline {
         stage('Version code') {
             steps {
                 script {
-                    sh('''
-                    VERSION=$(($(git rev-list --count HEAD) + 80))
-                    echo "versionCode=$VERSION" > generated.properties
-                    ''')
+                    sh('./write-version-code.sh')
                 }
             }
         }
