@@ -78,6 +78,7 @@ subprojects {
                 kotlinCompilerArgs: [
                     "-Xopt-in=kotlin.RequiresOptIn",
                     "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
+                    "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
                 ],
                 kotlinExplicitApiMode: kotlinExplicitApiMode
             )
@@ -87,6 +88,7 @@ subprojects {
                 kotlinCompilerArgs: [
                     "-Xopt-in=kotlin.RequiresOptIn",
                     "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
+                    "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
                 ],
                 kotlinExplicitApiMode: kotlinExplicitApiMode
             )

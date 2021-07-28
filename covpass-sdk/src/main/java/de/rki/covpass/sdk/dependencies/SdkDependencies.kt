@@ -20,6 +20,7 @@ import de.rki.covpass.sdk.crypto.readPemKeyAsset
 import de.rki.covpass.sdk.rules.DefaultCovPassRulesRepository
 import de.rki.covpass.sdk.rules.DefaultCovPassValueSetsRepository
 import de.rki.covpass.sdk.rules.RuleIdentifier
+import de.rki.covpass.sdk.rules.ValueSetIdentifier
 import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
 import de.rki.covpass.sdk.rules.domain.rules.CovPassRulesUseCase
 import de.rki.covpass.sdk.rules.local.*
@@ -30,12 +31,15 @@ import de.rki.covpass.sdk.utils.HeaderInterceptor
 import de.rki.covpass.sdk.utils.readTextAsset
 import dgca.verifier.app.engine.*
 import dgca.verifier.app.engine.data.Rule
+import dgca.verifier.app.engine.data.ValueSet
 import dgca.verifier.app.engine.data.source.local.rules.EngineDatabase
 import dgca.verifier.app.engine.data.source.local.rules.RulesDao
 import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsDao
-import dgca.verifier.app.engine.data.source.local.valuesets.ValueSetsLocalDataSource
 import dgca.verifier.app.engine.data.source.remote.rules.*
+import dgca.verifier.app.engine.data.source.remote.valuesets.ValueSetIdentifierRemote
+import dgca.verifier.app.engine.data.source.remote.valuesets.ValueSetRemote
 import dgca.verifier.app.engine.data.source.remote.valuesets.ValueSetsRemoteDataSource
+import dgca.verifier.app.engine.data.source.remote.valuesets.toValueSets
 import dgca.verifier.app.engine.data.source.valuesets.DefaultValueSetsRemoteDataSource
 import dgca.verifier.app.engine.data.source.valuesets.ValueSetsApiService
 import kotlinx.serialization.cbor.Cbor
@@ -129,6 +133,14 @@ public abstract class SdkDependencies {
     public val bundledRuleIdentifiers: List<RuleIdentifier> by lazy {
         certLogicDeps.bundledRuleIdentifiers
     }
+
+    public val bundledValueSets: List<ValueSet> by lazy {
+        certLogicDeps.bundledValueSets
+    }
+
+    public val bundledValueSetIdentifiers: List<ValueSetIdentifier> by lazy {
+        certLogicDeps.bundledValueSetIdentifiers
+    }
 }
 
 public class CertLogicDeps(
@@ -164,7 +176,7 @@ public class CertLogicDeps(
 
     private val engineDatabase: EngineDatabase by lazy { createDb("engine") }
 
-    private val ruleIdentifiersDatabase: RuleIdentifiersDatabase by lazy { createDb("rule-identifiers") }
+    private val covPassDatabase: CovPassDatabase by lazy { createDb("covpass-database") }
 
     private inline fun <reified T : RoomDatabase> createDb(name: String): T =
         Room.databaseBuilder(application, T::class.java, name)
@@ -172,7 +184,7 @@ public class CertLogicDeps(
             .build()
 
     private val ruleIdentifiersDao: RuleIdentifiersDao by lazy {
-        ruleIdentifiersDatabase.ruleIdentifiersDao()
+        covPassDatabase.ruleIdentifiersDao()
     }
 
     private val covPassRulesLocalDataSource: CovPassRulesLocalDataSource by lazy {
@@ -185,11 +197,16 @@ public class CertLogicDeps(
         retrofit.create(RulesApiService::class.java)
     }
 
+    private val valueSetIdentifiersDao: ValueSetIdentifiersDao by lazy {
+        covPassDatabase.valueSetIdentifiersDao()
+    }
+
     private val valueSetsDao: ValueSetsDao by lazy {
         engineDatabase.valueSetsDao()
     }
-    private val valueSetsLocalDataSource: ValueSetsLocalDataSource by lazy {
-        DefaultCovPassValueSetsLocalDataSource(valueSetsDao)
+
+    private val valueSetsLocalDataSource: CovPassValueSetsLocalDataSource by lazy {
+        DefaultCovPassValueSetsLocalDataSource(valueSetsDao, valueSetIdentifiersDao)
     }
     private val valueSetsApiService: ValueSetsApiService by lazy {
         retrofit.create(ValueSetsApiService::class.java)
@@ -219,6 +236,22 @@ public class CertLogicDeps(
             application.readTextAsset("covpass-sdk/eu-rules.json"),
             object : TypeReference<List<RuleRemote>>() {}
         ).toRules()
+    }
+
+    public val bundledValueSetIdentifiers: List<ValueSetIdentifier> by lazy {
+        objectMapper.readValue(
+            application.readTextAsset(
+                "covpass-sdk/eu-value-sets-identifier.json"
+            ),
+            object : TypeReference<List<ValueSetIdentifierRemote>>() {}
+        ).toValueSetIdentifiersFromRemote()
+    }
+
+    public val bundledValueSets: List<ValueSet> by lazy {
+        objectMapper.readValue(
+            application.readTextAsset("covpass-sdk/eu-value-sets.json"),
+            object : TypeReference<List<ValueSetRemote>>() {}
+        ).toValueSets()
     }
 
     public val covPassRulesRepository: DefaultCovPassRulesRepository by lazy {

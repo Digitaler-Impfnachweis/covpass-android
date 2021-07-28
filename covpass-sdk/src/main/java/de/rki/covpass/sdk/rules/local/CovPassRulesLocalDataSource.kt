@@ -37,10 +37,6 @@ public interface CovPassRulesLocalDataSource : RulesDataSource {
 
     public suspend fun getAllCountryCodes(): List<String>
 
-    public suspend fun addAllRules(rules: List<Rule>)
-
-    public suspend fun addAllRuleIdentifiers(ruleIdentifiers: List<RuleIdentifier>)
-
     public suspend fun getCovPassRulesBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,

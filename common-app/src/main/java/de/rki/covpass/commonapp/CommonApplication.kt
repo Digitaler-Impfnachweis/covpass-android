@@ -78,6 +78,12 @@ public abstract class CommonApplication : Application() {
                     sdkDeps.bundledRules
                 )
             }
+            if (sdkDeps.valueSetsRepository.getAllValueSetIdentifiers().isNullOrEmpty()) {
+                sdkDeps.valueSetsRepository.prepopulate(
+                    sdkDeps.bundledValueSetIdentifiers,
+                    sdkDeps.bundledValueSets
+                )
+            }
         }
     }
 }

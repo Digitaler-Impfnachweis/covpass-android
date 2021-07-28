@@ -53,7 +53,7 @@ public class RulesValidator(
             valueSets = valueSetsMap,
             countryCode = countryIsoCode,
             exp = cert.validUntil.toZonedDateTimeOrCustom(Long.MAX_VALUE),
-            iat = cert.validFrom.toZonedDateTimeOrCustom(Long.MAX_VALUE),
+            iat = cert.validFrom.toZonedDateTimeOrCustom(Long.MIN_VALUE),
             issuerCountryCode = issuerCountryCode,
             kid = "",
             region = "",

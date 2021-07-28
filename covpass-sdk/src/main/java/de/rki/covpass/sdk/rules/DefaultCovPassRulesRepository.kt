@@ -8,7 +8,6 @@ package de.rki.covpass.sdk.rules
 import de.rki.covpass.sdk.rules.local.CovPassRulesLocalDataSource
 import de.rki.covpass.sdk.rules.remote.toRuleIdentifiers
 import de.rki.covpass.sdk.storage.DscRepository
-import de.rki.covpass.sdk.utils.ExperimentalHCertApi
 import de.rki.covpass.sdk.utils.distinctGroupBy
 import de.rki.covpass.sdk.utils.parallelMapNotNull
 import dgca.verifier.app.engine.data.Rule
@@ -25,7 +24,6 @@ public class DefaultCovPassRulesRepository(
     private val dscRepository: DscRepository
 ) : RulesRepository {
 
-    @ExperimentalHCertApi
     public suspend fun loadRules() {
         loadRules("rules")
     }
@@ -37,11 +35,15 @@ public class DefaultCovPassRulesRepository(
     public suspend fun getAllCountryCodes(): List<String> = localDataSource.getAllCountryCodes()
 
     public suspend fun prepopulate(ruleIdentifiers: List<RuleIdentifier>, rules: List<Rule>) {
-        localDataSource.addAllRuleIdentifiers(ruleIdentifiers)
-        localDataSource.addAllRules(rules)
+        val newRules = ruleIdentifiers.mapNotNull { identifier ->
+            rules.find { it.identifier == identifier.identifier }?.let {
+                identifier to it
+            }
+        }.toMap()
+
+        localDataSource.replaceRules(keep = emptyList(), add = newRules)
     }
 
-    @ExperimentalHCertApi
     override suspend fun loadRules(rulesUrl: String) {
         val remoteIdentifiers =
             remoteDataSource.getRuleIdentifiers(rulesUrl).toRuleIdentifiers().distinctGroupBy { it.identifier }
@@ -65,7 +67,7 @@ public class DefaultCovPassRulesRepository(
         // Do a transactional update of the DB (as far as that's possible).
         localDataSource.replaceRules(
             keep = (localIdentifiers - changed.keys - removed.keys).keys,
-            add = newRules,
+            add = newRules
         )
         dscRepository.rulesUpdate()
     }

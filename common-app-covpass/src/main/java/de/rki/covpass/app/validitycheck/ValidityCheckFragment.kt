@@ -22,7 +22,6 @@ import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.utils.stripUnderlines
-import de.rki.covpass.sdk.utils.ExperimentalHCertApi
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
@@ -38,7 +37,6 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
     private val validityCheckViewModel by reactiveState { ValidityCheckViewModel(scope) }
     private val binding by viewBinding(ValidityCheckPopupContentBinding::inflate)
 
-    @ExperimentalHCertApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

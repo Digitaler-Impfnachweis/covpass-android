@@ -17,7 +17,6 @@ import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.rules.DefaultCovPassRulesRepository
 import de.rki.covpass.sdk.rules.DefaultCovPassValueSetsRepository
 import de.rki.covpass.sdk.storage.CertRepository
-import de.rki.covpass.sdk.utils.ExperimentalHCertApi
 import kotlinx.coroutines.CoroutineScope
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -36,7 +35,6 @@ internal class ValidityCheckViewModel(
     val country: MutableValueFlow<Country> = MutableValueFlow(defaultCountry)
     val date: MutableValueFlow<LocalDateTime> = MutableValueFlow(LocalDateTime.now())
 
-    @ExperimentalHCertApi
     fun loadRulesAndValueSets() {
         launch {
             try {

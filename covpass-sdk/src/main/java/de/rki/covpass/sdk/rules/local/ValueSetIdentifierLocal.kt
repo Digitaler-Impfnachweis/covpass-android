@@ -8,12 +8,10 @@ package de.rki.covpass.sdk.rules.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "rule_identifier")
-public data class RuleIdentifierLocal(
+@Entity(tableName = "value_set_identifier")
+public data class ValueSetIdentifierLocal(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val identifier: String,
-    val version: String,
-    val country: String,
+    val identifier: Int = 0,
+    val id: String,
     val hash: String
 )

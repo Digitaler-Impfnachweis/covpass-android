@@ -26,7 +26,7 @@ public class DefaultCovPassRulesLocalDataSource(
     override suspend fun replaceRules(keep: Collection<String>, add: Map<RuleIdentifier, Rule>) {
         ruleIdentifiersDao.updateRuleIdentifiers(
             keep = keep,
-            add = add.keys.toRuleIdentifiersLocal(),
+            add = add.keys.toRuleIdentifiersLocal()
         )
         dispatchers.io {
             rulesDao.deleteAllExcept(*keep.toTypedArray())
@@ -61,18 +61,6 @@ public class DefaultCovPassRulesLocalDataSource(
     override suspend fun getAllCountryCodes(): List<String> {
         return dispatchers.io {
             ruleIdentifiersDao.getAllCountryCodes()
-        }
-    }
-
-    override suspend fun addAllRules(rules: List<Rule>) {
-        dispatchers.io {
-            rulesDao.insertAll(*rules.toRulesWithDescriptionLocal().toTypedArray())
-        }
-    }
-
-    override suspend fun addAllRuleIdentifiers(ruleIdentifiers: List<RuleIdentifier>) {
-        dispatchers.io {
-            ruleIdentifiersDao.insertAllRuleIdentifiers(*ruleIdentifiers.toRuleIdentifiersLocal().toTypedArray())
         }
     }
 }
