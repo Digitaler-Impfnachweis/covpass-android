@@ -116,6 +116,9 @@ pipeline {
             }
         }
         stage('Detekt') {
+            when {
+                branch 'SKIPSTEP'
+            }
             steps {
                 gradle('detekt')
             }
