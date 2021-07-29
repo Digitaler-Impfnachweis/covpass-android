@@ -9,8 +9,8 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.ErrorEvents
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.QRCoder
-import de.rki.covpass.sdk.cert.assertGermanValidationRuleSet
 import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.isValid
 import kotlinx.coroutines.CoroutineScope
@@ -39,7 +39,7 @@ internal class CovPassCheckQRScannerViewModel(
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
-                assertGermanValidationRuleSet(dgcEntry)
+                validateEntity(dgcEntry.idWithoutPrefix)
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
