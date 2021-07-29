@@ -116,9 +116,6 @@ pipeline {
             }
         }
         stage('Detekt') {
-            when {
-                branch 'SKIPSTEP'
-            }
             steps {
                 gradle('detekt')
             }
@@ -131,8 +128,10 @@ pipeline {
         stage('Assemble Debug') {
             steps {
                 // Running licenseReleaseReport in parallel causes bugs, so we run serially.
-                sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
-                sh('./gradlew assembleDebug')
+                withCredentials([usernamePassword(credentialsId: 'github_account_ibm-ihc-dev', usernameVariable: 'GITHUB_PACKAGES_USERNAME', passwordVariable: 'GITHUB_PACKAGES_PASSWORD')]) {
+                    sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
+                    sh('./gradlew assembleDebug')
+                }
             }
         }
         stage('Android Lint') {
@@ -191,7 +190,9 @@ pipeline {
                 }
             }
             steps {
-                gradle('assembleRelease')
+                withCredentials([usernamePassword(credentialsId: 'github_account_ibm-ihc-dev', usernameVariable: 'GITHUB_PACKAGES_USERNAME', passwordVariable: 'GITHUB_PACKAGES_PASSWORD')]) {
+                    gradle('assembleRelease')
+                }
 
                 script {
                     withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
@@ -312,8 +313,8 @@ pipeline {
 
 def setLabelForPattern(pullRequest, String label, pattern, diffPattern = null) {
     if (pullRequest.files.find { f -> f.filename =~ pattern } != null ||
-            diffPattern != null &&
-            pullRequest.commits.find { c -> c.files { f -> f.patch =~ diffPattern } != null } != null) {
+        diffPattern != null &&
+        pullRequest.commits.find { c -> c.files { f -> f.patch =~ diffPattern } != null } != null) {
         if (!pullRequest.labels.contains(label)) {
             pullRequest.addLabel(label)
         }
