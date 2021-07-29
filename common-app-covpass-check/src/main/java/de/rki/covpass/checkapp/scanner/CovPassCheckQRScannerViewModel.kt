@@ -12,6 +12,7 @@ import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.RulesValidator
 import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.isValid
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +42,7 @@ internal class CovPassCheckQRScannerViewModel(
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
+                validateEntity(dgcEntry.idWithoutPrefix)
                 validate(covCertificate, rulesValidator)
                 when (dgcEntry) {
                     is Vaccination -> {
