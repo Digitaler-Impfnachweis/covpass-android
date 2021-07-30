@@ -20,6 +20,7 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 /**
  * [BaseRecyclerViewAdapter] which holds a list of [OpenSourceItem]
  */
+@SuppressLint("NotifyDataSetChanged")
 public class OpenSourceLicenseAdapter(parent: Fragment) :
     BaseRecyclerViewAdapter<OpenSourceLicenseAdapter.OpenSourceLicenceViewHolder>(parent) {
 

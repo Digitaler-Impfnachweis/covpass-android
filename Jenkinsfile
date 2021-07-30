@@ -14,7 +14,7 @@ pipeline {
         }
     }
     tools {
-        jdk 'jdk_8'
+        jdk 'jdk_11'
     }
     options {
         disableConcurrentBuilds()

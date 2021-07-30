@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.validitycheck
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
@@ -21,6 +22,7 @@ import dgca.verifier.app.engine.Result
 import dgca.verifier.app.engine.ValidationResult
 import java.time.LocalDateTime
 
+@SuppressLint("NotifyDataSetChanged")
 public class ValidityCertsAdapter(parent: Fragment) :
     BaseRecyclerViewAdapter<ValidityCertsAdapter.ValidityCertsViewHolder>(parent) {
 

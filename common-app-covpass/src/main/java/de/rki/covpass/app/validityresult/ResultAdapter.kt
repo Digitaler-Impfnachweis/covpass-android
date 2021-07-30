@@ -1,5 +1,6 @@
 package de.rki.covpass.app.validityresult
 
+import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -23,6 +24,7 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import java.time.LocalDateTime
 
+@SuppressLint("NotifyDataSetChanged")
 public class ResultAdapter(parent: Fragment) :
     BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
 

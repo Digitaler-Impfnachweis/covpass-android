@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.validitycheck
 
+import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 /**
  * Adapter which holds the list of countries for [ChangeCountryFragment].
  */
+@SuppressLint("NotifyDataSetChanged")
 public class ChangeCountryAdapter(
     parent: Fragment,
     private val startCountry: String,

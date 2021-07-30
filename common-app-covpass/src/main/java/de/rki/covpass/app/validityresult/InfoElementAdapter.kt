@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.validityresult
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
@@ -13,6 +14,7 @@ import de.rki.covpass.app.databinding.ResultInfoElementBinding
 import de.rki.covpass.app.uielements.showError
 import de.rki.covpass.app.uielements.showWarning
 
+@SuppressLint("NotifyDataSetChanged")
 public class InfoElementAdapter(
     parent: Fragment
 ) : BaseRecyclerViewAdapter<InfoElementAdapter.InfoElementViewHolder>(parent) {

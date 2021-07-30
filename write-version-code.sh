@@ -9,4 +9,5 @@ set -eu -o pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 VERSION=$("$ROOT/get-version-code.sh")
+echo "versionCode=$VERSION"
 echo "versionCode=$VERSION" > "$ROOT/generated.properties"

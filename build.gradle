@@ -11,7 +11,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // FIXME: Once detekt fixes its random NPE we can turn this on again
 //        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1'
