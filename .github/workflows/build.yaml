@@ -5,6 +5,7 @@ env:
   LANG: C.UTF-8
   GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
   GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  PUBLISH_APPS: "false"
 
 on: [push, pull_request]
 

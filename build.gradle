@@ -184,7 +184,7 @@ subprojects {
             apply from: "$rootDir/gradle/common/coverage.gradle"
             trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
         }
-        if (!isLibraryProject) {
+        if (!isLibraryProject && (System.getenv("PUBLISH_APPS") ?: "true") == "true") {
             apply plugin: 'maven-publish'
             afterEvaluate {
                 publishing {
