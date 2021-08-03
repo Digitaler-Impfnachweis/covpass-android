@@ -50,7 +50,6 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.security.cert.X509Certificate
-import java.time.Clock
 
 /**
  * Global var for making the [SdkDependencies] accessible.
@@ -103,8 +102,6 @@ public abstract class SdkDependencies {
     public val qrCoder: QRCoder by lazy { QRCoder(validator) }
 
     public val cbor: Cbor = defaultCbor
-
-    public open val clock: Clock = Clock.systemDefaultZone()
 
     internal fun init() {
         httpConfig.pinPublicKey(backendCa)

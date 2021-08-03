@@ -5,7 +5,6 @@
 
 package de.rki.covpass.sdk.utils
 
-import de.rki.covpass.sdk.dependencies.sdkDeps
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -42,7 +41,7 @@ public fun LocalDate.formatDateInternational(): String {
  * @return `true` if this [LocalDate] is older than given [days], else `false`.
  */
 public fun LocalDate.isOlderThan(days: Long): Boolean {
-    return plusDays(days).isBefore(LocalDate.now(sdkDeps.clock))
+    return plusDays(days).isBefore(LocalDate.now())
 }
 
 /**
@@ -50,7 +49,7 @@ public fun LocalDate.isOlderThan(days: Long): Boolean {
  */
 public fun LocalDate?.isInFuture(): Boolean {
     if (this == null) { return false }
-    return LocalDate.now(sdkDeps.clock).isBefore(this)
+    return LocalDate.now().isBefore(this)
 }
 
 /**
@@ -58,6 +57,6 @@ public fun LocalDate?.isInFuture(): Boolean {
  */
 public fun isValid(validFrom: LocalDate?, validUntil: LocalDate?): Boolean {
     if (validFrom == null || validUntil == null) { return false }
-    val now = LocalDate.now(sdkDeps.clock)
+    val now = LocalDate.now()
     return now >= validFrom && now <= validUntil
 }

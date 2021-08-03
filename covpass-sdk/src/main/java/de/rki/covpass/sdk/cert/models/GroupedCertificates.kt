@@ -5,7 +5,6 @@
 
 package de.rki.covpass.sdk.cert.models
 
-import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.isOlderThan
 import java.time.LocalDate
 
@@ -58,7 +57,7 @@ public data class GroupedCertificates(
             dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Recovery && dgcEntry.validUntil?.isBefore(LocalDate.now(sdkDeps.clock)) == false
+            dgcEntry is Recovery && dgcEntry.validUntil?.isBefore(LocalDate.now()) == false
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry.type == VaccinationCertType.VACCINATION_COMPLETE
