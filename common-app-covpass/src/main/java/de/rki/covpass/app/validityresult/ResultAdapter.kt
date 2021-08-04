@@ -19,18 +19,21 @@ import de.rki.covpass.app.uielements.showError
 import de.rki.covpass.app.uielements.showSuccess
 import de.rki.covpass.app.uielements.showWarning
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryRepository.getCountryByCode
+import de.rki.covpass.app.validitycheck.countries.CountryRepository.defaultCountry
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import java.time.LocalDateTime
 
 @SuppressLint("NotifyDataSetChanged")
-public class ResultAdapter(parent: Fragment) :
-    BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
+public class ResultAdapter(
+    parent: Fragment,
+    private val resultNoteEn: Int,
+    private val resultNoteDe: Int
+) : BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
 
     private var resultItems: List<ResultFragment.ResultRowData> = emptyList()
     private var resultType: LocalResult = LocalResult.FAIL
-    private var country: Country = getCountryByCode("DE")
+    private var country: Country = defaultCountry
     private var dateTime: LocalDateTime = LocalDateTime.now()
     private var certId: String = ""
     private var rulesCount: Int = 0
@@ -62,7 +65,7 @@ public class ResultAdapter(parent: Fragment) :
         when (viewType) {
             TYPE_HEADER -> HeaderViewHolder(parent)
             TYPE_NORMAL -> NormalViewHolder(parent)
-            TYPE_FOOTER -> FooterViewHolder(parent)
+            TYPE_FOOTER -> FooterViewHolder(parent, resultNoteEn, resultNoteDe)
             else -> NormalViewHolder(parent)
         }
 
@@ -169,22 +172,25 @@ public class ResultAdapter(parent: Fragment) :
         }
     }
 
-    public class FooterViewHolder(parent: ViewGroup) :
-        BindingViewHolder<ResultFooterBinding>(
-            parent,
-            ResultFooterBinding::inflate
-        ) {
+    public class FooterViewHolder(
+        parent: ViewGroup,
+        private val resultNoteEn: Int,
+        private val resultNoteDe: Int
+    ) : BindingViewHolder<ResultFooterBinding>(
+        parent,
+        ResultFooterBinding::inflate
+    ) {
         public fun bind(parent: Fragment, certId: String) {
             binding.resultDisplayQrButton.setOnClickListener {
                 parent.findNavigator().push(DisplayQrCodeFragmentNav(certId))
             }
             binding.resultInfoFooterEnglish.apply {
-                text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_en)
+                text = getSpanned(resultNoteEn)
                 movementMethod = LinkMovementMethod.getInstance()
                 stripUnderlines()
             }
             binding.resultInfoFooterGerman.apply {
-                text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_de)
+                text = getSpanned(resultNoteDe)
                 movementMethod = LinkMovementMethod.getInstance()
                 stripUnderlines()
             }
