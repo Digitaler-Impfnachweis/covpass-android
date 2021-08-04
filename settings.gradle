@@ -15,6 +15,7 @@ include ':annotations'
 include ':covpass-base45'
 include ':covpass-http'
 include ':covpass-logging'
+include ':covpass-dgc-certlogic'
 
 // Apps
 include ':app-covpass-check-demo'

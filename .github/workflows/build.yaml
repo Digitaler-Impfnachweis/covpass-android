@@ -3,6 +3,9 @@ env:
   RUNNING_ON_CI: "true"
   LC_ALL: C.UTF-8
   LANG: C.UTF-8
+  GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
+  GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  PUBLISH_APPS: "false"
 
 on: [push, pull_request]
 
@@ -31,8 +34,12 @@ jobs:
         run: ./gradlew testDebugUnitTest --stacktrace
       - name: Create coverage report
         run: ./gradlew jacocoTestReportDefault
-      - name: Final checks
-        run: ./gradlew check --stacktrace
+      - name: ktlint
+        run: ./gradlew ktlint --stacktrace
+      - name: detekt
+        run: ./gradlew detekt --stacktrace
+      - name: lint
+        run: ./gradlew lintDebug --stacktrace
 
       - name: Bundle the build report
         if: failure()

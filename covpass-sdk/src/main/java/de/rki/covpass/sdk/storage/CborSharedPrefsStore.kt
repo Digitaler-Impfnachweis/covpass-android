@@ -8,7 +8,6 @@ package de.rki.covpass.sdk.storage
 import android.content.SharedPreferences
 import android.util.Base64
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import de.rki.covpass.commonapp.utils.getEncryptedSharedPreferences
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray

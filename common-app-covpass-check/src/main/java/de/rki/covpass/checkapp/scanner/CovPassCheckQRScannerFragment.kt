@@ -14,9 +14,11 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.utils.formatOrEmpty
+import de.rki.covpass.sdk.utils.formatDate
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDate
 import java.time.ZonedDateTime
+import java.time.format.DateTimeParseException
 
 @Parcelize
 internal class CovPassCheckQRScannerFragmentNav : FragmentNav(CovPassCheckQRScannerFragment::class)
@@ -41,7 +43,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             ValidationResultSuccessNav(
                 certificate.fullName,
-                certificate.birthDate.formatOrEmpty()
+                formatDate(certificate.birthDateFormatted)
             )
         )
     }
@@ -53,7 +55,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             ValidPcrTestFragmentNav(
                 certificate.fullName,
-                certificate.birthDate.formatOrEmpty(),
+                formatDate(certificate.birthDateFormatted),
                 sampleCollection
             )
         )
@@ -66,7 +68,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             ValidAntigenTestFragmentNav(
                 certificate.fullName,
-                certificate.birthDate.formatOrEmpty(),
+                formatDate(certificate.birthDateFormatted),
                 sampleCollection
             )
         )
@@ -78,5 +80,17 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidationResultClosed() {
         scanEnabled.value = true
+    }
+
+    /**
+     * Formats the birth date to "12.03.1989" only in case the given date is
+     * in XXXX-XX-XX format. Otherwise we show the unformatted birth date.
+     */
+    private fun formatDate(birthDate: String): String {
+        return try {
+            LocalDate.parse(birthDate).formatDate()
+        } catch (e: DateTimeParseException) {
+            birthDate
+        }
     }
 }

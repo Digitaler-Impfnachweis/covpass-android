@@ -18,9 +18,14 @@ ext.kotlinLibrary = { args = [:] ->
 
     kotlinCommon()
 
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
             freeCompilerArgs = getCompilerArgs(
                 kotlinExplicitApiMode: config.kotlinExplicitApiMode,
                 kotlinCompilerArgs: config.kotlinCompilerArgs,
@@ -30,7 +35,7 @@ ext.kotlinLibrary = { args = [:] ->
 
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
             freeCompilerArgs = getCompilerArgs(
                 kotlinExplicitApiMode: config.kotlinExplicitApiMode,
                 kotlinCompilerArgs: config.kotlinCompilerArgs,

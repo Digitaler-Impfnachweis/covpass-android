@@ -5,5 +5,5 @@
   -->
 
 <resources>
-  <string name="data_protection_path"></string>
+  <string name="data_protection_path" />
 </resources>

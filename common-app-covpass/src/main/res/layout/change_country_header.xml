@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/layout_country"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingVertical="@dimen/grid_one_half">
+
+  <TextView
+    android:id="@+id/note_country"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginBottom="@dimen/grid_four"
+    android:background="@drawable/background_grey_round_corners"
+    android:paddingHorizontal="@dimen/grid_two"
+    android:paddingVertical="@dimen/grid_two"
+    tools:text="@tools:sample/lorem[40]" />
+
+</LinearLayout>

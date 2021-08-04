@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/backgroundSecondary"
+  android:foreground="?attr/selectableItemBackground"
+  tools:ignore="Overdraw"
+  android:id="@+id/cert_layout">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/certificate_status_layout"
+    android:layout_width="@dimen/certificate_item_status_layout_width"
+    android:layout_height="0dp"
+    android:background="@color/backgroundSecondary20"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/divider"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/certificate_type_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription"
+      tools:src="@drawable/validation_passed"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/grid_one_half"
+    android:layout_marginStart="@dimen/grid_three"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="@id/certificate_status_layout"
+    app:layout_constraintEnd_toStartOf="@+id/certificate_item_arrow"
+    app:layout_constraintStart_toEndOf="@id/certificate_status_layout"
+    app:layout_constraintTop_toTopOf="@id/certificate_status_layout">
+
+    <TextView
+      android:id="@+id/certificate_item_name"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[1]" />
+
+    <TextView
+      android:id="@+id/certificate_item_subtitle"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="@string/certificate_check_validity_vaccination"/>
+
+    <TextView
+      android:id="@+id/certificate_item_validity"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_half"
+      tools:text="@string/certificate_check_validity_result_valid" />
+
+  </LinearLayout>
+
+  <ImageView
+    android:id="@+id/certificate_item_arrow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/grid_three_half"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/arrow_right_blue"
+    app:tint="@color/info"
+    tools:ignore="ContentDescription" />
+
+  <View
+    android:id="@+id/divider"
+    style="@style/Divider"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/certificate_status_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

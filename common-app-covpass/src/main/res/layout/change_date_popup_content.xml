@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <View style="@style/Divider" />
+
+  <DatePicker
+    android:id="@+id/date_picker"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:calendarViewShown="false"
+    android:datePickerMode="spinner"
+    android:scaleX="1.2"
+    android:scaleY="1.2"
+    android:theme="@style/TimePickerTheme" />
+
+  <View style="@style/Divider" />
+
+</LinearLayout>

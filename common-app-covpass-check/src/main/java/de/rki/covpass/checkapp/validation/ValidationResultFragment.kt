@@ -38,7 +38,7 @@ internal interface ValidationResultListener {
  */
 internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
-    override val heightLayoutParams = ViewGroup.LayoutParams.MATCH_PARENT
+    override val heightLayoutParams: Int by lazy { ViewGroup.LayoutParams.MATCH_PARENT }
 
     private val binding by viewBinding(ValidationResultBinding::inflate)
 

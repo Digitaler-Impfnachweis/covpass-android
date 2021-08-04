@@ -8,9 +8,9 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
   android:background="@color/backgroundSecondary"
-  tools:ignore="Overdraw" >
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
 
   <TextView
     android:id="@+id/detail_data_header_textview"

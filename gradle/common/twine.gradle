@@ -6,29 +6,49 @@
 class Config {
     def input
     def output = null
+    def fileName = "generated_strings.xml"
 }
 
 ext.twineStrings = { args ->
     def config = new Config(args)
     if (config.output == null) {
-        config.output = "${project.projectDir}/src/main/res/values/generated_strings.xml"
+        config.output = "${project.projectDir}/src/main/res"
     }
 
     task generateStrings {
         inputs.file(config.input)
-        outputs.file(config.output)
 
         doFirst {
+            // https://github.com/scelis/twine/issues/239
             exec {
-                commandLine("twine", 'generate-localization-file', config.input, config.output, '--format', "android", '--lang', 'de')
+                commandLine("twine", 'generate-localization-file',
+                    config.input,
+                    "${config.output}/values/${config.fileName}",
+                    '--format', "android",
+                    '--lang', "en",
+                    '--developer-language', "en"
+                )
+            }
+            exec {
+                commandLine("twine", 'generate-localization-file',
+                    config.input,
+                    "${config.output}/values-de/${config.fileName}",
+                    '--format', "android",
+                    '--lang', "de",
+                    '--developer-language', "en"
+                )
             }
         }
         doLast {
-            ant.replace(
-                file: config.output,
-                token: '<resources>',
-                value: '<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">'
-            )
+            fileTree(dir: "${config.output}").matching {
+                include "values*/${config.fileName}"
+            }.each { file ->
+                ant.replace(
+                    file: file,
+                    token: '<resources>',
+                    value: '<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">'
+                )
+            }
         }
     }
 }

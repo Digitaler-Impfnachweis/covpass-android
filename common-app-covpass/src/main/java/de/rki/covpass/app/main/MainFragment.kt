@@ -88,12 +88,13 @@ internal class MainFragment : BaseFragment(), DetailCallback {
             }
         }
         binding.mainTabLayout.isVisible = certificateList.certificates.size > 1
+        binding.mainValidityCheckTextview.isVisible = certificateList.certificates.size > 0
     }
 
     override fun onDeletionCompleted() {
         val dialogModel = DialogModel(
             titleRes = R.string.delete_result_dialog_header,
-            messageRes = R.string.delete_result_dialog_message,
+            messageString = getString(R.string.delete_result_dialog_message),
             positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
         )
         showDialog(dialogModel, childFragmentManager)

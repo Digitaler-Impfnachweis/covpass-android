@@ -63,11 +63,4 @@ public data class Vaccination(
             isComplete -> { VaccinationCertType.VACCINATION_COMPLETE }
             else -> VaccinationCertType.VACCINATION_INCOMPLETE
         }
-
-    public companion object {
-        public const val PRODUCT_COMIRNATY: String = "EU/1/20/1528"
-        public const val PRODUCT_MODERNA: String = "EU/1/20/1507"
-        public const val PRODUCT_VAXZEVRIA: String = "EU/1/21/1529"
-        public const val PRODUCT_JANSSEN: String = "EU/1/20/1525"
-    }
 }

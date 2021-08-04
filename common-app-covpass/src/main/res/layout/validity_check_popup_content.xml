@@ -3,8 +3,9 @@
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
-<!--FIXME This is just a placeholder for now, implement this-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -13,10 +14,138 @@
   <TextView
     android:id="@+id/add_cov_cert_content"
     style="@style/DefaultText.OnBackground"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/grid_three"
-    android:text="Validity check TBD"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:text="@string/certificate_check_validity_message"
     tools:ignore="HardcodedText" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/country_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_two">
+
+    <LinearLayout
+      android:id="@+id/layout_country"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_one_half"
+      android:background="@drawable/background_round_corners"
+      android:orientation="horizontal"
+      android:paddingHorizontal="@dimen/grid_two"
+      android:paddingVertical="@dimen/grid_two"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        android:id="@+id/country_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@tools:sample/lorem[2]"
+        app:drawableEndCompat="@drawable/map_icon"
+        tools:text="@tools:sample/lorem[2]" />
+
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/country_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_one_half"
+      android:background="@color/backgroundSecondary"
+      android:paddingHorizontal="@dimen/grid_half"
+      android:text="@string/certificate_check_validity_selection_country"
+      android:textColor="@color/onBackground40"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="HardcodedText"
+      tools:text="@tools:sample/lorem[0]" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/date_time_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_two">
+
+    <LinearLayout
+      android:id="@+id/layout_date"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_one_half"
+      android:background="@drawable/background_round_corners"
+      android:orientation="horizontal"
+      android:paddingHorizontal="@dimen/grid_two"
+      android:paddingVertical="@dimen/grid_two"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        android:id="@+id/date_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:drawableEndCompat="@drawable/calender_icon"
+        tools:text="@tools:sample/lorem[2]" />
+
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/date_time_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_one_half"
+      android:background="@color/backgroundSecondary"
+      android:paddingHorizontal="@dimen/grid_half"
+      android:text="@string/certificate_check_validity_selection_date"
+      android:textColor="@color/onBackground40"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="HardcodedText"
+      tools:text="@tools:sample/lorem[0]" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <LinearLayout
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:lottie_autoPlay="true"
+      app:lottie_colorFilter="@color/brandAccent70"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_animation" />
+
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_certificates"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_four_half"
+    android:orientation="vertical"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+  <TextView
+    android:id="@+id/note_validity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_two"
+    android:layout_marginVertical="@dimen/grid_five"
+    android:background="@drawable/background_grey_round_corners"
+    android:paddingHorizontal="@dimen/grid_two"
+    android:paddingVertical="@dimen/grid_two"
+    tools:text="@tools:sample/lorem[40]" />
 
 </LinearLayout>

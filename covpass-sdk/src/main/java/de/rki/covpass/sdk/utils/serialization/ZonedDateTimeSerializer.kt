@@ -20,7 +20,8 @@ internal object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
     // "sc": "2021-08-20T12:03:12+02"
     // "sc": "2021-08-20T12:03:12+0200"
     // "sc": "2021-08-20T12:03:12+02:00"
-    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[XXX][X]")
+    private val deserializeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[XXX][X]")
+    private val serializeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[XXX]")
 
     override fun deserialize(decoder: Decoder): ZonedDateTime {
         val dateString = decoder.decodeString()
@@ -30,10 +31,10 @@ internal object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {
         // We remove them from the string before parsing it.
         val correctedDateString = dateString.replace("\\.[0-9]*".toRegex(), "")
 
-        return ZonedDateTime.parse(correctedDateString, formatter)
+        return ZonedDateTime.parse(correctedDateString, deserializeFormatter)
     }
 
     override fun serialize(encoder: Encoder, value: ZonedDateTime) {
-        encoder.encodeString(value.format(formatter))
+        encoder.encodeString(value.format(serializeFormatter))
     }
 }

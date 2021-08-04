@@ -32,12 +32,12 @@ ext.androidCommon = { args = [:] ->
         compileOptions {
             coreLibraryDesugaringEnabled true
 
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+            sourceCompatibility JavaVersion.VERSION_11
+            targetCompatibility JavaVersion.VERSION_11
         }
 
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
             freeCompilerArgs = getCompilerArgs(
                 kotlinExplicitApiMode: config.kotlinExplicitApiMode,
                 kotlinCompilerArgs: config.kotlinCompilerArgs,
@@ -51,6 +51,7 @@ ext.androidCommon = { args = [:] ->
             versionName version
             buildConfigField("String", "MODULE_VERSION", "\"$version\"")
 
+            vectorDrawables.useSupportLibrary = true
             multiDexEnabled true
 
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -58,7 +59,7 @@ ext.androidCommon = { args = [:] ->
 
         lintOptions {
             disable(*config.disableAndroidLints)
-            checkGeneratedSources = true
+            checkGeneratedSources false
             abortOnError true
             warningsAsErrors true
             textReport true

@@ -10,12 +10,13 @@ import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -40,6 +41,7 @@ internal class CovPassQRScannerViewModel(
     fun onQrContentReceived(qrContent: String) {
         launch {
             val covCertificate = qrCoder.decodeCovCert(qrContent)
+            validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
             val certsFlow = certRepository.certs
             var certId: GroupedCertificatesId? = null
             certsFlow.update {

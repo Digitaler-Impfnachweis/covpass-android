@@ -5,10 +5,7 @@
 
 package de.rki.covpass.sdk.cert.models
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-internal data class EUValueSet(
+public data class EUValueSet(
     val valueSetId: String,
     val valueSetDate: String,
     val valueSetValues: Map<String, EUValueSetValue>

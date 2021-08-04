@@ -12,7 +12,6 @@ import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
-import de.rki.covpass.sdk.utils.formatInternationalOrEmpty
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -51,7 +50,7 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
         )
         addDataRow(
             getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
-            cert.birthDate.formatInternationalOrEmpty(),
+            cert.birthDateFormatted,
             dataRows
         )
         addDataRow(

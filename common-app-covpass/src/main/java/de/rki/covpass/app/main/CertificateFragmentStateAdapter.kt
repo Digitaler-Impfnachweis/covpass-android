@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.main
 
+import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ibm.health.common.android.utils.BaseFragmentStateAdapter
@@ -14,6 +15,7 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 /**
  * [FragmentStateAdapter] which holds a list of [CertificateFragment]
  */
+@SuppressLint("NotifyDataSetChanged")
 internal class CertificateFragmentStateAdapter(parent: Fragment) : BaseFragmentStateAdapter(parent) {
 
     private var fragments = listOf<CertificateFragment>()

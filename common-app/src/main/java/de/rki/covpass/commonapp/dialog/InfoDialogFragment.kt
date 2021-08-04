@@ -60,7 +60,7 @@ public class InfoDialogFragment : DialogFragment() {
                     }
             )
             .setCustomTitle(titleBinding.titleTextview)
-            .setMessage(getString(dialogModel.messageRes, dialogModel.messageParameter))
+            .setMessage(dialogModel.messageString)
             .setPositiveButton(
                 dialogModel.positiveButtonTextRes?.let { positiveButtonTextResId ->
                     getString(positiveButtonTextResId)

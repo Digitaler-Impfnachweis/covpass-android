@@ -46,7 +46,7 @@ internal class CoroutineUtilsTest {
     @Test
     fun `parallel mapping`() = runBlockingTest {
         val deferred = async {
-            parallelMap(listOf(1, 2, 3, 4, 5)) {
+            listOf(1, 2, 3, 4, 5).parallelMap {
                 delay(it * 1000L)
                 it + 10
             }

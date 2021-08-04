@@ -62,7 +62,8 @@ public data class GroupedCertificatesList(
             throw CertTestPositiveException()
         }
         var matchingGroupedCert: GroupedCertificates? = certificates.firstOrNull { groupedCerts ->
-            groupedCerts.id == GroupedCertificatesId(addedCert.covCertificate.name, addedCert.covCertificate.birthDate)
+            groupedCerts.id ==
+                GroupedCertificatesId(addedCert.covCertificate.name.trimmedName, addedCert.covCertificate.birthDate)
         }
         val certDoesNotExistYet = certificates.none { groupedCerts ->
             groupedCerts.certificates.any { combinedCert ->

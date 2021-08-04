@@ -186,7 +186,20 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/main_availability_status_textview"
-          tools:text="Letztes Update: 19.03.2021, 09:19" />
+          tools:text="Zertifikate: 19.03.2021, 09:19" />
+
+        <TextView
+          android:id="@+id/main_rules_availability_last_update_textview"
+          style="@style/DefaultText.OnBackground70"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/grid_two_half"
+          android:layout_marginBottom="@dimen/grid_two_half"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/main_availability_last_update_textview"
+          tools:text="Regelsets: 19.03.2021, 09:19" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -36,7 +36,7 @@ import de.rki.covpass.sdk.utils.*
 import kotlinx.parcelize.Parcelize
 
 /**
- * Interface to communicate events from [DetailFragment] back to other fragments..
+ * Interface to communicate events from [DetailFragment] back to other fragments.
  */
 internal interface DetailCallback {
     fun onDeletionCompleted()
@@ -97,7 +97,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         } else {
             val dialogModel = DialogModel(
                 titleRes = R.string.delete_result_dialog_header,
-                messageRes = R.string.delete_result_dialog_message,
+                messageString = getString(R.string.delete_result_dialog_message),
                 positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
             )
             showDialog(dialogModel, childFragmentManager)
@@ -217,7 +217,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                 ),
                 DetailItem.Personal(
                     getString(R.string.certificates_overview_personal_data_date_of_birth),
-                    cert.birthDate.formatInternationalOrEmpty()
+                    cert.birthDateFormatted
                 ),
                 DetailItem.Header(
                     getString(R.string.certificates_overview_all_certificates_title)
@@ -225,8 +225,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
             )
 
             val sortedCertificatesList = groupedCertificate.getSortedCertificates().mapNotNull {
-                val groupedDgcEntry = it.covCertificate.dgcEntry
-                when (groupedDgcEntry) {
+                when (val groupedDgcEntry = it.covCertificate.dgcEntry) {
                     is Vaccination -> {
                         DetailItem.Certificate(
                             id = groupedDgcEntry.id,

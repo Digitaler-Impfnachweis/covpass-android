@@ -3,11 +3,14 @@ env:
   RUNNING_ON_CI: "true"
   LC_ALL: C.UTF-8
   LANG: C.UTF-8
+  GITHUB_PACKAGES_USERNAME: ${{ github.actor }}
+  GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  PUBLISH_APPS: "false"
 
 on:
   push:
     tags:
-      - "v-[0-9]**"
+      - "v-**"
 
 jobs:
   publish:

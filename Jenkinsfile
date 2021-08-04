@@ -14,7 +14,7 @@ pipeline {
         }
     }
     tools {
-        jdk 'jdk_8'
+        jdk 'jdk_11'
     }
     options {
         disableConcurrentBuilds()
@@ -63,16 +63,14 @@ pipeline {
         stage('Version code') {
             steps {
                 script {
-                    sh('''
-                    VERSION=$(($(git rev-list --count HEAD) + 80))
-                    echo "versionCode=$VERSION" > generated.properties
-                    ''')
+                    sh('./write-version-code.sh')
                 }
             }
         }
         stage('Create Release') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
@@ -130,8 +128,10 @@ pipeline {
         stage('Assemble Debug') {
             steps {
                 // Running licenseReleaseReport in parallel causes bugs, so we run serially.
-                sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
-                sh('./gradlew assembleDebug')
+                withCredentials([usernamePassword(credentialsId: 'github_account_ibm-ihc-dev', usernameVariable: 'GITHUB_PACKAGES_USERNAME', passwordVariable: 'GITHUB_PACKAGES_PASSWORD')]) {
+                    sh('for app in app-*; do ./gradlew $app:licenseReleaseReport; done')
+                    sh('./gradlew assembleDebug')
+                }
             }
         }
         stage('Android Lint') {
@@ -142,12 +142,13 @@ pipeline {
         stage('Dependency Track') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
             }
             steps {
-                // masterScan:"latest" -> suppress reporting of each built version, only report as "#latest" on master branches
+                // masterScan:"latest" -> suppress reporting of each built version, only report as "#latest" on main/master branches
                 // cycloneDX plugin for other Android projects so far, otherwise it would fail during execution with submodule dependencies.
                 // releaseVersions:"prefix" -> add the release branch name to the displayed version for better identification
                 // To be removed, after the current configuration here is applicable to the other Android projects.
@@ -183,12 +184,15 @@ pipeline {
             // This is only needed when publishing below, so we select published branches only.
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
             }
             steps {
-                gradle('assembleRelease')
+                withCredentials([usernamePassword(credentialsId: 'github_account_ibm-ihc-dev', usernameVariable: 'GITHUB_PACKAGES_USERNAME', passwordVariable: 'GITHUB_PACKAGES_PASSWORD')]) {
+                    gradle('assembleRelease')
+                }
 
                 script {
                     withDockerRegistry(registry: [url: 'https://de.icr.io/v2/', credentialsId: 'icr_image_puller_ega_dev_api_key']) {
@@ -212,6 +216,7 @@ pipeline {
 //        stage('Documentation') {
 //            when {
 //                anyOf {
+//                    branch 'main'
 //                    branch 'master'
 //                    branch 'release/*'
 //                    branch 'snapshot/*'
@@ -221,39 +226,6 @@ pipeline {
 //                javadocAndroid()
 //            }
 //        }
-        stage('Publish Release') {
-            when {
-                anyOf {
-                    branch 'master'
-                    branch 'release/*'
-                }
-            }
-            steps {
-                script {
-                    // Prevent conflicts for parallel builds
-                    sh('git fetch --tags')
-
-                    // Check if we have any tags to push.
-                    def toPush = sh(
-                        returnStdout: true,
-                        script: "git push --dry-run --porcelain --tags | grep '^*' || [ \$? -eq 1 ]"
-                    ).trim()
-
-                    // Add extra tag for release branches, so we can track them even when doing fast-forward merges.
-                    if (env.BRANCH_NAME != "master") {
-                        def prefix = env.BRANCH_NAME.replaceAll(/[^\/a-zA-Z0-9_\-]+/, '-')
-                        def version = currentBuild.displayName
-                        sh("git tag $prefix-$version || true")
-                    }
-
-                    // Only publish release if tag doesn't exist, yet.
-                    if (toPush != "") {
-                        gradle('publish', '--stacktrace')
-                    }
-                }
-                finishRelease()
-            }
-        }
         stage('Play Store') {
             when {
                 anyOf {
@@ -287,6 +259,7 @@ pipeline {
         stage('Archive Mappings') {
             when {
                 anyOf {
+                    branch 'main'
                     branch 'master'
                     branch 'release/*'
                 }
@@ -301,13 +274,38 @@ pipeline {
                 }
             }
         }
-    }
-    post {
-        failure {
-            script {
-                if (env.CHANGE_BRANCH =~ 'master|release/.*') {
-                    slackNotifyBuildFailed('#android_community')
+        stage('Publish Release') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'master'
+                    branch 'release/*'
                 }
+            }
+            steps {
+                script {
+                    // Prevent conflicts for parallel builds
+                    sh('git fetch --tags')
+
+                    // Check if we have any tags to push.
+                    def toPush = sh(
+                        returnStdout: true,
+                        script: "git push --dry-run --porcelain --tags | grep '^*' || [ \$? -eq 1 ]"
+                    ).trim()
+
+                    // Add extra tag for release branches, so we can track them even when doing fast-forward merges.
+                    if (env.BRANCH_NAME != "main" && env.BRANCH_NAME != "master") {
+                        def prefix = env.BRANCH_NAME.replaceAll(/[^\/a-zA-Z0-9_\-]+/, '-')
+                        def version = currentBuild.displayName
+                        sh("git tag $prefix-$version || true")
+                    }
+
+                    // Only publish release if tag doesn't exist, yet.
+                    if (toPush != "") {
+                        gradle('publish', '--stacktrace')
+                    }
+                }
+                finishRelease()
             }
         }
     }

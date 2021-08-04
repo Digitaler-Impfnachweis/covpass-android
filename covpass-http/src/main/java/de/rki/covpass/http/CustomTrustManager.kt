@@ -5,12 +5,14 @@
 
 package de.rki.covpass.http
 
+import android.annotation.SuppressLint
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
 import java.security.interfaces.ECPublicKey
 import java.security.interfaces.RSAPublicKey
 import javax.net.ssl.X509TrustManager
 
+@SuppressLint("CustomX509TrustManager")
 internal class CustomTrustManager(private val delegate: X509TrustManager) : X509TrustManager {
     private val delegateCheckServerTrusted = try {
         delegate::class.java.getMethod(

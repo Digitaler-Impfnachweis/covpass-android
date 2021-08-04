@@ -1,10 +1,10 @@
 package de.rki.covpass.sdk.storage.migration
 
-import de.rki.covpass.sdk.storage.CertRepository.Companion.PREFS_KEY_CERT_LIST
-import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.cert.models.CovCertificateList
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.migration.Version1CertList
+import de.rki.covpass.sdk.storage.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.CertRepository.Companion.PREFS_KEY_CERT_LIST
 
 /**
  * Logic for migrating from cert data model version 1 to 2.
@@ -24,7 +24,8 @@ internal class MigrationFromVersion1To2(store: CborSharedPrefsStore) {
             val id = cert.covCertificate.vaccination?.id
             val isFavorite = !id.isNullOrBlank() && id == version1CertList.favoriteCertId
             if (isFavorite) {
-                newFavoriteId = GroupedCertificatesId(cert.covCertificate.name, cert.covCertificate.birthDate)
+                newFavoriteId =
+                    GroupedCertificatesId(cert.covCertificate.name.trimmedName, cert.covCertificate.birthDate)
                 return@forEach
             }
         }

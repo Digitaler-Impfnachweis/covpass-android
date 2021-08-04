@@ -8,7 +8,6 @@ package de.rki.covpass.commonapp
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.viewBinding
@@ -71,7 +70,6 @@ public class OpenSourceLicenseFragment : BaseFragment() {
             )
         listObj.addAll(json.decodeFromString(text))
 
-        binding.openSourceLicenseRecyclerView.layoutManager = LinearLayoutManager(context)
         OpenSourceLicenseAdapter(this).apply {
             updateList(listObj)
             attachTo(binding.openSourceLicenseRecyclerView)

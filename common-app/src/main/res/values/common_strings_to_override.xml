@@ -41,4 +41,8 @@
   <string name="app_information_message_contact_info"/>
   <string name="app_information_message_contact_info_mail"/>
 
+  <string name="dialog_start_screen_title"/>
+  <string name="dialog_start_screen_message"/>
+  <string name="dialog_start_screen_button_later"/>
+  <string name="dialog_start_screen_button_update"/>
 </resources>

@@ -4,14 +4,14 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.5.10'
+    ext.kotlin_version = '1.5.21'
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:7.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // FIXME: Once detekt fixes its random NPE we can turn this on again
 //        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1'
@@ -33,6 +33,7 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
+
 // FIXME: Change this when we switch to Maven Central
 group = 'com.ibm.health.de.rki.covpass'
 subprojects {
@@ -44,8 +45,20 @@ subprojects {
     def isPlatformProject = project.name.endsWith('-bom')
     def isTestProject = project.name.endsWith('-test') || project.name == 'test'
     def shouldPublish = isLibraryProject && project.name.startsWith("covpass-")
+    def isThirdPartyProject = project.name == "covpass-dgc-certlogic"
+    def kotlinExplicitApiMode = !isThirdPartyProject
 
     apply from: "$rootDir/dependencies.gradle"
+
+    repositories {
+        maven {
+            url 'https://maven.pkg.github.com/ehn-dcc-development/*'
+            credentials {
+                username repoConfig.githubUsername ?: System.getenv("GITHUB_PACKAGES_USERNAME")
+                password repoConfig.githubPassword ?: System.getenv("GITHUB_PACKAGES_PASSWORD")
+            }
+        }
+    }
 
     if (!isPlatformProject) {
         if (!isLibraryProject) {
@@ -65,7 +78,9 @@ subprojects {
                 kotlinCompilerArgs: [
                     "-Xopt-in=kotlin.RequiresOptIn",
                     "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
+                    "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
                 ],
+                kotlinExplicitApiMode: kotlinExplicitApiMode
             )
         } else {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
@@ -73,13 +88,18 @@ subprojects {
                 kotlinCompilerArgs: [
                     "-Xopt-in=kotlin.RequiresOptIn",
                     "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
+                    "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
                 ],
+                kotlinExplicitApiMode: kotlinExplicitApiMode
             )
         }
 
-        apply from: "$rootDir/gradle/common/ktlint.gradle"
+        if (!isThirdPartyProject) {
+            apply from: "$rootDir/gradle/common/ktlint.gradle"
+        }
         // FIXME: Once detekt fixes its random NPE we can turn this on again
 //        apply from: "$rootDir/gradle/common/detekt.gradle"
+        task detekt() {}
 
         if (isAndroidProject) {
             android {
@@ -92,10 +112,6 @@ subprojects {
                     }
                 }
 
-                defaultConfig {
-                    vectorDrawables.useSupportLibrary = true
-                }
-
                 buildFeatures {
                     viewBinding true
                 }
@@ -106,7 +122,9 @@ subprojects {
                         pickFirst 'META-INF/AL2.0'
                         pickFirst 'META-INF/LGPL2.1'
                     }
+                }
 
+                if (isTestProject || isThirdPartyProject) {
                     lintOptions {
                         abortOnError false
                     }
@@ -149,7 +167,9 @@ subprojects {
         }
 
         task verifyAll(group: 'verification') {
-            dependsOn 'ktlint'
+            if (!isThirdPartyProject) {
+                dependsOn 'ktlint'
+            }
             // FIXME: Once detekt fixes its random NPE we can turn this on again
 //            dependsOn 'detekt'
             if (isAndroidProject) {
@@ -163,6 +183,27 @@ subprojects {
         if (isLibraryProject) {
             apply from: "$rootDir/gradle/common/coverage.gradle"
             trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
+        }
+        if (!isLibraryProject && (System.getenv("PUBLISH_APPS") ?: "true") == "true") {
+            apply plugin: 'maven-publish'
+            afterEvaluate {
+                publishing {
+                    publications {
+                        release(MavenPublication) {
+                            from components.release_apk
+                        }
+                    }
+                    repositories {
+                        maven {
+                            url "https://nexus.open-insurance-platform.com/repository/covpass-releases"
+                            credentials {
+                                username repoConfig.nexusUsername
+                                password repoConfig.nexusPassword
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

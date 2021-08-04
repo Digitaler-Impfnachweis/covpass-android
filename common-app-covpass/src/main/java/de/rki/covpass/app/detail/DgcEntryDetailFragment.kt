@@ -34,7 +34,7 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
 
 /**
- * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments..
+ * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments.
  */
 internal interface DgcEntryDetailCallback {
     fun onDeletionCompleted(isGroupedCertDeleted: Boolean)
@@ -70,7 +70,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         if (item.itemId == DELETE_ITEM_ID) {
             val dialogModel = DialogModel(
                 titleRes = R.string.dialog_delete_certificate_title,
-                messageRes = R.string.dialog_delete_certificate_message,
+                messageString = getString(R.string.dialog_delete_certificate_message),
                 positiveButtonTextRes = R.string.dialog_delete_certificate_button_delete,
                 negativeButtonTextRes = R.string.dialog_delete_certificate_button_cancel,
                 positiveActionColorRes = R.color.danger,
@@ -123,6 +123,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             val valueTextView = dataRowView.findViewById<TextView>(R.id.detail_data_textview)
             headerTextView.text = it.first
             valueTextView.text = it.second
+
             binding.dgcDetailDataContainer.addView(dataRowView)
         }
 

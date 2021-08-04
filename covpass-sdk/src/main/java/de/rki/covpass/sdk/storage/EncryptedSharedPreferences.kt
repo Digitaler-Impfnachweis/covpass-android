@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.commonapp.utils
+package de.rki.covpass.sdk.storage
 
 import android.content.Context
 import android.content.SharedPreferences

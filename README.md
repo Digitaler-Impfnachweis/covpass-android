@@ -28,6 +28,13 @@ Note: We explicitly avoid using flavors because they are problematic in many way
 
 ## Usage
 
+You'll need a GitHub personal access token with `read:packages` access and in the parent folder above your repository create a file called `covpass.properties`:
+
+```
+githubUsername=github-username
+githubPassword=personalaccesstoken
+```
+
 To build the app:
 
 * Open the project with Android Studio.
