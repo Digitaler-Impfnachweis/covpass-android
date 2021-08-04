@@ -21,7 +21,8 @@ import kotlinx.coroutines.CoroutineScope
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 internal class ValidityCheckViewModel(
     scope: CoroutineScope,
@@ -57,7 +58,7 @@ internal class ValidityCheckViewModel(
                     rulesValidator.validate(
                         covCertificate,
                         country.value.countryCode.lowercase(),
-                        date.value.atZone(ZoneOffset.UTC)
+                        ZonedDateTime.of(date.value, ZoneId.systemDefault())
                     )
                 )
             }

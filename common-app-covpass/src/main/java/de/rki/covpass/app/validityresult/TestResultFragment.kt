@@ -39,6 +39,8 @@ internal class TestResultFragment : ResultFragment() {
     override val country: Country by lazy { args.countryName }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
     override val rulesCount: Int by lazy { args.rulesCount }
+    override val resultNoteEn: Int = R.string.certificate_check_validity_detail_view_test_result_note_en
+    override val resultNoteDe: Int = R.string.certificate_check_validity_detail_view_test_result_note_de
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
         val test = cert.dgcEntry as? Test ?: return emptyList()

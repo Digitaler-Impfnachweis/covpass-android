@@ -31,7 +31,7 @@ public class RulesValidator(
     public suspend fun validate(
         cert: CovCertificate,
         countryIsoCode: String = "de",
-        validationClock: ZonedDateTime = ZonedDateTime.now(ZoneId.of(ZoneOffset.UTC.id))
+        validationClock: ZonedDateTime = ZonedDateTime.now()
     ): List<ValidationResult> {
         val certificateType = cert.getCertificateType()
         val issuerCountryCode = cert.issuer.lowercase()
@@ -49,7 +49,7 @@ public class RulesValidator(
             valueSetsMap[valueSet.valueSetId] = ids
         }
         val externalParameter = ExternalParameter(
-            validationClock = validationClock,
+            validationClock = validationClock.toOffsetDateTime().toZonedDateTime(),
             valueSets = valueSetsMap,
             countryCode = countryIsoCode,
             exp = cert.validUntil.toZonedDateTimeOrCustom(Long.MAX_VALUE),
