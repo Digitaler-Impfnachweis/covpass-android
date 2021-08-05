@@ -7,11 +7,11 @@ package de.rki.covpass.checkapp.onboarding
 
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
+import de.rki.covpass.checkapp.main.MainFragmentNav
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.BaseOnboardingContainerFragment
-import de.rki.covpass.commonapp.utils.SimpleFragmentStateAdapter
-import de.rki.covpass.checkapp.main.MainFragmentNav
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
+import de.rki.covpass.commonapp.utils.SimpleFragmentStateAdapter
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

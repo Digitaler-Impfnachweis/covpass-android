@@ -6,6 +6,7 @@
 package de.rki.covpass.app.validitycheck
 
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.MutableValueFlow
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
@@ -24,7 +25,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-internal class ValidityCheckViewModel(
+internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val rulesValidator: RulesValidator = sdkDeps.rulesValidator,

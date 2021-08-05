@@ -40,13 +40,14 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
-    }
 
     public open fun launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
         lifecycleScope.launchWhenStarted {

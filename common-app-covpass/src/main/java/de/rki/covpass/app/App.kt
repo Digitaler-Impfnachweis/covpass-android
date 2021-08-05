@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app
 
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.app.dependencies.CovpassDependencies
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.errorhandling.ErrorHandler
@@ -15,6 +16,7 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 /**
  * Application class which defines dependencies for the Covpass App
  */
+@OptIn(DependencyAccessor::class)
 internal class App : CommonApplication() {
 
     override fun onCreate() {

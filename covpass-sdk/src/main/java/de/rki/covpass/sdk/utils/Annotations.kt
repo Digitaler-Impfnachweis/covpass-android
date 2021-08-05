@@ -9,6 +9,6 @@ package de.rki.covpass.sdk.utils
 
 /** This feature is not stable yet and can introduce breaking API changes in minor releases. */
 @MustBeDocumented
-@Retention(value = AnnotationRetention.BINARY)
 @RequiresOptIn(level = RequiresOptIn.Level.WARNING)
+@Retention(value = AnnotationRetention.BINARY)
 public annotation class ExperimentalHCertApi

@@ -11,6 +11,7 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue
@@ -51,6 +52,7 @@ public fun <T> T.Navigator(
  * 3. Only [push] the initial fragment if state isn't restored.
  * 4. Now you can use [push]/[pop]/etc. to navigate between fragments.
  */
+@OptIn(DependencyAccessor::class)
 public class Navigator internal constructor(
     // constructor is internal to enforce the above contextual constructors
     private val activity: FragmentActivity,

@@ -6,6 +6,7 @@
 package de.rki.covpass.app.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
@@ -29,7 +30,7 @@ internal interface CovPassQRScannerEvents : BaseEvents {
 /**
  * ViewModel holding the business logic for decoding the [CovCertificate].
  */
-internal class CovPassQRScannerViewModel(
+internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     store: StateFlowStore,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,

@@ -25,12 +25,12 @@ import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
-import de.rki.covpass.sdk.cert.models.GroupedCertificates
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

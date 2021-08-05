@@ -6,8 +6,10 @@
 package de.rki.covpass.sdk.dependencies
 
 import android.app.Application
+import androidx.lifecycle.LifecycleOwner
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.ensody.reactivestate.DependencyAccessor
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import de.rki.covpass.http.httpConfig
@@ -55,12 +57,17 @@ import java.security.cert.X509Certificate
  * Global var for making the [SdkDependencies] accessible.
  */
 private lateinit var _sdkDeps: SdkDependencies
+
+@DependencyAccessor
 public var sdkDeps: SdkDependencies
     get() = _sdkDeps
     set(value) {
         _sdkDeps = value
         value.init()
     }
+
+@OptIn(DependencyAccessor::class)
+public val LifecycleOwner.sdkDeps: SdkDependencies get() = de.rki.covpass.sdk.dependencies.sdkDeps
 
 /**
  * Access to various dependencies for covpass-sdk module.

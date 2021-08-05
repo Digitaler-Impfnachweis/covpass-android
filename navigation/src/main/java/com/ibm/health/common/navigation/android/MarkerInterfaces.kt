@@ -7,6 +7,7 @@ package com.ibm.health.common.navigation.android
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.ensody.reactivestate.DependencyAccessor
 
 /**
  * This interface indicates that the Navigator should add the fragment on top instead of replacing the previous one.
@@ -41,6 +42,7 @@ public interface SheetPaneNavigation : AnimatedNavigation, OverlayNavigation {
     // The screen side should be passed to sheetPaneAnimation() as an argument, so we can centrally override all
     // animations.
 
+    @OptIn(DependencyAccessor::class)
     override fun animateNavigation(fragmentTransaction: FragmentTransaction?, fragment: Fragment) {
         navigationDeps.animationConfig.sheetPaneAnimation(fragment)
     }
@@ -48,6 +50,7 @@ public interface SheetPaneNavigation : AnimatedNavigation, OverlayNavigation {
 
 /** Interface marking a modal overlay. This usually is inserted before the first [OverlayNavigation]. */
 public interface ModalPaneNavigation : AnimatedNavigation {
+    @OptIn(DependencyAccessor::class)
     override fun animateNavigation(fragmentTransaction: FragmentTransaction?, fragment: Fragment) {
         navigationDeps.animationConfig.modalPaneAnimation(fragment)
     }

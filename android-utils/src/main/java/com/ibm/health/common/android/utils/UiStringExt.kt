@@ -8,6 +8,7 @@ package com.ibm.health.common.android.utils
 import android.text.Spanned
 import androidx.annotation.StringRes
 import androidx.core.text.HtmlCompat
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.logging.Lumber
 
 /**
@@ -73,6 +74,7 @@ public fun getSpanned(twineString: String, vararg values: Any, boldLinks: Boolea
 public fun getSpanned(@StringRes stringRes: Int, vararg values: Any, boldLinks: Boolean = true): Spanned =
     getSpanned(getString(stringRes, values = values), values = values, boldLinks = boldLinks)
 
+@OptIn(DependencyAccessor::class)
 @Suppress("SpreadOperator")
 public fun getString(@StringRes stringRes: Int, vararg values: Any): String =
     androidDeps.resourceProvider.getString(stringRes, *values)

@@ -8,9 +8,15 @@ package com.ibm.health.common.android.utils
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
+import com.ensody.reactivestate.DependencyAccessor
 
 /** Global var for making the [AndroidDependencies] accessible. */
+@DependencyAccessor
 public lateinit var androidDeps: AndroidDependencies
+
+@OptIn(DependencyAccessor::class)
+public val LifecycleOwner.androidDeps: AndroidDependencies get() = com.ibm.health.common.android.utils.androidDeps
 
 /** Access to various dependencies for android-utils module. */
 public abstract class AndroidDependencies {

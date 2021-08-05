@@ -39,6 +39,8 @@ internal class MainFragment : BaseFragment() {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
 
+    private val dscRepository get() = sdkDeps.dscRepository
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainSettingsImagebutton.setOnClickListener {
@@ -53,8 +55,8 @@ internal class MainFragment : BaseFragment() {
         }
         autoRun {
             updateAvailabilityCard(
-                get(sdkDeps.dscRepository.lastUpdate),
-                get(sdkDeps.dscRepository.lastRulesUpdate)
+                get(dscRepository.lastUpdate),
+                get(dscRepository.lastRulesUpdate)
             )
         }
     }

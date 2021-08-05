@@ -6,7 +6,9 @@
 package de.rki.covpass.app.detail
 
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
+import de.rki.covpass.app.common.ToggleFavoriteUseCase
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.coroutines.CoroutineScope
@@ -14,11 +16,14 @@ import kotlinx.coroutines.CoroutineScope
 /**
  * ViewModel providing [onFavoriteClick] functionality.
  */
-internal class DetailViewModel(scope: CoroutineScope) : BaseReactiveState<BaseEvents>(scope) {
+internal class DetailViewModel @OptIn(DependencyAccessor::class) constructor(
+    scope: CoroutineScope,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase = covpassDeps.toggleFavoriteUseCase,
+) : BaseReactiveState<BaseEvents>(scope) {
 
     fun onFavoriteClick(certId: GroupedCertificatesId) {
         launch {
-            covpassDeps.toggleFavoriteUseCase.toggleFavorite(certId)
+            toggleFavoriteUseCase.toggleFavorite(certId)
         }
     }
 }

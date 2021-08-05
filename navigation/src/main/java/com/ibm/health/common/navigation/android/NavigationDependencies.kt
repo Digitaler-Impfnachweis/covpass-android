@@ -6,11 +6,18 @@
 package com.ibm.health.common.navigation.android
 
 import android.app.Application
+import androidx.lifecycle.LifecycleOwner
+import com.ensody.reactivestate.DependencyAccessor
 
 /**
  * Global var for making the [NavigationDependencies] accessible.
  */
+@DependencyAccessor
 public lateinit var navigationDeps: NavigationDependencies
+
+@OptIn(DependencyAccessor::class)
+public val LifecycleOwner.navigationDeps: NavigationDependencies
+    get() = com.ibm.health.common.navigation.android.navigationDeps
 
 /**
  * Access to various dependencies for navigation module.

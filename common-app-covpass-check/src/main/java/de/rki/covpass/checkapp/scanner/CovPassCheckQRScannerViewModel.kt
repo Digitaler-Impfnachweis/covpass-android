@@ -6,6 +6,7 @@
 package de.rki.covpass.checkapp.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
 import de.rki.covpass.checkapp.validitycheck.validate
 import de.rki.covpass.logging.Lumber
@@ -31,7 +32,7 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
 /**
  * ViewModel holding the business logic for decoding and validating a [CovCertificate].
  */
-internal class CovPassCheckQRScannerViewModel(
+internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val rulesValidator: RulesValidator = sdkDeps.rulesValidator

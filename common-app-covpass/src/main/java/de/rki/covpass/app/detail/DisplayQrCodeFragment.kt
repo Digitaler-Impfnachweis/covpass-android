@@ -24,9 +24,9 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DisplayQrCodeBottomsheetContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 
@@ -94,8 +94,8 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
         triggerBackPress()
     }
 
-    private suspend fun generateQRCode(qrContent: String): Bitmap {
-        return dispatchers.default {
+    private suspend fun generateQRCode(qrContent: String): Bitmap =
+        dispatchers.default {
             BarcodeEncoder().encodeBitmap(
                 qrContent,
                 BarcodeFormat.QR_CODE,
@@ -104,5 +104,4 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
                 mapOf(EncodeHintType.MARGIN to 0)
             )
         }
-    }
 }
