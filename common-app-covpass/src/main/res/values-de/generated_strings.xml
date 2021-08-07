@@ -221,6 +221,8 @@
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">QR-Code anzeigen</string>
+	<string name="vaccination_certificate_detail_view_pdf_action_button_title">EU-Ausdruck erstellen</string>
+	<string name="vaccination_certificate_detail_view_pdf_action_button_note">Sie können nur deutsche Impf- und Genesenenzertifikate als PDF herunterladen.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_title">Impfung %1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="test_certificate_detail_view_title">Antigen-Schnelltest</string>
@@ -258,9 +260,19 @@
 	<string name="recovery_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_qrcode_action_button_title">QR-Code anzeigen</string>
+	<string name="recovery_certificate_detail_view_create_pdf_action_button_title">EU-Ausdruck erstellen</string>
+	<string name="recovery_certificate_detail_view_pdf_action_button_note">Sie können nur deutsche Impf- und Genesenenzertifikate als PDF herunterladen.</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_title">Vollständige Genesung</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_message">Gültig bis %s</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
+
+	<!-- SECTION: print certificate -->
+	<string name="certificate_create_pdf_headline">EU-Ausdruck erstellen</string>
+	<string name="certificate_create_pdf_first_list_item">Sie können das Zertifikat als PDF-Dokument speichern. Die Speicherung ist freiwillig. Auf das PDF-Dokument haben zunächst nur Sie Zugriff.</string>
+	<string name="certificate_create_pdf_second_list_item">Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweise berechtigt sind.</string>
+	<string name="certificate_create_pdf_third_list_item">Wir empfehlen Ihnen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.</string>
+	<string name="certificate_create_pdf_list_button">Weiter</string>
+	<string name="certificate_share_pdf_title_android">Teilen über</string>
 
 	<!-- SECTION: certificate delete dialog -->
 	<string name="dialog_delete_certificate_title">Möchten Sie das COVID-Zertifikat wirklich löschen?</string>

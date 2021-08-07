@@ -76,9 +76,10 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
             }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
         }
+        autoRun { showLoading(get(loading) > 0) }
     }
 
-    override fun setLoading(isLoading: Boolean) {
+    fun showLoading(isLoading: Boolean) {
         binding.loadingLayout.isVisible = isLoading
         binding.recyclerCertificates.isGone = isLoading
     }

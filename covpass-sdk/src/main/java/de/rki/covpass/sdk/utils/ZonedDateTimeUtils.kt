@@ -7,7 +7,6 @@ package de.rki.covpass.sdk.utils
 
 import java.time.Duration
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -24,16 +23,6 @@ public fun ZonedDateTime.isOlderThan(hours: Long): Boolean {
  */
 public fun ZonedDateTime.hoursTillNow(): Int {
     return Duration.between(this, ZonedDateTime.now()).toHours().toInt()
-}
-
-/**
- * Returns "+00:00" in case of "Z", else just returns [toString].
- */
-public fun ZoneOffset.getDisplayString(): String {
-    return when (this.toString()) {
-        "Z" -> "+00:00"
-        else -> this.toString()
-    }
 }
 
 /**

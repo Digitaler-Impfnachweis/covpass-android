@@ -66,20 +66,60 @@
 
       <com.google.android.material.button.MaterialButton
         android:id="@+id/dgc_detail_display_qr_button"
-        style="@style/SecondaryButton.Delete"
+        style="@style/PrimaryButton.Dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginVertical="@dimen/grid_five"
+        android:layout_marginTop="@dimen/grid_five"
         android:text="@string/vaccination_certificate_detail_view_qrcode_action_button_title"
-        app:icon="@drawable/scan_qr" />
+        app:icon="@drawable/scan_qr_light" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/dgc_detail_export_pdf_button"
+        style="@style/SecondaryButton.Share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/vaccination_certificate_detail_view_pdf_action_button_title"
+        app:icon="@drawable/share_icon" />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dgc_detail_export_pdf_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:visibility="gone">
+
+        <ImageView
+          android:id="@+id/info_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/info"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:ignore="ContentDescription" />
+
+        <TextView
+          style="@style/DefaultText.OnBackground"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:text="@string/vaccination_certificate_detail_view_pdf_action_button_note"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/info_icon"
+          app:layout_constraintTop_toTopOf="@id/info_icon" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
 
       <TextView
         android:id="@+id/dgc_detail_info_footer_german"
         style="@style/DefaultText.OnBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_five"
         android:background="@color/backgroundSecondary"
         android:padding="@dimen/grid_three" />
 

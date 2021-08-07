@@ -53,7 +53,9 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        launchWhenStarted { viewModel.checkPdfExport(certId) }
         autoRun { updateViews(get(covpassDeps.certRepository.certs)) }
+        autoRun { updatePdfButton(get(viewModel.isPdfExportEnabled)) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -64,6 +66,11 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         deleteItem.setIcon(R.drawable.trash)
         deleteItem.setShowAsAction(SHOW_AS_ACTION_IF_ROOM)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireContext().cacheDir.deleteRecursively()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -130,6 +137,9 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         binding.dgcDetailDisplayQrButton.setOnClickListener {
             findNavigator().push(DisplayQrCodeFragmentNav(certId))
         }
+        binding.dgcDetailExportPdfButton.setOnClickListener {
+            findNavigator().push(DetailExportPdfFragmentNav(certId))
+        }
         binding.dgcDetailInfoFooterGerman.apply {
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_de)
             movementMethod = LinkMovementMethod.getInstance()
@@ -140,6 +150,11 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
+    }
+
+    private fun updatePdfButton(isEnabled: Boolean) {
+        binding.dgcDetailExportPdfButton.isEnabled = isEnabled
+        binding.dgcDetailExportPdfInfo.isGone = isEnabled
     }
 
     private fun setupActionBar(cert: CovCertificate) {

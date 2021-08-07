@@ -7,12 +7,12 @@ package de.rki.covpass.app.errorhandling
 
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
-import de.rki.covpass.sdk.cert.models.CertAlreadyExistsException
-import de.rki.covpass.sdk.cert.models.CertTestPositiveException
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
+import de.rki.covpass.sdk.cert.models.CertAlreadyExistsException
+import de.rki.covpass.sdk.cert.models.CertTestPositiveException
 
 /**
  * Covpass specific Error handling. Overrides the abstract functions from [CommonErrorHandler].

@@ -72,6 +72,15 @@
     <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
   </style>
 
+  <style name="SecondaryButton.Share">
+    <item name="android:textColor">@drawable/button_secondary_text</item>
+    <item name="strokeColor">@drawable/button_secondary_stroke</item>
+    <item name="iconTint">@drawable/button_secondary_icon_tint</item>
+    <item name="backgroundTint">@drawable/button_secondary_background_tint</item>
+    <item name="android:paddingTop">@dimen/button_padding_vertical</item>
+    <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
+  </style>
+
   <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.SmallComponent">
     <item name="cornerFamily">rounded</item>
     <item name="cornerSize">100dp</item>
