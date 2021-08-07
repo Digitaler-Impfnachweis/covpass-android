@@ -15,7 +15,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // FIXME: Once detekt fixes its random NPE we can turn this on again
 //        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1'
-        classpath 'pl.allegro.tech.build:axion-release-plugin:1.13.2'
+        classpath 'pl.allegro.tech.build:axion-release-plugin:1.13.3'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
     }
