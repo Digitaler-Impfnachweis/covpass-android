@@ -116,11 +116,12 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
     }
 
     private fun X509Certificate.checkCertOid(dgcEntry: DGCEntry): Boolean {
-        val extendedKeyUsageIntersect = if (extendedKeyUsage.isNullOrEmpty()) {
-            emptySet<String>()
-        } else {
-            extendedKeyUsage.toSet() intersect allCertOids
-        }
+        val extendedKeyUsageIntersect =
+            if (extendedKeyUsage.isNullOrEmpty()) {
+                emptySet<String>()
+            } else {
+                extendedKeyUsage.toSet() intersect allCertOids
+            }
         return extendedKeyUsageIntersect.isEmpty() ||
             (
                 when (dgcEntry) {
