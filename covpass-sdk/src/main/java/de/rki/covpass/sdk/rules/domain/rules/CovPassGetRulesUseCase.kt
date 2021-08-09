@@ -22,15 +22,15 @@ public class CovPassGetRulesUseCase(
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
         certificateType: CertificateType,
-        region: String?
+        region: String?,
+        validationClock: ZonedDateTime,
     ): List<Rule> {
         val acceptanceRules = mutableMapOf<String, Rule>()
         val selectedRegion: String = region?.trim() ?: ""
+        val validationClockUtc = validationClock.withZoneSameInstant(UTC_ZONE_ID)
         defaultCovPassRulesRepository.getCovPassRulesBy(
             acceptanceCountryIsoCode,
-            ZonedDateTime.now().withZoneSameInstant(
-                UTC_ZONE_ID
-            ),
+            validationClockUtc,
             Type.ACCEPTANCE, certificateType.toRuleCertificateType()
         ).forEach {
             val ruleRegion: String = it.region?.trim() ?: ""
@@ -47,9 +47,7 @@ public class CovPassGetRulesUseCase(
         if (issuanceCountryIsoCode.isNotBlank()) {
             defaultCovPassRulesRepository.getCovPassRulesBy(
                 issuanceCountryIsoCode,
-                ZonedDateTime.now().withZoneSameInstant(
-                    UTC_ZONE_ID
-                ),
+                validationClockUtc,
                 Type.INVALIDATION, certificateType.toRuleCertificateType()
             ).forEach {
                 if (invalidationRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {

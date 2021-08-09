@@ -38,7 +38,8 @@ public class RulesValidator(
         val rules = rulesUseCase.covPassInvoke(
             countryIsoCode,
             issuerCountryCode,
-            certificateType
+            certificateType,
+            validationClock = validationClock,
         )
         val valueSetsMap = mutableMapOf<String, List<String>>()
         valueSetsRepository.getValueSets().forEach { valueSet ->
@@ -65,7 +66,7 @@ public class RulesValidator(
             cert.version,
             rules,
             externalParameter,
-            certString
+            certString,
         )
     }
 
