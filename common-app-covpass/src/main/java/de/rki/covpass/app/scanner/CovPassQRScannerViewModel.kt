@@ -12,6 +12,7 @@ import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.QRCoder
+import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
@@ -48,9 +49,10 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
             certsFlow.update {
                 certId = it.addNewCertificate(
                     CombinedCovCertificate(
-                        covCertificate,
-                        qrContent,
-                        System.currentTimeMillis()
+                        covCertificate = covCertificate,
+                        qrContent = qrContent,
+                        timestamp = System.currentTimeMillis(),
+                        status = CertValidationResult.Valid,
                     )
                 )
             }

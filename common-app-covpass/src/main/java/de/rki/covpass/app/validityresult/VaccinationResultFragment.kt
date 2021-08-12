@@ -13,8 +13,10 @@ import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Parcelize
 internal class VaccinationResultFragmentNav(
@@ -96,6 +98,14 @@ internal class VaccinationResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
                 vaccination.idWithoutPrefix
+            ),
+            ResultRowData(
+                title = getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
+                value = getString(
+                    R.string.vaccination_certificate_detail_view_data_expiry_date_message,
+                    LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
+                ),
+                description = getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note)
             )
         )
     }

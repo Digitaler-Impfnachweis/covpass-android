@@ -5,7 +5,7 @@
 
 package de.rki.covpass.sdk.cert.models.migration
 
-import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificateLocal
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,6 +14,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Deprecated("Outdated data model of data model version 1.")
 public data class Version1CertList(
-    val certificates: MutableList<CombinedCovCertificate> = mutableListOf(),
+    val certificates: MutableList<CombinedCovCertificateLocal> = mutableListOf(),
     var favoriteCertId: String? = null,
 )

@@ -90,7 +90,7 @@ public fun InfoElement.showWarning(
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
-    elementColor = ContextCompat.getDrawable(context, R.drawable.info_warning_background)
+    elementColor = ContextCompat.getDrawable(context, R.drawable.warning_background)
 }
 
 public fun InfoElement.showError(
@@ -101,7 +101,7 @@ public fun InfoElement.showError(
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
-    elementColor = ContextCompat.getDrawable(context, R.drawable.info_error_background)
+    elementColor = ContextCompat.getDrawable(context, R.drawable.error_background)
 }
 
 public fun InfoElement.showSuccess(
@@ -112,5 +112,16 @@ public fun InfoElement.showSuccess(
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
-    elementColor = ContextCompat.getDrawable(context, R.drawable.info_success_background)
+    elementColor = ContextCompat.getDrawable(context, R.drawable.success_background)
+}
+
+public fun InfoElement.showInfo(
+    title: String,
+    subtitle: String? = null,
+    description: String? = null,
+    iconRes: Int? = null
+) {
+    setValues(title, subtitle, description)
+    icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
+    elementColor = ContextCompat.getDrawable(context, R.drawable.info_background)
 }

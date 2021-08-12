@@ -69,6 +69,15 @@
       tools:text="Geimpft am 06.06.2021" />
 
     <TextView
+      android:id="@+id/certificate_expiry_info"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      tools:text="Zertifikat läuft bald ab"
+      tools:visibility="visible" />
+
+    <TextView
       android:id="@+id/certificate_item_actual_title"
       style="@style/DefaultText.OnBackground70"
       android:layout_width="wrap_content"

@@ -104,7 +104,7 @@ public class ResultAdapter(
         ) {
             when (resultType) {
                 LocalResult.FAIL -> {
-                    binding.resutlWarningElement.showError(
+                    binding.resultWarningElement.showError(
                         title = getString(R.string.certificate_check_validity_detail_view_result_not_valid_title),
                         subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_not_valid_message,
@@ -115,7 +115,7 @@ public class ResultAdapter(
                     )
                 }
                 LocalResult.OPEN -> {
-                    binding.resutlWarningElement.showWarning(
+                    binding.resultWarningElement.showWarning(
                         title = getString(R.string.certificate_check_validity_detail_view_result_not_testable_title),
                         subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
@@ -129,7 +129,7 @@ public class ResultAdapter(
                     )
                 }
                 else -> {
-                    binding.resutlWarningElement.showSuccess(
+                    binding.resultWarningElement.showSuccess(
                         title = getString(R.string.certificate_check_validity_detail_view_result_valid_title),
                         subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_valid_message,
@@ -155,7 +155,14 @@ public class ResultAdapter(
         ) {
         public fun bind(item: ResultFragment.ResultRowData) {
             binding.resultRowHeaderTextview.text = item.title
-            binding.resultRowDataTextview.text = item.value
+            if (item.description != null) {
+                binding.resultRowSubtitleTextview.isVisible = true
+                binding.resultRowSubtitleTextview.text = item.value
+                binding.resultRowDataTextview.text = item.description
+            } else {
+                binding.resultRowSubtitleTextview.isVisible = false
+                binding.resultRowDataTextview.text = item.value
+            }
             when {
                 item.validationResult.find { it.result == LocalResult.FAIL } != null -> {
                     binding.resultRowDataIcon.setImageResource(R.drawable.info_error_icon)

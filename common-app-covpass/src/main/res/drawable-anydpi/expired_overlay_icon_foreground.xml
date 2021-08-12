@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:width="68dp"
+    android:height="68dp"
+    android:drawable="@drawable/detail_cert_status_expired"
+    android:gravity="center" />
+</layer-list>

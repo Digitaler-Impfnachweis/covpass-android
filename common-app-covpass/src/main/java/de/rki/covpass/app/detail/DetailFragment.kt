@@ -24,6 +24,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.app.R
+import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DetailAdapter
@@ -45,6 +46,7 @@ internal interface DetailCallback {
 
 public interface DetailClickListener {
     public fun onShowCertificateClicked()
+    public fun onNewCertificateScanClicked()
     public fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType)
 }
 
@@ -116,47 +118,128 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
 
         mainCertificate.covCertificate.let { cert ->
             val dgcEntry = cert.dgcEntry
+            val isExpiredOrInvalid = when (mainCertificate.status) {
+                CertValidationResult.Expired, CertValidationResult.Invalid -> true
+                CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
+            }
+            val certStatus = mainCertificate.status
             val personalDataList = listOf(
                 DetailItem.Name(cert.fullName),
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
                             VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                                val title = getString(
+                                    when (certStatus) {
+                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_title
+                                        CertValidationResult.Invalid -> R.string.certificates_overview_invalid_title
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.string.vaccination_certificate_overview_complete_title
+                                    }
+                                )
+                                val message = getString(
+                                    when (certStatus) {
+                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_message
+                                        CertValidationResult.Invalid -> R.string.certificates_overview_invalid_message
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.string.vaccination_certificate_overview_complete_message
+                                    }
+                                )
+                                val buttonText = if (isExpiredOrInvalid) {
+                                    getString(R.string.certificates_overview_expired_action_button_title)
+                                } else {
+                                    getString(R.string.vaccination_certificate_overview_complete_action_button_title)
+                                }
                                 DetailItem.Widget(
-                                    title = getString(R.string.vaccination_certificate_overview_complete_title),
-                                    statusIcon = R.drawable.detail_cert_status_complete,
-                                    message = getString(R.string.vaccination_certificate_overview_complete_message),
-                                    buttonText = getString(
-                                        R.string.vaccination_certificate_overview_complete_action_button_title
-                                    )
+                                    title = title,
+                                    statusIcon = when (certStatus) {
+                                        CertValidationResult.Expired,
+                                        CertValidationResult.Invalid -> R.drawable.detail_cert_status_expired
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_complete
+                                    },
+                                    message = message,
+                                    buttonText = buttonText,
+                                    isExpiredOrInvalid = isExpiredOrInvalid
                                 )
                             }
                             VaccinationCertType.VACCINATION_COMPLETE -> {
+                                val title = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_title)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_title)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.vaccination_certificate_overview_complete_from_title,
+                                            mainCertificate.covCertificate.validDate.formatDateOrEmpty()
+                                        )
+                                }
+                                val message = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_message)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_message)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.vaccination_certificate_overview_complete_from_message)
+                                }
+                                val buttonText = if (isExpiredOrInvalid) {
+                                    getString(R.string.certificates_overview_expired_action_button_title)
+                                } else {
+                                    getString(R.string.vaccination_certificate_overview_complete_action_button_title)
+                                }
                                 DetailItem.Widget(
-                                    title = getString(
-                                        R.string.vaccination_certificate_overview_complete_from_title,
-                                        mainCertificate.covCertificate.validDate.formatDateOrEmpty()
-                                    ),
-                                    statusIcon = R.drawable.detail_cert_status_complete,
-                                    message =
-                                    getString(R.string.vaccination_certificate_overview_complete_from_message),
-                                    buttonText = getString(
-                                        R.string.vaccination_certificate_overview_complete_action_button_title
-                                    )
+                                    title = title,
+                                    statusIcon = when (certStatus) {
+                                        CertValidationResult.Expired, CertValidationResult.Invalid ->
+                                            R.drawable.detail_cert_status_expired
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_complete
+                                    },
+                                    message = message,
+                                    buttonText = buttonText,
+                                    isExpiredOrInvalid = isExpiredOrInvalid
                                 )
                             }
                             VaccinationCertType.VACCINATION_INCOMPLETE -> {
-                                DetailItem.Widget(
-                                    title = getString(
-                                        R.string.vaccination_certificate_overview_incomplete_title,
-                                        dgcEntry.doseNumber,
-                                        dgcEntry.totalSerialDoses
-                                    ),
-                                    statusIcon = R.drawable.detail_cert_status_incomplete,
-                                    message = getString(R.string.vaccination_certificate_overview_incomplete_message),
-                                    buttonText = getString(
+                                val title = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_title)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_title)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.vaccination_certificate_overview_incomplete_title,
+                                            dgcEntry.doseNumber,
+                                            dgcEntry.totalSerialDoses
+                                        )
+                                }
+                                val message = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_message)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_message)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.vaccination_certificate_overview_incomplete_message)
+                                }
+                                val buttonText = if (isExpiredOrInvalid) {
+                                    getString(R.string.certificates_overview_expired_action_button_title)
+                                } else {
+                                    getString(
                                         R.string.vaccination_certificate_detail_view_incomplete_action_button_title
                                     )
+                                }
+                                DetailItem.Widget(
+                                    title = title,
+                                    statusIcon = when (certStatus) {
+                                        CertValidationResult.Expired, CertValidationResult.Invalid ->
+                                            R.drawable.detail_cert_status_expired
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_incomplete
+                                    },
+                                    message = message,
+                                    buttonText = buttonText,
+                                    isExpiredOrInvalid = isExpiredOrInvalid
                                 )
                             }
                         }
@@ -164,47 +247,131 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                     is Test -> {
                         when (dgcEntry.type) {
                             TestCertType.NEGATIVE_PCR_TEST -> {
+                                val title = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_title)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_title)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.pcr_test_certificate_overview_title,
+                                            dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                        )
+                                }
+                                val message = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_message)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_message)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.pcr_test_certificate_overview_message)
+                                }
+                                val buttonText = if (isExpiredOrInvalid) {
+                                    getString(R.string.certificates_overview_expired_action_button_title)
+                                } else {
+                                    getString(
+                                        R.string.pcr_test_certificate_overview_action_button_title
+                                    )
+                                }
                                 DetailItem.Widget(
-                                    title = getString(
-                                        R.string.pcr_test_certificate_overview_title,
-                                        dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
-                                    ),
-                                    statusIcon = R.drawable.detail_cert_status_complete,
-                                    message = getString(R.string.pcr_test_certificate_overview_message),
-                                    buttonText = getString(R.string.pcr_test_certificate_overview_action_button_title)
+                                    title = title,
+                                    statusIcon = when (certStatus) {
+                                        CertValidationResult.Expired, CertValidationResult.Invalid ->
+                                            R.drawable.detail_cert_status_expired
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_complete
+                                    },
+                                    message = message,
+                                    buttonText = buttonText,
+                                    isExpiredOrInvalid = isExpiredOrInvalid
                                 )
                             }
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                                val title = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_title)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_title)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.test_certificate_overview_title,
+                                            dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                        )
+                                }
+                                val message = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_message)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_message)
+                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.test_certificate_overview_message)
+                                }
+                                val buttonText = if (isExpiredOrInvalid) {
+                                    getString(R.string.certificates_overview_expired_action_button_title)
+                                } else {
+                                    getString(
+                                        R.string.test_certificate_overview_action_button_title
+                                    )
+                                }
                                 DetailItem.Widget(
-                                    title = getString(
-                                        R.string.test_certificate_overview_title,
-                                        dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
-                                    ),
-                                    statusIcon = R.drawable.detail_cert_status_complete,
-                                    message = getString(R.string.test_certificate_overview_message),
-                                    buttonText = getString(R.string.test_certificate_overview_action_button_title)
+                                    title = title,
+                                    statusIcon = when (certStatus) {
+                                        CertValidationResult.Expired, CertValidationResult.Invalid ->
+                                            R.drawable.detail_cert_status_expired
+                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_complete
+                                    },
+                                    message = message,
+                                    buttonText = buttonText,
+                                    isExpiredOrInvalid = isExpiredOrInvalid
                                 )
                             }
-                            else -> return
+                            TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> return
                         }
                     }
                     is Recovery -> {
-                        val title = if (dgcEntry.validFrom.isInFuture()) {
-                            getString(
-                                R.string.recovery_certificate_overview_valid_from_title,
-                                dgcEntry.validFrom?.formatDateOrEmpty()
-                            )
+                        val title = when (certStatus) {
+                            CertValidationResult.Expired ->
+                                getString(R.string.certificates_overview_expired_title)
+                            CertValidationResult.Invalid ->
+                                getString(R.string.certificates_overview_invalid_title)
+                            CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                if (dgcEntry.validFrom.isInFuture()) {
+                                    getString(
+                                        R.string.recovery_certificate_overview_valid_from_title,
+                                        dgcEntry.validFrom?.formatDateOrEmpty()
+                                    )
+                                } else {
+                                    getString(
+                                        R.string.recovery_certificate_overview_valid_until_title,
+                                        dgcEntry.validUntil?.formatDateOrEmpty()
+                                    )
+                                }
+                        }
+                        val message = when (certStatus) {
+                            CertValidationResult.Expired ->
+                                getString(R.string.certificates_overview_expired_message)
+                            CertValidationResult.Invalid ->
+                                getString(R.string.certificates_overview_invalid_message)
+                            CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                getString(R.string.recovery_certificate_overview_message)
+                        }
+                        val buttonText = if (isExpiredOrInvalid) {
+                            getString(R.string.certificates_overview_expired_action_button_title)
                         } else {
-                            getString(
-                                R.string.recovery_certificate_overview_valid_until_title,
-                                dgcEntry.validUntil?.formatDateOrEmpty()
-                            )
+                            getString(R.string.recovery_certificate_overview_action_button_title)
                         }
                         DetailItem.Widget(
                             title = title,
-                            statusIcon = R.drawable.detail_cert_status_complete,
-                            message = getString(R.string.recovery_certificate_overview_message),
-                            buttonText = getString(R.string.recovery_certificate_overview_action_button_title)
+                            statusIcon = when (certStatus) {
+                                CertValidationResult.Expired, CertValidationResult.Invalid ->
+                                    R.drawable.detail_cert_status_expired
+                                CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    R.drawable.detail_cert_status_complete
+                            },
+                            message = message,
+                            buttonText = buttonText,
+                            isExpiredOrInvalid = isExpiredOrInvalid
                         )
                     }
                 },
@@ -239,7 +406,8 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                 R.string.certificates_overview_vaccination_certificate_date,
                                 groupedDgcEntry.occurrence?.formatDate()
                             ),
-                            isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
+                            isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
+                            certStatus = certStatus
                         )
                     }
                     is Test -> {
@@ -254,7 +422,8 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                         R.string.certificates_overview_pcr_test_certificate_date,
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                                     ),
-                                    isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
+                                    isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
+                                    certStatus = certStatus
                                 )
                             }
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
@@ -267,10 +436,11 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                         R.string.certificates_overview_test_certificate_date,
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                                     ),
-                                    isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
+                                    isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
+                                    certStatus = certStatus
                                 )
                             }
-                            else -> return@mapNotNull null
+                            TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> null
                         }
                     }
                     is Recovery -> {
@@ -291,7 +461,8 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                             title = getString(R.string.certificates_overview_recovery_certificate_title),
                             subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                             date = date,
-                            isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id
+                            isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
+                            certStatus = certStatus
                         )
                     }
                 }
@@ -303,6 +474,10 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
 
     override fun onShowCertificateClicked() {
         triggerBackPress()
+    }
+
+    override fun onNewCertificateScanClicked() {
+        findNavigator().push(AddCovCertificateFragmentNav())
     }
 
     override fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType) {

@@ -28,9 +28,16 @@ internal val LifecycleOwner.covpassDeps: CovpassDependencies get() = de.rki.covp
 @OptIn(DependencyAccessor::class)
 internal abstract class CovpassDependencies {
 
-    private val cbor: Cbor = sdkDeps.cbor
+    private val cbor: Cbor get() = sdkDeps.cbor
 
-    val certRepository: CertRepository = CertRepository(CborSharedPrefsStore("covpass_prefs", cbor))
+    private val certificateListMapper get() = sdkDeps.certificateListMapper
+
+    val certRepository: CertRepository by lazy {
+        CertRepository(
+            CborSharedPrefsStore("covpass_prefs", cbor),
+            certificateListMapper,
+        )
+    }
 
     val toggleFavoriteUseCase by lazy { ToggleFavoriteUseCase(certRepository) }
 }

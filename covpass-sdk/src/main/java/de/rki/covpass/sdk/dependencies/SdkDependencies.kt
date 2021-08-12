@@ -16,6 +16,7 @@ import de.rki.covpass.http.httpConfig
 import de.rki.covpass.http.pinPublicKey
 import de.rki.covpass.sdk.R
 import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.sdk.cert.models.CertificateListMapper
 import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
@@ -113,6 +114,8 @@ public abstract class SdkDependencies {
     internal fun init() {
         httpConfig.pinPublicKey(backendCa)
     }
+
+    public val certificateListMapper: CertificateListMapper by lazy { CertificateListMapper(qrCoder) }
 
     private val certLogicDeps: CertLogicDeps by lazy {
         CertLogicDeps(application, dscRepository)

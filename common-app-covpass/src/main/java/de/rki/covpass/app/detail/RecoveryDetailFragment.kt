@@ -13,7 +13,10 @@ import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Parcelize
 internal class RecoveryDetailFragmentNav(var certId: String) : FragmentNav(RecoveryDetailFragment::class)
@@ -32,54 +35,58 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
 
     override fun getHeaderText(): String = getString(R.string.recovery_certificate_detail_view_headline)
 
-    override fun getDataRows(cert: CovCertificate): List<Pair<String, String>> {
-        val dataRows = mutableListOf<Pair<String, String>>()
-        val recovery = cert.dgcEntry as? Recovery ?: return dataRows
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_name),
-            cert.fullNameReverse,
-            dataRows
+    override fun getDataRows(cert: CovCertificate): List<DataRow> {
+        val recovery = cert.dgcEntry as? Recovery ?: return emptyList()
+        return listOf(
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_name),
+                cert.fullNameReverse
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
+                cert.birthDateFormatted
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_disease),
+                getDiseaseAgentName(recovery.targetDisease)
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),
+                recovery.firstResult?.formatDateInternational()
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_country),
+                getCountryName(recovery.country)
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_issuer),
+                recovery.certificateIssuer
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_valid_from),
+                recovery.validFrom?.formatDateInternational()
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_valid_until),
+                recovery.validUntil?.formatDateInternational()
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_identifier),
+                recovery.idWithoutPrefix
+            )
         )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
-            cert.birthDateFormatted,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_disease),
-            getDiseaseAgentName(recovery.targetDisease),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),
-            recovery.firstResult?.formatDateInternational(),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_country),
-            getCountryName(recovery.country),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_issuer),
-            recovery.certificateIssuer,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_valid_from),
-            recovery.validFrom?.formatDateInternational(),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_valid_until),
-            recovery.validUntil?.formatDateInternational(),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_identifier),
-            recovery.idWithoutPrefix,
-            dataRows
-        )
-        return dataRows
     }
+
+    override fun getExtendedDataRows(
+        cert: CovCertificate
+    ): List<ExtendedDataRow> = listOf(
+        ExtendedDataRow(
+            getString(R.string.recovery_certificate_detail_view_data_expiry_date),
+            getString(
+                R.string.recovery_certificate_detail_view_data_expiry_date_message,
+                LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
+            ),
+            getString(R.string.recovery_certificate_detail_view_data_expiry_date_note)
+        )
+    )
 }

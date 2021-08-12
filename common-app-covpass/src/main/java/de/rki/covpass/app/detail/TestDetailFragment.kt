@@ -11,9 +11,12 @@ import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Parcelize
 internal class TestDetailFragmentNav(var certId: String) : FragmentNav(TestDetailFragment::class)
@@ -36,69 +39,70 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
 
     override fun getHeaderText(): String = getString(R.string.test_certificate_detail_view_headline)
 
-    override fun getDataRows(cert: CovCertificate): List<Pair<String, String>> {
-        val dataRows = mutableListOf<Pair<String, String>>()
-        val test = cert.dgcEntry as? Test ?: return dataRows
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_name),
-            cert.fullNameReverse,
-            dataRows
+    override fun getDataRows(cert: CovCertificate): List<DataRow> {
+        val test = cert.dgcEntry as? Test ?: return emptyList()
+        return listOf(
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_name),
+                cert.fullNameReverse
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_date_of_birth),
+                cert.birthDateFormatted
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_disease),
+                getDiseaseAgentName(test.targetDisease)
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_type),
+                getTestTypeName(test.testType)
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_name),
+                test.testName
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_manufactur),
+                getTestManufacturerName(test.manufacturer)
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_date_and_time),
+                test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational()
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_results),
+                getTestResultName(test.testResult)
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_centre),
+                test.testingCentre
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_country),
+                getCountryName(test.country)
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_issuer),
+                test.certificateIssuer
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_test_identifier),
+                test.idWithoutPrefix
+            )
         )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_date_of_birth),
-            cert.birthDateFormatted,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_disease),
-            getDiseaseAgentName(test.targetDisease),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_type),
-            getTestTypeName(test.testType),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_name),
-            test.testName,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_manufactur),
-            getTestManufacturerName(test.manufacturer),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_date_and_time),
-            test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational(),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_results),
-            getTestResultName(test.testResult),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_centre),
-            test.testingCentre,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_country),
-            getCountryName(test.country),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_issuer),
-            test.certificateIssuer,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.test_certificate_detail_view_data_test_identifier),
-            test.idWithoutPrefix,
-            dataRows
-        )
-        return dataRows
     }
+
+    override fun getExtendedDataRows(
+        cert: CovCertificate
+    ): List<ExtendedDataRow> = listOf(
+        ExtendedDataRow(
+            getString(R.string.test_certificate_detail_view_data_expiry_date),
+            getString(
+                R.string.text_certificate_detail_view_data_expiry_date_message,
+                LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
+            ),
+            getString(R.string.test_certificate_detail_view_data_expiry_date_note)
+        )
+    )
 }

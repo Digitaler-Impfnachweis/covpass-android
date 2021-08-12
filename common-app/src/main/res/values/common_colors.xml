@@ -232,4 +232,6 @@
     <color name="validityBackgroundNote">#F6F6F7</color>
     <color name="validityLineNote">#1c222708</color>
 
+    <color name="expired_overlay_tint">#1AFFFFFF</color>
+
 </resources>

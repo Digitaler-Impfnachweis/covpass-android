@@ -22,14 +22,24 @@
     android:layout_marginTop="@dimen/grid_one_half"
     tools:text="@tools:sample/lorem[3]" />
 
+  <TextView
+    android:id="@+id/result_row_subtitle_textview"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:visibility="gone"
+    tools:text="@tools:sample/lorem[3]"
+    tools:visibility="visible" />
+
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    tools:ignore="UseCompoundDrawables"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_half"
-    android:layout_marginBottom="@dimen/grid_one_half">
+    android:layout_marginBottom="@dimen/grid_one_half"
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
       android:id="@+id/result_row_data_icon"
@@ -38,13 +48,14 @@
       android:layout_marginEnd="@dimen/grid_half"
       android:visibility="gone"
       tools:ignore="ContentDescription" />
-    
+
     <TextView
       android:id="@+id/result_row_data_textview"
       style="@style/DefaultText.OnBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       tools:text="@tools:sample/lorem[3]" />
+
   </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView

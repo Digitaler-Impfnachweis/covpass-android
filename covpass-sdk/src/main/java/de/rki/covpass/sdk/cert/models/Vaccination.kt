@@ -57,6 +57,9 @@ public data class Vaccination(
         // Full protection is reached on day 15 after the complete vaccination
         get() = isComplete && occurrence?.isOlderThan(days = 14) == true
 
+    public val validDate: LocalDate?
+        get() = occurrence?.plusDays(15)
+
     public override val type: VaccinationCertType
         get() = when {
             hasFullProtection -> { VaccinationCertType.VACCINATION_FULL_PROTECTION }

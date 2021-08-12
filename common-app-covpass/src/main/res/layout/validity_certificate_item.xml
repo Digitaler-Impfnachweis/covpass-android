@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -6,12 +7,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/cert_layout"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@color/backgroundSecondary"
   android:foreground="?attr/selectableItemBackground"
-  tools:ignore="Overdraw"
-  android:id="@+id/cert_layout">
+  tools:ignore="Overdraw">
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/certificate_status_layout"
@@ -32,7 +33,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:ignore="ContentDescription"
-      tools:src="@drawable/validation_passed"/>
+      tools:src="@drawable/validation_passed" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,7 +60,7 @@
       style="@style/DefaultText.OnBackground"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      tools:text="@string/certificate_check_validity_vaccination"/>
+      tools:text="@string/certificate_check_validity_vaccination" />
 
     <TextView
       android:id="@+id/certificate_item_validity"

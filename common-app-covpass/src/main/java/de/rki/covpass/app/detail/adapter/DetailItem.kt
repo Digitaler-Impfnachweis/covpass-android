@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.detail.adapter
 
+import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.DGCEntryType
 
 /**
@@ -20,7 +21,8 @@ public sealed class DetailItem {
         public val title: String,
         public val statusIcon: Int,
         public val message: String,
-        public val buttonText: String
+        public val buttonText: String,
+        public val isExpiredOrInvalid: Boolean = false
     ) : DetailItem()
 
     public class Header(
@@ -38,6 +40,7 @@ public sealed class DetailItem {
         public val title: String,
         public val subtitle: String,
         public val date: String,
-        public val isActual: Boolean = false
+        public val isActual: Boolean = false,
+        public val certStatus: CertValidationResult = CertValidationResult.Valid
     ) : DetailItem()
 }

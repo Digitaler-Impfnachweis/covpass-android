@@ -181,11 +181,20 @@
 	<string name="recovery_certificate_overview_valid_from_title">Recovery valid from %s</string>
 	<string name="recovery_certificate_overview_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="recovery_certificate_overview_action_button_title">Display current QR Code</string>
+	<string name="certificates_overview_expired_title">Certificate expired</string>
+	<string name="certificates_overview_expired_message">The expiry date of your certificates has passed. Please make every effort to have a new digital certificate issued. </string>
+	<string name="certificates_overview_expired_action_button_title">Add new certificate</string>
+	<string name="certificates_overview_invalid_title">Certificate invalid</string>
+	<string name="certificates_overview_invalid_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
+	<string name="certificates_overview_invalid_action_button_title">Add new certificate</string>
 	<string name="certificates_overview_personal_data_title">Personal details</string>
 	<string name="certificates_overview_personal_data_name">Name, Vorname / Name, first name</string>
 	<string name="certificates_overview_personal_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="certificates_overview_all_certificates_title">EU certificates</string>
 	<string name="certificates_overview_currently_uses_certificate_note">Certificate currently in use</string>
+	<string name="certificates_overview_expires_soon_certificate_note">Certificate expires soon</string>
+	<string name="certificates_overview_expired_certificate_note">Certificate expired</string>
+	<string name="certificates_overview_invalid_certificate_note">Certificate invalid</string>
 	<string name="certificates_overview_vaccination_certificate_title">Vaccination certificate</string>
 	<string name="certificates_overview_vaccination_certificate_message">Vaccine dose %1$d of %2$d</string>
 	<string name="certificates_overview_vaccination_certificate_date">Vaccinated on %s</string>
@@ -218,6 +227,9 @@
 	<string name="vaccination_certificate_detail_view_data_vaccine_country">Land der Impfung / Country vaccinating</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikataussteller / Certificate issuer</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_identifier">Zertifikatkennung / Unique certificate identifier</string>
+	<string name="vaccination_certificate_detail_view_data_expiry_date">Technical expiry date / Technical expiry date</string>
+	<string name="vaccination_certificate_detail_view_data_expiry_date_message">Valid until %s</string>
+	<string name="vaccination_certificate_detail_view_data_expiry_date_note">Please make every effort to have a new digital certificate issued in good time.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
@@ -240,6 +252,9 @@
 	<string name="test_certificate_detail_view_data_test_country">Land der Testung / Country performing test</string>
 	<string name="test_certificate_detail_view_data_test_issuer">Zertifikataussteller / Certificate issuer</string>
 	<string name="test_certificate_detail_view_data_test_identifier">Zertifikatkennung / Unique certificate identifier</string>
+	<string name="test_certificate_detail_view_data_expiry_date">Technical expiry date / Technical expiry date</string>
+	<string name="text_certificate_detail_view_data_expiry_date_message">Valid until %s</string>
+	<string name="test_certificate_detail_view_data_expiry_date_note">Please make every effort to have a new digital certificate issued in good time.</string>
 	<string name="test_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="test_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="test_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
@@ -257,6 +272,9 @@
 	<string name="recovery_certificate_detail_view_data_valid_from">Zertifikat gültig ab / Certificate valid from (YYYY-MM-DD)</string>
 	<string name="recovery_certificate_detail_view_data_valid_until">Zertifikat gültig bis (höchstens 180 Tage ab dem Datum des ersten positiven Testergebnisses) / Certificate valid until (maximum 180 days after the date of the first positive test result)(YYYY-MM-DD)</string>
 	<string name="recovery_certificate_detail_view_data_identifier">Zertifikatkennung / Unique certificate identifier</string>
+	<string name="recovery_certificate_detail_view_data_expiry_date">Technical expiry date / Technical expiry date</string>
+	<string name="recovery_certificate_detail_view_data_expiry_date_message">Valid until %s</string>
+	<string name="recovery_certificate_detail_view_data_expiry_date_note">Please make every effort to have a new digital certificate issued in good time.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
@@ -265,6 +283,12 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_title">Full recovery</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_message">Valid until %s</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
+	<string name="certificate_expires_detail_view_note_title">Certificate expires on %1$s at %2$s</string>
+	<string name="certificate_expires_detail_view_note_message">Please make every effort to have a new digital certificate issued in good time.</string>
+	<string name="certificate_invalid_detail_view_note_title">Certificate invalid</string>
+	<string name="certificate_invalid_detail_view_note_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
+	<string name="certificate_expired_detail_view_note_title">Certificate expired</string>
+	<string name="certificate_expired_detail_view_note_message">The expiry date has been exceeded. Please make every effort to have a new digital certificate issued.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="certificate_create_pdf_headline">Create EU printout</string>
@@ -299,6 +323,9 @@
 	<string name="error_scan_qrcode_without_seal_title">Covid certificate does not have a valid signature</string>
 	<string name="error_scan_qrcode_without_seal_message">This certificate might have been issued by an unauthorised organisation or the app might not have been updated. For the latter, please connect to the internet and try again later.</string>
 	<string name="error_scan_qrcode_without_seal_button_title">OK</string>
+	<string name="error_validity_check_certificates_title">Check the validity of your certificates</string>
+	<string name="error_validity_check_certificates_message">The validity of your certificates is about to expire or has already expired. Please make every effort to have a new digital certificate issued.</string>
+	<string name="error_validity_check_certificates_button_title">OK</string>
 
 	<!-- SECTION: dialog: duplicate certificate -->
 	<string name="duplicate_certificate_dialog_header">Covid certificate already added</string>

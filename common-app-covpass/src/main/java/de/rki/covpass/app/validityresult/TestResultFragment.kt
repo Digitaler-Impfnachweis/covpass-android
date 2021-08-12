@@ -12,10 +12,12 @@ import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Parcelize
 internal class TestResultFragmentNav(
@@ -101,6 +103,14 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_identifier),
                 test.idWithoutPrefix
+            ),
+            ResultRowData(
+                title = getString(R.string.test_certificate_detail_view_data_expiry_date),
+                value = getString(
+                    R.string.text_certificate_detail_view_data_expiry_date_message,
+                    LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
+                ),
+                description = getString(R.string.test_certificate_detail_view_data_expiry_date_note)
             )
         )
     }

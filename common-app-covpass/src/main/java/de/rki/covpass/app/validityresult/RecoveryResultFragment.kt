@@ -14,8 +14,10 @@ import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Parcelize
 internal class RecoveryResultFragmentNav(
@@ -87,6 +89,14 @@ internal class RecoveryResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_identifier),
                 recovery.idWithoutPrefix
+            ),
+            ResultRowData(
+                title = getString(R.string.recovery_certificate_detail_view_data_expiry_date),
+                value = getString(
+                    R.string.recovery_certificate_detail_view_data_expiry_date_message,
+                    LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
+                ),
+                description = getString(R.string.recovery_certificate_detail_view_data_expiry_date_note)
             )
         )
     }

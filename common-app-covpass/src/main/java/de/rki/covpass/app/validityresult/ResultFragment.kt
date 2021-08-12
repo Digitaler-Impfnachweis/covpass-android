@@ -75,8 +75,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
         val title: String,
         val value: String,
         val validationResult: List<DerivedValidationResult> = emptyList(),
-        val warningTitle: String? = null,
-        val warningText: String? = null
+        val description: String? = null
     )
 }
 

@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
@@ -25,6 +26,8 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DgcEntryDetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.uielements.showInfo
+import de.rki.covpass.app.uielements.showWarning
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -32,6 +35,9 @@ import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.utils.formatDateTime
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 /**
  * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments.
@@ -105,22 +111,22 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
     open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
 
-    abstract fun getDataRows(cert: CovCertificate): List<Pair<String, String>>
+    abstract fun getDataRows(cert: CovCertificate): List<DataRow>
 
-    protected fun addDataRow(key: String, value: String?, dataRows: MutableList<Pair<String, String>>) {
-        if (!value.isNullOrEmpty()) {
-            dataRows.add(Pair(key, value))
-        }
-    }
+    abstract fun getExtendedDataRows(cert: CovCertificate): List<ExtendedDataRow>
 
     private fun updateViews(certs: GroupedCertificatesList) {
-        val cert = certs.getCombinedCertificate(certId)?.covCertificate ?: return
-        setupActionBar(cert)
+        val combinedCovCertificate = certs.getCombinedCertificate(certId) ?: return
+        val covCertificate = combinedCovCertificate.covCertificate
+        setupActionBar(covCertificate)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
-        binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(cert)
+        binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(covCertificate)
+        showExpirationInfoElement(combinedCovCertificate)
 
         binding.dgcDetailDataContainer.removeAllViews()
-        getDataRows(cert).forEach {
+        getDataRows(covCertificate).filterNot {
+            it.value.isNullOrEmpty()
+        }.forEach { dataRow ->
             val dataRowView = layoutInflater.inflate(
                 R.layout.detail_data_row,
                 binding.dgcDetailDataContainer,
@@ -128,18 +134,46 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             )
             val headerTextView = dataRowView.findViewById<TextView>(R.id.detail_data_header_textview)
             val valueTextView = dataRowView.findViewById<TextView>(R.id.detail_data_textview)
-            headerTextView.text = it.first
-            valueTextView.text = it.second
+            headerTextView.text = dataRow.header
+            valueTextView.text = dataRow.value
 
             binding.dgcDetailDataContainer.addView(dataRowView)
         }
 
-        binding.dgcDetailDisplayQrButton.setOnClickListener {
-            findNavigator().push(DisplayQrCodeFragmentNav(certId))
+        getExtendedDataRows(covCertificate).filterNot {
+            it.value.isNullOrEmpty()
+        }.forEach { extendedDataRow ->
+            val extendedDataRowView = layoutInflater.inflate(
+                R.layout.extended_detail_data_row,
+                binding.dgcDetailDataContainer,
+                false
+            )
+            val headerTextView =
+                extendedDataRowView.findViewById<TextView>(R.id.extended_detail_data_header_textview)
+            val valueTextView =
+                extendedDataRowView.findViewById<TextView>(R.id.extended_detail_data_textview)
+            val descriptionTextView =
+                extendedDataRowView.findViewById<TextView>(R.id.extended_detail_description_textview)
+            headerTextView.text = extendedDataRow.header
+            valueTextView.text = extendedDataRow.value
+            descriptionTextView.text = extendedDataRow.description
+
+            binding.dgcDetailDataContainer.addView(extendedDataRowView)
         }
-        binding.dgcDetailExportPdfButton.setOnClickListener {
-            findNavigator().push(DetailExportPdfFragmentNav(certId))
+
+        val isValid = combinedCovCertificate.status != CertValidationResult.Expired &&
+            combinedCovCertificate.status != CertValidationResult.Invalid
+        binding.dgcDetailButtonsContainer.isVisible = isValid
+
+        if (isValid) {
+            binding.dgcDetailDisplayQrButton.setOnClickListener {
+                findNavigator().push(DisplayQrCodeFragmentNav(certId))
+            }
+            binding.dgcDetailExportPdfButton.setOnClickListener {
+                findNavigator().push(DetailExportPdfFragmentNav(certId))
+            }
         }
+
         binding.dgcDetailInfoFooterGerman.apply {
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_de)
             movementMethod = LinkMovementMethod.getInstance()
@@ -149,6 +183,42 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_en)
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
+        }
+    }
+
+    private fun showExpirationInfoElement(combinedCovCertificate: CombinedCovCertificate) {
+        binding.dgcDetailExpirationInfoElement.isVisible = true
+        when (combinedCovCertificate.status) {
+            CertValidationResult.ExpiryPeriod -> {
+                binding.dgcDetailExpirationInfoElement.showInfo(
+                    title = getString(
+                        R.string.certificate_expires_detail_view_note_title,
+                        LocalDateTime.ofInstant(
+                            combinedCovCertificate.covCertificate.validUntil, ZoneOffset.UTC
+                        ).formatDateTime().split(",")[0].trim(),
+                        LocalDateTime.ofInstant(
+                            combinedCovCertificate.covCertificate.validUntil, ZoneOffset.UTC
+                        ).formatDateTime().split(",")[1].trim()
+                    ),
+                    description = getString(R.string.certificate_expires_detail_view_note_message),
+                    iconRes = R.drawable.main_cert_expiry_period
+                )
+            }
+            CertValidationResult.Expired -> {
+                binding.dgcDetailExpirationInfoElement.showWarning(
+                    title = getString(R.string.certificate_expired_detail_view_note_title),
+                    description = getString(R.string.certificate_expired_detail_view_note_message),
+                    iconRes = R.drawable.info_warning_icon
+                )
+            }
+            CertValidationResult.Invalid -> {
+                binding.dgcDetailExpirationInfoElement.showWarning(
+                    title = getString(R.string.certificate_invalid_detail_view_note_title),
+                    description = getString(R.string.certificate_invalid_detail_view_note_message),
+                    iconRes = R.drawable.info_warning_icon
+                )
+            }
+            else -> binding.dgcDetailExpirationInfoElement.isGone = true
         }
     }
 
@@ -176,3 +246,14 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         private const val DELETE_DIALOG_TAG = "delete_dialog"
     }
 }
+
+public data class DataRow(
+    val header: String,
+    val value: String? = ""
+)
+
+public data class ExtendedDataRow(
+    val header: String,
+    val value: String? = "",
+    val description: String
+)
