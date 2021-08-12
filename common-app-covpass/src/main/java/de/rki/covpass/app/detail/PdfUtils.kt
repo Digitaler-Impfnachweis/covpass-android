@@ -20,18 +20,18 @@ internal object PdfUtils {
         base64EncodedQrCode: String,
         vaccination: Vaccination
     ): String = context.readTextAsset("VaccinationCertificateTemplate.svg")
-        .replace("\$nam", combinedCertificate.covCertificate.fullName)
-        .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted)
-        .replace("\$ci", vaccination.id)
-        .replace("\$tg", vaccination.targetDisease)
-        .replace("\$vp", vaccination.vaccineCode)
-        .replace("\$mp", vaccination.product)
-        .replace("\$ma", vaccination.manufacturer)
+        .replace("\$nam", combinedCertificate.covCertificate.fullName.sanitizeXMLString())
+        .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
+        .replace("\$ci", vaccination.id.sanitizeXMLString())
+        .replace("\$tg", vaccination.targetDisease.sanitizeXMLString())
+        .replace("\$vp", vaccination.vaccineCode.sanitizeXMLString())
+        .replace("\$mp", vaccination.product.sanitizeXMLString())
+        .replace("\$ma", vaccination.manufacturer.sanitizeXMLString())
         .replace("\$dn", vaccination.doseNumber.toString())
         .replace("\$sd", vaccination.totalSerialDoses.toString())
         .replace("\$dt", vaccination.occurrence?.formatDateInternational() ?: "")
-        .replace("\$co", vaccination.country)
-        .replace("\$is", vaccination.certificateIssuer)
+        .replace("\$co", vaccination.country.sanitizeXMLString())
+        .replace("\$is", vaccination.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 
     fun replaceRecoveryValues(
@@ -40,14 +40,23 @@ internal object PdfUtils {
         base64EncodedQrCode: String,
         recovery: Recovery
     ): String = context.readTextAsset("RecoveryCertificateTemplate.svg")
-        .replace("\$nam", combinedCertificate.covCertificate.fullName)
-        .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted)
-        .replace("\$ci", recovery.id)
-        .replace("\$tg", recovery.targetDisease)
+        .replace("\$nam", combinedCertificate.covCertificate.fullName.sanitizeXMLString())
+        .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
+        .replace("\$ci", recovery.id.sanitizeXMLString())
+        .replace("\$tg", recovery.targetDisease.sanitizeXMLString())
         .replace("\$fr", recovery.firstResult?.formatDateInternational() ?: "")
-        .replace("\$co", recovery.country)
-        .replace("\$is", recovery.certificateIssuer)
+        .replace("\$co", recovery.country.sanitizeXMLString())
+        .replace("\$is", recovery.certificateIssuer.sanitizeXMLString())
         .replace("\$df", recovery.validFrom?.formatDateInternational() ?: "")
         .replace("\$du", recovery.validUntil?.formatDateInternational() ?: "")
         .replace("\$qr", base64EncodedQrCode)
+}
+
+private fun String.sanitizeXMLString(): String {
+    return this
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\"", "&quot;")
+        .replace("'", "&apos;")
 }
