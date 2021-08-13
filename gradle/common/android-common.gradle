@@ -10,6 +10,7 @@ class Config {
     List<String> disableAndroidLints = []
     Boolean kotlinExplicitApiMode = true
     List<String> kotlinCompilerArgs = []
+    String javaVersion = JavaVersion.VERSION_11
 }
 
 ext.androidCommon = { args = [:] ->
@@ -32,12 +33,12 @@ ext.androidCommon = { args = [:] ->
         compileOptions {
             coreLibraryDesugaringEnabled true
 
-            sourceCompatibility JavaVersion.VERSION_11
-            targetCompatibility JavaVersion.VERSION_11
+            sourceCompatibility = config.javaVersion
+            targetCompatibility = config.javaVersion
         }
 
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = config.javaVersion.toString()
             freeCompilerArgs = getCompilerArgs(
                 kotlinExplicitApiMode: config.kotlinExplicitApiMode,
                 kotlinCompilerArgs: config.kotlinCompilerArgs,

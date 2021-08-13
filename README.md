@@ -26,7 +26,7 @@ The apps live in these modules:
 
 Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, switching flavors takes time (whereas apps in modules can be switched and launched directly), etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
 
-## Usage
+## Building the app
 
 You'll need a GitHub personal access token with `read:packages` access and in the parent folder above your repository create a file called `covpass.properties`:
 
@@ -35,7 +35,7 @@ githubUsername=github-username
 githubPassword=personalaccesstoken
 ```
 
-To build the app:
+To actually build the app:
 
 * Open the project with Android Studio.
 * In the toolbar at the top, select the app you want to run (e.g. app-covpass-demo) and the device.
@@ -45,6 +45,89 @@ To fetch the latest DSC list:
 
 ```
 ./gradlew downloadDscList
+```
+
+## Using the SDK
+
+Currently we publish to GitHub Packages. You can integrate the SDK like this via Gradle:
+
+```groovy
+repositories {
+    maven {
+        url "https://maven.pkg.github.com/Digitaler-Impfnachweis/*"
+        credentials {
+            username githubUsername
+            password githubPassword
+        }
+    }
+    maven {
+        url "https://maven.pkg.github.com/ehn-dcc-development/*"
+        credentials {
+            username githubUsername
+            password githubPassword
+        }
+    }
+}
+
+// Enable core lib desugaring for java.time support (no need for threeten).
+// This requires at least JavaVersion.VERSION_8, but if you use
+// Android Gradle Plugin 7.0.0 you can use VERSION_11.
+def javaVersion = JavaVersion.VERSION_11
+android {
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = javaVersion.toString()
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    // Add our BOM, so you get the right version constraints.
+    api platform("com.ibm.health.de.rki.covpass:covpass-bom:$covpassVersion")
+
+    // Add the SDK (without version number - that's in the BOM already).
+    api "com.ibm.health.de.rki.covpass:covpass-sdk"
+
+    // We also need these security providers.
+    api 'org.conscrypt:conscrypt-android'
+    api "org.bouncycastle:bcprov-jdk15to18"
+    api "org.bouncycastle:bcpkix-jdk15to18"
+}
+```
+
+In `Application.onCreate`, initialize the SDK:
+
+```kotlin
+@OptIn(DependencyAccessor::class)
+public abstract class MyApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        // First, install Conscrypt and Bouncy Castle security providers.
+
+        // Disable patented algorithms in Bouncy Castle
+        System.setProperty("org.bouncycastle.ec.disable_mqv", "true")
+        try {
+            Security.removeProvider("BC")
+        } catch (e: Throwable) {
+            // Ignore if it's missing.
+        }
+        Security.addProvider(BouncyCastleProvider())
+        Security.insertProviderAt(Conscrypt.newProvider(), 1)
+
+        // Now init the SDK
+        sdkDeps = object : SdkDependencies() {
+            override val application: Application = this@MyApplication
+        }
+    }
+}
 ```
 
 ## App architecture
@@ -71,7 +154,7 @@ As long as you follow these APIs you're on the safe side, avoiding Android's pit
 We are explicitly not using Dagger or Koin or any other framework for DI.
 
 * Dagger is much too complicated and messy and the documentation is almost non-existent.
-* Koin follows the (dynamic) service locator pattern which has been criticized for a very long time.
+* Koin is using a dynamic registry which leads to many problems:
   * It's only checked at runtime, so it can lead to runtime crashes if dependencies are missing.
   * It's very difficult to navigate the graph because you can't use "go to definition" or "find usages".
   * In practice, in much larger projects at IBM, Koin had to be removed from the whole codebase because of this.

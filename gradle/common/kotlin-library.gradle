@@ -6,6 +6,7 @@
 class Config {
     Boolean kotlinExplicitApiMode = true
     List<String> kotlinCompilerArgs = []
+    String javaVersion = JavaVersion.VERSION_11
 }
 
 ext.kotlinLibrary = { args = [:] ->
@@ -19,13 +20,13 @@ ext.kotlinLibrary = { args = [:] ->
     kotlinCommon()
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = config.javaVersion
+        targetCompatibility = config.javaVersion
     }
 
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = config.javaVersion.toString()
             freeCompilerArgs = getCompilerArgs(
                 kotlinExplicitApiMode: config.kotlinExplicitApiMode,
                 kotlinCompilerArgs: config.kotlinCompilerArgs,
@@ -35,7 +36,7 @@ ext.kotlinLibrary = { args = [:] ->
 
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = config.javaVersion.toString()
             freeCompilerArgs = getCompilerArgs(
                 kotlinExplicitApiMode: config.kotlinExplicitApiMode,
                 kotlinCompilerArgs: config.kotlinCompilerArgs,
