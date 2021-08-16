@@ -99,7 +99,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
         ExtendedDataRow(
             getString(R.string.test_certificate_detail_view_data_expiry_date),
             getString(
-                R.string.text_certificate_detail_view_data_expiry_date_message,
+                R.string.test_certificate_detail_view_data_expiry_date_message,
                 LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
             ),
             getString(R.string.test_certificate_detail_view_data_expiry_date_note)

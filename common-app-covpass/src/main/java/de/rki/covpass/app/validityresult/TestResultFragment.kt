@@ -107,7 +107,7 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 title = getString(R.string.test_certificate_detail_view_data_expiry_date),
                 value = getString(
-                    R.string.text_certificate_detail_view_data_expiry_date_message,
+                    R.string.test_certificate_detail_view_data_expiry_date_message,
                     LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
                 ),
                 description = getString(R.string.test_certificate_detail_view_data_expiry_date_note)
