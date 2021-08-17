@@ -7,6 +7,7 @@ package de.rki.covpass.app.validitycheck.countries
 
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
+import java.text.Collator
 
 public object CountryRepository {
 
@@ -171,7 +172,9 @@ public object CountryRepository {
     )
 
     public fun getSortedCountryList(): List<Country> {
-        return countryList.sortedBy { getString(it.nameRes) }
+        return countryList.sortedWith { country1, country2 ->
+            Collator.getInstance().compare(getString(country1.nameRes), getString(country2.nameRes))
+        }
     }
 
     public fun getCountryByCode(countryCode: String): Country =
