@@ -52,7 +52,8 @@ internal class DetailExportPdfViewModel(
                 .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
                 .setResolution(PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                 .build()
-            val pdfFile = File(context.cacheDir, "Certificate-${fileName.value}.pdf")
+            val fileName = "Certificate-${fileName.value}".sanitizeFileName()
+            val pdfFile = File(context.cacheDir, "$fileName.pdf")
             PdfBuilder(attributes).createPdf(printDocumentAdapter, pdfFile)
             eventNotifier { onSharePdf(uriFromFile(context, pdfFile)) }
         }

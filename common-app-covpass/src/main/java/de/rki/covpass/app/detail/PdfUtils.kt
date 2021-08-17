@@ -60,3 +60,8 @@ private fun String.sanitizeXMLString(): String {
         .replace("\"", "&quot;")
         .replace("'", "&apos;")
 }
+
+public fun String.sanitizeFileName(): String {
+    val regex = Regex("[*\\\\/.]")
+    return regex.replace(this, "")
+}
