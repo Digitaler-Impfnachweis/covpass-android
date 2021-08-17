@@ -74,6 +74,15 @@
       tools:text="@tools:sample/lorem[3]" />
 
     <TextView
+      android:id="@+id/result_info_subtitle_1"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+
+    <TextView
       android:id="@+id/result_info_text_1"
       style="@style/DefaultText.OnBackground"
       android:layout_width="match_parent"

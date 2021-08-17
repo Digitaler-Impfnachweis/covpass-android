@@ -25,7 +25,7 @@ internal class TestResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val countryName: Country,
     val dateTime: LocalDateTime,
-    val rulesCount: Int
+    val rulesCount: Int,
 ) : FragmentNav(TestResultFragment::class)
 
 internal class TestResultFragment : ResultFragment() {
@@ -50,6 +50,10 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_name),
                 cert.fullNameReverse
+            ),
+            ResultRowData(
+                getString(R.string.test_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_date_of_birth),

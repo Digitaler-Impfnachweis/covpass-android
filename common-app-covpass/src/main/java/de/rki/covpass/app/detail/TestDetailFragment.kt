@@ -47,6 +47,10 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
                 cert.fullNameReverse
             ),
             DataRow(
+                getString(R.string.test_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
+            ),
+            DataRow(
                 getString(R.string.test_certificate_detail_view_data_date_of_birth),
                 cert.birthDateFormatted
             ),

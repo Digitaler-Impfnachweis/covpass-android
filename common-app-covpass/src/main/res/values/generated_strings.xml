@@ -217,6 +217,7 @@
 	<string name="vaccination_certificate_detail_view_vaccination_headline">EU Digital COVID Certificate of Vaccination</string>
 	<string name="vaccination_certificate_detail_view_vaccination_note">This certificate is for a vaccine that only requires one dose or a vaccine for people who have recovered from an infection and only need one dose.</string>
 	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
+	<string name="vaccination_certificate_detail_view_data_name_standard">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="vaccination_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or pathogen</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine">Impfstoff / Vaccine</string>
@@ -241,6 +242,7 @@
 	<string name="test_certificate_detail_view_pcr_test_title">PCR test</string>
 	<string name="test_certificate_detail_view_headline">EU Digital COVID Certificate of Test</string>
 	<string name="test_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
+	<string name="test_certificate_detail_view_data_name_standard">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="test_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="test_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or pathogen</string>
 	<string name="test_certificate_detail_view_data_test_type">Art des Tests / Type of test</string>
@@ -264,6 +266,7 @@
 	<string name="recovery_certificate_detail_view_title">Full recovery</string>
 	<string name="recovery_certificate_detail_view_headline">EU Digital COVID Certificate of Recovery</string>
 	<string name="recovery_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
+	<string name="recovery_certificate_detail_view_data_name_standard">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="recovery_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="recovery_certificate_detail_view_data_disease">Krankheit oder Erreger, von dem die Bürgerin oder der Bürger genesen ist / Disease or pathogen that this person has recovered from</string>
 	<string name="recovery_certificate_detail_view_data_date_first_positive_result">Datum des ersten positiven Testergebnisses / Date of first positive test result (YYYY-MM-DD)</string>

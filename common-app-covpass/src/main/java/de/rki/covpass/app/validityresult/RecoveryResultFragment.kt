@@ -25,7 +25,7 @@ internal class RecoveryResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val country: Country,
     val dateTime: LocalDateTime,
-    val rulesCount: Int
+    val rulesCount: Int,
 ) : FragmentNav(RecoveryResultFragment::class)
 
 internal class RecoveryResultFragment : ResultFragment() {
@@ -50,6 +50,10 @@ internal class RecoveryResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_name),
                 cert.fullNameReverse
+            ),
+            ResultRowData(
+                getString(R.string.recovery_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_date_of_birth),

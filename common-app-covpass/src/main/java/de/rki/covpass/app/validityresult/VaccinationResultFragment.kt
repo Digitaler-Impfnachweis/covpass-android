@@ -24,7 +24,7 @@ internal class VaccinationResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val country: Country,
     val dateTime: LocalDateTime,
-    val rulesCount: Int
+    val rulesCount: Int,
 ) : FragmentNav(VaccinationResultFragment::class)
 
 internal class VaccinationResultFragment : ResultFragment() {
@@ -49,6 +49,10 @@ internal class VaccinationResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_name),
                 cert.fullNameReverse
+            ),
+            ResultRowData(
+                getString(R.string.test_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
