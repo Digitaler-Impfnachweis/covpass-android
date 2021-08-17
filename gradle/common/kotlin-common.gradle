@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 ext.kotlinCommon = {
     tasks.withType(Test) {
         testLogging {
@@ -5,11 +10,6 @@ ext.kotlinCommon = {
         }
     }
 }
-
-/*
- * (C) Copyright IBM Deutschland GmbH 2021
- * (C) Copyright IBM Corp. 2021
- */
 
 class CompilerArgsConfig {
     Boolean kotlinExplicitApiMode = true

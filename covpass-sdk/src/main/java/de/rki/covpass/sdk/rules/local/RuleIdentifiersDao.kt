@@ -10,6 +10,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 
+@Suppress("SpreadOperator")
 @Dao
 public abstract class RuleIdentifiersDao {
 
