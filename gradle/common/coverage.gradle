@@ -42,14 +42,14 @@ ext.trackCoverage = { args = [:] ->
     }
 
     def androidTaskDeps = ['testDebugUnitTest']
-    if (hasInstrumentationTests) {
+    if (hasInstrumentationTests && config.enableTestCoverage) {
         androidTaskDeps.add('createDebugCoverageReport')
     }
     def taskDeps = isAndroidProject ? androidTaskDeps : ['test']
     task jacocoTestReportDefault(type: JacocoReport, dependsOn: taskDeps, group: 'verification') {
         reports {
-            xml.enabled = true
-            html.enabled = true
+            xml.required = true
+            html.required = true
         }
 
         def fileFilter = [
@@ -60,13 +60,25 @@ ext.trackCoverage = { args = [:] ->
             '**/*Test*.*',
             'android/**/*.*',
             '**/databinding/*.*',
+            // Ignore generated Hilt classes
+            'hilt_aggregated_deps/*.*',
+            '**/*_GeneratedInjector.*',
+            '**/Hilt_*.*',
+            '**/*_HiltComponents_*.*',
+            '**/*_HiltModules_*.*',
+            '**/*Module_*Factory*.*'
         ]
         if (!config.trackUI) {
             fileFilter.addAll([
+                '**/*Binding*.*',
                 '**/*BottomSheet*.*',
                 '**/*Fragment*.*',
+                '**/*FragmentNav.*',
                 '**/*Activity*.*',
+                '**/*ActivityNav.*',
                 '**/*Adapter*.*',
+                '**/*AdapterMapper.*',
+                '**/*SectionMapper.*',
                 '**/*ViewHolder*.*',
                 '**/*Layout*.*',
                 '**/*ViewFrame*.*',
@@ -75,6 +87,12 @@ ext.trackCoverage = { args = [:] ->
                 '**/*Animation*.*',
                 '**/*Divider*.*',
                 '**/*Decoration.*',
+                '**/*Drawable.*',
+                '**/*Events.*',
+                '**/*DiffUtilCallback.*',
+                // Ignore compose screens/uis
+                '**/*ScreenKt.*',
+                '**/*UiKt.*',
             ])
         }
         fileFilter.addAll(config.extraExcludes)
@@ -89,7 +107,7 @@ ext.trackCoverage = { args = [:] ->
         ]))
         executionData.setFrom(fileTree(dir: project.buildDir,
             includes: isAndroidProject ?
-                ['jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/**/*.ec']
+                ['jacoco/test*DebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/**/*.ec']
                 : ['jacoco/test.exec'],
         ))
     }
