@@ -28,4 +28,4 @@ private fun extractEntity(uvci: String): String? {
 /**
  * This exception is thrown when a entity is blacklisted.
  */
-public class BlacklistedEntityException : RuntimeException("Blacklisted Issuing Entity")
+public class BlacklistedEntityException : DgcDecodeException("Blacklisted Issuing Entity")
