@@ -58,6 +58,9 @@
 	<string name="error_test_certificate_not_valid_title">Das Testzertifikat kann nicht hinzugefügt werden</string>
 	<string name="error_test_certificate_not_valid_message">Der von Ihnen gescannte Nachweis für einen Corona-Test weist kein negatives Testergebnis nach. Die aktuelle Version der CovPass-App kann nur negative Corona-Testergebnisse speichern.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
+	<string name="dialogue_add_booster_vaccination_title">Auffrischungsimpfung hinzugefügt</string>
+	<string name="dialogue_add_booster_vaccination_message">Bitte beachten Sie, dass dieses Zertifikat für die Auffrischungsimpfung gegebenenfalls zum jetzigen Zeitpunkt im Ausland nicht als gültiger Impfnachweis akzeptiert wird. Sofern Sie eine Reise außerhalb Deutschlands planen, nehmen Sie bitte auch den Nachweis für einen erstmals wirksamen Impfschutz oder für eine wirksame Impfung für Genesene mit.</string>
+	<string name="dialogue_add_booster_vaccination_action_button_title">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="certificate_favorite_button_hint">Als Favorit markieren</string>
@@ -166,6 +169,9 @@
 	<string name="error_connect_to_internet_button_ok">OK</string>
 
 	<!-- SECTION: overview certificates -->
+	<string name="booster_vaccination_certificate_overview_title">Auffrischungsimpfung: Aktuell nur in Deutschland nutzbar</string>
+	<string name="booster_vaccination_certificate_overview_message">Auffrischungsimpfungen können derzeit nur in Deutschland digital nachgewiesen und geprüft werden. Sobald sich dies ändert, werden Sie hier über den aktuellen Stand informiert.</string>
+	<string name="booster_vaccination_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_overview_incomplete_title">Unvollständig: %1$d von %2$d Impfungen</string>
 	<string name="vaccination_certificate_overview_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz vorzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
 	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Aktuellen QR-Code anzeigen</string>
@@ -198,6 +204,10 @@
 	<string name="certificates_overview_expires_soon_certificate_note">Zertifikat läuft bald ab</string>
 	<string name="certificates_overview_expired_certificate_note">Zertifikat abgelaufen</string>
 	<string name="certificates_overview_invalid_certificate_note">Zertifikat ungültig</string>
+	<string name="certificates_overview_booster_vaccination_certificate_note">Aktuell nur in DE nutzbar</string>
+	<string name="certificates_overview_booster_vaccination_certificate_title">Impfzertifikat</string>
+	<string name="certificates_overview_booster_vaccination_certificate_message">%s. Auffrischungsimpfung</string>
+	<string name="certificates_overview_booster_vaccination_certificate_date">Geimpft am %s</string>
 	<string name="certificates_overview_vaccination_certificate_title">Impfzertifikat</string>
 	<string name="certificates_overview_vaccination_certificate_message">Impfung %1$d von %2$d</string>
 	<string name="certificates_overview_vaccination_certificate_date">Geimpft am %s</string>

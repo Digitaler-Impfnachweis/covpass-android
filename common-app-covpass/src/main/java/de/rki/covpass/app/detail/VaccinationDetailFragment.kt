@@ -29,18 +29,35 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
 
     private val args: VaccinationDetailFragmentNav by lazy { getArgs() }
 
-    override fun getToolbarTitleText(cert: CovCertificate): String =
-        getString(
-            R.string.vaccination_certificate_detail_view_vaccination_title,
-            cert.vaccination?.doseNumber,
-            cert.vaccination?.totalSerialDoses
-        )
+    override fun getToolbarTitleText(cert: CovCertificate): String {
+        return if ((cert.dgcEntry as? Vaccination)?.isBoosterVaccination == true) {
+            val dgcEntry = cert.dgcEntry as Vaccination
+            getString(
+                R.string.certificates_overview_booster_vaccination_certificate_message,
+                (dgcEntry.doseNumber - dgcEntry.totalSerialDoses).toString()
+            )
+        } else {
+            getString(
+                R.string.vaccination_certificate_detail_view_vaccination_title,
+                cert.vaccination?.doseNumber,
+                cert.vaccination?.totalSerialDoses
+            )
+        }
+    }
+
+    override fun getHeaderTitle(cert: CovCertificate): String {
+        return if ((cert.dgcEntry as? Vaccination)?.isBoosterVaccination == true) {
+            getString(R.string.dialogue_add_booster_vaccination_message)
+        } else {
+            getString(R.string.vaccination_certificate_detail_view_vaccination_note)
+        }
+    }
 
     override fun getHeaderText(): String = getString(R.string.vaccination_certificate_detail_view_vaccination_headline)
 
     override fun isHeaderTitleVisible(cert: CovCertificate): Boolean {
         val vaccination = cert.dgcEntry as? Vaccination ?: return false
-        return vaccination.isCompleteSingleDose
+        return vaccination.isCompleteSingleDose || vaccination.isBoosterVaccination
     }
 
     override fun getDataRows(cert: CovCertificate): List<DataRow> {
@@ -98,7 +115,7 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
     }
 
     override fun getExtendedDataRows(
-        cert: CovCertificate
+        cert: CovCertificate,
     ): List<ExtendedDataRow> = listOf(
         ExtendedDataRow(
             getString(R.string.vaccination_certificate_detail_view_data_expiry_date),

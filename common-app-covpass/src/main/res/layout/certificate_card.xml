@@ -59,15 +59,27 @@
             app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
             app:layout_constraintTop_toTopOf="parent" />
 
+          <ImageView
+            android:id="@+id/certificate_booster_german_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_one"
+            android:src="@drawable/flag_de_booster"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/certificate_header_textview"
+            tools:ignore="ContentDescription" />
+
           <TextView
             android:id="@+id/certificate_status_textview"
             style="@style/DefaultText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_one"
+            android:layout_marginStart="@dimen/grid_half"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
-            app:layout_constraintTop_toBottomOf="@+id/certificate_header_textview" />
+            app:layout_constraintStart_toEndOf="@+id/certificate_booster_german_flag"
+            app:layout_constraintTop_toBottomOf="@+id/certificate_header_textview"
+            app:layout_goneMarginStart="@dimen/grid_one" />
 
           <ImageView
             android:id="@+id/certificate_qr_imageview"

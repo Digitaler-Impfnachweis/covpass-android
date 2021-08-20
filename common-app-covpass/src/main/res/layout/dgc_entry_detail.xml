@@ -54,7 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/grid_three"
         android:layout_marginBottom="@dimen/grid_two"
-        android:text="@string/vaccination_certificate_detail_view_vaccination_note"
         android:visibility="gone"
         tools:visibility="visible" />
 

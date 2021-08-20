@@ -134,9 +134,10 @@ private class CertificateViewHolder(
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.Certificate).let { cert ->
             when (cert.type) {
+                VaccinationCertType.VACCINATION_BOOSTER_PROTECTION,
                 VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
-                        if (cert.isActual) {
+                        if (cert.isActual || cert.isBoosterVaccination) {
                             R.color.info
                         } else {
                             R.color.backgroundSecondary20
@@ -236,13 +237,25 @@ private class CertificateViewHolder(
                         )
                 ) {
                     R.color.backgroundSecondary50
-                } else if (cert.isActual) {
+                } else if (cert.isActual || cert.isBoosterVaccination) {
                     R.color.backgroundSecondary
                 } else {
                     R.color.backgroundSecondary50
                 }
             )
-            binding.certificateItemActualTitle.isVisible = cert.isActual
+
+            if (cert.type == VaccinationCertType.VACCINATION_BOOSTER_PROTECTION) {
+                binding.certificateItemActualLayout.isVisible = true
+                binding.certificateItemActualTitle.text =
+                    getString(R.string.certificates_overview_booster_vaccination_certificate_note)
+                binding.certificateItemActualIcon.isVisible = cert.isActual
+                binding.certificateItemBoosterFlagDe.isVisible = true
+            } else if (cert.isActual && cert.type != VaccinationCertType.VACCINATION_BOOSTER_PROTECTION) {
+                binding.certificateItemActualLayout.isVisible = true
+                binding.certificateItemActualIcon.isVisible = true
+            } else {
+                binding.certificateItemActualLayout.isVisible = false
+            }
             binding.certificateItemTitle.text = cert.title
             binding.certificateItemSubtitle.text = cert.subtitle
             binding.certificateItemDate.text = cert.date

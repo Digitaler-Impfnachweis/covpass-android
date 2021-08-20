@@ -72,8 +72,10 @@ internal class CertificateFragment : BaseFragment() {
         when (val dgcEntry = mainCertificate.dgcEntry) {
             is Vaccination -> {
                 when (dgcEntry.type) {
+                    VaccinationCertType.VACCINATION_BOOSTER_PROTECTION,
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         binding.certificateCard.vaccinationFullProtectionCard(
+                            dgcEntry.type,
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(

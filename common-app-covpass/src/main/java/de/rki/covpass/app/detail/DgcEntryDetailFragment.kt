@@ -109,6 +109,9 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
     abstract fun getHeaderText(): String
 
+    open fun getHeaderTitle(cert: CovCertificate): String =
+        getString(R.string.vaccination_certificate_detail_view_vaccination_note)
+
     open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
 
     abstract fun getDataRows(cert: CovCertificate): List<DataRow>
@@ -120,6 +123,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         val covCertificate = combinedCovCertificate.covCertificate
         setupActionBar(covCertificate)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
+        binding.dgcDetailHeaderTitleTextview.text = getHeaderTitle(covCertificate)
         binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(covCertificate)
         showExpirationInfoElement(combinedCovCertificate)
 
