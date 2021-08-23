@@ -17,13 +17,13 @@
     app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
 
   <ImageView
+    android:id="@+id/scanner_image_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0.57"
-    android:background="@color/scanner_overlay"
     tools:ignore="ContentDescription" />
 
   <FrameLayout
+    android:id="@+id/scanner_close_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
