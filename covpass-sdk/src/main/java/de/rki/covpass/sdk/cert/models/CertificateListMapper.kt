@@ -16,7 +16,7 @@ public class CertificateListMapper(private val qrCoder: QRCoder) {
             }.exceptionOrNull()
             val status = when (error) {
                 null ->
-                    if (localCert.isInExpiryPeriod())
+                    if (localCert.covCertificate.isInExpiryPeriod())
                         CertValidationResult.ExpiryPeriod
                     else
                         CertValidationResult.Valid
