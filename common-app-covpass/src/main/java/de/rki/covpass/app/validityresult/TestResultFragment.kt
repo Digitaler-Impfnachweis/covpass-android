@@ -17,7 +17,8 @@ import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Parcelize
 internal class TestResultFragmentNav(
@@ -107,8 +108,8 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 title = getString(R.string.test_certificate_detail_view_data_expiry_date),
                 value = getString(
-                    R.string.text_certificate_detail_view_data_expiry_date_message,
-                    LocalDateTime.ofInstant(cert.validUntil, ZoneOffset.UTC).formatDateTime()
+                    R.string.test_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
                 ),
                 description = getString(R.string.test_certificate_detail_view_data_expiry_date_note)
             )
