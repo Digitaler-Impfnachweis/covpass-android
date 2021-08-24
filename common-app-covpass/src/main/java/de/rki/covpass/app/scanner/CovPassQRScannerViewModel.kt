@@ -49,7 +49,11 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                         covCertificate = covCertificate,
                         qrContent = qrContent,
                         timestamp = System.currentTimeMillis(),
-                        status = CertValidationResult.Valid,
+                        status = if (covCertificate.isInExpiryPeriod()) {
+                            CertValidationResult.ExpiryPeriod
+                        } else {
+                            CertValidationResult.Valid
+                        },
                     )
                 )
             }
