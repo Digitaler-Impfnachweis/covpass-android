@@ -20,8 +20,8 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         timestamp = timestamp,
     )
 
-public fun CombinedCovCertificateLocal.isInExpiryPeriod(): Boolean =
+public fun CovCertificate.isInExpiryPeriod(): Boolean =
     ZonedDateTime.ofInstant(
-        covCertificate.validUntil,
+        validUntil,
         ZoneId.systemDefault()
     ).minusDays(28).isBefore(ZonedDateTime.now())
