@@ -35,9 +35,8 @@ import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
-import de.rki.covpass.sdk.utils.formatDateTime
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 
 /**
  * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments.
@@ -197,12 +196,8 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
                 binding.dgcDetailExpirationInfoElement.showInfo(
                     title = getString(
                         R.string.certificate_expires_detail_view_note_title,
-                        LocalDateTime.ofInstant(
-                            combinedCovCertificate.covCertificate.validUntil, ZoneOffset.UTC
-                        ).formatDateTime().split(",")[0].trim(),
-                        LocalDateTime.ofInstant(
-                            combinedCovCertificate.covCertificate.validUntil, ZoneOffset.UTC
-                        ).formatDateTime().split(",")[1].trim()
+                        combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                        combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                     ),
                     description = getString(R.string.certificate_expires_detail_view_note_message),
                     iconRes = R.drawable.main_cert_expiry_period

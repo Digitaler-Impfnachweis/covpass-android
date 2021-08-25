@@ -27,12 +27,11 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @Parcelize
 internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : FragmentNav(CertificateFragment::class)
@@ -80,12 +79,8 @@ internal class CertificateFragment : BaseFragment() {
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
                                     R.string.certificate_expires_detail_view_note_title,
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[0].trim(),
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[1].trim()
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
                                 getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
@@ -102,12 +97,8 @@ internal class CertificateFragment : BaseFragment() {
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
                                     R.string.certificate_expires_detail_view_note_title,
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[0].trim(),
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[1].trim()
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
                                 getString(
@@ -127,12 +118,8 @@ internal class CertificateFragment : BaseFragment() {
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
                                     R.string.certificate_expires_detail_view_note_title,
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[0].trim(),
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[1].trim()
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
                                 getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
@@ -156,12 +143,8 @@ internal class CertificateFragment : BaseFragment() {
                     if (certStatus == CertValidationResult.ExpiryPeriod) {
                         getString(
                             R.string.certificate_expires_detail_view_note_title,
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[0].trim(),
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[1].trim()
+                            mainCertificate.validUntil.formatDateOrEmpty(),
+                            mainCertificate.validUntil.formatTimeOrEmpty()
                         )
                     } else {
                         test.sampleCollection?.toDeviceTimeZone()?.formatDateTime().orEmpty()
@@ -179,12 +162,8 @@ internal class CertificateFragment : BaseFragment() {
                     if (certStatus == CertValidationResult.ExpiryPeriod) {
                         getString(
                             R.string.certificate_expires_detail_view_note_title,
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[0].trim(),
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[1].trim()
+                            mainCertificate.validUntil.formatDateOrEmpty(),
+                            mainCertificate.validUntil.formatTimeOrEmpty()
                         )
                     } else {
                         if (recovery.validFrom?.isAfter(LocalDate.now()) == true) {
