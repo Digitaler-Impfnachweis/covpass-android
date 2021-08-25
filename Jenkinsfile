@@ -24,11 +24,6 @@ pipeline {
         issueCommentTrigger('.*clean build please.*')
     }
     stages {
-        stage('Clean') {
-            steps {
-                gradle('clean')
-            }
-        }
         stage('CleanWs') {
             steps {
                 cleanWs()
