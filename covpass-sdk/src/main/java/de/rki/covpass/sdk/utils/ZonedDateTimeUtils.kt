@@ -59,7 +59,7 @@ public fun Instant?.formatDateOrEmpty(): String {
 }
 
 public fun Instant?.formatTimeOrEmpty(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
     return if (this != null) {
         ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
     } else {
