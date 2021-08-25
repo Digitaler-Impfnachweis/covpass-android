@@ -6,6 +6,7 @@
 package de.rki.covpass.sdk.utils
 
 import java.time.Duration
+import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -46,4 +47,22 @@ public fun ZonedDateTime.formatDateTime(): String {
  */
 public fun ZonedDateTime.toDeviceTimeZone(): ZonedDateTime {
     return withZoneSameInstant(ZoneId.systemDefault())
+}
+
+public fun Instant?.formatDateOrEmpty(): String {
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
+    } else {
+        ""
+    }
+}
+
+public fun Instant?.formatTimeOrEmpty(): String {
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
+    } else {
+        ""
+    }
 }
