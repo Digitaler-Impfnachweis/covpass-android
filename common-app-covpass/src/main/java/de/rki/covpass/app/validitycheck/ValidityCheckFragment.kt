@@ -119,6 +119,8 @@ internal class ValidityCheckFragment :
                 tag = NO_INTERNET_CONNECTION
             )
             showDialog(dialogModel, childFragmentManager)
+        } else {
+            super.onError(error)
         }
     }
 
