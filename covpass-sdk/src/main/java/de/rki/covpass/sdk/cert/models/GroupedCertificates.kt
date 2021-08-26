@@ -32,23 +32,19 @@ public data class GroupedCertificates(
      * Negative quick test, not older then (=<) 48 hrs
      * #3 Vaccination certificate
      * Latest vaccination of a vaccination series (1/1, 2/2), older then (>) 14 days
-     * This does NOT included Booster certificates!
      * #4 Recovery certificate
      * Recovery after SARS-Cov-2-Infection, not older then (=<) 180 Days
      * #5. Vaccination Certificate
      * Latest vaccination of a vaccination series, not older then (=<) 14 days
-     * #5.1 Booster Certificate
-     * Inofficial german (as of 08/2021) booster certificate for all vaccinations above the intended number of
-     * vaccinations, i.e. (3/2, etc.)
      * #6. Vaccination Certificate
      * Not-latest (partial immunization) of a vaccination series (1/2)
      * #7 Recovery Certificate
      * Recovery after SARS-Cov-2-Infection, older then (>) 180 Days
      * #8 Test certificate
-     *Negative PCR-Test, older then (>) 72 Hrs, or negative quick test older then (>) 48 Hrs
+     * Negative PCR-Test, older then (>) 72 Hrs, or negative quick test older then (>) 48 Hrs
      */
     public fun getMainCertificate(): CombinedCovCertificate {
-        return certificates.find {
+        return getSortedCertificates().find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Test && dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST &&
                 dgcEntry.sampleCollection?.isOlderThan(72) == false
@@ -58,10 +54,10 @@ public data class GroupedCertificates(
                 dgcEntry.sampleCollection?.isOlderThan(48) == false
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION
+            dgcEntry is Vaccination && dgcEntry.doseNumber > 2 && dgcEntry.totalSerialDoses == dgcEntry.doseNumber
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry.type == VaccinationCertType.VACCINATION_BOOSTER_PROTECTION
+            dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Recovery && dgcEntry.validUntil?.isBefore(LocalDate.now()) == false

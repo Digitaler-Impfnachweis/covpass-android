@@ -128,42 +128,6 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
-                            VaccinationCertType.VACCINATION_BOOSTER_PROTECTION -> {
-                                val title = getString(
-                                    when (certStatus) {
-                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_title
-                                        CertValidationResult.Invalid -> R.string.certificates_overview_invalid_title
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
-                                            R.string.booster_vaccination_certificate_overview_title
-                                    }
-                                )
-                                val message = getString(
-                                    when (certStatus) {
-                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_message
-                                        CertValidationResult.Invalid -> R.string.certificates_overview_invalid_message
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
-                                            R.string.booster_vaccination_certificate_overview_message
-                                    }
-                                )
-                                val buttonText = if (isExpiredOrInvalid) {
-                                    getString(R.string.certificates_overview_expired_action_button_title)
-                                } else {
-                                    getString(R.string.booster_vaccination_certificate_overview_action_button_title)
-                                }
-                                DetailItem.Widget(
-                                    title = title,
-                                    statusIcon = when (certStatus) {
-                                        CertValidationResult.Expired,
-                                        CertValidationResult.Invalid,
-                                        -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
-                                            R.drawable.detail_cert_status_complete
-                                    },
-                                    message = message,
-                                    buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid
-                                )
-                            }
                             VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                                 val title = getString(
                                     when (certStatus) {
@@ -430,35 +394,19 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
             val sortedCertificatesList = groupedCertificate.getSortedCertificates().mapNotNull {
                 when (val groupedDgcEntry = it.covCertificate.dgcEntry) {
                     is Vaccination -> {
-                        val isBoosterVaccination = groupedDgcEntry.isBoosterVaccination
                         DetailItem.Certificate(
                             id = groupedDgcEntry.id,
                             type = groupedDgcEntry.type,
                             title = getString(R.string.certificates_overview_vaccination_certificate_title),
-                            subtitle = if (isBoosterVaccination) {
-                                getString(
-                                    R.string.certificates_overview_booster_vaccination_certificate_message,
-                                    (groupedDgcEntry.doseNumber - groupedDgcEntry.totalSerialDoses).toString()
-                                )
-                            } else {
-                                getString(
-                                    R.string.certificates_overview_vaccination_certificate_message,
-                                    groupedDgcEntry.doseNumber, groupedDgcEntry.totalSerialDoses
-                                )
-                            },
-                            date = if (isBoosterVaccination) {
-                                getString(
-                                    R.string.certificates_overview_booster_vaccination_certificate_date,
-                                    groupedDgcEntry.occurrence?.formatDate()
-                                )
-                            } else {
-                                getString(
-                                    R.string.certificates_overview_vaccination_certificate_date,
-                                    groupedDgcEntry.occurrence?.formatDate()
-                                )
-                            },
+                            subtitle = getString(
+                                R.string.certificates_overview_vaccination_certificate_message,
+                                groupedDgcEntry.doseNumber, groupedDgcEntry.totalSerialDoses
+                            ),
+                            date = getString(
+                                R.string.certificates_overview_vaccination_certificate_date,
+                                groupedDgcEntry.occurrence?.formatDate()
+                            ),
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            isBoosterVaccination = isBoosterVaccination,
                             certStatus = certStatus
                         )
                     }
@@ -536,9 +484,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         when (dgcEntryType) {
             VaccinationCertType.VACCINATION_INCOMPLETE,
             VaccinationCertType.VACCINATION_COMPLETE,
-            VaccinationCertType.VACCINATION_FULL_PROTECTION,
-            VaccinationCertType.VACCINATION_BOOSTER_PROTECTION,
-            -> {
+            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                 findNavigator().push(VaccinationDetailFragmentNav(id))
             }
             TestCertType.NEGATIVE_PCR_TEST,

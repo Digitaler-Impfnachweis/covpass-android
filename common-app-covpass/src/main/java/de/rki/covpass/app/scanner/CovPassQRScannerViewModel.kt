@@ -22,7 +22,7 @@ import kotlinx.coroutines.CoroutineScope
  * Interface to communicate events from [CovPassQRScannerViewModel] to [CovPassQRScannerFragment].
  */
 internal interface CovPassQRScannerEvents : BaseEvents {
-    fun onScanSuccess(certificateId: GroupedCertificatesId, isBoosterVaccination: Boolean? = false)
+    fun onScanSuccess(certificateId: GroupedCertificatesId)
 }
 
 /**
@@ -60,10 +60,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
             certId?.let {
                 lastCertificateId.value = it
                 eventNotifier {
-                    onScanSuccess(
-                        it,
-                        (covCertificate.dgcEntry as? Vaccination)?.isBoosterVaccination
-                    )
+                    onScanSuccess(it)
                 }
             }
         }

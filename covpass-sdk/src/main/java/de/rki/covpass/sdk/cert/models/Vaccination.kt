@@ -15,7 +15,6 @@ import java.time.LocalDate
  * Enum to mark the type of a [Vaccination].
  */
 public enum class VaccinationCertType : DGCEntryType {
-    VACCINATION_BOOSTER_PROTECTION,
     VACCINATION_FULL_PROTECTION,
     VACCINATION_COMPLETE,
     VACCINATION_INCOMPLETE,
@@ -54,9 +53,6 @@ public data class Vaccination(
     public val isCompleteSingleDose: Boolean
         get() = doseNumber == 1 && totalSerialDoses == 1
 
-    public val isBoosterVaccination: Boolean
-        get() = doseNumber > totalSerialDoses
-
     public val hasFullProtection: Boolean
         // Full protection is reached on day 15 after the complete vaccination
         get() = isComplete && occurrence?.isOlderThan(days = 14) == true
@@ -66,7 +62,6 @@ public data class Vaccination(
 
     public override val type: VaccinationCertType
         get() = when {
-            isBoosterVaccination -> { VaccinationCertType.VACCINATION_BOOSTER_PROTECTION }
             hasFullProtection -> { VaccinationCertType.VACCINATION_FULL_PROTECTION }
             isComplete -> { VaccinationCertType.VACCINATION_COMPLETE }
             else -> VaccinationCertType.VACCINATION_INCOMPLETE

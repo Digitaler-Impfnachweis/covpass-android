@@ -48,7 +48,6 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
-                            VaccinationCertType.VACCINATION_BOOSTER_PROTECTION,
                             VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                                 eventNotifier {
                                     onValidationSuccess(covCertificate)
