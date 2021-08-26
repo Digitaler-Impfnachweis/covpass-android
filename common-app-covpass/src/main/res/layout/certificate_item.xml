@@ -27,12 +27,12 @@
       android:id="@+id/certificate_type_icon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:src="@drawable/checkbox_green"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:ignore="ContentDescription"
-      tools:src="@drawable/main_cert_status_complete" />
+      tools:ignore="ContentDescription" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,43 +77,17 @@
       tools:text="Zertifikat läuft bald ab"
       tools:visibility="visible" />
 
-    <LinearLayout
-      android:id="@+id/certificate_item_actual_layout"
-      android:layout_width="match_parent"
+    <TextView
+      android:id="@+id/certificate_item_actual_title"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
-
-      <ImageView
-        android:id="@+id/certificate_item_actual_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/grid_half"
-        android:src="@drawable/checkbox_green"
-        android:visibility="gone"
-        tools:ignore="ContentDescription"
-        tools:visibility="visible" />
-
-      <ImageView
-        android:id="@+id/certificate_item_booster_flag_de"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingVertical="@dimen/grid_half"
-        android:paddingStart="0dp"
-        android:paddingEnd="@dimen/grid_half"
-        android:src="@drawable/flag_de_booster"
-        android:visibility="gone"
-        tools:ignore="ContentDescription"
-        tools:visibility="visible" />
-
-      <TextView
-        android:id="@+id/certificate_item_actual_title"
-        style="@style/DefaultText.OnBackground70"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_half"
-        android:text="@string/certificates_overview_currently_uses_certificate_note" />
-
-    </LinearLayout>
+      android:layout_marginTop="@dimen/grid_half"
+      android:drawablePadding="@dimen/grid_half"
+      android:text="@string/certificates_overview_currently_uses_certificate_note"
+      android:visibility="gone"
+      app:drawableStartCompat="@drawable/checkbox_green"
+      tools:visibility="visible" />
 
   </LinearLayout>
 

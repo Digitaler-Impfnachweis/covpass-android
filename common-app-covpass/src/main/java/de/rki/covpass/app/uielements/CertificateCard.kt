@@ -16,7 +16,6 @@ import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateCardBinding
 import de.rki.covpass.sdk.cert.models.CertValidationResult
-import de.rki.covpass.sdk.cert.models.VaccinationCertType
 import kotlin.properties.Delegates
 
 public class CertificateCard @JvmOverloads constructor(
@@ -72,10 +71,6 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateFavoriteButton.isVisible = newValue
     }
 
-    private var isBoosterVaccination: Boolean by Delegates.observable(false) { _, _, newValue ->
-        binding.certificateBoosterGermanFlag.isVisible = newValue
-    }
-
     private var cardBackground: Int by Delegates.observable(R.color.backgroundPrimary) { _, _, newValue ->
         binding.certificateCardview.setCardBackgroundColor(newValue)
     }
@@ -125,7 +120,6 @@ public class CertificateCard @JvmOverloads constructor(
     }
 
     public fun vaccinationFullProtectionCard(
-        certType: VaccinationCertType,
         header: String,
         status: String,
         protectionText: String,
@@ -137,7 +131,6 @@ public class CertificateCard @JvmOverloads constructor(
         this.protectionText = protectionText
         this.name = name
         this.isFavorite = isFavorite
-        this.isBoosterVaccination = certType == VaccinationCertType.VACCINATION_BOOSTER_PROTECTION
 
         when (certStatus) {
             CertValidationResult.Valid,
