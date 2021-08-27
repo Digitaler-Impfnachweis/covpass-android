@@ -54,7 +54,7 @@ public data class GroupedCertificates(
                 dgcEntry.sampleCollection?.isOlderThan(48) == false
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Vaccination && dgcEntry.doseNumber > 2 && dgcEntry.totalSerialDoses == dgcEntry.doseNumber
+            dgcEntry is Vaccination && dgcEntry.isBooster
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION
