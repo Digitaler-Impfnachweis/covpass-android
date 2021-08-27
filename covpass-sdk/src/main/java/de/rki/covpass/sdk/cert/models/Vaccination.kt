@@ -53,9 +53,12 @@ public data class Vaccination(
     public val isCompleteSingleDose: Boolean
         get() = doseNumber == 1 && totalSerialDoses == 1
 
+    private val isBooster = (isComplete && doseNumber > 2) ||
+        (isComplete && product == "EU/1/20/1525" && doseNumber == 2)
+
     public val hasFullProtection: Boolean
         // Full protection is reached on day 15 after the complete vaccination or if is a booster vaccination
-        get() = (isComplete && occurrence?.isOlderThan(days = 14) == true) || (isComplete && doseNumber > 2)
+        get() = (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster
 
     public val validDate: LocalDate?
         get() = occurrence?.plusDays(15)
