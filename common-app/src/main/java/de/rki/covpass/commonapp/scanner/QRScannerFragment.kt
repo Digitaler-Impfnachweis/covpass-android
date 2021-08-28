@@ -14,7 +14,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.savedInstanceState
-import com.ensody.reactivestate.withErrorReporting
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.ibm.health.common.android.utils.viewBinding
@@ -38,7 +37,7 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     private val barcodeCallback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
-            withErrorReporting(::onError) {
+            withErrorReporting {
                 if (scanEnabled.value) {
                     scanEnabled.value = false
                     onBarcodeResult(result)
