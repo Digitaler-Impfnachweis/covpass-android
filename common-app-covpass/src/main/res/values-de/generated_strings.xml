@@ -199,6 +199,7 @@
 	<string name="certificates_overview_invalid_action_button_title">Neues Zertifikat hinzufügen</string>
 	<string name="certificates_overview_personal_data_title">Persönliche Daten</string>
 	<string name="certificates_overview_personal_data_name">Name, Vorname / Name, first name</string>
+	<string name="certificates_overview_personal_data_standardized_name">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="certificates_overview_personal_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="certificates_overview_all_certificates_title">EU-Zertifikate</string>
 	<string name="certificates_overview_currently_uses_certificate_note">Aktuell verwendetes Zertifikat</string>
