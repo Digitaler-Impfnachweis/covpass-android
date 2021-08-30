@@ -6,13 +6,30 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 * TBD
 
-## 1.28.4
+## 1.85.6 (1.7)
+
+* Export of certificates from the app
+* Technical Expiry Date of Certificates
+* Bugfixes
+
+## 1.72.6 (1.6)
+
+* Implemented EU Travel Rules
+* Translation into English
+* Adjustment of Birthdate
+* Bugfixes
+
+## 1.28.5 (1.4.2)
+
+* Ban location ID of fake Pharmacy
+
+## 1.28.4 (1.4.1)
 
 * Adding Service Hotline to Settings
 * Adding warning before scanning certificate that the passcode is missing
 * Bugfixes
 
-## 1.28.3
+## 1.28.3 (1.4)
 
 * Implemented German Rule Set
 * Updated Result screens
