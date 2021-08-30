@@ -94,17 +94,25 @@ public data class CovCertificate(
     }
 
     public val fullTransliteratedName: String by lazy {
-        listOfNotNull(
-            name.trimmedName.givenNameTransliterated,
+        if (!name.trimmedName.givenNameTransliterated.isNullOrEmpty()) {
+            listOfNotNull(
+                name.trimmedName.givenNameTransliterated,
+                name.trimmedName.familyNameTransliterated
+            ).joinToString(" ")
+        } else {
             name.trimmedName.familyNameTransliterated
-        ).joinToString(" ")
+        }
     }
 
     public val fullTransliteratedNameReverse: String by lazy {
-        listOfNotNull(
-            name.trimmedName.familyNameTransliterated,
-            name.trimmedName.givenNameTransliterated
-        ).joinToString(", ")
+        if (!name.trimmedName.givenNameTransliterated.isNullOrEmpty()) {
+            listOfNotNull(
+                name.trimmedName.familyNameTransliterated,
+                name.trimmedName.givenNameTransliterated
+            ).joinToString(", ")
+        } else {
+            name.trimmedName.familyNameTransliterated
+        }
     }
 
     public val validDate: LocalDate?
