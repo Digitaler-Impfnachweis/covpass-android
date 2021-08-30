@@ -383,6 +383,10 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                     cert.fullNameReverse
                 ),
                 DetailItem.Personal(
+                    getString(R.string.certificates_overview_personal_data_standardized_name),
+                    cert.fullTransliteratedNameReverse
+                ),
+                DetailItem.Personal(
                     getString(R.string.certificates_overview_personal_data_date_of_birth),
                     cert.birthDateFormatted
                 ),
