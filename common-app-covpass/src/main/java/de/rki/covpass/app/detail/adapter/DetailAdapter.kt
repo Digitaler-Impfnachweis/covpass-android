@@ -134,6 +134,7 @@ private class CertificateViewHolder(
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.Certificate).let { cert ->
             when (cert.type) {
+                VaccinationCertType.VACCINATION_COMPLETE,
                 VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
@@ -156,7 +157,6 @@ private class CertificateViewHolder(
                         }
                     }
                 }
-                VaccinationCertType.VACCINATION_COMPLETE,
                 VaccinationCertType.VACCINATION_INCOMPLETE -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
@@ -237,7 +237,10 @@ private class CertificateViewHolder(
                 ) {
                     R.color.backgroundSecondary50
                 } else if (cert.isActual) {
-                    R.color.backgroundSecondary
+                    when (cert.type) {
+                        VaccinationCertType.VACCINATION_INCOMPLETE -> R.color.info
+                        else -> R.color.backgroundSecondary
+                    }
                 } else {
                     R.color.backgroundSecondary50
                 }
