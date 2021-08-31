@@ -38,4 +38,20 @@
     <item name="android:textSize">@dimen/textsize_header_standard</item>
   </style>
 
+  <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="boxStrokeColor">@color/onBackground40</item>
+    <item name="boxStrokeWidth">1dp</item>
+    <item name="boxStrokeWidthFocused">1dp</item>
+    <item name="boxCornerRadiusTopEnd">@dimen/grid_one</item>
+    <item name="boxCornerRadiusTopStart">@dimen/grid_one</item>
+    <item name="boxCornerRadiusBottomStart">@dimen/grid_one</item>
+    <item name="boxCornerRadiusBottomEnd">@dimen/grid_one</item>
+  </style>
+
+  <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
+    <item name="android:textColor">@color/onBackground40</item>
+    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:textSize">@dimen/textsize_default</item>
+  </style>
+
 </resources>

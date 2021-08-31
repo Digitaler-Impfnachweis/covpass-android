@@ -6,6 +6,7 @@
 package de.rki.covpass.app.validitycheck
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.view.isGone
@@ -68,15 +69,25 @@ internal class ValidityCheckFragment :
         autoRun {
             val country = get(validityCheckViewModel.country)
             binding.countryValue.setText(country.nameRes)
-            binding.layoutCountry.setOnClickListener {
+            binding.countryValue.setOnClickListener {
+                findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
+            }
+
+            binding.layoutCountry.setEndIconOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateCountry(country)
         }
+
         autoRun {
             val time = get(validityCheckViewModel.date)
-            binding.dateValue.text = time.formatDateTime()
-            binding.layoutDate.setOnClickListener {
+            binding.dateValue.text = Editable.Factory.getInstance().newEditable(time.formatDateTime())
+
+            binding.dateValue.setOnClickListener {
+                findNavigator().push(ChangeDateFragmentNav(time))
+            }
+
+            binding.layoutDate.setEndIconOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
             }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
