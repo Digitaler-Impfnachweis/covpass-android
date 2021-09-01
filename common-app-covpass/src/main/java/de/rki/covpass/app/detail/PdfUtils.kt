@@ -6,6 +6,7 @@
 package de.rki.covpass.app.detail
 
 import android.content.Context
+import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -22,15 +23,15 @@ internal object PdfUtils {
     ): String = context.readTextAsset("VaccinationCertificateTemplate.svg")
         .replace("\$nam", combinedCertificate.covCertificate.fullName.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
-        .replace("\$ci", vaccination.id.sanitizeXMLString())
-        .replace("\$tg", vaccination.targetDisease.sanitizeXMLString())
-        .replace("\$vp", vaccination.vaccineCode.sanitizeXMLString())
-        .replace("\$mp", vaccination.product.sanitizeXMLString())
-        .replace("\$ma", vaccination.manufacturer.sanitizeXMLString())
+        .replace("\$ci", vaccination.idWithoutPrefix.sanitizeXMLString())
+        .replace("\$tg", getDiseaseAgentName(vaccination.targetDisease).sanitizeXMLString())
+        .replace("\$vp", getProphylaxisName(vaccination.vaccineCode).sanitizeXMLString())
+        .replace("\$mp", getProductName(vaccination.product).sanitizeXMLString())
+        .replace("\$ma", getManufacturerName(vaccination.manufacturer).sanitizeXMLString())
         .replace("\$dn", vaccination.doseNumber.toString())
         .replace("\$sd", vaccination.totalSerialDoses.toString())
         .replace("\$dt", vaccination.occurrence?.formatDateInternational() ?: "")
-        .replace("\$co", vaccination.country.sanitizeXMLString())
+        .replace("\$co", getCountryName(vaccination.country).sanitizeXMLString())
         .replace("\$is", vaccination.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 
@@ -42,10 +43,10 @@ internal object PdfUtils {
     ): String = context.readTextAsset("RecoveryCertificateTemplate.svg")
         .replace("\$nam", combinedCertificate.covCertificate.fullName.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
-        .replace("\$ci", recovery.id.sanitizeXMLString())
-        .replace("\$tg", recovery.targetDisease.sanitizeXMLString())
+        .replace("\$ci", recovery.idWithoutPrefix.sanitizeXMLString())
+        .replace("\$tg", getDiseaseAgentName(recovery.targetDisease).sanitizeXMLString())
         .replace("\$fr", recovery.firstResult?.formatDateInternational() ?: "")
-        .replace("\$co", recovery.country.sanitizeXMLString())
+        .replace("\$co", getCountryName(recovery.country).sanitizeXMLString())
         .replace("\$is", recovery.certificateIssuer.sanitizeXMLString())
         .replace("\$df", recovery.validFrom?.formatDateInternational() ?: "")
         .replace("\$du", recovery.validUntil?.formatDateInternational() ?: "")
