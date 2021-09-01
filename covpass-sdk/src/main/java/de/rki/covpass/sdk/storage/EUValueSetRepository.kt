@@ -98,6 +98,13 @@ internal object EUValueSetRepository {
                 active = true,
                 system = "http://ec.europa.eu/temp/vaccineproductname",
                 version = "1.0"
+            ),
+            "Covishield" to EUValueSetValue(
+                display = "Covishield (ChAdOx1_nCoV-19)",
+                lang = "en",
+                active = true,
+                system = "http://ec.europa.eu/temp/vaccineproductname",
+                version = "1.0"
             )
         )
     )
@@ -115,6 +122,13 @@ internal object EUValueSetRepository {
             ),
             "ORG-100030215" to EUValueSetValue(
                 display = "Biontech Manufacturing GmbH",
+                lang = "en",
+                active = true,
+                system = "https://spor.ema.europa.eu/v1/organisations",
+                version = ""
+            ),
+            "ORG-100001417" to EUValueSetValue(
+                display = "Janssen-Cilag International",
                 lang = "en",
                 active = true,
                 system = "https://spor.ema.europa.eu/v1/organisations",
@@ -192,6 +206,13 @@ internal object EUValueSetRepository {
             ),
             "Bharat-Biotech" to EUValueSetValue(
                 display = "Bharat Biotech",
+                lang = "en",
+                active = true,
+                system = "https://spor.ema.europa.eu/v1/organisations",
+                version = "1.0"
+            ),
+            "ORG-100001981" to EUValueSetValue(
+                display = "Serum Institute Of India Private Limited",
                 lang = "en",
                 active = true,
                 system = "https://spor.ema.europa.eu/v1/organisations",
