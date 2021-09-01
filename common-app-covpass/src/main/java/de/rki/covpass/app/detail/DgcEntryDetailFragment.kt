@@ -160,17 +160,11 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             binding.dgcDetailDataContainer.addView(extendedDataRowView)
         }
 
-        val isValid = combinedCovCertificate.status != CertValidationResult.Expired &&
-            combinedCovCertificate.status != CertValidationResult.Invalid
-        binding.dgcDetailButtonsContainer.isVisible = isValid
-
-        if (isValid) {
-            binding.dgcDetailDisplayQrButton.setOnClickListener {
-                findNavigator().push(DisplayQrCodeFragmentNav(certId))
-            }
-            binding.dgcDetailExportPdfButton.setOnClickListener {
-                findNavigator().push(DetailExportPdfFragmentNav(certId))
-            }
+        binding.dgcDetailDisplayQrButton.setOnClickListener {
+            findNavigator().push(DisplayQrCodeFragmentNav(certId))
+        }
+        binding.dgcDetailExportPdfButton.setOnClickListener {
+            findNavigator().push(DetailExportPdfFragmentNav(certId))
         }
 
         binding.dgcDetailInfoFooterGerman.apply {
