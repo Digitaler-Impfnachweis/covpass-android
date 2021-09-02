@@ -31,14 +31,20 @@
 	<string name="dialog_start_screen_message">Möchten Sie jetzt die CovPass-App aktualisieren?</string>
 	<string name="dialog_start_screen_button_later">Nicht jetzt</string>
 	<string name="dialog_start_screen_button_update">Aktualisieren</string>
-	<string name="vaccination_start_screen_title">Digitale COVID-Zertifikate der EU</string>
+	<string name="dialog_booster_vaccination_notification_title">Es gibt Neuigkeit zu Ihren Zertifikaten</string>
+	<string name="dialog_booster_vaccination_notification_message">Aufgrund Ihrer vorhandenen Impfzertifikate könnte eine Auffrischungsimpfung erforderlich sein. Bitte überprüfen Sie den Status Ihrer Impfzertifikate.</string>
 
 	<!-- SECTION: start Screen -->
+	<string name="vaccination_start_screen_title">Digitale COVID-Zertifikate der EU</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie einen Nachweis hinzu</string>
 	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf das Plus-Symbol, um einen digitalen Nachweis hinzuzufügen.</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Unvollständiger Impfschutz</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Vollständig ab %s</string>
 	<string name="vaccination_start_screen_qrcode_complete_protection_subtitle">Vollständiger Impfschutz</string>
+	<string name="certificates_start_screen_qrcode_certificate_expires_subtitle">Läuft am %1$s um %2$s ab</string>
+	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Abgelaufen</string>
+	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Ungültig</string>
+	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Impfstatus überprüfen</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
@@ -59,7 +65,7 @@
 	<string name="error_test_certificate_not_valid_message">Der von Ihnen gescannte Nachweis für einen Corona-Test weist kein negatives Testergebnis nach. Die aktuelle Version der CovPass-App kann nur negative Corona-Testergebnisse speichern.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 	<string name="dialogue_add_booster_vaccination_title">Auffrischungsimpfung hinzugefügt</string>
-	<string name="dialogue_add_booster_vaccination_message">Bitte beachten Sie, dass dieses Zertifikat für die Auffrischungsimpfung gegebenenfalls zum jetzigen Zeitpunkt im Ausland nicht als gültiger Impfnachweis akzeptiert wird. Sofern Sie eine Reise außerhalb Deutschlands planen, nehmen Sie bitte auch den Nachweis für einen erstmals wirksamen Impfschutz oder für eine wirksame Impfung für Genesene mit.</string>
+	<string name="dialogue_add_booster_vaccination_message">Bitte beachten Sie, dass die Mitgliedstaaten der EU derzeit noch kein einheitliches Vorgehen zu COVID-Zertifikaten für die Auffrischungsimpfungen beschlossen haben. Auf Grund dessen kann nicht ausgeschlossen werden, dass dieses Zertifikat in anderen EU-Ländern nicht als gültig anerkannt wird. Sofern Sie eine Reise außerhalb Deutschlands planen, nehmen Sie daher bitte auch die ursprünglichen Impfzertifikate (oder einen anderen anerkannten Nachweis) mit, die Sie vor der Auffrischungsimpfung erhalten haben.</string>
 	<string name="dialogue_add_booster_vaccination_action_button_title">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
@@ -181,6 +187,10 @@
 	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz</string>
 	<string name="vaccination_certificate_overview_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Aktuellen QR-Code anzeigen</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">Neu</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_title">Aktueller Impfstatus</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_subtitle">Letzte Impfung vor 180 Tagen</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">Aufgrund Ihres vorhandenen Impfzertifikats könnte für Sie eine Auffrischungsimpfung erforderlich sein, da Ihr letztes Impfzertifikat älter als 6 Monate ist (Rule ID: %s).\n\nMehr Informationen finden Sie in den Häufigen Fragen.</string>
 	<string name="test_certificate_overview_title">Negativer Antigen-Schnelltest vom %s</string>
 	<string name="test_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="test_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
@@ -229,8 +239,11 @@
 
 	<!-- SECTION: detail view: certificate -->
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
+	<string name="vaccination_certificate_detail_view_booster_vaccination_title">%d. Auffrischungsimpfung</string>
 	<string name="vaccination_certificate_detail_view_vaccination_headline">Digitales COVID-Impfzertifikat der EU</string>
+	<string name="vaccination_certificate_detail_view_booster_vaccination_headline">Digitales COVID-Impfzertifikat der EU</string>
 	<string name="vaccination_certificate_detail_view_vaccination_note">Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.</string>
+	<string name="vaccination_certificate_detail_view_booster_vaccination_note">Bitte beachten Sie, dass die Mitgliedstaaten der EU derzeit noch kein einheitliches Vorgehen zu COVID-Zertifikaten für die Auffrischungsimpfungen beschlossen haben. Auf Grund dessen kann nicht ausgeschlossen werden, dass dieses Zertifikat in anderen EU-Ländern nicht als gültig anerkannt wird. Sofern Sie eine Reise außerhalb Deutschlands planen, nehmen Sie daher bitte auch die ursprünglichen Impfzertifikate (oder einen anderen anerkannten Nachweis) mit, die Sie vor der Auffrischungsimpfung erhalten haben.</string>
 	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_name_standard">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>

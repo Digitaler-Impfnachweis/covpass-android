@@ -76,7 +76,7 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
-                                    R.string.certificate_expires_detail_view_note_title,
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
                                     mainCertificate.validUntil.formatDateOrEmpty(),
                                     mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
@@ -94,7 +94,7 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
-                                    R.string.certificate_expires_detail_view_note_title,
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
                                     mainCertificate.validUntil.formatDateOrEmpty(),
                                     mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
@@ -115,7 +115,7 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
-                                    R.string.certificate_expires_detail_view_note_title,
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
                                     mainCertificate.validUntil.formatDateOrEmpty(),
                                     mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
@@ -140,7 +140,7 @@ internal class CertificateFragment : BaseFragment() {
                     },
                     if (certStatus == CertValidationResult.ExpiryPeriod) {
                         getString(
-                            R.string.certificate_expires_detail_view_note_title,
+                            R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
                             mainCertificate.validUntil.formatDateOrEmpty(),
                             mainCertificate.validUntil.formatTimeOrEmpty()
                         )
@@ -159,7 +159,7 @@ internal class CertificateFragment : BaseFragment() {
                     getString(R.string.certificates_overview_recovery_certificate_title),
                     if (certStatus == CertValidationResult.ExpiryPeriod) {
                         getString(
-                            R.string.certificate_expires_detail_view_note_title,
+                            R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
                             mainCertificate.validUntil.formatDateOrEmpty(),
                             mainCertificate.validUntil.formatTimeOrEmpty()
                         )

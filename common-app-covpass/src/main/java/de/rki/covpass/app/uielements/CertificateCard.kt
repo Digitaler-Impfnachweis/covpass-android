@@ -150,8 +150,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_blue)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 
@@ -186,8 +188,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_blue)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_light_blue)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 
@@ -222,8 +226,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_purple)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 
@@ -258,8 +264,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_dark_blue)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 }
