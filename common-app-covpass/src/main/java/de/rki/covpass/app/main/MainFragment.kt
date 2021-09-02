@@ -24,10 +24,13 @@ import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
+import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
@@ -51,6 +54,9 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         setupViews()
         autoRun {
             updateCertificates(get(covpassDeps.certRepository.certs), viewModel.selectedCertId)
+        }
+        if (commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION) {
+            findNavigator().push(UpdateInfoCovpassFragmentNav())
         }
     }
 
