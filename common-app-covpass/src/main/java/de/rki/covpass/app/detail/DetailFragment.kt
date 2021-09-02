@@ -411,7 +411,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                 groupedDgcEntry.occurrence?.formatDate()
                             ),
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            certStatus = certStatus
+                            certStatus = it.status
                         )
                     }
                     is Test -> {
@@ -427,7 +427,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                                    certStatus = certStatus
+                                    certStatus = it.status
                                 )
                             }
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
@@ -441,7 +441,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                                    certStatus = certStatus
+                                    certStatus = it.status
                                 )
                             }
                             TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> null
@@ -466,7 +466,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                             subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                             date = date,
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            certStatus = certStatus
+                            certStatus = it.status
                         )
                     }
                 }
