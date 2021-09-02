@@ -146,16 +146,10 @@ subprojects {
 
             dependencies {
                 baseAndroid()
-                if (isTestProject) {
-                    androidTestLib()
-                }
             }
         } else {
             dependencies {
                 base()
-                if (isTestProject) {
-                    baseTestLib()
-                }
             }
         }
 

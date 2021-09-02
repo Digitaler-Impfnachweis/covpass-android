@@ -30,16 +30,16 @@ public data class Test(
     @SerialName("tt")
     val testType: String = "",
     @SerialName("nm")
-    val testName: String = "",
+    val testName: String? = "",
     @SerialName("ma")
-    val manufacturer: String = "",
+    val manufacturer: String? = "",
     @Contextual
     @SerialName("sc")
     val sampleCollection: ZonedDateTime? = null,
     @SerialName("tr")
     val testResult: String = "",
     @SerialName("tc")
-    val testingCentre: String = "",
+    val testingCenter: String = "",
     @SerialName("co")
     val country: String = "",
     @SerialName("is")

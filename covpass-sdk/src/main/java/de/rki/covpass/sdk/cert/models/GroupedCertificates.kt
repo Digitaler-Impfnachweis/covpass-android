@@ -5,6 +5,8 @@
 
 package de.rki.covpass.sdk.cert.models
 
+import de.rki.covpass.sdk.cert.models.Test.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
+import de.rki.covpass.sdk.cert.models.Test.Companion.PCR_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.utils.isOlderThan
 import java.time.LocalDate
 
@@ -47,11 +49,11 @@ public data class GroupedCertificates(
         return getSortedCertificates().find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Test && dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST &&
-                dgcEntry.sampleCollection?.isOlderThan(72) == false
+                dgcEntry.sampleCollection?.isOlderThan(PCR_TEST_EXPIRY_TIME_HOURS) == false
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Test && dgcEntry.type == TestCertType.NEGATIVE_ANTIGEN_TEST &&
-                dgcEntry.sampleCollection?.isOlderThan(48) == false
+                dgcEntry.sampleCollection?.isOlderThan(ANTIGEN_TEST_EXPIRY_TIME_HOURS) == false
         } ?: certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Vaccination && dgcEntry.isBooster

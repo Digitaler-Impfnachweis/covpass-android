@@ -77,7 +77,7 @@ internal class TestResultFragment : ResultFragment() {
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
-                getTestManufacturerName(test.manufacturer),
+                test.manufacturer?.let { getTestManufacturerName(it) },
                 args.derivedValidationResults.getResultsBy("ma")
             ),
             ResultRowData(
@@ -92,7 +92,7 @@ internal class TestResultFragment : ResultFragment() {
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_centre),
-                test.testingCentre,
+                test.testingCenter,
                 args.derivedValidationResults.getResultsBy("tc")
             ),
             ResultRowData(

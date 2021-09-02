@@ -68,7 +68,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
-                getTestManufacturerName(test.manufacturer)
+                test.manufacturer?.let { getTestManufacturerName(it) }
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_date_and_time),
@@ -80,7 +80,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_centre),
-                test.testingCentre
+                test.testingCenter
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_country),

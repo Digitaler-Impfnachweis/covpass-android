@@ -97,16 +97,11 @@ dependencies {
         base = {
             api platform(project(':covpass-bom'))
 
-            testImplementation 'junit:junit'
-
-            testImplementation 'com.willowtreeapps.assertk:assertk'
-
-            testImplementation "io.mockk:mockk"
-        }
-
-        baseTestLib = {
-            api 'junit:junit'
-            api 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
+            testDependency 'junit:junit'
+            testDependency "org.jetbrains.kotlin:kotlin-test-junit"
+            testDependency 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
+            testDependency 'com.willowtreeapps.assertk:assertk'
+            testDependency "io.mockk:mockk"
         }
 
         baseAndroid = {
@@ -114,28 +109,24 @@ dependencies {
             api 'androidx.annotation:annotation'
             api 'com.google.android.material:material'
 
-            testImplementation 'androidx.arch.core:core-testing'
             testImplementation('org.robolectric:robolectric') {
                 exclude group: 'org.bouncycastle'
             }
             testImplementation "org.bouncycastle:bcprov-jdk15to18"
             testImplementation "org.bouncycastle:bcpkix-jdk15to18"
+            testDependency 'androidx.arch.core:core-testing'
+            testDependency 'androidx.fragment:fragment-testing'
+            testDependency 'androidx.test:core'
+            testDependency 'androidx.test:core-ktx'
+            testDependency 'androidx.test:runner'
+            testDependency 'androidx.test:rules'
+            testDependency 'androidx.test.ext:junit'
+            testDependency 'androidx.test.ext:junit-ktx'
         }
 
         reactiveState = {
             api 'com.ensody.reactivestate:reactivestate'
             testDependency 'com.ensody.reactivestate:reactivestate-test'
-        }
-
-        androidTestLib = {
-            baseTestLib()
-            api 'androidx.fragment:fragment-testing'
-            api 'androidx.test:core'
-            api 'androidx.test:core-ktx'
-            api 'androidx.test:runner'
-            api 'androidx.test:rules'
-            api 'androidx.test.ext:junit'
-            api 'androidx.test.ext:junit-ktx'
         }
 
         androidUI = {
@@ -196,6 +187,11 @@ dependencies {
         zxing = {
             api 'com.journeyapps:zxing-android-embedded:4.2.0'
             api 'com.google.zxing:core:3.4.1'
+        }
+
+        zxingTest = {
+            testDependency 'com.journeyapps:zxing-android-embedded:4.2.0'
+            testDependency 'com.google.zxing:core:3.4.1'
         }
 
         cryptographic = {
