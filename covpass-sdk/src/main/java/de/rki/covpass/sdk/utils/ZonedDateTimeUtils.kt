@@ -11,6 +11,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.*
 
 /**
  * @return True, if the [ZonedDateTime] is older than given [hours], else false.
@@ -38,7 +39,8 @@ public fun ZonedDateTime.formatDateTimeInternational(): String {
  * Formats a [ZonedDateTime] to e.g. "12.03.1989, 14:52".
  */
 public fun ZonedDateTime.formatDateTime(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+    val formatter =
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(Locale.GERMANY)
     return format(formatter)
 }
 
@@ -50,7 +52,7 @@ public fun ZonedDateTime.toDeviceTimeZone(): ZonedDateTime {
 }
 
 public fun Instant?.formatDateOrEmpty(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY)
     return if (this != null) {
         ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
     } else {
@@ -59,7 +61,7 @@ public fun Instant?.formatDateOrEmpty(): String {
 }
 
 public fun Instant?.formatTimeOrEmpty(): String {
-    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.GERMANY)
     return if (this != null) {
         ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
     } else {

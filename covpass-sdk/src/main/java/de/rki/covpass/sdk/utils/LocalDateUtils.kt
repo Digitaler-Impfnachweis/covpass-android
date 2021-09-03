@@ -8,12 +8,13 @@ package de.rki.covpass.sdk.utils
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.*
 
 /**
  * Formats a local date to e.g. "12.03.1989".
  */
 public fun LocalDate.formatDate(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY)
     return format(formatter)
 }
 
@@ -48,7 +49,9 @@ public fun LocalDate.isOlderThan(days: Long): Boolean {
  * @return `true` if this [LocalDate] is in the future, else false.
  */
 public fun LocalDate?.isInFuture(): Boolean {
-    if (this == null) { return false }
+    if (this == null) {
+        return false
+    }
     return LocalDate.now().isBefore(this)
 }
 
@@ -56,7 +59,9 @@ public fun LocalDate?.isInFuture(): Boolean {
  * @return `true` if this [LocalDate] does not exceed [validFrom] or [validUntil], else false.
  */
 public fun isValid(validFrom: LocalDate?, validUntil: LocalDate?): Boolean {
-    if (validFrom == null || validUntil == null) { return false }
+    if (validFrom == null || validUntil == null) {
+        return false
+    }
     val now = LocalDate.now()
     return now >= validFrom && now <= validUntil
 }
