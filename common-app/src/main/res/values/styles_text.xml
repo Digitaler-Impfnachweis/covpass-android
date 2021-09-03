@@ -8,7 +8,7 @@
 
   <style name="DefaultText">
     <item name="android:lineSpacingMultiplier">1.2</item>
-    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="android:textSize">@dimen/textsize_default</item>
     <item name="android:breakStrategy">simple</item>
   </style>
@@ -27,7 +27,7 @@
 
   <style name="Header">
     <item name="android:lineSpacingMultiplier">1.2</item>
-    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:fontFamily">@font/opensans_bold</item>
   </style>
 
   <style name="Header.OnBackground">
@@ -59,6 +59,7 @@
   </style>
 
   <style name="Header.OnBackground.Extralarge">
+    <item name="android:fontFamily">@font/opensans_semibold</item>
     <item name="android:textSize">@dimen/textsize_header_extralarge</item>
   </style>
 
@@ -80,7 +81,7 @@
 
   <style name="SubHeader">
     <item name="android:lineSpacingMultiplier">1.2</item>
-    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="android:textColor">@color/onBackground100</item>
     <item name="android:textSize">@dimen/textsize_header_standard</item>
   </style>
