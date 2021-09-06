@@ -65,7 +65,6 @@ internal class DetailExportPdfViewModel(
         Uri.fromFile(file)
     }
 
-    @InternalAPI
     fun onShareClick(combinedCovCertificate: CombinedCovCertificate) {
         launch {
             fileName.value = combinedCovCertificate.covCertificate.fullName.replace(" ", "-")
@@ -91,7 +90,6 @@ internal class DetailExportPdfViewModel(
         }
     }
 
-    @InternalAPI
     private fun String.toBase64EncodedString(): String {
         return BarcodeEncoder().encodeBitmap(
             this,
@@ -102,7 +100,6 @@ internal class DetailExportPdfViewModel(
         ).convertToPngAndEncodeBase64()
     }
 
-    @InternalAPI
     private fun Bitmap.convertToPngAndEncodeBase64(): String {
         val outputStream = ByteArrayOutputStream()
         compress(Bitmap.CompressFormat.PNG, 100, outputStream)
