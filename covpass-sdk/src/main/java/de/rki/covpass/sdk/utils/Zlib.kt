@@ -5,55 +5,27 @@
 
 package de.rki.covpass.sdk.utils
 
-import java.io.ByteArrayOutputStream
 import java.util.zip.Deflater
-import java.util.zip.Inflater
+import java.util.zip.DeflaterInputStream
+import java.util.zip.InflaterInputStream
 
 /**
  * Used to compress or decompress a byte array with zlib.
  */
 public object Zlib {
-    private const val BUFFER_SIZE: Int = 512
-
     /**
-     * Decompresses a [value]
+     * Decompresses the given [input].
+     *
      * @return decompressed byte array
      */
-    public fun decompress(value: ByteArray): ByteArray {
-        // Create an expandable byte array to hold the decompressed data
-        val bos = ByteArrayOutputStream(value.size)
-        Inflater().run {
-            try {
-                setInput(value)
-                val buf = ByteArray(BUFFER_SIZE)
-                while (!finished()) {
-                    val count = inflate(buf)
-                    bos.write(buf, 0, count)
-                }
-            } finally {
-                end()
-            }
-        }
-        return bos.toByteArray()
-    }
+    public fun decompress(input: ByteArray): ByteArray =
+        InflaterInputStream(input.inputStream()).readBytes()
 
     /**
-     * Compresses an [input]
+     * Compresses the given [input] at compression [level].
+     *
      * @return compressed byte array
      */
-    public fun compress(input: ByteArray): ByteArray {
-        Deflater().run {
-            return try {
-                setInput(input)
-                finish()
-                val buffer = ByteArray(Short.MAX_VALUE.toInt())
-                val sizeAfterCompression = deflate(buffer)
-                val output = ByteArray(sizeAfterCompression)
-                System.arraycopy(buffer, 0, output, 0, sizeAfterCompression)
-                output
-            } finally {
-                end()
-            }
-        }
-    }
+    public fun compress(input: ByteArray, level: Int = Deflater.DEFAULT_COMPRESSION): ByteArray =
+        DeflaterInputStream(input.inputStream(), Deflater(level)).readBytes()
 }
