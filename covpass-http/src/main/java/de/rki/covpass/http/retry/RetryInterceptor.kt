@@ -44,6 +44,7 @@ internal class RetryInterceptor : Interceptor {
                 attempt += 1
                 val response = chain.proceed(request)
                 if (shouldRetry(httpMethod, response.code, attempt, retryEnabled)) {
+                    response.close()
                     Thread.sleep(sleep)
                     sleep = min(2 * sleep, maxSleep)
                     continue

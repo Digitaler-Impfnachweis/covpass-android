@@ -5,17 +5,14 @@
 
 package de.rki.covpass.http
 
-import assertk.assertThat
-import assertk.assertions.any
-import assertk.assertions.isFailure
-import assertk.assertions.isInstanceOf
-import assertk.assertions.none
 import okhttp3.logging.HttpLoggingInterceptor
-import org.junit.Before
-import org.junit.Test
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 internal class ConfigTest {
-    @Before
+    @BeforeTest
     fun setUp() {
         resetHttpConfig()
     }
@@ -23,19 +20,19 @@ internal class ConfigTest {
     @Test
     fun `logging cannot be enabled after first access`() {
         httpConfig.ktorClient()
-        assertThat {
+        assertFailsWith<IllegalStateException> {
             httpConfig.enableLogging(HttpLogLevel.BODY)
-        }.isFailure().isInstanceOf(IllegalStateException::class)
+        }
     }
 
     @Test
     fun `logging disabled by default`() {
-        assertThat(httpConfig.okHttpClient.interceptors).none { it.isInstanceOf(HttpLoggingInterceptor::class) }
+        assertTrue(httpConfig.okHttpClient.interceptors.none { it is HttpLoggingInterceptor })
     }
 
     @Test
     fun `enabling logging`() {
         httpConfig.enableLogging(HttpLogLevel.HEADERS)
-        assertThat(httpConfig.okHttpClient.interceptors).any { it.isInstanceOf(HttpLoggingInterceptor::class) }
+        assertTrue(httpConfig.okHttpClient.interceptors.any { it is HttpLoggingInterceptor })
     }
 }
