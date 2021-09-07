@@ -10,12 +10,34 @@ import de.rki.covpass.sdk.cert.models.Test.Companion.PCR_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.utils.isOlderThan
 import java.time.LocalDate
 
+public enum class BoosterResult {
+    Passed,
+    Failed
+}
+
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).
  */
 public data class GroupedCertificates(
     var certificates: MutableList<CombinedCovCertificate>,
+    var boosterResult: BoosterResult = BoosterResult.Failed,
 ) {
+
+    var hasSeenBoosterNotification: Boolean
+        get() = certificates.any { it.hasSeenBoosterNotification }
+        set(value) {
+            certificates = certificates.map {
+                it.copy(hasSeenBoosterNotification = value)
+            }.toMutableList()
+        }
+
+    var hasSeenBoosterDetailNotification: Boolean
+        get() = certificates.any { it.hasSeenBoosterDetailNotification }
+        set(value) {
+            certificates = certificates.map {
+                it.copy(hasSeenBoosterDetailNotification = value)
+            }.toMutableList()
+        }
 
     /**
      * The [GroupedCertificatesId] to identify this [GroupedCertificates].
@@ -78,4 +100,20 @@ public data class GroupedCertificates(
      * @return The [certificates] sorted by the date of adding them. Most recently added one first.
      */
     public fun getSortedCertificates(): List<CombinedCovCertificate> = certificates.sortedByDescending { it.timestamp }
+
+    /**
+     * @return The latest [CombinedCovCertificate] that is a [Vaccination]
+     */
+    public fun getLatestVaccination(): CombinedCovCertificate? {
+        val sortedCertificates = certificates.sortedByDescending { it.covCertificate.validUntil }
+        return sortedCertificates.find { it.covCertificate.dgcEntry is Vaccination }
+    }
+
+    /**
+     * @return The latest [CombinedCovCertificate] that is a [Recovery]
+     */
+    public fun getLatestRecovery(): CombinedCovCertificate? {
+        val sortedCertificates = certificates.sortedByDescending { it.covCertificate.validUntil }
+        return sortedCertificates.find { it.covCertificate.dgcEntry is Recovery }
+    }
 }

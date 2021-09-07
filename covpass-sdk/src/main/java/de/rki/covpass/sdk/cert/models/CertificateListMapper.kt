@@ -29,8 +29,40 @@ public class CertificateListMapper(private val qrCoder: QRCoder) {
             }
             groupedCertificatesList.addNewCertificate(localCert.toCombinedCovCertificate(status))
         }
+
+        for (groupedCert in groupedCertificatesList.certificates) {
+            val latestVaccination = groupedCert.getLatestVaccination()?.covCertificate
+            val latestRecovery = groupedCert.getLatestRecovery()?.covCertificate
+            val recovery = latestRecovery?.recovery
+            groupedCert.boosterResult = when {
+                latestVaccination != null && recovery != null -> {
+                    // uncomment and use mergedCertificate as parameter
+//                    val mergedCertificate = latestVaccination.copy(
+//                        recoveries = listOf(recovery)
+//                    )
+                    validateBoosterRules()
+                }
+                latestVaccination != null -> {
+                    // use latestVaccination as parameter
+                    validateBoosterRules()
+                }
+                latestRecovery != null -> {
+                    // use latestRecovery as parameter
+                    validateBoosterRules()
+                }
+                else -> {
+                    BoosterResult.Failed
+                }
+            }
+        }
+
         groupedCertificatesList.favoriteCertId = covCertificateList.favoriteCertId
         return groupedCertificatesList
+    }
+
+    // TODO add validation
+    public fun validateBoosterRules(): BoosterResult {
+        return BoosterResult.Passed
     }
 
     /** Transforms a [GroupedCertificatesList] into a [CovCertificateList]. */

@@ -31,6 +31,7 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
+import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
@@ -53,7 +54,11 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         autoRun {
-            updateCertificates(get(covpassDeps.certRepository.certs), viewModel.selectedCertId)
+            val certs = get(covpassDeps.certRepository.certs)
+            if (certs.certificates.any { it.boosterResult == BoosterResult.Passed && !it.hasSeenBoosterNotification }) {
+                findNavigator().push(BoosterNotificationFragmentNav())
+            }
+            updateCertificates(certs, viewModel.selectedCertId)
         }
         if (commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION) {
             findNavigator().push(UpdateInfoCovpassFragmentNav())

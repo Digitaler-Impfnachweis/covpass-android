@@ -11,6 +11,8 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         qrContent = qrContent,
         timestamp = timestamp,
         status = status,
+        hasSeenBoosterNotification = hasSeenBoosterNotification,
+        hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
     )
 
 public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCertificateLocal =
@@ -18,6 +20,8 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         covCertificate = covCertificate,
         qrContent = qrContent,
         timestamp = timestamp,
+        hasSeenBoosterNotification = hasSeenBoosterNotification,
+        hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
     )
 
 public fun CovCertificate.isInExpiryPeriod(): Boolean =

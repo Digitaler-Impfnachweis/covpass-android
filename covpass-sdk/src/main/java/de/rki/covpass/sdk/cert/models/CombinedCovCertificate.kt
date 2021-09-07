@@ -17,6 +17,8 @@ public data class CombinedCovCertificate(
     val qrContent: String,
     val timestamp: Long,
     val status: CertValidationResult,
+    val hasSeenBoosterNotification: Boolean,
+    val hasSeenBoosterDetailNotification: Boolean,
 ) {
 
     /**

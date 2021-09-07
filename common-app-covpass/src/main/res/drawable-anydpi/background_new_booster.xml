@@ -1,0 +1,17 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="39dp"
+  android:height="24dp"
+  android:viewportWidth="39"
+  android:viewportHeight="24">
+  <path
+    android:fillColor="#D62E42"
+    android:fillType="evenOdd"
+    android:pathData="M12,0L26,0C32.6274,-0 38,5.3726 38,12C38,18.6274 32.6274,24 26,24L12,24C5.3726,24 0,18.6274 0,12C-0,5.3726 5.3726,0 12,0Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+</vector>

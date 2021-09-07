@@ -86,7 +86,9 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.vaccination_full_immunization_action_button),
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
-                            certStatus
+                            certStatus,
+                            !groupedCertificate.hasSeenBoosterDetailNotification &&
+                                groupedCertificate.boosterResult == BoosterResult.Passed
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {

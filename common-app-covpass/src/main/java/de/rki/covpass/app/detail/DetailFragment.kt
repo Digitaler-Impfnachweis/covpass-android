@@ -89,12 +89,14 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         }
 
     override fun onBackPressed(): Abortable {
+        updateBoosterNotification()
         findNavigator().popUntil<DetailCallback>()?.displayCert(args.certId)
         return Abort
     }
 
     override fun onDeletionCompleted(isGroupedCertDeleted: Boolean) {
         if (isGroupedCertDeleted) {
+            updateBoosterNotification()
             findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
         } else {
             val dialogModel = DialogModel(
@@ -123,7 +125,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                 CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
             }
             val certStatus = mainCertificate.status
-            val personalDataList = listOf(
+            val personalDataList = mutableListOf(
                 DetailItem.Name(cert.fullName),
                 when (dgcEntry) {
                     is Vaccination -> {
@@ -375,23 +377,48 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                         )
                     }
                 },
-                DetailItem.Header(
-                    getString(R.string.certificates_overview_personal_data_title)
-                ),
-                DetailItem.Personal(
-                    getString(R.string.certificates_overview_personal_data_name),
-                    cert.fullNameReverse
-                ),
-                DetailItem.Personal(
-                    getString(R.string.certificates_overview_personal_data_standardized_name),
-                    cert.fullTransliteratedNameReverse
-                ),
-                DetailItem.Personal(
-                    getString(R.string.certificates_overview_personal_data_date_of_birth),
-                    cert.birthDateFormatted
-                ),
-                DetailItem.Header(
-                    getString(R.string.certificates_overview_all_certificates_title)
+            )
+
+            if (groupedCertificate.boosterResult == BoosterResult.Passed) {
+                personalDataList.add(
+                    DetailItem.Notification(
+                        R.string.vaccination_certificate_overview_booster_vaccination_notification_title,
+                        R.string.vaccination_certificate_overview_booster_vaccination_notification_subtitle,
+                        R.string.vaccination_certificate_overview_booster_vaccination_notification_message,
+                        if (!groupedCertificate.hasSeenBoosterDetailNotification) {
+                            R.drawable.background_new_booster
+                        } else {
+                            null
+                        },
+                        if (!groupedCertificate.hasSeenBoosterDetailNotification) {
+                            R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
+                        } else {
+                            null
+                        }
+                    )
+                )
+            }
+
+            personalDataList.addAll(
+                listOf(
+                    DetailItem.Header(
+                        getString(R.string.certificates_overview_personal_data_title)
+                    ),
+                    DetailItem.Personal(
+                        getString(R.string.certificates_overview_personal_data_name),
+                        cert.fullNameReverse
+                    ),
+                    DetailItem.Personal(
+                        getString(R.string.certificates_overview_personal_data_standardized_name),
+                        cert.fullTransliteratedNameReverse
+                    ),
+                    DetailItem.Personal(
+                        getString(R.string.certificates_overview_personal_data_date_of_birth),
+                        cert.birthDateFormatted
+                    ),
+                    DetailItem.Header(
+                        getString(R.string.certificates_overview_all_certificates_title)
+                    )
                 )
             )
 
@@ -473,6 +500,18 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
             }
             DetailAdapter(personalDataList + sortedCertificatesList, this, this)
                 .attachTo(binding.detailVaccinationList)
+        }
+    }
+
+    private fun updateBoosterNotification() {
+        launchWhenStarted {
+            covpassDeps.certRepository.certs.update { groupedCertificateList ->
+                groupedCertificateList.certificates.find { it.id == args.certId }?.let {
+                    if (it.boosterResult == BoosterResult.Passed) {
+                        it.hasSeenBoosterDetailNotification = true
+                    }
+                }
+            }
         }
     }
 
