@@ -17,7 +17,9 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.ibm.health.common.android.utils.BaseEvents
+import com.ibm.health.common.android.utils.getString
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -60,7 +62,7 @@ internal class DetailExportPdfViewModel(
     }
 
     private fun uriFromFile(context: Context, file: File): Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        FileProvider.getUriForFile(context, "de.rki.covpass.app.provider", file)
+        FileProvider.getUriForFile(context, getString(R.string.common_file_provider_authority), file)
     } else {
         Uri.fromFile(file)
     }

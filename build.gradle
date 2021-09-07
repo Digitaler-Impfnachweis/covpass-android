@@ -103,6 +103,10 @@ subprojects {
                             outputFileName = "$codeName-${defaultConfig.versionName}-${variant.buildType.name}.apk"
                         }
                     }
+
+                    applicationVariants.all { variant ->
+                        variant.resValue "string", "common_file_provider_authority", variant.applicationId
+                    }
                 }
 
                 buildFeatures {
