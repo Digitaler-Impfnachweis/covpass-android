@@ -8,22 +8,22 @@ package de.rki.covpass.app.main
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
+import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.BoosterNotificationPopupContentBinding
-import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.sdk.cert.models.BoosterResult
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class BoosterNotificationFragmentNav : FragmentNav(BoosterNotificationFragment::class)
 
-internal class BoosterNotificationFragment : BaseBottomSheet() {
+internal class BoosterNotificationFragment : BaseBottomSheet(), BoosterNotificationEvents {
 
     private val binding by viewBinding(BoosterNotificationPopupContentBinding::inflate)
+    private val viewModel by reactiveState { BoosterNotificationViewModel(scope) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,24 +40,14 @@ internal class BoosterNotificationFragment : BaseBottomSheet() {
     }
 
     override fun onActionButtonClicked() {
-        updateBoosterNotification()
-        findNavigator().pop()
+        viewModel.updateHasSeenBoosterNotification()
     }
 
     override fun onClickOutside() {
-        super.onClickOutside()
-        updateBoosterNotification()
+        viewModel.updateHasSeenBoosterNotification()
     }
 
-    private fun updateBoosterNotification() {
-        launchWhenStarted {
-            covpassDeps.certRepository.certs.update { groupedCertificateList ->
-                groupedCertificateList.certificates.forEach {
-                    if (it.boosterResult == BoosterResult.Passed) {
-                        it.hasSeenBoosterNotification = true
-                    }
-                }
-            }
-        }
+    override fun onHasSeenBoosterNotificationUpdated() {
+        findNavigator().pop()
     }
 }

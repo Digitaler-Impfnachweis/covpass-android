@@ -50,6 +50,10 @@ public interface DetailClickListener {
     public fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType)
 }
 
+internal enum class DetailBoosterAction {
+    Delete, BackPressed,
+}
+
 @Parcelize
 internal class DetailFragmentNav(
     var certId: GroupedCertificatesId,
@@ -59,10 +63,11 @@ internal class DetailFragmentNav(
  * Fragment which shows the [GroupedCertificates] details
  * Further actions (Show QR Code, Add cov certificate)
  */
-internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailClickListener {
+internal class DetailFragment :
+    BaseFragment(), DgcEntryDetailCallback, DetailClickListener, DetailEvents<DetailBoosterAction> {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
-    private val viewModel by reactiveState { DetailViewModel(scope) }
+    private val viewModel by reactiveState { DetailViewModel<DetailBoosterAction>(scope) }
     private val binding by viewBinding(DetailBinding::inflate)
     private var isFavorite = false
 
@@ -89,15 +94,13 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         }
 
     override fun onBackPressed(): Abortable {
-        updateBoosterNotification()
-        findNavigator().popUntil<DetailCallback>()?.displayCert(args.certId)
+        viewModel.updateHasSeenBoosterDetailNotification(args.certId, DetailBoosterAction.BackPressed)
         return Abort
     }
 
     override fun onDeletionCompleted(isGroupedCertDeleted: Boolean) {
         if (isGroupedCertDeleted) {
-            updateBoosterNotification()
-            findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
+            viewModel.updateHasSeenBoosterDetailNotification(args.certId, DetailBoosterAction.Delete)
         } else {
             val dialogModel = DialogModel(
                 titleRes = R.string.delete_result_dialog_header,
@@ -156,7 +159,8 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                                     title = title,
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired,
-                                        CertValidationResult.Invalid -> R.drawable.detail_cert_status_expired
+                                        CertValidationResult.Invalid,
+                                        -> R.drawable.detail_cert_status_expired
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.drawable.detail_cert_status_complete
                                     },
@@ -503,18 +507,6 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         }
     }
 
-    private fun updateBoosterNotification() {
-        launchWhenStarted {
-            covpassDeps.certRepository.certs.update { groupedCertificateList ->
-                groupedCertificateList.certificates.find { it.id == args.certId }?.let {
-                    if (it.boosterResult == BoosterResult.Passed) {
-                        it.hasSeenBoosterDetailNotification = true
-                    }
-                }
-            }
-        }
-    }
-
     override fun onShowCertificateClicked() {
         triggerBackPress()
     }
@@ -527,18 +519,21 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
         when (dgcEntryType) {
             VaccinationCertType.VACCINATION_INCOMPLETE,
             VaccinationCertType.VACCINATION_COMPLETE,
-            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+            VaccinationCertType.VACCINATION_FULL_PROTECTION,
+            -> {
                 findNavigator().push(VaccinationDetailFragmentNav(id))
             }
             TestCertType.NEGATIVE_PCR_TEST,
-            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+            TestCertType.NEGATIVE_ANTIGEN_TEST,
+            -> {
                 findNavigator().push(TestDetailFragmentNav(id))
             }
             RecoveryCertType.RECOVERY -> {
                 findNavigator().push(RecoveryDetailFragmentNav(id))
             }
             TestCertType.POSITIVE_PCR_TEST,
-            TestCertType.POSITIVE_ANTIGEN_TEST -> return
+            TestCertType.POSITIVE_ANTIGEN_TEST,
+            -> return
             // .let{} to enforce exhaustiveness
         }.let {}
     }
@@ -558,5 +553,16 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
 
     private companion object {
         private const val FAVORITE_ITEM_ID = 82957
+    }
+
+    override fun onHasSeenBoosterDetailNotificationUpdated(tag: DetailBoosterAction) {
+        when (tag) {
+            DetailBoosterAction.Delete -> {
+                findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
+            }
+            DetailBoosterAction.BackPressed -> {
+                findNavigator().popUntil<DetailCallback>()?.displayCert(args.certId)
+            }
+        }.let {}
     }
 }

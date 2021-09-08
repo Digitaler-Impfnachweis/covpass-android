@@ -15,7 +15,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/backgroundSecondary"
+    android:background="@drawable/background_white_round_corners"
     android:padding="@dimen/grid_two"
     app:layout_constraintTop_toTopOf="parent">
 
