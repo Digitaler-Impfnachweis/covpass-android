@@ -48,6 +48,7 @@ public sealed class DetailItem {
         public val titleRes: Int,
         public val subtitleRes: Int,
         public val textRes: Int,
+        public val ruleId: String,
         public val iconBackgroundRes: Int?,
         public val iconTextRes: Int?,
     ) : DetailItem()

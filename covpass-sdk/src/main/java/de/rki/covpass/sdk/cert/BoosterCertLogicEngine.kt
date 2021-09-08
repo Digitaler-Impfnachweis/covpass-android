@@ -1,41 +1,25 @@
-package dgca.verifier.app.engine
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+package de.rki.covpass.sdk.cert
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import dgca.verifier.app.engine.data.CertificateType
+import de.rki.covpass.sdk.rules.booster.BoosterRule
+import dgca.verifier.app.engine.JsonLogicValidator
 import dgca.verifier.app.engine.data.ExternalParameter
-import dgca.verifier.app.engine.data.Rule
 
-/*-
- * ---license-start
- * eu-digital-green-certificates / dgc-certlogic-android
- * ---
- * Copyright (C) 2021 T-Systems International GmbH and all other contributors
- * ---
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ---license-end
- *
- * Created by osarapulov on 11.06.21 11:10
- */
-class DefaultCertLogicEngine(
-    private val affectedFieldsDataRetriever: AffectedFieldsDataRetriever,
+public class BoosterCertLogicEngine(
     private val jsonLogicValidator: JsonLogicValidator
-) : CertLogicEngine {
+) {
     private val objectMapper = ObjectMapper()
 
-    companion object {
+    public companion object {
         private const val EXTERNAL_KEY = "external"
         private const val PAYLOAD_KEY = "payload"
         private const val CERTLOGIC_KEY = "CERTLOGIC"
@@ -60,13 +44,12 @@ class DefaultCertLogicEngine(
         )
     }
 
-    override fun validate(
-        certificateType: CertificateType,
+    public fun validate(
         hcertVersionString: String,
-        rules: List<Rule>,
+        rules: List<BoosterRule>,
         externalParameter: ExternalParameter,
         payload: String
-    ): List<ValidationResult> {
+    ): List<BoosterValidationResult> {
         if (rules.isEmpty()) return emptyList()
 
         val dataJsonNode = prepareData(externalParameter, payload)
@@ -76,18 +59,16 @@ class DefaultCertLogicEngine(
             checkRule(
                 rule = it,
                 dataJsonNode = dataJsonNode,
-                hcertVersion = hcertVersion,
-                certificateType = certificateType
+                hcertVersion = hcertVersion
             )
         }
     }
 
     private fun checkRule(
-        rule: Rule,
+        rule: BoosterRule,
         dataJsonNode: ObjectNode,
         hcertVersion: Triple<Int, Int, Int>?,
-        certificateType: CertificateType
-    ): ValidationResult {
+    ): BoosterValidationResult {
         val ruleEngineVersion = rule.engineVersion.toVersion()
         val schemaVersion = rule.schemaVersion.toVersion()
 
@@ -103,34 +84,33 @@ class DefaultCertLogicEngine(
 
         val res = if (isCompatibleVersion) {
             try {
-                when (jsonLogicValidator.isDataValid(rule.logic, dataJsonNode)) {
-                    true -> Result.PASSED
-                    false -> Result.FAIL
+                when (jsonLogicValidator.isDataValid(jacksonObjectMapper().readTree(rule.logic), dataJsonNode)) {
+                    true -> BoosterResult.PASSED
+                    false -> BoosterResult.FAIL
                 }
             } catch (e: Exception) {
                 validationErrors.add(e)
-                Result.OPEN
+                BoosterResult.OPEN
             }
         } else {
-            Result.OPEN
+            BoosterResult.OPEN
         }
 
-        val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(
-            rule,
-            dataJsonNode,
-            certificateType
-        )
-
-        return ValidationResult(
+        return BoosterValidationResult(
             rule,
             res,
-            cur,
             if (validationErrors.isEmpty()) null else validationErrors
         )
     }
 
     private fun Triple<Int, Int, Int>.isGreaterOrEqualThan(version: Triple<Int, Int, Int>): Boolean =
-        first > version.first || (first == version.first && (second > version.second || (second == version.second && third >= version.third)))
+        first > version.first ||
+            (
+                first == version.first &&
+                    (
+                        second > version.second || (second == version.second && third >= version.third)
+                        )
+                )
 
     /**
      * Tries to convert String into a version based on pattern majorVersion.minorVersion.patchVersion.

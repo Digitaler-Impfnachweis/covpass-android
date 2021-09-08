@@ -12,7 +12,7 @@ import kotlin.test.*
 
 internal class GroupedCertificateListTest : CoroutineTest() {
 
-    private val mapper = CertificateListMapper(mockk(relaxed = true))
+    private val mapper = CertificateListMapper(mockk(relaxed = true), mockk(relaxed = true))
 
     private val name1 = "Hans"
     private val name2 = "Franz"

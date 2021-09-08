@@ -15,12 +15,17 @@ public enum class BoosterResult {
     Failed
 }
 
+public data class BoosterNotification(
+    val result: BoosterResult = BoosterResult.Failed,
+    val ruleId: String = "",
+)
+
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).
  */
 public data class GroupedCertificates(
     var certificates: MutableList<CombinedCovCertificate>,
-    var boosterResult: BoosterResult = BoosterResult.Failed,
+    var boosterNotification: BoosterNotification = BoosterNotification(),
 ) {
 
     var hasSeenBoosterNotification: Boolean

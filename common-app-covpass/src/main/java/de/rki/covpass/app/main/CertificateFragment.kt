@@ -88,7 +88,7 @@ internal class CertificateFragment : BaseFragment() {
                             isMarkedAsFavorite,
                             certStatus,
                             !groupedCertificate.hasSeenBoosterDetailNotification &&
-                                groupedCertificate.boosterResult == BoosterResult.Passed
+                                groupedCertificate.boosterNotification.result == BoosterResult.Passed
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {

@@ -383,12 +383,13 @@ internal class DetailFragment :
                 },
             )
 
-            if (groupedCertificate.boosterResult == BoosterResult.Passed) {
+            if (groupedCertificate.boosterNotification.result == BoosterResult.Passed) {
                 personalDataList.add(
                     DetailItem.Notification(
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_title,
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_subtitle,
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_message,
+                        groupedCertificate.boosterNotification.ruleId,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
                             R.drawable.background_new_booster
                         } else {

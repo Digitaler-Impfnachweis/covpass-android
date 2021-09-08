@@ -55,7 +55,11 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         setupViews()
         autoRun {
             val certs = get(covpassDeps.certRepository.certs)
-            if (certs.certificates.any { it.boosterResult == BoosterResult.Passed && !it.hasSeenBoosterNotification }) {
+            if (
+                certs.certificates.any {
+                    it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
+                }
+            ) {
                 findNavigator().push(BoosterNotificationFragmentNav())
             }
             updateCertificates(certs, viewModel.selectedCertId)

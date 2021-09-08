@@ -5,9 +5,12 @@ import de.rki.covpass.sdk.cert.*
 import java.security.GeneralSecurityException
 
 /** Maps between [CovCertificateList] and [GroupedCertificatesList]. */
-public class CertificateListMapper(private val qrCoder: QRCoder) {
+public class CertificateListMapper(
+    private val qrCoder: QRCoder,
+    private val boosterRulesValidator: BoosterRulesValidator,
+) {
     /** Transforms a [CovCertificateList] into a [GroupedCertificatesList]. */
-    public fun toGroupedCertificatesList(covCertificateList: CovCertificateList): GroupedCertificatesList {
+    public suspend fun toGroupedCertificatesList(covCertificateList: CovCertificateList): GroupedCertificatesList {
         val groupedCertificatesList = GroupedCertificatesList()
         for (localCert in covCertificateList.certificates) {
             val error = runCatching {
@@ -34,35 +37,37 @@ public class CertificateListMapper(private val qrCoder: QRCoder) {
             val latestVaccination = groupedCert.getLatestVaccination()?.covCertificate
             val latestRecovery = groupedCert.getLatestRecovery()?.covCertificate
             val recovery = latestRecovery?.recovery
-            groupedCert.boosterResult = when {
+            val boosterNotification = when {
                 latestVaccination != null && recovery != null -> {
-                    // uncomment and use mergedCertificate as parameter
-//                    val mergedCertificate = latestVaccination.copy(
-//                        recoveries = listOf(recovery)
-//                    )
-                    validateBoosterRules()
+                    val mergedCertificate = latestVaccination.copy(
+                        recoveries = listOf(recovery)
+                    )
+                    validateBoosterRules(boosterRulesValidator, mergedCertificate)
                 }
                 latestVaccination != null -> {
-                    // use latestVaccination as parameter
-                    validateBoosterRules()
+                    validateBoosterRules(boosterRulesValidator, latestVaccination)
                 }
-                latestRecovery != null -> {
-                    // use latestRecovery as parameter
-                    validateBoosterRules()
-                }
-                else -> {
-                    BoosterResult.Failed
-                }
+                else -> BoosterNotification(BoosterResult.Failed)
             }
+            groupedCert.boosterNotification = boosterNotification
         }
 
         groupedCertificatesList.favoriteCertId = covCertificateList.favoriteCertId
         return groupedCertificatesList
     }
 
-    // TODO add validation
-    public fun validateBoosterRules(): BoosterResult {
-        return BoosterResult.Passed
+    private suspend fun validateBoosterRules(
+        boosterRulesValidator: BoosterRulesValidator,
+        covCertificate: CovCertificate,
+    ): BoosterNotification {
+        val boosterResult = boosterRulesValidator.validate(covCertificate).firstOrNull {
+            it.result == de.rki.covpass.sdk.cert.BoosterResult.PASSED
+        }
+        return if (boosterResult != null) {
+            BoosterNotification(BoosterResult.Passed, boosterResult.rule.identifier)
+        } else {
+            BoosterNotification(BoosterResult.Failed)
+        }
     }
 
     /** Transforms a [GroupedCertificatesList] into a [CovCertificateList]. */

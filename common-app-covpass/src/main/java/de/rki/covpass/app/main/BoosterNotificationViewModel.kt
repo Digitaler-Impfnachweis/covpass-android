@@ -26,7 +26,7 @@ internal class BoosterNotificationViewModel @OptIn(DependencyAccessor::class) co
         launch {
             covpassDependencies.certRepository.certs.update { groupedCertificateList ->
                 groupedCertificateList.certificates.forEach {
-                    if (it.boosterResult == BoosterResult.Passed) {
+                    if (it.boosterNotification.result == BoosterResult.Passed) {
                         it.hasSeenBoosterNotification = true
                     }
                 }

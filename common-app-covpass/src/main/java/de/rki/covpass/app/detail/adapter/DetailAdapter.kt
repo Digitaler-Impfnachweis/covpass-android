@@ -291,7 +291,7 @@ private class NotificationViewHolder(
         (item as DetailItem.Notification).let {
             binding.notificationTitle.text = getString(it.titleRes)
             binding.notificationSubtitle.text = getString(it.subtitleRes)
-            binding.notificationText.text = getSpanned(it.textRes, 1)
+            binding.notificationText.text = getSpanned(it.textRes, it.ruleId)
             it.iconTextRes?.let { textIcon -> binding.notificationIcon.text = getString(textIcon) }
             it.iconBackgroundRes?.let { iconRes ->
                 binding.notificationIcon.background = getDrawable(parent.context, iconRes)

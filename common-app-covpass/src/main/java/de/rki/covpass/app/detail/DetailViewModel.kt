@@ -35,7 +35,7 @@ internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
         launch {
             covpassDependencies.certRepository.certs.update { groupedCertificateList ->
                 groupedCertificateList.certificates.find { it.id == certId }?.let {
-                    if (it.boosterResult == BoosterResult.Passed) {
+                    if (it.boosterNotification.result == BoosterResult.Passed) {
                         it.hasSeenBoosterDetailNotification = true
                     }
                 }

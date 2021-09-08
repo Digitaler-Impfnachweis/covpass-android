@@ -86,6 +86,11 @@ public abstract class CommonApplication : Application() {
                     sdkDeps.bundledValueSets
                 )
             }
+            if (sdkDeps.boosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
+                sdkDeps.boosterRulesRepository.prepopulate(
+                    sdkDeps.bundledBoosterRules
+                )
+            }
         }
     }
 }
