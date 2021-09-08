@@ -7,7 +7,7 @@ package de.rki.covpass.sdk.cert
 
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.rules.domain.rules.CovPassRulesUseCase
@@ -80,7 +80,7 @@ public class RulesValidator(
     private fun CovCertificate.getCertificateType(): CertificateType {
         return when (dgcEntry) {
             is Vaccination -> CertificateType.VACCINATION
-            is Test -> CertificateType.TEST
+            is TestCert -> CertificateType.TEST
             is Recovery -> CertificateType.RECOVERY
         }
     }

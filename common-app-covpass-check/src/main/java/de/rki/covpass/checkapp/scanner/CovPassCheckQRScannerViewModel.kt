@@ -60,7 +60,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                             }
                         }
                     }
-                    is Test -> {
+                    is TestCert -> {
                         when (dgcEntry.type) {
                             TestCertType.NEGATIVE_PCR_TEST -> {
                                 handleNegativePcrResult(covCertificate)
@@ -96,7 +96,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private fun handleNegativePcrResult(
         covCertificate: CovCertificate
     ) {
-        val test = covCertificate.dgcEntry as Test
+        val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
             onValidPcrTest(
                 covCertificate,
@@ -108,7 +108,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private fun handleNegativeAntigenResult(
         covCertificate: CovCertificate
     ) {
-        val test = covCertificate.dgcEntry as Test
+        val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
             onValidAntigenTest(
                 covCertificate,

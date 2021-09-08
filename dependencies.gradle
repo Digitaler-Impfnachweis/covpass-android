@@ -76,7 +76,6 @@ dependencies {
 
                 api 'androidx.test.ext:junit:1.1.2'
                 api 'androidx.test.ext:junit-ktx:1.1.2'
-                api "com.willowtreeapps.assertk:assertk:0.24"
                 api "io.mockk:mockk:1.12.0"
                 api 'junit:junit:4.13.2'
                 api 'org.robolectric:robolectric:4.5.1'
@@ -100,7 +99,6 @@ dependencies {
             testDependency 'junit:junit'
             testDependency "org.jetbrains.kotlin:kotlin-test-junit"
             testDependency 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
-            testDependency 'com.willowtreeapps.assertk:assertk'
             testDependency "io.mockk:mockk"
         }
 

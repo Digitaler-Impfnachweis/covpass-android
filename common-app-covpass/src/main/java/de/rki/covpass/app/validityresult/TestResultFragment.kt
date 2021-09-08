@@ -11,7 +11,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
@@ -46,7 +46,7 @@ internal class TestResultFragment : ResultFragment() {
     override val resultNoteDe: Int = R.string.certificate_check_validity_detail_view_test_result_note_de
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
-        val test = cert.dgcEntry as? Test ?: return emptyList()
+        val test = cert.dgcEntry as? TestCert ?: return emptyList()
         return listOf(
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_name),

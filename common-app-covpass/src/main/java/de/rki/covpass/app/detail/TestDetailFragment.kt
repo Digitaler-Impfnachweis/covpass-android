@@ -10,7 +10,7 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
@@ -22,7 +22,7 @@ import java.time.ZonedDateTime
 internal class TestDetailFragmentNav(var certId: String) : FragmentNav(TestDetailFragment::class)
 
 /**
- * Fragment for displaying the details of a [Test].
+ * Fragment for displaying the details of a [TestCert].
  */
 internal class TestDetailFragment : DgcEntryDetailFragment() {
 
@@ -31,7 +31,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
     private val args: TestDetailFragmentNav by lazy { getArgs() }
 
     override fun getToolbarTitleText(cert: CovCertificate): String =
-        if (cert.test?.testType == Test.PCR_TEST) {
+        if (cert.test?.testType == TestCert.PCR_TEST) {
             getString(R.string.test_certificate_detail_view_pcr_test_title)
         } else {
             getString(R.string.test_certificate_detail_view_title)
@@ -40,7 +40,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
     override fun getHeaderText(): String = getString(R.string.test_certificate_detail_view_headline)
 
     override fun getDataRows(cert: CovCertificate): List<DataRow> {
-        val test = cert.dgcEntry as? Test ?: return emptyList()
+        val test = cert.dgcEntry as? TestCert ?: return emptyList()
         return listOf(
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_name),

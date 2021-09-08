@@ -132,10 +132,10 @@ internal class CertificateFragment : BaseFragment() {
                     }
                 }
             }
-            is Test -> {
-                val test = mainCertificate.dgcEntry as Test
+            is TestCert -> {
+                val test = mainCertificate.dgcEntry as TestCert
                 binding.certificateCard.createTestCard(
-                    if (test.testType == Test.PCR_TEST) {
+                    if (test.testType == TestCert.PCR_TEST) {
                         getString(R.string.certificates_overview_pcr_test_certificate_message)
                     } else {
                         getString(R.string.certificates_overview_test_certificate_message)

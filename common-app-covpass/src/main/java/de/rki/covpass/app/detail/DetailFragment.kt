@@ -246,7 +246,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                             }
                         }
                     }
-                    is Test -> {
+                    is TestCert -> {
                         when (dgcEntry.type) {
                             TestCertType.NEGATIVE_PCR_TEST -> {
                                 val title = when (certStatus) {
@@ -441,7 +441,7 @@ internal class DetailFragment : BaseFragment(), DgcEntryDetailCallback, DetailCl
                             certStatus = it.status
                         )
                     }
-                    is Test -> {
+                    is TestCert -> {
                         when (groupedDgcEntry.type) {
                             TestCertType.NEGATIVE_PCR_TEST -> {
                                 DetailItem.Certificate(

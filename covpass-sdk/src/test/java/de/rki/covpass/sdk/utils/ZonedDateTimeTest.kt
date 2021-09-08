@@ -1,14 +1,13 @@
 package de.rki.covpass.sdk.utils
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
 import de.rki.covpass.sdk.utils.serialization.ZonedDateTimeSerializer
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.serialization.encoding.Decoder
-import org.junit.Test
 import java.time.Instant
 import java.time.format.DateTimeParseException
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 internal class ZonedDateTimeTest {
@@ -20,49 +19,49 @@ internal class ZonedDateTimeTest {
     fun `test ZonedDateTimeSerializer valid format with full timezone`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T12:03:12+02:00"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test
     fun `test ZonedDateTimeSerializer valid format timezone with hours only`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T12:03:12+02"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test
     fun `test ZonedDateTimeSerializer valid format full timezone without colon`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T12:03:12+0200"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test
     fun `test ZonedDateTimeSerializer valid format timezone Z`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T10:03:12Z"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test
     fun `test ZonedDateTimeSerializer valid format timezone Z with milliseconds`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T12:03:12.354+0200"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test
     fun `test ZonedDateTimeSerializer valid format full timezone without colon with microseconds`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T06:03:12.000.000-0400"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test
     fun `test ZonedDateTimeSerializer valid format full timezone without colon with nanoseconds`() {
         every { mockDecoder.decodeString() } returns "2021-08-20T06:03:12.354.000.345-0400"
         val zonedDateTime = ZonedDateTimeSerializer.deserialize(mockDecoder)
-        assertThat(zonedDateTime.toInstant()).isEqualTo(testInstant)
+        assertEquals(testInstant, zonedDateTime.toInstant())
     }
 
     @Test

@@ -46,7 +46,7 @@ internal interface DgcEntryDetailCallback {
 }
 
 /**
- * Base fragment for displaying the details of a [Vaccination], [Test] or [Recovery].
+ * Base fragment for displaying the details of a [Vaccination], [TestCert] or [Recovery].
  */
 internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEvents, DialogListener {
 

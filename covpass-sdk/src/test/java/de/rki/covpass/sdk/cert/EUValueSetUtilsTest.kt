@@ -5,11 +5,9 @@
 
 package de.rki.covpass.sdk.cert
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isSuccess
 import de.rki.covpass.sdk.storage.EUValueSetRepository
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 internal class EUValueSetUtilsTest {
 
@@ -18,27 +16,22 @@ internal class EUValueSetUtilsTest {
         val rawManufacturersSets =
             EUValueSetRepository.vaccineManufacturer.valueSetValues
 
-        assertThat {
+        assertEquals(
+            rawManufacturersSets.map { it.value.display },
             rawManufacturersSets.map { getManufacturerName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawManufacturersSets.map { it.value.display }
         )
     }
 
     @Test
     fun `validate empty manufacturers name`() {
         val rawManufacturersName = ""
-        assertThat {
-            getManufacturerName(rawManufacturersName)
-        }.isSuccess().isEqualTo(rawManufacturersName)
+        assertEquals(rawManufacturersName, getManufacturerName(rawManufacturersName))
     }
 
     @Test
     fun `validate invalid manufacturers name`() {
         val rawManufacturersName = "ORG-100030215XYZ"
-        assertThat {
-            getManufacturerName(rawManufacturersName)
-        }.isSuccess().isEqualTo(rawManufacturersName)
+        assertEquals(rawManufacturersName, getManufacturerName(rawManufacturersName))
     }
 
     @Test
@@ -46,27 +39,19 @@ internal class EUValueSetUtilsTest {
         val rawProductSets =
             EUValueSetRepository.vaccineMedicalProduct.valueSetValues
 
-        assertThat {
-            rawProductSets.map { getProductName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawProductSets.map { it.value.display }
-        )
+        assertEquals(rawProductSets.map { it.value.display }, rawProductSets.map { getProductName(it.key) })
     }
 
     @Test
     fun `validate empty product name`() {
         val rawProductName = ""
-        assertThat {
-            getProductName(rawProductName)
-        }.isSuccess().isEqualTo(rawProductName)
+        assertEquals(rawProductName, getProductName(rawProductName))
     }
 
     @Test
     fun `validate invalid product name`() {
         val rawProductName = "EU/1/20/1528XYZ"
-        assertThat {
-            getProductName(rawProductName)
-        }.isSuccess().isEqualTo(rawProductName)
+        assertEquals(rawProductName, getProductName(rawProductName))
     }
 
     @Test
@@ -74,27 +59,19 @@ internal class EUValueSetUtilsTest {
         val rawProphylaxisSets =
             EUValueSetRepository.vaccineProphylaxis.valueSetValues
 
-        assertThat {
-            rawProphylaxisSets.map { getProphylaxisName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawProphylaxisSets.map { it.value.display }
-        )
+        assertEquals(rawProphylaxisSets.map { it.value.display }, rawProphylaxisSets.map { getProphylaxisName(it.key) })
     }
 
     @Test
     fun `validate empty prophylaxis name`() {
         val rawProphylaxisName = ""
-        assertThat {
-            getProphylaxisName(rawProphylaxisName)
-        }.isSuccess().isEqualTo(rawProphylaxisName)
+        assertEquals(rawProphylaxisName, getProphylaxisName(rawProphylaxisName))
     }
 
     @Test
     fun `validate invalid prophylaxis name`() {
         val rawProphylaxisName = "1119349007XYZ"
-        assertThat {
-            getProphylaxisName(rawProphylaxisName)
-        }.isSuccess().isEqualTo(rawProphylaxisName)
+        assertEquals(rawProphylaxisName, getProphylaxisName(rawProphylaxisName))
     }
 
     @Test
@@ -102,27 +79,19 @@ internal class EUValueSetUtilsTest {
         val rawTestTypeSets =
             EUValueSetRepository.testType.valueSetValues
 
-        assertThat {
-            rawTestTypeSets.map { getTestTypeName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawTestTypeSets.map { it.value.display }
-        )
+        assertEquals(rawTestTypeSets.map { it.value.display }, rawTestTypeSets.map { getTestTypeName(it.key) })
     }
 
     @Test
     fun `validate empty test type name`() {
         val rawTestTypeName = ""
-        assertThat {
-            getTestTypeName(rawTestTypeName)
-        }.isSuccess().isEqualTo(rawTestTypeName)
+        assertEquals(rawTestTypeName, getTestTypeName(rawTestTypeName))
     }
 
     @Test
     fun `validate invalid test type name`() {
         val rawTestTypeName = "1119349007XYZ"
-        assertThat {
-            getTestTypeName(rawTestTypeName)
-        }.isSuccess().isEqualTo(rawTestTypeName)
+        assertEquals(rawTestTypeName, getTestTypeName(rawTestTypeName))
     }
 
     @Test
@@ -130,27 +99,19 @@ internal class EUValueSetUtilsTest {
         val rawTestResultSets =
             EUValueSetRepository.testResult.valueSetValues
 
-        assertThat {
-            rawTestResultSets.map { getTestResultName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawTestResultSets.map { it.value.display }
-        )
+        assertEquals(rawTestResultSets.map { it.value.display }, rawTestResultSets.map { getTestResultName(it.key) })
     }
 
     @Test
     fun `validate empty test result name`() {
         val rawTestResultName = ""
-        assertThat {
-            getTestResultName(rawTestResultName)
-        }.isSuccess().isEqualTo(rawTestResultName)
+        assertEquals(rawTestResultName, getTestResultName(rawTestResultName))
     }
 
     @Test
     fun `validate invalid test result name`() {
         val rawTestResultName = "1119349007XYZ"
-        assertThat {
-            getTestResultName(rawTestResultName)
-        }.isSuccess().isEqualTo(rawTestResultName)
+        assertEquals(rawTestResultName, getTestResultName(rawTestResultName))
     }
 
     @Test
@@ -158,27 +119,22 @@ internal class EUValueSetUtilsTest {
         val rawTestManufacturerSets =
             EUValueSetRepository.testManufacturer.valueSetValues
 
-        assertThat {
+        assertEquals(
+            rawTestManufacturerSets.map { it.value.display },
             rawTestManufacturerSets.map { getTestManufacturerName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawTestManufacturerSets.map { it.value.display }
         )
     }
 
     @Test
     fun `validate empty test manufacturer name`() {
         val rawTestManufacturerName = ""
-        assertThat {
-            getTestManufacturerName(rawTestManufacturerName)
-        }.isSuccess().isEqualTo(rawTestManufacturerName)
+        assertEquals(rawTestManufacturerName, getTestManufacturerName(rawTestManufacturerName))
     }
 
     @Test
     fun `validate invalid test manufacturer name`() {
         val rawTestManufacturerName = "1119349007XYZ"
-        assertThat {
-            getTestManufacturerName(rawTestManufacturerName)
-        }.isSuccess().isEqualTo(rawTestManufacturerName)
+        assertEquals(rawTestManufacturerName, getTestManufacturerName(rawTestManufacturerName))
     }
 
     @Test
@@ -186,50 +142,39 @@ internal class EUValueSetUtilsTest {
         val rawDiseaseAgentSets =
             EUValueSetRepository.diseaseAgent.valueSetValues
 
-        assertThat {
+        assertEquals(
+            rawDiseaseAgentSets.map { it.value.display },
             rawDiseaseAgentSets.map { getDiseaseAgentName(it.key) }
-        }.isSuccess().isEqualTo(
-            rawDiseaseAgentSets.map { it.value.display }
         )
     }
 
     @Test
     fun `validate empty disease agent name`() {
         val rawDiseaseAgentName = ""
-        assertThat {
-            getDiseaseAgentName(rawDiseaseAgentName)
-        }.isSuccess().isEqualTo(rawDiseaseAgentName)
+        assertEquals(rawDiseaseAgentName, getDiseaseAgentName(rawDiseaseAgentName))
     }
 
     @Test
     fun `validate invalid disease agent name`() {
         val rawDiseaseAgentName = "1119349007XYZ"
-        assertThat {
-            getDiseaseAgentName(rawDiseaseAgentName)
-        }.isSuccess().isEqualTo(rawDiseaseAgentName)
+        assertEquals(rawDiseaseAgentName, getDiseaseAgentName(rawDiseaseAgentName))
     }
 
     @Test
     fun `validate country name`() {
         val countryCode = "DE"
-        assertThat {
-            getCountryName(countryCode)
-        }.isSuccess().isEqualTo("Germany")
+        assertEquals("Germany", getCountryName(countryCode))
     }
 
     @Test
     fun `validate empty country name`() {
         val countryCode = ""
-        assertThat {
-            getCountryName(countryCode)
-        }.isSuccess().isEqualTo(countryCode)
+        assertEquals(countryCode, getCountryName(countryCode))
     }
 
     @Test
     fun `validate invalid country name`() {
         val countryCode = "XY"
-        assertThat {
-            getCountryName(countryCode)
-        }.isSuccess().isEqualTo(countryCode)
+        assertEquals(countryCode, getCountryName(countryCode))
     }
 }

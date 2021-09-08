@@ -15,7 +15,7 @@ import java.time.YearMonth
 import java.time.format.DateTimeParseException
 
 /**
- * Data model for the CovPass certificates, that can contain [Vaccination], [Test] or [Recovery].
+ * Data model for the CovPass certificates, that can contain [Vaccination], [TestCert] or [Recovery].
  */
 @Serializable
 public data class CovCertificate(
@@ -38,7 +38,7 @@ public data class CovCertificate(
     @SerialName("v")
     private val vaccinations: List<Vaccination>? = emptyList(),
     @SerialName("t")
-    private val tests: List<Test>? = emptyList(),
+    private val tests: List<TestCert>? = emptyList(),
     @SerialName("r")
     private val recoveries: List<Recovery>? = emptyList(),
 
@@ -70,7 +70,7 @@ public data class CovCertificate(
     /**
      * The EU datamodel representation as a list is an outdated leftover, just publish a single value instead.
      */
-    public val test: Test?
+    public val test: TestCert?
         get() = tests?.firstOrNull()
 
     /**
