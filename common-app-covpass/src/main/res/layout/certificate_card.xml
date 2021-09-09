@@ -13,6 +13,7 @@
   <com.google.android.material.card.MaterialCardView
     android:id="@+id/certificate_cardview"
     style="@style/CovPassCardView.Elevated"
+    app:rippleColor="?attr/colorControlHighlight"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/grid_two"
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
