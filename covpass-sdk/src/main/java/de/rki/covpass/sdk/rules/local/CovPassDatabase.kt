@@ -20,7 +20,7 @@ import dgca.verifier.app.engine.data.source.local.rules.Converters
         BoosterDescriptionLocal::class,
         BoosterRuleLocal::class
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 public abstract class CovPassDatabase : RoomDatabase() {
