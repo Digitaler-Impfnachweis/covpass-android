@@ -6,12 +6,14 @@
 package de.rki.covpass.commonapp.scanner
 
 import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.savedInstanceState
 import com.google.zxing.BarcodeFormat
@@ -29,7 +31,7 @@ import kotlin.math.min
 /**
  * QR Scanner Fragment extending from BaseFragment to display a custom layout form scanner view.
  */
-public abstract class QRScannerFragment : BaseFragment() {
+public abstract class QRScannerFragment : BaseFragment(), DecoratedBarcodeView.TorchListener {
 
     private val binding by viewBinding(FragmentQrScannerBinding::inflate)
 
@@ -47,6 +49,8 @@ public abstract class QRScannerFragment : BaseFragment() {
 
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }
+
+    private val isTorchOn: MutableValueFlow<Boolean> by savedInstanceState(false)
 
     private val decoratedBarcodeView: DecoratedBarcodeView get() = binding.zxingBarcodeScanner
 
@@ -73,6 +77,15 @@ public abstract class QRScannerFragment : BaseFragment() {
         val screenSize = requireContext().getScreenSize()
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
+
+        decoratedBarcodeView.setTorchListener(this)
+        binding.scannerFlashlightButton.isVisible = hasFlash()
+
+        binding.scannerFlashlightButton.setOnClickListener {
+            setTorch(!isTorchOn.value)
+        }
+        setTorch(isTorchOn.value)
+
         checkPermission()
         view.post {
             binding.scannerImageView.setImageDrawable(
@@ -145,5 +158,24 @@ public abstract class QRScannerFragment : BaseFragment() {
         override fun getOpacity(): Int {
             return PixelFormat.OPAQUE
         }
+    }
+
+    private fun hasFlash(): Boolean =
+        activity?.packageManager?.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH) ?: false
+
+    private fun setTorch(on: Boolean) {
+        if (on) {
+            decoratedBarcodeView.setTorchOn()
+        } else {
+            decoratedBarcodeView.setTorchOff()
+        }
+    }
+
+    override fun onTorchOn() {
+        isTorchOn.value = true
+    }
+
+    override fun onTorchOff() {
+        isTorchOn.value = false
     }
 }

@@ -38,6 +38,18 @@
       android:layout_marginBottom="@dimen/grid_three_half"
       app:round_button_background="@drawable/button_round_disabled"
       app:round_button_icon="@drawable/common_ic_close" />
+
+    <ToggleButton
+      android:id="@+id/scanner_flashlight_button"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_gravity="right"
+      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginRight="@dimen/grid_three_half"
+      android:layout_marginBottom="@dimen/grid_three_half"
+      android:background="@drawable/button_flashlight_selector"
+      android:textOff=""
+      android:textOn="" />
   </FrameLayout>
 
 </RelativeLayout>
