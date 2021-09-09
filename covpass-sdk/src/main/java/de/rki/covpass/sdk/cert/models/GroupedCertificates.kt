@@ -73,32 +73,35 @@ public data class GroupedCertificates(
      * Negative PCR-Test, older then (>) 72 Hrs, or negative quick test older then (>) 48 Hrs
      */
     public fun getMainCertificate(): CombinedCovCertificate {
-        return getSortedCertificates().find {
+        val certificateSortedList = certificates.sortedWith { cert1, cert2 ->
+            cert2.covCertificate.validFrom?.compareTo(cert1.covCertificate.validFrom) ?: 0
+        }
+        return certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is TestCert && dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST &&
                 dgcEntry.sampleCollection?.isOlderThan(PCR_TEST_EXPIRY_TIME_HOURS) == false
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is TestCert && dgcEntry.type == TestCertType.NEGATIVE_ANTIGEN_TEST &&
                 dgcEntry.sampleCollection?.isOlderThan(ANTIGEN_TEST_EXPIRY_TIME_HOURS) == false
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Vaccination && dgcEntry.isBooster
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Recovery && dgcEntry.validUntil?.isBefore(LocalDate.now()) == false
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry.type == VaccinationCertType.VACCINATION_COMPLETE
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry.type == VaccinationCertType.VACCINATION_INCOMPLETE
-        } ?: certificates.find {
+        } ?: certificateSortedList.find {
             it.covCertificate.dgcEntry is Recovery
-        } ?: certificates.first()
+        } ?: certificateSortedList.first()
     }
 
     /**
