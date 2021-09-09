@@ -29,15 +29,6 @@
       app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-      android:id="@+id/notification_subtitle"
-      style="@style/DefaultText.OnBackground70"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      app:layout_constraintEnd_toEndOf="@+id/notification_title"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/notification_title" />
-
-    <TextView
       android:id="@+id/notification_icon"
       style="@style/DefaultText.OnInfo"
       android:layout_width="wrap_content"
@@ -53,7 +44,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/grid_two"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/notification_subtitle" />
+      app:layout_constraintTop_toBottomOf="@+id/notification_title" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
