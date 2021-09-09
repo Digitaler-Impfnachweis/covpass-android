@@ -18,10 +18,10 @@ import de.rki.covpass.app.validityresult.*
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import dgca.verifier.app.engine.Result
 import dgca.verifier.app.engine.ValidationResult
 import java.time.LocalDateTime
-import java.util.*
 
 @SuppressLint("NotifyDataSetChanged")
 public class ValidityCertsAdapter(parent: Fragment) :
@@ -161,15 +161,5 @@ public class ValidityCertsAdapter(parent: Fragment) :
                     affectedString = validationResult.rule.affectedString.map { it.drop("$certType.0.".length) }
                 )
             }
-    }
-
-    private fun getDescriptionLanguage(): String = when (Locale.getDefault().language) {
-        Locale.GERMAN.language -> DescriptionLanguage.GERMAN.languageCode
-        else -> DescriptionLanguage.ENGLISH.languageCode
-    }
-
-    private enum class DescriptionLanguage(val languageCode: String) {
-        GERMAN("de"),
-        ENGLISH("en")
     }
 }

@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
-import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.*
@@ -290,8 +289,11 @@ private class NotificationViewHolder(
 
         (item as DetailItem.Notification).let {
             binding.notificationTitle.text = getString(it.titleRes)
-            binding.notificationSubtitle.text = getString(it.subtitleRes)
-            binding.notificationText.text = getSpanned(it.textRes, it.ruleId)
+            binding.notificationText.text = getString(
+                R.string.vaccination_certificate_overview_booster_vaccination_notification_message,
+                it.description,
+                it.ruleId
+            )
             it.iconTextRes?.let { textIcon -> binding.notificationIcon.text = getString(textIcon) }
             it.iconBackgroundRes?.let { iconRes ->
                 binding.notificationIcon.background = getDrawable(parent.context, iconRes)

@@ -2,6 +2,7 @@ package de.rki.covpass.sdk.cert.models
 
 import COSE.CoseException
 import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import java.security.GeneralSecurityException
 
 /** Maps between [CovCertificateList] and [GroupedCertificatesList]. */
@@ -64,7 +65,11 @@ public class CertificateListMapper(
             it.result == de.rki.covpass.sdk.cert.BoosterResult.PASSED
         }
         return if (boosterResult != null) {
-            BoosterNotification(BoosterResult.Passed, boosterResult.rule.identifier)
+            BoosterNotification(
+                BoosterResult.Passed,
+                boosterResult.rule.getDescriptionFor(getDescriptionLanguage()).removeSuffix("."),
+                boosterResult.rule.identifier
+            )
         } else {
             BoosterNotification(BoosterResult.Failed)
         }

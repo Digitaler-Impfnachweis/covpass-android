@@ -13,6 +13,8 @@
 	<string name="start_onboarding_secure_message">Die Daten werden nur über den QR-Code eingelesen und nicht gespeichert. Sie sehen nur die notwendigen Informationen.</string>
 	<string name="start_onboarding_button_title">Los geht\'s</string>
 	<string name="next_onboarding_page_button_title">Weiter</string>
+	<string name="accessibility_onboarding_pages_label_back">Zurück</string>
+	<string name="accessibility_page_indicator">Seite %1$d von %2$d</string>
 	<string name="validation_first_onboarding_page_title">Erster Schritt: Den QR-Code mit der CovPassCheck-App scannen</string>
 	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat der EU. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronische Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate der EU hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
 	<string name="validation_second_onboarding_page_title">Zweiter Schritt: Die Identität mit einem Ausweisdokument überprüfen</string>
@@ -33,6 +35,7 @@
 	<string name="dialog_start_screen_button_update">Aktualisieren</string>
 
 	<!-- SECTION: start screen -->
+	<string name="accessibility_validation_start_screen_label_information">Mehr Informationen</string>
 	<string name="validation_start_screen_title">Übersicht</string>
 	<string name="validation_start_screen_scan_title">Zertifikat prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
@@ -50,6 +53,7 @@
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
 	<string name="scan_dialog_camera_access_message">Die CovPassCheck-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
 	<string name="scan_dialog_camera_access_action_button">Zugriff erlauben</string>
+	<string name="accessibility_scan_dialog_camera_access_label_close">Schließen</string>
 	<string name="error_camera_access_title">Die CovPassCheck-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
@@ -59,6 +63,7 @@
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Genesenen- oder Impfzertifikat liegt vor.</string>
 	<string name="validation_check_popup_valid_vaccination_button_title">Weiteres Zertifikat scannen</string>
+	<string name="accessibility_validation_check_popup_valid_vaccination_label_close">Schließen</string>
 	<string name="validation_check_popup_unsuccessful_certificate_title">Zertifikat ungültig</string>
 	<string name="validation_check_popup_unsuccessful_certificate_message">Das geprüfte Zertifikat ist aus einem der folgenden Gründe ungültig:</string>
 	<string name="validation_check_popup_unsuccessful_certificate_not_valid_title">Ungültiges Zertifikat</string>
@@ -66,18 +71,22 @@
 	<string name="validation_check_popup_unsuccessful_certificate_technical_problems_title">Technische Probleme</string>
 	<string name="validation_check_popup_unsuccessful_certificate_technical_problems_message">Die Signatur ist nicht gültig oder der QR-Code ist nicht lesbar.</string>
 	<string name="validation_check_popup_unsuccessful_certificate_button_title">Weiteres Zertifikat scannen</string>
+	<string name="accessibility_validation_check_popup_unsuccessful_certificate_label_close">Schließen</string>
 	<string name="validation_check_popup_test_title">Negativer Schnelltest von vor %d Stunden</string>
 	<string name="validation_check_popup_test_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_test_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_test_date_of_issue">Zeitpunkt der Probenahme</string>
 	<string name="validation_check_popup_test_button_title">Weiteres Zertifikat scannen</string>
+	<string name="accessibility_validation_check_popup_test_label_close">Schließen</string>
 	<string name="validation_check_popup_valid_pcr_test_title">Negativer PCR-Test von vor %d Stunden</string>
 	<string name="validation_check_popup_valid_pcr_test_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_issue">Zeitpunkt der Probenahme</string>
 	<string name="validation_check_popup_valid_pcr_test_button_title">Weiteres Zertifikat scannen</string>
+	<string name="accessibility_validation_check_popup_valid_pcr_test_label_close">Schließen</string>
 
 	<!-- SECTION: app information -->
+	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPassCheck-App.</string>
 	<string name="app_information_title_contact">Kontakt</string>
@@ -86,6 +95,7 @@
 	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpasscheck-app.de::mailto:support\@covpasscheck-app.de#</string>
 	<string name="app_information_message_contact_info">Kontakt bei sonstigen Fragen</string>
 	<string name="app_information_message_contact_info_mail">E-Mail: #info\@covpass-app.de::mailto:info\@covpass-app.de#</string>
+	<string name="accessibility_app_information_contact_label_back">Zurück</string>
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
@@ -93,6 +103,7 @@
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
+	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->

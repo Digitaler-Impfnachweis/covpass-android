@@ -17,6 +17,7 @@ public enum class BoosterResult {
 
 public data class BoosterNotification(
     val result: BoosterResult = BoosterResult.Failed,
+    val description: String = "",
     val ruleId: String = "",
 )
 

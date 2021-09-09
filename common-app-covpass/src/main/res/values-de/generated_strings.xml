@@ -13,10 +13,12 @@
 	<string name="start_onboarding_secure_message">Ihre Daten werden nur lokal auf Ihrem Smartphone gespeichert. Sie entscheiden, wann und wem Sie Ihre Daten vorzeigen.</string>
 	<string name="start_onboarding_button_title">Los geht\'s</string>
 	<string name="next_onboarding_page_button_title">Weiter</string>
+	<string name="accessibility_onboarding_pages_label_back">Zurück</string>
+	<string name="accessibility_page_indicator">Seite %1$d von %2$d</string>
 	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Übertragen Sie das digitale COVID-Zertifikat der EU auf Ihr Smartphone</string>
-	<string name="vaccination_first_onboarding_page_message">Scannen Sie mit der CovPass-App das digitale COVID-Zertifikat der EU für eine Corona-Impfung, ein negatives Corona-Testergebnis oder eine Genesung von der Corona-Infektion. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Das digitale COVID-Zertifikat der EU wird sofort auf Ihr Smartphone übertragen.</string>
+	<string name="vaccination_first_onboarding_page_message">Scannen Sie mit der CovPass-App das digitale COVID-Zertifikat der EU für eine Corona-Impfung oder eine Genesung von der Corona-Infektion. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Das digitale COVID-Zertifikat der EU wird sofort auf Ihr Smartphone übertragen.</string>
 	<string name="vaccination_second_onboarding_page_title">Zweiter Schritt: Rufen Sie den QR-Code in der CovPass-App auf</string>
-	<string name="vaccination_second_onboarding_page_message">Mit dem QR-Code können Sie eine Corona-Impfung, ein negatives Corona-Testergebnis oder eine Genesung von einer Corona-Infektion nachweisen. Nach dem Scannen wird der QR-Code direkt in der CovPass-App angezeigt. Bitte beachten Sie, dass eine ausreichende Wirksamkeit des Impfschutzes erst etwa 14 Tage nach der letzten Impfung eintritt. Der QR-Code für den vollständigen Impfschutz ist deshalb erst nach Ablauf der 14 Tage gültig.</string>
+	<string name="vaccination_second_onboarding_page_message">Mit dem QR-Code können Sie eine Corona-Impfung oder eine Genesung von einer Corona-Infektion nachweisen. Nach dem Scannen wird der QR-Code direkt in der CovPass-App angezeigt. Bitte beachten Sie, dass eine ausreichende Wirksamkeit des Impfschutzes erst etwa 14 Tage nach der letzten Impfung eintritt. Der QR-Code für den vollständigen Impfschutz ist deshalb erst nach Ablauf der 14 Tage gültig.</string>
 	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Zeigen Sie den QR-Code bei Bedarf vor</string>
 	<string name="vaccination_third_onboarding_page_message">Bei Bedarf können Sie den QR-Code in der CovPass-App vorzeigen. Der QR-Code wird dann von der prüfenden Person gescannt. Halten Sie dazu ergänzend Ihr Ausweisdokument bereit. Da der QR-Code nur auf Ihrem Smartphone gespeichert ist, können Sie ihn jederzeit auch ohne Internetverbindung anzeigen lassen.</string>
 	<string name="vaccination_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
@@ -27,6 +29,7 @@
 	<string name="vaccination_fourth_onboarding_page_message">Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
 	<string name="vaccination_fourth_onboarding_page_button_title">Alles klar</string>
 	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
+	<string name="accessibility_fourth_onboarding_page_label_scroll_to_end">Zum Ende scrollen</string>
 	<string name="dialog_start_screen_title">Neues Update verfügbar</string>
 	<string name="dialog_start_screen_message">Möchten Sie jetzt die CovPass-App aktualisieren?</string>
 	<string name="dialog_start_screen_button_later">Nicht jetzt</string>
@@ -35,9 +38,12 @@
 	<string name="dialog_booster_vaccination_notification_message">Aufgrund Ihrer vorhandenen Impfzertifikate könnte eine Auffrischungsimpfung erforderlich sein. Bitte überprüfen Sie den Status Ihrer Impfzertifikate.</string>
 
 	<!-- SECTION: start Screen -->
+	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
+	<string name="accessibility_vaccination_start_screen_label_add_certificate">Nachweis hinzufügen</string>
 	<string name="vaccination_start_screen_title">Digitale COVID-Zertifikate der EU</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie einen Nachweis hinzu</string>
 	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf das Plus-Symbol, um einen digitalen Nachweis hinzuzufügen.</string>
+	<string name="accessibility_vaccination_start_screen_label_qrcode">Schwarzer QR-Code auf weißem Hintergrund</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Unvollständiger Impfschutz</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Vollständig ab %s</string>
 	<string name="vaccination_start_screen_qrcode_complete_protection_subtitle">Vollständiger Impfschutz</string>
@@ -47,6 +53,10 @@
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Impfstatus überprüfen</string>
 
 	<!-- SECTION: popup: add certification -->
+	<string name="accessibility_certificate_add_popup_label_close">Schließen</string>
+	<string name="accessibility_certificate_add_popup_label_torch_on">Taschenlampe anschalten</string>
+	<string name="accessibility_certificate_add_popup_label_torch_off">Taschenlampe ausschalten</string>
+	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
 	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, eine Code zum Entsperren Ihres Smartphones einzurichten.</string>
@@ -57,6 +67,8 @@
 	<string name="certificate_add_dialog_camera_access_title">Kamerazugriff benötigt</string>
 	<string name="certificate_add_dialog_camera_access_message">Die CovPass-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
 	<string name="certificate_add_dialog_camera_access_action_button">Zugriff erlauben</string>
+	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
+	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
@@ -64,18 +76,22 @@
 	<string name="error_test_certificate_not_valid_title">Das Testzertifikat kann nicht hinzugefügt werden</string>
 	<string name="error_test_certificate_not_valid_message">Der von Ihnen gescannte Nachweis für einen Corona-Test weist kein negatives Testergebnis nach. Die aktuelle Version der CovPass-App kann nur negative Corona-Testergebnisse speichern.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
-	<string name="dialogue_add_booster_vaccination_title">Auffrischungsimpfung hinzugefügt</string>
-	<string name="dialogue_add_booster_vaccination_message">Bitte beachten Sie, dass die Mitgliedstaaten der EU derzeit noch kein einheitliches Vorgehen zu COVID-Zertifikaten für die Auffrischungsimpfungen beschlossen haben. Auf Grund dessen kann nicht ausgeschlossen werden, dass dieses Zertifikat in anderen EU-Ländern nicht als gültig anerkannt wird. Sofern Sie eine Reise außerhalb Deutschlands planen, nehmen Sie daher bitte auch die ursprünglichen Impfzertifikate (oder einen anderen anerkannten Nachweis) mit, die Sie vor der Auffrischungsimpfung erhalten haben.</string>
-	<string name="dialogue_add_booster_vaccination_action_button_title">OK</string>
+  <string name="dialogue_add_booster_vaccination_action_button_title">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
-	<string name="certificate_favorite_button_hint">Als Favorit markieren</string>
+  <string name="certificate_favorite_button_hint">Als Favorit markieren</string>
+	<string name="accessibility_certificate_favorite_button_label_active">Zertifikate dieser Person immer an erster Stelle anzeigen: aktiv</string>
+	<string name="accessibility_certificate_favorite_button_label_not_active">Zertifikate dieser Person immer an erster Stelle anzeigen: nicht aktiv</string>
 	<string name="certificate_action_button_check_validity">Gültigkeit prüfen</string>
 
 	<!-- SECTION: Screen: check validity -->
+	<string name="accessibility_certificate_check_validity_label_close">Schließen</string>
+	<string name="accessibility_certificate_check_validity_label_results">Ergebnisse der EU-Zertifikatsprüfung</string>
+	<string name="accessibility_certificate_check_validity_label_display_certificate">Zertifikat anzeigen</string>
 	<string name="certificate_check_validity_title">Gültigkeit prüfen</string>
 	<string name="certificate_check_validity_message">Prüfen Sie vorab, ob Ihre Zertifikate in verschiedenen Ländern gültig sind. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselands berücksichtigt.</string>
 	<string name="certificate_check_validity_selection_country">Land</string>
+	<string name="accessibility_certificate_check_validity_selection_country_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_country_title">Reiseland wählen</string>
 	<string name="IT">Italien</string>
 	<string name="LT">Litauen</string>
@@ -112,9 +128,11 @@
 	<string name="certificate_check_validity_selection_country_note">Sie finden Ihr Reiseland nicht? In einem mehrstufigen Prozess werden nach und nach mehr Länder verfügbar gemacht. \n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_selection_country_action_button">Übernehmen</string>
 	<string name="certificate_check_validity_selection_date">Datum</string>
+	<string name="accessibility_certificate_check_validity_selection_date_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_date_title">Datum wählen</string>
 	<string name="certificate_check_validity_selection_date_action_button">Weiter</string>
 	<string name="certificate_check_validity_selection_time_title">Zeit wählen</string>
+	<string name="accessibility_certificate_check_validity_selection_time_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_time_action_button">OK</string>
 	<string name="certificate_check_validity_loading">Zertifikate werden geprüft</string>
 	<string name="certificate_check_validity_no_certificate_saved_title">Sie haben noch keine Zertifikate gespeichert</string>
@@ -127,17 +145,22 @@
 	<string name="certificate_check_validity_result_not_testable">Nicht vollständig prüfbar</string>
 	<string name="certificate_check_validity_note">Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher die Zertifikate mindestens 48 Stunden vorher. Es können in einzelnen Regionen oder bei Ihrer Rückkehr weitere Regeln oder Einschränkungen gelten. Zudem ist es möglich, dass weitere Dokumente für eine Einreise notwendig sind.\n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_title">Digitales COVID-Impfzertifikat der EU</string>
+	<string name="certificate_check_validity_detail_view_vaccination_result_headline_data">Geprüfte Zertifikatsdaten:</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_button">QR-Code anzeigen</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_note_de">Das Impfzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_note_en">A certificate of vaccination is valid proof for travel within the EU. The EU’s member countries have different travel restrictions. You can find more information in the Frequently Asked Questions. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination.\n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_test_result_title">Digitales COVID-Testzertifikat der EU</string>
+	<string name="certificate_check_validity_detail_view_test_result_headline_data">Geprüfte Zertifikatsdaten:</string>
 	<string name="certificate_check_validity_detail_view_test_result_button">QR-Code anzeigen</string>
 	<string name="certificate_check_validity_detail_view_test_result_note_de">Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_test_result_note_en">A test certificate is valid proof for travel within the EU. The EU’s member countries have different travel restrictions. You can find more information in the Frequently Asked Questions. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination.\n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_title">Digitales COVID-Genesenenzertifikat der EU</string>
+	<string name="certificate_check_validity_detail_view_recovery_result_headline_data">Geprüfte Zertifikatsdaten:</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_button">QR-Code anzeigen</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_note_de">Das Genesenenzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_note_en">A certificate of recovery is valid proof for travel within the EU. The EU’s member countries have different travel restrictions. You can find more information in the Frequently Asked Questions. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination.\n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
+	<string name="certificate_check_validity_detail_view_result_no_rules_title">Dieses Zertifikat ist nicht prüfbar</string>
+	<string name="certificate_check_validity_detail_view_result_no_rules_message">Für das gewählte Land und den gewählten Zeitpunkt stehen derzeit keine Einreiseregeln für die Prüfung in der App zur Verfügung.\n\nBitte informieren Sie sich unter #https://reopen.europa.eu::https://reopen.europa.eu#, ob das Zertifikat für die Einreise in das gewählte Land gültig ist.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_title">Dieses Zertifikat ist am Reisedatum gültig</string>
 	<string name="certificate_check_validity_detail_view_result_valid_message">Für %1$s, am %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_valid_info">Es wurden %d Regeln des Ziellandes erfolgreich überprüft.</string>
@@ -151,6 +174,8 @@
 	<string name="certificate_check_validity_detail_view_result_not_valid_message">Für %1$s, am %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_note_title">Dieser Wert erfüllt nicht Regel „TR01\"</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_note_message">Regel des Ziellands: Genesenenzertifikate sind bis zu 180 Tage gültig.</string>
+	<string name="accessibility_certificate_check_validity_detail_view_result_label_close">Schließen</string>
+	<string name="accessibility_certificate_check_validity_detail_view_result_label_marked_values">Dieser Wert ist zu überprüfen</string>
 	<string name="error_check_validity_no_internet_title">Keine Internetverbindung</string>
 	<string name="error_check_validity_no_internet_message">Um die Gültigkeit des Zertifikats prüfen zu können, stellen Sie bitte eine Verbindung mit dem Internet her.</string>
 	<string name="error_check_validity_no_internet_button_try_again">Nochmal versuchen</string>
@@ -176,6 +201,10 @@
 	<string name="error_connect_to_internet_button_ok">OK</string>
 
 	<!-- SECTION: overview certificates -->
+	<string name="accessibility_overview_certificates_label_back">Zurück zum Startbildschirm</string>
+	<string name="accessibility_overview_certificates_label_favourites_button_active">Zertifikate dieser Person immer an erster Stelle anzeigen: aktiv</string>
+	<string name="accessibility_overview_certificates_label_favourites_button_not_active">Zertifikate dieser Person immer an erster Stelle anzeigen: nicht aktiv</string>
+	<string name="accessibility_overview_certificates_label_display_certificate">Zertifikat anzeigen</string>
 	<string name="booster_vaccination_certificate_overview_title">Auffrischungsimpfung: Aktuell nur in Deutschland nutzbar</string>
 	<string name="booster_vaccination_certificate_overview_message">Auffrischungsimpfungen können derzeit nur in Deutschland digital nachgewiesen und geprüft werden. Sobald sich dies ändert, werden Sie hier über den aktuellen Stand informiert.</string>
 	<string name="booster_vaccination_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
@@ -189,8 +218,7 @@
 	<string name="vaccination_certificate_overview_complete_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">Neu</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_title">Aktueller Impfstatus</string>
-	<string name="vaccination_certificate_overview_booster_vaccination_notification_subtitle">Letzte Impfung vor 180 Tagen</string>
-	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">Aufgrund Ihres vorhandenen Impfzertifikats könnte für Sie eine Auffrischungsimpfung erforderlich sein, da Ihr letztes Impfzertifikat älter als 6 Monate ist (Rule ID: %s).\n\nMehr Informationen finden Sie in den Häufigen Fragen.</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">%1$s (Rule ID: %2$s).</string>
 	<string name="test_certificate_overview_title">Negativer Antigen-Schnelltest vom %s</string>
 	<string name="test_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="test_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
@@ -235,7 +263,9 @@
 	<string name="certificates_overview_pcr_test_certificate_date">Probenahme am %s</string>
 
 	<!-- SECTION: detail view: delete certificate -->
-	<string name="certificate_delete_button_hint">Löschen</string>
+  <string name="certificate_delete_button_hint">Löschen</string>
+	<string name="accessibility_certificate_detail_view_label_delete_button">Zertifikat löschen</string>
+	<string name="accessibility_certificate_detail_view_label_back">Zurück</string>
 
 	<!-- SECTION: detail view: certificate -->
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
@@ -266,6 +296,7 @@
 	<string name="vaccination_certificate_detail_view_pdf_action_button_note">Sie können nur deutsche Impf- und Genesenenzertifikate als PDF herunterladen.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_title">Impfung %1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
+	<string name="accessibility_vaccination_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="test_certificate_detail_view_title">Antigen-Schnelltest</string>
 	<string name="test_certificate_detail_view_pcr_test_title">PCR-Test</string>
 	<string name="test_certificate_detail_view_headline">Digitales COVID-Testzertifikat der EU</string>
@@ -291,6 +322,7 @@
 	<string name="test_certificate_detail_view_test_qrcode_screen_title">Antigen-Schnelltest</string>
 	<string name="test_certificate_detail_view_pcr_test_qrcode_screen_title">PCR-Test</string>
 	<string name="test_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
+	<string name="accessibility_test_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="recovery_certificate_detail_view_title">Vollständige Genesung</string>
 	<string name="recovery_certificate_detail_view_headline">Digitales COVID-Genesenenzertifikat der EU</string>
 	<string name="recovery_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
@@ -314,6 +346,7 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_title">Vollständige Genesung</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_message">Gültig bis %s</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
+	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="certificate_expires_detail_view_note_title">Zertifikat läuft am %1$s um %2$s ab</string>
 	<string name="certificate_expires_detail_view_note_message">Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificate_invalid_detail_view_note_title">Zertifikat ungültig</string>
@@ -322,6 +355,7 @@
 	<string name="certificate_expired_detail_view_note_message">Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 
 	<!-- SECTION: print certificate -->
+	<string name="accessibility_certificate_create_pdf_label_close">Schließen</string>
 	<string name="certificate_create_pdf_headline">EU-Ausdruck erstellen</string>
 	<string name="certificate_create_pdf_first_list_item">Sie können das Zertifikat als PDF-Dokument speichern. Die Speicherung ist freiwillig. Auf das PDF-Dokument haben zunächst nur Sie Zugriff.</string>
 	<string name="certificate_create_pdf_second_list_item">Beachten Sie, dass das PDF-Dokument sensible Informationen enthält. Wir empfehlen Ihnen, hiermit sorgsam umzugehen und es nur Personen vorzuzeigen, denen Sie vertrauen und die zur Prüfung des Nachweises berechtigt sind.</string>
@@ -364,6 +398,7 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
+	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPass-App.</string>
 	<string name="app_information_title_contact">Kontakt</string>
@@ -372,6 +407,7 @@
 	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpass-app.de::mailto:support\@covpass-app.de#</string>
 	<string name="app_information_message_contact_info">Kontakt bei sonstigen Fragen</string>
 	<string name="app_information_message_contact_info_mail">E-Mail: #info\@covpass-app.de::mailto:info\@covpass-app.de#</string>
+	<string name="accessibility_app_information_contact_label_back">Zurück</string>
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
@@ -379,5 +415,6 @@
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
+	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_version_label">Version %s</string>
 </resources>

@@ -46,8 +46,7 @@ public sealed class DetailItem {
 
     public class Notification(
         public val titleRes: Int,
-        public val subtitleRes: Int,
-        public val textRes: Int,
+        public val description: String,
         public val ruleId: String,
         public val iconBackgroundRes: Int?,
         public val iconTextRes: Int?,
