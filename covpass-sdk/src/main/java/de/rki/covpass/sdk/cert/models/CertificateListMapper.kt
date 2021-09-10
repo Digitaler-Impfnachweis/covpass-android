@@ -67,7 +67,7 @@ public class CertificateListMapper(
         return if (boosterResult != null) {
             BoosterNotification(
                 BoosterResult.Passed,
-                boosterResult.rule.getDescriptionFor(getDescriptionLanguage()).removeSuffix("."),
+                boosterResult.rule.getDescriptionFor(getDescriptionLanguage()),
                 boosterResult.rule.identifier
             )
         } else {

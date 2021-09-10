@@ -35,7 +35,7 @@
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
 	<string name="dialog_booster_vaccination_notification_title">There is news about your certificates</string>
-	<string name="dialog_booster_vaccination_notification_message">Based on your existing vaccination certificates, a booster vaccination may be required. Please check the status of your vaccination certificates.</string>
+	<string name="dialog_booster_vaccination_notification_message">Please check the status of your EU Digital COVID Certificates.</string>
 
 	<!-- SECTION: start Screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">More information</string>
@@ -218,7 +218,7 @@
 	<string name="vaccination_certificate_overview_complete_action_button_title">Display current QR Code</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">New</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_title">Current vaccination status</string>
-	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">%1$s (Rule ID: %2$s).</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">%1$s (Rule ID: %2$s)</string>
 	<string name="test_certificate_overview_title">Negative rapid antigen test from %s</string>
 	<string name="test_certificate_overview_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="test_certificate_overview_action_button_title">Display current QR Code</string>
