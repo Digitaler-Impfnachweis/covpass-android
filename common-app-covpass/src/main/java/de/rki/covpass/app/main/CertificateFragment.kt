@@ -70,6 +70,8 @@ internal class CertificateFragment : BaseFragment() {
 
         when (val dgcEntry = mainCertificate.dgcEntry) {
             is Vaccination -> {
+                val showBoosterNotification = !groupedCertificate.hasSeenBoosterDetailNotification &&
+                    groupedCertificate.boosterNotification.result == BoosterResult.Passed
                 when (dgcEntry.type) {
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         binding.certificateCard.vaccinationFullProtectionCard(
@@ -81,14 +83,19 @@ internal class CertificateFragment : BaseFragment() {
                                     mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
-                                getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
+                                if (showBoosterNotification) {
+                                    getString(
+                                        R.string.vaccination_start_screen_qrcode_booster_vaccination_note_subtitle
+                                    )
+                                } else {
+                                    getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
+                                }
                             },
                             getString(R.string.vaccination_full_immunization_action_button),
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
                             certStatus,
-                            !groupedCertificate.hasSeenBoosterDetailNotification &&
-                                groupedCertificate.boosterNotification.result == BoosterResult.Passed
+                            showBoosterNotification
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
