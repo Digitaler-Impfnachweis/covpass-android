@@ -116,7 +116,8 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.vaccination_partial_immunization_action_button),
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
-                            certStatus
+                            certStatus,
+                            showBoosterNotification
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -129,12 +130,19 @@ internal class CertificateFragment : BaseFragment() {
                                     mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
-                                getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+                                if (showBoosterNotification) {
+                                    getString(
+                                        R.string.vaccination_start_screen_qrcode_booster_vaccination_note_subtitle
+                                    )
+                                } else {
+                                    getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+                                }
                             },
                             getString(R.string.vaccination_partial_immunization_action_button),
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
-                            certStatus
+                            certStatus,
+                            showBoosterNotification
                         )
                     }
                 }

@@ -170,7 +170,8 @@ public class CertificateCard @JvmOverloads constructor(
         protectionText: String,
         name: String,
         isFavorite: Boolean = false,
-        certStatus: CertValidationResult = CertValidationResult.Valid
+        certStatus: CertValidationResult = CertValidationResult.Valid,
+        showBoosterNotification: Boolean
     ) {
         this.header = header
         this.protectionText = protectionText
@@ -186,10 +187,14 @@ public class CertificateCard @JvmOverloads constructor(
                 cardBackground = ContextCompat.getColor(context, R.color.info20)
                 statusImage = ContextCompat.getDrawable(
                     context,
-                    if (certStatus == CertValidationResult.Valid) {
-                        R.drawable.main_cert_status_incomplete
-                    } else {
-                        R.drawable.main_cert_expiry_period
+                    when {
+                        showBoosterNotification -> {
+                            R.drawable.booster_partial_notification_icon
+                        }
+                        certStatus == CertValidationResult.Valid -> {
+                            R.drawable.main_cert_status_incomplete
+                        }
+                        else -> R.drawable.main_cert_expiry_period
                     }
                 )
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_blue)
