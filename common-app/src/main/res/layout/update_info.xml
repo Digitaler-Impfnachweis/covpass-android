@@ -7,7 +7,29 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical">
+
+  <LinearLayout
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:lottie_autoPlay="true"
+      app:lottie_colorFilter="@color/brandAccent70"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_animation" />
+
+  </LinearLayout>
 
   <WebView
     android:id="@+id/update_info_web_view"
