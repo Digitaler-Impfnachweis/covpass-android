@@ -44,7 +44,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
  * The main fragment hosts a [ViewPager2] to display all [GroupedCertificates] and serves as entry point for further
  * actions (e.g. add new certificate, show settings screen, show selected certificate)
  */
-internal class MainFragment : BaseFragment(), DetailCallback {
+internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificationCallback {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
@@ -55,15 +55,20 @@ internal class MainFragment : BaseFragment(), DetailCallback {
         setupViews()
         autoRun {
             val certs = get(covpassDeps.certRepository.certs)
-            if (
-                certs.certificates.any {
-                    it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
-                }
-            ) {
-                findNavigator().push(BoosterNotificationFragmentNav())
-            }
             updateCertificates(certs, viewModel.selectedCertId)
         }
+        if (
+            covpassDeps.certRepository.certs.value.certificates.any {
+                it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
+            }
+        ) {
+            findNavigator().push(BoosterNotificationFragmentNav())
+        } else {
+            validateAppVersion()
+        }
+    }
+
+    private fun validateAppVersion() {
         if (commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION) {
             findNavigator().push(UpdateInfoCovpassFragmentNav())
         }
@@ -122,5 +127,9 @@ internal class MainFragment : BaseFragment(), DetailCallback {
 
     private fun showAddCovCertificatePopup() {
         findNavigator().push(AddCovCertificateFragmentNav())
+    }
+
+    override fun onBoosterNotificationFinish() {
+        validateAppVersion()
     }
 }
