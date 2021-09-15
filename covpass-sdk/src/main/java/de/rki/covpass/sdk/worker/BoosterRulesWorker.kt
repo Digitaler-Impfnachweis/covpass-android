@@ -15,7 +15,7 @@ public class BoosterRulesWorker(
 
     override suspend fun doWork(): Result =
         try {
-            sdkDeps.boosterRulesRepository.loadBoosterRules()
+            sdkDeps.covPassBoosterRulesRepository.loadBoosterRules()
             Result.success()
         } catch (e: Throwable) {
             Lumber.e(e)

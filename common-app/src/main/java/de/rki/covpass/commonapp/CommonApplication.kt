@@ -74,20 +74,18 @@ public abstract class CommonApplication : Application() {
 
     private fun prepopulateDb() {
         runBlocking {
-            if (sdkDeps.rulesRepository.getAllRuleIdentifiers().isNullOrEmpty()) {
-                sdkDeps.rulesRepository.prepopulate(
-                    sdkDeps.bundledRuleIdentifiers,
+            if (sdkDeps.covPassRulesRepository.getAllCovPassRules().isNullOrEmpty()) {
+                sdkDeps.covPassRulesRepository.prepopulate(
                     sdkDeps.bundledRules
                 )
             }
-            if (sdkDeps.valueSetsRepository.getAllValueSetIdentifiers().isNullOrEmpty()) {
-                sdkDeps.valueSetsRepository.prepopulate(
-                    sdkDeps.bundledValueSetIdentifiers,
+            if (sdkDeps.covPassValueSetsRepository.getAllCovPassValueSets().isNullOrEmpty()) {
+                sdkDeps.covPassValueSetsRepository.prepopulate(
                     sdkDeps.bundledValueSets
                 )
             }
-            if (sdkDeps.boosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
-                sdkDeps.boosterRulesRepository.prepopulate(
+            if (sdkDeps.covPassBoosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
+                sdkDeps.covPassBoosterRulesRepository.prepopulate(
                     sdkDeps.bundledBoosterRules
                 )
             }

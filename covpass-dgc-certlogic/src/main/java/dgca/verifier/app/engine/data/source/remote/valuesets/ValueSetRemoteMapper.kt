@@ -53,8 +53,9 @@ fun ValueSetRemote.toValueSet(): ValueSet = ValueSet(
 
 fun List<ValueSetRemote>.toValueSets(): List<ValueSet> {
     val valueSets = mutableListOf<ValueSet>()
-    forEach {
-        valueSets.add(it.toValueSet())
+    for (i in this.indices) {
+        val valueSetRemote = this[i]
+        valueSets.add(valueSetRemote.toValueSet())
     }
     return valueSets
 }

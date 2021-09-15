@@ -40,6 +40,7 @@ internal class MainFragment : BaseFragment() {
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
 
     private val dscRepository get() = sdkDeps.dscRepository
+    private val rulesUpdateRepository get() = sdkDeps.rulesUpdateRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +57,7 @@ internal class MainFragment : BaseFragment() {
         autoRun {
             updateAvailabilityCard(
                 get(dscRepository.lastUpdate),
-                get(dscRepository.lastRulesUpdate)
+                get(rulesUpdateRepository.lastRulesUpdate)
             )
         }
     }

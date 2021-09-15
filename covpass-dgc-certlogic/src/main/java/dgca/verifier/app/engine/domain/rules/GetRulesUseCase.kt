@@ -24,6 +24,7 @@ package dgca.verifier.app.engine.domain.rules
 
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
+import java.time.ZonedDateTime
 
 /*-
  * ---license-start
@@ -48,6 +49,7 @@ import dgca.verifier.app.engine.data.Rule
  */
 interface GetRulesUseCase {
     fun invoke(
+        validationClock: ZonedDateTime,
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
         certificateType: CertificateType,

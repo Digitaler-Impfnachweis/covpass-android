@@ -5,7 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "descriptions",
+    tableName = "booster_rules_descriptions",
     foreignKeys = [
         ForeignKey(
             entity = BoosterRuleLocal::class,

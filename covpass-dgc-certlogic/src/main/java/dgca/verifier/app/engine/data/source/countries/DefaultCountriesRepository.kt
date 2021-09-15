@@ -23,8 +23,9 @@
 package dgca.verifier.app.engine.data.source.countries
 
 import dgca.verifier.app.engine.data.source.local.countries.CountriesLocalDataSource
-import dgca.verifier.app.engine.data.source.remote.countries.CountriesRemoteDataSource
+import dgca.verifier.app.engine.data.source.remote.countries.CountriesRemoteDataSrouce
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 /*-
  * ---license-start
@@ -48,14 +49,14 @@ import kotlinx.coroutines.flow.Flow
  * Created by osarapulov on 25.06.21 9:28
  */
 class DefaultCountriesRepository(
-    private val remoteDataSource: CountriesRemoteDataSource,
+    private val remoteDataSource: CountriesRemoteDataSrouce,
     private val localDataSource: CountriesLocalDataSource
 ) : CountriesRepository {
 
     override suspend fun preLoadCountries(countriesUrl: String) {
-        remoteDataSource.getCountries(countriesUrl).apply {
-            localDataSource.updateCountries(this)
-        }
+        remoteDataSource.getCountries(countriesUrl)
+            .map { it.toLowerCase(Locale.ROOT) }
+            .apply { localDataSource.updateCountries(this) }
     }
 
     override fun getCountries(): Flow<List<String>> {

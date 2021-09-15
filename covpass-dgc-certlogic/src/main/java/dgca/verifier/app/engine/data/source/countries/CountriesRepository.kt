@@ -43,6 +43,8 @@ package dgca.verifier.app.engine.data.source.countries
  *
  * Created by osarapulov on 25.06.21 9:15
  */
-interface CountriesRepository: CountriesDataSource {
+interface CountriesRepository : CountriesDataSource {
     suspend fun preLoadCountries(countriesUrl: String)
 }
+
+val COUNTRIES_MAP = mapOf("el" to "gr")

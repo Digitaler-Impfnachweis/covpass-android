@@ -25,7 +25,7 @@ public class CovPassBoosterRulesLocalDataSource(
             boosterRulesDao.getAll()
         }
 
-    public suspend fun getAllBoosterRules(
+    public suspend fun getAllBoosterRulesBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
     ): List<BoosterRule> =

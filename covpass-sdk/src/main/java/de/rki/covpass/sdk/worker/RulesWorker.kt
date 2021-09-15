@@ -15,7 +15,7 @@ public class RulesWorker(
 
     override suspend fun doWork(): Result =
         try {
-            sdkDeps.rulesRepository.loadRules()
+            sdkDeps.covPassRulesRepository.loadRules()
             Result.success()
         } catch (e: Throwable) {
             Lumber.e(e)

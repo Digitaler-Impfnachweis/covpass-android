@@ -24,11 +24,10 @@ package dgca.verifier.app.engine.data.source.rules
 
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.RuleCertificateType
+import dgca.verifier.app.engine.data.RuleIdentifier
 import dgca.verifier.app.engine.data.Type
 import dgca.verifier.app.engine.data.source.local.rules.RulesLocalDataSource
-import dgca.verifier.app.engine.data.source.remote.rules.RuleRemote
 import dgca.verifier.app.engine.data.source.remote.rules.RulesRemoteDataSource
-import dgca.verifier.app.engine.data.source.remote.rules.toRules
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -58,20 +57,28 @@ class DefaultRulesRepository(
     private val localDataSource: RulesLocalDataSource
 ) : RulesRepository {
     override suspend fun loadRules(rulesUrl: String) {
-        val rulesRemote = mutableListOf<RuleRemote>()
-        val ruleIdentifiersRemote = remoteDataSource.getRuleIdentifiers(rulesUrl)
+        val upToDateRuleIdentifiers = remoteDataSource.getRuleIdentifiers(rulesUrl).toMutableSet()
+        val rulesToBeRemovedIdentifiers = localDataSource.getRuleIdentifiers()
+            .filter { !upToDateRuleIdentifiers.remove(it) }
+            .map { it.identifier }
 
-        ruleIdentifiersRemote.forEach {
-            val ruleRemote =
-                remoteDataSource.getRule("$rulesUrl/${it.country.toLowerCase(Locale.ROOT)}/${it.hash}")
-            if (ruleRemote != null) {
-                rulesRemote.add(ruleRemote)
+        localDataSource.removeRulesBy(rulesToBeRemovedIdentifiers)
+
+        val ruleIdentifiersToBeSaved = mutableListOf<RuleIdentifier>()
+        val rulesToBeSaved = mutableListOf<Rule>()
+        upToDateRuleIdentifiers.forEach { ruleIdentifier ->
+            try {
+                remoteDataSource.getRule("$rulesUrl/${ruleIdentifier.country.toLowerCase(Locale.ROOT)}/${ruleIdentifier.hash}")
+                    ?.let { rule ->
+                        ruleIdentifiersToBeSaved.add(ruleIdentifier)
+                        rulesToBeSaved.add(rule)
+                    }
+            } catch (error: Throwable) {
             }
         }
 
-        if (rulesRemote.isNotEmpty()) {
-            localDataSource.removeRules()
-            localDataSource.addRules(rulesRemote.toRules())
+        if (ruleIdentifiersToBeSaved.isNotEmpty()) {
+            localDataSource.addRules(ruleIdentifiersToBeSaved, rulesToBeSaved)
         }
     }
 

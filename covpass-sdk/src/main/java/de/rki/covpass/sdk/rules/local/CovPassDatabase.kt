@@ -11,23 +11,29 @@ import androidx.room.TypeConverters
 import de.rki.covpass.sdk.rules.booster.local.BoosterDescriptionLocal
 import de.rki.covpass.sdk.rules.booster.local.BoosterRuleLocal
 import de.rki.covpass.sdk.rules.booster.local.BoosterRulesDao
-import dgca.verifier.app.engine.data.source.local.rules.Converters
+import de.rki.covpass.sdk.rules.local.rules.CovPassRuleDescriptionLocal
+import de.rki.covpass.sdk.rules.local.rules.CovPassRuleLocal
+import de.rki.covpass.sdk.rules.local.rules.CovPassRulesDao
+import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetLocal
+import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
 
 @Database(
     entities = [
-        RuleIdentifierLocal::class,
-        ValueSetIdentifierLocal::class,
+        CovPassRuleLocal::class,
+        CovPassRuleDescriptionLocal::class,
+        CovPassValueSetLocal::class,
         BoosterDescriptionLocal::class,
         BoosterRuleLocal::class
     ],
-    version = 2
+    version = 3
 )
+
 @TypeConverters(Converters::class)
 public abstract class CovPassDatabase : RoomDatabase() {
 
-    public abstract fun ruleIdentifiersDao(): RuleIdentifiersDao
+    public abstract fun covPassRulesDao(): CovPassRulesDao
 
-    public abstract fun valueSetIdentifiersDao(): ValueSetIdentifiersDao
+    public abstract fun covPassValueSetsDao(): CovPassValueSetsDao
 
     public abstract fun boosterRulesDao(): BoosterRulesDao
 }

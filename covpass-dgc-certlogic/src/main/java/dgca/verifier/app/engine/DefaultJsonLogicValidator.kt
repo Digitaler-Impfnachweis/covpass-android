@@ -28,4 +28,5 @@ import eu.ehn.dcc.certlogic.evaluate
 class DefaultJsonLogicValidator : JsonLogicValidator {
     override fun isDataValid(rule: JsonNode, data: JsonNode): Boolean =
         (evaluate(rule, data) as BooleanNode).asBoolean()
+
 }

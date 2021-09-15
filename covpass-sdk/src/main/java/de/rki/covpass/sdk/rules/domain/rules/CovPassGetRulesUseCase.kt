@@ -5,57 +5,63 @@
 
 package de.rki.covpass.sdk.rules.domain.rules
 
-import de.rki.covpass.sdk.rules.DefaultCovPassRulesRepository
-import dgca.verifier.app.engine.UTC_ZONE_ID
+import de.rki.covpass.sdk.rules.CovPassRule
+import de.rki.covpass.sdk.rules.CovPassRulesRepository
 import dgca.verifier.app.engine.data.CertificateType
-import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
-import dgca.verifier.app.engine.domain.rules.DefaultGetRulesUseCase
-import dgca.verifier.app.engine.domain.rules.GetRulesUseCase
 import java.time.ZonedDateTime
 
 public class CovPassGetRulesUseCase(
-    private val defaultCovPassRulesRepository: DefaultCovPassRulesRepository
-) : CovPassRulesUseCase, GetRulesUseCase by DefaultGetRulesUseCase(defaultCovPassRulesRepository) {
+    private val covPassRulesRepository: CovPassRulesRepository
+) {
 
-    override suspend fun covPassInvoke(
+    public suspend fun invoke(
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
         certificateType: CertificateType,
-        region: String?,
         validationClock: ZonedDateTime,
-    ): List<Rule> {
-        val acceptanceRules = mutableMapOf<String, Rule>()
+        region: String? = null,
+    ): List<CovPassRule> {
+        val filteredAcceptanceRules = mutableMapOf<String, CovPassRule>()
         val selectedRegion: String = region?.trim() ?: ""
-        val validationClockUtc = validationClock.withZoneSameInstant(UTC_ZONE_ID)
-        defaultCovPassRulesRepository.getCovPassRulesBy(
+        val acceptanceRules = covPassRulesRepository.getCovPassRulesBy(
             acceptanceCountryIsoCode,
-            validationClockUtc,
-            Type.ACCEPTANCE, certificateType.toRuleCertificateType()
-        ).forEach {
-            val ruleRegion: String = it.region?.trim() ?: ""
+            validationClock,
+            Type.ACCEPTANCE,
+            certificateType.toRuleCertificateType()
+        )
+        for (rule in acceptanceRules) {
+            val ruleRegion: String = rule.region?.trim() ?: ""
             if (selectedRegion.equals(
                     ruleRegion,
                     ignoreCase = true
-                ) && (acceptanceRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)
+                ) && (
+                    filteredAcceptanceRules[rule.identifier]?.version?.toVersion()
+                        ?: -1 < rule.version.toVersion() ?: 0
+                    )
             ) {
-                acceptanceRules[it.identifier] = it
+                filteredAcceptanceRules[rule.identifier] = rule
             }
         }
 
-        val invalidationRules = mutableMapOf<String, Rule>()
+        val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
-            defaultCovPassRulesRepository.getCovPassRulesBy(
+            val invalidationRules = covPassRulesRepository.getCovPassRulesBy(
                 issuanceCountryIsoCode,
-                validationClockUtc,
-                Type.INVALIDATION, certificateType.toRuleCertificateType()
-            ).forEach {
-                if (invalidationRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
-                    invalidationRules[it.identifier] = it
+                validationClock,
+                Type.INVALIDATION,
+                certificateType.toRuleCertificateType()
+            )
+            for (rule in invalidationRules) {
+                if (
+                    filteredInvalidationRules[rule.identifier]?.version?.toVersion()
+                    ?: -1 < rule.version.toVersion() ?: 0
+                ) {
+                    filteredInvalidationRules[rule.identifier] = rule
                 }
             }
         }
-        return acceptanceRules.values + invalidationRules.values
+        return filteredAcceptanceRules.values + filteredInvalidationRules.values
     }
 
     private fun String.toVersion(): Int? = try {

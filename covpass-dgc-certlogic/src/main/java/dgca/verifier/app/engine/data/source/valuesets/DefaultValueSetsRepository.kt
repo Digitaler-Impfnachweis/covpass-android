@@ -57,9 +57,10 @@ class DefaultValueSetsRepository(
         val valueSetsRemote = mutableListOf<ValueSetRemote>()
         val valueSetsIdentifiersRemote = remoteDataSource.getValueSetsIdentifiers(url)
 
-        valueSetsIdentifiersRemote.forEach {
+        for (i in valueSetsIdentifiersRemote.indices) {
+            val ruleIdentifierRemote = valueSetsIdentifiersRemote[i]
             val valueSetRemote =
-                remoteDataSource.getValueSet("$url/${it.hash}")
+                remoteDataSource.getValueSet("$url/${ruleIdentifierRemote.hash}")
             if (valueSetRemote != null) {
                 valueSetsRemote.add(valueSetRemote)
             }

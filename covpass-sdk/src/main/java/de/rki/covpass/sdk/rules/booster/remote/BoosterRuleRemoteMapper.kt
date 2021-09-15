@@ -5,7 +5,6 @@
 
 package de.rki.covpass.sdk.rules.booster.remote
 
-import de.rki.covpass.sdk.rules.booster.BoosterDescription
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import de.rki.covpass.sdk.rules.booster.BoosterType
 import dgca.verifier.app.engine.data.RuleCertificateType
@@ -26,14 +25,6 @@ public fun BoosterRuleRemote.toBoosterRule(hash: String): BoosterRule = BoosterR
     countryCode = countryCode.lowercase(),
     region = region,
     hash = hash
-)
-
-public fun Collection<BoosterRuleRemote>.toBoosterRules(): List<BoosterRule> =
-    map { it.toBoosterRule(it.hash ?: "") }
-
-public fun BoosterDescriptionRemote.toDescriptions(): BoosterDescription = BoosterDescription(
-    lang = lang,
-    desc = desc
 )
 
 public fun Collection<BoosterDescriptionRemote>.toDescriptions(): Map<String, String> =

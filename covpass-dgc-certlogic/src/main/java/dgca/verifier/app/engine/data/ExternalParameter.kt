@@ -23,6 +23,7 @@
 package dgca.verifier.app.engine.data
 
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /*-
  * ---license-start
@@ -65,7 +66,7 @@ class ExternalParameter private constructor(
         kid: String,
         region: String = ""
     ) : this(
-        validationClock = validationClock.toString(),
+        validationClock = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(validationClock),
         valueSets = valueSets,
         countryCode = countryCode,
         exp = exp.toString(),

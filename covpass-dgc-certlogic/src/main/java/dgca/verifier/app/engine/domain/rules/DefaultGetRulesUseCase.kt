@@ -22,7 +22,6 @@
 
 package dgca.verifier.app.engine.domain.rules
 
-import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.Type
@@ -52,41 +51,48 @@ import java.time.ZonedDateTime
  */
 class DefaultGetRulesUseCase(private val rulesRepository: RulesRepository) : GetRulesUseCase {
     override fun invoke(
+        validationClock: ZonedDateTime,
         acceptanceCountryIsoCode: String,
         issuanceCountryIsoCode: String,
         certificateType: CertificateType,
         region: String?
     ): List<Rule> {
-        val acceptanceRules = mutableMapOf<String, Rule>()
+        val filteredAcceptanceRules = mutableMapOf<String, Rule>()
         val selectedRegion: String = region?.trim() ?: ""
-        rulesRepository.getRulesBy(
-            acceptanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
-                UTC_ZONE_ID
-            ), Type.ACCEPTANCE, certificateType.toRuleCertificateType()
-        ).forEach {
-            val ruleRegion: String = it.region?.trim() ?: ""
+        val acceptanceRules = rulesRepository.getRulesBy(
+            acceptanceCountryIsoCode,
+            validationClock,
+            Type.ACCEPTANCE,
+            certificateType.toRuleCertificateType()
+        )
+        for (i in acceptanceRules.indices) {
+            val rule = acceptanceRules[i]
+            val ruleRegion: String = rule.region?.trim() ?: ""
             if (selectedRegion.equals(
                     ruleRegion,
                     ignoreCase = true
-                ) && (acceptanceRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0)
+                ) && (filteredAcceptanceRules[rule.identifier]?.version?.toVersion() ?: -1 < rule.version.toVersion() ?: 0)
             ) {
-                acceptanceRules[it.identifier] = it
+                filteredAcceptanceRules[rule.identifier] = rule
             }
         }
 
-        val invalidationRules = mutableMapOf<String, Rule>()
+        val filteredInvalidationRules = mutableMapOf<String, Rule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
-            rulesRepository.getRulesBy(
-                issuanceCountryIsoCode, ZonedDateTime.now().withZoneSameInstant(
-                    UTC_ZONE_ID
-                ), Type.INVALIDATION, certificateType.toRuleCertificateType()
-            ).forEach {
-                if (invalidationRules[it.identifier]?.version?.toVersion() ?: -1 < it.version.toVersion() ?: 0) {
-                    invalidationRules[it.identifier] = it
+            val invalidationRules = rulesRepository.getRulesBy(
+                issuanceCountryIsoCode,
+                validationClock,
+                Type.INVALIDATION,
+                certificateType.toRuleCertificateType()
+            )
+            for (i in invalidationRules.indices) {
+                val rule = invalidationRules[i]
+                if (filteredInvalidationRules[rule.identifier]?.version?.toVersion() ?: -1 < rule.version.toVersion() ?: 0) {
+                    filteredInvalidationRules[rule.identifier] = rule
                 }
             }
         }
-        return acceptanceRules.values + invalidationRules.values
+        return filteredAcceptanceRules.values + filteredInvalidationRules.values
     }
 
     private fun String.toVersion(): Int? = try {

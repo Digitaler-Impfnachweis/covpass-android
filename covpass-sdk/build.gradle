@@ -17,7 +17,7 @@ dependencies {
     reactiveState()
     cryptographic()
     worker()
-    kapt 'androidx.room:room-compiler:2.3.0'
+    room()
     zxingTest()
 }
 

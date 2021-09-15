@@ -43,6 +43,4 @@ public data class BoosterRuleRemote(
     val countryCode: String,
     @SerialName("Region")
     val region: String? = null,
-    @SerialName("hash")
-    val hash: String? = null,
 )

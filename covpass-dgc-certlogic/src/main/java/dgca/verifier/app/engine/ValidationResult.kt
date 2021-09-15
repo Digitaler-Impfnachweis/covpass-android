@@ -31,5 +31,5 @@ class ValidationResult(
     val rule: Rule,
     val result: Result,
     val current: String,
-    val validationErrors: List<Throwable>?,
+    val validationErrors: List<Exception>?,
 )

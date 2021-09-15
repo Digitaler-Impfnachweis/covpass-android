@@ -68,8 +68,9 @@ fun RuleRemote.toRule(): Rule = Rule(
 
 fun List<RuleRemote>.toRules(): List<Rule> {
     val rules = mutableListOf<Rule>()
-    forEach {
-        rules.add(it.toRule())
+    for (i in this.indices) {
+        val ruleRemote = this[i]
+        rules.add(ruleRemote.toRule())
     }
     return rules
 }
@@ -81,8 +82,9 @@ fun DescriptionRemote.toDescriptions(): Description = Description(
 
 fun List<DescriptionRemote>.toDescriptions(): Map<String, String> {
     val descriptions = mutableMapOf<String, String>()
-    forEach {
-        descriptions[it.lang.toLowerCase(Locale.ROOT)] = it.desc
+    for (i in this.indices) {
+        val descriptionRemote = this[i]
+        descriptions[descriptionRemote.lang.toLowerCase(Locale.ROOT)] = descriptionRemote.desc
     }
     return descriptions
 }

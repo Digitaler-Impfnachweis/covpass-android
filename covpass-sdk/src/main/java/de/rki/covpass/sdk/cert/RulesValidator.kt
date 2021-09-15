@@ -10,20 +10,22 @@ import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.defaultJson
-import de.rki.covpass.sdk.rules.domain.rules.CovPassRulesUseCase
+import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
+import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
+import de.rki.covpass.sdk.rules.local.rules.toRules
+import de.rki.covpass.sdk.rules.local.toValueSets
 import de.rki.covpass.sdk.utils.toZonedDateTimeOrDefault
 import dgca.verifier.app.engine.CertLogicEngine
 import dgca.verifier.app.engine.ValidationResult
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.ExternalParameter
-import dgca.verifier.app.engine.data.source.valuesets.ValueSetsRepository
 import kotlinx.serialization.encodeToString
 import java.time.ZonedDateTime
 
 public class RulesValidator(
-    private val rulesUseCase: CovPassRulesUseCase,
+    private val rulesUseCase: CovPassGetRulesUseCase,
     private val certLogicEngine: CertLogicEngine,
-    private val valueSetsRepository: ValueSetsRepository
+    private val valueSetsRepository: CovPassValueSetsRepository
 ) {
 
     public suspend fun validate(
@@ -33,13 +35,13 @@ public class RulesValidator(
     ): List<ValidationResult> {
         val certificateType = cert.getCertificateType()
         val issuerCountryCode = cert.issuer.lowercase()
-        val rules = rulesUseCase.covPassInvoke(
+        val rules = rulesUseCase.invoke(
             countryIsoCode,
             issuerCountryCode,
             certificateType,
-            validationClock = validationClock,
+            validationClock
         )
-        val valueSetsMap = valueSetsRepository.getValueSets().map { valueSet ->
+        val valueSetsMap = valueSetsRepository.getAllCovPassValueSets().toValueSets().map { valueSet ->
             valueSet.valueSetId to valueSet.valueSetValues.fieldNames().asSequence().toList()
         }.toMap()
         val externalParameter = ExternalParameter(
@@ -57,7 +59,7 @@ public class RulesValidator(
         return certLogicEngine.validate(
             certificateType,
             cert.version,
-            rules,
+            rules.toRules(),
             externalParameter,
             certString,
         )

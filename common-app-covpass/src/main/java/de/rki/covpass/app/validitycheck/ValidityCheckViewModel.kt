@@ -14,8 +14,8 @@ import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validitycheck.countries.CountryRepository.defaultCountry
 import de.rki.covpass.sdk.cert.RulesValidator
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.rules.DefaultCovPassRulesRepository
-import de.rki.covpass.sdk.rules.DefaultCovPassValueSetsRepository
+import de.rki.covpass.sdk.rules.CovPassRulesRepository
+import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
 import java.time.LocalDateTime
@@ -26,8 +26,8 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
     scope: CoroutineScope,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val rulesValidator: RulesValidator = sdkDeps.rulesValidator,
-    private val rulesRepository: DefaultCovPassRulesRepository = sdkDeps.rulesRepository,
-    private val valueSetsRepository: DefaultCovPassValueSetsRepository = sdkDeps.valueSetsRepository,
+    private val rulesRepository: CovPassRulesRepository = sdkDeps.covPassRulesRepository,
+    private val valueSetsRepository: CovPassValueSetsRepository = sdkDeps.covPassValueSetsRepository,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     val validationResults: MutableValueFlow<List<CertsValidationResults>> = MutableValueFlow(emptyList())

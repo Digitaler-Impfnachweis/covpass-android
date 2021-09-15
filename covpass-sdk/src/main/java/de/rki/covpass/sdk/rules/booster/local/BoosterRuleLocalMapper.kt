@@ -5,7 +5,6 @@
 
 package de.rki.covpass.sdk.rules.booster.local
 
-import de.rki.covpass.sdk.rules.booster.BoosterDescription
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.Description
@@ -32,9 +31,6 @@ public fun BoosterRule.toBoosterRuleLocal(): BoosterRuleLocal = BoosterRuleLocal
     region = region,
     hash = hash
 )
-
-public fun BoosterDescription.toBoosterDescriptionLocal(): BoosterDescriptionLocal =
-    BoosterDescriptionLocal(lang = lang, desc = desc)
 
 public fun Map<String, String>.toBoosterDescriptionsLocal(): List<BoosterDescriptionLocal> =
     map { BoosterDescriptionLocal(lang = it.key, desc = it.value) }

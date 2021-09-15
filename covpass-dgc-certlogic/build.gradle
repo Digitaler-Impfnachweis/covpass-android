@@ -8,5 +8,4 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     coroutines()
     certLogic()
-    kapt 'androidx.room:room-compiler:2.3.0'
 }

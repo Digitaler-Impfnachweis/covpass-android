@@ -94,12 +94,12 @@ class DefaultCertLogicEngine(
         val validationErrors = mutableListOf<Exception>()
 
         val isCompatibleVersion = rule.engine == CERTLOGIC_KEY &&
-            ruleEngineVersion != null &&
-            CERTLOGIC_VERSION.isGreaterOrEqualThan(ruleEngineVersion) &&
-            hcertVersion != null &&
-            schemaVersion != null &&
-            hcertVersion.first == schemaVersion.first &&
-            hcertVersion.isGreaterOrEqualThan(schemaVersion)
+                ruleEngineVersion != null &&
+                CERTLOGIC_VERSION.isGreaterOrEqualThan(ruleEngineVersion) &&
+                hcertVersion != null &&
+                schemaVersion != null &&
+                hcertVersion.first == schemaVersion.first &&
+                hcertVersion.isGreaterOrEqualThan(schemaVersion)
 
         val res = if (isCompatibleVersion) {
             try {

@@ -5,12 +5,10 @@
 
 package de.rki.covpass.sdk.rules.booster
 
+import de.rki.covpass.sdk.cert.BoosterRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.booster.local.BoosterRuleLocal
 import de.rki.covpass.sdk.rules.booster.local.CovPassBoosterRulesLocalDataSource
-import de.rki.covpass.sdk.rules.booster.remote.BoosterRuleRemote
-import de.rki.covpass.sdk.rules.booster.remote.BoosterRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.booster.remote.toBoosterRule
-import de.rki.covpass.sdk.rules.booster.remote.toBoosterRules
 import de.rki.covpass.sdk.utils.distinctGroupBy
 import de.rki.covpass.sdk.utils.parallelMapNotNull
 import java.time.ZonedDateTime
@@ -24,8 +22,8 @@ public class CovPassBoosterRulesRepository(
         return localDataSource.getAllBoosterRules()
     }
 
-    public suspend fun prepopulate(rules: List<BoosterRuleRemote>) {
-        localDataSource.replaceRules(keep = emptyList(), boosterRules = rules.toBoosterRules())
+    public suspend fun prepopulate(rules: List<BoosterRule>) {
+        localDataSource.replaceRules(keep = emptyList(), boosterRules = rules)
     }
 
     public suspend fun loadBoosterRules() {
@@ -56,5 +54,5 @@ public class CovPassBoosterRulesRepository(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
     ): List<BoosterRule> =
-        localDataSource.getAllBoosterRules(countryIsoCode, validationClock)
+        localDataSource.getAllBoosterRulesBy(countryIsoCode, validationClock)
 }

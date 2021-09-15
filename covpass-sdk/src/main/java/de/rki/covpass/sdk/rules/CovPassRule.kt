@@ -1,0 +1,28 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+package de.rki.covpass.sdk.rules
+
+import dgca.verifier.app.engine.data.RuleCertificateType
+import dgca.verifier.app.engine.data.Type
+import java.time.ZonedDateTime
+
+public data class CovPassRule(
+    val identifier: String,
+    val type: Type,
+    val version: String,
+    val schemaVersion: String,
+    val engine: String,
+    val engineVersion: String,
+    val ruleCertificateType: RuleCertificateType,
+    val descriptions: Map<String, String>,
+    val validFrom: ZonedDateTime,
+    val validTo: ZonedDateTime,
+    val affectedString: List<String>,
+    val logic: String,
+    val countryCode: String,
+    val region: String?,
+    val hash: String,
+)

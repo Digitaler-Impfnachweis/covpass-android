@@ -20,7 +20,7 @@ public class ValueSetsWorker(
 
     override suspend fun doWork(): Result =
         try {
-            sdkDeps.valueSetsRepository.loadValueSets()
+            sdkDeps.covPassValueSetsRepository.loadValueSets()
             Result.success()
         } catch (e: Throwable) {
             Lumber.e(e)
