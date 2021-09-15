@@ -207,7 +207,7 @@ public class CertLogicDeps(
     }
 
     public val boosterRulesService: BoosterRulesService by lazy {
-        BoosterRulesService(httpClient, "distribution-cff4f7147260.dcc-rules.de")
+        BoosterRulesService(httpClient, "distribution.dcc-rules.de")
     }
 
     private val engineDatabase: EngineDatabase by lazy { createDb("engine") }
