@@ -81,14 +81,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/certificate_status_textview"
-            tools:ignore="ContentDescription" />
+            android:contentDescription="@string/accessibility_vaccination_start_screen_label_qrcode" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_three">
+          android:layout_marginHorizontal="@dimen/grid_three"
+          android:importantForAccessibility="yes">
 
           <TextView
             android:id="@+id/certificate_name_textview"
@@ -97,7 +98,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/certificate_favorite_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true"/>
 
           <ImageButton
             android:id="@+id/certificate_favorite_button"
@@ -111,6 +113,7 @@
             android:padding="@dimen/grid_one"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true"
             tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -120,7 +123,10 @@
           android:layout_height="wrap_content"
           android:paddingVertical="@dimen/grid_three"
           android:paddingStart="@dimen/grid_three"
-          android:paddingEnd="@dimen/grid_two_half">
+          android:paddingEnd="@dimen/grid_two_half"
+          android:clickable="true"
+          android:focusable="true"
+          android:contentDescription="@string/accessibility_overview_certificates_label_display_certificate">
 
           <TextView
             android:id="@+id/certificate_protection_textview"

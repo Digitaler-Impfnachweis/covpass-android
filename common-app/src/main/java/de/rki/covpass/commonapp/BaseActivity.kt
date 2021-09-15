@@ -15,6 +15,7 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.ibm.health.common.android.utils.BaseHookedActivity
 import com.ibm.health.common.android.utils.isDebuggable
+import com.ibm.health.common.android.utils.setupForAccessibility
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.Navigator
 import com.ibm.health.common.navigation.android.NavigatorOwner
@@ -39,7 +40,7 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
             )
         }
         super.onCreate(savedInstanceState)
-
+        supportFragmentManager.setupForAccessibility()
         lookForUpdates(AppUpdateManagerFactory.create(this))
     }
 

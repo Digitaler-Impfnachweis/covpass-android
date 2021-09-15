@@ -65,6 +65,11 @@ public class CertificateCard @JvmOverloads constructor(
                 R.drawable.star_white
             }
         )
+        binding.certificateFavoriteButton.contentDescription = if (newValue) {
+            resources.getString(R.string.accessibility_certificate_favorite_button_label_active)
+        } else {
+            resources.getString(R.string.accessibility_certificate_favorite_button_label_not_active)
+        }
     }
 
     public var isFavoriteButtonVisible: Boolean by Delegates.observable(false) { _, _, newValue ->

@@ -40,7 +40,7 @@ internal class BoosterNotificationFragment : BaseBottomSheet(), BoosterNotificat
         binding.notificationBoosterIconNew.text =
             getString(R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new)
         bottomSheetBinding.bottomSheetActionButton.text =
-            getString(R.string.dialogue_add_booster_vaccination_action_button_title)
+            getString(R.string.dialog_booster_vaccination_notification_button)
     }
 
     override fun onActionButtonClicked() {

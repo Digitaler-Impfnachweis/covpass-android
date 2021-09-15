@@ -78,7 +78,13 @@ internal class DetailFragment :
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val favoriteItem = menu.add(Menu.NONE, FAVORITE_ITEM_ID, Menu.NONE, R.string.certificate_favorite_button_hint)
+        val favoriteItem = menu.add(
+            Menu.NONE,
+            FAVORITE_ITEM_ID,
+            Menu.NONE,
+            if (isFavorite) R.string.accessibility_overview_certificates_label_favourites_button_active else
+                R.string.accessibility_overview_certificates_label_favourites_button_not_active
+        )
         val favoriteIcon = if (isFavorite) R.drawable.star_black_fill else R.drawable.star_black
         favoriteItem.setIcon(favoriteIcon)
         favoriteItem.setShowAsAction(SHOW_AS_ACTION_IF_ROOM)

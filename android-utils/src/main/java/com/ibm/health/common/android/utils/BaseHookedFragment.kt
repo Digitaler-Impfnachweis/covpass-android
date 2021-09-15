@@ -31,6 +31,7 @@ public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
         lifecycleScope.launchWhenStarted {
             watchLoading(loading, ::setLoading)
         }
+        childFragmentManager.setupForAccessibility()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

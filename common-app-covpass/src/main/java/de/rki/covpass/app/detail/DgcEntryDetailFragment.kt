@@ -66,7 +66,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val deleteItem = menu.add(
             Menu.NONE, DELETE_ITEM_ID, Menu.NONE,
-            getString(R.string.certificate_delete_button_hint)
+            getString(R.string.accessibility_certificate_detail_view_label_delete_button)
         )
         deleteItem.setIcon(R.drawable.trash)
         deleteItem.setShowAsAction(SHOW_AS_ACTION_IF_ROOM)

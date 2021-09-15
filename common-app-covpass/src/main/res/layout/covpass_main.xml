@@ -41,6 +41,7 @@
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    android:contentDescription="@string/accessibility_vaccination_start_screen_label_information"
     tools:ignore="ContentDescription" />
 
   <com.google.android.material.card.MaterialCardView
@@ -149,7 +150,8 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:layout_marginVertical="@dimen/grid_three"
-      app:round_button_icon="@drawable/plus" />
+      app:round_button_icon="@drawable/plus"
+      android:contentDescription="@string/accessibility_vaccination_start_screen_label_add_certificate"/>
 
   </FrameLayout>
 
