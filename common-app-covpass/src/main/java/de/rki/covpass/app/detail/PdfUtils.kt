@@ -6,7 +6,11 @@
 package de.rki.covpass.app.detail
 
 import android.content.Context
-import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.app.validitycheck.countries.CountryRepository
+import de.rki.covpass.sdk.cert.getDiseaseAgentName
+import de.rki.covpass.sdk.cert.getManufacturerName
+import de.rki.covpass.sdk.cert.getProductName
+import de.rki.covpass.sdk.cert.getProphylaxisName
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -31,7 +35,7 @@ internal object PdfUtils {
         .replace("\$dn", vaccination.doseNumber.toString())
         .replace("\$sd", vaccination.totalSerialDoses.toString())
         .replace("\$dt", vaccination.occurrence?.formatDateInternational() ?: "")
-        .replace("\$co", getCountryName(vaccination.country).sanitizeXMLString())
+        .replace("\$co", CountryRepository.getCountryLocalized(vaccination.country).sanitizeXMLString())
         .replace("\$is", vaccination.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 
@@ -46,7 +50,7 @@ internal object PdfUtils {
         .replace("\$ci", recovery.idWithoutPrefix.sanitizeXMLString())
         .replace("\$tg", getDiseaseAgentName(recovery.targetDisease).sanitizeXMLString())
         .replace("\$fr", recovery.firstResult?.formatDateInternational() ?: "")
-        .replace("\$co", getCountryName(recovery.country).sanitizeXMLString())
+        .replace("\$co", CountryRepository.getCountryLocalized(recovery.country).sanitizeXMLString())
         .replace("\$is", recovery.certificateIssuer.sanitizeXMLString())
         .replace("\$df", recovery.validFrom?.formatDateInternational() ?: "")
         .replace("\$du", recovery.validUntil?.formatDateInternational() ?: "")

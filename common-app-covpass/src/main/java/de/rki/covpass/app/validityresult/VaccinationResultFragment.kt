@@ -9,7 +9,11 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.app.validitycheck.countries.CountryRepository
+import de.rki.covpass.sdk.cert.getDiseaseAgentName
+import de.rki.covpass.sdk.cert.getManufacturerName
+import de.rki.covpass.sdk.cert.getProductName
+import de.rki.covpass.sdk.cert.getProphylaxisName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
@@ -92,7 +96,7 @@ internal class VaccinationResultFragment : ResultFragment() {
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
-                getCountryName(vaccination.country),
+                CountryRepository.getCountryLocalized(vaccination.country),
                 args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(

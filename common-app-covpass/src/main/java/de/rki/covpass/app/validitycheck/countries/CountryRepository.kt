@@ -179,6 +179,12 @@ public object CountryRepository {
         return countryList.sortedBy { getString(it.nameRes) }
     }
 
-    public fun getCountryByCode(countryCode: String): Country =
-        countryList.find { country -> country.countryCode == countryCode } ?: defaultCountry
+    private fun getCountryByCode(countryCode: String): Country =
+        countryList.find {
+            country ->
+            country.countryCode.equals(countryCode, true)
+        } ?: defaultCountry
+
+    public fun getCountryLocalized(countryCode: String): String =
+        getString(getCountryByCode(countryCode).nameRes)
 }

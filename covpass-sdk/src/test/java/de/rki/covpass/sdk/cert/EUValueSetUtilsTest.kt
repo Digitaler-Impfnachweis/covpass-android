@@ -159,22 +159,4 @@ internal class EUValueSetUtilsTest {
         val rawDiseaseAgentName = "1119349007XYZ"
         assertEquals(rawDiseaseAgentName, getDiseaseAgentName(rawDiseaseAgentName))
     }
-
-    @Test
-    fun `validate country name`() {
-        val countryCode = "DE"
-        assertEquals("Germany", getCountryName(countryCode))
-    }
-
-    @Test
-    fun `validate empty country name`() {
-        val countryCode = ""
-        assertEquals(countryCode, getCountryName(countryCode))
-    }
-
-    @Test
-    fun `validate invalid country name`() {
-        val countryCode = "XY"
-        assertEquals(countryCode, getCountryName(countryCode))
-    }
 }

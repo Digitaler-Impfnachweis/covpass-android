@@ -1,6 +1,5 @@
-package de.rki.covpass.sdk.utils
+package de.rki.covpass.sdk.utils.serialization
 
-import de.rki.covpass.sdk.utils.serialization.ZonedDateTimeSerializer
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.serialization.encoding.Decoder
@@ -10,7 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-internal class ZonedDateTimeTest {
+internal class ZonedDateTimeSerializerTest {
 
     private val mockDecoder: Decoder = mockk()
     private val testInstant by lazy { Instant.parse("2021-08-20T10:03:12Z") }

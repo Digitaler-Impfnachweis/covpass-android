@@ -8,7 +8,11 @@ package de.rki.covpass.app.detail
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
-import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.app.validitycheck.countries.CountryRepository
+import de.rki.covpass.sdk.cert.getDiseaseAgentName
+import de.rki.covpass.sdk.cert.getTestManufacturerName
+import de.rki.covpass.sdk.cert.getTestResultName
+import de.rki.covpass.sdk.cert.getTestTypeName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -84,7 +88,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_country),
-                getCountryName(test.country)
+                CountryRepository.getCountryLocalized(test.country)
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_issuer),

@@ -6,7 +6,6 @@
 package de.rki.covpass.sdk.cert
 
 import de.rki.covpass.sdk.storage.EUValueSetRepository
-import de.rki.covpass.sdk.storage.countryCodesToNames
 
 /**
  * Retrieves the Manufacturers name as defined in EU value set
@@ -83,15 +82,4 @@ public fun getTestManufacturerName(rawName: String): String {
  */
 public fun getDiseaseAgentName(rawName: String): String {
     return EUValueSetRepository.diseaseAgent.valueSetValues[rawName]?.display ?: rawName
-}
-
-/**
- * Retrieves the Country name from the given Country code
- *
- * @param countryCode The country code in ISO-3166 (e.g. "DE")
- *
- * @return The matching Country name (e.g. "Germany")
- */
-public fun getCountryName(countryCode: String): String {
-    return countryCodesToNames[countryCode] ?: countryCode
 }
