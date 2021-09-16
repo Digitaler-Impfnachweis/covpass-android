@@ -129,20 +129,33 @@ public class ResultAdapter(
                     )
                 }
                 else -> {
-                    binding.resultWarningElement.showSuccess(
-                        title = getString(R.string.certificate_check_validity_detail_view_result_valid_title),
-                        subtitle = getString(
-                            R.string.certificate_check_validity_detail_view_result_valid_message,
-                            getString(country.nameRes),
-                            dateTime.formatDateTime()
-                        ),
-                        description = if (rulesCount > 0) {
-                            getString(R.string.certificate_check_validity_detail_view_result_valid_info, rulesCount)
-                        } else {
-                            getString(R.string.certificate_check_validity_detail_view_result_valid_info_no_rules)
-                        },
-                        iconRes = R.drawable.info_success_icon
-                    )
+                    if (rulesCount > 0) {
+                        binding.resultWarningElement.showSuccess(
+                            title = getString(R.string.certificate_check_validity_detail_view_result_valid_title),
+                            subtitle = getString(
+                                R.string.certificate_check_validity_detail_view_result_valid_message,
+                                getString(country.nameRes),
+                                dateTime.formatDateTime()
+                            ),
+                            description = getString(
+                                R.string.certificate_check_validity_detail_view_result_valid_info, rulesCount
+                            ),
+                            iconRes = R.drawable.info_success_icon
+                        )
+                    } else {
+                        binding.resultWarningElement.showWarning(
+                            title = getString(R.string.certificate_check_validity_detail_view_result_no_rules_title),
+                            subtitle = getString(
+                                R.string.certificate_check_validity_detail_view_result_valid_message,
+                                getString(country.nameRes),
+                                dateTime.formatDateTime()
+                            ),
+                            description = getString(
+                                R.string.certificate_check_validity_detail_view_result_no_rules_message
+                            ),
+                            iconRes = R.drawable.info_warning_icon
+                        )
+                    }
                 }
             }
         }

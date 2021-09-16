@@ -2,6 +2,7 @@ package de.rki.covpass.app.uielements
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +10,10 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.ibm.health.common.android.utils.getSpanned
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.InfoElementBinding
+import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlin.properties.Delegates
 
 public class InfoElement @JvmOverloads constructor(
@@ -34,7 +37,11 @@ public class InfoElement @JvmOverloads constructor(
     }
 
     public var description: String? by Delegates.observable(null) { _, _, newValue ->
-        binding.infoDescription.text = newValue
+        binding.infoDescription.apply {
+            text = getSpanned(newValue ?: "")
+            movementMethod = LinkMovementMethod.getInstance()
+            stripUnderlines()
+        }
         binding.infoDescription.isGone = newValue.isNullOrEmpty()
     }
 

@@ -120,6 +120,13 @@ public class ValidityCertsAdapter(parent: Fragment) :
                         binding.certificateStatusLayout.setBackgroundResource(R.color.warning20)
                         binding.certificateItemValidity.setText(R.string.certificate_check_validity_result_not_testable)
                     }
+                    item.results.isEmpty() -> {
+                        binding.certificateTypeIcon.setImageResource(R.drawable.validation_no_rules)
+                        binding.certificateStatusLayout.setBackgroundResource(R.color.warning20)
+                        binding.certificateItemValidity.setText(
+                            R.string.certificate_check_validity_result_not_testable
+                        )
+                    }
                     else -> {
                         if (cert.dgcEntry is TestCert) {
                             binding.certificateTypeIcon.setImageResource(R.drawable.validation_test_passed)
