@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.detail.adapter
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
+import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.*
 import de.rki.covpass.app.detail.DetailClickListener
+import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
 
 /**
@@ -294,6 +297,11 @@ private class NotificationViewHolder(
                 it.description,
                 it.ruleId
             )
+            binding.notificationFaq.apply {
+                text = getSpanned(R.string.vaccination_certificate_overview_faqlink)
+                movementMethod = LinkMovementMethod.getInstance()
+                stripUnderlines()
+            }
             it.iconTextRes?.let { textIcon -> binding.notificationIcon.text = getString(textIcon) }
             it.iconBackgroundRes?.let { iconRes ->
                 binding.notificationIcon.background = getDrawable(parent.context, iconRes)
