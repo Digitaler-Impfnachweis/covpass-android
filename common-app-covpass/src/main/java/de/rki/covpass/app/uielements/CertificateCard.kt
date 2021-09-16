@@ -57,21 +57,6 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateQrImageview.background = BitmapDrawable(resources, newValue)
     }
 
-    private var isFavorite: Boolean by Delegates.observable(false) { _, _, newValue ->
-        binding.certificateFavoriteButton.setImageResource(
-            if (newValue) {
-                R.drawable.star_white_fill
-            } else {
-                R.drawable.star_white
-            }
-        )
-        binding.certificateFavoriteButton.contentDescription = if (newValue) {
-            resources.getString(R.string.accessibility_certificate_favorite_button_label_active)
-        } else {
-            resources.getString(R.string.accessibility_certificate_favorite_button_label_not_active)
-        }
-    }
-
     public var isFavoriteButtonVisible: Boolean by Delegates.observable(false) { _, _, newValue ->
         binding.certificateFavoriteButton.isVisible = newValue
     }
@@ -124,6 +109,24 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateQrImageview.backgroundTintMode = PorterDuff.Mode.MULTIPLY
     }
 
+    private fun validateFavoriteFlag(
+        isFavorite: Boolean,
+        isWhite: Boolean = true
+    ) {
+        binding.certificateFavoriteButton.setImageResource(
+            if (isFavorite) {
+                if (isWhite) R.drawable.star_white_fill else R.drawable.star_black_fill
+            } else {
+                if (isWhite) R.drawable.star_white else R.drawable.star_black
+            }
+        )
+        binding.certificateFavoriteButton.contentDescription = if (isFavorite) {
+            resources.getString(R.string.accessibility_certificate_favorite_button_label_active)
+        } else {
+            resources.getString(R.string.accessibility_certificate_favorite_button_label_not_active)
+        }
+    }
+
     public fun vaccinationFullProtectionCard(
         header: String,
         status: String,
@@ -136,7 +139,7 @@ public class CertificateCard @JvmOverloads constructor(
         this.header = header
         this.protectionText = protectionText
         this.name = name
-        this.isFavorite = isFavorite
+        validateFavoriteFlag(isFavorite)
 
         when (certStatus) {
             CertValidationResult.Valid,
@@ -181,7 +184,7 @@ public class CertificateCard @JvmOverloads constructor(
         this.header = header
         this.protectionText = protectionText
         this.name = name
-        this.isFavorite = isFavorite
+        validateFavoriteFlag(isFavorite, false)
 
         when (certStatus) {
             CertValidationResult.Valid,
@@ -223,7 +226,7 @@ public class CertificateCard @JvmOverloads constructor(
         this.header = header
         this.protectionText = protectionText
         this.name = name
-        this.isFavorite = isFavorite
+        validateFavoriteFlag(isFavorite)
 
         when (certStatus) {
             CertValidationResult.Valid,
@@ -261,7 +264,7 @@ public class CertificateCard @JvmOverloads constructor(
         this.header = header
         this.protectionText = protectionText
         this.name = name
-        this.isFavorite = isFavorite
+        validateFavoriteFlag(isFavorite)
 
         when (certStatus) {
             CertValidationResult.Valid,
