@@ -89,7 +89,7 @@
 	<string name="accessibility_certificate_check_validity_label_close">Schließen</string>
 	<string name="accessibility_certificate_check_validity_label_results">Ergebnisse der EU-Zertifikatsprüfung</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Zertifikat anzeigen</string>
-	<string name="certificate_check_validity_title">Gültigkeit prüfen</string>
+	<string name="certificate_check_validity_title">Gültigkeit für Reisen innerhalb der EU prüfen</string>
 	<string name="certificate_check_validity_message">Prüfen Sie vorab, ob Ihre Zertifikate in verschiedenen Ländern gültig sind. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselands berücksichtigt.</string>
 	<string name="certificate_check_validity_selection_country">Land</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Schließen</string>
@@ -143,7 +143,7 @@
 	<string name="certificate_check_validity_recovery">Genesenenzertifikat</string>
 	<string name="certificate_check_validity_result_valid">Gültig</string>
 	<string name="certificate_check_validity_result_not_valid">Im Reiseland ungültig</string>
-	<string name="certificate_check_validity_result_not_testable">Nicht vollständig prüfbar</string>
+	<string name="certificate_check_validity_result_not_testable">Nicht prüfbar</string>
 	<string name="certificate_check_validity_note">Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher die Zertifikate mindestens 48 Stunden vorher. Es können in einzelnen Regionen oder bei Ihrer Rückkehr weitere Regeln oder Einschränkungen gelten. Zudem ist es möglich, dass weitere Dokumente für eine Einreise notwendig sind.\n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_title">Digitales COVID-Impfzertifikat der EU</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_headline_data">Geprüfte Zertifikatsdaten:</string>
@@ -160,17 +160,17 @@
 	<string name="certificate_check_validity_detail_view_recovery_result_button">QR-Code anzeigen</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_note_de">Das Genesenenzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_note_en">A certificate of recovery is valid proof for travel within the EU. The EU’s member countries have different travel restrictions. You can find more information in the Frequently Asked Questions. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination.\n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
-	<string name="certificate_check_validity_detail_view_result_no_rules_title">Dieses Zertifikat ist nicht prüfbar</string>
-	<string name="certificate_check_validity_detail_view_result_no_rules_message">Für das gewählte Land und den gewählten Zeitpunkt stehen derzeit keine Einreiseregeln für die Prüfung in der App zur Verfügung.\n\nBitte informieren Sie sich unter #https://reopen.europa.eu::https://reopen.europa.eu#, ob das Zertifikat für die Einreise in das gewählte Land gültig ist.</string>
+	<string name="certificate_check_validity_detail_view_result_no_rules_title">Zertifikat nicht prüfbar</string>
+	<string name="certificate_check_validity_detail_view_result_no_rules_message">Für das gewählte Land und den gewählten Zeitpunkt stehen derzeit keine Einreiseregeln für die Prüfung in der App zur Verfügung.\n\n Bitte informieren Sie sich unter #https://reopen.europa.eu::https://reopen.europa.eu#, ob das Zertifikat für die Einreise in das gewählte Land gültig ist.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_title">Dieses Zertifikat ist am Reisedatum gültig</string>
 	<string name="certificate_check_validity_detail_view_result_valid_message">Für %1$s, am %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_valid_info">Es wurden %d Regeln des Ziellandes erfolgreich überprüft.</string>
-	<string name="certificate_check_validity_detail_view_result_valid_info_no_rules">Für das gewählte Land und den gewählten Zeitpunkt sind für diesen Zertifikattyp derzeit keine Einreiseregeln vorhanden.</string>
-	<string name="certificate_check_validity_detail_view_result_not_testable_title">Dieses Zertifikat ist nicht vollständig prüfbar</string>
+	<string name="certificate_check_validity_detail_view_result_valid_info_no_rules">Für diesen Zertifikattyp sind derzeit keine Einreiseregeln für das gewählte Land und den gewählten Zeitpunkt vorhanden. Bitte beachten Sie die folgenden Hinweise:</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_title">Dieses Zertifikat ist nicht vollständig prüfbar.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_first_message">Für %1$s, am %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_second_message">Leider ist eine automatische Prüfung nicht möglich. Überprüfen Sie die unten markierten Werte bitte selbst.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_note_title">Überprüfen Sie diese Information</string>
-	<string name="certificate_check_validity_detail_view_result_not_testable_note_message">Regel des Ziellands: Ein Antigentest ist maximal 48 h gültig.</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_note_message">Regel des Ziellands: Ein Antigentest ist maximal 48 Stunden gültig.</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_title">Dieses Zertifikat ist am Reisedatum nicht gültig</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_message">Für %1$s, am %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_note_title">Dieser Wert erfüllt nicht Regel „TR01\"</string>
@@ -358,6 +358,7 @@
 	<string name="certificate_create_pdf_third_list_item">Wir empfehlen Ihnen, das PDF-Dokument nicht zu veröffentlichen und nicht per E-Mail zu versenden oder über andere Apps zu teilen.</string>
 	<string name="certificate_create_pdf_list_button">Weiter</string>
 	<string name="certificate_share_pdf_title_android">Teilen über</string>
+	<string name="certificate_share_pdf_shareitem_android">PDF speichern</string>
 
 	<!-- SECTION: certificate delete dialog -->
 	<string name="dialog_delete_certificate_title">Möchten Sie das COVID-Zertifikat wirklich löschen?</string>

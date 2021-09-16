@@ -21,6 +21,7 @@
   <string name="error_no_connection_to_server_message"/>
   <string name="error_no_connection_to_server_button_title"/>
 
+  <string name="accessibility_fourth_onboarding_page_label_scroll_to_end"/>
   <string name="start_onboarding_button_title"/>
   <string name="fourth_onboarding_page_second_selection_linked"/>
 

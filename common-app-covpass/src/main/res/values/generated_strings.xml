@@ -89,7 +89,7 @@
 	<string name="accessibility_certificate_check_validity_label_close">Close</string>
 	<string name="accessibility_certificate_check_validity_label_results">Results of the EU certificate examination</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Display certificate</string>
-	<string name="certificate_check_validity_title">Check validity</string>
+	<string name="certificate_check_validity_title">Check validity for travelling within the EU</string>
 	<string name="certificate_check_validity_message">Check beforehand if your certificates are valid in different countries. This tool checks them against the travel regulations applicable in your chosen destination country.</string>
 	<string name="certificate_check_validity_selection_country">Country</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Close</string>
@@ -135,7 +135,7 @@
 	<string name="certificate_check_validity_selection_time_title">Select time</string>
 	<string name="accessibility_certificate_check_validity_selection_time_label_close">Close</string>
 	<string name="certificate_check_validity_selection_time_action_button">OK</string>
-	<string name="certificate_check_validity_loading">Certificates are being checked</string>
+	<string name="certificate_check_validity_loading">Certificates are being validated</string>
 	<string name="certificate_check_validity_no_certificate_saved_title">You have not saved any certificates yet</string>
 	<string name="certificate_check_validity_no_certificate_saved_message">Add a certificate so you can check its validity.</string>
 	<string name="certificate_check_validity_vaccination">Vaccination certificate</string>
@@ -143,7 +143,7 @@
 	<string name="certificate_check_validity_recovery">Recovery certificate</string>
 	<string name="certificate_check_validity_result_valid">Valid</string>
 	<string name="certificate_check_validity_result_not_valid">Invalid in this country</string>
-	<string name="certificate_check_validity_result_not_testable">Full check not possible</string>
+	<string name="certificate_check_validity_result_not_testable">Not possible to validate</string>
 	<string name="certificate_check_validity_note">Please be aware that travel regulations can change. You should check your certificates at least 48 hours before you travel. Different regulations or restrictions might apply in some regions or when you return. You might also need additional documents to travel to a different country. \n\nYou can find more information in the frequently asked questions and at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_title">EU Digital COVID Certificate of Vaccination</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_headline_data">Verified certificate data:</string>
@@ -160,13 +160,13 @@
 	<string name="certificate_check_validity_detail_view_recovery_result_button">Display QR code</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_note_de">Das Genesenenzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_note_en">A certificate of recovery is valid proof for travel within the EU. The EU’s member countries have different travel restrictions. You can find more information in the Frequently Asked Questions. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination.\n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
-	<string name="certificate_check_validity_detail_view_result_no_rules_title">This certificate cannot be checked</string>
-	<string name="certificate_check_validity_detail_view_result_no_rules_message">For the selected country and date, there are currently no entry rules available for checking in the app.\n\nPlease check at #https://reopen.europa.eu::https://reopen.europa.eu# whether the certificate is valid for entry into the selected country.</string>
+	<string name="certificate_check_validity_detail_view_result_no_rules_title">Certificate cannot be validated</string>
+	<string name="certificate_check_validity_detail_view_result_no_rules_message">For the selected country and date, there are currently no entry rules available to check for in the App. \n\nPlease check at #https://reopen.europa.eu::https://reopen.europa.eu# whether the certificate is valid for entry into the selected country.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_title">This certificate is valid on your travel date</string>
 	<string name="certificate_check_validity_detail_view_result_valid_message">For %1$s on %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_valid_info">%d rules of the destination country were successfully checked.</string>
-	<string name="certificate_check_validity_detail_view_result_valid_info_no_rules">There are currently no entry rules for this certificate type for the selected country and date.</string>
-	<string name="certificate_check_validity_detail_view_result_not_testable_title">This certificate cannot be fully verified</string>
+	<string name="certificate_check_validity_detail_view_result_valid_info_no_rules">There are currently no entry rules available for this certificate type and the selected country and date. Please note the following:</string>
+	<string name="certificate_check_validity_detail_view_result_not_testable_title">This certificate cannot be completely verified.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_first_message">For %1$s on %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_second_message">Sorry, an automatic check is not possible for this certificate. Please review the information marked out below yourself.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_note_title">Review this information</string>
@@ -358,6 +358,7 @@
 	<string name="certificate_create_pdf_third_list_item">We recommend that you do not publish the PDF document and do not send it by email or share it via other apps.</string>
 	<string name="certificate_create_pdf_list_button">Next</string>
 	<string name="certificate_share_pdf_title_android">Share via</string>
+	<string name="certificate_share_pdf_shareitem_android">Save PDF</string>
 
 	<!-- SECTION: certificate delete dialog -->
 	<string name="dialog_delete_certificate_title">Do you really want to delete this Covid certificate?</string>

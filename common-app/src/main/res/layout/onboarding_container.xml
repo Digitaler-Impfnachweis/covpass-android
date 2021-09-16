@@ -45,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:contentDescription="@string/accessibility_fourth_onboarding_page_label_scroll_to_end"
         android:visibility="invisible"
         app:round_button_icon="@drawable/arrow_field_down" />
     </FrameLayout>
