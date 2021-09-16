@@ -28,6 +28,8 @@ import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.dialog.DialogAction
+import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
@@ -44,7 +46,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
  * The main fragment hosts a [ViewPager2] to display all [GroupedCertificates] and serves as entry point for further
  * actions (e.g. add new certificate, show settings screen, show selected certificate)
  */
-internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificationCallback {
+internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificationCallback, DialogListener {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
@@ -55,6 +57,19 @@ internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificatio
         setupViews()
         autoRun {
             val certs = get(covpassDeps.certRepository.certs)
+            if (
+                certs.certificates.any {
+                    it.hasSeenExpiryNotification
+                }
+            ) {
+                val dialogModel = DialogModel(
+                    titleRes = R.string.error_validity_check_certificates_title,
+                    messageString = getString(R.string.error_validity_check_certificates_message),
+                    positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
+                    tag = EXPIRED_DIALOG_TAG,
+                )
+                showDialog(dialogModel, childFragmentManager)
+            }
             updateCertificates(certs, viewModel.selectedCertId)
         }
         if (
@@ -131,5 +146,21 @@ internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificatio
 
     override fun onBoosterNotificationFinish() {
         validateAppVersion()
+    }
+
+    override fun onDialogAction(tag: String, action: DialogAction) {
+        if (tag == EXPIRED_DIALOG_TAG) {
+            launchWhenStarted {
+                covpassDeps.certRepository.certs.update { groupedCertificateList ->
+                    groupedCertificateList.certificates.forEach {
+                        it.hasSeenExpiryNotification = true
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val EXPIRED_DIALOG_TAG = "expired_dialog"
     }
 }

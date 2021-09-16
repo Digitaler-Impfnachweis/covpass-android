@@ -45,6 +45,36 @@ public data class GroupedCertificates(
             }.toMutableList()
         }
 
+    var hasSeenExpiryNotification: Boolean
+        get() = getMainCertificate().let {
+            when (it.covCertificate.dgcEntry) {
+                is Vaccination, is Recovery -> when (it.status) {
+                    CertValidationResult.Expired, CertValidationResult.ExpiryPeriod, CertValidationResult.Invalid ->
+                        !it.hasSeenExpiryNotification
+                    CertValidationResult.Valid -> false
+                }
+                is TestCert -> false
+            }
+        }
+        set(value) {
+            certificates = certificates.map {
+                if (it == getMainCertificate()) {
+                    when (it.status) {
+                        CertValidationResult.Expired,
+                        CertValidationResult.ExpiryPeriod,
+                        CertValidationResult.Invalid -> {
+                            it.copy(hasSeenExpiryNotification = value)
+                        }
+                        CertValidationResult.Valid -> {
+                            it
+                        }
+                    }
+                } else {
+                    it
+                }
+            }.toMutableList()
+        }
+
     /**
      * The [GroupedCertificatesId] to identify this [GroupedCertificates].
      */

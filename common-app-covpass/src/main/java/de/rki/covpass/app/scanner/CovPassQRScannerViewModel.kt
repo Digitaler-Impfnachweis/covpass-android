@@ -55,7 +55,8 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                             CertValidationResult.Valid
                         },
                         hasSeenBoosterNotification = false,
-                        hasSeenBoosterDetailNotification = false
+                        hasSeenBoosterDetailNotification = false,
+                        hasSeenExpiryNotification = false
                     )
                 )
             }
