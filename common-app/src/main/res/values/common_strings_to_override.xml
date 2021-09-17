@@ -48,4 +48,12 @@
   <string name="dialog_start_screen_button_update"/>
 
   <string name="accessibility_popup_label_close"/>
+  <string name="accessibility_scan_camera_announce"/>
+  <string name="accessibility_scan_camera_torch_on"/>
+  <string name="accessibility_scan_camera_torch_off"/>
+
+  <string name="accessibility_app_information_label_back"/>
+  <string name="accessibility_app_information_contact_label_back"/>
+  <string name="accessibility_app_information_open_source_label_back"/>
+
 </resources>

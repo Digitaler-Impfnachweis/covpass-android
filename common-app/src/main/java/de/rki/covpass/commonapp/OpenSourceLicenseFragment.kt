@@ -48,6 +48,7 @@ public class OpenSourceLicenseFragment : BaseFragment() {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
+                setHomeActionContentDescription(R.string.accessibility_app_information_open_source_label_back)
             }
             binding.openSourceLicenseToolbar.title = getString(R.string.app_information_title_open_source)
         }

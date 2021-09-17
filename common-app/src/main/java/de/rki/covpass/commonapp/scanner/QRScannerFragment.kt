@@ -73,6 +73,7 @@ public abstract class QRScannerFragment : BaseFragment(), DecoratedBarcodeView.T
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        decoratedBarcodeView.announceForAccessibility(getString(R.string.accessibility_scan_camera_announce))
         decoratedBarcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(barcodeTypes)
         val screenSize = requireContext().getScreenSize()
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
@@ -166,8 +167,12 @@ public abstract class QRScannerFragment : BaseFragment(), DecoratedBarcodeView.T
     private fun setTorch(on: Boolean) {
         if (on) {
             decoratedBarcodeView.setTorchOn()
+            binding.scannerFlashlightButton.contentDescription =
+                resources.getString(R.string.accessibility_scan_camera_torch_on)
         } else {
             decoratedBarcodeView.setTorchOff()
+            binding.scannerFlashlightButton.contentDescription =
+                resources.getString(R.string.accessibility_scan_camera_torch_off)
         }
     }
 

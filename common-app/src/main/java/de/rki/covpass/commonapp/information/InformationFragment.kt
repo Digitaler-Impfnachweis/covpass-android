@@ -80,6 +80,7 @@ public abstract class InformationFragment : BaseFragment() {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
+                setHomeActionContentDescription(R.string.accessibility_app_information_label_back)
             }
             binding.informationToolbar.setTitle(R.string.app_information_title)
         }
