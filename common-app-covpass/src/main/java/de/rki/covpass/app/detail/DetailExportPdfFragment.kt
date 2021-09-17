@@ -12,6 +12,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.TextView
+import androidx.core.app.ShareCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
@@ -45,7 +46,9 @@ internal class DetailExportPdfFragment : BaseBottomSheet(), SharePdfEvents {
         )
     }
 
-    private val detailExportPdfViewModel by reactiveState { DetailExportPdfViewModel(scope, requireContext()) }
+    private val detailExportPdfViewModel by reactiveState {
+        DetailExportPdfViewModel(scope)
+    }
     private val binding by viewBinding(DetailExportPdfBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,12 +90,16 @@ internal class DetailExportPdfFragment : BaseBottomSheet(), SharePdfEvents {
     }
 
     private fun sharePdf(uri: Uri) {
-        val intent = Intent(Intent.ACTION_SEND).apply {
-            putExtra(Intent.EXTRA_STREAM, uri)
-            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-            type = "application/pdf"
-        }
-        startActivity(Intent.createChooser(intent, getString(R.string.certificate_share_pdf_title_android)))
+        val intent = ShareCompat.IntentBuilder(requireContext())
+            .setType("application/pdf")
+            .setStream(uri)
+            .intent
+        val savePdfIntent = Intent(requireContext(), DetailExportPdfSaveOptionActivity::class.java)
+        savePdfIntent.data = uri
+
+        val shareIntent = Intent.createChooser(intent, getString(R.string.certificate_share_pdf_title_android))
+        shareIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(savePdfIntent))
+        startActivity(shareIntent)
     }
 
     override fun onActionButtonClicked() {

@@ -22,6 +22,7 @@ import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
+import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DgcEntryDetailBinding
@@ -73,9 +74,9 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onBackPressed(): Abortable {
         requireContext().cacheDir.deleteRecursively()
+        return super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -101,6 +102,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
     }
 
     override fun onDeleteDone(isGroupedCertDeleted: Boolean) {
+        requireContext().cacheDir.deleteRecursively()
         findNavigator().popUntil<DgcEntryDetailCallback>()?.onDeletionCompleted(isGroupedCertDeleted)
     }
 

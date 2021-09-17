@@ -143,7 +143,7 @@
 	<string name="certificate_check_validity_selection_time_action_button">OK</string>
 	<string name="certificate_check_validity_loading">Certificates are being validated</string>
 	<string name="certificate_check_invalidity_error_title">Please check the validity of your certificates.</string>
-	<string name="certificate_check_invalidity_error_text">One ore multiple certificates are expired, or will expire soon.</string>
+	<string name="certificate_check_invalidity_error_text">One or multiple certificates are expired, or will expire soon.</string>
 	<string name="certificate_check_validity_no_certificate_saved_title">You have not saved any certificates yet</string>
 	<string name="certificate_check_validity_no_certificate_saved_message">Add a certificate so you can check its validity.</string>
 	<string name="certificate_check_validity_vaccination">Vaccination certificate</string>

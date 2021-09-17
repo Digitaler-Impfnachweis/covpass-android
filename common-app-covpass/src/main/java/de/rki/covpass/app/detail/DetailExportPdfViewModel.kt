@@ -14,12 +14,13 @@ import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
 import androidx.core.content.FileProvider
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.ibm.health.common.android.utils.BaseEvents
-import com.ibm.health.common.android.utils.getString
+import com.ibm.health.common.android.utils.androidDeps
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import de.rki.covpass.app.R
+import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -39,9 +40,10 @@ internal interface SharePdfEvents : BaseEvents {
 /**
  * ViewModel to handle business logic related to [DetailExportPdfFragment].
  */
-internal class DetailExportPdfViewModel(
+internal class DetailExportPdfViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    val context: Context
+    private val applicationContext: Context = androidDeps.application,
+    private val providerAuthority: String = covpassDeps.fileProviderAuthority,
 ) : BaseReactiveState<SharePdfEvents>(scope) {
 
     val pdfString: MutableStateFlow<String> = MutableStateFlow("")
@@ -54,15 +56,15 @@ internal class DetailExportPdfViewModel(
                 .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
                 .setResolution(PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                 .build()
-            val fileName = "Certificate-${fileName.value}".sanitizeFileName()
-            val pdfFile = File(context.cacheDir, "$fileName.pdf")
+            val fileName = "Certificate-${fileName.value}.pdf".sanitizeFileName()
+            val pdfFile = File(applicationContext.cacheDir, fileName)
             PdfBuilder(attributes).createPdf(printDocumentAdapter, pdfFile)
-            eventNotifier { onSharePdf(uriFromFile(context, pdfFile)) }
+            eventNotifier { onSharePdf(uriFromFile(applicationContext, pdfFile)) }
         }
     }
 
     private fun uriFromFile(context: Context, file: File): Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        FileProvider.getUriForFile(context, getString(R.string.common_file_provider_authority), file)
+        FileProvider.getUriForFile(context, providerAuthority, file)
     } else {
         Uri.fromFile(file)
     }
@@ -73,7 +75,7 @@ internal class DetailExportPdfViewModel(
             pdfString.value = when (val dgcEntry = combinedCovCertificate.covCertificate.dgcEntry) {
                 is Vaccination -> {
                     PdfUtils.replaceVaccinationValues(
-                        context,
+                        applicationContext,
                         combinedCovCertificate,
                         combinedCovCertificate.qrContent.toBase64EncodedString(),
                         dgcEntry
@@ -81,7 +83,7 @@ internal class DetailExportPdfViewModel(
                 }
                 is Recovery -> {
                     PdfUtils.replaceRecoveryValues(
-                        context,
+                        applicationContext,
                         combinedCovCertificate,
                         combinedCovCertificate.qrContent.toBase64EncodedString(),
                         dgcEntry
