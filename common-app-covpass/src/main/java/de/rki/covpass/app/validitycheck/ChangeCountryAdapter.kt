@@ -7,11 +7,15 @@ package de.rki.covpass.app.validitycheck
 
 import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.CheckBox
 import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
 import com.ibm.health.common.android.utils.getSpanned
+import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ChangeCountryHeaderBinding
 import de.rki.covpass.app.databinding.ChangeCountryItemBinding
@@ -25,6 +29,7 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 public class ChangeCountryAdapter(
     parent: Fragment,
     private val startCountry: String,
+    private val accessibilityCallback: AccessibilityCallback,
 ) : BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
 
     private var countryItems: List<Country> = emptyList()
@@ -98,7 +103,25 @@ public class ChangeCountryAdapter(
                 binding.checkbox.isChecked = true
                 checked = position
                 notifyDataSetChanged()
+                accessibilityCallback.updateAccessibilityFocus()
             }
+            binding.root.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.className = CheckBox::class.java.name
+                    if (binding.checkbox.isChecked) {
+                        info.contentDescription = getString(
+                            R.string.accessibility_certificate_check_validity_selection_country_selected,
+                            getString(item.nameRes)
+                        )
+                    } else {
+                        info.contentDescription = getString(
+                            R.string.accessibility_certificate_check_validity_selection_country_unselected,
+                            getString(item.nameRes)
+                        )
+                    }
+                }
+            })
         }
     }
 

@@ -28,6 +28,8 @@
 	<string name="accessibility_fourth_onboarding_page_label_scroll_to_end">Zum Ende scrollen</string>
 	<string name="vaccination_privacy_policy_page_button_title">Schließen</string>
 	<string name="accessibility_popup_label_close">Schließen</string>
+	<!-- generic key to be used as alt text for decorative images -->
+	<string name="accessibility_image_alternative_text">Dekorativ</string>
 	<string name="error_connect_internet_for_scan_title">Flugzeugmodus ausschalten oder WLAN für den Datenzugriff verwenden</string>
 	<string name="error_connect_internet_for_scan_button_settings">Einstellungen</string>
 	<string name="error_connect_internet_for_scan_button_ok">OK</string>

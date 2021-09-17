@@ -7,6 +7,7 @@ package de.rki.covpass.app.validitycheck
 
 import android.os.Bundle
 import android.view.View
+import android.view.accessibility.AccessibilityEvent
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -28,10 +29,14 @@ internal interface ChangeCountryCallback {
 @Parcelize
 internal class ChangeCountryFragmentNav(val countryCode: String) : FragmentNav(ChangeCountryFragment::class)
 
+public interface AccessibilityCallback {
+    public fun updateAccessibilityFocus()
+}
+
 /**
  * Fragment to change country for the validity
  */
-internal class ChangeCountryFragment : BaseBottomSheet() {
+internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback {
 
     private val args: ChangeCountryFragmentNav by lazy { getArgs() }
     private val binding by viewBinding(ChangeCountryPopupContentBinding::inflate)
@@ -44,12 +49,16 @@ internal class ChangeCountryFragment : BaseBottomSheet() {
             R.string.certificate_check_validity_selection_country_action_button
         )
 
-        ChangeCountryAdapter(this, args.countryCode).attachTo(binding.countryList)
+        ChangeCountryAdapter(this, args.countryCode, this).attachTo(binding.countryList)
         (binding.countryList.adapter as? ChangeCountryAdapter)?.updateList(CountryRepository.getSortedCountryList())
     }
 
     override fun onActionButtonClicked() {
         val newCountry = (binding.countryList.adapter as? ChangeCountryAdapter)?.getSelectedItem()
         newCountry?.let { findNavigator().popUntil<ChangeCountryCallback>()?.updateCountry(it) }
+    }
+
+    override fun updateAccessibilityFocus() {
+        bottomSheetBinding.bottomSheetActionButton.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
     }
 }

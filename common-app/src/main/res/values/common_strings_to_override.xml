@@ -56,4 +56,6 @@
   <string name="accessibility_app_information_contact_label_back"/>
   <string name="accessibility_app_information_open_source_label_back"/>
 
+  <string name="accessibility_image_alternative_text"/>
+
 </resources>

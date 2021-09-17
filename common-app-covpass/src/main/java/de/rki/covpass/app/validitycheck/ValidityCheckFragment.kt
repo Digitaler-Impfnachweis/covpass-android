@@ -32,6 +32,8 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.Button
 
 @Parcelize
 internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::class)
@@ -72,6 +74,16 @@ internal class ValidityCheckFragment :
             binding.countryValue.setOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }
+            binding.countryValue.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.className = Button::class.java.name
+                    info.contentDescription = getString(
+                        R.string.accessibility_certificate_check_validity_selection_country,
+                        getString(country.nameRes)
+                    )
+                }
+            })
 
             binding.layoutCountry.setEndIconOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
@@ -86,6 +98,16 @@ internal class ValidityCheckFragment :
             binding.dateValue.setOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
             }
+            binding.dateValue.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.className = Button::class.java.name
+                    info.contentDescription = getString(
+                        R.string.accessibility_certificate_check_validity_selection_date,
+                        time.formatDateTime()
+                    )
+                }
+            })
 
             binding.layoutDate.setEndIconOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
