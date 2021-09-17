@@ -29,6 +29,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
     private val certs by lazy { covpassDeps.certRepository.certs }
     protected abstract val certId: String
     protected abstract val subtitleString: String
+    protected abstract val subtitleAccessibleDescription: String
     protected abstract val derivedValidationResults: List<DerivedValidationResult>
     protected abstract val country: Country
     protected abstract val dateTime: LocalDateTime
@@ -55,6 +56,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
         startRecyclerView()
         bottomSheetBinding.bottomSheetTitle.text = titleString
         bottomSheetBinding.bottomSheetSubtitle.text = subtitleString
+        bottomSheetBinding.bottomSheetSubtitle.contentDescription = subtitleAccessibleDescription
         bottomSheetBinding.bottomSheetSubtitle.isVisible = true
         bottomSheetBinding.bottomSheetActionButton.isVisible = false
     }
@@ -73,6 +75,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
 
     public data class ResultRowData(
         val title: String,
+        val titleAccessibleDescription: String,
         val value: String?,
         val validationResult: List<DerivedValidationResult> = emptyList(),
         val description: String? = null,

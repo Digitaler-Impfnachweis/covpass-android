@@ -168,6 +168,7 @@ public class ResultAdapter(
         ) {
         public fun bind(item: ResultFragment.ResultRowData) {
             binding.resultRowHeaderTextview.text = item.title
+            binding.resultRowHeaderTextview.contentDescription = item.titleAccessibleDescription
             if (item.description != null) {
                 binding.resultRowSubtitleTextview.isVisible = true
                 binding.resultRowSubtitleTextview.text = item.value

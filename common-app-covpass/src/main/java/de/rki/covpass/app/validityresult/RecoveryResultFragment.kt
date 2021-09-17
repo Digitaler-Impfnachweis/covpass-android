@@ -38,6 +38,9 @@ internal class RecoveryResultFragment : ResultFragment() {
     override val subtitleString: String by lazy {
         getString(R.string.certificate_check_validity_detail_view_recovery_result_title)
     }
+    override val subtitleAccessibleDescription: String by lazy {
+        getString(R.string.accessibility_certificate_check_validity_detail_view_recovery_result_title)
+    }
     override val derivedValidationResults: List<DerivedValidationResult> by lazy { args.derivedValidationResults }
     override val country: Country by lazy { args.country }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
@@ -50,23 +53,28 @@ internal class RecoveryResultFragment : ResultFragment() {
         return listOf(
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_name),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_name),
                 cert.fullNameReverse
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_name_standard),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_name_standard),
                 cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_date_of_birth),
                 cert.birthDateFormatted
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_disease),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_disease),
                 getDiseaseAgentName(recovery.targetDisease),
                 args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_date_first_positive_result),
                 recovery.firstResult?.formatDateInternational() ?: "",
                 args.derivedValidationResults.getResultsBy("fr")
 
@@ -74,29 +82,35 @@ internal class RecoveryResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_country),
                 CountryRepository.getCountryLocalized(recovery.country),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_country),
                 args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_issuer),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_issuer),
                 recovery.certificateIssuer,
                 args.derivedValidationResults.getResultsBy("is")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_valid_from),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_valid_from),
                 recovery.validFrom?.formatDateInternational() ?: "",
                 args.derivedValidationResults.getResultsBy("df")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_valid_until),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_valid_until),
                 recovery.validUntil?.formatDateInternational() ?: "",
                 args.derivedValidationResults.getResultsBy("du")
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_identifier),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_identifier),
                 recovery.idWithoutPrefix
             ),
             ResultRowData(
                 title = getString(R.string.recovery_certificate_detail_view_data_expiry_date),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_expiry_date),
                 value = getString(
                     R.string.recovery_certificate_detail_view_data_expiry_date_message,
                     ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()

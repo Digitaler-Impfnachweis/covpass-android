@@ -41,6 +41,9 @@ internal class VaccinationResultFragment : ResultFragment() {
     override val subtitleString: String by lazy {
         getString(R.string.certificate_check_validity_detail_view_vaccination_result_title)
     }
+    override val subtitleAccessibleDescription: String by lazy {
+        getString(R.string.accessbility_certificate_check_validity_detail_view_vaccination_result_title)
+    }
     override val derivedValidationResults: List<DerivedValidationResult> by lazy { args.derivedValidationResults }
     override val country: Country by lazy { args.country }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
@@ -53,63 +56,76 @@ internal class VaccinationResultFragment : ResultFragment() {
         return listOf(
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_name),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_name),
                 cert.fullNameReverse
             ),
             ResultRowData(
-                getString(R.string.test_certificate_detail_view_data_name_standard),
+                getString(R.string.vaccination_certificate_detail_view_data_name_standard),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_name_standard),
                 cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_date_of_birth),
                 cert.birthDateFormatted
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_disease),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_disease),
                 getDiseaseAgentName(vaccination.targetDisease),
                 args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine),
                 getProductName(vaccination.product),
                 args.derivedValidationResults.getResultsBy("mp")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_type),
                 getProphylaxisName(vaccination.vaccineCode),
                 args.derivedValidationResults.getResultsBy("vp")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_manufacturer),
                 getManufacturerName(vaccination.manufacturer),
                 args.derivedValidationResults.getResultsBy("ma")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number),
                 "${vaccination.doseNumber}/${vaccination.totalSerialDoses}",
                 args.derivedValidationResults.getResultsBy("dn") +
                     args.derivedValidationResults.getResultsBy("sd")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_date_),
                 vaccination.occurrence?.formatDateInternational() ?: "",
                 args.derivedValidationResults.getResultsBy("dt")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_country),
                 CountryRepository.getCountryLocalized(vaccination.country),
                 args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_issuer),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_issuer),
                 vaccination.certificateIssuer,
                 args.derivedValidationResults.getResultsBy("is")
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_identifier),
                 vaccination.idWithoutPrefix
             ),
             ResultRowData(
                 title = getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_expiry_date),
                 value = getString(
                     R.string.vaccination_certificate_detail_view_data_expiry_date_message,
                     ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()

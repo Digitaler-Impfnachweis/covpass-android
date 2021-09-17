@@ -46,4 +46,6 @@
   <string name="dialog_start_screen_message"/>
   <string name="dialog_start_screen_button_later"/>
   <string name="dialog_start_screen_button_update"/>
+
+  <string name="accessibility_popup_label_close"/>
 </resources>

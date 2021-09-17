@@ -42,6 +42,9 @@ internal class TestResultFragment : ResultFragment() {
     override val subtitleString: String by lazy {
         getString(R.string.certificate_check_validity_detail_view_test_result_title)
     }
+    override val subtitleAccessibleDescription: String by lazy {
+        getString(R.string.accessibility_certificate_check_validity_detail_view_test_result_title)
+    }
     override val derivedValidationResults: List<DerivedValidationResult> by lazy { args.derivedValidationResults }
     override val country: Country by lazy { args.countryName }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
@@ -54,67 +57,81 @@ internal class TestResultFragment : ResultFragment() {
         return listOf(
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_name),
+                getString(R.string.accessibility_test_certificate_detail_view_data_name),
                 cert.fullNameReverse
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_name_standard),
+                getString(R.string.accessibility_test_certificate_detail_view_data_name_standard),
                 cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_date_of_birth),
+                getString(R.string.accessibility_test_certificate_detail_view_data_date_of_birth),
                 cert.birthDateFormatted
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_disease),
+                getString(R.string.accessibility_test_certificate_detail_view_data_disease),
                 getDiseaseAgentName(test.targetDisease),
                 args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_type),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_type),
                 getTestTypeName(test.testType),
                 args.derivedValidationResults.getResultsBy("tt")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_name),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_name),
                 test.testName,
                 args.derivedValidationResults.getResultsBy("nm")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_manufacturer),
                 test.manufacturer?.let { getTestManufacturerName(it) },
                 args.derivedValidationResults.getResultsBy("ma")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_date_and_time),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_date_and_time),
                 test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational() ?: "",
                 args.derivedValidationResults.getResultsBy("sc")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_results),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_results),
                 getTestResultName(test.testResult),
                 args.derivedValidationResults.getResultsBy("tr")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_centre),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_centre),
                 test.testingCenter,
                 args.derivedValidationResults.getResultsBy("tc")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_country),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_country),
                 CountryRepository.getCountryLocalized(test.country),
                 args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_issuer),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_issuer),
                 test.certificateIssuer,
                 args.derivedValidationResults.getResultsBy("is")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_identifier),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_identifier),
                 test.idWithoutPrefix
             ),
             ResultRowData(
                 title = getString(R.string.test_certificate_detail_view_data_expiry_date),
+                getString(R.string.accessibility_test_certificate_detail_view_data_expiry_date),
                 value = getString(
                     R.string.test_certificate_detail_view_data_expiry_date_message,
                     ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
