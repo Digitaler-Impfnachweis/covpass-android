@@ -33,8 +33,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@+id/info_title"
     app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="ContentDescription"
-    tools:src="@drawable/detail_cert_status_complete" />
+    tools:ignore="ContentDescription" />
 
   <TextView
     android:id="@+id/info_subtitle"

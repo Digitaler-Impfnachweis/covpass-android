@@ -5,9 +5,12 @@
 
 package de.rki.covpass.app.onboarding
 
+import android.view.View
+import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.commonapp.onboarding.BaseOnboardingConsentFragment
 import de.rki.covpass.commonapp.onboarding.BaseOnboardingInfoFragment
+import java.util.*
 
 /**
  * Common base fragment which sets the [buttonTextRes]
@@ -57,4 +60,12 @@ internal class OnboardingConsentFragment : BaseOnboardingConsentFragment() {
         R.string.vaccination_fourth_onboarding_page_third_list_item,
         R.string.vaccination_fourth_onboarding_page_fourth_list_item
     )
+    override val termsOfUseTitle: Int = R.string.vaccination_fourth_onboarding_page_message_for_us_citizens_title
+    override val termsOfUseIcon: Int = R.drawable.info_icon
+    override val termsOfUseMessage: Int = R.string.vaccination_fourth_onboarding_page_message_for_us_citizens_copy
+    override val termsOfUseLink: Int = R.string.vaccination_fourth_onboarding_page_message_for_us_citizens_title
+    override val termsOfUseLinkEvent: View.OnClickListener = View.OnClickListener {
+        findNavigator().push(OnboadingTermsOfUseUSFragmentNav())
+    }
+    override val showTermsOfUse: Boolean = Locale.getDefault() == Locale.US
 }

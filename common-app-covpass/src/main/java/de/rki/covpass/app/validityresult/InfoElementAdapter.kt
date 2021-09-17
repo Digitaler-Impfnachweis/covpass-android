@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
 import de.rki.covpass.app.databinding.ResultInfoElementBinding
-import de.rki.covpass.app.uielements.showError
-import de.rki.covpass.app.uielements.showWarning
+import de.rki.covpass.commonapp.uielements.showError
+import de.rki.covpass.commonapp.uielements.showWarning
 
 @SuppressLint("NotifyDataSetChanged")
 public class InfoElementAdapter(

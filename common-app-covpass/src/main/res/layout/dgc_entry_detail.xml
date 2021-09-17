@@ -58,7 +58,7 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-      <de.rki.covpass.app.uielements.InfoElement
+      <de.rki.covpass.commonapp.uielements.InfoElement
         android:id="@+id/dgc_detail_expiration_info_element"
         style="@style/InfoElement.Info"
         android:layout_width="match_parent"

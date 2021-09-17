@@ -11,7 +11,7 @@
   android:background="@color/backgroundSecondary"
   android:orientation="vertical">
 
-  <de.rki.covpass.app.uielements.InfoElement
+  <de.rki.covpass.commonapp.uielements.InfoElement
     android:id="@+id/result_warning_element"
     style="@style/InfoElement.Success"
     android:layout_width="match_parent"

@@ -1,25 +1,31 @@
-package de.rki.covpass.app.uielements
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
+package de.rki.covpass.commonapp.uielements
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import de.rki.covpass.commonapp.R
+import de.rki.covpass.commonapp.databinding.InfoElementBinding
 import com.ibm.health.common.android.utils.getSpanned
-import de.rki.covpass.app.R
-import de.rki.covpass.app.databinding.InfoElementBinding
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlin.properties.Delegates
 
 public class InfoElement @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : RelativeLayout(
     context,
     attrs,
@@ -36,6 +42,10 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoSubtitle.isGone = newValue.isNullOrEmpty()
     }
 
+    public var subtitleStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground70) { _, _, newValue ->
+        binding.infoSubtitle.setTextAppearance(newValue)
+    }
+
     public var description: String? by Delegates.observable(null) { _, _, newValue ->
         binding.infoDescription.apply {
             text = getSpanned(newValue ?: "")
@@ -43,6 +53,14 @@ public class InfoElement @JvmOverloads constructor(
             stripUnderlines()
         }
         binding.infoDescription.isGone = newValue.isNullOrEmpty()
+    }
+
+    public var descriptionLink: OnClickListener? by Delegates.observable(null) { _, _, newValue ->
+        binding.infoDescription.setOnClickListener(newValue)
+    }
+
+    public var descriptionStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground) { _, _, newValue ->
+        binding.infoDescription.setTextAppearance(newValue)
     }
 
     public var icon: Drawable? by Delegates.observable(null) { _, _, newValue ->
@@ -82,7 +100,7 @@ public class InfoElement @JvmOverloads constructor(
 private fun InfoElement.setValues(
     title: String,
     subtitle: String? = null,
-    description: String? = null
+    description: String? = null,
 ) {
     this.title = title
     this.subtitle = subtitle
@@ -93,7 +111,7 @@ public fun InfoElement.showWarning(
     title: String,
     subtitle: String? = null,
     description: String? = null,
-    iconRes: Int? = null
+    iconRes: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -104,7 +122,7 @@ public fun InfoElement.showError(
     title: String,
     subtitle: String? = null,
     description: String? = null,
-    iconRes: Int? = null
+    iconRes: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -115,7 +133,7 @@ public fun InfoElement.showSuccess(
     title: String,
     subtitle: String? = null,
     description: String? = null,
-    iconRes: Int? = null
+    iconRes: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -125,10 +143,20 @@ public fun InfoElement.showSuccess(
 public fun InfoElement.showInfo(
     title: String,
     subtitle: String? = null,
+    subtitleStyle: Int? = null,
     description: String? = null,
-    iconRes: Int? = null
+    iconRes: Int? = null,
+    descriptionLink: View.OnClickListener? = null,
+    descriptionStyle: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.info_background)
+    this.descriptionLink = descriptionLink
+    if (subtitleStyle != null) {
+        this.subtitleStyle = subtitleStyle
+    }
+    if (descriptionStyle != null) {
+        this.descriptionStyle = descriptionStyle
+    }
 }

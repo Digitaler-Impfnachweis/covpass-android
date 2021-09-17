@@ -15,11 +15,11 @@ import de.rki.covpass.app.databinding.ResultFooterBinding
 import de.rki.covpass.app.databinding.ResultHeaderBinding
 import de.rki.covpass.app.databinding.ResultRowBinding
 import de.rki.covpass.app.detail.DisplayQrCodeFragmentNav
-import de.rki.covpass.app.uielements.showError
-import de.rki.covpass.app.uielements.showSuccess
-import de.rki.covpass.app.uielements.showWarning
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validitycheck.countries.CountryRepository.defaultCountry
+import de.rki.covpass.commonapp.uielements.showError
+import de.rki.covpass.commonapp.uielements.showSuccess
+import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import java.time.LocalDateTime

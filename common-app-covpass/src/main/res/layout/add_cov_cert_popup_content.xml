@@ -19,7 +19,7 @@
     android:src="@drawable/add_certificate_illustration"
     android:contentDescription="@string/accessibility_certificate_add_popup_image" />
 
-  <de.rki.covpass.app.uielements.InfoElement
+  <de.rki.covpass.commonapp.uielements.InfoElement
     android:id="@+id/warning_element"
     style="@style/InfoElement.Warning"
     android:layout_width="match_parent"

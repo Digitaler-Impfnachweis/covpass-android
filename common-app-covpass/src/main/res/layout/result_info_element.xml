@@ -13,7 +13,7 @@
   android:orientation="vertical"
   tools:ignore="Overdraw">
 
-  <de.rki.covpass.app.uielements.InfoElement
+  <de.rki.covpass.commonapp.uielements.InfoElement
     android:id="@+id/result_row_warning"
     style="@style/InfoElement.Warning"
     android:layout_width="match_parent"

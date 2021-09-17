@@ -8,12 +8,14 @@ package de.rki.covpass.commonapp.onboarding
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.ensody.reactivestate.MutableValueFlow
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.OnboardingConsentBinding
+import de.rki.covpass.commonapp.uielements.showInfo
 
 /**
  * Common base fragment for displaying a data privacy consent to the user. Both apps use basically the same fragment,
@@ -26,6 +28,13 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
     public abstract val buttonTextRes: Int
     public abstract val dataProtectionLinkRes: Int
     public abstract val contentItemsRes: List<Int>
+
+    public open val termsOfUseTitle: Int? = null
+    public open val termsOfUseIcon: Int? = null
+    public open val termsOfUseMessage: Int? = null
+    public open val termsOfUseLink: Int? = null
+    public open val termsOfUseLinkEvent: View.OnClickListener? = null
+    public open val showTermsOfUse: Boolean = false
 
     private val binding by viewBinding(OnboardingConsentBinding::inflate)
 
@@ -50,6 +59,18 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
                             <= (height + scrollY)
                         )
                 }
+        }
+        if (showTermsOfUse) {
+            binding.onboardingTermsOfUse.isVisible = true
+            binding.onboardingTermsOfUse.showInfo(
+                termsOfUseTitle?.let { it -> getString(it) } ?: "",
+                termsOfUseMessage?.let { it -> getString(it) },
+                R.style.DefaultText_OnBackground,
+                termsOfUseLink?.let { it -> getString(it) },
+                termsOfUseIcon,
+                termsOfUseLinkEvent,
+                R.style.Header_Info_Small
+            )
         }
     }
 

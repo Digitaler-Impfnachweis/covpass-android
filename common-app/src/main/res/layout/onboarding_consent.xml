@@ -57,6 +57,15 @@
 
     <View style="@style/Divider" />
 
+    <de.rki.covpass.commonapp.uielements.InfoElement
+      android:id="@+id/onboarding_terms_of_use"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_five"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
   </LinearLayout>
 
 </ScrollView>
