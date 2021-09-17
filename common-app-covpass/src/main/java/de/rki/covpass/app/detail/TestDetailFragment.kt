@@ -43,59 +43,75 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
 
     override fun getHeaderText(): String = getString(R.string.test_certificate_detail_view_headline)
 
+    override fun getHeaderAccessibleText(): String =
+        getString(R.string.accessibility_test_certificate_detail_view_headline)
+
     override fun getDataRows(cert: CovCertificate): List<DataRow> {
         val test = cert.dgcEntry as? TestCert ?: return emptyList()
         return listOf(
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_name),
+                getString(R.string.accessibility_test_certificate_detail_view_data_name),
                 cert.fullNameReverse
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_name_standard),
+                getString(R.string.accessibility_test_certificate_detail_view_data_name_standard),
                 cert.fullTransliteratedNameReverse
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_date_of_birth),
+                getString(R.string.accessibility_test_certificate_detail_view_data_date_of_birth),
                 cert.birthDateFormatted
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_disease),
+                getString(R.string.accessibility_test_certificate_detail_view_data_disease),
                 getDiseaseAgentName(test.targetDisease)
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_type),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_type),
                 getTestTypeName(test.testType)
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_name),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_name),
                 test.testName
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_manufacturer),
                 test.manufacturer?.let { getTestManufacturerName(it) }
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_date_and_time),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_date_and_time),
                 test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational()
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_results),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_results),
                 getTestResultName(test.testResult)
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_centre),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_centre),
                 test.testingCenter
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_country),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_country),
                 CountryRepository.getCountryLocalized(test.country)
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_issuer),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_issuer),
                 test.certificateIssuer
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_identifier),
+                getString(R.string.accessibility_test_certificate_detail_view_data_test_identifier),
                 test.idWithoutPrefix
             )
         )
@@ -106,6 +122,7 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
     ): List<ExtendedDataRow> = listOf(
         ExtendedDataRow(
             getString(R.string.test_certificate_detail_view_data_expiry_date),
+            getString(R.string.accessibility_test_certificate_detail_view_data_expiry_date),
             getString(
                 R.string.test_certificate_detail_view_data_expiry_date_message,
                 ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()

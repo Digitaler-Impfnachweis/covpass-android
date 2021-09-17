@@ -27,10 +27,12 @@ public sealed class DetailItem {
 
     public class Header(
         public val title: String,
+        public val titleAccessibleDescription: String
     ) : DetailItem()
 
     public class Personal(
         public val title: String,
+        public val titleAccessibleDescription: String,
         public val subtitle: String?,
     ) : DetailItem()
 

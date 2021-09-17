@@ -110,6 +110,8 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
     abstract fun getHeaderText(): String
 
+    abstract fun getHeaderAccessibleText(): String
+
     open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
 
     abstract fun getDataRows(cert: CovCertificate): List<DataRow>
@@ -121,9 +123,11 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         val covCertificate = combinedCovCertificate.covCertificate
         setupActionBar(covCertificate)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
+        binding.dgcDetailHeaderTextview.contentDescription = getHeaderAccessibleText()
         binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(covCertificate)
         showExpirationInfoElement(combinedCovCertificate)
 
+        // ToDo: refactor, use Adapter s.ResultAdapter
         binding.dgcDetailDataContainer.removeAllViews()
         getDataRows(covCertificate).filterNot {
             it.value.isNullOrEmpty()
@@ -136,6 +140,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             val headerTextView = dataRowView.findViewById<TextView>(R.id.detail_data_header_textview)
             val valueTextView = dataRowView.findViewById<TextView>(R.id.detail_data_textview)
             headerTextView.text = dataRow.header
+            headerTextView.contentDescription = dataRow.headerAccessibleDescription
             valueTextView.text = dataRow.value
 
             binding.dgcDetailDataContainer.addView(dataRowView)
@@ -156,6 +161,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             val descriptionTextView =
                 extendedDataRowView.findViewById<TextView>(R.id.extended_detail_description_textview)
             headerTextView.text = extendedDataRow.header
+            headerTextView.contentDescription = extendedDataRow.headerAccessibleDescription
             valueTextView.text = extendedDataRow.value
             descriptionTextView.text = extendedDataRow.description
 
@@ -227,6 +233,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
                 setDisplayHomeAsUpEnabled(true)
                 val icon = R.drawable.back_arrow
                 setHomeAsUpIndicator(icon)
+                setHomeActionContentDescription(R.string.accessibility_certificate_detail_view_label_back)
             }
             binding.dgcDetailToolbar.title = getToolbarTitleText(cert)
         }
@@ -240,11 +247,13 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
 public data class DataRow(
     val header: String,
+    val headerAccessibleDescription: String,
     val value: String? = ""
 )
 
 public data class ExtendedDataRow(
     val header: String,
+    val headerAccessibleDescription: String,
     val value: String? = "",
     val description: String
 )

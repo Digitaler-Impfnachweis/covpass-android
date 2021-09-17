@@ -117,6 +117,7 @@ private class HeaderViewHolder(
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.Header).let {
             binding.detailPersonalHeaderTextview.text = it.title
+            binding.detailPersonalHeaderTextview.contentDescription = it.titleAccessibleDescription
         }
     }
 }
@@ -128,6 +129,7 @@ private class PersonalDataViewHolder(
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.Personal).let {
             binding.detailDataHeaderTextview.text = it.title
+            binding.detailDataHeaderTextview.contentDescription = it.titleAccessibleDescription
             binding.detailDataTextview.text = it.subtitle
         }
     }

@@ -412,22 +412,27 @@ internal class DetailFragment :
             personalDataList.addAll(
                 listOf(
                     DetailItem.Header(
+                        getString(R.string.certificates_overview_personal_data_title),
                         getString(R.string.certificates_overview_personal_data_title)
                     ),
                     DetailItem.Personal(
                         getString(R.string.certificates_overview_personal_data_name),
+                        getString(R.string.accessibility_certificates_overview_personal_data_name),
                         cert.fullNameReverse
                     ),
                     DetailItem.Personal(
                         getString(R.string.certificates_overview_personal_data_standardized_name),
+                        getString(R.string.accessibility_certificates_overview_personal_data_standardized_name),
                         cert.fullTransliteratedNameReverse
                     ),
                     DetailItem.Personal(
                         getString(R.string.certificates_overview_personal_data_date_of_birth),
+                        getString(R.string.accessibility_certificates_overview_personal_data_date_of_birth),
                         cert.birthDateFormatted
                     ),
                     DetailItem.Header(
-                        getString(R.string.certificates_overview_all_certificates_title)
+                        getString(R.string.certificates_overview_all_certificates_title),
+                        getString(R.string.accessibility_certificates_overview_all_certificates_title)
                     )
                 )
             )
@@ -553,6 +558,7 @@ internal class DetailFragment :
                 setDisplayHomeAsUpEnabled(true)
                 val icon = R.drawable.back_arrow
                 setHomeAsUpIndicator(icon)
+                setHomeActionContentDescription(R.string.accessibility_overview_certificates_label_back)
             }
         }
     }

@@ -35,47 +35,60 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
 
     override fun getHeaderText(): String = getString(R.string.recovery_certificate_detail_view_headline)
 
+    override fun getHeaderAccessibleText(): String =
+        getString(R.string.accessibility_recovery_certificate_detail_view_headline)
+
     override fun getDataRows(cert: CovCertificate): List<DataRow> {
         val recovery = cert.dgcEntry as? Recovery ?: return emptyList()
         return listOf(
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_name),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_name),
                 cert.fullNameReverse
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_name_standard),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_name_standard),
                 cert.fullTransliteratedNameReverse
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_date_of_birth),
                 cert.birthDateFormatted
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_disease),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_disease),
                 getDiseaseAgentName(recovery.targetDisease)
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_date_first_positive_result),
                 recovery.firstResult?.formatDateInternational()
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_country),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_country),
                 CountryRepository.getCountryLocalized(recovery.country)
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_issuer),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_issuer),
                 recovery.certificateIssuer
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_valid_from),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_valid_from),
                 recovery.validFrom?.formatDateInternational()
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_valid_until),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_valid_until),
                 recovery.validUntil?.formatDateInternational()
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_identifier),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_identifier),
                 recovery.idWithoutPrefix
             )
         )
@@ -86,6 +99,7 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
     ): List<ExtendedDataRow> = listOf(
         ExtendedDataRow(
             getString(R.string.recovery_certificate_detail_view_data_expiry_date),
+            getString(R.string.accessibility_recovery_certificate_detail_view_data_expiry_date),
             getString(
                 R.string.recovery_certificate_detail_view_data_expiry_date_message,
                 ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()

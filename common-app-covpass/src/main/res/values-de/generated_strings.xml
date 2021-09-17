@@ -254,7 +254,7 @@
 	<string name="certificates_overview_personal_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="accessibility_certificates_overview_personal_data_date_of_birth">Geburtsdatum (Jahr-Monat-Tag)</string>
 	<string name="certificates_overview_all_certificates_title">EU-Zertifikate</string>
-	<string name="accessibility_certificates_overview_all_certificates_title">Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
+	<string name="accessibility_certificates_overview_all_certificates_title">EU-Zertifikate. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="certificates_overview_currently_uses_certificate_note">Aktuell verwendetes Zertifikat</string>
 	<string name="certificates_overview_expires_soon_certificate_note">Zertifikat läuft bald ab</string>
 	<string name="certificates_overview_expired_certificate_note">Zertifikat abgelaufen</string>
