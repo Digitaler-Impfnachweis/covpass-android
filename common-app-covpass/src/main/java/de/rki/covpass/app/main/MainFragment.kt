@@ -24,6 +24,7 @@ import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
+import de.rki.covpass.app.updateinfo.UpdateInfoCallback
 import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
@@ -46,7 +47,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
  * The main fragment hosts a [ViewPager2] to display all [GroupedCertificates] and serves as entry point for further
  * actions (e.g. add new certificate, show settings screen, show selected certificate)
  */
-internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificationCallback, DialogListener {
+internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, UpdateInfoCallback {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
@@ -72,20 +73,21 @@ internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificatio
             }
             updateCertificates(certs, viewModel.selectedCertId)
         }
+
+        if (commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION) {
+            findNavigator().push(UpdateInfoCovpassFragmentNav())
+        } else {
+            validateBoosterNotification()
+        }
+    }
+
+    private fun validateBoosterNotification() {
         if (
             covpassDeps.certRepository.certs.value.certificates.any {
                 it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
             }
         ) {
             findNavigator().push(BoosterNotificationFragmentNav())
-        } else {
-            validateAppVersion()
-        }
-    }
-
-    private fun validateAppVersion() {
-        if (commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION) {
-            findNavigator().push(UpdateInfoCovpassFragmentNav())
         }
     }
 
@@ -144,8 +146,8 @@ internal class MainFragment : BaseFragment(), DetailCallback, BoosterNotificatio
         findNavigator().push(AddCovCertificateFragmentNav())
     }
 
-    override fun onBoosterNotificationFinish() {
-        validateAppVersion()
+    override fun onUpdateInfoFinish() {
+        validateBoosterNotification()
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
