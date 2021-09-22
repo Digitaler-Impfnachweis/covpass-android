@@ -15,6 +15,6 @@ import java.util.*
  */
 public fun LocalDateTime.formatDateTime(): String {
     val formatter =
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(Locale.GERMANY)
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
     return format(formatter)
 }

@@ -37,7 +37,7 @@ public fun ZonedDateTime.formatDateTimeInternational(): String {
  */
 public fun ZonedDateTime.formatDateTime(): String {
     val formatter =
-        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(Locale.GERMANY)
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
     return format(formatter)
 }
 
@@ -49,7 +49,7 @@ public fun ZonedDateTime.toDeviceTimeZone(): ZonedDateTime {
 }
 
 public fun Instant?.formatDateOrEmpty(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY)
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
     return if (this != null) {
         ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
     } else {
@@ -58,7 +58,7 @@ public fun Instant?.formatDateOrEmpty(): String {
 }
 
 public fun Instant?.formatTimeOrEmpty(): String {
-    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.GERMANY)
+    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
     return if (this != null) {
         ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
     } else {
