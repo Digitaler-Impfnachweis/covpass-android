@@ -55,6 +55,10 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     open val textInfo2: String? = null
     open val imageInfo2Res: Int = 0
 
+    open val titleInfo3: String? = null
+    open val textInfo3: String? = null
+    open val imageInfo3Res: Int = 0
+
     open val textFooter: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,6 +86,14 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             binding.resultInfoText2.text = textInfo2
         }
 
+        binding.resultInfoLayout3.isVisible = textInfo3 != null
+        binding.resultInfoImage3.isVisible = textInfo3 != null
+        if (textInfo3 != null) {
+            binding.resultInfoImage3.setImageResource(imageInfo3Res)
+            binding.resultInfoTitle3.text = titleInfo3
+            binding.resultInfoText3.text = textInfo3
+        }
+
         binding.resultInfoFooter.isVisible = textFooter != null
         if (textFooter != null) {
             binding.resultInfoFooter.text = textFooter
@@ -106,7 +118,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 internal class ValidationResultSuccessNav(
     val name: String,
     val transliteratedName: String,
-    val birthDate: String
+    val birthDate: String,
 ) : FragmentNav(ValidationResultSuccessFragment::class)
 
 /**
@@ -141,7 +153,7 @@ internal class ValidPcrTestFragmentNav(
     val name: String,
     val transliteratedName: String,
     val birthDate: String,
-    val sampleCollection: ZonedDateTime?
+    val sampleCollection: ZonedDateTime?,
 ) : FragmentNav(ValidPcrTestResultFragment::class)
 
 /**
@@ -183,7 +195,7 @@ internal class ValidAntigenTestFragmentNav(
     val name: String,
     val transliteratedName: String,
     val birthDate: String,
-    val sampleCollection: ZonedDateTime?
+    val sampleCollection: ZonedDateTime?,
 ) : FragmentNav(ValidAntigenTestResultFragment::class)
 
 /**
@@ -229,27 +241,70 @@ internal class ValidationResultFailureFragmentNav : FragmentNav(ValidationResult
 internal class ValidationResultFailureFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_failure_image
     override val title by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_title)
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_title)
     }
     override val text by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_message)
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subline)
     }
 
-    override val imageInfo1Res = R.drawable.result_cert_recovery
+    override val imageInfo1Res = R.drawable.result_invalid_expired_test
     override val titleInfo1 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_not_valid_title)
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration)
     }
     override val textInfo1 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_not_valid_message)
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text)
     }
 
-    override val imageInfo2Res = R.drawable.result_invalid
+    override val imageInfo2Res = R.drawable.result_calendar
     override val titleInfo2 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_technical_problems_title)
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_protection)
     }
     override val textInfo2 by lazy {
-        getString(R.string.validation_check_popup_unsuccessful_certificate_technical_problems_message)
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text)
     }
 
-    override val buttonTextRes = R.string.validation_check_popup_unsuccessful_certificate_button_title
+    override val imageInfo3Res = R.drawable.result_cert_vaccination
+    override val titleInfo3 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted)
+    }
+    override val textInfo3 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
+    }
+
+    override val buttonTextRes = R.string.technical_validation_check_popup_valid_vaccination_button_further
+}
+
+@Parcelize
+internal class ValidationResultTechnicalFailureFragmentNav :
+    FragmentNav(ValidationResultTechnicalFailureFragment::class)
+
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display validation failure.
+ */
+internal class ValidationResultTechnicalFailureFragment : ValidationResultFragment() {
+    override val imageRes = R.drawable.result_failure_image
+    override val title by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_title)
+    }
+    override val text by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_subline)
+    }
+
+    override val imageInfo1Res = R.drawable.result_invalid_technical_signature
+    override val titleInfo1 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_signature_subheading)
+    }
+    override val textInfo1 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_signature_subline)
+    }
+
+    override val imageInfo2Res = R.drawable.result_invalid_technical_qr
+    override val titleInfo2 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading)
+    }
+    override val textInfo2 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline)
+    }
+
+    override val buttonTextRes = R.string.technical_validation_check_popup_valid_vaccination_button_title
 }

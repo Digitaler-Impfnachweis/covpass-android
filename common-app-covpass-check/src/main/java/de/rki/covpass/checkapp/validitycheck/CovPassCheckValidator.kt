@@ -5,34 +5,28 @@
 
 package de.rki.covpass.checkapp.validitycheck
 
-import de.rki.covpass.sdk.cert.DgcDecodeException
 import de.rki.covpass.sdk.cert.RulesValidator
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import dgca.verifier.app.engine.Result
 
+public enum class CovPassCheckValidationResult {
+    TechnicalError,
+    ValidationError,
+    Success
+}
+
 public suspend fun validate(
     covCertificate: CovCertificate,
-    rulesValidator: RulesValidator
-) {
+    rulesValidator: RulesValidator,
+): CovPassCheckValidationResult {
     val validationResults = rulesValidator.validate(covCertificate)
     if (validationResults.isEmpty()) {
-        throw NoValidationRulesAvailableException()
+        return CovPassCheckValidationResult.TechnicalError
     }
     validationResults.forEach {
         if (it.result != Result.PASSED) {
-            throw ValidationRuleViolationException()
+            return CovPassCheckValidationResult.ValidationError
         }
     }
+    return CovPassCheckValidationResult.Success
 }
-
-/**
- * This exception is thrown when no validation rules are available.
- */
-public class NoValidationRulesAvailableException :
-    DgcDecodeException("No validation rules available")
-
-/**
- * This exception is thrown when a validation rule is violated.
- */
-public class ValidationRuleViolationException :
-    DgcDecodeException("Violation of validation rule")

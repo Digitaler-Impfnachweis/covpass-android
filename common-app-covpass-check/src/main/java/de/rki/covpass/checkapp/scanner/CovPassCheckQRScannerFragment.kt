@@ -51,7 +51,7 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidPcrTest(
         certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?
+        sampleCollection: ZonedDateTime?,
     ) {
         findNavigator().push(
             ValidPcrTestFragmentNav(
@@ -65,7 +65,7 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidAntigenTest(
         certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?
+        sampleCollection: ZonedDateTime?,
     ) {
         findNavigator().push(
             ValidAntigenTestFragmentNav(
@@ -77,8 +77,12 @@ internal class CovPassCheckQRScannerFragment :
         )
     }
 
-    override fun onValidationFailure() {
-        findNavigator().push(ValidationResultFailureFragmentNav())
+    override fun onValidationFailure(isTechnical: Boolean) {
+        if (isTechnical) {
+            findNavigator().push(ValidationResultTechnicalFailureFragmentNav())
+        } else {
+            findNavigator().push(ValidationResultFailureFragmentNav())
+        }
     }
 
     override fun onValidationResultClosed() {
