@@ -209,6 +209,9 @@ internal class CertificateFragment : BaseFragment() {
         binding.certificateCard.setOnCardClickListener {
             findNavigator().push(DetailFragmentNav(args.certId))
         }
+        binding.certificateCard.setOnCertificateStatusClickListener {
+            findNavigator().push(DetailFragmentNav(args.certId))
+        }
     }
 
     private suspend fun generateQRCode(qrContent: String): Bitmap {
