@@ -112,21 +112,16 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_identifier),
                 vaccination.idWithoutPrefix
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
+                getString(R.string.accessibility_vaccination_certificate_detail_view_data_expiry_date),
+                getString(
+                    R.string.vaccination_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                ),
+                getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note)
             )
         )
     }
-
-    override fun getExtendedDataRows(
-        cert: CovCertificate
-    ): List<ExtendedDataRow> = listOf(
-        ExtendedDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
-            getString(R.string.accessibility_vaccination_certificate_detail_view_data_expiry_date),
-            getString(
-                R.string.vaccination_certificate_detail_view_data_expiry_date_message,
-                ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
-            ),
-            getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note)
-        )
-    )
 }

@@ -26,7 +26,7 @@
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
     app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
 
-  <ScrollView
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -70,11 +70,12 @@
         tools:title="@tools:sample/lorem[3]"
         tools:visibility="visible" />
 
-      <LinearLayout
-        android:id="@+id/dgc_detail_data_container"
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dgc_detail_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
       <LinearLayout
         android:id="@+id/dgc_detail_buttons_container"
@@ -154,6 +155,6 @@
 
     </LinearLayout>
 
-  </ScrollView>
+  </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

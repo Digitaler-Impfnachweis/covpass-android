@@ -90,21 +90,16 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
                 getString(R.string.recovery_certificate_detail_view_data_identifier),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_identifier),
                 recovery.idWithoutPrefix
+            ),
+            DataRow(
+                getString(R.string.recovery_certificate_detail_view_data_expiry_date),
+                getString(R.string.accessibility_recovery_certificate_detail_view_data_expiry_date),
+                getString(
+                    R.string.recovery_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                ),
+                getString(R.string.recovery_certificate_detail_view_data_expiry_date_note)
             )
         )
     }
-
-    override fun getExtendedDataRows(
-        cert: CovCertificate
-    ): List<ExtendedDataRow> = listOf(
-        ExtendedDataRow(
-            getString(R.string.recovery_certificate_detail_view_data_expiry_date),
-            getString(R.string.accessibility_recovery_certificate_detail_view_data_expiry_date),
-            getString(
-                R.string.recovery_certificate_detail_view_data_expiry_date_message,
-                ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
-            ),
-            getString(R.string.recovery_certificate_detail_view_data_expiry_date_note)
-        )
-    )
 }
