@@ -14,7 +14,7 @@ import java.util.*
  * Formats a local date to e.g. "12.03.1989".
  */
 public fun LocalDate.formatDate(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY)
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
     return format(formatter)
 }
 
