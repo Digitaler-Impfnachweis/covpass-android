@@ -113,21 +113,16 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
                 getString(R.string.test_certificate_detail_view_data_test_identifier),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_identifier),
                 test.idWithoutPrefix
+            ),
+            DataRow(
+                getString(R.string.test_certificate_detail_view_data_expiry_date),
+                getString(R.string.accessibility_test_certificate_detail_view_data_expiry_date),
+                getString(
+                    R.string.test_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                ),
+                getString(R.string.test_certificate_detail_view_data_expiry_date_note)
             )
         )
     }
-
-    override fun getExtendedDataRows(
-        cert: CovCertificate
-    ): List<ExtendedDataRow> = listOf(
-        ExtendedDataRow(
-            getString(R.string.test_certificate_detail_view_data_expiry_date),
-            getString(R.string.accessibility_test_certificate_detail_view_data_expiry_date),
-            getString(
-                R.string.test_certificate_detail_view_data_expiry_date_message,
-                ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
-            ),
-            getString(R.string.test_certificate_detail_view_data_expiry_date_note)
-        )
-    )
 }

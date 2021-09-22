@@ -12,7 +12,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -27,6 +26,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DgcEntryDetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.detail.adapter.DgcEntryDetailAdapter
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -49,7 +49,7 @@ internal interface DgcEntryDetailCallback {
 /**
  * Base fragment for displaying the details of a [Vaccination], [TestCert] or [Recovery].
  */
-internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEvents, DialogListener {
+public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEvents, DialogListener {
 
     protected abstract val certId: String
 
@@ -106,17 +106,26 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         findNavigator().popUntil<DgcEntryDetailCallback>()?.onDeletionCompleted(isGroupedCertDeleted)
     }
 
-    abstract fun getToolbarTitleText(cert: CovCertificate): String
+    public abstract fun getToolbarTitleText(cert: CovCertificate): String
 
-    abstract fun getHeaderText(): String
+    public abstract fun getHeaderText(): String
 
-    abstract fun getHeaderAccessibleText(): String
+    public abstract fun getHeaderAccessibleText(): String
 
-    open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
+    public open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
 
-    abstract fun getDataRows(cert: CovCertificate): List<DataRow>
+    public abstract fun getDataRows(cert: CovCertificate): List<DataRow>
 
-    abstract fun getExtendedDataRows(cert: CovCertificate): List<ExtendedDataRow>
+    private fun startRecyclerView(cert: CovCertificate) {
+        DgcEntryDetailAdapter(this).apply {
+            updateList(
+                getDataRows(cert).filterNot {
+                    it.value.isNullOrEmpty()
+                }
+            )
+            attachTo(binding.dgcDetailRecyclerView)
+        }
+    }
 
     private fun updateViews(certs: GroupedCertificatesList) {
         val combinedCovCertificate = certs.getCombinedCertificate(certId) ?: return
@@ -127,46 +136,7 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(covCertificate)
         showExpirationInfoElement(combinedCovCertificate)
 
-        // ToDo: refactor, use Adapter s.ResultAdapter
-        binding.dgcDetailDataContainer.removeAllViews()
-        getDataRows(covCertificate).filterNot {
-            it.value.isNullOrEmpty()
-        }.forEach { dataRow ->
-            val dataRowView = layoutInflater.inflate(
-                R.layout.detail_data_row,
-                binding.dgcDetailDataContainer,
-                false
-            )
-            val headerTextView = dataRowView.findViewById<TextView>(R.id.detail_data_header_textview)
-            val valueTextView = dataRowView.findViewById<TextView>(R.id.detail_data_textview)
-            headerTextView.text = dataRow.header
-            headerTextView.contentDescription = dataRow.headerAccessibleDescription
-            valueTextView.text = dataRow.value
-
-            binding.dgcDetailDataContainer.addView(dataRowView)
-        }
-
-        getExtendedDataRows(covCertificate).filterNot {
-            it.value.isNullOrEmpty()
-        }.forEach { extendedDataRow ->
-            val extendedDataRowView = layoutInflater.inflate(
-                R.layout.extended_detail_data_row,
-                binding.dgcDetailDataContainer,
-                false
-            )
-            val headerTextView =
-                extendedDataRowView.findViewById<TextView>(R.id.extended_detail_data_header_textview)
-            val valueTextView =
-                extendedDataRowView.findViewById<TextView>(R.id.extended_detail_data_textview)
-            val descriptionTextView =
-                extendedDataRowView.findViewById<TextView>(R.id.extended_detail_description_textview)
-            headerTextView.text = extendedDataRow.header
-            headerTextView.contentDescription = extendedDataRow.headerAccessibleDescription
-            valueTextView.text = extendedDataRow.value
-            descriptionTextView.text = extendedDataRow.description
-
-            binding.dgcDetailDataContainer.addView(extendedDataRowView)
-        }
+        startRecyclerView(covCertificate)
 
         binding.dgcDetailDisplayQrButton.setOnClickListener {
             findNavigator().push(DisplayQrCodeFragmentNav(certId))
@@ -243,17 +213,11 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         private const val DELETE_ITEM_ID = 48023
         private const val DELETE_DIALOG_TAG = "delete_dialog"
     }
+
+    public data class DataRow(
+        val header: String,
+        val headerAccessibleDescription: String,
+        val value: String? = "",
+        val description: String? = null,
+    )
 }
-
-public data class DataRow(
-    val header: String,
-    val headerAccessibleDescription: String,
-    val value: String? = ""
-)
-
-public data class ExtendedDataRow(
-    val header: String,
-    val headerAccessibleDescription: String,
-    val value: String? = "",
-    val description: String
-)
