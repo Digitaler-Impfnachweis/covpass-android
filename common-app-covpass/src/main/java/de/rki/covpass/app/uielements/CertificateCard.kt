@@ -88,6 +88,10 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateCardviewScrollContent.setOnClickListener(onClickListener)
     }
 
+    public fun setOnCertificateStatusClickListener(onClickListener: OnClickListener) {
+        binding.certificateStatusContainer.setOnClickListener(onClickListener)
+    }
+
     init {
         addView(binding.root)
         binding.root.layoutParams =
