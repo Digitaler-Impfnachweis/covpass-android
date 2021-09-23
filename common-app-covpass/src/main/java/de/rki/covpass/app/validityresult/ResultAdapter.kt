@@ -23,6 +23,7 @@ import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import java.time.LocalDateTime
+import java.util.*
 
 @SuppressLint("NotifyDataSetChanged")
 public class ResultAdapter(
@@ -207,11 +208,13 @@ public class ResultAdapter(
             }
             binding.resultInfoFooterEnglish.apply {
                 text = getSpanned(resultNoteEn)
+                textLocale = Locale.ENGLISH
                 movementMethod = LinkMovementMethod.getInstance()
                 stripUnderlines()
             }
             binding.resultInfoFooterGerman.apply {
                 text = getSpanned(resultNoteDe)
+                textLocale = Locale.GERMAN
                 movementMethod = LinkMovementMethod.getInstance()
                 stripUnderlines()
             }

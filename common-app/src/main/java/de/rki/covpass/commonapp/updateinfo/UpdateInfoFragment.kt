@@ -13,11 +13,8 @@ import androidx.annotation.StringRes
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.viewBinding
-import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.databinding.UpdateInfoBinding
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
 
 public abstract class UpdateInfoFragment : BaseBottomSheet() {
 
@@ -49,12 +46,7 @@ public abstract class UpdateInfoFragment : BaseBottomSheet() {
         binding.updateInfoWebView.loadUrl(getString(updateInfoPath))
     }
 
-    override fun onActionButtonClicked() {
-        launchWhenStarted {
-            commonDeps.updateInfoRepository.updateInfoVersionShown.set(CURRENT_UPDATE_VERSION)
-            findNavigator().pop()
-        }
-    }
+    override fun onActionButtonClicked() {}
 
     override fun onClickOutside() {}
 }
