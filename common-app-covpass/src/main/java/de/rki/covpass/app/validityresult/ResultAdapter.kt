@@ -178,6 +178,9 @@ public class ResultAdapter(
                 binding.resultRowSubtitleTextview.isVisible = false
                 binding.resultRowDataTextview.text = item.value
             }
+            if (item.valueAccessibleDescription != null) {
+                binding.resultRowSubtitleTextview.contentDescription = item.valueAccessibleDescription
+            }
             when {
                 item.validationResult.find { it.result == LocalResult.FAIL } != null -> {
                     binding.resultRowDataIcon.setImageResource(R.drawable.info_error_icon)

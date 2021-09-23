@@ -18,6 +18,7 @@ import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -130,7 +131,11 @@ internal class VaccinationResultFragment : ResultFragment() {
                     R.string.vaccination_certificate_detail_view_data_expiry_date_message,
                     ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
                 ),
-                description = getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note)
+                description = getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note),
+                valueAccessibleDescription = getString(
+                    R.string.vaccination_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                ),
             )
         )
     }

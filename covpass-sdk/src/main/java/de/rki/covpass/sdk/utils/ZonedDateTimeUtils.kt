@@ -42,6 +42,16 @@ public fun ZonedDateTime.formatDateTime(): String {
 }
 
 /**
+ * Formats a [ZonedDateTime] to e.g. "12.03.1989, 14:52:00" for accessibility.
+ */
+public fun ZonedDateTime.formatDateTimeAccessibility(): String {
+    val zonedDateTimeWithoutSeconds = withSecond(0)
+    val formatter =
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM)
+    return zonedDateTimeWithoutSeconds.format(formatter)
+}
+
+/**
  * Converts a [ZonedDateTime] to the default system timezone.
  */
 public fun ZonedDateTime.toDeviceTimeZone(): ZonedDateTime {

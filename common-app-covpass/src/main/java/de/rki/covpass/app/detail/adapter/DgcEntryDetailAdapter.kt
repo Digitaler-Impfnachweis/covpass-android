@@ -51,6 +51,10 @@ public class DgcEntryDetailAdapter(
             } else {
                 binding.dgcDetailDescriptionTextview.isVisible = false
             }
+
+            if (item.valueAccessibleDescription != null) {
+                binding.dgcDetailDataTextview.contentDescription = item.valueAccessibleDescription
+            }
         }
     }
 }

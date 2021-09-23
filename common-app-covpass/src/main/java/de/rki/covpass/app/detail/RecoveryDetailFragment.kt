@@ -14,6 +14,7 @@ import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import kotlinx.parcelize.Parcelize
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -98,7 +99,11 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
                     R.string.recovery_certificate_detail_view_data_expiry_date_message,
                     ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
                 ),
-                getString(R.string.recovery_certificate_detail_view_data_expiry_date_note)
+                getString(R.string.recovery_certificate_detail_view_data_expiry_date_note),
+                getString(
+                    R.string.recovery_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                ),
             )
         )
     }

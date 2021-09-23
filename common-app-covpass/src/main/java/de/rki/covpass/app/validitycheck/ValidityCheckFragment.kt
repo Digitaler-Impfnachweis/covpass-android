@@ -34,6 +34,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 
 @Parcelize
 internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::class)
@@ -104,7 +105,7 @@ internal class ValidityCheckFragment :
                     info.className = Button::class.java.name
                     info.contentDescription = getString(
                         R.string.accessibility_certificate_check_validity_selection_date,
-                        time.formatDateTime()
+                        time.formatDateTimeAccessibility()
                     )
                 }
             })
