@@ -38,6 +38,7 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatTimeOrEmpty
+import java.util.*
 
 /**
  * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments.
@@ -147,11 +148,13 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
 
         binding.dgcDetailInfoFooterGerman.apply {
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_de)
+            textLocale = Locale.GERMAN
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
         binding.dgcDetailInfoFooterEnglish.apply {
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_en)
+            textLocale = Locale.ENGLISH
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
