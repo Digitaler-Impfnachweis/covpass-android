@@ -16,6 +16,7 @@ import de.rki.covpass.sdk.cert.getTestTypeName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
@@ -87,7 +88,8 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_date_and_time),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_date_and_time),
-                test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational()
+                test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational(),
+                valueAccessibleDescription = test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeAccessibility()
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_results),
@@ -121,7 +123,11 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
                     R.string.test_certificate_detail_view_data_expiry_date_message,
                     ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
                 ),
-                getString(R.string.test_certificate_detail_view_data_expiry_date_note)
+                getString(R.string.test_certificate_detail_view_data_expiry_date_note),
+                valueAccessibleDescription = getString(
+                    R.string.test_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                ),
             )
         )
     }

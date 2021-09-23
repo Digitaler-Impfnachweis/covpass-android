@@ -79,6 +79,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
         val value: String?,
         val validationResult: List<DerivedValidationResult> = emptyList(),
         val description: String? = null,
+        val valueAccessibleDescription: String? = null,
     )
 }
 

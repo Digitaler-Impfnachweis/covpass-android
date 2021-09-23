@@ -222,5 +222,6 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
         val headerAccessibleDescription: String,
         val value: String? = "",
         val description: String? = null,
+        val valueAccessibleDescription: String? = null,
     )
 }
