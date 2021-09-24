@@ -34,6 +34,8 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
+import android.widget.ImageView
+import com.google.android.material.internal.CheckableImageButton
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 
 @Parcelize
@@ -50,6 +52,7 @@ internal class ValidityCheckFragment :
 
     private val validityCheckViewModel by reactiveState { ValidityCheckViewModel(scope) }
     private val binding by viewBinding(ValidityCheckPopupContentBinding::inflate)
+    override val announcementAccessibilityRes: Int = R.string.accessibility_certificate_check_validity_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,6 +88,15 @@ internal class ValidityCheckFragment :
                     )
                 }
             })
+            binding.layoutCountry.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
+                .setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                    override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                        super.onInitializeAccessibilityNodeInfo(host, info)
+                        info.className = Button::class.java.name
+                        info.contentDescription =
+                            getString(R.string.accessibility_certificate_check_validity_label_choose_country)
+                    }
+                })
 
             binding.layoutCountry.setEndIconOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
@@ -109,6 +121,15 @@ internal class ValidityCheckFragment :
                     )
                 }
             })
+            binding.layoutDate.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
+                .setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+                    override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                        super.onInitializeAccessibilityNodeInfo(host, info)
+                        info.className = ImageView::class.java.name
+                        info.contentDescription =
+                            getString(R.string.accessibility_certificate_check_validity_label_choose_date)
+                    }
+                })
 
             binding.layoutDate.setEndIconOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))

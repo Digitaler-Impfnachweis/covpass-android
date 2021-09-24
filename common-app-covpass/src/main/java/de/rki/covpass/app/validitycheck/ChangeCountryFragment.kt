@@ -40,6 +40,8 @@ internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback 
 
     private val args: ChangeCountryFragmentNav by lazy { getArgs() }
     private val binding by viewBinding(ChangeCountryPopupContentBinding::inflate)
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_certificate_check_validity_selection_country_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

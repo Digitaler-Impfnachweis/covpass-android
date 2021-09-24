@@ -37,12 +37,14 @@
 	<string name="dialog_start_screen_message">Möchten Sie jetzt die CovPassCheck-App aktualisieren?</string>
 	<string name="dialog_start_screen_button_later">Nicht jetzt</string>
 	<string name="dialog_start_screen_button_update">Aktualisieren</string>
+	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">Mehr Informationen</string>
 	<string name="validation_start_screen_title">Übersicht</string>
 	<string name="validation_start_screen_scan_title">Zertifikat prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
+	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
 	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
@@ -113,6 +115,7 @@
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPassCheck-App.</string>
 	<string name="app_information_title_contact">Kontakt</string>
+	<string name="accessibility_app_information_title_contact_announce">Die Ansicht \"Kontakt\" wurde geöffnet</string>
 	<string name="app_information_message_contact_support">Kontakt bei technischen Fragen zur CovPassCheck-App</string>
 	<string name="app_information_message_contact_support_phone">Telefon: #0800–4747–002::tel:0800–4747–002#</string>
 	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpasscheck-app.de::mailto:support\@covpasscheck-app.de#</string>
@@ -122,9 +125,11 @@
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
+	<string name="accessibility_app_information_datenschutz_announce">Die Datenschutzerklärung wurde geöffnet</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
+	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_version_label">Version %s</string>

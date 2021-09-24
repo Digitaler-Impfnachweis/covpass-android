@@ -92,7 +92,12 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number),
-                "${vaccination.doseNumber}/${vaccination.totalSerialDoses}"
+                "${vaccination.doseNumber}/${vaccination.totalSerialDoses}",
+                valueAccessibleDescription = getString(
+                    R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number_readable_text,
+                    vaccination.doseNumber,
+                    vaccination.totalSerialDoses
+                )
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
