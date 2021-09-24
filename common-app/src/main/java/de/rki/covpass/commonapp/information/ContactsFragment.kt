@@ -44,6 +44,7 @@ public class ContactsFragment : BaseFragment() {
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
+        binding.root.announceForAccessibility(getString(R.string.accessibility_app_information_title_contact_announce))
     }
 
     private fun setupActionBar() {

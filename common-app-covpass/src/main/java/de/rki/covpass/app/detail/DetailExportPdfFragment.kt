@@ -35,6 +35,8 @@ internal class DetailExportPdfFragmentNav(var certId: String) : FragmentNav(Deta
 internal class DetailExportPdfFragment : BaseBottomSheet(), SharePdfEvents {
 
     override val buttonTextRes = R.string.certificate_create_pdf_list_button
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_vaccination_certificate_detail_view_pdf_announce
 
     private val args: DetailExportPdfFragmentNav by lazy { getArgs() }
     private val certs by lazy { covpassDeps.certRepository.certs.value }

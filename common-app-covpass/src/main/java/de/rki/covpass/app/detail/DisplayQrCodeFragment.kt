@@ -42,6 +42,8 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
 
     override val buttonTextRes =
         R.string.vaccination_certificate_detail_view_qrcode_screen_action_button_title
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_vaccination_certificate_detail_view_qrcode_screen_announce
 
     private val binding by viewBinding(DisplayQrCodeBottomsheetContentBinding::inflate)
     private var valueAnimator: ValueAnimator? = null

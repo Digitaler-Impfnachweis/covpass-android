@@ -39,6 +39,7 @@ internal interface ValidationResultListener {
 internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
     override val heightLayoutParams: Int by lazy { ViewGroup.LayoutParams.MATCH_PARENT }
+    override val announcementAccessibilityRes: Int = R.string.accessibility_scan_result_announce
 
     private val binding by viewBinding(ValidationResultBinding::inflate)
 

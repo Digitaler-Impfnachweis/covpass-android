@@ -39,6 +39,9 @@ public class OpenSourceLicenseFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         setupRecyclerView()
+        binding.root.announceForAccessibility(
+            getString(R.string.accessibility_app_information_title_open_source_announce)
+        )
     }
 
     private fun setupActionBar() {
