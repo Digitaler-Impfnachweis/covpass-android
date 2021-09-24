@@ -2,6 +2,7 @@ package de.rki.covpass.app.validityresult
 
 import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -220,6 +221,11 @@ public class ResultAdapter(
                 textLocale = Locale.GERMAN
                 movementMethod = LinkMovementMethod.getInstance()
                 stripUnderlines()
+            }
+            if (Locale.getDefault() == Locale.GERMANY) {
+                binding.resultInfoFooterEnglish.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+            } else {
+                binding.resultInfoFooterGerman.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
             }
         }
     }
