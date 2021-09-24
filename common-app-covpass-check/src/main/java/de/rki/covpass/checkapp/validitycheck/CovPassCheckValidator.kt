@@ -9,20 +9,24 @@ import de.rki.covpass.sdk.cert.RulesValidator
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import dgca.verifier.app.engine.Result
 
-public suspend fun validate(
-    covCertificate: CovCertificate,
-    rulesValidator: RulesValidator
-) {
-    val validationResults = rulesValidator.validate(covCertificate)
-    validationResults.forEach {
-        if (it.result != Result.PASSED) {
-            throw ValidationRuleViolationException()
-        }
-    }
+public enum class CovPassCheckValidationResult {
+    TechnicalError,
+    ValidationError,
+    Success
 }
 
-/**
- * This exception is thrown when a validation rule is violated.
- */
-public class ValidationRuleViolationException :
-    RuntimeException("Violation of validation rule")
+public suspend fun validate(
+    covCertificate: CovCertificate,
+    rulesValidator: RulesValidator,
+): CovPassCheckValidationResult {
+    val validationResults = rulesValidator.validate(covCertificate)
+    if (validationResults.isEmpty()) {
+        return CovPassCheckValidationResult.TechnicalError
+    }
+    validationResults.forEach {
+        if (it.result != Result.PASSED) {
+            return CovPassCheckValidationResult.ValidationError
+        }
+    }
+    return CovPassCheckValidationResult.Success
+}
