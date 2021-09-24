@@ -8,6 +8,7 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
+import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.checkapp.validitycheck.validate
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.QRCoder
@@ -15,7 +16,6 @@ import de.rki.covpass.sdk.cert.RulesValidator
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.utils.isValid
 import kotlinx.coroutines.CoroutineScope
 import java.time.ZonedDateTime
 
@@ -44,48 +44,27 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
                 validateEntity(dgcEntry.idWithoutPrefix)
-                validate(covCertificate, rulesValidator)
-                when (dgcEntry) {
-                    is Vaccination -> {
-                        when (dgcEntry.type) {
-                            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                when (validate(covCertificate, rulesValidator)) {
+                    CovPassCheckValidationResult.Success -> {
+                        when (dgcEntry) {
+                            is Vaccination, is Recovery -> {
                                 eventNotifier {
                                     onValidationSuccess(covCertificate)
                                 }
                             }
-                            else -> {
-                                eventNotifier {
-                                    onValidationFailure()
+                            is TestCert -> {
+                                if (dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST) {
+                                    handleNegativePcrResult(covCertificate)
+                                } else {
+                                    handleNegativeAntigenResult(covCertificate)
                                 }
-                            }
-                        }
-                    }
-                    is TestCert -> {
-                        when (dgcEntry.type) {
-                            TestCertType.NEGATIVE_PCR_TEST -> {
-                                handleNegativePcrResult(covCertificate)
-                            }
-                            TestCertType.POSITIVE_PCR_TEST -> {
-                                eventNotifier { onValidationFailure() }
-                            }
-                            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
-                                handleNegativeAntigenResult(covCertificate)
-                            }
-                            TestCertType.POSITIVE_ANTIGEN_TEST -> {
-                                eventNotifier { onValidationFailure() }
                             }
                             // .let{} to enforce exhaustiveness
                         }.let {}
                     }
-                    is Recovery -> {
-                        if (isValid(dgcEntry.validFrom, dgcEntry.validUntil)) {
-                            eventNotifier { onValidationSuccess(covCertificate) }
-                        } else {
-                            eventNotifier { onValidationFailure() }
-                        }
-                    }
-                    // .let{} to enforce exhaustiveness
-                }.let {}
+                    CovPassCheckValidationResult.TechnicalError,
+                    CovPassCheckValidationResult.ValidationError -> eventNotifier { onValidationFailure() }
+                }
             } catch (exception: Exception) {
                 Lumber.e(exception)
                 eventNotifier { onValidationFailure() }
