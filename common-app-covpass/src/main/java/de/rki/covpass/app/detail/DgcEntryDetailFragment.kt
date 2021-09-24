@@ -12,6 +12,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
+import android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -157,6 +158,11 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             textLocale = Locale.ENGLISH
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
+        }
+        if (Locale.getDefault() == Locale.GERMANY) {
+            binding.dgcDetailInfoFooterEnglish.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
+        } else {
+            binding.dgcDetailInfoFooterGerman.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
         }
     }
 
