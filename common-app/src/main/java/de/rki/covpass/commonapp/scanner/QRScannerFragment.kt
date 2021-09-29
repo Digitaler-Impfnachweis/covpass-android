@@ -37,6 +37,8 @@ public abstract class QRScannerFragment : BaseFragment(), DecoratedBarcodeView.T
 
     protected val scanEnabled: MutableValueFlow<Boolean> by savedInstanceState(true)
 
+    override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
+
     private val barcodeCallback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
             withErrorReporting {
@@ -73,7 +75,6 @@ public abstract class QRScannerFragment : BaseFragment(), DecoratedBarcodeView.T
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        decoratedBarcodeView.announceForAccessibility(getString(R.string.accessibility_scan_camera_announce))
         decoratedBarcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(barcodeTypes)
         val screenSize = requireContext().getScreenSize()
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)

@@ -24,6 +24,8 @@ public class ContactsFragment : BaseFragment() {
 
     private val binding by viewBinding(ContactsBinding::inflate)
 
+    override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_contact_announce
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
@@ -44,7 +46,6 @@ public class ContactsFragment : BaseFragment() {
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
-        binding.root.announceForAccessibility(getString(R.string.accessibility_app_information_title_contact_announce))
     }
 
     private fun setupActionBar() {

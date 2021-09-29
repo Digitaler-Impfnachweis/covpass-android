@@ -35,13 +35,12 @@ public class OpenSourceLicenseFragment : BaseFragment() {
 
     private val binding by viewBinding(OpenSourceLicenseBinding::inflate)
 
+    override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_open_source_announce
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         setupRecyclerView()
-        binding.root.announceForAccessibility(
-            getString(R.string.accessibility_app_information_title_open_source_announce)
-        )
     }
 
     private fun setupActionBar() {

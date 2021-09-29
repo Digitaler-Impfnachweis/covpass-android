@@ -10,6 +10,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.journeyapps.barcodescanner.BarcodeResult
 import de.rki.covpass.checkapp.validation.*
+import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
@@ -30,6 +31,8 @@ internal class CovPassCheckQRScannerFragment :
     QRScannerFragment(), DialogListener, CovPassCheckQRScannerEvents, ValidationResultListener {
 
     private val viewModel by reactiveState { CovPassCheckQRScannerViewModel(scope) }
+
+    override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
 
     override fun onBarcodeResult(result: BarcodeResult) {
         viewModel.onQrContentReceived(result.text)
@@ -87,6 +90,7 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidationResultClosed() {
         scanEnabled.value = true
+        sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
     }
 
     /**
