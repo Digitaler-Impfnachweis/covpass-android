@@ -18,7 +18,7 @@
   <string name="accessibility_app_information_datenschutz_announce"/>
   <string name="accessibility_app_information_title_contact_announce"/>
   <string name="accessibility_app_information_title_open_source_announce"/>
-
+  <string name="accessibility_app_information_version_number_delimiter"/>
 
   <string name="error_standard_unexpected_title"/>
   <string name="error_standard_unexpected_message"/>

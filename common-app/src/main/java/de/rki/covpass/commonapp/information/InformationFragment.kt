@@ -37,6 +37,10 @@ public abstract class InformationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         binding.informationAppVersionLabel.text = getString(R.string.app_information_version_label, appVersion)
+        binding.informationAppVersionLabel.contentDescription = getString(
+            R.string.app_information_version_label,
+            appVersion.replace(".", getString(R.string.accessibility_app_information_version_number_delimiter))
+        )
         if (Locale.getDefault().language == Locale.GERMAN.language) {
             binding.informationFieldEasyLanguage.apply {
                 text = getSpanned(

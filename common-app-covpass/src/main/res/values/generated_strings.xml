@@ -83,7 +83,7 @@
 	<string name="certificate_add_dialog_camera_access_message">The CovPass app uses your smartphone’s camera to scan QR codes.\n\nYour camera is only ever accessed while you use the app and only with your permission. You have the option to change this permission in your smartphone’s settings at any time.</string>
 	<string name="certificate_add_dialog_camera_access_action_button">Allow access</string>
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Close</string>
-	<string name="accessibility_certificate_add_dialog_camera_announce">Camera has been opened</string>
+	<string name="accessibility_scan_camera_announce">Camera has been opened</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Cancel</string>
 	<string name="certificate_popup_checkapp_label_X">Close Pop-up</string>
 	<string name="certificate_popup_checkapp_headline">Please scan!</string>
