@@ -25,7 +25,7 @@ internal object PdfUtils {
         base64EncodedQrCode: String,
         vaccination: Vaccination
     ): String = context.readTextAsset("VaccinationCertificateTemplate.svg")
-        .replace("\$nam", combinedCertificate.covCertificate.fullName.sanitizeXMLString())
+        .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
         .replace("\$ci", vaccination.idWithoutPrefix.sanitizeXMLString())
         .replace("\$tg", getDiseaseAgentName(vaccination.targetDisease).sanitizeXMLString())
@@ -45,7 +45,7 @@ internal object PdfUtils {
         base64EncodedQrCode: String,
         recovery: Recovery
     ): String = context.readTextAsset("RecoveryCertificateTemplate.svg")
-        .replace("\$nam", combinedCertificate.covCertificate.fullName.sanitizeXMLString())
+        .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
         .replace("\$ci", recovery.idWithoutPrefix.sanitizeXMLString())
         .replace("\$tg", getDiseaseAgentName(recovery.targetDisease).sanitizeXMLString())
