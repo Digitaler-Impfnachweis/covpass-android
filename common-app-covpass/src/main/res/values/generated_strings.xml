@@ -347,7 +347,7 @@
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
 	<string name="vaccination_certificate_detail_view_pdf_action_button_title">Create EU printout</string>
-	<string name="vaccination_certificate_detail_view_pdf_action_button_note">You can only download German vaccination and recovery certificates as PDF files.</string>
+	<string name="vaccination_certificate_detail_view_pdf_action_button_note">You can only download German certificates as PDF files.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_title">Vaccine dose %1$d of %2$d</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
 	<string name="accessibility_vaccination_certificate_detail_view_qrcode_screen_label_close">Close</string>
@@ -486,6 +486,7 @@
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
 	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
+	<string name="accessibility_app_information_version_number_delimiter">point</string>
 	<string name="app_information_title">Information</string>
 	<string name="app_information_message">Here you can find all legal information and answers to the most frequent questions asked about the CovPass app.</string>
 	<string name="app_information_title_contact">Contact</string>

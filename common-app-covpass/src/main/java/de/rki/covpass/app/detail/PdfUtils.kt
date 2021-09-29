@@ -7,14 +7,13 @@ package de.rki.covpass.app.detail
 
 import android.content.Context
 import de.rki.covpass.app.validitycheck.countries.CountryRepository
-import de.rki.covpass.sdk.cert.getDiseaseAgentName
-import de.rki.covpass.sdk.cert.getManufacturerName
-import de.rki.covpass.sdk.cert.getProductName
-import de.rki.covpass.sdk.cert.getProphylaxisName
+import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.readTextAsset
 
 internal object PdfUtils {
@@ -23,7 +22,7 @@ internal object PdfUtils {
         context: Context,
         combinedCertificate: CombinedCovCertificate,
         base64EncodedQrCode: String,
-        vaccination: Vaccination
+        vaccination: Vaccination,
     ): String = context.readTextAsset("VaccinationCertificateTemplate.svg")
         .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
@@ -43,7 +42,7 @@ internal object PdfUtils {
         context: Context,
         combinedCertificate: CombinedCovCertificate,
         base64EncodedQrCode: String,
-        recovery: Recovery
+        recovery: Recovery,
     ): String = context.readTextAsset("RecoveryCertificateTemplate.svg")
         .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
@@ -54,6 +53,26 @@ internal object PdfUtils {
         .replace("\$is", recovery.certificateIssuer.sanitizeXMLString())
         .replace("\$df", recovery.validFrom?.formatDateInternational() ?: "")
         .replace("\$du", recovery.validUntil?.formatDateInternational() ?: "")
+        .replace("\$qr", base64EncodedQrCode)
+
+    fun replaceTestCertificateValues(
+        context: Context,
+        combinedCertificate: CombinedCovCertificate,
+        base64EncodedQrCode: String,
+        testCert: TestCert,
+    ): String = context.readTextAsset("TestCertificateTemplate.svg")
+        .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
+        .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
+        .replace("\$ci", testCert.idWithoutPrefix.sanitizeXMLString())
+        .replace("\$tg", getDiseaseAgentName(testCert.targetDisease).sanitizeXMLString())
+        .replace("\$tt", getTestTypeName(testCert.testType).sanitizeXMLString())
+        .replace("\$nm", testCert.testName ?: "")
+        .replace("\$ma", getManufacturerName(testCert.manufacturer ?: "").sanitizeXMLString())
+        .replace("\$sc", testCert.sampleCollection?.formatDateTimeInternational() ?: "")
+        .replace("\$tr", getTestResultName(testCert.testResult).sanitizeXMLString())
+        .replace("\$tc", testCert.testingCenter)
+        .replace("\$co", CountryRepository.getCountryLocalized(testCert.country).sanitizeXMLString())
+        .replace("\$is", testCert.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 }
 

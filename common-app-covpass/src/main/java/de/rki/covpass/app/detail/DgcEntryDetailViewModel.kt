@@ -11,8 +11,6 @@ import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.app.validitycheck.countries.CountryRepository.defaultCountry
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Vaccination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -47,13 +45,7 @@ internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constru
 
     fun checkPdfExport(certId: String) {
         val combinedCovCertificate = certRepository.certs.value.getCombinedCertificate(certId) ?: return
-        if (combinedCovCertificate.covCertificate.issuer.equals(defaultCountry.countryCode, ignoreCase = true)) {
-            isPdfExportEnabled.value = when (combinedCovCertificate.covCertificate.dgcEntry) {
-                is Vaccination, is Recovery -> true
-                else -> false
-            }
-        } else {
-            isPdfExportEnabled.value = false
-        }
+        isPdfExportEnabled.value =
+            combinedCovCertificate.covCertificate.issuer.equals(defaultCountry.countryCode, ignoreCase = true)
     }
 }

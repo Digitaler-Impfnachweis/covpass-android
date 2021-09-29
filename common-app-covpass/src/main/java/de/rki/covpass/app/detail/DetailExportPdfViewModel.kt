@@ -23,6 +23,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import io.ktor.util.*
 import kotlinx.coroutines.CoroutineScope
@@ -89,7 +90,14 @@ internal class DetailExportPdfViewModel @OptIn(DependencyAccessor::class) constr
                         dgcEntry
                     )
                 }
-                else -> ""
+                is TestCert -> {
+                    PdfUtils.replaceTestCertificateValues(
+                        applicationContext,
+                        combinedCovCertificate,
+                        combinedCovCertificate.qrContent.toBase64EncodedString(),
+                        dgcEntry
+                    )
+                }
             }
         }
     }
