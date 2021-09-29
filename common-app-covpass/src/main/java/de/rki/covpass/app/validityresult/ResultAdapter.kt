@@ -175,12 +175,15 @@ public class ResultAdapter(
                 binding.resultRowSubtitleTextview.isVisible = true
                 binding.resultRowSubtitleTextview.text = item.value
                 binding.resultRowDataTextview.text = item.description
+                if (item.valueAccessibleDescription != null) {
+                    binding.resultRowSubtitleTextview.contentDescription = item.valueAccessibleDescription
+                }
             } else {
                 binding.resultRowSubtitleTextview.isVisible = false
                 binding.resultRowDataTextview.text = item.value
-            }
-            if (item.valueAccessibleDescription != null) {
-                binding.resultRowSubtitleTextview.contentDescription = item.valueAccessibleDescription
+                if (item.valueAccessibleDescription != null) {
+                    binding.resultRowDataTextview.contentDescription = item.valueAccessibleDescription
+                }
             }
             when {
                 item.validationResult.find { it.result == LocalResult.FAIL } != null -> {

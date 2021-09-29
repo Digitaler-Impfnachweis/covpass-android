@@ -28,6 +28,8 @@ internal class ChangeDateFragment : BaseBottomSheet() {
 
     private val args: ChangeDateFragmentNav by lazy { getArgs() }
     val binding by viewBinding(ChangeDatePopupContentBinding::inflate)
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_certificate_check_validity_selection_date_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

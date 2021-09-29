@@ -39,6 +39,7 @@
 	<string name="dialog_booster_vaccination_notification_title">Es gibt Neuigkeit zu Ihren Zertifikaten</string>
 	<string name="dialog_booster_vaccination_notification_message">Bitte überprüfen Sie den Status Ihrer digitalen COVID-Zertifikate der EU.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
+	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
 
 	<!-- SECTION: start Screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
@@ -60,6 +61,8 @@
 	<string name="accessibility_certificate_add_popup_label_close">Schließen</string>
 	<string name="accessibility_scan_camera_torch_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
+	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"Nachweis hinzufügen\" wurde geöffnet</string>
+	<string name="accessibility_scan_success_announce">Das Zertifikat wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
@@ -72,7 +75,7 @@
 	<string name="certificate_add_dialog_camera_access_message">Die CovPass-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
 	<string name="certificate_add_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
-	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>
+	<string name="accessibility_certificate_add_dialog_camera_announce">Kamera-Ansicht wurde geöffnet</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
@@ -91,6 +94,9 @@
 	<string name="accessibility_certificate_check_validity_label_close">Schließen</string>
 	<string name="accessibility_certificate_check_validity_label_results">Ergebnisse der EU-Zertifikatsprüfung</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Zertifikat anzeigen</string>
+	<string name="accessibility_certificate_check_validity_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_check_validity_selection_country_announce">Die Ansicht \"Reiseland wählen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_check_validity_selection_date_announce">Die Ansicht \"Datum wählen\" wurde geöffnet</string>
 	<string name="certificate_check_validity_title">Gültigkeit für Reisen innerhalb der EU prüfen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, ausgewählt</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, auswählbar</string>
@@ -99,6 +105,7 @@
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_country_title">Reiseland wählen</string>
 	<string name="accessibility_certificate_check_validity_selection_country">Land: %s</string>
+	<string name="accessibility_certificate_check_validity_label_choose_country">Reiseland wählen</string>
 	<string name="IT">Italien</string>
 	<string name="LT">Litauen</string>
 	<string name="DK">Dänemark</string>
@@ -134,6 +141,7 @@
 	<string name="certificate_check_validity_selection_country_note">Sie finden Ihr Reiseland nicht? In einem mehrstufigen Prozess werden nach und nach mehr Länder verfügbar gemacht. \n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_selection_country_action_button">Übernehmen</string>
 	<string name="certificate_check_validity_selection_date">Datum</string>
+	<string name="accessibility_certificate_check_validity_label_choose_date">Datum auswählen</string>
 	<string name="accessibility_certificate_check_validity_selection_date">Datum: %s</string>
 	<string name="accessibility_certificate_check_validity_selection_date_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_date_title">Datum wählen</string>
@@ -163,6 +171,7 @@
 	<string name="accessibility_certificate_check_validity_detail_view_test_result_title">Digitale COVID-Testzertifikate der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="certificate_check_validity_detail_view_test_result_headline_data">Geprüfte Zertifikatsdaten:</string>
 	<string name="certificate_check_validity_detail_view_test_result_button">QR-Code anzeigen</string>
+	<string name="certificate_check_validity_detail_view_test_result_button_disabled">Sie können nur deutsche Zertifikate als PDF-Dokumente herunterladen.</string>
 	<string name="certificate_check_validity_detail_view_test_result_note_de">Das Testzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_test_result_note_en">A test certificate is valid proof for travel within the EU. The EU’s member countries have different travel restrictions. You can find more information in the Frequently Asked Questions. Before travelling, please check the applicable public health measures and related restrictions applied at the point of destination.\n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_recovery_result_title">Digitales COVID-Genesenenzertifikat der EU</string>
@@ -254,7 +263,7 @@
 	<string name="certificates_overview_personal_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="accessibility_certificates_overview_personal_data_date_of_birth">Geburtsdatum (Jahr-Monat-Tag)</string>
 	<string name="certificates_overview_all_certificates_title">EU-Zertifikate</string>
-	<string name="accessibility_certificates_overview_all_certificates_title">EU-Zertifikate. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
+	<string name="accessibility_certificates_overview_all_certificates_title">Impfstatus überprüfen. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="certificates_overview_currently_uses_certificate_note">Aktuell verwendetes Zertifikat</string>
 	<string name="certificates_overview_expires_soon_certificate_note">Zertifikat läuft bald ab</string>
 	<string name="certificates_overview_expired_certificate_note">Zertifikat abgelaufen</string>
@@ -282,8 +291,10 @@
 
 	<!-- SECTION: detail view: certificate -->
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
+	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_number_readable_text">%1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_vaccination_headline">Digitales COVID-Impfzertifikat der EU</string>
 	<string name="accessibility_vaccination_certificate_detail_view_booster_vaccination_headline">Digitales COVID Impfzertifikat der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
+	<string name="accessibility_vaccination_certificate_detail_view_qrcode_screen_announce">Die QR-Code-Ansicht wurde geöffnet</string>
 	<string name="vaccination_certificate_detail_view_vaccination_note">Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.</string>
 	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_name">Name</string>
@@ -406,6 +417,7 @@
 	<string name="certificate_expired_detail_view_note_message">Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 
 	<!-- SECTION: print certificate -->
+	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">Die Ansicht für \"EU-Ausdruck erstellen\" wurde geöffnet</string>
 	<string name="accessibility_certificate_create_pdf_label_close">Schließen</string>
 	<string name="certificate_create_pdf_headline">EU-Ausdruck erstellen</string>
 	<string name="certificate_create_pdf_first_list_item">Sie können das Zertifikat als PDF-Dokument speichern. Die Speicherung ist freiwillig. Auf das PDF-Dokument haben zunächst nur Sie Zugriff.</string>
@@ -450,6 +462,9 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
+	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung-Ansicht wurde geöffnet</string>
+	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
+	<string name="accessibility_app_information_title_open_source_announce">Open-Source-Lizenzen</string>
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPass-App.</string>
@@ -475,4 +490,5 @@
 	<string name="accessibility_popup_label_close">Schließen</string>
 	<!-- to be used as alt text for qr codes -->
 	<string name="accessibility_qr_code">QR-Code</string>
+	<string name="accessibility_button">Taste</string>
 </resources>

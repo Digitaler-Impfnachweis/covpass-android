@@ -14,6 +14,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.viewBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.UpdateInfoBinding
 
 public abstract class UpdateInfoFragment : BaseBottomSheet() {
@@ -25,6 +26,8 @@ public abstract class UpdateInfoFragment : BaseBottomSheet() {
 
     @get:StringRes
     public abstract val updateInfoButton: Int
+
+    override val announcementAccessibilityRes: Int = R.string.accessibility_update_info_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

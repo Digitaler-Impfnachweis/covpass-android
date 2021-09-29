@@ -24,6 +24,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
     public open val buttonTextRes: Int? = null
     public open val heightLayoutParams: Int = ViewGroup.LayoutParams.WRAP_CONTENT
     protected var bottomSheetBinding: BottomSheetViewBinding by validUntil(::onDestroyView)
+    public open val announcementAccessibilityRes: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +67,11 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
         }
 
         return bottomSheetBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        announcementAccessibilityRes?.let { bottomSheetBinding.bottomSheet.announceForAccessibility(getString(it)) }
     }
 
     public open fun onCloseButtonClicked() {
