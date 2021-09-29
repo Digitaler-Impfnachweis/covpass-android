@@ -130,7 +130,7 @@ public abstract class SdkDependencies {
         CertLogicDeps(application)
     }
 
-    private val dccRulesHost: String by lazy { "distribution.dcc-rules.de" }
+    private val dccRulesHost: String by lazy { "distribution-cff4f7147260.dcc-rules.de" }
 
     private val covPassRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
         CovPassRulesRemoteDataSource(httpClient, dccRulesHost)
