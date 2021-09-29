@@ -51,11 +51,19 @@
 	<string name="accessibility_vaccination_start_screen_label_qrcode">Schwarzer QR-Code auf weißem Hintergrund</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Unvollständiger Impfschutz</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Vollständig ab %s</string>
-	<string name="vaccination_start_screen_qrcode_complete_protection_subtitle">Vollständiger Impfschutz</string>
+	<string name="vaccination_start_screen_qrcode_complete_protection_subtitle">Vollständig seit %s</string>
 	<string name="certificates_start_screen_qrcode_certificate_expires_subtitle">Läuft am %1$s um %2$s ab</string>
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Abgelaufen</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Ungültig</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Impfstatus überprüfen</string>
+	<string name="certificates_start_screen_qr_code_app_reference_text">Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App prüfen.</string>
+
+	<!-- SECTION: popup: Remark within the app towards the CovPassCheck-App -->
+	<string name="certificates_start_screen_pop_up_app_reference_title">Scannen bitte!</string>
+	<string name="certificates_start_screen_pop_up_app_reference_text">Bestehen Sie darauf, dass Ihr Zertifikat mit der CovPassCheck-App gescannt wird. Nur durch das Scannen des QR-Codes und das Vorzeigen eines Ausweisdokumentes kann die Gültigkeit Ihres Impfschutzes sicher geprüft und der Datenschutz eingehalten werden.</string>
+	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">CovpassCheck-App öffnen (Externer Link)</string>
+	<string name="certificates_start_screen_pop_up_app_reference_button">OK</string>
+	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Pop-up schließen</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="accessibility_certificate_add_popup_label_close">Schließen</string>
@@ -77,6 +85,12 @@
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_certificate_add_dialog_camera_announce">Kamera-Ansicht wurde geöffnet</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
+	<string name="certificate_popup_checkapp_label_X">Pop-up schließen</string>
+	<string name="certificate_popup_checkapp_headline">Scannen bitte!</string>
+	<string name="certificate_popup_checkapp_copy">Bestehen Sie darauf, dass Ihr Zertifikat mit der CovPassCheck-App gescannt wird. Nur durch das Scannen des QR-Codes und das Vorzeigen eines Ausweisdokumentes kann die Gültigkeit Ihres Impfschutzes sicher geprüft und der Datenschutz eingehalten werden. Die CovPassCheck-App für alle, die Zertifikate prüfen müssen:</string>
+	<string name="certificate_popup_checkapp_link_label">Externer Link</string>
+	<string name="certificate_popup_checkapp_linked">CovpassCheck-App öffnen (Externer Link)</string>
+	<string name="certificate_popup_checkapp_button">OK</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
@@ -233,6 +247,7 @@
 	<string name="vaccination_certificate_overview_complete_from_title">Vollständiger Impfschutz ab %s</string>
 	<string name="vaccination_certificate_overview_complete_from_message">Ihr Impfschutz ist noch nicht vollständig. Der Impfschutz ist erst 14 Tage nach der letzten Impfung vollständig.</string>
 	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz</string>
+	<string name="certificates_overview_qr_scan_hint">Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.</string>
 	<string name="vaccination_certificate_overview_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">Neu</string>
@@ -263,6 +278,10 @@
 	<string name="certificates_overview_personal_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="accessibility_certificates_overview_personal_data_date_of_birth">Geburtsdatum (Jahr-Monat-Tag)</string>
 	<string name="certificates_overview_all_certificates_title">EU-Zertifikate</string>
+	<string name="certificate_overview_info_massage_headline">Scannen bitte!</string>
+	<string name="certificate_overview_info_massage_copy">Zeigen Sie diese sensiblen Daten nicht in Gaststätten, bei Veranstaltungen oder in ähnlichen Situationen vor. Lassen Sie Ihren QR-Code immer mit der CovPassCheck-App prüfen.</string>
+	<string name="certificates_overview_all_certificates_app_reference_title">Scannen bitte!</string>
+	<string name="certificates_overview_all_certificates_app_reference_text">Zeigen Sie diese sensiblen Daten nicht in Gaststätten, bei Veranstaltungen oder in ähnlichen Situationen vor. Lassen Sie Ihren QR-Code immer mit der CovPassCheck-App prüfen.</string>
 	<string name="accessibility_certificates_overview_all_certificates_title">Impfstatus überprüfen. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="certificates_overview_currently_uses_certificate_note">Aktuell verwendetes Zertifikat</string>
 	<string name="certificates_overview_expires_soon_certificate_note">Zertifikat läuft bald ab</string>
@@ -464,8 +483,9 @@
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung-Ansicht wurde geöffnet</string>
 	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
-	<string name="accessibility_app_information_title_open_source_announce">Open-Source-Lizenzen</string>
+	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
+	<string name="accessibility_app_information_title_informationt_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPass-App.</string>
 	<string name="app_information_title_contact">Kontakt</string>
@@ -480,6 +500,8 @@
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
+	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
+	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>

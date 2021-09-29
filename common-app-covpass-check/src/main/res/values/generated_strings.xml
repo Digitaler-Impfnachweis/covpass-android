@@ -128,8 +128,11 @@
 	<string name="accessibility_app_information_datenschutz_announce">Privacy policy has been opened</string>
 	<string name="app_information_title_company_details">Legal information</string>
 	<string name="app_information_title_company_details_linked">#Legal information::$0#</string>
+	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
+	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-source licences</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
+	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
 	<string name="app_information_version_label">Version %s</string>

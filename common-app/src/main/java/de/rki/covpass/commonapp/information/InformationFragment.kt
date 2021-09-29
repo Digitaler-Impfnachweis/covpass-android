@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.appVersion
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.getSpanned
@@ -21,6 +22,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.onboarding.DataProtectionFragmentNav
 import de.rki.covpass.commonapp.utils.stripUnderlines
+import java.util.*
 
 /**
  * Common base fragment to display the faq, imprint etc. Both apps use the same fragment, only the different links are
@@ -35,6 +37,18 @@ public abstract class InformationFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         binding.informationAppVersionLabel.text = getString(R.string.app_information_version_label, appVersion)
+        if (Locale.getDefault().language == Locale.GERMAN.language) {
+            binding.informationFieldEasyLanguage.apply {
+                text = getSpanned(
+                    R.string.app_information_title_company_easy_language_linked,
+                    getString(getEasyLanguageLinkRes())
+                )
+                movementMethod = LinkMovementMethod.getInstance()
+                stripUnderlines()
+            }
+            binding.informationFieldEasyLanguage.isVisible = true
+            binding.dividerEasyLanguage.isVisible = true
+        }
         binding.informationFieldFaq.apply {
             text = getSpanned(
                 R.string.app_information_title_faq_linked,
@@ -88,4 +102,5 @@ public abstract class InformationFragment : BaseFragment() {
 
     protected abstract fun getFAQLinkRes(): Int
     protected abstract fun getImprintLinkRes(): Int
+    protected abstract fun getEasyLanguageLinkRes(): Int
 }
