@@ -5,6 +5,7 @@
 
 package com.ibm.health.common.android.utils
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
@@ -15,6 +16,10 @@ import androidx.viewbinding.ViewBinding
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.withErrorReporting
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+
+/** All onNewIntent calls get routed here. */
+public val onNewIntentEvents: MutableSharedFlow<Intent> = MutableSharedFlow()
 
 /** Base class that comes with hook support. */
 public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
@@ -37,6 +42,14 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
         }
         binding?.also {
             setContentView(it.root)
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        onNewIntentEvents.tryEmit(intent)
+        for (fragment in supportFragmentManager.findFragments { it as? OnNewIntentListener }) {
+            fragment.onNewIntent(intent)
         }
     }
 

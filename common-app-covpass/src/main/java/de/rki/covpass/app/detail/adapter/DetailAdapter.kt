@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorRes
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isGone
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
+import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.*
@@ -31,7 +33,7 @@ import de.rki.covpass.sdk.cert.models.*
 internal class DetailAdapter(
     private val items: List<DetailItem>,
     private val listener: DetailClickListener,
-    parent: Fragment
+    parent: Fragment,
 ) : BaseRecyclerViewAdapter<BaseViewHolder<*>>(parent) {
 
     private companion object {
@@ -40,6 +42,7 @@ internal class DetailAdapter(
         private const val ITEM_VIEW_TYPE_HEADER = 2
         private const val ITEM_VIEW_TYPE_PERSONAL = 3
         private const val ITEM_VIEW_TYPE_CERTIFICATE = 4
+        private const val ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION = 5
     }
 
     override fun getItemCount(): Int = items.size
@@ -51,6 +54,7 @@ internal class DetailAdapter(
             ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder(parent)
             ITEM_VIEW_TYPE_PERSONAL -> PersonalDataViewHolder(parent)
             ITEM_VIEW_TYPE_CERTIFICATE -> CertificateViewHolder(parent, listener)
+            ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION -> NotificationViewHolder(parent)
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -66,6 +70,7 @@ internal class DetailAdapter(
             is DetailItem.Header -> ITEM_VIEW_TYPE_HEADER
             is DetailItem.Personal -> ITEM_VIEW_TYPE_PERSONAL
             is DetailItem.Certificate -> ITEM_VIEW_TYPE_CERTIFICATE
+            is DetailItem.Notification -> ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION
         }
     }
 }
@@ -83,7 +88,7 @@ private class FullnameViewHolder(
 
 private class WidgetViewHolder(
     parent: ViewGroup,
-    private val listener: DetailClickListener
+    private val listener: DetailClickListener,
 ) : BaseViewHolder<DetailWidgetItemBinding>(parent, DetailWidgetItemBinding::inflate) {
 
     override fun onItemBind(item: DetailItem) {
@@ -128,16 +133,16 @@ private class PersonalDataViewHolder(
 
 private class CertificateViewHolder(
     parent: ViewGroup,
-    private val listener: DetailClickListener
+    private val listener: DetailClickListener,
 ) : BaseViewHolder<CertificateItemBinding>(parent, CertificateItemBinding::inflate) {
 
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.Certificate).let { cert ->
             when (cert.type) {
-                VaccinationCertType.VACCINATION_BOOSTER_PROTECTION,
+                VaccinationCertType.VACCINATION_COMPLETE,
                 VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
-                        if (cert.isActual || cert.isBoosterVaccination) {
+                        if (cert.isActual) {
                             R.color.info
                         } else {
                             R.color.backgroundSecondary20
@@ -157,7 +162,6 @@ private class CertificateViewHolder(
                         }
                     }
                 }
-                VaccinationCertType.VACCINATION_COMPLETE,
                 VaccinationCertType.VACCINATION_INCOMPLETE -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
@@ -237,25 +241,16 @@ private class CertificateViewHolder(
                         )
                 ) {
                     R.color.backgroundSecondary50
-                } else if (cert.isActual || cert.isBoosterVaccination) {
-                    R.color.backgroundSecondary
+                } else if (cert.isActual) {
+                    when (cert.type) {
+                        VaccinationCertType.VACCINATION_INCOMPLETE -> R.color.info
+                        else -> R.color.backgroundSecondary
+                    }
                 } else {
                     R.color.backgroundSecondary50
                 }
             )
-
-            if (cert.type == VaccinationCertType.VACCINATION_BOOSTER_PROTECTION) {
-                binding.certificateItemActualLayout.isVisible = true
-                binding.certificateItemActualTitle.text =
-                    getString(R.string.certificates_overview_booster_vaccination_certificate_note)
-                binding.certificateItemActualIcon.isVisible = cert.isActual
-                binding.certificateItemBoosterFlagDe.isVisible = true
-            } else if (cert.isActual && cert.type != VaccinationCertType.VACCINATION_BOOSTER_PROTECTION) {
-                binding.certificateItemActualLayout.isVisible = true
-                binding.certificateItemActualIcon.isVisible = true
-            } else {
-                binding.certificateItemActualLayout.isVisible = false
-            }
+            binding.certificateItemActualTitle.isVisible = cert.isActual
             binding.certificateItemTitle.text = cert.title
             binding.certificateItemSubtitle.text = cert.subtitle
             binding.certificateItemDate.text = cert.date
@@ -282,6 +277,24 @@ private class CertificateViewHolder(
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_invalid_certificate_note)
                 }
+            }
+        }
+    }
+}
+
+private class NotificationViewHolder(
+    val parent: ViewGroup,
+) : BaseViewHolder<DetailNotificationItemBinding>(parent, DetailNotificationItemBinding::inflate) {
+
+    override fun onItemBind(item: DetailItem) {
+
+        (item as DetailItem.Notification).let {
+            binding.notificationTitle.text = getString(it.titleRes)
+            binding.notificationSubtitle.text = getString(it.subtitleRes)
+            binding.notificationText.text = getSpanned(it.textRes, it.ruleId)
+            it.iconTextRes?.let { textIcon -> binding.notificationIcon.text = getString(textIcon) }
+            it.iconBackgroundRes?.let { iconRes ->
+                binding.notificationIcon.background = getDrawable(parent.context, iconRes)
             }
         }
     }

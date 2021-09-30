@@ -64,7 +64,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
         ResultAdapter(this, resultNoteEn, resultNoteDe).apply {
             updateCert(certId)
             updateHeaderWarning(resultType, country, dateTime, rulesCount)
-            updateList(getRowList(cert).filterNot { it.value.isEmpty() })
+            updateList(getRowList(cert).filterNot { it.value.isNullOrEmpty() })
             attachTo(binding.resultRecyclerView)
         }
     }
@@ -73,9 +73,9 @@ public abstract class ResultFragment : BaseBottomSheet() {
 
     public data class ResultRowData(
         val title: String,
-        val value: String,
+        val value: String?,
         val validationResult: List<DerivedValidationResult> = emptyList(),
-        val description: String? = null
+        val description: String? = null,
     )
 }
 
@@ -87,7 +87,7 @@ public enum class LocalResult {
 public data class DerivedValidationResult(
     val result: LocalResult,
     val description: String,
-    val affectedString: List<String>
+    val affectedString: List<String>,
 ) : Parcelable
 
 public fun List<DerivedValidationResult>.getResultsBy(propertyName: String): List<DerivedValidationResult> {

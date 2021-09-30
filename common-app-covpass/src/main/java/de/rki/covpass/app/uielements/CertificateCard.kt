@@ -16,7 +16,6 @@ import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateCardBinding
 import de.rki.covpass.sdk.cert.models.CertValidationResult
-import de.rki.covpass.sdk.cert.models.VaccinationCertType
 import kotlin.properties.Delegates
 
 public class CertificateCard @JvmOverloads constructor(
@@ -72,10 +71,6 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateFavoriteButton.isVisible = newValue
     }
 
-    private var isBoosterVaccination: Boolean by Delegates.observable(false) { _, _, newValue ->
-        binding.certificateBoosterGermanFlag.isVisible = newValue
-    }
-
     private var cardBackground: Int by Delegates.observable(R.color.backgroundPrimary) { _, _, newValue ->
         binding.certificateCardview.setCardBackgroundColor(newValue)
     }
@@ -125,19 +120,18 @@ public class CertificateCard @JvmOverloads constructor(
     }
 
     public fun vaccinationFullProtectionCard(
-        certType: VaccinationCertType,
         header: String,
         status: String,
         protectionText: String,
         name: String,
         isFavorite: Boolean = false,
-        certStatus: CertValidationResult = CertValidationResult.Valid
+        certStatus: CertValidationResult = CertValidationResult.Valid,
+        showBoosterNotification: Boolean
     ) {
         this.header = header
         this.protectionText = protectionText
         this.name = name
         this.isFavorite = isFavorite
-        this.isBoosterVaccination = certType == VaccinationCertType.VACCINATION_BOOSTER_PROTECTION
 
         when (certStatus) {
             CertValidationResult.Valid,
@@ -148,17 +142,25 @@ public class CertificateCard @JvmOverloads constructor(
                 cardBackground = ContextCompat.getColor(context, R.color.info70)
                 statusImage = ContextCompat.getDrawable(
                     context,
-                    if (certStatus == CertValidationResult.Valid) {
-                        R.drawable.main_cert_status_complete
-                    } else {
-                        R.drawable.main_cert_expiry_period
+                    when {
+                        showBoosterNotification -> {
+                            R.drawable.booster_notification_icon
+                        }
+                        certStatus == CertValidationResult.Valid -> {
+                            R.drawable.main_cert_status_complete
+                        }
+                        else -> {
+                            R.drawable.main_cert_expiry_period
+                        }
                     }
                 )
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_blue)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 
@@ -193,8 +195,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_blue)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_light_blue)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 
@@ -229,8 +233,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_purple)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 
@@ -265,8 +271,10 @@ public class CertificateCard @JvmOverloads constructor(
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_dark_blue)
             }
-            CertValidationResult.Invalid -> expiredOrInvalid(getString(R.string.certificates_overview_invalid_title))
-            CertValidationResult.Expired -> expiredOrInvalid(getString(R.string.certificates_overview_expired_title))
+            CertValidationResult.Invalid ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
+            CertValidationResult.Expired ->
+                expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))
         }
     }
 }

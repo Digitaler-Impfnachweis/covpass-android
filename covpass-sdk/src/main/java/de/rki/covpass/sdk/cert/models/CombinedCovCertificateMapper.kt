@@ -11,6 +11,8 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         qrContent = qrContent,
         timestamp = timestamp,
         status = status,
+        hasSeenBoosterNotification = hasSeenBoosterNotification,
+        hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
     )
 
 public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCertificateLocal =
@@ -18,10 +20,12 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         covCertificate = covCertificate,
         qrContent = qrContent,
         timestamp = timestamp,
+        hasSeenBoosterNotification = hasSeenBoosterNotification,
+        hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
     )
 
-public fun CombinedCovCertificateLocal.isInExpiryPeriod(): Boolean =
+public fun CovCertificate.isInExpiryPeriod(): Boolean =
     ZonedDateTime.ofInstant(
-        covCertificate.validUntil,
+        validUntil,
         ZoneId.systemDefault()
     ).minusDays(28).isBefore(ZonedDateTime.now())

@@ -27,12 +27,11 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @Parcelize
 internal class CertificateFragmentNav(val certId: GroupedCertificatesId) : FragmentNav(CertificateFragment::class)
@@ -72,20 +71,14 @@ internal class CertificateFragment : BaseFragment() {
         when (val dgcEntry = mainCertificate.dgcEntry) {
             is Vaccination -> {
                 when (dgcEntry.type) {
-                    VaccinationCertType.VACCINATION_BOOSTER_PROTECTION,
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         binding.certificateCard.vaccinationFullProtectionCard(
-                            dgcEntry.type,
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
-                                    R.string.certificate_expires_detail_view_note_title,
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[0].trim(),
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[1].trim()
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
                                 getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
@@ -93,7 +86,9 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.vaccination_full_immunization_action_button),
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
-                            certStatus
+                            certStatus,
+                            !groupedCertificate.hasSeenBoosterDetailNotification &&
+                                groupedCertificate.boosterNotification.result == BoosterResult.Passed
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
@@ -101,13 +96,9 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
-                                    R.string.certificate_expires_detail_view_note_title,
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[0].trim(),
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[1].trim()
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
                                 getString(
@@ -126,13 +117,9 @@ internal class CertificateFragment : BaseFragment() {
                             getString(R.string.certificates_overview_vaccination_certificate_title),
                             if (certStatus == CertValidationResult.ExpiryPeriod) {
                                 getString(
-                                    R.string.certificate_expires_detail_view_note_title,
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[0].trim(),
-                                    LocalDateTime.ofInstant(
-                                        mainCertificate.validUntil, ZoneOffset.UTC
-                                    ).formatDateTime().split(",")[1].trim()
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
                                 )
                             } else {
                                 getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
@@ -145,23 +132,19 @@ internal class CertificateFragment : BaseFragment() {
                     }
                 }
             }
-            is Test -> {
-                val test = mainCertificate.dgcEntry as Test
+            is TestCert -> {
+                val test = mainCertificate.dgcEntry as TestCert
                 binding.certificateCard.createTestCard(
-                    if (test.testType == Test.PCR_TEST) {
+                    if (test.testType == TestCert.PCR_TEST) {
                         getString(R.string.certificates_overview_pcr_test_certificate_message)
                     } else {
                         getString(R.string.certificates_overview_test_certificate_message)
                     },
                     if (certStatus == CertValidationResult.ExpiryPeriod) {
                         getString(
-                            R.string.certificate_expires_detail_view_note_title,
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[0].trim(),
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[1].trim()
+                            R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                            mainCertificate.validUntil.formatDateOrEmpty(),
+                            mainCertificate.validUntil.formatTimeOrEmpty()
                         )
                     } else {
                         test.sampleCollection?.toDeviceTimeZone()?.formatDateTime().orEmpty()
@@ -178,13 +161,9 @@ internal class CertificateFragment : BaseFragment() {
                     getString(R.string.certificates_overview_recovery_certificate_title),
                     if (certStatus == CertValidationResult.ExpiryPeriod) {
                         getString(
-                            R.string.certificate_expires_detail_view_note_title,
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[0].trim(),
-                            LocalDateTime.ofInstant(
-                                mainCertificate.validUntil, ZoneOffset.UTC
-                            ).formatDateTime().split(",")[1].trim()
+                            R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                            mainCertificate.validUntil.formatDateOrEmpty(),
+                            mainCertificate.validUntil.formatTimeOrEmpty()
                         )
                     } else {
                         if (recovery.validFrom?.isAfter(LocalDate.now()) == true) {

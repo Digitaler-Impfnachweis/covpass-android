@@ -74,7 +74,7 @@ public class ActivityNavigator {
     /**
      * Returns [currentActivity].
      */
-    public fun getCurrentActivity(): Activity? = currentActivity
+    public fun getCurrentActivity(): Activity = currentActivity
 
     /**
      * Calls [Activity.navigateUpTo].

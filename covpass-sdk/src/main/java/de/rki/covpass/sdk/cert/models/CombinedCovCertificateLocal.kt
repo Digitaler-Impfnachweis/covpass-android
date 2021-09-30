@@ -28,5 +28,8 @@ public data class CombinedCovCertificateLocal(
      * Timestamp when the certificate was scanned
      */
     @SerialName("certificateTimestamp")
-    val timestamp: Long = Long.MIN_VALUE
+    val timestamp: Long = Long.MIN_VALUE,
+
+    val hasSeenBoosterNotification: Boolean = false,
+    val hasSeenBoosterDetailNotification: Boolean = false,
 )

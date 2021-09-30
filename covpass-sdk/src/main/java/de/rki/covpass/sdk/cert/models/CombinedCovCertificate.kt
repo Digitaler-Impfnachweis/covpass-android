@@ -17,12 +17,14 @@ public data class CombinedCovCertificate(
     val qrContent: String,
     val timestamp: Long,
     val status: CertValidationResult,
+    val hasSeenBoosterNotification: Boolean,
+    val hasSeenBoosterDetailNotification: Boolean,
 ) {
 
     /**
      * @return the Boolean flag which indicates a positive PCR or Antigen test
      */
     public fun isPositivePcrOrAntigenTest(): Boolean {
-        return (this.covCertificate.dgcEntry as? Test)?.isPositive == true
+        return (this.covCertificate.dgcEntry as? TestCert)?.isPositive == true
     }
 }

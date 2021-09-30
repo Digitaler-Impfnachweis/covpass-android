@@ -31,14 +31,20 @@
 	<string name="dialog_start_screen_message">Would you like to update the CovPass-App now?</string>
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
-	<string name="vaccination_start_screen_title">EU Digital COVID Certificates</string>
+	<string name="dialog_booster_vaccination_notification_title">There is news about your certificates</string>
+	<string name="dialog_booster_vaccination_notification_message">Based on your existing vaccination certificates, a booster vaccination may be required. Please check the status of your vaccination certificates.</string>
 
 	<!-- SECTION: start Screen -->
+	<string name="vaccination_start_screen_title">EU Digital COVID Certificates</string>
 	<string name="vaccination_start_screen_note_title">Add a certificate</string>
 	<string name="vaccination_start_screen_note_message">You do not have any EU Digital COVID Certificate saved at the moment. Tap the plus symbol to add a digital certificate.</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Not fully vaccinated</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Fully vaccinated as of %s</string>
 	<string name="vaccination_start_screen_qrcode_complete_protection_subtitle">Fully vaccinated</string>
+	<string name="certificates_start_screen_qrcode_certificate_expires_subtitle">Expires on %1$s at %2$s</string>
+	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Expired</string>
+	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Invalid</string>
+	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Check vaccination status</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="certificate_add_popup_title">Adding a certificate</string>
@@ -59,7 +65,7 @@
 	<string name="error_test_certificate_not_valid_message">The Covid-19 test certificate that you have scanned does not show a negative test result. The current version of the CovPass app can only save negative Covid-19 test results.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 	<string name="dialogue_add_booster_vaccination_title">Booster vaccination added</string>
-	<string name="dialogue_add_booster_vaccination_message">Please note that this certificate for the booster vaccination may not be accepted as valid proof of vaccination abroad at this time. If you are planning a trip outside of Germany, please also take the proof of a vaccination that is effective for the first time or for an effective vaccination for those who have recovered.</string>
+	<string name="dialogue_add_booster_vaccination_message">Please note that the EU Member States have not yet adopted a uniform approach to COVID certificates for booster vaccinations. Because of this, it cannot be ruled out that this certificate will not be recognised as valid in other EU countries. Therefore, if you are planning a trip outside Germany, please also take the original vaccination certificates (or other recognised proof) that you received before the booster vaccination.</string>
 	<string name="dialogue_add_booster_vaccination_action_button_title">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
@@ -102,6 +108,7 @@
 	<string name="HU">Hungary</string>
 	<string name="IE">Ireland</string>
 	<string name="CH">Switzerland</string>
+	<string name="UA">Ukraine</string>
 	<string name="certificate_check_validity_selection_country_note">Is your destination not listed? More countries are progressively being added in stages. \n\nYou can find more information in the frequently asked questions and at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_selection_country_action_button">Select</string>
 	<string name="certificate_check_validity_selection_date">Date</string>
@@ -180,6 +187,10 @@
 	<string name="vaccination_certificate_overview_complete_title">Fully vaccinated</string>
 	<string name="vaccination_certificate_overview_complete_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Display current QR Code</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">New</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_title">Current vaccination status</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_subtitle">Last vaccination 180 days ago</string>
+	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">Based on your existing vaccination certificate, you might need a booster vaccination because your last vaccination certificate is older than 6 months (Rule ID: %s).\n\nYou can find more information in the FAQ.</string>
 	<string name="test_certificate_overview_title">Negative rapid antigen test from %s</string>
 	<string name="test_certificate_overview_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="test_certificate_overview_action_button_title">Display current QR Code</string>
@@ -198,6 +209,7 @@
 	<string name="certificates_overview_invalid_action_button_title">Add new certificate</string>
 	<string name="certificates_overview_personal_data_title">Personal details</string>
 	<string name="certificates_overview_personal_data_name">Name, Vorname / Name, first name</string>
+	<string name="certificates_overview_personal_data_standardized_name">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="certificates_overview_personal_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="certificates_overview_all_certificates_title">EU certificates</string>
 	<string name="certificates_overview_currently_uses_certificate_note">Certificate currently in use</string>
@@ -227,8 +239,11 @@
 
 	<!-- SECTION: detail view: certificate -->
 	<string name="vaccination_certificate_detail_view_vaccination_title">Vaccine dose %1$d of %2$d</string>
+	<string name="vaccination_certificate_detail_view_booster_vaccination_title">%d. Booster vaccination</string>
 	<string name="vaccination_certificate_detail_view_vaccination_headline">EU Digital COVID Certificate of Vaccination</string>
+	<string name="vaccination_certificate_detail_view_booster_vaccination_headline">EU Digital COVID Certificate of Vaccination</string>
 	<string name="vaccination_certificate_detail_view_vaccination_note">This certificate is for a vaccine that only requires one dose or a vaccine for people who have recovered from an infection and only need one dose.</string>
+	<string name="vaccination_certificate_detail_view_booster_vaccination_note">Please note that the EU Member States have not yet adopted a uniform approach to COVID certificates for booster vaccinations. Because of this, it cannot be ruled out that this certificate will not be recognised as valid in other EU countries. Therefore, if you are planning a trip outside Germany, please also take the original vaccination certificates (or other recognised proof) that you received before the booster vaccination.</string>
 	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_name_standard">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="vaccination_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>

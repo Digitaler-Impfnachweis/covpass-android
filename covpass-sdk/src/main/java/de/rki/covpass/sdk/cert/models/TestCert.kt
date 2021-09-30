@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 import java.time.ZonedDateTime
 
 /**
- * Enum to mark the type of a [Test].
+ * Enum to mark the type of a [TestCert].
  */
 public enum class TestCertType : DGCEntryType {
     POSITIVE_PCR_TEST,
@@ -24,22 +24,22 @@ public enum class TestCertType : DGCEntryType {
  * Data model for the tests inside a Digital Green Certificate.
  */
 @Serializable
-public data class Test(
+public data class TestCert(
     @SerialName("tg")
     val targetDisease: String = "",
     @SerialName("tt")
     val testType: String = "",
     @SerialName("nm")
-    val testName: String = "",
+    val testName: String? = "",
     @SerialName("ma")
-    val manufacturer: String = "",
+    val manufacturer: String? = "",
     @Contextual
     @SerialName("sc")
     val sampleCollection: ZonedDateTime? = null,
     @SerialName("tr")
     val testResult: String = "",
     @SerialName("tc")
-    val testingCentre: String = "",
+    val testingCenter: String = "",
     @SerialName("co")
     val country: String = "",
     @SerialName("is")

@@ -26,7 +26,6 @@ import de.rki.covpass.app.databinding.DetailExportPdfBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
-import io.ktor.util.*
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -96,7 +95,6 @@ internal class DetailExportPdfFragment : BaseBottomSheet(), SharePdfEvents {
         startActivity(Intent.createChooser(intent, getString(R.string.certificate_share_pdf_title_android)))
     }
 
-    @InternalAPI
     override fun onActionButtonClicked() {
         val cert = certs.getCombinedCertificate(args.certId) ?: throw NullCertificateException()
         detailExportPdfViewModel.onShareClick(cert)

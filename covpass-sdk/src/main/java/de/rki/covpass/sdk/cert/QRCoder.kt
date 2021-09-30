@@ -11,6 +11,7 @@ import de.rki.covpass.base45.Base45
 import de.rki.covpass.sdk.cert.models.CBORWebToken
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.utils.Zlib
+import java.io.IOException
 import java.security.GeneralSecurityException
 
 /**
@@ -20,11 +21,12 @@ public class QRCoder(private val validator: CertValidator) {
 
     /** Returns the raw COSE ByteArray contained within the certificate. */
     internal fun decodeRawCose(qr: String): ByteArray {
-        var qrContent: String = qr
-        if (qrContent.startsWith("HC1:")) {
-            qrContent = qrContent.removePrefix("HC1:")
+        val qrContent = qr.removePrefix("HC1:").toByteArray()
+        try {
+            return Zlib.decompress(Base45.decode(qrContent))
+        } catch (e: IOException) {
+            throw DgcDecodeException("Not a valid zlib compressed DCC")
         }
-        return Zlib.decompress(Base45.decode(qrContent.toByteArray()))
     }
 
     internal fun decodeCose(qr: String): Sign1Message =

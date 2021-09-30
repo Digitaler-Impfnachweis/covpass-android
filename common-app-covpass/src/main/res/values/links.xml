@@ -10,4 +10,5 @@
   <string name="information_faq_link">https://www.digitaler-impfnachweis-app.de/en/webviews/client-app/faq/</string>
   <string name="information_imprint_link">https://www.digitaler-impfnachweis-app.de/en/webviews/imprint/</string>
   <string name="data_protection_path">file:///android_asset/privacy-covpass.html</string>
+  <string name="update_info_path">file:///android_asset/announcements_en.html</string>
 </resources>

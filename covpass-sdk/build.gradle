@@ -18,6 +18,7 @@ dependencies {
     cryptographic()
     worker()
     kapt 'androidx.room:room-compiler:2.3.0'
+    zxingTest()
 }
 
 apply from: "$projectDir/download-dsc-list.gradle"

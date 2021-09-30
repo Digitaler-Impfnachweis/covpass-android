@@ -7,19 +7,17 @@ package de.rki.covpass.sdk.cert
 
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.rules.domain.rules.CovPassRulesUseCase
+import de.rki.covpass.sdk.utils.toZonedDateTimeOrDefault
 import dgca.verifier.app.engine.CertLogicEngine
 import dgca.verifier.app.engine.ValidationResult
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.ExternalParameter
 import dgca.verifier.app.engine.data.source.valuesets.ValueSetsRepository
 import kotlinx.serialization.encodeToString
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 public class RulesValidator(
@@ -41,20 +39,15 @@ public class RulesValidator(
             certificateType,
             validationClock = validationClock,
         )
-        val valueSetsMap = mutableMapOf<String, List<String>>()
-        valueSetsRepository.getValueSets().forEach { valueSet ->
-            val ids = mutableListOf<String>()
-            valueSet.valueSetValues.fieldNames().forEach { id ->
-                ids.add(id)
-            }
-            valueSetsMap[valueSet.valueSetId] = ids
-        }
+        val valueSetsMap = valueSetsRepository.getValueSets().map { valueSet ->
+            valueSet.valueSetId to valueSet.valueSetValues.fieldNames().asSequence().toList()
+        }.toMap()
         val externalParameter = ExternalParameter(
             validationClock = validationClock.toOffsetDateTime().toZonedDateTime(),
             valueSets = valueSetsMap,
             countryCode = countryIsoCode,
-            exp = cert.validUntil.toZonedDateTimeOrCustom(Long.MAX_VALUE),
-            iat = cert.validFrom.toZonedDateTimeOrCustom(Long.MIN_VALUE),
+            exp = cert.validUntil.toZonedDateTimeOrDefault(Long.MAX_VALUE),
+            iat = cert.validFrom.toZonedDateTimeOrDefault(Long.MIN_VALUE),
             issuerCountryCode = issuerCountryCode,
             kid = "",
             region = "",
@@ -70,18 +63,10 @@ public class RulesValidator(
         )
     }
 
-    private fun Instant?.toZonedDateTimeOrCustom(epochMilli: Long): ZonedDateTime {
-        return ZonedDateTime.ofInstant(
-            this,
-            ZoneId.of(ZoneOffset.UTC.id)
-        ) ?: Instant.ofEpochMilli(epochMilli).atZone(ZoneOffset.UTC)
-    }
-
-    private fun CovCertificate.getCertificateType(): CertificateType {
-        return when (dgcEntry) {
+    private fun CovCertificate.getCertificateType(): CertificateType =
+        when (dgcEntry) {
             is Vaccination -> CertificateType.VACCINATION
-            is Test -> CertificateType.TEST
+            is TestCert -> CertificateType.TEST
             is Recovery -> CertificateType.RECOVERY
         }
-    }
 }

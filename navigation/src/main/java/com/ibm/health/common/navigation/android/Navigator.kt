@@ -57,7 +57,7 @@ public class Navigator internal constructor(
     // constructor is internal to enforce the above contextual constructors
     private val activity: FragmentActivity,
     public val fragmentManager: FragmentManager,
-    private val lifecycleOwner: LifecycleOwner,
+    public val lifecycleOwner: LifecycleOwner,
     @IdRes private val containerId: Int,
 ) {
 

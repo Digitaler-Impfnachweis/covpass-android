@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
@@ -6,13 +7,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
+  android:layout_height="match_parent">
 
-  <TextView
+  <WebView
+    android:id="@+id/update_info_web_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/dialogue_add_booster_vaccination_message"
-    android:layout_marginHorizontal="@dimen/grid_three"/>
-
+    android:layout_height="wrap_content" />
 </LinearLayout>

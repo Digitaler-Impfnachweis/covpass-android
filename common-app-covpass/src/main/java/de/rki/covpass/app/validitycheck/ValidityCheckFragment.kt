@@ -6,6 +6,7 @@
 package de.rki.covpass.app.validitycheck
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.view.isGone
@@ -19,8 +20,14 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
+import de.rki.covpass.app.main.MainFragment
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.dialog.DialogAction
+import de.rki.covpass.commonapp.dialog.DialogListener
+import de.rki.covpass.commonapp.dialog.DialogModel
+import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.errorhandling.isNoInternetError
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
@@ -32,18 +39,17 @@ internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::cla
 /**
  * Fragment to check the validity of all certificates for the selected country and date
  */
-internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback, ChangeDateTimeCallback {
+internal class ValidityCheckFragment :
+    DialogListener,
+    BaseBottomSheet(),
+    ChangeCountryCallback,
+    ChangeDateTimeCallback {
 
     private val validityCheckViewModel by reactiveState { ValidityCheckViewModel(scope) }
     private val binding by viewBinding(ValidityCheckPopupContentBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        launchWhenStarted {
-            validityCheckViewModel.loadRulesAndValueSets()
-            validityCheckViewModel.validateCertificates()
-        }
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_action_button_check_validity)
         bottomSheetBinding.bottomSheetActionButton.isVisible = false
@@ -63,15 +69,25 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
         autoRun {
             val country = get(validityCheckViewModel.country)
             binding.countryValue.setText(country.nameRes)
-            binding.layoutCountry.setOnClickListener {
+            binding.countryValue.setOnClickListener {
+                findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
+            }
+
+            binding.layoutCountry.setEndIconOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateCountry(country)
         }
+
         autoRun {
             val time = get(validityCheckViewModel.date)
-            binding.dateValue.text = time.formatDateTime()
-            binding.layoutDate.setOnClickListener {
+            binding.dateValue.text = Editable.Factory.getInstance().newEditable(time.formatDateTime())
+
+            binding.dateValue.setOnClickListener {
+                findNavigator().push(ChangeDateFragmentNav(time))
+            }
+
+            binding.layoutDate.setEndIconOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
             }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
@@ -79,7 +95,7 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
         autoRun { showLoading(get(loading) > 0) }
     }
 
-    fun showLoading(isLoading: Boolean) {
+    private fun showLoading(isLoading: Boolean) {
         binding.loadingLayout.isVisible = isLoading
         binding.recyclerCertificates.isGone = isLoading
     }
@@ -94,5 +110,32 @@ internal class ValidityCheckFragment : BaseBottomSheet(), ChangeCountryCallback,
 
     override fun updateDate(dateTime: LocalDateTime) {
         validityCheckViewModel.updateDate(dateTime)
+    }
+
+    override fun onDialogAction(tag: String, action: DialogAction) {
+        if (tag == NO_INTERNET_CONNECTION && action == DialogAction.POSITIVE) {
+            validityCheckViewModel.loadRulesAndValidateCertificates()
+        } else {
+            findNavigator().popUntil<MainFragment>()
+        }
+    }
+
+    override fun onError(error: Throwable) {
+        if (isNoInternetError(error)) {
+            val dialogModel = DialogModel(
+                titleRes = R.string.error_check_validity_no_internet_title,
+                messageString = getString(R.string.error_check_validity_no_internet_message),
+                positiveButtonTextRes = R.string.error_check_validity_no_internet_button_try_again,
+                negativeButtonTextRes = R.string.error_check_validity_no_internet_button_cancel,
+                tag = NO_INTERNET_CONNECTION
+            )
+            showDialog(dialogModel, childFragmentManager)
+        } else {
+            super.onError(error)
+        }
+    }
+
+    companion object {
+        private const val NO_INTERNET_CONNECTION = "no_internet_connection"
     }
 }

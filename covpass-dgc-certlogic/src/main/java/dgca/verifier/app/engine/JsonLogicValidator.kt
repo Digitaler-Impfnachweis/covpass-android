@@ -24,5 +24,5 @@ import com.fasterxml.jackson.databind.JsonNode
  * Created by osarapulov on 13.06.21 17:18
  */
 interface JsonLogicValidator {
-    fun isDataValid(rule: JsonNode, data: JsonNode): Boolean?
+    fun isDataValid(rule: JsonNode, data: JsonNode): Boolean
 }

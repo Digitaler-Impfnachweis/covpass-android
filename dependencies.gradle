@@ -12,8 +12,8 @@ dependencies {
         // ------------------------------------------------------------------------------------------------
         versionConstraints = {
             api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.1")
-            api platform("io.ktor:ktor-bom:1.6.2")
-            api platform("com.ensody.reactivestate:reactivestate-bom:4.3.0")
+            api platform("io.ktor:ktor-bom:1.6.3")
+            api platform("com.ensody.reactivestate:reactivestate-bom:4.3.2")
             api platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
 
             constraints {
@@ -46,7 +46,7 @@ dependencies {
                 api 'androidx.core:core-ktx:1.6.0'
                 api 'androidx.constraintlayout:constraintlayout:2.1.0'
 
-                api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.4'
+                api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5'
 
                 def fragmentVersion = "1.3.6"
                 api "androidx.fragment:fragment-ktx:$fragmentVersion"
@@ -63,7 +63,7 @@ dependencies {
                 api "androidx.lifecycle:lifecycle-service:$lifecycleVersion"
                 api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
 
-                api 'com.jakewharton.timber:timber:4.7.1'
+                api 'com.jakewharton.timber:timber:5.0.1'
 
                 // testing constraints
                 api 'androidx.arch.core:core-testing:2.1.0'
@@ -76,8 +76,7 @@ dependencies {
 
                 api 'androidx.test.ext:junit:1.1.2'
                 api 'androidx.test.ext:junit-ktx:1.1.2'
-                api "com.willowtreeapps.assertk:assertk:0.24"
-                api "io.mockk:mockk:1.11.0"
+                api "io.mockk:mockk:1.12.0"
                 api 'junit:junit:4.13.2'
                 api 'org.robolectric:robolectric:4.5.1'
 
@@ -97,16 +96,10 @@ dependencies {
         base = {
             api platform(project(':covpass-bom'))
 
-            testImplementation 'junit:junit'
-
-            testImplementation 'com.willowtreeapps.assertk:assertk'
-
-            testImplementation "io.mockk:mockk"
-        }
-
-        baseTestLib = {
-            api 'junit:junit'
-            api 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
+            testDependency 'junit:junit'
+            testDependency "org.jetbrains.kotlin:kotlin-test-junit"
+            testDependency 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
+            testDependency "io.mockk:mockk"
         }
 
         baseAndroid = {
@@ -114,28 +107,24 @@ dependencies {
             api 'androidx.annotation:annotation'
             api 'com.google.android.material:material'
 
-            testImplementation 'androidx.arch.core:core-testing'
             testImplementation('org.robolectric:robolectric') {
                 exclude group: 'org.bouncycastle'
             }
             testImplementation "org.bouncycastle:bcprov-jdk15to18"
             testImplementation "org.bouncycastle:bcpkix-jdk15to18"
+            testDependency 'androidx.arch.core:core-testing'
+            testDependency 'androidx.fragment:fragment-testing'
+            testDependency 'androidx.test:core'
+            testDependency 'androidx.test:core-ktx'
+            testDependency 'androidx.test:runner'
+            testDependency 'androidx.test:rules'
+            testDependency 'androidx.test.ext:junit'
+            testDependency 'androidx.test.ext:junit-ktx'
         }
 
         reactiveState = {
             api 'com.ensody.reactivestate:reactivestate'
             testDependency 'com.ensody.reactivestate:reactivestate-test'
-        }
-
-        androidTestLib = {
-            baseTestLib()
-            api 'androidx.fragment:fragment-testing'
-            api 'androidx.test:core'
-            api 'androidx.test:core-ktx'
-            api 'androidx.test:runner'
-            api 'androidx.test:rules'
-            api 'androidx.test.ext:junit'
-            api 'androidx.test.ext:junit-ktx'
         }
 
         androidUI = {
@@ -150,7 +139,7 @@ dependencies {
             api 'androidx.lifecycle:lifecycle-viewmodel-ktx'
             api 'androidx.lifecycle:lifecycle-viewmodel-savedstate'
             api 'androidx.constraintlayout:constraintlayout'
-            api 'com.airbnb.android:lottie:3.7.0'
+            api 'com.airbnb.android:lottie:4.1.0'
         }
 
         conscrypt = {
@@ -198,6 +187,11 @@ dependencies {
             api 'com.google.zxing:core:3.4.1'
         }
 
+        zxingTest = {
+            testDependency 'com.journeyapps:zxing-android-embedded:4.2.0'
+            testDependency 'com.google.zxing:core:3.4.1'
+        }
+
         cryptographic = {
             api 'androidx.security:security-crypto:1.1.0-alpha03'
         }
@@ -213,9 +207,9 @@ dependencies {
         }
 
         certLogic = {
-            api 'eu.ehn.dcc.certlogic:certlogic-kotlin:v0.7.7-kotlin'
+            api 'eu.ehn.dcc.certlogic:certlogic-kotlin:v0.9.0-kotlin'
             api 'com.squareup.retrofit2:retrofit:2.9.0'
-            api 'com.squareup.retrofit2:converter-jackson:2.1.0'
+            api 'com.squareup.retrofit2:converter-jackson:2.9.0'
             api 'androidx.room:room-ktx:2.4.0-alpha03'
             api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
             api 'androidx.room:room-runtime:2.3.0'

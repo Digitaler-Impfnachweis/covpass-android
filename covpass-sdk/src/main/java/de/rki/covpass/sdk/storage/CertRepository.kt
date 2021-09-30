@@ -34,7 +34,7 @@ public class CertRepository(
         // After the migration is done, we can initialize the fields.
         certsPref = store.getData(PREFS_KEY_CERT_LIST, CovCertificateList())
         certsPrefVersion = store.getData(PREFS_KEY_CERT_LIST, CovCertificateListVersion())
-        certs = SuspendMutableValueFlow(mapper.toGroupedCertificatesList(certsPref.value)) {
+        certs = SuspendMutableValueFlow(runBlocking { mapper.toGroupedCertificatesList(certsPref.value) }) {
             certsPref.set(value = mapper.toCovCertificateList(it), force = true)
         }
     }

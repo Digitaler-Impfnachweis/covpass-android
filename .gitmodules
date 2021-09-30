@@ -1,3 +1,6 @@
 [submodule "text-vaccination"]
 	path = text-vaccination
 	url = git@github.com:Digitaler-Impfnachweis/covpass-apps-i18n.git
+[submodule "dcc-quality-assurance"]
+	path = dcc-quality-assurance
+	url = git@github.com:eu-digital-green-certificates/dcc-quality-assurance.git

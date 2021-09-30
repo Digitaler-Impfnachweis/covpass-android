@@ -124,7 +124,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             (
                 when (dgcEntry) {
                     is Vaccination -> vaccinationCertOids
-                    is Test -> testCertOids
+                    is TestCert -> testCertOids
                     else -> recoveryCertOids
                 } intersect extendedKeyUsageIntersect
                 ).isNotEmpty()

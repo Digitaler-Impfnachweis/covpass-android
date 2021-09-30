@@ -25,7 +25,7 @@ public class Lumber {
 
         /** Plants debug tree if none was planted yet. */
         public fun plantDebugTreeIfNeeded(shouldPlant: Boolean = true) {
-            if (shouldPlant && Timber.treeCount() == 0) {
+            if (shouldPlant && Timber.treeCount == 0) {
                 Timber.plant(LoggerTree())
             }
         }
@@ -75,16 +75,21 @@ public fun interface LogBlock {
 // Since we wrap the call stack in another layer we have to fix the tag by going to the caller of Lumber, not of Timber
 private class LoggerTree : Timber.DebugTree() {
     override fun createStackElementTag(element: StackTraceElement): String? {
-        // See the Timber.DebugTree implementation. They use CALL_STACK_INDEX = 5 within getTag(). We additionally
-        // skip the Lumber code.
-        val callStackIndex = 5
-        val stackTrace = Throwable().stackTrace.toMutableList()
-        stackTrace.removeAll {
-            it.className == LoggerTree::class.java.name ||
-                it.className == Lumber::class.java.name ||
-                it.className == Lumber.Companion::class.java.name
-        }
-        val stackTraceElement = if (stackTrace.size > callStackIndex) stackTrace[callStackIndex] else element
-        return super.createStackElementTag(stackTraceElement)
+        return super.createStackElementTag(
+            Throwable().stackTrace.find { it.className !in fqcnIgnore } ?: element
+        )
     }
+}
+
+private val fqcnIgnore by lazy {
+    listOf(
+        LoggerTree::class,
+        Lumber::class,
+        Lumber.Companion::class,
+        // This list is used by Timber
+        Timber::class,
+        Timber.Forest::class,
+        Timber.Tree::class,
+        Timber.DebugTree::class,
+    ).map { it.java.name }
 }

@@ -13,18 +13,24 @@ import java.net.UnknownHostException
 import java.util.concurrent.TimeoutException
 
 public fun isConnectionError(error: Throwable): Boolean =
-    when (error) {
-        is UnknownHostException,
-        is StreamResetException,
-        is ProtocolException,
-        is SocketTimeoutException,
-        is HttpRequestTimeoutException,
-        is TimeoutException ->
-            true
-        is ResponseException ->
+    when {
+        isNoInternetError(error) -> true
+        error is ProtocolException -> true
+        error is ResponseException ->
             // If the http code is 4xx, a ClientRequestException is thrown.
             // This case shall be handled as standard error, not connection error.
             error !is ClientRequestException
         else ->
             false
+    }
+
+public fun isNoInternetError(error: Throwable): Boolean =
+    when (error) {
+        is UnknownHostException,
+        is StreamResetException,
+        is SocketTimeoutException,
+        is HttpRequestTimeoutException,
+        is TimeoutException,
+        -> true
+        else -> false
     }

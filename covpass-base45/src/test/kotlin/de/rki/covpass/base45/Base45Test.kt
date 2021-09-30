@@ -5,14 +5,7 @@
 
 package de.rki.covpass.base45
 
-import assertk.assertThat
-import assertk.assertions.hasSize
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
-import assertk.assertions.isInstanceOf
-import assertk.assertions.isTrue
-import assertk.fail
-import org.junit.Test
+import kotlin.test.*
 
 internal class Base45Test {
     /** Makes sure we have *some* kind of (reversible) encoding, but not necessarily the correct one. */
@@ -33,18 +26,17 @@ internal class Base45Test {
         for (data in values) {
             val encoded = Base45.encode(data.toByteArray())
             // The length is correct.
-            assertThat(encoded).hasSize(
-                when (data.size) {
-                    0 -> 0
-                    1 -> 2
-                    2 -> 3
-                    else -> fail("Invalid data input size")
-                }
-            )
+            val expectedLength = when (data.size) {
+                0 -> 0
+                1 -> 2
+                2 -> 3
+                else -> fail("Invalid data input size")
+            }
+            assertEquals(expectedLength, encoded.size)
             // The encoded output only uses chars from ENCODING_CHARSET.
-            assertThat(encoded.all { it in ENCODING_CHARSET }).isTrue()
+            assertTrue(encoded.all { it in ENCODING_CHARSET })
             // The encoding is reversible.
-            assertThat(Base45.decode(encoded).toList()).isEqualTo(data)
+            assertEquals(data, Base45.decode(encoded).toList())
             validEncodings.add(String(encoded))
         }
 
@@ -69,8 +61,7 @@ internal class Base45Test {
             if (String(data) in validEncodings) {
                 continue
             }
-            assertThat { String(Base45.decode(data)) }
-                .isFailure().isInstanceOf(Base45DecodeException::class)
+            assertFailsWith<Base45DecodeException> { String(Base45.decode(data)) }
         }
     }
 
@@ -82,15 +73,15 @@ internal class Base45Test {
     @Test
     fun `encoding and decoding`() {
         for ((raw, base45) in rawToBase45) {
-            assertThat(String(Base45.encode(raw.toByteArray()))).isEqualTo(base45)
-            assertThat(String(Base45.decode(base45.toByteArray()))).isEqualTo(raw)
+            assertEquals(base45, String(Base45.encode(raw.toByteArray())))
+            assertEquals(raw, String(Base45.decode(base45.toByteArray())))
         }
     }
 
     @Test
     fun `invalid base45 strings`() {
         for (x in listOf("::", ":::", "___", "_", "a", "aa", "aaa", "A", "ZZ", "ZZZ")) {
-            assertThat { String(Base45.decode(x.toByteArray())) }.isFailure().isInstanceOf(Base45DecodeException::class)
+            assertFailsWith<Base45DecodeException> { String(Base45.decode(x.toByteArray())) }
         }
     }
 

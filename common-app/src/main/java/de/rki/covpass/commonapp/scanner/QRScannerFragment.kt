@@ -6,22 +6,25 @@
 package de.rki.covpass.commonapp.scanner
 
 import android.Manifest
+import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.savedInstanceState
-import com.ensody.reactivestate.withErrorReporting
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
 import com.journeyapps.barcodescanner.*
 import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
 import de.rki.covpass.commonapp.utils.getScreenSize
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
+import kotlin.math.min
 
 /**
  * QR Scanner Fragment extending from BaseFragment to display a custom layout form scanner view.
@@ -34,7 +37,7 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     private val barcodeCallback: BarcodeCallback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
-            withErrorReporting(::onError) {
+            withErrorReporting {
                 if (scanEnabled.value) {
                     scanEnabled.value = false
                     onBarcodeResult(result)
@@ -71,6 +74,15 @@ public abstract class QRScannerFragment : BaseFragment() {
         decoratedBarcodeView.barcodeView.framingRectSize = Size(screenSize.x, screenSize.y)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
         checkPermission()
+        view.post {
+            binding.scannerImageView.setImageDrawable(
+                ScannerDrawable(
+                    binding.zxingBarcodeScanner.width,
+                    binding.zxingBarcodeScanner.height - binding.scannerCloseLayout.height,
+                    resources.getDimension(R.dimen.grid_four)
+                )
+            )
+        }
     }
 
     protected abstract fun onBarcodeResult(result: BarcodeResult)
@@ -95,5 +107,43 @@ public abstract class QRScannerFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         decoratedBarcodeView.pause()
+    }
+
+    private class ScannerDrawable(
+        private val width: Int,
+        private val height: Int,
+        private val border: Float,
+    ) : Drawable() {
+        override fun draw(canvas: Canvas) {
+            bounds.set(0, 0, width, height)
+            val path = Path()
+            path.fillType = Path.FillType.EVEN_ODD
+            path.addRect(RectF(0f, 0f, bounds.width().toFloat(), bounds.height().toFloat()), Path.Direction.CCW)
+
+            val squareSize = min(bounds.width(), bounds.height()) - 2 * border
+
+            path.addRect(
+                RectF(
+                    bounds.width() / 2f - squareSize / 2,
+                    bounds.height() / 2f - squareSize / 2,
+                    bounds.width() / 2f + squareSize / 2,
+                    bounds.height() / 2f + squareSize / 2,
+                ),
+                Path.Direction.CW
+            )
+
+            val paint = Paint()
+            paint.color = Color.BLACK
+            paint.alpha = 57
+            canvas.drawPath(path, paint)
+        }
+
+        override fun setAlpha(alpha: Int) {}
+
+        override fun setColorFilter(colorFilter: ColorFilter?) {}
+
+        override fun getOpacity(): Int {
+            return PixelFormat.OPAQUE
+        }
     }
 }

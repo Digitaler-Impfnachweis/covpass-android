@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.commonapp.storage.OnboardingRepository
+import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import kotlinx.serialization.cbor.Cbor
@@ -37,5 +38,9 @@ public abstract class CommonDependencies {
 
     public val onboardingRepository: OnboardingRepository = OnboardingRepository(
         CborSharedPrefsStore("onboarding_prefs", cbor)
+    )
+
+    public val updateInfoRepository: UpdateInfoRepository = UpdateInfoRepository(
+        CborSharedPrefsStore("update_info_prefs", cbor)
     )
 }

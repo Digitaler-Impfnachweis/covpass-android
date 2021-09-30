@@ -16,7 +16,7 @@ import de.rki.covpass.app.databinding.ValidityCertificateItemBinding
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validityresult.*
 import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.Test
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import dgca.verifier.app.engine.Result
 import dgca.verifier.app.engine.ValidationResult
@@ -79,7 +79,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                     )
                                 )
                         }
-                        is Test -> {
+                        is TestCert -> {
                             parent.findNavigator()
                                 .push(
                                     TestResultFragmentNav(
@@ -112,7 +112,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                         binding.certificateItemValidity.setText(R.string.certificate_check_validity_result_not_valid)
                     }
                     item.results.find { it.result == Result.OPEN } != null -> {
-                        if (cert.dgcEntry is Test) {
+                        if (cert.dgcEntry is TestCert) {
                             binding.certificateTypeIcon.setImageResource(R.drawable.validation_test_open)
                         } else {
                             binding.certificateTypeIcon.setImageResource(R.drawable.validation_open)
@@ -121,7 +121,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                         binding.certificateItemValidity.setText(R.string.certificate_check_validity_result_not_testable)
                     }
                     else -> {
-                        if (cert.dgcEntry is Test) {
+                        if (cert.dgcEntry is TestCert) {
                             binding.certificateTypeIcon.setImageResource(R.drawable.validation_test_passed)
                         } else {
                             binding.certificateTypeIcon.setImageResource(R.drawable.validation_passed)
@@ -135,7 +135,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                     is Vaccination -> {
                         certificateItemSubtitle.setText(R.string.certificate_check_validity_vaccination)
                     }
-                    is Test -> {
+                    is TestCert -> {
                         certificateItemSubtitle.setText(R.string.certificate_check_validity_test)
                     }
                     is Recovery -> {

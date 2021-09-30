@@ -14,7 +14,7 @@
     android:roundIcon="@mipmap/ic_launcher_round">
     <provider
       android:name="de.rki.covpass.commonapp.utils.CommonFileProvider"
-      android:authorities="de.rki.covpass.app.provider"
+      android:authorities="@string/common_file_provider_authority"
       android:exported="false"
       android:grantUriPermissions="true">
       <meta-data

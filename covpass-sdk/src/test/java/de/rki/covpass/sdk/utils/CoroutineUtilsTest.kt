@@ -5,12 +5,10 @@
 
 package de.rki.covpass.sdk.utils
 
-import assertk.assertThat
-import assertk.assertions.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Test
+import kotlin.test.*
 
 internal class CoroutineUtilsTest {
 
@@ -26,21 +24,21 @@ internal class CoroutineUtilsTest {
                 count
             }
         }
-        assertThat(deferred.isCompleted).isFalse()
+        assertFalse(deferred.isCompleted)
         advanceTimeBy(1000 + 2000 + 3900)
-        assertThat(deferred.isCompleted).isFalse()
+        assertFalse(deferred.isCompleted)
         advanceTimeBy(200)
-        assertThat(deferred.isCompleted).isTrue()
-        assertThat(deferred.await()).isEqualTo(count)
+        assertTrue(deferred.isCompleted)
+        assertEquals(count, deferred.await())
     }
 
     @Test
     fun `retry throws last exception`() = runBlockingTest {
-        assertThat {
+        assertFailsWith<IllegalStateException> {
             retry(2) {
                 throw IllegalStateException("")
             }
-        }.isFailure().isInstanceOf(IllegalStateException::class)
+        }
     }
 
     @Test
@@ -52,9 +50,9 @@ internal class CoroutineUtilsTest {
             }
         }
         advanceTimeBy(4900)
-        assertThat(deferred.isCompleted).isFalse()
+        assertFalse(deferred.isCompleted)
         advanceTimeBy(200)
-        assertThat(deferred.isCompleted).isTrue()
-        assertThat(deferred.await()).isEqualTo(listOf(11, 12, 13, 14, 15))
+        assertTrue(deferred.isCompleted)
+        assertEquals(listOf(11, 12, 13, 14, 15), deferred.await())
     }
 }

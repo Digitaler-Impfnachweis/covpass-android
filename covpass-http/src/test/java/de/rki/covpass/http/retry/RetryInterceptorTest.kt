@@ -5,9 +5,6 @@
 
 package de.rki.covpass.http.retry
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import de.rki.covpass.http.retry.RetryInterceptor.Companion.MAX_ATTEMPTS
 import de.rki.covpass.http.retry.RetryInterceptor.Companion.RETRY_ALLOWED_HEADER
 import de.rki.covpass.http.retry.RetryInterceptor.Companion.RETRY_ALLOWED_VALUE
@@ -20,7 +17,9 @@ import okhttp3.Headers.Companion.toHeaders
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 internal class RetryInterceptorTest {
     private val subject = RetryInterceptor()
@@ -39,7 +38,7 @@ internal class RetryInterceptorTest {
 
         val result = subject.intercept(chain)
 
-        assertThat(result).isEqualTo(response)
+        assertEquals(response, result)
         verify(exactly = 1) { chain.proceed(request) }
     }
 
@@ -55,9 +54,9 @@ internal class RetryInterceptorTest {
         every { request.headers } returns Headers.headersOf("a", "b")
         every { response.code } returns 200
 
-        assertThat {
+        assertFails {
             subject.intercept(chain)
-        }.isFailure()
+        }
 
         verify(exactly = MAX_ATTEMPTS) { chain.proceed(request) }
     }
@@ -74,7 +73,7 @@ internal class RetryInterceptorTest {
         every { request.headers } returns Headers.headersOf("a", "b")
         every { response.code } returns 500
 
-        assertThat(subject.intercept(chain).code).isEqualTo(500)
+        assertEquals(500, subject.intercept(chain).code)
 
         verify(exactly = MAX_ATTEMPTS) { chain.proceed(request) }
     }
@@ -141,7 +140,7 @@ internal class RetryInterceptorTest {
         )
         every { response.code } returns 500
 
-        assertThat(subject.intercept(chain).code).isEqualTo(500)
+        assertEquals(500, subject.intercept(chain).code)
 
         verify(exactly = MAX_ATTEMPTS) { chain.proceed(request) }
         verify(exactly = 1) { builder.removeHeader(RETRY_ALLOWED_HEADER) }

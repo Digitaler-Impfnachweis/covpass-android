@@ -14,7 +14,7 @@ pipeline {
         }
     }
     tools {
-        jdk 'jdk_11'
+        jdk 'jdk_11_hotspot'
     }
     options {
         disableConcurrentBuilds()

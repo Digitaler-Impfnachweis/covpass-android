@@ -35,9 +35,8 @@ import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
-import de.rki.covpass.sdk.utils.formatDateTime
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 
 /**
  * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments.
@@ -47,7 +46,7 @@ internal interface DgcEntryDetailCallback {
 }
 
 /**
- * Base fragment for displaying the details of a [Vaccination], [Test] or [Recovery].
+ * Base fragment for displaying the details of a [Vaccination], [TestCert] or [Recovery].
  */
 internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEvents, DialogListener {
 
@@ -109,9 +108,6 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
 
     abstract fun getHeaderText(): String
 
-    open fun getHeaderTitle(cert: CovCertificate): String =
-        getString(R.string.vaccination_certificate_detail_view_vaccination_note)
-
     open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
 
     abstract fun getDataRows(cert: CovCertificate): List<DataRow>
@@ -123,7 +119,6 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
         val covCertificate = combinedCovCertificate.covCertificate
         setupActionBar(covCertificate)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
-        binding.dgcDetailHeaderTitleTextview.text = getHeaderTitle(covCertificate)
         binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(covCertificate)
         showExpirationInfoElement(combinedCovCertificate)
 
@@ -165,17 +160,11 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
             binding.dgcDetailDataContainer.addView(extendedDataRowView)
         }
 
-        val isValid = combinedCovCertificate.status != CertValidationResult.Expired &&
-            combinedCovCertificate.status != CertValidationResult.Invalid
-        binding.dgcDetailButtonsContainer.isVisible = isValid
-
-        if (isValid) {
-            binding.dgcDetailDisplayQrButton.setOnClickListener {
-                findNavigator().push(DisplayQrCodeFragmentNav(certId))
-            }
-            binding.dgcDetailExportPdfButton.setOnClickListener {
-                findNavigator().push(DetailExportPdfFragmentNav(certId))
-            }
+        binding.dgcDetailDisplayQrButton.setOnClickListener {
+            findNavigator().push(DisplayQrCodeFragmentNav(certId))
+        }
+        binding.dgcDetailExportPdfButton.setOnClickListener {
+            findNavigator().push(DetailExportPdfFragmentNav(certId))
         }
 
         binding.dgcDetailInfoFooterGerman.apply {
@@ -197,12 +186,8 @@ internal abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailE
                 binding.dgcDetailExpirationInfoElement.showInfo(
                     title = getString(
                         R.string.certificate_expires_detail_view_note_title,
-                        LocalDateTime.ofInstant(
-                            combinedCovCertificate.covCertificate.validUntil, ZoneOffset.UTC
-                        ).formatDateTime().split(",")[0].trim(),
-                        LocalDateTime.ofInstant(
-                            combinedCovCertificate.covCertificate.validUntil, ZoneOffset.UTC
-                        ).formatDateTime().split(",")[1].trim()
+                        combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                        combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                     ),
                     description = getString(R.string.certificate_expires_detail_view_note_message),
                     iconRes = R.drawable.main_cert_expiry_period

@@ -5,12 +5,11 @@
 
 package de.rki.covpass.sdk.cert
 
-import assertk.assertThat
-import assertk.assertions.isNotEmpty
 import de.rki.covpass.sdk.crypto.readPemKeys
 import de.rki.covpass.sdk.utils.BaseSdkTest
 import de.rki.covpass.sdk.utils.readTextAssetFromTest
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
 internal class DscListDecoderTest : BaseSdkTest() {
     val key by lazy { readPemKeys(readTextAssetFromTest("covpass-sdk/dsc-list-signing-key.pem")).first() }
@@ -22,6 +21,6 @@ internal class DscListDecoderTest : BaseSdkTest() {
     fun `validate dsc list`() {
         // Decoding validates the signature, so if we don't get an exception here
         // we should be fine.
-        assertThat(decoder.decodeDscList(rawDscList).certificates).isNotEmpty()
+        assertTrue(decoder.decodeDscList(rawDscList).certificates.isNotEmpty())
     }
 }
