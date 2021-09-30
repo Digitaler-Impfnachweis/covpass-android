@@ -7,7 +7,7 @@ env:
   GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   PUBLISH_APPS: "false"
 
-on: [create, workflow_dispatch]
+on: [push, workflow_dispatch]
 
 jobs:
   publish:
