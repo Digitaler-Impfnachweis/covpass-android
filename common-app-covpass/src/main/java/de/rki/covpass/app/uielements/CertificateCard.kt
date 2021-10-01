@@ -33,8 +33,16 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateHeaderTextview.text = newValue
     }
 
+    private var headerColor: Int by Delegates.observable(R.color.backgroundPrimary) { _, _, newValue ->
+        binding.certificateHeaderTextview.setTextColor(newValue)
+    }
+
     private var status: String? by Delegates.observable(null) { _, _, newValue ->
         binding.certificateStatusTextview.text = newValue
+    }
+
+    private var statusColor: Int by Delegates.observable(R.color.backgroundPrimary) { _, _, newValue ->
+        binding.certificateStatusTextview.setTextColor(newValue)
     }
 
     private var protectionText: String? by Delegates.observable(null) { _, _, newValue ->
@@ -149,6 +157,8 @@ public class CertificateCard @JvmOverloads constructor(
             CertValidationResult.Valid,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
+                headerColor = ContextCompat.getColor(context, R.color.onInfo)
+                statusColor = ContextCompat.getColor(context, R.color.onInfo)
                 protectionTextColor = ContextCompat.getColor(context, R.color.onInfo)
                 nameTextColor = ContextCompat.getColor(context, R.color.onInfo)
                 cardBackground = ContextCompat.getColor(context, R.color.info70)
@@ -159,10 +169,10 @@ public class CertificateCard @JvmOverloads constructor(
                             R.drawable.booster_notification_icon
                         }
                         certStatus == CertValidationResult.Valid -> {
-                            R.drawable.main_cert_status_complete
+                            R.drawable.main_cert_status_complete_white
                         }
                         else -> {
-                            R.drawable.main_cert_expiry_period
+                            R.drawable.main_cert_expiry_period_white
                         }
                     }
                 )
@@ -194,6 +204,8 @@ public class CertificateCard @JvmOverloads constructor(
             CertValidationResult.Valid,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
+                headerColor = ContextCompat.getColor(context, R.color.onBackground)
+                statusColor = ContextCompat.getColor(context, R.color.onBackground)
                 protectionTextColor = ContextCompat.getColor(context, R.color.onBackground)
                 nameTextColor = ContextCompat.getColor(context, R.color.onBackground)
                 cardBackground = ContextCompat.getColor(context, R.color.info20)
@@ -209,7 +221,7 @@ public class CertificateCard @JvmOverloads constructor(
                         else -> R.drawable.main_cert_expiry_period
                     }
                 )
-                arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_blue)
+                arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_black)
                 cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_light_blue)
             }
             CertValidationResult.Invalid ->
@@ -236,15 +248,17 @@ public class CertificateCard @JvmOverloads constructor(
             CertValidationResult.Valid,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
+                headerColor = ContextCompat.getColor(context, R.color.onInfo)
+                statusColor = ContextCompat.getColor(context, R.color.onInfo)
                 protectionTextColor = ContextCompat.getColor(context, R.color.onInfo)
                 nameTextColor = ContextCompat.getColor(context, R.color.onInfo)
                 cardBackground = ContextCompat.getColor(context, R.color.test_certificate_background)
                 statusImage = ContextCompat.getDrawable(
                     context,
                     if (certStatus == CertValidationResult.Valid) {
-                        R.drawable.main_cert_test
+                        R.drawable.main_cert_test_white
                     } else {
-                        R.drawable.main_cert_expiry_period
+                        R.drawable.main_cert_expiry_period_white
                     }
                 )
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
@@ -274,15 +288,17 @@ public class CertificateCard @JvmOverloads constructor(
             CertValidationResult.Valid,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
+                headerColor = ContextCompat.getColor(context, R.color.onInfo)
+                statusColor = ContextCompat.getColor(context, R.color.onInfo)
                 protectionTextColor = ContextCompat.getColor(context, R.color.onInfo)
                 nameTextColor = ContextCompat.getColor(context, R.color.onInfo)
                 cardBackground = ContextCompat.getColor(context, R.color.brandAccent90)
                 statusImage = ContextCompat.getDrawable(
                     context,
                     if (certStatus == CertValidationResult.Valid) {
-                        R.drawable.main_cert_recovery
+                        R.drawable.main_cert_status_complete_white
                     } else {
-                        R.drawable.main_cert_expiry_period
+                        R.drawable.main_cert_expiry_period_white
                     }
                 )
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)

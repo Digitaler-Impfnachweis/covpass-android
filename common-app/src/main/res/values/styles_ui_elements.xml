@@ -87,7 +87,7 @@
   </style>
 
   <style name="CovPassCardView">
-    <item name="cardCornerRadius">@dimen/grid_two</item>
+    <item name="cardCornerRadius">@dimen/card_view_corner_radius</item>
   </style>
 
   <style name="CovPassCardView.Elevated">

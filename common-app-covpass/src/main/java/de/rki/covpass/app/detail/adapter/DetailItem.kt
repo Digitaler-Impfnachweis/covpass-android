@@ -36,6 +36,11 @@ public sealed class DetailItem {
         public val subtitle: String?,
     ) : DetailItem()
 
+    public class Infobox(
+        public val title: String,
+        public val description: String
+    ) : DetailItem()
+
     public class Certificate(
         public val id: String,
         public val type: DGCEntryType,

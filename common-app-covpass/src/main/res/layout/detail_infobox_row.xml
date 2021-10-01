@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<de.rki.covpass.commonapp.uielements.InfoElement xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/detail_infobox_element"
+  style="@style/InfoElement.Warning"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginHorizontal="@dimen/grid_three"
+  android:layout_marginBottom="@dimen/grid_four_half"
+  app:description="@string/certificate_add_popup_note_message"
+  app:title="@string/certificate_add_popup_note_title"
+  tools:visibility="visible" />
+

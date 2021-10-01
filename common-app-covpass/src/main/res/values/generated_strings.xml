@@ -62,11 +62,14 @@
 	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be reliably verified with the CovPassCheck app.</string>
 
 	<!-- SECTION: popup: Remark within the app towards the CovPassCheck app -->
-	<string name="certificates_overview_all_certificates_app_reference_title">Please scan!</string>
-	<string name="certificates_overview_all_certificates_app_reference_text">Do not show this sensitive data to other people in restaurants, at events or in similar situations. Always have your QR code checked with the CovPassCheck app.</string>
-	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">Open the CovpassCheck app (External Link)</string>
+	<string name="certificates_start_screen_pop_up_app_reference_title">Please scan!</string>
+	<string name="certificate_start_screen_pop_up_app_reference_text">Please insist to have your certificate scanned with the CovPassCheck app. Only by scanning your QR code and showing your proof of identity the validity of your vaccination protection can be checked reliably while protecting your data.</string>
+	<string name="certificate_popup_checkapp_link_label">Do you work in a restaurant or at events? Check your customers’ certificates with ease:</string>
+	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">Download the CovPassCheck app (External Link)</string>
+
 	<string name="certificates_start_screen_pop_up_app_reference_button">OK</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Close Pop-up</string>
+	<string name="accessibility_certificate_popup_checkapp_announce">The view \\"Please scan!\\" has been opened</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="accessibility_certificate_add_popup_label_close">Close</string>
@@ -356,6 +359,8 @@
 	<string name="accessibility_test_certificate_detail_view_data_name_standard">Standardized name</string>
 	<string name="test_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="accessibility_test_certificate_detail_view_data_date_of_birth">Date of birth (Year-Month-Day)</string>
+	<string name="certificates_overview_all_certificates_app_reference_title">Please scan!</string>
+	<string name="certificates_overview_all_certificates_app_reference_text">Do not show this sensitive data to other people in restaurants, at events or in similar situations. Always have your QR code checked with the CovPassCheck app.</string>
 	<string name="test_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or pathogen</string>
 	<string name="accessibility_test_certificate_detail_view_data_disease">Disease or pathogen</string>
 	<string name="test_certificate_detail_view_data_test_type">Art des Tests / Type of test</string>

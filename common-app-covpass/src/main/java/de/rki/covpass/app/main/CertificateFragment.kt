@@ -88,7 +88,10 @@ internal class CertificateFragment : BaseFragment() {
                                         R.string.vaccination_start_screen_qrcode_booster_vaccination_note_subtitle
                                     )
                                 } else {
-                                    getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
+                                    getString(
+                                        R.string.vaccination_start_screen_qrcode_complete_protection_subtitle,
+                                        mainCertificate.validDate.formatDateOrEmpty()
+                                    )
                                 }
                             },
                             getString(R.string.vaccination_full_immunization_action_button),

@@ -20,6 +20,9 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
+import de.rki.covpass.app.checkerremark.CheckRemarkCallback
+import de.rki.covpass.app.checkerremark.CheckerRemarkFragmentNav
+import de.rki.covpass.app.checkerremark.CheckerRemarkRepository.Companion.CURRENT_CHECKER_REMARK_VERSION
 import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
@@ -47,7 +50,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
  * The main fragment hosts a [ViewPager2] to display all [GroupedCertificates] and serves as entry point for further
  * actions (e.g. add new certificate, show settings screen, show selected certificate)
  */
-internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, UpdateInfoCallback {
+internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, UpdateInfoCallback, CheckRemarkCallback {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
@@ -74,10 +77,16 @@ internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, Up
             updateCertificates(certs, viewModel.selectedCertId)
         }
 
-        if (commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION) {
-            findNavigator().push(UpdateInfoCovpassFragmentNav())
-        } else {
-            validateBoosterNotification()
+        when {
+            commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION -> {
+                findNavigator().push(UpdateInfoCovpassFragmentNav())
+            }
+            covpassDeps.checkerRemarkRepository.checkerRemarkShown.value != CURRENT_CHECKER_REMARK_VERSION -> {
+                findNavigator().push(CheckerRemarkFragmentNav())
+            }
+            else -> {
+                validateBoosterNotification()
+            }
         }
     }
 
@@ -147,6 +156,14 @@ internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, Up
     }
 
     override fun onUpdateInfoFinish() {
+        if (covpassDeps.checkerRemarkRepository.checkerRemarkShown.value != CURRENT_CHECKER_REMARK_VERSION) {
+            findNavigator().push(CheckerRemarkFragmentNav())
+        } else {
+            validateBoosterNotification()
+        }
+    }
+
+    override fun onCheckRemarkFinish() {
         validateBoosterNotification()
     }
 

@@ -182,10 +182,7 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
-                                        getString(
-                                            R.string.vaccination_certificate_overview_complete_from_title,
-                                            mainCertificate.covCertificate.validDate.formatDateOrEmpty()
-                                        )
+                                        getString(R.string.vaccination_certificate_overview_complete_from_title)
                                 }
                                 val message = when (certStatus) {
                                     CertValidationResult.Expired ->
@@ -433,6 +430,10 @@ internal class DetailFragment :
                     DetailItem.Header(
                         getString(R.string.certificates_overview_all_certificates_title),
                         getString(R.string.accessibility_certificates_overview_all_certificates_title)
+                    ),
+                    DetailItem.Infobox(
+                        getString(R.string.certificates_overview_all_certificates_app_reference_title),
+                        getString(R.string.certificates_overview_all_certificates_app_reference_text)
                     )
                 )
             )

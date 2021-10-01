@@ -8,6 +8,7 @@ package de.rki.covpass.app.dependencies
 import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.androidDeps
+import de.rki.covpass.app.checkerremark.CheckerRemarkRepository
 import de.rki.covpass.app.common.ToggleFavoriteUseCase
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
@@ -39,6 +40,12 @@ internal abstract class CovpassDependencies {
         CertRepository(
             CborSharedPrefsStore("covpass_prefs", cbor),
             certificateListMapper,
+        )
+    }
+
+    val checkerRemarkRepository: CheckerRemarkRepository by lazy {
+        CheckerRemarkRepository(
+            CborSharedPrefsStore("checker_remark_prefs", cbor),
         )
     }
 

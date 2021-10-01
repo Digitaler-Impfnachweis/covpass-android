@@ -13,4 +13,4 @@
   android:layout_marginHorizontal="@dimen/grid_three"
   android:layout_marginTop="@dimen/grid_five"
   android:layout_marginBottom="@dimen/grid_two"
-  tools:text="@string/vaccination_certificate_detail_view_personal_data_title" />
+  tools:text="@string/certificates_overview_personal_data_title" />

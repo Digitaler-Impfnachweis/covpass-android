@@ -43,8 +43,9 @@ internal class DetailAdapter(
         private const val ITEM_VIEW_TYPE_WIDGET = 1
         private const val ITEM_VIEW_TYPE_HEADER = 2
         private const val ITEM_VIEW_TYPE_PERSONAL = 3
-        private const val ITEM_VIEW_TYPE_CERTIFICATE = 4
-        private const val ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION = 5
+        private const val ITEM_VIEW_TYPE_INFOBOX = 4
+        private const val ITEM_VIEW_TYPE_CERTIFICATE = 5
+        private const val ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION = 6
     }
 
     override fun getItemCount(): Int = items.size
@@ -55,6 +56,7 @@ internal class DetailAdapter(
             ITEM_VIEW_TYPE_WIDGET -> WidgetViewHolder(parent, listener)
             ITEM_VIEW_TYPE_HEADER -> HeaderViewHolder(parent)
             ITEM_VIEW_TYPE_PERSONAL -> PersonalDataViewHolder(parent)
+            ITEM_VIEW_TYPE_INFOBOX -> InfoboxViewHolder(parent)
             ITEM_VIEW_TYPE_CERTIFICATE -> CertificateViewHolder(parent, listener)
             ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION -> NotificationViewHolder(parent)
             else -> throw ClassCastException("Unknown viewType $viewType")
@@ -71,6 +73,7 @@ internal class DetailAdapter(
             is DetailItem.Widget -> ITEM_VIEW_TYPE_WIDGET
             is DetailItem.Header -> ITEM_VIEW_TYPE_HEADER
             is DetailItem.Personal -> ITEM_VIEW_TYPE_PERSONAL
+            is DetailItem.Infobox -> ITEM_VIEW_TYPE_INFOBOX
             is DetailItem.Certificate -> ITEM_VIEW_TYPE_CERTIFICATE
             is DetailItem.Notification -> ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION
         }
@@ -131,6 +134,18 @@ private class PersonalDataViewHolder(
             binding.detailDataHeaderTextview.text = it.title
             binding.detailDataHeaderTextview.contentDescription = it.titleAccessibleDescription
             binding.detailDataTextview.text = it.subtitle
+        }
+    }
+}
+
+private class InfoboxViewHolder(
+    parent: ViewGroup,
+) : BaseViewHolder<DetailInfoboxRowBinding>(parent, DetailInfoboxRowBinding::inflate) {
+
+    override fun onItemBind(item: DetailItem) {
+        (item as DetailItem.Infobox).let {
+            binding.detailInfoboxElement.title = it.title
+            binding.detailInfoboxElement.description = it.description
         }
     }
 }

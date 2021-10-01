@@ -25,6 +25,10 @@
     <item name="android:textColor">@color/onInfo</item>
   </style>
 
+  <style name="DefaultText.Small">
+    <item name="android:textSize">@dimen/textsize_small</item>
+  </style>
+
   <style name="Header">
     <item name="android:lineSpacingMultiplier">1.2</item>
     <item name="android:fontFamily">@font/opensans_bold</item>

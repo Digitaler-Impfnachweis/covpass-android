@@ -12,5 +12,5 @@
     android:left="@dimen/grid_two"
     android:right="@dimen/grid_two"
     android:top="@dimen/grid_two" />
-  <corners android:radius="@dimen/grid_four" />
+  <corners android:radius="@dimen/qr_code_image_radius" />
 </shape>
