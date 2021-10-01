@@ -26,6 +26,14 @@ The apps live in these modules:
 
 Note: We explicitly avoid using flavors because they are problematic in many ways. They cause unnecessary Gradle scripts complexity for even non-trivial customizations, they interact badly with module substitution, the variant switcher doesn't work properly in all situations, switching flavors takes time (whereas apps in modules can be switched and launched directly), etc. Our experience at IBM has been much smoother since we threw away all flavors and switched to using modules.
 
+## Release policy and branches
+
+We publish stable releases in separate `release/...` branches (e.g. `release/1.9.x`).
+Pick the latest release branch to get the latest officially published app version.
+
+The `main` branch contains the development state up to the latest stable release branch.
+Often this branch is a little bit behind the latest stable release branch due to our release policy which requires manual reviews and approvals by legal and other teams before we get the green light to publish source into the open.
+
 ## Building the app
 
 You'll need a GitHub personal access token with `read:packages` access and in the parent folder above your repository create a file called `covpass.properties`:
