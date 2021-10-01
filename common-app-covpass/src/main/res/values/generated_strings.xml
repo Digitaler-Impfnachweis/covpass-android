@@ -59,7 +59,7 @@
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Expired</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Invalid</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Check vaccination status</string>
-	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be verified reliably with the CovPassCheck app.</string>
+	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be reliably verified with the CovPassCheck app.</string>
 
 	<!-- SECTION: popup: Remark within the app towards the CovPassCheck app -->
 	<string name="certificates_overview_all_certificates_app_reference_title">Please scan!</string>

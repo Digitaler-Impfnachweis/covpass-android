@@ -55,7 +55,10 @@
 	<string name="validation_start_screen_offline_modus_note_update">Most recent update</string>
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Most recent update: %s</string>
 	<string name="validation_start_screen_offline_modus_certificates">Certificates: %s</string>
-	<string name="validation_start_screen_offline_modus_rules">Rules: %s</string>
+	<string name="validation_start_screen_offline_modus_rules">Ruleset: %s</string>
+	<string name="validation_start_screen_offline_modus_information_title">App ruleset</string>
+	<string name="validation_start_screen_offline_modus_information">Here you can manually update the ruleset to verify certificates.</string>
+	<string name="validation_start_screen_offline_modus_button">Update ruleset</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Camera access needed</string>

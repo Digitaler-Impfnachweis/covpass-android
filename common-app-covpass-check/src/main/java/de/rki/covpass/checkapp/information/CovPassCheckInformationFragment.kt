@@ -18,6 +18,7 @@ internal class CovPassCheckInformationFragmentNav : FragmentNav(CovPassCheckInfo
  * [InformationFragment].
  */
 internal class CovPassCheckInformationFragment : InformationFragment() {
+    override val activateAppRuleSet = true
 
     override fun getFAQLinkRes() = R.string.information_faq_link
 

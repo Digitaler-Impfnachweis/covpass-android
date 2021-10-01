@@ -16,9 +16,9 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.ibm.health.common.android.utils.getSpanned
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InfoElementBinding
-import com.ibm.health.common.android.utils.getSpanned
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlin.properties.Delegates
 
@@ -46,6 +46,12 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoSubtitle.setTextAppearance(newValue)
     }
 
+    public var subtitleTopMarginDimenRes: Int by Delegates.observable(R.dimen.grid_zero) { _, _, newValue ->
+        val marginLayoutParams = binding.infoSubtitle.layoutParams as MarginLayoutParams
+        marginLayoutParams.topMargin = resources.getDimensionPixelSize(newValue)
+        binding.infoSubtitle.requestLayout()
+    }
+
     public var description: String? by Delegates.observable(null) { _, _, newValue ->
         binding.infoDescription.apply {
             text = getSpanned(newValue ?: "")
@@ -61,6 +67,12 @@ public class InfoElement @JvmOverloads constructor(
 
     public var descriptionStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground) { _, _, newValue ->
         binding.infoDescription.setTextAppearance(newValue)
+    }
+
+    public var descriptionTopMarginDimenRes: Int by Delegates.observable(R.dimen.grid_two) { _, _, newValue ->
+        val marginLayoutParams = binding.infoDescription.layoutParams as MarginLayoutParams
+        marginLayoutParams.topMargin = resources.getDimensionPixelSize(newValue)
+        binding.infoDescription.requestLayout()
     }
 
     public var icon: Drawable? by Delegates.observable(null) { _, _, newValue ->
@@ -148,6 +160,8 @@ public fun InfoElement.showInfo(
     iconRes: Int? = null,
     descriptionLink: View.OnClickListener? = null,
     descriptionStyle: Int? = null,
+    subtitleTopMarginDimenRes: Int? = null,
+    descriptionTopMarginDimenRes: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -158,5 +172,11 @@ public fun InfoElement.showInfo(
     }
     if (descriptionStyle != null) {
         this.descriptionStyle = descriptionStyle
+    }
+    if (subtitleTopMarginDimenRes != null) {
+        this.subtitleTopMarginDimenRes = subtitleTopMarginDimenRes
+    }
+    if (descriptionTopMarginDimenRes != null) {
+        this.descriptionTopMarginDimenRes = descriptionTopMarginDimenRes
     }
 }

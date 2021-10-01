@@ -47,12 +47,13 @@
         style="@style/NavigationField"
         android:background="@color/onBrandBase"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
-      <View android:id="@+id/divider_easy_language"
+      <View
+        android:id="@+id/divider_easy_language"
         style="@style/Divider"
         android:visibility="gone"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
       <TextView
         android:id="@+id/information_field_contacts"
@@ -88,6 +89,15 @@
         android:background="@color/onBrandBase" />
 
       <View style="@style/Divider" />
+
+      <TextView
+        android:id="@+id/information_field_app_rules_update"
+        style="@style/NavigationField"
+        android:background="@color/onBrandBase" />
+
+      <View
+        android:id="@+id/information_field_app_rules_update_divider"
+        style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_app_version_label"

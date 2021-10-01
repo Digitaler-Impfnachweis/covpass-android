@@ -33,6 +33,8 @@ public abstract class InformationFragment : BaseFragment() {
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_informationt_announce
 
+    public open val activateAppRuleSet: Boolean = false
+
     @SuppressLint("StringFormatInvalid")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,6 +90,17 @@ public abstract class InformationFragment : BaseFragment() {
             setText(R.string.app_information_title_contact)
             setOnClickListener {
                 findNavigator().push(ContactsFragmentNav())
+            }
+        }
+
+        binding.informationFieldAppRulesUpdate.isVisible = activateAppRuleSet
+        binding.informationFieldAppRulesUpdateDivider.isVisible = activateAppRuleSet
+        if (activateAppRuleSet) {
+            binding.informationFieldAppRulesUpdate.apply {
+                setText(R.string.validation_start_screen_offline_modus_information_title)
+                setOnClickListener {
+                    findNavigator().push(AppRulesUpdateFragment())
+                }
             }
         }
     }

@@ -56,6 +56,9 @@
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
 	<string name="validation_start_screen_offline_modus_certificates">Zertifikate: %s</string>
 	<string name="validation_start_screen_offline_modus_rules">Regelsets: %s</string>
+	<string name="validation_start_screen_offline_modus_information_title">App Regelset</string>
+	<string name="validation_start_screen_offline_modus_information">Hier können Sie Ihr Regelset zur Verifizierung Ihrer Zertifikate manuell aktualisieren.</string>
+	<string name="validation_start_screen_offline_modus_button">Regelset aktualisieren</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
