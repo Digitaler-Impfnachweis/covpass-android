@@ -221,5 +221,9 @@ dependencies {
             api "androidx.room:room-runtime:$roomVersion"
             kapt "androidx.room:room-compiler:$roomVersion"
         }
+
+        clockSync = {
+            api 'com.github.instacart.truetime-android:library:3.4'
+        }
     }
 }

@@ -43,6 +43,8 @@
 	<string name="accessibility_validation_start_screen_label_information">Mehr Informationen</string>
 	<string name="validation_start_screen_title">Übersicht</string>
 	<string name="validation_start_screen_scan_title">Zertifikat prüfen</string>
+	<string name="validation_start_screen_scan_sync_message_title">Datum und Uhrzeit prüfen</string>
+	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Telefons. \n\n Soll: %s</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>

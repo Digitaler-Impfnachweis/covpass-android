@@ -5,13 +5,16 @@
 
 package de.rki.covpass.commonapp.dependencies
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.commonapp.storage.OnboardingRepository
+import de.rki.covpass.commonapp.truetime.TimeValidationRepository
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.getEncryptedSharedPreferences
 import kotlinx.serialization.cbor.Cbor
 
 /**
@@ -43,4 +46,9 @@ public abstract class CommonDependencies {
     public val updateInfoRepository: UpdateInfoRepository = UpdateInfoRepository(
         CborSharedPrefsStore("update_info_prefs", cbor)
     )
+
+    public val timeValidationRepository: TimeValidationRepository = TimeValidationRepository()
+
+    public val trueTimeSharedPrefs: SharedPreferences =
+        getEncryptedSharedPreferences("true_time_shared_prefs")
 }

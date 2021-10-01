@@ -17,7 +17,6 @@ import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.OpenSourceLicenseFragmentNav
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.onboarding.DataProtectionFragmentNav

@@ -8,6 +8,7 @@ package de.rki.covpass.checkapp.main
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
@@ -19,6 +20,9 @@ import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.truetime.TimeValidationState
+import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.DscRepository
@@ -60,6 +64,29 @@ internal class MainFragment : BaseFragment() {
                 get(rulesUpdateRepository.lastRulesUpdate)
             )
         }
+        autoRun {
+            when (val state = get(commonDeps.timeValidationRepository.state)) {
+                is TimeValidationState.Failed -> {
+                    binding.mainClockOutOfSync.isVisible = true
+                    binding.mainClockOutOfSync.showWarning(
+                        title = getString(R.string.validation_start_screen_scan_sync_message_title),
+                        subtitle = getString(
+                            R.string.validation_start_screen_scan_sync_message_text,
+                            LocalDateTime.ofInstant(state.realTime, ZoneId.systemDefault()).formatDateTime()
+                        ),
+                        iconRes = R.drawable.info_warning,
+                    )
+                }
+                TimeValidationState.NotInitialized, TimeValidationState.Success -> {
+                    binding.mainClockOutOfSync.isVisible = false
+                }
+            }.let { }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        commonDeps.timeValidationRepository.validate()
     }
 
     private fun updateAvailabilityCard(lastUpdate: Instant, lastRulesUpdate: Instant) {

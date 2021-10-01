@@ -15,6 +15,9 @@ import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.navigation.android.*
 import com.ibm.health.common.securityprovider.initSecurityProvider
+import com.instacart.library.truetime.TrueTime
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.truetime.CustomCache
 import de.rki.covpass.commonapp.utils.schedulePeriodicWorker
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
@@ -70,6 +73,21 @@ public abstract class CommonApplication : Application() {
         workManager.apply {
             schedulePeriodicWorker<DscListWorker>("dscListWorker")
         }
+    }
+
+    public fun initializeTrueTime() {
+        Thread {
+            runBlocking {
+                retry {
+                    TrueTime
+                        .build()
+                        .withConnectionTimeout(10000)
+                        .withCustomizedCache(CustomCache())
+                        .initialize()
+                }
+                commonDeps.timeValidationRepository.validate()
+            }
+        }.start()
     }
 
     private fun prepopulateDb() {

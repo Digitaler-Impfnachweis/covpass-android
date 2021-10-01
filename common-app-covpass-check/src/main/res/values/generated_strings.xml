@@ -34,7 +34,7 @@
 	<string name="error_connect_internet_for_scan_button_settings">Settings</string>
 	<string name="error_connect_internet_for_scan_button_ok">OK</string>
 	<string name="dialog_start_screen_title">New update available</string>
-	<string name="dialog_start_screen_message">Would you like to update the CovPassCheck-App now?</string>
+	<string name="dialog_start_screen_message">Would you like to update the CovPassCheck app now?</string>
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
@@ -43,6 +43,8 @@
 	<string name="accessibility_validation_start_screen_label_information">More information</string>
 	<string name="validation_start_screen_title">Overview</string>
 	<string name="validation_start_screen_scan_title">Checking a certificate</string>
+	<string name="validation_start_screen_scan_sync_message_title">Check date and time</string>
+	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your phone. \n\n It should be: %s</string>
 	<string name="validation_start_screen_scan_message">Scan the EU Digital COVID Certificate now. You see immediately if the person you are checking has a valid Covid-19 certificate.</string>
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
 	<string name="validation_start_screen_scan_action_button_title">Scan certificate</string>

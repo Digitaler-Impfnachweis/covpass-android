@@ -27,6 +27,7 @@ public class App : CommonApplication() {
             override val errorHandler = ErrorHandler()
         }
         start()
+        initializeTrueTime()
     }
 
     override fun initializeWorkManager(workManager: WorkManager) {

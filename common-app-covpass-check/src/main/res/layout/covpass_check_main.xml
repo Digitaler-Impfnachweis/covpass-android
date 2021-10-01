@@ -107,15 +107,30 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <de.rki.covpass.commonapp.uielements.InfoElement
+      android:id="@+id/main_clock_out_of_sync"
+      style="@style/InfoElement.Warning"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toBottomOf="@+id/main_check_cert_cardview"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_three"
+      android:visibility="gone"
+      tools:visibility="visible"
+      tools:subtitle="@tools:sample/lorem[10]"
+      tools:title="@tools:sample/lorem[3]"
+      />
+
     <com.google.android.material.card.MaterialCardView
       android:id="@+id/main_availability_cardview"
       style="@style/CovPassCardView.Level"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_five"
+      android:layout_marginTop="@dimen/grid_three"
+      app:layout_goneMarginTop="@dimen/grid_five"
       app:cardBackgroundColor="@color/brandAccent10"
-      app:layout_constraintTop_toBottomOf="@id/main_check_cert_cardview">
+      app:layout_constraintTop_toBottomOf="@id/main_clock_out_of_sync">
 
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

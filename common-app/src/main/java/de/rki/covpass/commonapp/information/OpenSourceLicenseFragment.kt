@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.commonapp
+package de.rki.covpass.commonapp.information
 
 import android.os.Bundle
 import android.view.View
@@ -12,6 +12,8 @@ import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
+import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.OpenSourceLicenseBinding
 import de.rki.covpass.commonapp.license.OpenSourceLicenseAdapter
 import de.rki.covpass.commonapp.license.models.OpenSourceItem
