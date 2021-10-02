@@ -11,7 +11,7 @@ dependencies {
         // Additionally, we ensure a consistent set of versions here.
         // ------------------------------------------------------------------------------------------------
         versionConstraints = {
-            api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.1")
+            api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.2")
             api platform("io.ktor:ktor-bom:1.6.3")
             api platform("com.ensody.reactivestate:reactivestate-bom:4.3.2")
             api platform("com.squareup.okhttp3:okhttp-bom:4.9.1")
@@ -24,12 +24,7 @@ dependencies {
                 api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
                 api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-                def kotlinxSerializationVersion = "1.2.2"
-                api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
-                api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion"
-                api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
-
-                api 'org.conscrypt:conscrypt-android:2.5.2'
+                api "org.conscrypt:conscrypt-android:2.5.2"
 
                 def bouncyCastleVersion = "1.69"
                 api "org.bouncycastle:bcprov-jdk15to18:$bouncyCastleVersion"
@@ -41,46 +36,6 @@ dependencies {
 
                 api "com.upokecenter:cbor:4.4.3"
                 api "com.augustcellars.cose:cose-java:1.1.0"
-
-                api 'androidx.appcompat:appcompat:1.3.1'
-                api 'androidx.core:core-ktx:1.6.0'
-                api 'androidx.constraintlayout:constraintlayout:2.1.0'
-
-                api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5'
-
-                def fragmentVersion = "1.3.6"
-                api "androidx.fragment:fragment-ktx:$fragmentVersion"
-                api "androidx.fragment:fragment-testing:$fragmentVersion"
-
-                api 'androidx.annotation:annotation:1.2.0'
-
-                def lifecycleVersion = '2.3.1'
-                api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-service:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
-
-                api 'com.jakewharton.timber:timber:5.0.1'
-
-                // testing constraints
-                api 'androidx.arch.core:core-testing:2.1.0'
-
-                def androidxTestCore = "1.3.0"
-                api "androidx.test:core:$androidxTestCore"
-                api "androidx.test:core-ktx:$androidxTestCore"
-                api "androidx.test:runner:$androidxTestCore"
-                api "androidx.test:rules:$androidxTestCore"
-
-                api 'androidx.test.ext:junit:1.1.2'
-                api 'androidx.test.ext:junit-ktx:1.1.2'
-                api "io.mockk:mockk:1.12.0"
-                api 'junit:junit:4.13.2'
-                api 'org.robolectric:robolectric:4.5.1'
-
-                api 'com.google.android.material:material:1.4.0'
             }
         }
         // ------------------------------------------------------------------------------------------------
@@ -94,85 +49,100 @@ dependencies {
         }
 
         base = {
-            api platform(project(':covpass-bom'))
+            versionConstraints()
 
-            testDependency 'junit:junit'
+            testDependency "junit:junit:4.13.2"
             testDependency "org.jetbrains.kotlin:kotlin-test-junit"
-            testDependency 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
-            testDependency "io.mockk:mockk"
+            testDependency "org.jetbrains.kotlinx:kotlinx-coroutines-test"
+            testDependency "io.mockk:mockk:1.12.0"
         }
 
+        fragmentVersion = "1.3.6"
         baseAndroid = {
             base()
-            api 'androidx.annotation:annotation'
-            api 'com.google.android.material:material'
+            api "androidx.annotation:annotation:1.2.0"
+            api "androidx.core:core-ktx:1.6.0"
 
-            testImplementation('org.robolectric:robolectric') {
-                exclude group: 'org.bouncycastle'
+            testImplementation("org.robolectric:robolectric:4.6.1") {
+                exclude group: "org.bouncycastle"
             }
             testImplementation "org.bouncycastle:bcprov-jdk15to18"
             testImplementation "org.bouncycastle:bcpkix-jdk15to18"
-            testDependency 'androidx.arch.core:core-testing'
-            testDependency 'androidx.fragment:fragment-testing'
-            testDependency 'androidx.test:core'
-            testDependency 'androidx.test:core-ktx'
-            testDependency 'androidx.test:runner'
-            testDependency 'androidx.test:rules'
-            testDependency 'androidx.test.ext:junit'
-            testDependency 'androidx.test.ext:junit-ktx'
+            testDependency "androidx.arch.core:core-testing:2.1.0"
+            testDependency "androidx.fragment:fragment-testing:$fragmentVersion"
+
+            def androidxTestVersion = "1.3.0"
+            testDependency "androidx.test:core:$androidxTestVersion"
+            testDependency "androidx.test:core-ktx:$androidxTestVersion"
+            testDependency "androidx.test:runner:$androidxTestVersion"
+            testDependency "androidx.test:rules:$androidxTestVersion"
+
+            testDependency "androidx.test.ext:junit:1.1.2"
+            testDependency "androidx.test.ext:junit-ktx:1.1.2"
         }
 
         reactiveState = {
-            api 'com.ensody.reactivestate:reactivestate'
-            testDependency 'com.ensody.reactivestate:reactivestate-test'
+            api "com.ensody.reactivestate:reactivestate"
+            testDependency "com.ensody.reactivestate:reactivestate-test"
         }
 
+        activityVersion = "1.3.1"
         androidUI = {
             baseAndroid()
             coroutines()
 
-            api 'androidx.appcompat:appcompat'
-            api 'androidx.core:core-ktx'
-            api 'androidx.fragment:fragment-ktx'
-            api 'androidx.lifecycle:lifecycle-livedata-ktx'
-            api 'androidx.lifecycle:lifecycle-runtime-ktx'
-            api 'androidx.lifecycle:lifecycle-viewmodel-ktx'
-            api 'androidx.lifecycle:lifecycle-viewmodel-savedstate'
-            api 'androidx.constraintlayout:constraintlayout'
-            api 'com.airbnb.android:lottie:4.1.0'
+            api "com.google.android.material:material:1.4.0"
+            api "androidx.appcompat:appcompat:1.3.1"
+
+            api "androidx.activity:activity-ktx:$activityVersion"
+            api "androidx.fragment:fragment-ktx:$fragmentVersion"
+
+            def lifecycleVersion = "2.3.1"
+            api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+            api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+            api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+            api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
+            constraints {
+                api "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+                api "androidx.lifecycle:lifecycle-service:$lifecycleVersion"
+                api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
+            }
+
+            api "androidx.constraintlayout:constraintlayout:2.1.0"
+            api "com.airbnb.android:lottie:4.1.0"
         }
 
         conscrypt = {
-            api 'org.conscrypt:conscrypt-android'
+            api "org.conscrypt:conscrypt-android"
         }
 
         coroutines = {
-            api 'org.jetbrains.kotlinx:kotlinx-coroutines-core'
-            testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test'
+            api "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+            testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test"
         }
 
         timber = {
-            implementation 'com.jakewharton.timber:timber'
+            implementation "com.jakewharton.timber:timber:5.0.1"
         }
 
         ktor = {
             coroutines()
 
-            api 'io.ktor:ktor-client-core'
-            api 'io.ktor:ktor-client-android'
-            api 'io.ktor:ktor-client-json-jvm'
-            api 'io.ktor:ktor-client-okhttp'
-            api 'io.ktor:ktor-client-serialization'
+            api "io.ktor:ktor-client-core"
+            api "io.ktor:ktor-client-android"
+            api "io.ktor:ktor-client-json-jvm"
+            api "io.ktor:ktor-client-okhttp"
+            api "io.ktor:ktor-client-serialization"
 
-            api 'com.squareup.okhttp3:okhttp'
-            api 'com.squareup.okhttp3:logging-interceptor'
+            api "com.squareup.okhttp3:okhttp"
+            api "com.squareup.okhttp3:logging-interceptor"
 
-            testImplementation 'io.ktor:ktor-client-mock-jvm'
+            testImplementation "io.ktor:ktor-client-mock-jvm"
         }
 
         coseJava = {
             api("com.augustcellars.cose:cose-java") {
-                exclude group: 'org.bouncycastle'
+                exclude group: "org.bouncycastle"
             }
             bouncyCastle()
         }
@@ -183,40 +153,41 @@ dependencies {
         }
 
         zxing = {
-            api 'com.journeyapps:zxing-android-embedded:4.2.0'
-            api 'com.google.zxing:core:3.4.1'
+            api "com.journeyapps:zxing-android-embedded:4.2.0"
+            api "com.google.zxing:core:3.4.1"
         }
 
         zxingTest = {
-            testDependency 'com.journeyapps:zxing-android-embedded:4.2.0'
-            testDependency 'com.google.zxing:core:3.4.1'
+            testDependency "com.journeyapps:zxing-android-embedded:4.2.0"
+            testDependency "com.google.zxing:core:3.4.1"
         }
 
         cryptographic = {
-            api 'androidx.security:security-crypto:1.1.0-alpha03'
+            api "androidx.security:security-crypto:1.1.0-alpha03"
         }
 
         kotlinxSerialization = {
-            api 'org.jetbrains.kotlinx:kotlinx-serialization-core'
-            api 'org.jetbrains.kotlinx:kotlinx-serialization-cbor'
-            api 'org.jetbrains.kotlinx:kotlinx-serialization-json'
+            def kotlinxSerializationVersion = "1.2.2"
+            api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
+            api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion"
+            api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
         }
 
         worker = {
-            api 'androidx.work:work-runtime-ktx:2.5.0'
+            api "androidx.work:work-runtime-ktx:2.5.0"
         }
 
         certLogic = {
-            api 'eu.ehn.dcc.certlogic:certlogic-kotlin:v0.9.0-kotlin'
-            api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+            api "eu.ehn.dcc.certlogic:certlogic-kotlin:v0.9.0-kotlin"
+            api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5"
         }
 
         inAppUpdate = {
-            api 'com.google.android.play:core-ktx:1.8.1'
+            api "com.google.android.play:core-ktx:1.8.1"
         }
 
         room = {
-            def roomVersion = '2.3.0'
+            def roomVersion = "2.3.0"
             api "androidx.room:room-ktx:$roomVersion"
             api "androidx.room:room-runtime:$roomVersion"
             kapt "androidx.room:room-compiler:$roomVersion"

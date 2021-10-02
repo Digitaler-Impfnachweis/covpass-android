@@ -4,19 +4,19 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.5.30'
+    ext.kotlin_version = '1.5.31'
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath "com.android.tools.build:gradle:7.0.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1'
-        classpath 'pl.allegro.tech.build:axion-release-plugin:1.13.3'
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
+        classpath "pl.allegro.tech.build:axion-release-plugin:1.13.3"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
+        classpath "com.jaredsburrows:gradle-license-plugin:0.8.90"
     }
 }
 
@@ -33,7 +33,7 @@ apply from: "$rootDir/gradle/common/dependency-updates.gradle"
 apply from: "$rootDir/gradle/common/scm-version.gradle"
 setupScmVersion()
 
-// FIXME: Change this when we switch to Maven Central
+// FIXME: Change this when we switch to Maven Central or GitHub Packages finally works without authentication
 group = 'com.ibm.health.de.rki.covpass'
 subprojects {
     group = rootProject.group
@@ -46,6 +46,9 @@ subprojects {
     def shouldPublish = isLibraryProject && project.name.startsWith("covpass-")
     def isThirdPartyProject = project.name == "covpass-dgc-certlogic"
     def kotlinExplicitApiMode = !isThirdPartyProject
+    def compilerArgs = [
+        "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
+    ]
 
     apply from: "$rootDir/dependencies.gradle"
 
@@ -62,7 +65,12 @@ subprojects {
     if (!isPlatformProject) {
         if (!isLibraryProject) {
             apply from: "$rootDir/gradle/common/android-app.gradle"
-            androidApp(minVersion: 23, obfuscation: Obfuscation.Full, disableAndroidLints: ["UnusedResources"])
+            androidApp(
+                kotlinCompilerArgs: compilerArgs,
+                kotlinExplicitApiMode: kotlinExplicitApiMode,
+                obfuscation: Obfuscation.Full,
+                disableAndroidLints: ["UnusedResources"],
+            )
             apply plugin: 'com.jaredsburrows.license'
 
             licenseReport {
@@ -73,19 +81,14 @@ subprojects {
         } else if (isAndroidProject) {
             apply from: "$rootDir/gradle/common/android-library.gradle"
             androidLibrary(
-                minVersion: 23,
-                kotlinCompilerArgs: [
-                    "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
-                ],
-                kotlinExplicitApiMode: kotlinExplicitApiMode
+                kotlinCompilerArgs: compilerArgs,
+                kotlinExplicitApiMode: kotlinExplicitApiMode,
             )
         } else {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
             kotlinLibrary(
-                kotlinCompilerArgs: [
-                    "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
-                ],
-                kotlinExplicitApiMode: kotlinExplicitApiMode
+                kotlinCompilerArgs: compilerArgs,
+                kotlinExplicitApiMode: kotlinExplicitApiMode,
             )
         }
 
