@@ -81,6 +81,7 @@ public abstract class CommonApplication : Application() {
                 retry {
                     TrueTime
                         .build()
+                        .withNtpHost(DE_NTP_HOST)
                         .withConnectionTimeout(10000)
                         .withCustomizedCache(CustomCache())
                         .initialize()
@@ -108,5 +109,9 @@ public abstract class CommonApplication : Application() {
                 )
             }
         }
+    }
+
+    private companion object {
+        private const val DE_NTP_HOST = "1.de.pool.ntp.org"
     }
 }

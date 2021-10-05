@@ -42,7 +42,7 @@ internal class CheckerRemarkFragment : BaseBottomSheet() {
         binding.checkerRemarkFaq.apply {
             text = getSpanned(
                 R.string.certificates_start_screen_pop_up_app_reference_hyperlink,
-                getString(R.string.cert_add_popup_link)
+                getString(R.string.covpass_check_store_link)
             )
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()

@@ -54,11 +54,11 @@
 	<string name="validation_start_screen_offline_modus_note_old_version">Internetverbindung erforderlich</string>
 	<string name="validation_start_screen_offline_modus_note_update">Letztes Update</string>
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
-	<string name="validation_start_screen_offline_modus_certificates">Zertifikate: %s</string>
-	<string name="validation_start_screen_offline_modus_rules">Regelsets: %s</string>
-	<string name="validation_start_screen_offline_modus_information_title">App Regelset</string>
-	<string name="validation_start_screen_offline_modus_information">Hier können Sie Ihr Regelset zur Verifizierung Ihrer Zertifikate manuell aktualisieren.</string>
-	<string name="validation_start_screen_offline_modus_button">Regelset aktualisieren</string>
+	<string name="validation_start_screen_offline_modus_certificates">Liste der Zertifikatsaussteller: %s</string>
+	<string name="validation_start_screen_offline_modus_rules">Prüfregeln: %s</string>
+	<string name="validation_start_screen_offline_modus_information_title">Prüfregeln aktualisieren</string>
+	<string name="validation_start_screen_offline_modus_information">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="validation_start_screen_offline_modus_button">Aktualisieren</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>

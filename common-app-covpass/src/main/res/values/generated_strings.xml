@@ -65,11 +65,10 @@
 	<string name="certificates_start_screen_pop_up_app_reference_title">Please scan!</string>
 	<string name="certificate_start_screen_pop_up_app_reference_text">Please insist to have your certificate scanned with the CovPassCheck app. Only by scanning your QR code and showing your proof of identity the validity of your vaccination protection can be checked reliably while protecting your data.</string>
 	<string name="certificate_popup_checkapp_link_label">Do you work in a restaurant or at events? Check your customers’ certificates with ease:</string>
-	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">Download the CovPassCheck app (External Link)</string>
-
+	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">#Download the CovPassCheck app (External Link)::$0#</string>
 	<string name="certificates_start_screen_pop_up_app_reference_button">OK</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Close Pop-up</string>
-	<string name="accessibility_certificate_popup_checkapp_announce">The view \\"Please scan!\\" has been opened</string>
+	<string name="accessibility_certificate_popup_checkapp_announce">The view \"Please scan!\" has been opened</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="accessibility_certificate_add_popup_label_close">Close</string>
