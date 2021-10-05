@@ -8,6 +8,7 @@ package de.rki.covpass.sdk.cert.models
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.utils.isOlderThan
+import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
 public enum class BoosterResult {
@@ -15,6 +16,7 @@ public enum class BoosterResult {
     Failed
 }
 
+@Serializable
 public data class BoosterNotification(
     val result: BoosterResult = BoosterResult.Failed,
     val description: String = "",

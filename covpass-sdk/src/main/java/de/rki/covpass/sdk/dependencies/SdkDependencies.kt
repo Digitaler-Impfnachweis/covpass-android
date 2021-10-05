@@ -123,7 +123,7 @@ public abstract class SdkDependencies {
     }
 
     public val certificateListMapper: CertificateListMapper by lazy {
-        CertificateListMapper(qrCoder, boosterRulesValidator)
+        CertificateListMapper(qrCoder)
     }
 
     private val certLogicDeps: CertLogicDeps by lazy {

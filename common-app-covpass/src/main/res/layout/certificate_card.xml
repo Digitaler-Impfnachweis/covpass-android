@@ -97,6 +97,7 @@
             android:layout_marginHorizontal="@dimen/grid_half"
             android:text="@string/certificates_overview_qr_scan_hint"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/certificate_qr_imageview" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

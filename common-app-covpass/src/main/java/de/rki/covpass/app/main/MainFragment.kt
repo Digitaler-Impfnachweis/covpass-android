@@ -75,17 +75,17 @@ internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, Up
                 showDialog(dialogModel, childFragmentManager)
             }
             updateCertificates(certs, viewModel.selectedCertId)
-        }
 
-        when {
-            commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION -> {
-                findNavigator().push(UpdateInfoCovpassFragmentNav())
-            }
-            covpassDeps.checkerRemarkRepository.checkerRemarkShown.value != CURRENT_CHECKER_REMARK_VERSION -> {
-                findNavigator().push(CheckerRemarkFragmentNav())
-            }
-            else -> {
-                validateBoosterNotification()
+            when {
+                commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION -> {
+                    findNavigator().push(UpdateInfoCovpassFragmentNav())
+                }
+                covpassDeps.checkerRemarkRepository.checkerRemarkShown.value != CURRENT_CHECKER_REMARK_VERSION -> {
+                    findNavigator().push(CheckerRemarkFragmentNav())
+                }
+                else -> {
+                    validateBoosterNotification()
+                }
             }
         }
     }
