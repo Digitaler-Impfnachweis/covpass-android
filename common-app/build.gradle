@@ -15,4 +15,6 @@ dependencies {
     inAppUpdate()
     zxing()
     clockSync()
+    camerax()
+    boofCV()
 }

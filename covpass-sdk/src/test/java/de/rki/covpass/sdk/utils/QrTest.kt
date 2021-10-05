@@ -1,7 +1,7 @@
 package de.rki.covpass.sdk.utils
 
-import com.google.zxing.*
-import com.google.zxing.common.HybridBinarizer
+import boofcv.factory.fiducial.FactoryFiducial
+import boofcv.struct.image.GrayU8
 import de.rki.covpass.sdk.cert.CertValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.TrustedCert
@@ -9,7 +9,6 @@ import de.rki.covpass.sdk.cert.models.CBORWebToken
 import de.rki.covpass.sdk.crypto.readPem
 import de.rki.covpass.sdk.dependencies.defaultCbor
 import java.io.File
-import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
@@ -43,30 +42,39 @@ internal class Image(private val file: File) {
     }
 }
 
-internal fun Image.toBinaryBitmap(): BinaryBitmap {
-    // XXX: The images can contain transparent areas which we need to turn into white background,
-    // so the binary bitmap doesn't highlight those.
-    val data = IntArray(width * height)
-    for (index in pixels.indices) {
-        val argb = pixels[index].toUInt()
-        data[index] = if (argb and 0xff000000U == 0U) 0xffffffffU.toInt() else argb.toInt()
+internal fun createEmptyGrayU8(width: Int, height: Int): GrayU8 {
+    val data = GrayU8(width, height)
+    for (y in 0 until data.height) {
+        for (x in 0 until data.width) {
+            data[x, y] = 0xffffffffU.toInt()
+        }
     }
-    val source = RGBLuminanceSource(width, height, data)
-    return BinaryBitmap(HybridBinarizer(source))
+    return data
 }
 
-internal fun Image.decodeQr(): Result? {
-    val hints: MutableMap<DecodeHintType, Any> = EnumMap(DecodeHintType::class.java)
-    hints[DecodeHintType.TRY_HARDER] = true
-    hints[DecodeHintType.POSSIBLE_FORMATS] = listOf(
-        BarcodeFormat.QR_CODE,
-        BarcodeFormat.AZTEC,
-        BarcodeFormat.DATA_MATRIX,
-    )
-    return MultiFormatReader().decode(toBinaryBitmap(), hints)
+internal fun Image.decodeQr(): String? {
+    // XXX: Add a white border around the image because BoofCV otherwise fails finding the QR code
+    val border = 15
+    val data = createEmptyGrayU8(width + 2 * border, height + 2 * border)
+    for (y in 0 until height) {
+        for (x in 0 until width) {
+            val argb = pixels[x + y * width].toUInt()
+            data[x + border, y + border] =
+                if (argb and 0xff000000U == 0U) 0xffffffffU.toInt() else argb.toInt()
+        }
+    }
+
+    val detector = FactoryFiducial.qrcode(null, GrayU8::class.java)
+    detector.process(data)
+
+    for (qr in detector.detections) {
+        return qr.message
+    }
+    return null
 }
 
-internal fun File.isImage() = this.name.endsWith(".png") || this.name.endsWith(".jpg") || this.name.endsWith(".jpeg")
+internal fun File.isImage() =
+    listOf(".png", ".jpg", ".jpeg").any { name.endsWith(it) }
 
 internal class QrTest {
 
@@ -89,16 +97,10 @@ internal class QrTest {
         if (file.isDirectory) {
             file.listFiles()?.forEach(::lookForImagesAndDecode)
         } else if (file.isFile && file.isImage()) {
-            try {
-                val result = Image(file).decodeQr()
-                val cose = result?.text?.let { qrCoder.decodeCose(it) }
-                assertNotNull(cose)
-                validator.decodeAndValidate(CBORWebToken.decode(cose.GetContent()), sealCert)
-            } catch (e: NotFoundException) {
-                println("-------------Fail------------")
-                println("name: ${file.path}")
-                println(e.stackTraceToString())
-            }
+            val result = Image(file).decodeQr()
+            assertNotNull(result)
+            val cose = qrCoder.decodeCose(result)
+            validator.decodeAndValidate(CBORWebToken.decode(cose.GetContent()), sealCert)
         }
     }
 }

@@ -9,12 +9,10 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.ibm.health.common.android.utils.BaseHookedActivity
-import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.android.utils.setupForAccessibility
 import com.ibm.health.common.annotations.Continue
 import com.ibm.health.common.navigation.android.Navigator
@@ -33,12 +31,6 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
     override val navigator: Navigator = Navigator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (!isDebuggable) {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE
-            )
-        }
         super.onCreate(savedInstanceState)
         supportFragmentManager.setupForAccessibility()
         lookForUpdates(AppUpdateManagerFactory.create(this))

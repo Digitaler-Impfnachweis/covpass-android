@@ -8,7 +8,6 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import com.journeyapps.barcodescanner.BarcodeResult
 import de.rki.covpass.checkapp.validation.*
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogAction
@@ -34,8 +33,8 @@ internal class CovPassCheckQRScannerFragment :
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
 
-    override fun onBarcodeResult(result: BarcodeResult) {
-        viewModel.onQrContentReceived(result.text)
+    override fun onBarcodeResult(qrCode: String) {
+        viewModel.onQrContentReceived(qrCode)
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {

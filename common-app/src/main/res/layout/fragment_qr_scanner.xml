@@ -10,11 +10,10 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <com.journeyapps.barcodescanner.DecoratedBarcodeView
-    android:id="@+id/zxing_barcode_scanner"
+  <androidx.camera.view.PreviewView
+    android:id="@+id/barcode_scanner"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
+    android:layout_height="match_parent" />
 
   <ImageView
     android:id="@+id/scanner_image_view"
@@ -51,6 +50,7 @@
       android:background="@drawable/button_flashlight_selector"
       android:textOff=""
       android:textOn="" />
+
   </FrameLayout>
 
 </RelativeLayout>

@@ -96,6 +96,7 @@ dependencies {
 
             api "androidx.activity:activity-ktx:$activityVersion"
             api "androidx.fragment:fragment-ktx:$fragmentVersion"
+            api "androidx.window:window:1.0.0-alpha09"
 
             def lifecycleVersion = "2.3.1"
             api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
@@ -157,9 +158,26 @@ dependencies {
             api "com.google.zxing:core:3.4.1"
         }
 
-        zxingTest = {
-            testDependency "com.journeyapps:zxing-android-embedded:4.2.0"
-            testDependency "com.google.zxing:core:3.4.1"
+        camerax = {
+            def camerax_version = '1.0.2'
+            api "androidx.camera:camera-core:${camerax_version}"
+            api "androidx.camera:camera-camera2:${camerax_version}"
+            api "androidx.camera:camera-lifecycle:${camerax_version}"
+            api 'androidx.camera:camera-view:1.0.0-alpha27'
+        }
+
+        boofCV = {
+            api('org.boofcv:boofcv-core:0.36') {
+                exclude group: "xmlpull", module: "xmlpull"
+                exclude group: "org.apache.commons", module: "commons-compress"
+                exclude group: "com.thoughtworks.xstream", module: "commons-compress"
+            }
+            api 'org.boofcv:boofcv-android:0.36'
+        }
+
+        boofCVTest = {
+            testDependency 'org.boofcv:boofcv-core:0.36'
+            testDependency 'org.boofcv:boofcv-android:0.36'
         }
 
         cryptographic = {

@@ -8,7 +8,6 @@ package de.rki.covpass.app.scanner
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import com.journeyapps.barcodescanner.BarcodeResult
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -26,8 +25,8 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
 
     private val viewModel by reactiveState { CovPassQRScannerViewModel(scope, stateFlowStore) }
 
-    override fun onBarcodeResult(result: BarcodeResult) {
-        viewModel.onQrContentReceived(result.text)
+    override fun onBarcodeResult(qrCode: String) {
+        viewModel.onQrContentReceived(qrCode)
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
