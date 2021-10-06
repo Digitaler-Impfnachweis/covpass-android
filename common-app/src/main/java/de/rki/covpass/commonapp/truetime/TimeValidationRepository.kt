@@ -20,7 +20,7 @@ public class TimeValidationRepository {
             val trueTime = TrueTime.now().toInstant()
             val phoneTime = Instant.now()
             val difference = Duration.between(trueTime, phoneTime)
-            if (difference.toHours().absoluteValue > MAX_TIME_OFFSET_HOURS) {
+            if (difference.toMinutes().absoluteValue > MAX_TIME_OFFSET_MINUTES) {
                 state.value = TimeValidationState.Failed(trueTime)
             } else {
                 state.value = TimeValidationState.Success
@@ -31,7 +31,7 @@ public class TimeValidationRepository {
     }
 
     private companion object {
-        const val MAX_TIME_OFFSET_HOURS: Double = 2.0
+        const val MAX_TIME_OFFSET_MINUTES: Int = 120
     }
 }
 
