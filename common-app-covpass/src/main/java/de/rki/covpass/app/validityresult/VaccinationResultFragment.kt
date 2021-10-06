@@ -98,8 +98,11 @@ internal class VaccinationResultFragment : ResultFragment() {
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number),
                 "${vaccination.doseNumber}/${vaccination.totalSerialDoses}",
-                args.derivedValidationResults.getResultsBy("dn") +
-                    args.derivedValidationResults.getResultsBy("sd"),
+                if (args.derivedValidationResults.getResultsBy("dn").isNotEmpty()) {
+                    args.derivedValidationResults.getResultsBy("dn")
+                } else {
+                    args.derivedValidationResults.getResultsBy("sd")
+                },
                 valueAccessibleDescription = getString(
                     R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number_readable_text,
                     vaccination.doseNumber,
