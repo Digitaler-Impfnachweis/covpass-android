@@ -67,7 +67,7 @@ internal object PdfUtils {
         .replace("\$tg", getDiseaseAgentName(testCert.targetDisease).sanitizeXMLString())
         .replace("\$tt", getTestTypeName(testCert.testType).sanitizeXMLString())
         .replace("\$nm", testCert.testName ?: "")
-        .replace("\$ma", getManufacturerName(testCert.manufacturer ?: "").sanitizeXMLString())
+        .replace("\$ma", getTestManufacturerName(testCert.manufacturer ?: "").sanitizeXMLString())
         .replace("\$sc", testCert.sampleCollection?.formatDateTimeInternational() ?: "")
         .replace("\$tr", getTestResultName(testCert.testResult).sanitizeXMLString())
         .replace("\$tc", testCert.testingCenter)
