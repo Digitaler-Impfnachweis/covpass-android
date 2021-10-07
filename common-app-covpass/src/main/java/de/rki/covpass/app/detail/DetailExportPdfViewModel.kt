@@ -25,6 +25,7 @@ import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.utils.sanitizeFileName
 import io.ktor.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
