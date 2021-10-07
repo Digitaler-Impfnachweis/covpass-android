@@ -111,7 +111,7 @@ public class CertificateCard @JvmOverloads constructor(
         protectionTextColor = ContextCompat.getColor(context, R.color.onInfo)
         nameTextColor = ContextCompat.getColor(context, R.color.onInfo)
         cardBackground = ContextCompat.getColor(context, R.color.onBrandBase60)
-        statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired)
+        statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired_white)
         arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)
         cardFadeout = ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_gray)
         binding.certificateQrImageview.foreground =
@@ -166,7 +166,7 @@ public class CertificateCard @JvmOverloads constructor(
                     context,
                     when {
                         showBoosterNotification -> {
-                            R.drawable.booster_notification_icon
+                            R.drawable.booster_notification_icon_white
                         }
                         certStatus == CertValidationResult.Valid -> {
                             R.drawable.main_cert_status_complete_white
@@ -193,7 +193,8 @@ public class CertificateCard @JvmOverloads constructor(
         name: String,
         isFavorite: Boolean = false,
         certStatus: CertValidationResult = CertValidationResult.Valid,
-        showBoosterNotification: Boolean
+        showBoosterNotification: Boolean,
+        completeVaccination: Boolean
     ) {
         this.header = header
         this.protectionText = protectionText
@@ -214,6 +215,9 @@ public class CertificateCard @JvmOverloads constructor(
                     when {
                         showBoosterNotification -> {
                             R.drawable.booster_partial_notification_icon
+                        }
+                        completeVaccination -> {
+                            R.drawable.main_cert_status_complete
                         }
                         certStatus == CertValidationResult.Valid -> {
                             R.drawable.main_cert_status_incomplete

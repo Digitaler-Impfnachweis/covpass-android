@@ -120,7 +120,8 @@ internal class CertificateFragment : BaseFragment() {
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
                             certStatus,
-                            showBoosterNotification
+                            showBoosterNotification,
+                            true
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -145,7 +146,8 @@ internal class CertificateFragment : BaseFragment() {
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
                             certStatus,
-                            showBoosterNotification
+                            showBoosterNotification,
+                            false
                         )
                     }
                 }
