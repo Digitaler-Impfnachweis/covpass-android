@@ -28,7 +28,7 @@ Note: We explicitly avoid using flavors because they are problematic in many way
 
 ## Building the app
 
-You'll need a GitHub personal access token with `read:packages` access and in the parent folder above your repository create a file called `covpass.properties`:
+You'll need a GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `read:packages` access and in the parent folder above your repository create a file called `covpass.properties`:
 
 ```
 githubUsername=github-username
