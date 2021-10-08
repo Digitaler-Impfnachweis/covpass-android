@@ -8,8 +8,12 @@ package de.rki.covpass.app.main
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.dispatchers
-import com.ibm.health.common.android.utils.BaseEvents
+import de.rki.covpass.app.checkerremark.CheckerRemarkRepository
+import de.rki.covpass.app.dependencies.CovpassDependencies
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.commonapp.dependencies.CommonDependencies
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.cert.BoosterRulesValidator
 import de.rki.covpass.sdk.cert.models.BoosterNotification
 import de.rki.covpass.sdk.cert.models.BoosterResult
@@ -27,11 +31,38 @@ import kotlinx.coroutines.delay
 internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val certRepository: CertRepository = covpassDeps.certRepository,
-    private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator
-) : BaseReactiveState<BaseEvents>(scope) {
+    private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator,
+    private val covpassDependencies: CovpassDependencies = covpassDeps,
+    private val commonDependencies: CommonDependencies = commonDeps,
+) : BaseReactiveState<NotificationEvents>(scope) {
 
     init {
-        runBoosterValidation()
+        runValidations()
+    }
+
+    internal fun validateNotifications() {
+        when {
+            certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } ->
+                eventNotifier {
+                    showExpiryNotification()
+                }
+            commonDependencies.updateInfoRepository.updateInfoVersionShown.value
+                != UpdateInfoRepository.CURRENT_UPDATE_VERSION ->
+                eventNotifier {
+                    showNewUpdateInfo()
+                }
+            covpassDependencies.checkerRemarkRepository.checkerRemarkShown.value
+                != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION ->
+                eventNotifier {
+                    showCheckerRemark()
+                }
+            covpassDependencies.certRepository.certs.value.certificates.any {
+                it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
+            } ->
+                eventNotifier {
+                    showBoosterNotification()
+                }
+        }
     }
 
     var selectedCertId: GroupedCertificatesId? = null
@@ -40,10 +71,11 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         selectedCertId = certRepository.certs.value.getSortedCertificates()[position].id
     }
 
-    private fun runBoosterValidation() {
+    private fun runValidations() {
         launch(dispatchers.default) {
             while (true) {
                 checkBoosterNotification()
+                validateNotifications()
                 delay(BOOSTER_RULE_VALIDATION_INTERVAL_MS)
             }
         }
