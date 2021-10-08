@@ -106,7 +106,7 @@ subprojects {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")
                     applicationVariants.all { variant ->
                         variant.outputs.all {
-                            outputFileName = "$codeName-${defaultConfig.versionName}-${variant.buildType.name}.apk"
+                            outputFileName = "$codeName-${defaultConfig.versionName}-${version}-${variant.buildType.name}.apk"
                         }
                     }
                 }
