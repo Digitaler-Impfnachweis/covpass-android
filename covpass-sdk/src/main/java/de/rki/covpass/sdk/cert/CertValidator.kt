@@ -12,6 +12,7 @@ import android.util.Base64
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.crypto.KeyIdentifier
 import de.rki.covpass.sdk.dependencies.defaultCbor
+import de.rki.covpass.sdk.utils.trimAllStrings
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
@@ -73,7 +74,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
 
     internal fun decodeCovCert(cwt: CBORWebToken): CovCertificate =
         cbor.decodeFromByteArray(
-            cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].EncodeToBytes()
+            cwt.rawCbor[HEALTH_CERTIFICATE_CLAIM][DIGITAL_GREEN_CERTIFICATE].trimAllStrings().EncodeToBytes()
         )
 
     /**
