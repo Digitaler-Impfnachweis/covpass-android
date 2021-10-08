@@ -15,6 +15,7 @@ import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ensody.reactivestate.validUntil
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -22,7 +23,6 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.checkerremark.CheckRemarkCallback
 import de.rki.covpass.app.checkerremark.CheckerRemarkFragmentNav
-import de.rki.covpass.app.checkerremark.CheckerRemarkRepository.Companion.CURRENT_CHECKER_REMARK_VERSION
 import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
@@ -31,13 +31,10 @@ import de.rki.covpass.app.updateinfo.UpdateInfoCallback
 import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
-import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
@@ -46,11 +43,24 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class MainFragmentNav : FragmentNav(MainFragment::class)
 
+internal interface NotificationEvents : BaseEvents {
+    fun showExpiryNotification()
+    fun showNewUpdateInfo()
+    fun showCheckerRemark()
+    fun showBoosterNotification()
+}
+
 /**
  * The main fragment hosts a [ViewPager2] to display all [GroupedCertificates] and serves as entry point for further
  * actions (e.g. add new certificate, show settings screen, show selected certificate)
  */
-internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, UpdateInfoCallback, CheckRemarkCallback {
+internal class MainFragment :
+    BaseFragment(),
+    DetailCallback,
+    DialogListener,
+    UpdateInfoCallback,
+    CheckRemarkCallback,
+    NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
@@ -61,42 +71,7 @@ internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, Up
         setupViews()
         autoRun {
             val certs = get(covpassDeps.certRepository.certs)
-            if (
-                certs.certificates.any {
-                    it.hasSeenExpiryNotification
-                }
-            ) {
-                val dialogModel = DialogModel(
-                    titleRes = R.string.error_validity_check_certificates_title,
-                    messageString = getString(R.string.error_validity_check_certificates_message),
-                    positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
-                    tag = EXPIRED_DIALOG_TAG,
-                )
-                showDialog(dialogModel, childFragmentManager)
-            }
             updateCertificates(certs, viewModel.selectedCertId)
-
-            when {
-                commonDeps.updateInfoRepository.updateInfoVersionShown.value != CURRENT_UPDATE_VERSION -> {
-                    findNavigator().push(UpdateInfoCovpassFragmentNav())
-                }
-                covpassDeps.checkerRemarkRepository.checkerRemarkShown.value != CURRENT_CHECKER_REMARK_VERSION -> {
-                    findNavigator().push(CheckerRemarkFragmentNav())
-                }
-                else -> {
-                    validateBoosterNotification()
-                }
-            }
-        }
-    }
-
-    private fun validateBoosterNotification() {
-        if (
-            covpassDeps.certRepository.certs.value.certificates.any {
-                it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
-            }
-        ) {
-            findNavigator().push(BoosterNotificationFragmentNav())
         }
     }
 
@@ -156,15 +131,11 @@ internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, Up
     }
 
     override fun onUpdateInfoFinish() {
-        if (covpassDeps.checkerRemarkRepository.checkerRemarkShown.value != CURRENT_CHECKER_REMARK_VERSION) {
-            findNavigator().push(CheckerRemarkFragmentNav())
-        } else {
-            validateBoosterNotification()
-        }
+        viewModel.validateNotifications()
     }
 
     override fun onCheckRemarkFinish() {
-        validateBoosterNotification()
+        viewModel.validateNotifications()
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
@@ -175,11 +146,34 @@ internal class MainFragment : BaseFragment(), DetailCallback, DialogListener, Up
                         it.hasSeenExpiryNotification = true
                     }
                 }
+                viewModel.validateNotifications()
             }
         }
     }
 
     companion object {
         private const val EXPIRED_DIALOG_TAG = "expired_dialog"
+    }
+
+    override fun showExpiryNotification() {
+        val dialogModel = DialogModel(
+            titleRes = R.string.error_validity_check_certificates_title,
+            messageString = getString(R.string.error_validity_check_certificates_message),
+            positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
+            tag = EXPIRED_DIALOG_TAG,
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
+
+    override fun showNewUpdateInfo() {
+        findNavigator().push(UpdateInfoCovpassFragmentNav())
+    }
+
+    override fun showCheckerRemark() {
+        findNavigator().push(CheckerRemarkFragmentNav())
+    }
+
+    override fun showBoosterNotification() {
+        findNavigator().push(BoosterNotificationFragmentNav())
     }
 }
