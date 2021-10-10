@@ -51,8 +51,8 @@ public class DefaultCovPassRulesRepository(
 
         val added = remoteIdentifiers - localIdentifiers.keys
         val removed = localIdentifiers - remoteIdentifiers.keys
-        val changed = localIdentifiers.filter { (k, v) ->
-            k in remoteIdentifiers && v.hash != remoteIdentifiers[k]?.hash
+        val changed = remoteIdentifiers.filter { (k, v) ->
+            k in localIdentifiers && v.hash != localIdentifiers[k]?.hash
         }
 
         // IMPORTANT: First fetch all data and after that write everything. This reduces potential error cases where

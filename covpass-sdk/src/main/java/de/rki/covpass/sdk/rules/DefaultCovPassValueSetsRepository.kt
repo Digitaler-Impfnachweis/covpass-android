@@ -44,8 +44,8 @@ public class DefaultCovPassValueSetsRepository(
 
         val added = remoteValueSetsIdentifiers - localValueSetIdentifiers.keys
         val removed = localValueSetIdentifiers - remoteValueSetsIdentifiers.keys
-        val changed = localValueSetIdentifiers.filter { (k, v) ->
-            k in remoteValueSetsIdentifiers && v.hash != remoteValueSetsIdentifiers[k]?.hash
+        val changed = remoteValueSetsIdentifiers.filter { (k, v) ->
+            k in localValueSetIdentifiers && v.hash != localValueSetIdentifiers[k]?.hash
         }
 
         val newValueSets = (added + changed).values.parallelMapNotNull { identifier ->

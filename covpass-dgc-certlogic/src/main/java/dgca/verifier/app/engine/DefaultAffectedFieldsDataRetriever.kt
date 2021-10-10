@@ -39,7 +39,9 @@ class DefaultAffectedFieldsDataRetriever(
         certificateType: CertificateType
     ): String {
         var affectedFields = StringBuilder()
-        rule.affectedString.forEach { affectedFiledString ->
+
+        for (i in rule.affectedString.indices) {
+            val affectedFiledString = rule.affectedString[i]
             val description: String? = try {
                 val res = evaluate(
                     objectMapper.readTree(

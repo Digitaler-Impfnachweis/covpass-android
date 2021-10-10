@@ -5,11 +5,9 @@
 
 package de.rki.covpass.sdk.cert.models
 
-import assertk.assertThat
-import assertk.assertions.isEqualTo
 import de.rki.covpass.sdk.utils.BaseSdkTest
-import org.junit.Test
-import java.lang.IllegalStateException
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 internal class CovCertificateTest : BaseSdkTest() {
 
@@ -34,8 +32,8 @@ internal class CovCertificateTest : BaseSdkTest() {
             ),
             vaccinations = listOf(Vaccination()),
         )
-        assertThat(certAllNames.fullName).isEqualTo("$givenName $familyName")
-        assertThat(certAllNames.fullNameReverse).isEqualTo("$familyName, $givenName")
+        assertEquals("$givenName $familyName", certAllNames.fullName)
+        assertEquals("$familyName, $givenName", certAllNames.fullNameReverse)
 
         val certDefaultNames = CovCertificate(
             name = Name(
@@ -44,8 +42,8 @@ internal class CovCertificateTest : BaseSdkTest() {
             ),
             vaccinations = listOf(Vaccination()),
         )
-        assertThat(certDefaultNames.fullName).isEqualTo("$givenName $familyName")
-        assertThat(certDefaultNames.fullNameReverse).isEqualTo("$familyName, $givenName")
+        assertEquals("$givenName $familyName", certDefaultNames.fullName)
+        assertEquals("$familyName, $givenName", certDefaultNames.fullNameReverse)
 
         val certTransliteratedNames = CovCertificate(
             name = Name(
@@ -54,10 +52,8 @@ internal class CovCertificateTest : BaseSdkTest() {
             ),
             vaccinations = listOf(Vaccination()),
         )
-        assertThat(certTransliteratedNames.fullName)
-            .isEqualTo("$givenNameTransliterated $familyNameTransliterated")
-        assertThat(certTransliteratedNames.fullNameReverse)
-            .isEqualTo("$familyNameTransliterated, $givenNameTransliterated")
+        assertEquals("$givenNameTransliterated $familyNameTransliterated", certTransliteratedNames.fullName)
+        assertEquals("$familyNameTransliterated, $givenNameTransliterated", certTransliteratedNames.fullNameReverse)
 
         val certFamilyTransliteratedNames = CovCertificate(
             name = Name(
@@ -65,9 +61,7 @@ internal class CovCertificateTest : BaseSdkTest() {
             ),
             vaccinations = listOf(Vaccination()),
         )
-        assertThat(certFamilyTransliteratedNames.fullName)
-            .isEqualTo(familyNameTransliterated)
-        assertThat(certFamilyTransliteratedNames.fullNameReverse)
-            .isEqualTo(familyNameTransliterated)
+        assertEquals(familyNameTransliterated, certFamilyTransliteratedNames.fullName)
+        assertEquals(familyNameTransliterated, certFamilyTransliteratedNames.fullNameReverse)
     }
 }

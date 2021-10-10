@@ -8,6 +8,7 @@ package de.rki.covpass.sdk.worker
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.cert.toTrustedCerts
@@ -27,6 +28,7 @@ public fun isDscListUpToDate(lastUpdate: Instant): Boolean {
 /**
  * [CoroutineWorker] for updating the [DscList] periodically.
  */
+@OptIn(DependencyAccessor::class)
 public class DscListWorker(
     context: Context,
     workerParams: WorkerParameters

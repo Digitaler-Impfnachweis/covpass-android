@@ -13,8 +13,11 @@ import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Parcelize
 internal class VaccinationResultFragmentNav(
@@ -22,7 +25,7 @@ internal class VaccinationResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val country: Country,
     val dateTime: LocalDateTime,
-    val rulesCount: Int
+    val rulesCount: Int,
 ) : FragmentNav(VaccinationResultFragment::class)
 
 internal class VaccinationResultFragment : ResultFragment() {
@@ -38,6 +41,8 @@ internal class VaccinationResultFragment : ResultFragment() {
     override val country: Country by lazy { args.country }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
     override val rulesCount: Int by lazy { args.rulesCount }
+    override val resultNoteEn: Int = R.string.certificate_check_validity_detail_view_vaccination_result_note_en
+    override val resultNoteDe: Int = R.string.certificate_check_validity_detail_view_vaccination_result_note_de
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
         val vaccination = cert.dgcEntry as? Vaccination ?: return emptyList()
@@ -45,6 +50,10 @@ internal class VaccinationResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_name),
                 cert.fullNameReverse
+            ),
+            ResultRowData(
+                getString(R.string.test_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
@@ -94,6 +103,14 @@ internal class VaccinationResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
                 vaccination.idWithoutPrefix
+            ),
+            ResultRowData(
+                title = getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
+                value = getString(
+                    R.string.vaccination_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                ),
+                description = getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note)
             )
         )
     }

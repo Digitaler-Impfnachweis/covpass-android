@@ -6,17 +6,17 @@
 package de.rki.covpass.sdk.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import de.rki.covpass.sdk.cert.models.CERT_DATA_MODEL_VERSION
-import de.rki.covpass.sdk.cert.models.CovCertificateList
-import de.rki.covpass.sdk.cert.models.CovCertificateListVersion
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.storage.migration.MigrationFromVersion1To2
 import kotlinx.coroutines.runBlocking
 
 /**
  * Repository which contains the [GroupedCertificatesList]
  */
-public class CertRepository(private val store: CborSharedPrefsStore) {
+public class CertRepository(
+    private val store: CborSharedPrefsStore,
+    private val mapper: CertificateListMapper,
+) {
 
     public val certs: SuspendMutableValueFlow<GroupedCertificatesList>
 
@@ -34,8 +34,8 @@ public class CertRepository(private val store: CborSharedPrefsStore) {
         // After the migration is done, we can initialize the fields.
         certsPref = store.getData(PREFS_KEY_CERT_LIST, CovCertificateList())
         certsPrefVersion = store.getData(PREFS_KEY_CERT_LIST, CovCertificateListVersion())
-        certs = SuspendMutableValueFlow(GroupedCertificatesList.fromCovCertificateList(certsPref.value)) {
-            certsPref.set(value = it.toCovCertificateList(), force = true)
+        certs = SuspendMutableValueFlow(runBlocking { mapper.toGroupedCertificatesList(certsPref.value) }) {
+            certsPref.set(value = mapper.toCovCertificateList(it), force = true)
         }
     }
 

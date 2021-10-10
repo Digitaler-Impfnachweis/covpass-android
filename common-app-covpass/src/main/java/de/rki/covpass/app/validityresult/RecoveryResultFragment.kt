@@ -14,8 +14,11 @@ import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Parcelize
 internal class RecoveryResultFragmentNav(
@@ -23,7 +26,7 @@ internal class RecoveryResultFragmentNav(
     val derivedValidationResults: List<DerivedValidationResult>,
     val country: Country,
     val dateTime: LocalDateTime,
-    val rulesCount: Int
+    val rulesCount: Int,
 ) : FragmentNav(RecoveryResultFragment::class)
 
 internal class RecoveryResultFragment : ResultFragment() {
@@ -39,6 +42,8 @@ internal class RecoveryResultFragment : ResultFragment() {
     override val country: Country by lazy { args.country }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
     override val rulesCount: Int by lazy { args.rulesCount }
+    override val resultNoteEn: Int = R.string.certificate_check_validity_detail_view_recovery_result_note_en
+    override val resultNoteDe: Int = R.string.certificate_check_validity_detail_view_recovery_result_note_de
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
         val recovery = cert.dgcEntry as? Recovery ?: return emptyList()
@@ -46,6 +51,10 @@ internal class RecoveryResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_name),
                 cert.fullNameReverse
+            ),
+            ResultRowData(
+                getString(R.string.recovery_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
@@ -85,6 +94,14 @@ internal class RecoveryResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_identifier),
                 recovery.idWithoutPrefix
+            ),
+            ResultRowData(
+                title = getString(R.string.recovery_certificate_detail_view_data_expiry_date),
+                value = getString(
+                    R.string.recovery_certificate_detail_view_data_expiry_date_message,
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                ),
+                description = getString(R.string.recovery_certificate_detail_view_data_expiry_date_note)
             )
         )
     }

@@ -5,6 +5,7 @@
 
 package com.ibm.health.common.android.utils
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
@@ -15,6 +16,10 @@ import androidx.viewbinding.ViewBinding
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.withErrorReporting
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+
+/** All onNewIntent calls get routed here. */
+public val onNewIntentEvents: MutableSharedFlow<Intent> = MutableSharedFlow()
 
 /** Base class that comes with hook support. */
 public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
@@ -40,13 +45,22 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        onNewIntentEvents.tryEmit(intent)
+        for (fragment in supportFragmentManager.findFragments { it as? OnNewIntentListener }) {
+            fragment.onNewIntent(intent)
         }
-        return super.onOptionsItemSelected(item)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
 
     public open fun launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
         lifecycleScope.launchWhenStarted {

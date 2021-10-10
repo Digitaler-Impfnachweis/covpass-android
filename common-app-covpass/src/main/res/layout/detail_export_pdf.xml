@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <WebView
+    android:id="@+id/webview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone" />
+
+  <LinearLayout
+    android:id="@+id/export_pdf_info_items_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/grid_three"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <LinearLayout
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:lottie_autoPlay="true"
+      app:lottie_colorFilter="@color/brandAccent70"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_animation" />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,16 +4,21 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/checkbox_circle">
-    <shape android:shape="oval">
-      <solid android:color="@color/success" />
-      <size
-        android:width="@dimen/grid_two_half"
-        android:height="@dimen/grid_two_half" />
-    </shape>
-  </item>
-  <item
-    android:id="@+id/checkbox_inner_icon"
-    android:drawable="@drawable/checkmark" />
-</layer-list>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="20dp"
+  android:height="20dp"
+  android:viewportWidth="20"
+  android:viewportHeight="20">
+  <path
+    android:pathData="M10,19C14.9235,19 19,14.9235 19,10C19,5.0853 14.9147,1 9.9912,1C5.0765,1 1,5.0853 1,10C1,14.9235 5.0853,19 10,19Z"
+    android:strokeWidth="1"
+    android:fillColor="#1D7C4E"
+    android:fillType="evenOdd"
+    android:strokeColor="#00000000"/>
+  <path
+    android:pathData="M8.5471,15C8.2471,15 8.0088,14.864 7.7618,14.5559L5.2118,11.3293C5.0794,11.1571 5,10.9396 5,10.7402C5,10.3142 5.3265,9.9879 5.7235,9.9879C5.9706,9.9879 6.1912,10.0876 6.3941,10.3686L8.5029,13.1692L12.6059,6.4169C12.7735,6.136 13.0029,6 13.2412,6C13.6294,6 14,6.2628 14,6.6979C14,6.8973 13.8853,7.1148 13.7794,7.2961L9.2882,14.5559C9.0941,14.855 8.8471,15 8.5471,15Z"
+    android:strokeWidth="1"
+    android:fillColor="#FFFFFF"
+    android:fillType="evenOdd"
+    android:strokeColor="#00000000"/>
+</vector>

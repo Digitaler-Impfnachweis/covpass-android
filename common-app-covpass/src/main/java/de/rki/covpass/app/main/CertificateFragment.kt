@@ -8,8 +8,6 @@ package de.rki.covpass.app.main
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.dispatchers
@@ -29,6 +27,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
@@ -60,135 +59,139 @@ internal class CertificateFragment : BaseFragment() {
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
         val mainCombinedCertificate = groupedCertificate.getMainCertificate()
         val mainCertificate = mainCombinedCertificate.covCertificate
-        val headerText: Int
-        val textColor: Int
-        val backgroundColor: Int
-        val cardFadeout: Int
-        val certificateStatus: String
-        val certificateStatusIcon: Int
-        val certificateProtectionText: Int
-        var arrowIcon: Int = R.drawable.arrow_right_white
-        var favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
-            R.drawable.star_white_fill
-        } else {
-            R.drawable.star_white
-        }
+        val isMarkedAsFavorite = certificateList.isMarkedAsFavorite(certId)
+
+        val certStatus = mainCombinedCertificate.status
+        val isFavoriteButtonVisible = certificateList.certificates.size > 1
 
         launchWhenStarted {
-            binding.certificateQrImageview.setImageBitmap(
-                generateQRCode(mainCombinedCertificate.qrContent)
-            )
+            binding.certificateCard.qrCodeImage = generateQRCode(mainCombinedCertificate.qrContent)
         }
 
-        val dgcEntry = mainCertificate.dgcEntry
-        when (dgcEntry) {
+        when (val dgcEntry = mainCertificate.dgcEntry) {
             is Vaccination -> {
                 when (dgcEntry.type) {
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
-                        headerText = R.string.certificates_overview_vaccination_certificate_title
-                        certificateStatus =
-                            getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
-                        cardFadeout = R.drawable.common_gradient_card_fadeout_blue
-                        certificateProtectionText = R.string.vaccination_full_immunization_action_button
-                        certificateStatusIcon = R.drawable.main_cert_status_complete
-                        textColor = R.color.onInfo
-                        backgroundColor = R.color.info70
+                        binding.certificateCard.vaccinationFullProtectionCard(
+                            getString(R.string.certificates_overview_vaccination_certificate_title),
+                            if (certStatus == CertValidationResult.ExpiryPeriod) {
+                                getString(
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
+                                )
+                            } else {
+                                getString(R.string.vaccination_start_screen_qrcode_complete_protection_subtitle)
+                            },
+                            getString(R.string.vaccination_full_immunization_action_button),
+                            mainCertificate.fullName,
+                            isMarkedAsFavorite,
+                            certStatus,
+                            !groupedCertificate.hasSeenBoosterDetailNotification &&
+                                groupedCertificate.boosterNotification.result == BoosterResult.Passed
+                        )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
-                        headerText = R.string.certificates_overview_vaccination_certificate_title
-                        certificateStatus =
-                            getString(
-                                R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
-                                mainCertificate.validDate.formatDateOrEmpty()
-                            )
-                        favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
-                            R.drawable.star_black_fill
-                        } else {
-                            R.drawable.star_black
-                        }
-                        cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
-                        certificateProtectionText = R.string.vaccination_partial_immunization_action_button
-                        arrowIcon = R.drawable.arrow_right_blue
-                        certificateStatusIcon = R.drawable.main_cert_status_incomplete
-                        textColor = R.color.onBackground
-                        backgroundColor = R.color.info20
+                        binding.certificateCard.createVaccinationCompleteOrPartialCard(
+                            getString(R.string.certificates_overview_vaccination_certificate_title),
+                            if (certStatus == CertValidationResult.ExpiryPeriod) {
+                                getString(
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
+                                )
+                            } else {
+                                getString(
+                                    R.string.vaccination_start_screen_qrcode_complete_from_date_subtitle,
+                                    mainCertificate.validDate.formatDateOrEmpty()
+                                )
+                            },
+                            getString(R.string.vaccination_partial_immunization_action_button),
+                            mainCertificate.fullName,
+                            isMarkedAsFavorite,
+                            certStatus
+                        )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
-                        headerText = R.string.certificates_overview_vaccination_certificate_title
-                        certificateStatus = getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
-                        favoriteIconResource = if (certificateList.isMarkedAsFavorite(certId)) {
-                            R.drawable.star_black_fill
-                        } else {
-                            R.drawable.star_black
-                        }
-                        cardFadeout = R.drawable.common_gradient_card_fadeout_light_blue
-                        certificateProtectionText = R.string.vaccination_partial_immunization_action_button
-                        arrowIcon = R.drawable.arrow_right_blue
-                        certificateStatusIcon = R.drawable.main_cert_status_incomplete
-                        textColor = R.color.onBackground
-                        backgroundColor = R.color.info20
+                        binding.certificateCard.createVaccinationCompleteOrPartialCard(
+                            getString(R.string.certificates_overview_vaccination_certificate_title),
+                            if (certStatus == CertValidationResult.ExpiryPeriod) {
+                                getString(
+                                    R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                                    mainCertificate.validUntil.formatDateOrEmpty(),
+                                    mainCertificate.validUntil.formatTimeOrEmpty()
+                                )
+                            } else {
+                                getString(R.string.vaccination_start_screen_qrcode_incomplete_subtitle)
+                            },
+                            getString(R.string.vaccination_partial_immunization_action_button),
+                            mainCertificate.fullName,
+                            isMarkedAsFavorite,
+                            certStatus
+                        )
                     }
                 }
             }
-            is Test -> {
-                val test = mainCertificate.dgcEntry as Test
-                certificateStatus = test.sampleCollection?.toDeviceTimeZone()?.formatDateTime().orEmpty()
-                headerText = when (test.testType) {
-                    Test.PCR_TEST -> R.string.certificates_overview_pcr_test_certificate_message
-                    else -> R.string.certificates_overview_test_certificate_message
-                }
-                cardFadeout = R.drawable.common_gradient_card_fadeout_purple
-                certificateProtectionText = R.string.test_certificate_action_button
-                certificateStatusIcon = R.drawable.main_cert_test
-                textColor = R.color.onInfo
-                backgroundColor = R.color.test_certificate_background
+            is TestCert -> {
+                val test = mainCertificate.dgcEntry as TestCert
+                binding.certificateCard.createTestCard(
+                    if (test.testType == TestCert.PCR_TEST) {
+                        getString(R.string.certificates_overview_pcr_test_certificate_message)
+                    } else {
+                        getString(R.string.certificates_overview_test_certificate_message)
+                    },
+                    if (certStatus == CertValidationResult.ExpiryPeriod) {
+                        getString(
+                            R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                            mainCertificate.validUntil.formatDateOrEmpty(),
+                            mainCertificate.validUntil.formatTimeOrEmpty()
+                        )
+                    } else {
+                        test.sampleCollection?.toDeviceTimeZone()?.formatDateTime().orEmpty()
+                    },
+                    getString(R.string.test_certificate_action_button),
+                    mainCertificate.fullName,
+                    isMarkedAsFavorite,
+                    certStatus
+                )
             }
             is Recovery -> {
                 val recovery = mainCertificate.dgcEntry as Recovery
-                certificateStatus = if (recovery.validFrom?.isAfter(LocalDate.now()) == true) {
-                    getString(
-                        R.string.certificates_overview_recovery_certificate_valid_from_date,
-                        recovery.validFrom.formatDateOrEmpty()
-                    )
-                } else {
-                    getString(
-                        R.string.certificates_overview_recovery_certificate_valid_until_date,
-                        recovery.validUntil.formatDateOrEmpty()
-                    )
-                }
-                headerText = R.string.certificates_overview_recovery_certificate_title
-                cardFadeout = R.drawable.common_gradient_card_fadeout_dark_blue
-                certificateProtectionText = R.string.recovery_certificate_action_button
-                certificateStatusIcon = R.drawable.main_cert_recovery
-                textColor = R.color.onInfo
-                backgroundColor = R.color.brandAccent90
+                binding.certificateCard.createRecoveryCard(
+                    getString(R.string.certificates_overview_recovery_certificate_title),
+                    if (certStatus == CertValidationResult.ExpiryPeriod) {
+                        getString(
+                            R.string.certificates_start_screen_qrcode_certificate_expires_subtitle,
+                            mainCertificate.validUntil.formatDateOrEmpty(),
+                            mainCertificate.validUntil.formatTimeOrEmpty()
+                        )
+                    } else {
+                        if (recovery.validFrom?.isAfter(LocalDate.now()) == true) {
+                            getString(
+                                R.string.certificates_overview_recovery_certificate_valid_from_date,
+                                recovery.validFrom.formatDateOrEmpty()
+                            )
+                        } else {
+                            getString(
+                                R.string.certificates_overview_recovery_certificate_valid_until_date,
+                                recovery.validUntil.formatDateOrEmpty()
+                            )
+                        }
+                    },
+                    getString(R.string.recovery_certificate_action_button),
+                    mainCertificate.fullName,
+                    isMarkedAsFavorite,
+                    certStatus
+                )
             }
             // .let{} to enforce exhaustiveness
         }.let {}
-        binding.certificateHeaderTextview.text = getString(headerText)
-        binding.certificateStatusTextview.text = certificateStatus
-        binding.certificateStatusImageview.setImageResource(certificateStatusIcon)
-        binding.cardBottomFadeout.setBackgroundResource(cardFadeout)
-        binding.certificateArrowImageview.setImageResource(arrowIcon)
-        binding.certificateProtectionTextview.text = getString(certificateProtectionText)
-        binding.certificateFavoriteButton.setImageResource(favoriteIconResource)
-        context?.let {
-            binding.certificateNameTextview.setTextColor(ContextCompat.getColor(it, textColor))
-            binding.certificateProtectionTextview.setTextColor(ContextCompat.getColor(it, textColor))
-            binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(it, backgroundColor))
-        }
 
-        binding.certificateFavoriteButton.setOnClickListener {
-            viewModel.onFavoriteClick(certId)
+        binding.certificateCard.isFavoriteButtonVisible = isFavoriteButtonVisible
+        binding.certificateCard.setOnFavoriteClickListener {
+            viewModel.onFavoriteClick(args.certId)
         }
-        binding.certificateFavoriteButton.isVisible = certificateList.certificates.size > 1
-        binding.certificateNameTextview.text = mainCertificate.fullName
-
-        binding.certificateCardview.setOnClickListener {
-            findNavigator().push(DetailFragmentNav(args.certId))
-        }
-
-        binding.certificateCardviewScrollContent.setOnClickListener {
+        binding.certificateCard.setOnCardClickListener {
             findNavigator().push(DetailFragmentNav(args.certId))
         }
     }

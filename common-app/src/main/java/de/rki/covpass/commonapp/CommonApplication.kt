@@ -9,6 +9,7 @@ import android.app.Application
 import android.webkit.WebView
 import androidx.fragment.app.FragmentActivity
 import androidx.work.*
+import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.AndroidDependencies
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.isDebuggable
@@ -26,6 +27,7 @@ import de.rki.covpass.sdk.worker.DscListWorker
 import kotlinx.coroutines.runBlocking
 
 /** Common base application with some common functionality like setting up logging. */
+@OptIn(DependencyAccessor::class)
 public abstract class CommonApplication : Application() {
 
     override fun onCreate() {
@@ -82,6 +84,11 @@ public abstract class CommonApplication : Application() {
                 sdkDeps.valueSetsRepository.prepopulate(
                     sdkDeps.bundledValueSetIdentifiers,
                     sdkDeps.bundledValueSets
+                )
+            }
+            if (sdkDeps.boosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
+                sdkDeps.boosterRulesRepository.prepopulate(
+                    sdkDeps.bundledBoosterRules
                 )
             }
         }

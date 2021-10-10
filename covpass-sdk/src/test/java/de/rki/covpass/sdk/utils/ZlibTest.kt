@@ -5,11 +5,9 @@
 
 package de.rki.covpass.sdk.utils
 
-import assertk.assertThat
-import assertk.assertions.hasSize
-import assertk.assertions.isEqualTo
-import assertk.assertions.isGreaterThan
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 public class ZlibTest {
 
@@ -17,16 +15,16 @@ public class ZlibTest {
     public fun `test compressing and decompressing content`() {
         val input = TEST_STRING.toByteArray(charset(Charsets.UTF_8.name()))
         val decompressedByteArray = Zlib.decompress(Zlib.compress(input))
-        assertThat(decompressedByteArray.toString(charset(Charsets.UTF_8.name()))).isEqualTo(TEST_STRING)
+        assertEquals(TEST_STRING, decompressedByteArray.toString(charset(Charsets.UTF_8.name())))
     }
 
     @Test
     public fun `test compressing and decompressing size`() {
         val input = TEST_STRING.toByteArray(charset(Charsets.UTF_8.name()))
         val compressedByteArray = Zlib.compress(input)
-        assertThat(input.size).isGreaterThan(compressedByteArray.size)
+        assertTrue(input.size > compressedByteArray.size)
         val decompressedByteArray = Zlib.decompress(compressedByteArray)
-        assertThat(decompressedByteArray).hasSize(input.size)
+        assertEquals(input.size, decompressedByteArray.size)
     }
 
     public companion object {

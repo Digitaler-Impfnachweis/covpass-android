@@ -13,6 +13,7 @@ import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import com.ensody.reactivestate.DependencyAccessor
 
 /**
  * Interface used to encapsulate resource fetching where a context is needed.
@@ -52,5 +53,6 @@ private class ResourceProviderImpl(private val context: Context) : ResourceProvi
         context().resources.getInteger(resId)
 
     // We prefer activity context as configuration of baseContext may have changed at runtime
+    @OptIn(DependencyAccessor::class)
     private fun context() = androidDeps.currentActivityOrNull() ?: context
 }

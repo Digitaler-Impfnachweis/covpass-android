@@ -15,6 +15,7 @@ import dgca.verifier.app.engine.data.source.local.valuesets.toValueSetsLocal
 import dgca.verifier.app.engine.data.source.valuesets.ValueSetsDataSource
 import kotlinx.coroutines.invoke
 
+@Suppress("SpreadOperator")
 public class DefaultCovPassValueSetsLocalDataSource(
     private val valueSetsDao: ValueSetsDao,
     private val valueSetIdentifiersDao: ValueSetIdentifiersDao

@@ -9,11 +9,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.sdk.dependencies.sdkDeps
 
 /**
  * @return Encrypted [SharedPreferences] for the given [preferencesName] using application context.
  */
+@OptIn(DependencyAccessor::class)
 public fun getEncryptedSharedPreferences(preferencesName: String): SharedPreferences =
     getEncryptedSharedPreferences(context = sdkDeps.application, preferencesName = preferencesName)
 

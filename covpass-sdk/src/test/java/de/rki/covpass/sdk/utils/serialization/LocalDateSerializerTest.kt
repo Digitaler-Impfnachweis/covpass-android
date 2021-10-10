@@ -5,14 +5,13 @@
 
 package de.rki.covpass.sdk.utils.serialization
 
-import assertk.assertThat
-import assertk.assertions.*
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.serialization.encoding.Decoder
-import org.junit.Test
 import java.time.LocalDate
 import java.time.format.DateTimeParseException
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 internal class LocalDateSerializerTest {
 
@@ -24,7 +23,7 @@ internal class LocalDateSerializerTest {
         val date = LocalDateSerializer.deserialize(decoder)
         val expectedDate = LocalDate.of(2021, 3, 15)
 
-        assertThat(date).isEqualTo(expectedDate)
+        assertEquals(expectedDate, date)
     }
 
     @Test
@@ -33,7 +32,7 @@ internal class LocalDateSerializerTest {
         val date = LocalDateSerializer.deserialize(decoder)
         val expectedDate = LocalDate.of(2021, 8, 20)
 
-        assertThat(date).isEqualTo(expectedDate)
+        assertEquals(expectedDate, date)
     }
 
     @Test(expected = DateTimeParseException::class)

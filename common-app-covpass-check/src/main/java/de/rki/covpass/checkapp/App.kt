@@ -6,6 +6,7 @@
 package de.rki.covpass.checkapp
 
 import androidx.work.WorkManager
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.checkapp.errorhandling.ErrorHandler
 import de.rki.covpass.commonapp.CommonApplication
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
@@ -17,6 +18,7 @@ import de.rki.covpass.sdk.worker.ValueSetsWorker
 /**
  * Application class of CovPass Check.
  */
+@OptIn(DependencyAccessor::class)
 public class App : CommonApplication() {
 
     override fun onCreate() {

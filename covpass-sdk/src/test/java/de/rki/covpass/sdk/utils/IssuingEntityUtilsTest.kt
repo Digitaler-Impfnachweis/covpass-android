@@ -7,7 +7,7 @@ package de.rki.covpass.sdk.utils
 
 import de.rki.covpass.sdk.cert.BlacklistedEntityException
 import de.rki.covpass.sdk.cert.validateEntity
-import org.junit.Test
+import kotlin.test.Test
 
 internal class IssuingEntityUtilsTest {
 

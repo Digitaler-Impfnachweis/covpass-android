@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.logging.Lumber
 import kotlin.reflect.KClass
 
@@ -73,7 +74,7 @@ public class ActivityNavigator {
     /**
      * Returns [currentActivity].
      */
-    public fun getCurrentActivity(): Activity? = currentActivity
+    public fun getCurrentActivity(): Activity = currentActivity
 
     /**
      * Calls [Activity.navigateUpTo].
@@ -86,6 +87,7 @@ public class ActivityNavigator {
         currentActivity.navigateUpTo(intentDestination.toIntent(currentActivity))
 }
 
+@OptIn(DependencyAccessor::class)
 private val initActivityNavigator by lazy {
     if (!LifecycleTracker.initialized) {
         navigationDeps.application.registerActivityLifecycleCallbacks(LifecycleTracker)

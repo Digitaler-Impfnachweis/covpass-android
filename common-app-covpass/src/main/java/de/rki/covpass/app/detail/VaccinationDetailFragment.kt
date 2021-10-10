@@ -12,7 +12,10 @@ import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
+import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Parcelize
 internal class VaccinationDetailFragmentNav(var certId: String) : FragmentNav(VaccinationDetailFragment::class)
@@ -40,64 +43,70 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
         return vaccination.isCompleteSingleDose
     }
 
-    override fun getDataRows(cert: CovCertificate): List<Pair<String, String>> {
-        val dataRows = mutableListOf<Pair<String, String>>()
-        val vaccination = cert.dgcEntry as? Vaccination ?: return dataRows
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_name),
-            cert.fullNameReverse,
-            dataRows
+    override fun getDataRows(cert: CovCertificate): List<DataRow> {
+        val vaccination = cert.dgcEntry as? Vaccination ?: return emptyList()
+        return listOf(
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_name),
+                cert.fullNameReverse
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_name_standard),
+                cert.fullTransliteratedNameReverse
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
+                cert.birthDateFormatted
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_disease),
+                getDiseaseAgentName(vaccination.targetDisease)
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine),
+                getProductName(vaccination.product)
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
+                getProphylaxisName(vaccination.vaccineCode)
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
+                getManufacturerName(vaccination.manufacturer)
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
+                "${vaccination.doseNumber}/${vaccination.totalSerialDoses}"
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
+                vaccination.occurrence?.formatDateInternational()
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
+                getCountryName(vaccination.country)
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_issuer),
+                vaccination.certificateIssuer
+            ),
+            DataRow(
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
+                vaccination.idWithoutPrefix
+            )
         )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
-            cert.birthDateFormatted,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_disease),
-            getDiseaseAgentName(vaccination.targetDisease),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine),
-            getProductName(vaccination.product),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
-            getProphylaxisName(vaccination.vaccineCode),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
-            getManufacturerName(vaccination.manufacturer),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
-            "${vaccination.doseNumber}/${vaccination.totalSerialDoses}",
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
-            vaccination.occurrence?.formatDateInternational(),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
-            getCountryName(vaccination.country),
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_issuer),
-            vaccination.certificateIssuer,
-            dataRows
-        )
-        addDataRow(
-            getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
-            vaccination.idWithoutPrefix,
-            dataRows
-        )
-        return dataRows
     }
+
+    override fun getExtendedDataRows(
+        cert: CovCertificate
+    ): List<ExtendedDataRow> = listOf(
+        ExtendedDataRow(
+            getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
+            getString(
+                R.string.vaccination_certificate_detail_view_data_expiry_date_message,
+                ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+            ),
+            getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note)
+        )
+    )
 }

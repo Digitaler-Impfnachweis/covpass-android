@@ -10,10 +10,11 @@ package de.rki.covpass.sdk.cert.models
  * This data model is used at runtime, while for the persistent data the [CovCertificateList] is used.
  * So for storing / loading, the two models have to be transformed into each other.
  */
-public data class GroupedCertificatesList(
-    var certificates: MutableList<GroupedCertificates> = mutableListOf(),
-    var favoriteCertId: GroupedCertificatesId? = null,
+public data class GroupedCertificatesList private constructor(
+    var certificates: MutableList<GroupedCertificates>,
+    var favoriteCertId: GroupedCertificatesId?,
 ) {
+    public constructor() : this(mutableListOf(), null)
 
     /**
      * Returns a [GroupedCertificates] if the id of the cert matches the given [certId].
@@ -141,38 +142,6 @@ public data class GroupedCertificatesList(
             sortedCerts.add(0, favoriteCert)
         }
         return sortedCerts
-    }
-
-    /**
-     * Transforms this [GroupedCertificatesList] to a [CovCertificateList].
-     */
-    public fun toCovCertificateList(): CovCertificateList {
-        val singleCertList = mutableListOf<CombinedCovCertificate>()
-        certificates.forEach { groupedCerts ->
-            groupedCerts.certificates.forEach { combinedCert ->
-                singleCertList.add(combinedCert)
-            }
-        }
-        return CovCertificateList(singleCertList, favoriteCertId)
-    }
-
-    public companion object {
-
-        /**
-         * Transforms a [CovCertificateList] into a [GroupedCertificatesList].
-         */
-        public fun fromCovCertificateList(
-            covCertificateList: CovCertificateList,
-        ): GroupedCertificatesList {
-            val groupedCertificatesList = GroupedCertificatesList(
-                mutableListOf(),
-                covCertificateList.favoriteCertId
-            )
-            covCertificateList.certificates.forEach {
-                groupedCertificatesList.addCertificate(it)
-            }
-            return groupedCertificatesList
-        }
     }
 }
 

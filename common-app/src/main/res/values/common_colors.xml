@@ -4,7 +4,7 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- START HUI general color pallet -->
     <color name="brandBase">#064BC4</color>
@@ -231,5 +231,9 @@
 
     <color name="validityBackgroundNote">#F6F6F7</color>
     <color name="validityLineNote">#1c222708</color>
+
+    <color name="expired_overlay_tint">#1AFFFFFF</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/onBackground40</color>
 
 </resources>

@@ -25,6 +25,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/grid_three"
-    android:text="@string/scan_dialog_camera_access_message" />
+    tools:text="@tools:sample/lorem[10]" />
 
 </LinearLayout>

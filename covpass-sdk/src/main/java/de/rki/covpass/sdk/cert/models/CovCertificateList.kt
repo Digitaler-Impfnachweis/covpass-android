@@ -8,11 +8,11 @@ package de.rki.covpass.sdk.cert.models
 import kotlinx.serialization.Serializable
 
 /**
- * Data model which contains a list of [CombinedCovCertificate] and a pointer to the favorite / own certificate.
+ * Data model which contains a list of [CombinedCovCertificateLocal] and a pointer to the favorite / own certificate.
  */
 @Serializable
 public data class CovCertificateList(
-    val certificates: MutableList<CombinedCovCertificate> = mutableListOf(),
+    val certificates: List<CombinedCovCertificateLocal> = listOf(),
     var favoriteCertId: GroupedCertificatesId? = null,
     /** The current data model version used for data migration purposes. */
     val dataModelVersion: Int = CERT_DATA_MODEL_VERSION,

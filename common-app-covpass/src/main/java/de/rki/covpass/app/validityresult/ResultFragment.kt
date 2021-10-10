@@ -33,6 +33,8 @@ public abstract class ResultFragment : BaseBottomSheet() {
     protected abstract val country: Country
     protected abstract val dateTime: LocalDateTime
     protected abstract val rulesCount: Int
+    protected abstract val resultNoteEn: Int
+    protected abstract val resultNoteDe: Int
 
     public abstract fun getRowList(cert: CovCertificate): List<ResultRowData>
 
@@ -59,10 +61,10 @@ public abstract class ResultFragment : BaseBottomSheet() {
 
     private fun startRecyclerView() {
         val cert = certs.value.getCombinedCertificate(certId)?.covCertificate ?: return
-        ResultAdapter(this).apply {
+        ResultAdapter(this, resultNoteEn, resultNoteDe).apply {
             updateCert(certId)
             updateHeaderWarning(resultType, country, dateTime, rulesCount)
-            updateList(getRowList(cert).filterNot { it.value.isEmpty() })
+            updateList(getRowList(cert).filterNot { it.value.isNullOrEmpty() })
             attachTo(binding.resultRecyclerView)
         }
     }
@@ -71,10 +73,9 @@ public abstract class ResultFragment : BaseBottomSheet() {
 
     public data class ResultRowData(
         val title: String,
-        val value: String,
+        val value: String?,
         val validationResult: List<DerivedValidationResult> = emptyList(),
-        val warningTitle: String? = null,
-        val warningText: String? = null
+        val description: String? = null,
     )
 }
 
@@ -86,7 +87,7 @@ public enum class LocalResult {
 public data class DerivedValidationResult(
     val result: LocalResult,
     val description: String,
-    val affectedString: List<String>
+    val affectedString: List<String>,
 ) : Parcelable
 
 public fun List<DerivedValidationResult>.getResultsBy(propertyName: String): List<DerivedValidationResult> {

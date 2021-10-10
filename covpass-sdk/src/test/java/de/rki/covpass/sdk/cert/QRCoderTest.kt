@@ -6,16 +6,15 @@
 package de.rki.covpass.sdk.cert
 
 import COSE.OneKey
-import assertk.assertThat
-import assertk.assertions.isFailure
-import assertk.assertions.isInstanceOf
-import assertk.assertions.isTrue
+import de.rki.covpass.base45.Base45DecodeException
 import de.rki.covpass.sdk.cert.models.CBORWebToken
 import de.rki.covpass.sdk.crypto.readPem
 import de.rki.covpass.sdk.dependencies.defaultCbor
 import de.rki.covpass.sdk.utils.BaseSdkTest
 import de.rki.covpass.sdk.utils.readResource
-import org.junit.Test
+import kotlin.test.Test
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 internal class QRCoderTest : BaseSdkTest() {
     val sealCert by lazy { readPem(readResource("seal-cert.pem")).first() }
@@ -31,14 +30,22 @@ internal class QRCoderTest : BaseSdkTest() {
     @Test
     fun `validate cert`() {
         val cose = qrCoder.decodeCose(data)
-        assertThat(cose.validate(OneKey(sealCert.publicKey, null))).isTrue()
+        assertTrue(cose.validate(OneKey(sealCert.publicKey, null)))
     }
 
     @Test
     fun `expired certificate`() {
-        assertThat {
-            qrCoder.decodeCovCert(data)
-        }.isFailure().isInstanceOf(ExpiredCwtException::class)
+        assertFailsWith<ExpiredCwtException> { qrCoder.decodeCovCert(data) }
+    }
+
+    @Test
+    fun `decode broken certificate`() {
+        assertFailsWith<DgcDecodeException> {
+            qrCoder.decodeCose(data.slice(0 until data.length - 3))
+        }
+        assertFailsWith<Base45DecodeException> {
+            qrCoder.decodeCose(data.slice(0 until data.length - 2))
+        }
     }
 
     @Test

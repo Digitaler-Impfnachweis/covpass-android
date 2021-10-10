@@ -24,6 +24,9 @@ exceptions:
     active: false
   RethrowCaughtException:
     active: false
+  # This gets triggered in completely wrong places which aren't even exceptions
+  ThrowingExceptionsWithoutMessageOrCause:
+    active: false
 
 formatting:
   # Already handled by ktlint
@@ -64,3 +67,5 @@ style:
   # Conflicts with Android Studio's default settings
   WildcardImport:
     active: false
+  MandatoryBracesLoops:
+    active: true

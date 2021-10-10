@@ -1,13 +1,13 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 def generatedProps = new Properties()
 def _propertiesFile = file("$rootDir/generated.properties")
 if (_propertiesFile.exists()) {
     _propertiesFile.withInputStream { generatedProps.load(it) }
 }
-
-/*
- * (C) Copyright IBM Deutschland GmbH 2021
- * (C) Copyright IBM Corp. 2021
- */
 
 enum Obfuscation {
     None,
@@ -25,6 +25,7 @@ class Config {
     Integer compileSdkVersion = null
     List<String> disableAndroidLints = []
     Boolean kotlinExplicitApiMode = true
+    List<String> kotlinCompilerArgs = []
 }
 
 ext.androidApp = { args = [:] ->
@@ -39,6 +40,7 @@ ext.androidApp = { args = [:] ->
         compileSdkVersion: config.compileSdkVersion,
         disableAndroidLints: config.disableAndroidLints,
         kotlinExplicitApiMode: config.kotlinExplicitApiMode,
+        kotlinCompilerArgs: config.kotlinCompilerArgs,
     )
 
     android {

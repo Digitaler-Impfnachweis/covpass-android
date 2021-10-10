@@ -5,6 +5,8 @@
 
 package de.rki.covpass.app.dependencies
 
+import androidx.lifecycle.LifecycleOwner
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.app.common.ToggleFavoriteUseCase
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
@@ -14,16 +16,28 @@ import kotlinx.serialization.cbor.Cbor
 /**
  * Global var for making the [CovpassDependencies] accessible.
  */
+@DependencyAccessor
 internal lateinit var covpassDeps: CovpassDependencies
+
+@OptIn(DependencyAccessor::class)
+internal val LifecycleOwner.covpassDeps: CovpassDependencies get() = de.rki.covpass.app.dependencies.covpassDeps
 
 /**
  * Access to various dependencies for common-app-covpass module.
  */
+@OptIn(DependencyAccessor::class)
 internal abstract class CovpassDependencies {
 
-    private val cbor: Cbor = sdkDeps.cbor
+    private val cbor: Cbor get() = sdkDeps.cbor
 
-    val certRepository: CertRepository = CertRepository(CborSharedPrefsStore("covpass_prefs", cbor))
+    private val certificateListMapper get() = sdkDeps.certificateListMapper
+
+    val certRepository: CertRepository by lazy {
+        CertRepository(
+            CborSharedPrefsStore("covpass_prefs", cbor),
+            certificateListMapper,
+        )
+    }
 
     val toggleFavoriteUseCase by lazy { ToggleFavoriteUseCase(certRepository) }
 }

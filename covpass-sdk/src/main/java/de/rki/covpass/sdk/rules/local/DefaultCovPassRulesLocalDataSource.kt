@@ -18,6 +18,7 @@ import dgca.verifier.app.engine.data.source.rules.RulesDataSource
 import kotlinx.coroutines.invoke
 import java.time.ZonedDateTime
 
+@Suppress("SpreadOperator")
 public class DefaultCovPassRulesLocalDataSource(
     private val rulesDao: RulesDao,
     private val ruleIdentifiersDao: RuleIdentifiersDao,

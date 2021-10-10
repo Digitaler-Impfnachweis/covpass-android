@@ -6,6 +6,7 @@
 package de.rki.covpass.checkapp.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
 import de.rki.covpass.checkapp.validitycheck.validate
 import de.rki.covpass.logging.Lumber
@@ -31,7 +32,7 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
 /**
  * ViewModel holding the business logic for decoding and validating a [CovCertificate].
  */
-internal class CovPassCheckQRScannerViewModel(
+internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val rulesValidator: RulesValidator = sdkDeps.rulesValidator
@@ -59,7 +60,7 @@ internal class CovPassCheckQRScannerViewModel(
                             }
                         }
                     }
-                    is Test -> {
+                    is TestCert -> {
                         when (dgcEntry.type) {
                             TestCertType.NEGATIVE_PCR_TEST -> {
                                 handleNegativePcrResult(covCertificate)
@@ -95,7 +96,7 @@ internal class CovPassCheckQRScannerViewModel(
     private fun handleNegativePcrResult(
         covCertificate: CovCertificate
     ) {
-        val test = covCertificate.dgcEntry as Test
+        val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
             onValidPcrTest(
                 covCertificate,
@@ -107,7 +108,7 @@ internal class CovPassCheckQRScannerViewModel(
     private fun handleNegativeAntigenResult(
         covCertificate: CovCertificate
     ) {
-        val test = covCertificate.dgcEntry as Test
+        val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
             onValidAntigenTest(
                 covCertificate,

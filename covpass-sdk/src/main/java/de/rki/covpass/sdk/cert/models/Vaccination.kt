@@ -45,7 +45,7 @@ public data class Vaccination(
     @SerialName("is")
     val certificateIssuer: String = "",
     @SerialName("ci")
-    override val id: String = ""
+    override val id: String = "",
 ) : DGCEntry {
     public val isComplete: Boolean
         get() = doseNumber == totalSerialDoses
@@ -53,14 +53,20 @@ public data class Vaccination(
     public val isCompleteSingleDose: Boolean
         get() = doseNumber == 1 && totalSerialDoses == 1
 
+    public val isBooster: Boolean
+        get() = (isComplete && doseNumber > 2) || (isComplete && product == "EU/1/20/1525" && doseNumber == 2)
+
     public val hasFullProtection: Boolean
-        // Full protection is reached on day 15 after the complete vaccination
-        get() = isComplete && occurrence?.isOlderThan(days = 14) == true
+        // Full protection is reached on day 15 after the complete vaccination or if is a booster vaccination
+        get() = (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster
+
+    public val validDate: LocalDate?
+        get() = occurrence?.plusDays(15)
 
     public override val type: VaccinationCertType
         get() = when {
-            hasFullProtection -> { VaccinationCertType.VACCINATION_FULL_PROTECTION }
-            isComplete -> { VaccinationCertType.VACCINATION_COMPLETE }
+            hasFullProtection -> VaccinationCertType.VACCINATION_FULL_PROTECTION
+            isComplete -> VaccinationCertType.VACCINATION_COMPLETE
             else -> VaccinationCertType.VACCINATION_INCOMPLETE
         }
 }

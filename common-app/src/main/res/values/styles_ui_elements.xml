@@ -16,7 +16,7 @@
   -->
   <style name="PrimaryButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
     <item name="android:ellipsize">end</item>
-    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:fontFamily">@font/opensans_semibold</item>
     <item name="android:paddingTop">@dimen/button_padding_vertical</item>
     <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
     <item name="android:paddingLeft">@dimen/grid_five</item>
@@ -48,7 +48,7 @@
   https://ibm.invisionapp.com/d/main#/console/15357523/319528234/preview => "Alternative mit Ton"
   -->
   <style name="SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:fontFamily">@font/opensans_bold</item>
     <item name="android:minWidth">@dimen/button_min_width</item>
     <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
     <item name="strokeWidth">@dimen/grid_eighth</item>
@@ -68,6 +68,15 @@
   <style name="SecondaryButton.Delete">
     <item name="android:textColor">@color/onBackground</item>
     <item name="strokeColor">@color/onBackground30</item>
+    <item name="android:paddingTop">@dimen/button_padding_vertical</item>
+    <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
+  </style>
+
+  <style name="SecondaryButton.Share">
+    <item name="android:textColor">@drawable/button_secondary_text</item>
+    <item name="strokeColor">@drawable/button_secondary_stroke</item>
+    <item name="iconTint">@drawable/button_secondary_icon_tint</item>
+    <item name="backgroundTint">@drawable/button_secondary_background_tint</item>
     <item name="android:paddingTop">@dimen/button_padding_vertical</item>
     <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
   </style>
@@ -102,7 +111,7 @@
   <style name="DialogBodyTextStyle" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
     <item name="android:textColor">@color/onBackground</item>
     <item name="android:textSize">@dimen/textsize_dialog</item>
-    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="android:lineSpacingMultiplier">1.2</item>
     <item name="android:paddingBottom">@dimen/grid_three</item>
     <item name="android:paddingTop">@dimen/grid_one_half</item>
@@ -111,14 +120,14 @@
   <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
     <item name="android:textColor">@color/brandAccent70</item>
     <item name="android:textSize">@dimen/textsize_dialog</item>
-    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="rippleColor">@color/brandAccent40</item>
   </style>
 
   <style name="DialogButtonStyle.Bold">
     <item name="android:textColor">@color/brandAccent70</item>
     <item name="android:textSize">@dimen/textsize_dialog</item>
-    <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+    <item name="android:fontFamily">@font/opensans_bold</item>
   </style>
 
   <style name="DialogShapeAppearance">

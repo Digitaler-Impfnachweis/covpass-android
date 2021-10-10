@@ -5,12 +5,10 @@
 
 package de.rki.covpass.sdk.utils
 
-import java.time.Duration
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.*
 
 /**
  * @return True, if the [ZonedDateTime] is older than given [hours], else false.
@@ -27,16 +25,6 @@ public fun ZonedDateTime.hoursTillNow(): Int {
 }
 
 /**
- * Returns "+00:00" in case of "Z", else just returns [toString].
- */
-public fun ZoneOffset.getDisplayString(): String {
-    return when (this.toString()) {
-        "Z" -> "+00:00"
-        else -> this.toString()
-    }
-}
-
-/**
  * Formats a [ZonedDateTime] to e.g. "1989-03-28, 14:52".
  */
 public fun ZonedDateTime.formatDateTimeInternational(): String {
@@ -48,7 +36,8 @@ public fun ZonedDateTime.formatDateTimeInternational(): String {
  * Formats a [ZonedDateTime] to e.g. "12.03.1989, 14:52".
  */
 public fun ZonedDateTime.formatDateTime(): String {
-    val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+    val formatter =
+        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(Locale.GERMANY)
     return format(formatter)
 }
 
@@ -58,3 +47,24 @@ public fun ZonedDateTime.formatDateTime(): String {
 public fun ZonedDateTime.toDeviceTimeZone(): ZonedDateTime {
     return withZoneSameInstant(ZoneId.systemDefault())
 }
+
+public fun Instant?.formatDateOrEmpty(): String {
+    val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMANY)
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
+    } else {
+        ""
+    }
+}
+
+public fun Instant?.formatTimeOrEmpty(): String {
+    val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.GERMANY)
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
+    } else {
+        ""
+    }
+}
+
+public fun Instant?.toZonedDateTimeOrDefault(defaultEpochMilli: Long): ZonedDateTime =
+    (this ?: Instant.ofEpochMilli(defaultEpochMilli)).atZone(ZoneOffset.UTC)

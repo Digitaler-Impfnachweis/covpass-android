@@ -6,14 +6,13 @@
 package de.rki.covpass.app.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.sdk.cert.QRCoder
-import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
@@ -29,7 +28,7 @@ internal interface CovPassQRScannerEvents : BaseEvents {
 /**
  * ViewModel holding the business logic for decoding the [CovCertificate].
  */
-internal class CovPassQRScannerViewModel(
+internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     store: StateFlowStore,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
@@ -47,9 +46,16 @@ internal class CovPassQRScannerViewModel(
             certsFlow.update {
                 certId = it.addNewCertificate(
                     CombinedCovCertificate(
-                        covCertificate,
-                        qrContent,
-                        System.currentTimeMillis()
+                        covCertificate = covCertificate,
+                        qrContent = qrContent,
+                        timestamp = System.currentTimeMillis(),
+                        status = if (covCertificate.isInExpiryPeriod()) {
+                            CertValidationResult.ExpiryPeriod
+                        } else {
+                            CertValidationResult.Valid
+                        },
+                        hasSeenBoosterNotification = false,
+                        hasSeenBoosterDetailNotification = false
                     )
                 )
             }

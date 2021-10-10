@@ -5,36 +5,26 @@
 
 package de.rki.covpass.sdk.cert.models
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+public sealed interface CertValidationResult {
+    public object Valid : CertValidationResult
+    public object Invalid : CertValidationResult
+    public object Expired : CertValidationResult
+    public object ExpiryPeriod : CertValidationResult
+}
 
-/**
- * Data model which contains a [CovCertificate] and additionally the raw qr string.
- */
-@Serializable
 public data class CombinedCovCertificate(
-
-    /** The [CovCertificate]. */
-    @SerialName("vaccinationCertificate")
     val covCertificate: CovCertificate,
-
-    /**
-     * The raw qr content of the [CovCertificate].
-     */
-    @SerialName("vaccinationQrContent")
     val qrContent: String,
-
-    /**
-     * Timestamp when the certificate was scanned
-     */
-    @SerialName("certificateTimestamp")
-    val timestamp: Long = Long.MIN_VALUE
+    val timestamp: Long,
+    val status: CertValidationResult,
+    val hasSeenBoosterNotification: Boolean,
+    val hasSeenBoosterDetailNotification: Boolean,
 ) {
 
     /**
      * @return the Boolean flag which indicates a positive PCR or Antigen test
      */
     public fun isPositivePcrOrAntigenTest(): Boolean {
-        return (this.covCertificate.dgcEntry as? Test)?.isPositive == true
+        return (this.covCertificate.dgcEntry as? TestCert)?.isPositive == true
     }
 }

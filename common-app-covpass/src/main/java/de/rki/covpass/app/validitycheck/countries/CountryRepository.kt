@@ -167,6 +167,11 @@ public object CountryRepository {
             R.string.CH,
             "CH",
             R.drawable.flag_ch
+        ),
+        Country(
+            R.string.UA,
+            "UA",
+            R.drawable.flag_ua
         )
     )
 

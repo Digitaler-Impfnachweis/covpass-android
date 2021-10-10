@@ -4,4 +4,5 @@
   ~ (C) Copyright IBM Corp. 2021
   -->
 
-<manifest package="de.rki.covpass.sdk" />
+<manifest package="de.rki.covpass.sdk"
+  xmlns:tools="http://schemas.android.com/tools"/>

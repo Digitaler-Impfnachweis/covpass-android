@@ -95,10 +95,8 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             cose.protectedAttributes?.get(4)?.GetByteString()?.sliceArray(0..7)
                 ?: cose.unprotectedAttributes.get(4).GetByteString().sliceArray(0..7)
         )
-        var certs = findByKid(kid)
-        if (certs.isNullOrEmpty()) {
-            certs = state.trustedCerts.toList()
-        }
+        val certs = findByKid(kid).takeIf { it.isNotEmpty() }
+            ?: state.trustedCerts.toList()
         for (cert in certs) {
             try {
                 cert.certificate.checkValidity()
@@ -116,16 +114,17 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
     }
 
     private fun X509Certificate.checkCertOid(dgcEntry: DGCEntry): Boolean {
-        val extendedKeyUsageIntersect = if (extendedKeyUsage.isNullOrEmpty()) {
-            emptySet<String>()
-        } else {
-            extendedKeyUsage.toSet() intersect allCertOids
-        }
+        val extendedKeyUsageIntersect =
+            if (extendedKeyUsage.isNullOrEmpty()) {
+                emptySet<String>()
+            } else {
+                extendedKeyUsage.toSet() intersect allCertOids
+            }
         return extendedKeyUsageIntersect.isEmpty() ||
             (
                 when (dgcEntry) {
                     is Vaccination -> vaccinationCertOids
-                    is Test -> testCertOids
+                    is TestCert -> testCertOids
                     else -> recoveryCertOids
                 } intersect extendedKeyUsageIntersect
                 ).isNotEmpty()

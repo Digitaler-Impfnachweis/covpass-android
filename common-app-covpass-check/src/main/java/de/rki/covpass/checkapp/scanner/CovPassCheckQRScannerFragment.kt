@@ -43,6 +43,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             ValidationResultSuccessNav(
                 certificate.fullName,
+                certificate.fullTransliteratedName,
                 formatDate(certificate.birthDateFormatted)
             )
         )
@@ -56,6 +57,7 @@ internal class CovPassCheckQRScannerFragment :
             ValidPcrTestFragmentNav(
                 certificate.fullName,
                 formatDate(certificate.birthDateFormatted),
+                certificate.fullTransliteratedName,
                 sampleCollection
             )
         )
@@ -68,6 +70,7 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(
             ValidAntigenTestFragmentNav(
                 certificate.fullName,
+                certificate.fullTransliteratedName,
                 formatDate(certificate.birthDateFormatted),
                 sampleCollection
             )

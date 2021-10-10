@@ -4,18 +4,17 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.5.21'
+    ext.kotlin_version = '1.5.30'
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
+        classpath 'com.android.tools.build:gradle:7.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // FIXME: Once detekt fixes its random NPE we can turn this on again
-//        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1'
-        classpath 'pl.allegro.tech.build:axion-release-plugin:1.13.2'
+        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1'
+        classpath 'pl.allegro.tech.build:axion-release-plugin:1.13.3'
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
     }
@@ -76,8 +75,6 @@ subprojects {
             androidLibrary(
                 minVersion: 23,
                 kotlinCompilerArgs: [
-                    "-Xopt-in=kotlin.RequiresOptIn",
-                    "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
                     "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
                 ],
                 kotlinExplicitApiMode: kotlinExplicitApiMode
@@ -86,8 +83,6 @@ subprojects {
             apply from: "$rootDir/gradle/common/kotlin-library.gradle"
             kotlinLibrary(
                 kotlinCompilerArgs: [
-                    "-Xopt-in=kotlin.RequiresOptIn",
-                    "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
                     "-Xopt-in=de.rki.covpass.sdk.utils.ExperimentalHCertApi",
                 ],
                 kotlinExplicitApiMode: kotlinExplicitApiMode
@@ -96,10 +91,8 @@ subprojects {
 
         if (!isThirdPartyProject) {
             apply from: "$rootDir/gradle/common/ktlint.gradle"
+            apply from: "$rootDir/gradle/common/detekt.gradle"
         }
-        // FIXME: Once detekt fixes its random NPE we can turn this on again
-//        apply from: "$rootDir/gradle/common/detekt.gradle"
-        task detekt() {}
 
         if (isAndroidProject) {
             android {
@@ -109,6 +102,10 @@ subprojects {
                         variant.outputs.all {
                             outputFileName = "$codeName-${defaultConfig.versionName}-${variant.buildType.name}.apk"
                         }
+                    }
+
+                    applicationVariants.all { variant ->
+                        variant.resValue "string", "common_file_provider_authority", variant.applicationId
                     }
                 }
 
@@ -153,25 +150,18 @@ subprojects {
 
             dependencies {
                 baseAndroid()
-                if (isTestProject) {
-                    androidTestLib()
-                }
             }
         } else {
             dependencies {
                 base()
-                if (isTestProject) {
-                    baseTestLib()
-                }
             }
         }
 
         task verifyAll(group: 'verification') {
             if (!isThirdPartyProject) {
                 dependsOn 'ktlint'
+                dependsOn 'detekt'
             }
-            // FIXME: Once detekt fixes its random NPE we can turn this on again
-//            dependsOn 'detekt'
             if (isAndroidProject) {
                 dependsOn 'lintDebug'
                 dependsOn 'testDebugUnitTest'

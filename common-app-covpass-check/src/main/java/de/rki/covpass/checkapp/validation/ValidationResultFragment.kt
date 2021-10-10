@@ -47,6 +47,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     abstract val imageRes: Int
 
     open val titleInfo1: String? = null
+    open val subtitleInfo1: String? = null
     open val textInfo1: String? = null
     open val imageInfo1Res: Int = 0
 
@@ -65,9 +66,11 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
         binding.resultInfoLayout1.isVisible = textInfo1 != null
         binding.resultInfoImage1.isVisible = imageInfo1Res != 0
+        binding.resultInfoSubtitle1.isVisible = subtitleInfo1 != null
         textInfo1?.let {
             binding.resultInfoImage1.setImageResource(imageInfo1Res)
             binding.resultInfoTitle1.text = titleInfo1
+            binding.resultInfoSubtitle1.text = subtitleInfo1
             binding.resultInfoText1.text = it
         }
 
@@ -102,6 +105,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 @Parcelize
 internal class ValidationResultSuccessNav(
     val name: String,
+    val transliteratedName: String,
     val birthDate: String
 ) : FragmentNav(ValidationResultSuccessFragment::class)
 
@@ -119,6 +123,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_success_image
 
     override val titleInfo1 by lazy { args.name }
+    override val subtitleInfo1 by lazy { args.transliteratedName }
     override val textInfo1 by lazy {
         getString(R.string.validation_check_popup_valid_vaccination_date_of_birth, args.birthDate)
     }
@@ -134,6 +139,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
 @Parcelize
 internal class ValidPcrTestFragmentNav(
     val name: String,
+    val transliteratedName: String,
     val birthDate: String,
     val sampleCollection: ZonedDateTime?
 ) : FragmentNav(ValidPcrTestResultFragment::class)
@@ -155,6 +161,7 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
     }
     override val imageInfo1Res = R.drawable.result_person
     override val titleInfo1 by lazy { args.name }
+    override val subtitleInfo1 by lazy { args.transliteratedName }
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_date_of_birth,
@@ -174,6 +181,7 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
 @Parcelize
 internal class ValidAntigenTestFragmentNav(
     val name: String,
+    val transliteratedName: String,
     val birthDate: String,
     val sampleCollection: ZonedDateTime?
 ) : FragmentNav(ValidAntigenTestResultFragment::class)
@@ -195,6 +203,7 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
     }
     override val imageInfo1Res = R.drawable.result_person
     override val titleInfo1 by lazy { args.name }
+    override val subtitleInfo1 by lazy { args.transliteratedName }
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_test_date_of_birth,

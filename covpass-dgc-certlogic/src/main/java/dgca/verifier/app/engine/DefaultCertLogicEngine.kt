@@ -35,7 +35,7 @@ class DefaultCertLogicEngine(
 ) : CertLogicEngine {
     private val objectMapper = ObjectMapper()
 
-    private companion object {
+    companion object {
         private const val EXTERNAL_KEY = "external"
         private const val PAYLOAD_KEY = "payload"
         private const val CERTLOGIC_KEY = "CERTLOGIC"
@@ -67,47 +67,66 @@ class DefaultCertLogicEngine(
         externalParameter: ExternalParameter,
         payload: String
     ): List<ValidationResult> {
-        return if (rules.isNotEmpty()) {
-            val validationResults = mutableListOf<ValidationResult>()
-            val dataJsonNode = prepareData(externalParameter, payload)
-            val hcertVersion = hcertVersionString.toVersion()
-            rules.forEach { rule ->
-                val ruleEngineVersion = rule.engineVersion.toVersion()
-                val schemaVersion = rule.schemaVersion.toVersion()
-                val res = when {
-                    rule.engine != CERTLOGIC_KEY
-                        || ruleEngineVersion == null || !CERTLOGIC_VERSION
-                        .isGreaterOrEqualThan(ruleEngineVersion)
-                        || hcertVersion == null || schemaVersion == null || hcertVersion.first != schemaVersion.first -> Result.OPEN
-                    hcertVersion.isGreaterOrEqualThan(schemaVersion) ->
-                        when (jsonLogicValidator.isDataValid(
-                            rule.logic,
-                            dataJsonNode
-                        )) {
-                            true -> Result.PASSED
-                            false -> Result.FAIL
-                            else -> Result.OPEN
-                        }
-                    else -> Result.FAIL
-                }
-                val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(
-                    rule,
-                    dataJsonNode,
-                    certificateType
-                )
-                validationResults.add(
-                    ValidationResult(
-                        rule,
-                        res,
-                        cur,
-                        null
-                    )
-                )
-            }
-            validationResults
-        } else {
-            emptyList()
+        if (rules.isEmpty()) return emptyList()
+
+        val dataJsonNode = prepareData(externalParameter, payload)
+        val hcertVersion: Triple<Int, Int, Int>? = hcertVersionString.toVersion()
+
+        return rules.map {
+            checkRule(
+                rule = it,
+                dataJsonNode = dataJsonNode,
+                hcertVersion = hcertVersion,
+                certificateType = certificateType
+            )
         }
+    }
+
+    private fun checkRule(
+        rule: Rule,
+        dataJsonNode: ObjectNode,
+        hcertVersion: Triple<Int, Int, Int>?,
+        certificateType: CertificateType
+    ): ValidationResult {
+        val ruleEngineVersion = rule.engineVersion.toVersion()
+        val schemaVersion = rule.schemaVersion.toVersion()
+
+        val validationErrors = mutableListOf<Exception>()
+
+        val isCompatibleVersion = rule.engine == CERTLOGIC_KEY &&
+            ruleEngineVersion != null &&
+            CERTLOGIC_VERSION.isGreaterOrEqualThan(ruleEngineVersion) &&
+            hcertVersion != null &&
+            schemaVersion != null &&
+            hcertVersion.first == schemaVersion.first &&
+            hcertVersion.isGreaterOrEqualThan(schemaVersion)
+
+        val res = if (isCompatibleVersion) {
+            try {
+                when (jsonLogicValidator.isDataValid(rule.logic, dataJsonNode)) {
+                    true -> Result.PASSED
+                    false -> Result.FAIL
+                }
+            } catch (e: Exception) {
+                validationErrors.add(e)
+                Result.OPEN
+            }
+        } else {
+            Result.OPEN
+        }
+
+        val cur: String = affectedFieldsDataRetriever.getAffectedFieldsData(
+            rule,
+            dataJsonNode,
+            certificateType
+        )
+
+        return ValidationResult(
+            rule,
+            res,
+            cur,
+            if (validationErrors.isEmpty()) null else validationErrors
+        )
     }
 
     private fun Triple<Int, Int, Int>.isGreaterOrEqualThan(version: Triple<Int, Int, Int>): Boolean =

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.transition.Fade
 import androidx.transition.Slide
+import com.ensody.reactivestate.DependencyAccessor
 
 /** Defines default animations and animation overrides. */
 public interface NavigationAnimationConfig {
@@ -66,6 +67,7 @@ public class DefaultNavigationAnimationConfig(
  * For [AnimatedNavigation] this uses the animation defined by the [fragment].
  * For anything else this uses `navigationAnimationConfig.fragmentPaneAnimation`.
  */
+@OptIn(DependencyAccessor::class)
 public fun FragmentTransaction.defaultNavigationAnimation(fragment: Fragment) {
     if (fragment is AnimatedNavigation) {
         fragment.animateNavigation(this, fragment)

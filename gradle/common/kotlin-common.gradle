@@ -1,3 +1,8 @@
+/*
+ * (C) Copyright IBM Deutschland GmbH 2021
+ * (C) Copyright IBM Corp. 2021
+ */
+
 ext.kotlinCommon = {
     tasks.withType(Test) {
         testLogging {
@@ -5,11 +10,6 @@ ext.kotlinCommon = {
         }
     }
 }
-
-/*
- * (C) Copyright IBM Deutschland GmbH 2021
- * (C) Copyright IBM Corp. 2021
- */
 
 class CompilerArgsConfig {
     Boolean kotlinExplicitApiMode = true
@@ -19,9 +19,12 @@ class CompilerArgsConfig {
 ext.getCompilerArgs = { args = [:] ->
     CompilerArgsConfig config = new CompilerArgsConfig(args)
     def compilerArgs = [
+        "-Xopt-in=kotlin.RequiresOptIn",
+        "-Xopt-in=kotlin.ExperimentalUnsignedTypes",
         "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
-        "-Xopt-in=kotlin.ExperimentalUnsignedTypes",
+        "-Xopt-in=io.ktor.util.InternalAPI",
+        "-Xopt-in=com.ensody.reactivestate.ExperimentalReactiveStateApi",
     ] + config.kotlinCompilerArgs
     if (config.kotlinExplicitApiMode) {
         compilerArgs.add("-Xexplicit-api=strict")

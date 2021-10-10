@@ -13,24 +13,45 @@
 
   <style name="InfoElement.Warning">
     <item name="icon">@drawable/info_warning</item>
-    <item name="elementColor">@drawable/info_warning_background</item>
+    <item name="elementColor">@drawable/warning_background</item>
   </style>
 
   <style name="InfoElement.Error">
     <item name="icon">@drawable/detail_cert_status_incomplete</item>
-    <item name="elementColor">@drawable/info_error_background</item>
+    <item name="elementColor">@drawable/error_background</item>
   </style>
 
   <style name="InfoElement.Success">
     <item name="icon">@drawable/detail_cert_status_complete</item>
-    <item name="elementColor">@drawable/info_success_background</item>
+    <item name="elementColor">@drawable/success_background</item>
+  </style>
+
+  <style name="InfoElement.Info">
+    <item name="icon">@drawable/main_cert_expiry_period</item>
+    <item name="elementColor">@drawable/info_background</item>
   </style>
 
   <style name="TimePickerTheme">
     <item name="android:textColorPrimary">@color/brandAccent70</item>
     <item name="android:textColorSecondary">@android:color/transparent</item>
-    <item name="android:fontFamily">@font/ibmplexsans_text</item>
+    <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="android:textSize">@dimen/textsize_header_standard</item>
+  </style>
+
+  <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <item name="boxStrokeColor">@color/onBackground40</item>
+    <item name="boxStrokeWidth">1dp</item>
+    <item name="boxStrokeWidthFocused">1dp</item>
+    <item name="boxCornerRadiusTopEnd">@dimen/grid_one</item>
+    <item name="boxCornerRadiusTopStart">@dimen/grid_one</item>
+    <item name="boxCornerRadiusBottomStart">@dimen/grid_one</item>
+    <item name="boxCornerRadiusBottomEnd">@dimen/grid_one</item>
+  </style>
+
+  <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
+    <item name="android:textColor">@color/onBackground40</item>
+    <item name="android:fontFamily">@font/opensans_regular</item>
+    <item name="android:textSize">@dimen/textsize_default</item>
   </style>
 
 </resources>
