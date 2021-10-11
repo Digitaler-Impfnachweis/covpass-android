@@ -86,7 +86,7 @@
 	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Zertifikat erfüllt nicht alle Bedingungen</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subline">Die geprüfte Person kann den Grund z. B. in der CovPass-App einsehen. Die häufigsten Gründe:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Abgelaufener Test</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">Ein negativer Schnelltest ist für maximal 24 Stunden gültig. Ein negativer PCR-Test ist für maximal 72 Stunden gültig.</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">Ein negativer Schnelltest ist für maximal 48 Stunden gültig. Ein negativer PCR-Test ist für maximal 72 Stunden gültig.</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Noch nicht gültiger Schutz</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Erst 14 Tage nach der Zweitimpfung gilt der Impfschutz als vollständig. Die Genesung von einer Corona-Infektion muss mindestens 28 Tage alt sein.</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Unvollständige Impfserie</string>

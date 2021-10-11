@@ -65,7 +65,8 @@
 	<string name="certificates_start_screen_pop_up_app_reference_title">Scannen bitte!</string>
 	<string name="certificate_start_screen_pop_up_app_reference_text">Bestehen Sie darauf, dass Ihr Zertifikat mit der CovPassCheck-App gescannt wird. Zeigen Sie außerdem ein Ausweisdokument vor. Nur so kann die Gültigkeit Ihres Zertifikats datensicher geprüft werden.</string>
 	<string name="certificate_popup_checkapp_link_label">Arbeiten Sie in der Gastronomie oder planen Sie eine Veranstaltung? Prüfen Sie schnell und sicher die Zertifikate Ihrer Gäste:</string>
-	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">#Zur CovPassCheck-App (Externer Link)::$0#</string>
+	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">Zur CovPassCheck-App (Externer Link)</string>
+	<string name="certificates_start_screen_pop_up_app_reference_hyperlink_linked">#Zur CovPassCheck-App (Externer Link)::$0#</string>
 	<string name="certificates_start_screen_pop_up_app_reference_button">OK</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Pop-up schließen</string>
 	<string name="accessibility_certificate_popup_checkapp_announce">Die Ansicht \"Scannen bitte!\" wurde geöffnet</string>
