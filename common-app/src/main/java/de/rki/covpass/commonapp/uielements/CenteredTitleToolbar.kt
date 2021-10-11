@@ -8,8 +8,12 @@ package de.rki.covpass.commonapp.uielements
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.widget.TextViewCompat
 import de.rki.covpass.commonapp.R
 
@@ -30,6 +34,15 @@ public class CenteredTitleToolbar @JvmOverloads constructor(
 
     init {
         TextViewCompat.setTextAppearance(title, R.style.Header_OnBackground_Standard)
+        ViewCompat.setAccessibilityDelegate(
+            title,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
         addView(title)
     }
 

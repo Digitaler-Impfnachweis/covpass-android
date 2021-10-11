@@ -7,6 +7,9 @@ package de.rki.covpass.commonapp.onboarding
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -23,6 +26,25 @@ public abstract class BaseWelcomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ViewCompat.setAccessibilityDelegate(
+            binding.welcomeHeaderTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
+
+        ViewCompat.setAccessibilityDelegate(
+            binding.welcomeEncryptionHeaderTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
         binding.welcomeHeaderTextview.setText(getHeaderTextRes())
         binding.welcomeSubheaderTextview.setText(getSubheaderTextRes())
         binding.welcomeEncryptionHeaderTextview.setText(getEncryptionHeaderTextRes())

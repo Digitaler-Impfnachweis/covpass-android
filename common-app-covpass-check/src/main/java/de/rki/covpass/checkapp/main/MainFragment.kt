@@ -7,6 +7,9 @@ package de.rki.covpass.checkapp.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
@@ -58,6 +61,34 @@ internal class MainFragment : BaseFragment() {
                 findNavigator().push(CovPassCheckCameraDisclosureFragmentNav())
             }
         }
+        ViewCompat.setAccessibilityDelegate(
+            binding.mainHeaderTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
+        ViewCompat.setAccessibilityDelegate(
+            binding.mainCheckCertHeaderTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
+        ViewCompat.setAccessibilityDelegate(
+            binding.mainAvailabilityHeaderTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
+
         autoRun {
             updateAvailabilityCard(
                 get(dscRepository.lastUpdate),

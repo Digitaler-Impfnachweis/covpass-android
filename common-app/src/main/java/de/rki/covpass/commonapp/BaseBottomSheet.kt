@@ -11,6 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.annotation.StringRes
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.validUntil
 import com.ibm.health.common.navigation.android.SheetPaneNavigation
@@ -39,6 +42,16 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
         super.onCreateView(inflater, bottomSheetBinding.bottomSheetContent, savedInstanceState)?.let {
             bottomSheetBinding.bottomSheetContent.addView(it)
         }
+
+        ViewCompat.setAccessibilityDelegate(
+            bottomSheetBinding.bottomSheetHeader,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
 
         bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
         bottomSheetBinding.bottomSheetClose.setOnClickListener { onCloseButtonClicked() }

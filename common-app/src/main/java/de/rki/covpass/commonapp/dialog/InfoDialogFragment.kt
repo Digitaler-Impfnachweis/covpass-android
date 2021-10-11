@@ -9,8 +9,12 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -42,6 +46,16 @@ public class InfoDialogFragment : DialogFragment() {
         // Setting maxLines in DialogTitleTextStyle is somehow also working but has some very strange glitches,
         // so doing a workaround for maxlines with custom title here is safer.
         val titleBinding = DialogTitleBinding.inflate(LayoutInflater.from(context))
+
+        ViewCompat.setAccessibilityDelegate(
+            titleBinding.titleTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
 
         @Suppress("SpreadOperator")
         titleBinding.titleTextview.text = dialogModel.titleRes?.let { titleResId ->

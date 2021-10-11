@@ -7,6 +7,9 @@ package de.rki.covpass.app.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
@@ -76,6 +79,15 @@ internal class MainFragment :
     }
 
     private fun setupViews() {
+        ViewCompat.setAccessibilityDelegate(
+            binding.mainEmptyHeaderTextview,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
         binding.mainValidityCheckTextview.setOnClickListener { findNavigator().push(ValidityCheckFragmentNav()) }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(CovPassInformationFragmentNav()) }
