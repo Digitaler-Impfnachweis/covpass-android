@@ -50,7 +50,7 @@
 	<string name="vaccination_start_screen_title">Digitale COVID-Zertifikate der EU</string>
 	<string name="accessibility_vaccination_start_screen_title">Digitale COVID-Zertifikate der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie einen Nachweis hinzu</string>
-	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf das Plus-Symbol, um einen digitalen Nachweis hinzuzufügen.</string>
+	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf die Taste \"Nachweis hinzufügen\" (Plus-Symbol), um ein digitales COVID-Zertifikat der EU hinzuzufügen.</string>
 	<string name="accessibility_vaccination_start_screen_label_qrcode">Schwarzer QR-Code auf weißem Hintergrund</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Unvollständiger Impfschutz</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Vollständig ab %s</string>
@@ -115,6 +115,8 @@
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, ausgewählt</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, auswählbar</string>
 	<string name="certificate_check_validity_message">Prüfen Sie vorab, ob Ihre Zertifikate in verschiedenen Ländern gültig sind. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselands berücksichtigt.</string>
+	<string name="certificate_check_validity_travel_rules_not_up_to_title">Reiseregeln nicht aktuell</string>
+	<string name="certificate_check_validity_travel_rules_not_up_to_message">Die Reiseregeln werden in der App alle 24 Stunden aktualisiert. Leider schlug die letzte Aktualisierung fehl. Stellen Sie sicher, dass Ihr Smartphone mit dem Internet verbunden ist und versuchen Sie es erneut.</string>
 	<string name="certificate_check_validity_selection_country">Land</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_country_title">Reiseland wählen</string>

@@ -9,34 +9,32 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.Button
+import android.widget.ImageView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
+import com.google.android.material.internal.CheckableImageButton
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
-import de.rki.covpass.app.main.MainFragment
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.commonapp.errorhandling.isNoInternetError
+import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
+import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.formatDateTime
-import kotlinx.parcelize.Parcelize
-import java.time.LocalDateTime
-import android.view.accessibility.AccessibilityNodeInfo
-import android.widget.Button
-import android.widget.ImageView
-import com.google.android.material.internal.CheckableImageButton
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
+import kotlinx.parcelize.Parcelize
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 @Parcelize
 internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::class)
@@ -45,7 +43,6 @@ internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::cla
  * Fragment to check the validity of all certificates for the selected country and date
  */
 internal class ValidityCheckFragment :
-    DialogListener,
     BaseBottomSheet(),
     ChangeCountryCallback,
     ChangeDateTimeCallback {
@@ -67,6 +64,19 @@ internal class ValidityCheckFragment :
 
         ValidityCertsAdapter(this).attachTo(binding.recyclerCertificates)
 
+        autoRun {
+            binding.validityCheckTravelRulesNotUpToDate.apply {
+                showWarning(
+                    title = getString(R.string.certificate_check_validity_travel_rules_not_up_to_title),
+                    description = getString(R.string.certificate_check_validity_travel_rules_not_up_to_message),
+                    iconRes = R.drawable.info_warning,
+                    descriptionTopMarginDimenRes = R.dimen.grid_one
+                )
+                isVisible = get(sdkDeps.rulesUpdateRepository.lastRulesUpdate).isAfter(
+                    Instant.now().minus(24, ChronoUnit.HOURS)
+                )
+            }
+        }
         autoRun {
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateList(
                 get(validityCheckViewModel.validationResults)
@@ -154,32 +164,5 @@ internal class ValidityCheckFragment :
 
     override fun updateDate(dateTime: LocalDateTime) {
         validityCheckViewModel.updateDate(dateTime)
-    }
-
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == NO_INTERNET_CONNECTION && action == DialogAction.POSITIVE) {
-            validityCheckViewModel.loadRulesAndValidateCertificates()
-        } else {
-            findNavigator().popUntil<MainFragment>()
-        }
-    }
-
-    override fun onError(error: Throwable) {
-        if (isNoInternetError(error)) {
-            val dialogModel = DialogModel(
-                titleRes = R.string.error_check_validity_no_internet_title,
-                messageString = getString(R.string.error_check_validity_no_internet_message),
-                positiveButtonTextRes = R.string.error_check_validity_no_internet_button_try_again,
-                negativeButtonTextRes = R.string.error_check_validity_no_internet_button_cancel,
-                tag = NO_INTERNET_CONNECTION
-            )
-            showDialog(dialogModel, childFragmentManager)
-        } else {
-            super.onError(error)
-        }
-    }
-
-    companion object {
-        private const val NO_INTERNET_CONNECTION = "no_internet_connection"
     }
 }

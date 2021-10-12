@@ -124,10 +124,18 @@ public fun InfoElement.showWarning(
     subtitle: String? = null,
     description: String? = null,
     iconRes: Int? = null,
+    subtitleTopMarginDimenRes: Int? = null,
+    descriptionTopMarginDimenRes: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.warning_background)
+    if (subtitleTopMarginDimenRes != null) {
+        this.subtitleTopMarginDimenRes = subtitleTopMarginDimenRes
+    }
+    if (descriptionTopMarginDimenRes != null) {
+        this.descriptionTopMarginDimenRes = descriptionTopMarginDimenRes
+    }
 }
 
 public fun InfoElement.showError(

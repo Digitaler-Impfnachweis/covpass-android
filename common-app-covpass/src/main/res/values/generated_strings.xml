@@ -50,7 +50,7 @@
 	<string name="vaccination_start_screen_title">EU Digital COVID Certificates</string>
 	<string name="accessibility_vaccination_start_screen_title">EU Digital COVID Certificates. Sensible health data will follow. Please take care that nobody listens to or reads on your smartphone.</string>
 	<string name="vaccination_start_screen_note_title">Add a certificate</string>
-	<string name="vaccination_start_screen_note_message">You do not have any EU Digital COVID Certificate saved at the moment. Tap the plus symbol to add a digital certificate.</string>
+	<string name="vaccination_start_screen_note_message">You do not have any EU Digital COVID Certificate saved at the moment. Tap the button \"Add a certificate\" (plus symbol) to add a Digital COVID Certificate.</string>
 	<string name="accessibility_vaccination_start_screen_label_qrcode">Black QR code on white background</string>
 	<string name="vaccination_start_screen_qrcode_incomplete_subtitle">Not fully vaccinated</string>
 	<string name="vaccination_start_screen_qrcode_complete_from_date_subtitle">Fully vaccinated as of %s</string>
@@ -115,6 +115,8 @@
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, selected</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, selectable</string>
 	<string name="certificate_check_validity_message">Check beforehand if your certificates are valid in different countries. This tool checks them against the travel regulations applicable in your chosen destination country.</string>
+	<string name="certificate_check_validity_travel_rules_not_up_to_title">Travel rules not up to date</string>
+	<string name="certificate_check_validity_travel_rules_not_up_to_message">The travel rules are updated in the app every 24 hours. Unfortunately, the last update failed. Make sure your smartphone is connected to the internet and try again.</string>
 	<string name="certificate_check_validity_selection_country">Country</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Close</string>
 	<string name="certificate_check_validity_selection_country_title">Choose destination</string>

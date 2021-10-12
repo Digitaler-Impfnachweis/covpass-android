@@ -20,29 +20,41 @@
     android:text="@string/certificate_check_validity_message"
     tools:ignore="HardcodedText" />
 
+  <de.rki.covpass.commonapp.uielements.InfoElement
+    android:id="@+id/validity_check_travel_rules_not_up_to_date"
+    style="@style/InfoElement.Warning"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three"
+    android:visibility="gone"
+    tools:description="@tools:sample/lorem[10]"
+    tools:title="@tools:sample/lorem[3]"
+    tools:visibility="visible" />
+
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/layout_country"
+    style="@style/TextInputLayoutStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_two"
     android:background="@color/backgroundSecondary"
     android:hint="@string/certificate_check_validity_selection_country"
-    app:hintTextAppearance="@style/HintTextAppearance"
-    app:hintTextColor="@color/onBackground40"
     android:textColorHint="@color/onBackground40"
     app:endIconDrawable="@drawable/map_icon"
     app:endIconMode="custom"
-    style="@style/TextInputLayoutStyle">
+    app:hintTextAppearance="@style/HintTextAppearance"
+    app:hintTextColor="@color/onBackground40">
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/country_value"
       style="@style/DefaultText.OnBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:focusableInTouchMode="false"
-      android:focusable="false"
       android:clickable="true"
+      android:focusable="false"
+      android:focusableInTouchMode="false"
       android:text="@tools:sample/lorem[2]"
       tools:ignore="KeyboardInaccessibleWidget" />
 
@@ -50,29 +62,29 @@
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/layout_date"
+    style="@style/TextInputLayoutStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_two"
     android:background="@color/backgroundSecondary"
     android:hint="@string/certificate_check_validity_selection_date"
-    app:hintTextAppearance="@style/HintTextAppearance"
-    app:hintTextColor="@color/onBackground40"
     android:textColorHint="@color/onBackground40"
     app:endIconDrawable="@drawable/calender_icon"
     app:endIconMode="custom"
-    style="@style/TextInputLayoutStyle">
+    app:hintTextAppearance="@style/HintTextAppearance"
+    app:hintTextColor="@color/onBackground40">
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/date_value"
       style="@style/DefaultText.OnBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:focusableInTouchMode="false"
-      android:focusable="false"
       android:clickable="true"
-      tools:text="@tools:sample/lorem[2]"
-      tools:ignore="KeyboardInaccessibleWidget" />
+      android:focusable="false"
+      android:focusableInTouchMode="false"
+      tools:ignore="KeyboardInaccessibleWidget"
+      tools:text="@tools:sample/lorem[2]" />
 
   </com.google.android.material.textfield.TextInputLayout>
 
