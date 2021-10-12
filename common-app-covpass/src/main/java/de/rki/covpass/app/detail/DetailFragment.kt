@@ -5,12 +5,15 @@
 
 package de.rki.covpass.app.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityManager
 import androidx.appcompat.app.AppCompatActivity
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
@@ -57,6 +60,7 @@ internal enum class DetailBoosterAction {
 @Parcelize
 internal class DetailFragmentNav(
     var certId: GroupedCertificatesId,
+    val isFirstAdded: Boolean = false
 ) : FragmentNav(DetailFragment::class)
 
 /**
@@ -120,6 +124,7 @@ internal class DetailFragment :
 
     private fun updateViews(certList: GroupedCertificatesList) {
         val certId = args.certId
+        val firstAdded = args.isFirstAdded
         // Can be null after deletion... in this case no update is necessary anymore
         val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
         val mainCertificate = groupedCertificate.getMainCertificate()
@@ -129,6 +134,16 @@ internal class DetailFragment :
 
         mainCertificate.covCertificate.let { cert ->
             val dgcEntry = cert.dgcEntry
+
+            if (firstAdded) {
+                sendLocalAccessibilityAnnouncementEvent(
+                    getString(
+                        R.string.accessibility_scan_success_announce,
+                        cert.fullName
+                    )
+                )
+            }
+
             val isExpiredOrInvalid = when (mainCertificate.status) {
                 CertValidationResult.Expired, CertValidationResult.Invalid -> true
                 CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
@@ -580,5 +595,17 @@ internal class DetailFragment :
                 findNavigator().popUntil<DetailCallback>()?.displayCert(args.certId)
             }
         }.let {}
+    }
+
+    private fun sendLocalAccessibilityAnnouncementEvent(accessibilityString: String) {
+        val manager = context?.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        if (manager.isEnabled) {
+            val accessibilityEvent = AccessibilityEvent.obtain()
+            accessibilityEvent.eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
+            accessibilityEvent.className = javaClass.name
+            accessibilityEvent.packageName = requireContext().packageName
+            accessibilityEvent.text.add(accessibilityString)
+            manager.sendAccessibilityEvent(accessibilityEvent)
+        }
     }
 }

@@ -76,7 +76,7 @@
 	<string name="accessibility_scan_camera_torch_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
 	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"Nachweis hinzufügen\" wurde geöffnet</string>
-	<string name="accessibility_scan_success_announce">Das Zertifikat wurde erfolgreich hinzugefügt</string>
+	<string name="accessibility_scan_success_announce">Zertifikat von %s wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
@@ -89,6 +89,7 @@
 	<string name="certificate_add_dialog_camera_access_message">Die CovPass-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
 	<string name="certificate_add_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
+	<string name="accessibility_scan_dialog_camera_access_announce">Die Ansicht \"Kamerazugriff benötigt\" wurde geöffnet</string>
 	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>

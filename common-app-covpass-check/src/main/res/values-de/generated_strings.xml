@@ -63,6 +63,7 @@
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
 	<string name="scan_dialog_camera_access_message">Die CovPassCheck-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
+	<string name="accessibility_scan_dialog_camera_access_announce">Die Ansicht \"Kamerazugriff benötigt\" wurde geöffnet</string>
 	<string name="scan_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_scan_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>

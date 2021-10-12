@@ -35,6 +35,6 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
 
     override fun onScanSuccess(certificateId: GroupedCertificatesId) {
         findNavigator().popAll()
-        findNavigator().push(DetailFragmentNav(certificateId))
+        findNavigator().push(DetailFragmentNav(certificateId, true))
     }
 }

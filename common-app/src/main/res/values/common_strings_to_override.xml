@@ -62,6 +62,7 @@
   <string name="dialog_start_screen_button_later"/>
   <string name="dialog_start_screen_button_update"/>
 
+  <string name="accessibility_scan_dialog_camera_access_announce"/>
   <string name="accessibility_popup_label_close"/>
   <string name="accessibility_scan_camera_announce"/>
   <string name="accessibility_scan_camera_torch_on"/>

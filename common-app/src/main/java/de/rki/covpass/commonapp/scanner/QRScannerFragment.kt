@@ -255,10 +255,10 @@ public abstract class QRScannerFragment : BaseFragment() {
     private fun updateTorchView(on: Boolean) {
         if (on) {
             binding.scannerFlashlightButton.contentDescription =
-                resources.getString(R.string.accessibility_scan_camera_torch_on)
+                resources.getString(R.string.accessibility_scan_camera_torch_off)
         } else {
             binding.scannerFlashlightButton.contentDescription =
-                resources.getString(R.string.accessibility_scan_camera_torch_off)
+                resources.getString(R.string.accessibility_scan_camera_torch_on)
         }
     }
 

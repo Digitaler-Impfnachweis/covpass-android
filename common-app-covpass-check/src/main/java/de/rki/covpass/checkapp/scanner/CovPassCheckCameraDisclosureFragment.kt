@@ -25,6 +25,7 @@ internal class CovPassCheckCameraDisclosureFragment : BaseBottomSheet() {
 
     private val binding by viewBinding(CameraDisclosurePopupContentBinding::inflate)
     override val buttonTextRes = R.string.scan_dialog_camera_access_action_button
+    override val announcementAccessibilityRes: Int = R.string.accessibility_scan_dialog_camera_access_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
