@@ -24,7 +24,7 @@
   </style>
 
   <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
-    <item name="android:textColor">@color/onBackground40</item>
+    <item name="android:textColor">@color/onBackground</item>
     <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="android:textSize">@dimen/textsize_default</item>
   </style>

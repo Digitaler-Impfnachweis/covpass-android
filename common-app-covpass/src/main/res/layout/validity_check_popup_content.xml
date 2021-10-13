@@ -41,11 +41,11 @@
     android:layout_marginTop="@dimen/grid_two"
     android:background="@color/backgroundSecondary"
     android:hint="@string/certificate_check_validity_selection_country"
-    android:textColorHint="@color/onBackground40"
+    android:textColorHint="@color/onBackground"
     app:endIconDrawable="@drawable/map_icon"
     app:endIconMode="custom"
     app:hintTextAppearance="@style/HintTextAppearance"
-    app:hintTextColor="@color/onBackground40">
+    app:hintTextColor="@color/onBackground">
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/country_value"
@@ -69,11 +69,11 @@
     android:layout_marginTop="@dimen/grid_two"
     android:background="@color/backgroundSecondary"
     android:hint="@string/certificate_check_validity_selection_date"
-    android:textColorHint="@color/onBackground40"
+    android:textColorHint="@color/onBackground"
     app:endIconDrawable="@drawable/calender_icon"
     app:endIconMode="custom"
     app:hintTextAppearance="@style/HintTextAppearance"
-    app:hintTextColor="@color/onBackground40">
+    app:hintTextColor="@color/onBackground">
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/date_value"
