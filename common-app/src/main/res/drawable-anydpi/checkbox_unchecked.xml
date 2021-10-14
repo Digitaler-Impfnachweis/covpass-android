@@ -9,7 +9,7 @@
     <shape android:shape="oval">
       <stroke
         android:width="@dimen/grid_eighth"
-        android:color="@color/backgroundPrimary30" />
+        android:color="@color/backgroundPrimary60" />
       <size
         android:width="@dimen/grid_three"
         android:height="@dimen/grid_three" />
