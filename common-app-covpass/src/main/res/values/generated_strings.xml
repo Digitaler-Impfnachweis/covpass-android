@@ -154,6 +154,17 @@
 	<string name="IE">Ireland</string>
 	<string name="CH">Switzerland</string>
 	<string name="UA">Ukraine</string>
+	<string name="VA">Vatican City</string>
+	<string name="SM">San Marino</string>
+	<string name="TR">Turkey</string>
+	<string name="MK">North Macedonia</string>
+	<string name="AD">Andorra</string>
+	<string name="MC">Monaco</string>
+	<string name="FO">Faroe Islands</string>
+	<string name="MA">Morocco</string>
+	<string name="AL">Albania</string>
+	<string name="IL">Israel</string>
+	<string name="PA">Panama</string>
 	<string name="certificate_check_validity_selection_country_note">Is your destination not listed? More countries are progressively being added in stages. \n\nYou can find more information in the frequently asked questions and at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_selection_country_action_button">Select</string>
 	<string name="certificate_check_validity_selection_date">Date</string>

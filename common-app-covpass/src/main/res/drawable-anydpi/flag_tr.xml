@@ -1,0 +1,53 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:width="512dp"
+  android:height="513dp"
+  android:viewportWidth="512"
+  android:viewportHeight="513"
+  tools:ignore="VectorRaster">
+  <group>
+    <clip-path
+        android:pathData="M256,0.961C397.385,0.961 512,115.576 512,256.961C512,395.99 401.174,509.133 263.046,512.866L248.954,512.866C110.826,509.133 0.001,395.99 0.001,256.961C0.001,115.576 114.616,0.961 256,0.961Z"/>
+    <path
+        android:pathData="M0.001,512.858l512,0l0,-511.898l-512,0z"
+        android:strokeWidth="1"
+        android:fillColor="#CF232A"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M256,0.961C397.385,0.961 512,115.576 512,256.961C512,395.99 401.174,509.133 263.046,512.866L248.954,512.866C110.826,509.133 0.001,395.99 0.001,256.961C0.001,115.576 114.616,0.961 256,0.961Z"/>
+    <path
+        android:pathData="M144.001,128.961C214.692,128.961 272,186.269 272,256.961C272,327.652 214.692,384.961 144.001,384.961C73.309,384.961 16,327.652 16,256.961C16,186.269 73.309,128.961 144.001,128.961"
+        android:strokeWidth="1"
+        android:fillColor="#FFFFFE"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M256,0.961C397.385,0.961 512,115.576 512,256.961C512,395.99 401.174,509.133 263.046,512.866L248.954,512.866C110.826,509.133 0.001,395.99 0.001,256.961C0.001,115.576 114.616,0.961 256,0.961Z"/>
+    <path
+        android:pathData="M176.001,154.561C232.554,154.561 278.4,200.407 278.4,256.961C278.4,313.514 232.554,359.361 176.001,359.361C119.447,359.361 73.601,313.514 73.601,256.961C73.601,200.407 119.447,154.561 176.001,154.561"
+        android:strokeWidth="1"
+        android:fillColor="#CF232A"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M256,0.961C397.385,0.961 512,115.576 512,256.961C512,395.99 401.174,509.133 263.046,512.866L248.954,512.866C110.826,509.133 0.001,395.99 0.001,256.961C0.001,115.576 114.616,0.961 256,0.961Z"/>
+    <path
+        android:pathData="M245.334,256.961l115.777,37.618l-71.554,-98.487l0,121.737l71.554,-98.487l-115.777,37.618"
+        android:strokeWidth="1"
+        android:fillColor="#FFFFFE"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+</vector>

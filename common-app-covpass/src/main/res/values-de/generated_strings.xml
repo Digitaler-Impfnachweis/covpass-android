@@ -154,6 +154,17 @@
 	<string name="IE">Irland</string>
 	<string name="CH">Schweiz</string>
 	<string name="UA">Ukraine</string>
+	<string name="VA">Vatikanstadt</string>
+	<string name="SM">San Marino</string>
+	<string name="TR">Türkei</string>
+	<string name="MK">Nordmazedonien</string>
+	<string name="AD">Andorra</string>
+	<string name="MC">Monaco</string>
+	<string name="FO">Färöer-Inseln</string>
+	<string name="MA">Marokko</string>
+	<string name="AL">Albanien</string>
+	<string name="IL">Israel</string>
+	<string name="PA">Panama</string>
 	<string name="certificate_check_validity_selection_country_note">Sie finden Ihr Reiseland nicht? In einem mehrstufigen Prozess werden nach und nach mehr Länder verfügbar gemacht. \n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_selection_country_action_button">Übernehmen</string>
 	<string name="certificate_check_validity_selection_date">Datum</string>

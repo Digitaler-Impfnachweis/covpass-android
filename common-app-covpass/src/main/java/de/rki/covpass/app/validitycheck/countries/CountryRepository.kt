@@ -169,9 +169,64 @@ public object CountryRepository {
             R.drawable.flag_ch
         ),
         Country(
+            R.string.VA,
+            "VA",
+            R.drawable.flag_va
+        ),
+        Country(
+            R.string.SM,
+            "SM",
+            R.drawable.flag_sm
+        ),
+        Country(
             R.string.UA,
             "UA",
             R.drawable.flag_ua
+        ),
+        Country(
+            R.string.TR,
+            "TR",
+            R.drawable.flag_tr
+        ),
+        Country(
+            R.string.MK,
+            "MK",
+            R.drawable.flag_mk
+        ),
+        Country(
+            R.string.AD,
+            "AD",
+            R.drawable.flag_ad
+        ),
+        Country(
+            R.string.MC,
+            "MC",
+            R.drawable.flag_mc
+        ),
+        Country(
+            R.string.FO,
+            "FO",
+            R.drawable.flag_fo
+        ),
+        Country(
+            R.string.MA,
+            "MA",
+            R.drawable.flag_ma
+        ),
+        Country(
+            R.string.AL,
+            "AL",
+            R.drawable.flag_al
+        ),
+        Country(
+            R.string.IL,
+            "IL",
+            R.drawable.flag_il
+        ),
+        Country(
+            R.string.PA,
+            "PA",
+            R.drawable.flag_pa
         )
     )
 
