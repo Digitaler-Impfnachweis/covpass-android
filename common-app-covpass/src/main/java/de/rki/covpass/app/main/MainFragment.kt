@@ -68,6 +68,7 @@ internal class MainFragment :
     private val viewModel by reactiveState { MainViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
     private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
+    override val announcementAccessibilityRes: Int = R.string.accessibility_start_screen_info_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -44,8 +44,8 @@ public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
             ?: super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume() {
+        super.onResume()
         announcementAccessibilityRes?.let { sendAccessibilityAnnouncementEvent(it) }
     }
 
