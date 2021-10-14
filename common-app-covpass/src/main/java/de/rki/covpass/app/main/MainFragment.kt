@@ -90,7 +90,7 @@ internal class MainFragment :
             }
         )
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
-        binding.mainValidityCheckTextview.setOnClickListener { findNavigator().push(ValidityCheckFragmentNav()) }
+        binding.mainValidityCheckLayout.setOnClickListener { findNavigator().push(ValidityCheckFragmentNav()) }
         binding.mainSettingsImagebutton.setOnClickListener { findNavigator().push(CovPassInformationFragmentNav()) }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
@@ -122,7 +122,7 @@ internal class MainFragment :
             }
         }
         binding.mainTabLayout.isVisible = certificateList.certificates.size > 1
-        binding.mainValidityCheckTextview.isVisible = certificateList.certificates.size > 0
+        binding.mainValidityCheckLayout.isVisible = certificateList.certificates.size > 0
     }
 
     override fun onDeletionCompleted() {

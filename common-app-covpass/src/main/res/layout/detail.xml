@@ -30,6 +30,8 @@
     android:id="@+id/detail_vaccination_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/grid_five"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:itemCount="4"
     tools:listitem="@layout/certificate_item" />

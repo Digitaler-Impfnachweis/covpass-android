@@ -10,38 +10,53 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <TextView
-    android:id="@+id/main_validity_check_textview"
-    style="@style/Header.Info.Small"
+  <LinearLayout
+    android:id="@+id/main_validity_check_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_five"
+    android:layout_marginTop="@dimen/grid_three"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
-    android:drawablePadding="@dimen/grid_one"
     android:focusable="true"
-    app:layout_constraintStart_toStartOf="parent"
-    android:paddingVertical="@dimen/grid_one"
-    android:text="@string/certificate_action_button_check_validity"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
-    app:drawableEndCompat="@drawable/arrow_right_blue"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/main_validity_check_textview"
+      style="@style/Header.Info.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingVertical="@dimen/grid_one"
+      android:text="@string/certificate_action_button_check_validity" />
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/grid_one"
+      android:layout_marginTop="@dimen/grid_eighth"
+      android:importantForAccessibility="no"
+      android:src="@drawable/arrow_right_blue"
+      tools:ignore="ContentDescription" />
+
+  </LinearLayout>
 
   <ImageButton
     android:id="@+id/main_settings_imagebutton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_three"
     android:layout_marginEnd="@dimen/grid_two"
-    android:layout_marginTop="@dimen/grid_five"
     android:adjustViewBounds="true"
     android:background="?attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@string/accessibility_vaccination_start_screen_label_information"
     android:padding="@dimen/grid_one"
     android:src="@drawable/questionmark_black"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:contentDescription="@string/accessibility_vaccination_start_screen_label_information"
     tools:ignore="ContentDescription" />
 
   <com.google.android.material.card.MaterialCardView
@@ -119,7 +134,7 @@
     app:layout_constraintBottom_toTopOf="@id/main_tab_layout"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/main_validity_check_textview" />
+    app:layout_constraintTop_toBottomOf="@id/main_validity_check_layout" />
 
   <com.google.android.material.tabs.TabLayout
     android:id="@+id/main_tab_layout"
@@ -150,8 +165,8 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:layout_marginVertical="@dimen/grid_three"
-      app:round_button_icon="@drawable/plus"
-      android:contentDescription="@string/accessibility_vaccination_start_screen_label_add_certificate"/>
+      android:contentDescription="@string/accessibility_vaccination_start_screen_label_add_certificate"
+      app:round_button_icon="@drawable/plus" />
 
   </FrameLayout>
 

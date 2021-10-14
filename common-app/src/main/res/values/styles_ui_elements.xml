@@ -30,12 +30,14 @@
   <style name="PrimaryButton.Dark">
     <item name="backgroundTint">@drawable/button_primary_background_tint</item>
     <item name="android:textColor">@drawable/button_primary_text</item>
+    <item name="android:letterSpacing">0.05</item>
   </style>
 
   <style name="PrimaryButton.Light">
     <item name="backgroundTint">@color/onInfo</item>
     <item name="android:textColor">@color/onBackground</item>
     <item name="rippleColor">@color/brandAccent40</item>
+    <item name="android:letterSpacing">0.05</item>
   </style>
 
   <!--

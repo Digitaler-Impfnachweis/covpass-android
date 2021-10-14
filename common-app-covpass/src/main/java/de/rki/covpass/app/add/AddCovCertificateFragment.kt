@@ -20,6 +20,7 @@ import de.rki.covpass.app.databinding.AddCovCertPopupContentBinding
 import de.rki.covpass.app.scanner.CovPassCameraDisclosureFragmentNav
 import de.rki.covpass.app.scanner.CovPassQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
@@ -47,7 +48,14 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
-        binding.warningElement.isGone = requireContext().isDeviceSecure()
+        binding.warningElement.apply {
+            showWarning(
+                title = getString(R.string.certificate_add_popup_note_title),
+                description = getString(R.string.certificate_add_popup_note_message),
+                descriptionTopMarginDimenRes = R.dimen.grid_one
+            )
+            binding.warningElement.isGone = requireContext().isDeviceSecure()
+        }
     }
 
     private fun Context.isDeviceSecure(): Boolean {

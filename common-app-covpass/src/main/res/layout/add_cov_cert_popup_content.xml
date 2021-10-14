@@ -5,7 +5,6 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -16,8 +15,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:adjustViewBounds="true"
-    android:src="@drawable/add_certificate_illustration"
-    android:contentDescription="@string/accessibility_certificate_add_popup_image" />
+    android:contentDescription="@string/accessibility_certificate_add_popup_image"
+    android:src="@drawable/add_certificate_illustration" />
 
   <de.rki.covpass.commonapp.uielements.InfoElement
     android:id="@+id/warning_element"
@@ -27,8 +26,6 @@
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_three"
     android:visibility="gone"
-    app:description="@string/certificate_add_popup_note_message"
-    app:title="@string/certificate_add_popup_note_title"
     tools:visibility="visible" />
 
   <TextView

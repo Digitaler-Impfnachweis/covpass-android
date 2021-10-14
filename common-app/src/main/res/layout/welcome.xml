@@ -43,8 +43,8 @@
         android:id="@+id/welcome_main_imageview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_five"
-        android:layout_marginBottom="@dimen/grid_two"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginBottom="@dimen/grid_three"
         android:adjustViewBounds="true"
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/backgrounds/scenic"/>
@@ -106,6 +106,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:layout_marginTop="@dimen/grid_two"
       android:layout_marginVertical="@dimen/grid_three"
       android:text="@string/start_onboarding_button_title" />
 

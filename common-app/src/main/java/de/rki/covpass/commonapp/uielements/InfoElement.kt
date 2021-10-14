@@ -69,7 +69,7 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoDescription.setTextAppearance(newValue)
     }
 
-    public var descriptionTopMarginDimenRes: Int by Delegates.observable(R.dimen.grid_two) { _, _, newValue ->
+    public var descriptionTopMarginDimenRes: Int by Delegates.observable(R.dimen.grid_one) { _, _, newValue ->
         val marginLayoutParams = binding.infoDescription.layoutParams as MarginLayoutParams
         marginLayoutParams.topMargin = resources.getDimensionPixelSize(newValue)
         binding.infoDescription.requestLayout()

@@ -9,5 +9,7 @@
   <gradient
     android:angle="90"
     android:endColor="#4CFFFFFF"
+    android:centerColor="@color/backgroundSecondary"
+    android:centerY="0.35"
     android:startColor="@color/backgroundSecondary" />
 </shape>

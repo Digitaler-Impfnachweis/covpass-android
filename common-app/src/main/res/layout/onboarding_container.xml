@@ -21,15 +21,16 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:background="@drawable/common_gradient_fadeout"
+    android:background="@drawable/common_gradient_fadeout_onboaring"
     android:paddingStart="@dimen/grid_two"
     android:paddingEnd="@dimen/grid_two">
 
     <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/grid_two"
+      android:layout_marginTop="@dimen/grid_two"
       android:animateLayoutChanges="true"
+      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/onboarding_tab_layout">
 
       <com.google.android.material.button.MaterialButton
@@ -54,7 +55,7 @@
       android:id="@+id/onboarding_tab_layout"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/grid_two"
+      android:layout_marginBottom="@dimen/grid_one"
       android:background="@color/zxing_transparent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

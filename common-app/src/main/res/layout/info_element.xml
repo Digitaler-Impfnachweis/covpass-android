@@ -54,7 +54,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_two"
-    android:layout_marginTop="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_one"
     android:layout_marginBottom="@dimen/grid_two"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"

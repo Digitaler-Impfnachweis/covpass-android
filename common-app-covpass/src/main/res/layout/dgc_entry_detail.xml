@@ -93,7 +93,8 @@
           android:layout_marginHorizontal="@dimen/grid_three"
           android:layout_marginTop="@dimen/grid_five"
           android:text="@string/vaccination_certificate_detail_view_qrcode_action_button_title"
-          app:icon="@drawable/scan_qr_light" />
+          app:icon="@drawable/scan_qr_light"
+          app:iconPadding="@dimen/grid_one" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/dgc_detail_export_pdf_button"
@@ -102,9 +103,10 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:layout_marginHorizontal="@dimen/grid_three"
-          android:layout_marginTop="@dimen/grid_three"
+          android:layout_marginTop="@dimen/grid_two"
           android:text="@string/vaccination_certificate_detail_view_pdf_action_button_title"
-          app:icon="@drawable/share_icon" />
+          app:icon="@drawable/share_icon"
+          app:iconPadding="@dimen/grid_one" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/dgc_detail_export_pdf_info"

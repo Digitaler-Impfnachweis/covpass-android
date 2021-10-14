@@ -65,6 +65,7 @@
   <style name="Header.OnBackground.Extralarge">
     <item name="android:fontFamily">@font/opensans_semibold</item>
     <item name="android:textSize">@dimen/textsize_header_extralarge</item>
+    <item name="android:lineSpacingMultiplier">1.0</item>
   </style>
 
   <style name="Header.OnInfo.Small">
