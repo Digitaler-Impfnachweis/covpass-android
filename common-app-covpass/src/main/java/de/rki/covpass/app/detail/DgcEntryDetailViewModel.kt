@@ -9,8 +9,8 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
 import de.rki.covpass.sdk.storage.CertRepository
-import de.rki.covpass.app.validitycheck.countries.CountryRepository.defaultCountry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 

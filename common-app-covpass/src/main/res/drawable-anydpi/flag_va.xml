@@ -1,0 +1,37 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:width="512dp"
+  android:height="513dp"
+  android:viewportWidth="512"
+  android:viewportHeight="513"
+  tools:ignore="VectorRaster">
+  <path
+      android:pathData="M256,0.961C397.384,0.961 512,115.577 512,256.961C512,398.345 397.384,512.961 256,512.961C256,501.831 222.609,256.961 222.609,256.961L256,0.961Z"
+      android:strokeWidth="1"
+      android:fillColor="#F0F0F0"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M256,512.961C114.617,512.961 0.001,398.345 0.001,256.961C0.001,115.577 114.617,0.961 256,0.961"
+      android:strokeWidth="1"
+      android:fillColor="#FFDA44"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M354.03,223.726L402.141,287.372C394.561,298.85 394.602,314.314 403.368,325.911C414.488,340.622 435.429,343.534 450.141,332.413C464.852,321.293 467.764,300.352 456.642,285.641C447.878,274.044 433.009,269.788 419.899,273.95L344.918,174.757L327.16,188.181L300.52,208.315L327.368,243.83L354.03,223.726ZM423.293,296.896C428.197,293.188 435.178,294.16 438.885,299.062C442.591,303.966 441.622,310.947 436.718,314.655C431.815,318.36 424.835,317.392 421.128,312.487C417.419,307.583 418.391,300.602 423.293,296.896L423.293,296.896Z"
+      android:strokeWidth="1"
+      android:fillColor="#ACABB1"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M436.55,243.829L463.398,208.314L436.76,188.178L419.003,174.754L344.021,273.947C330.913,269.785 316.044,274.042 307.279,285.638C296.156,300.35 299.068,321.29 313.779,332.41C328.491,343.53 349.431,340.619 360.551,325.908C369.317,314.311 369.357,298.847 361.779,287.369L409.889,223.723L436.55,243.829ZM342.793,312.486C339.087,317.391 332.107,318.36 327.203,314.654C322.299,310.946 321.329,303.965 325.036,299.061C328.742,294.159 335.723,293.187 340.628,296.895C345.531,300.602 346.5,307.583 342.793,312.486L342.793,312.486Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFDA44"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+</vector>

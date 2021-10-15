@@ -19,10 +19,7 @@ import de.rki.covpass.sdk.cert.models.CertificateListMapper
 import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
-import de.rki.covpass.sdk.rules.CovPassRule
-import de.rki.covpass.sdk.rules.CovPassRulesRepository
-import de.rki.covpass.sdk.rules.CovPassValueSet
-import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
+import de.rki.covpass.sdk.rules.*
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import de.rki.covpass.sdk.rules.booster.CovPassBoosterRulesRepository
 import de.rki.covpass.sdk.rules.booster.local.BoosterRulesDao
@@ -32,6 +29,8 @@ import de.rki.covpass.sdk.rules.booster.remote.BoosterRuleRemote
 import de.rki.covpass.sdk.rules.booster.remote.toBoosterRule
 import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
 import de.rki.covpass.sdk.rules.local.CovPassDatabase
+import de.rki.covpass.sdk.rules.local.countries.CountriesDao
+import de.rki.covpass.sdk.rules.local.countries.CovPassCountriesLocalDataSource
 import de.rki.covpass.sdk.rules.local.rules.CovPassRulesDao
 import de.rki.covpass.sdk.rules.local.rules.CovPassRulesLocalDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
@@ -144,6 +143,10 @@ public abstract class SdkDependencies {
         BoosterRulesRemoteDataSource(httpClient, "distribution-cff4f7147260.dcc-rules.de")
     }
 
+    private val countriesRemoteDataSource: CovPassCountriesRemoteDataSource by lazy {
+        CovPassCountriesRemoteDataSource(httpClient, dccRulesHost)
+    }
+
     private val covPassDatabase: CovPassDatabase by lazy { createDb("covpass-database") }
 
     private inline fun <reified T : RoomDatabase> createDb(name: String): T =
@@ -163,11 +166,17 @@ public abstract class SdkDependencies {
         CovPassBoosterRulesLocalDataSource(boosterRuleDao)
     }
 
+    private val covPassCountriesLocalDataSource: CovPassCountriesLocalDataSource by lazy {
+        CovPassCountriesLocalDataSource(countriesDao)
+    }
+
     private val covPassRulesDao: CovPassRulesDao by lazy { covPassDatabase.covPassRulesDao() }
 
     private val covPassValueSetsDao: CovPassValueSetsDao by lazy { covPassDatabase.covPassValueSetsDao() }
 
     private val boosterRuleDao: BoosterRulesDao by lazy { covPassDatabase.boosterRulesDao() }
+
+    private val countriesDao: CountriesDao by lazy { covPassDatabase.countriesDao() }
 
     private val euRulePath: String by lazy { "covpass-sdk/eu-rules.json" }
     private val covPassRulesInitial: List<CovPassRuleInitial> by lazy {
@@ -226,6 +235,12 @@ public abstract class SdkDependencies {
         }
     }
 
+    public val bundledCountries: List<String> by lazy {
+        defaultJson.decodeFromString(
+            application.readTextAsset("covpass-sdk/eu-countries.json")
+        )
+    }
+
     public val covPassRulesRepository: CovPassRulesRepository by lazy {
         CovPassRulesRepository(
             covPassRulesRemoteDataSource,
@@ -245,6 +260,13 @@ public abstract class SdkDependencies {
         CovPassBoosterRulesRepository(
             boosterRulesRemoteDataSource,
             covPassBoosterRulesLocalDataSource
+        )
+    }
+
+    public val covPassCountriesRepository: CovPassCountriesRepository by lazy {
+        CovPassCountriesRepository(
+            countriesRemoteDataSource,
+            covPassCountriesLocalDataSource
         )
     }
 

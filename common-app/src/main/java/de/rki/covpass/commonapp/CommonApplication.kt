@@ -27,6 +27,8 @@ import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.*
 import de.rki.covpass.sdk.worker.DscListWorker
+import de.rki.covpass.sdk.worker.RulesWorker
+import de.rki.covpass.sdk.worker.ValueSetsWorker
 import kotlinx.coroutines.runBlocking
 
 /** Common base application with some common functionality like setting up logging. */
@@ -72,6 +74,8 @@ public abstract class CommonApplication : Application() {
     public open fun initializeWorkManager(workManager: WorkManager) {
         workManager.apply {
             schedulePeriodicWorker<DscListWorker>("dscListWorker")
+            schedulePeriodicWorker<RulesWorker>("rulesWorker")
+            schedulePeriodicWorker<ValueSetsWorker>("valueSetsWorker")
         }
     }
 
@@ -106,6 +110,11 @@ public abstract class CommonApplication : Application() {
             if (sdkDeps.covPassBoosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
                 sdkDeps.covPassBoosterRulesRepository.prepopulate(
                     sdkDeps.bundledBoosterRules
+                )
+            }
+            if (sdkDeps.covPassCountriesRepository.getAllCovPassCountries().isNullOrEmpty()) {
+                sdkDeps.covPassCountriesRepository.prepopulate(
+                    sdkDeps.bundledCountries
                 )
             }
         }

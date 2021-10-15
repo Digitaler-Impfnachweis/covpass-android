@@ -11,7 +11,7 @@ import com.ensody.reactivestate.MutableValueFlow
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryRepository.defaultCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
 import de.rki.covpass.sdk.cert.RulesValidator
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository

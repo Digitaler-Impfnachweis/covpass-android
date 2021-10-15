@@ -15,8 +15,7 @@ import de.rki.covpass.commonapp.dependencies.CommonDependencies
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.utils.schedulePeriodicWorker
 import de.rki.covpass.sdk.worker.BoosterRulesWorker
-import de.rki.covpass.sdk.worker.RulesWorker
-import de.rki.covpass.sdk.worker.ValueSetsWorker
+import de.rki.covpass.sdk.worker.CountriesWorker
 
 /**
  * Application class which defines dependencies for the Covpass App
@@ -37,8 +36,7 @@ internal class App : CommonApplication() {
         super.initializeWorkManager(workManager)
         workManager.apply {
             schedulePeriodicWorker<BoosterRulesWorker>("boosterRulesWorker")
-            schedulePeriodicWorker<RulesWorker>("rulesWorker")
-            schedulePeriodicWorker<ValueSetsWorker>("valueSetsWorker")
+            schedulePeriodicWorker<CountriesWorker>("countriesWorker")
         }
     }
 }

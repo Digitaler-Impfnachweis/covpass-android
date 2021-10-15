@@ -1,0 +1,43 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:width="512dp"
+  android:height="513dp"
+  android:viewportWidth="512"
+  android:viewportHeight="513"
+  tools:ignore="VectorRaster">
+  <group>
+    <clip-path
+        android:pathData="M256,0.58C397.385,0.58 512,115.195 512,256.58C512,395.609 401.174,508.752 263.046,512.485L248.954,512.485C110.826,508.752 0.001,395.609 0.001,256.58C0.001,115.195 114.616,0.58 256,0.58Z"/>
+    <path
+        android:pathData="M0.001,512.478l512,0l0,-511.898l-512,0z"
+        android:strokeWidth="1"
+        android:fillColor="#D8262C"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M256,0.58C397.385,0.58 512,115.195 512,256.58C512,395.609 401.174,508.752 263.046,512.485L248.954,512.485C110.826,508.752 0.001,395.609 0.001,256.58C0.001,115.195 114.616,0.58 256,0.58Z"/>
+    <path
+        android:pathData="M0.001,427.247l512,0l0,-341.333l-512,0z"
+        android:strokeWidth="1"
+        android:fillColor="#FFFFFE"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M256,0.58C397.385,0.58 512,115.195 512,256.58C512,395.609 401.174,508.752 263.046,512.485L248.954,512.485C110.826,508.752 0.001,395.609 0.001,256.58C0.001,115.195 114.616,0.58 256,0.58Z"/>
+    <path
+        android:pathData="M0.001,341.914l512,0l0,-170.667l-512,0z"
+        android:strokeWidth="1"
+        android:fillColor="#1B1736"
+        android:fillType="evenOdd"
+        android:strokeColor="#00000000"/>
+  </group>
+</vector>

@@ -8,6 +8,9 @@ package de.rki.covpass.app.validitycheck
 import android.os.Bundle
 import android.view.View
 import android.view.accessibility.AccessibilityEvent
+import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.reactiveState
+import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -15,7 +18,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ChangeCountryPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryRepository
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 
@@ -39,6 +41,7 @@ public interface AccessibilityCallback {
 internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback {
 
     private val args: ChangeCountryFragmentNav by lazy { getArgs() }
+    private val countryListViewModel by reactiveState { CountryListViewModel(scope) }
     private val binding by viewBinding(ChangeCountryPopupContentBinding::inflate)
     override val announcementAccessibilityRes: Int =
         R.string.accessibility_certificate_check_validity_selection_country_announce
@@ -51,8 +54,13 @@ internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback 
             R.string.certificate_check_validity_selection_country_action_button
         )
 
-        ChangeCountryAdapter(this, args.countryCode, this).attachTo(binding.countryList)
-        (binding.countryList.adapter as? ChangeCountryAdapter)?.updateList(CountryRepository.getSortedCountryList())
+        val adapter = ChangeCountryAdapter(this, args.countryCode, this)
+        adapter.attachTo(binding.countryList)
+        autoRun {
+            adapter.updateList(
+                get(countryListViewModel.countries)
+            )
+        }
     }
 
     override fun onActionButtonClicked() {

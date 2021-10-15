@@ -9,7 +9,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryRepository
+import de.rki.covpass.app.validitycheck.countries.CountryResolver
 import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
@@ -82,7 +82,7 @@ internal class RecoveryResultFragment : ResultFragment() {
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_country),
-                CountryRepository.getCountryLocalized(recovery.country),
+                CountryResolver.getCountryLocalized(recovery.country),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_country),
                 args.derivedValidationResults.getResultsBy("co")
             ),

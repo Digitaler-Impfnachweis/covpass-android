@@ -6,7 +6,7 @@
 package de.rki.covpass.app.detail
 
 import android.content.Context
-import de.rki.covpass.app.validitycheck.countries.CountryRepository
+import de.rki.covpass.app.validitycheck.countries.CountryResolver
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
@@ -34,7 +34,7 @@ internal object PdfUtils {
         .replace("\$dn", vaccination.doseNumber.toString())
         .replace("\$sd", vaccination.totalSerialDoses.toString())
         .replace("\$dt", vaccination.occurrence?.formatDateInternational() ?: "")
-        .replace("\$co", CountryRepository.getCountryLocalized(vaccination.country).sanitizeXMLString())
+        .replace("\$co", CountryResolver.getCountryLocalized(vaccination.country).sanitizeXMLString())
         .replace("\$is", vaccination.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 
@@ -49,7 +49,7 @@ internal object PdfUtils {
         .replace("\$ci", recovery.idWithoutPrefix.sanitizeXMLString())
         .replace("\$tg", getDiseaseAgentName(recovery.targetDisease).sanitizeXMLString())
         .replace("\$fr", recovery.firstResult?.formatDateInternational() ?: "")
-        .replace("\$co", CountryRepository.getCountryLocalized(recovery.country).sanitizeXMLString())
+        .replace("\$co", CountryResolver.getCountryLocalized(recovery.country).sanitizeXMLString())
         .replace("\$is", recovery.certificateIssuer.sanitizeXMLString())
         .replace("\$df", recovery.validFrom?.formatDateInternational() ?: "")
         .replace("\$du", recovery.validUntil?.formatDateInternational() ?: "")
@@ -71,7 +71,7 @@ internal object PdfUtils {
         .replace("\$sc", testCert.sampleCollection?.formatDateTimeInternational() ?: "")
         .replace("\$tr", getTestResultName(testCert.testResult).sanitizeXMLString())
         .replace("\$tc", testCert.testingCenter)
-        .replace("\$co", CountryRepository.getCountryLocalized(testCert.country).sanitizeXMLString())
+        .replace("\$co", CountryResolver.getCountryLocalized(testCert.country).sanitizeXMLString())
         .replace("\$is", testCert.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 }
