@@ -116,7 +116,7 @@ public data class CovCertificate(
     }
 
     public val validDate: LocalDate?
-        get() = vaccination?.occurrence?.plusDays(15)
+        get() = vaccination?.validDate
 
     public val birthDateFormatted: String
         get() = try {

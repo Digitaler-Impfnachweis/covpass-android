@@ -67,7 +67,7 @@ public data class Vaccination(
             (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster || hasFullProtectionAfterRecovery
 
     public val validDate: LocalDate?
-        get() = occurrence?.plusDays(15)
+        get() = occurrence?.plusDays(if (isBooster || hasFullProtectionAfterRecovery) 0 else 15)
 
     public override val type: VaccinationCertType
         get() = when {
