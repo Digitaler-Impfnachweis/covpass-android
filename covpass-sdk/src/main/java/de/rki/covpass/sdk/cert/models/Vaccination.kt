@@ -54,11 +54,17 @@ public data class Vaccination(
         get() = doseNumber == 1 && totalSerialDoses == 1
 
     public val isBooster: Boolean
-        get() = (isComplete && doseNumber > 2) || (isComplete && product == "EU/1/20/1525" && doseNumber == 2)
+        get() = (isComplete && doseNumber > 2) || (isComplete && product == JANSSEN && doseNumber == 2)
+
+    public val hasFullProtectionAfterRecovery: Boolean
+        get() = (isCompleteSingleDose && ((product == BIONTECH) || (product == MODERNA) || (product == ASTRAZENECA)))
 
     public val hasFullProtection: Boolean
-        // Full protection is reached on day 15 after the complete vaccination or if is a booster vaccination
-        get() = (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster
+        // Full protection is reached on day 15 after the complete vaccination
+        // or if is a booster vaccination
+        // or 1/1 after Recovery
+        get() =
+            (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster || hasFullProtectionAfterRecovery
 
     public val validDate: LocalDate?
         get() = occurrence?.plusDays(15)
@@ -69,4 +75,11 @@ public data class Vaccination(
             isComplete -> VaccinationCertType.VACCINATION_COMPLETE
             else -> VaccinationCertType.VACCINATION_INCOMPLETE
         }
+
+    private companion object {
+        private const val BIONTECH = "EU/1/20/1528"
+        private const val MODERNA = "EU/1/20/1507"
+        private const val ASTRAZENECA = "EU/1/21/1529"
+        private const val JANSSEN = "EU/1/20/1525"
+    }
 }
