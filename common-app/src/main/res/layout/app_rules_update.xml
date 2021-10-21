@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/grid_three"
+        android:focusable="true"
         tools:description="@tools:sample/lorem[10]"
         tools:title="@tools:sample/lorem[3]" />
 
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/grid_five"
-        android:text="@string/validation_start_screen_offline_modus_button" />
+        android:text="@string/app_information_message_update_button" />
 
       <LinearLayout
         android:id="@+id/loading_layout"

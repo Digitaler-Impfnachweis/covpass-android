@@ -95,9 +95,7 @@
         style="@style/NavigationField"
         android:background="@color/onBrandBase" />
 
-      <View
-        android:id="@+id/information_field_app_rules_update_divider"
-        style="@style/Divider" />
+      <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_app_version_label"

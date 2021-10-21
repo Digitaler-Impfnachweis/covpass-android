@@ -22,6 +22,7 @@ import de.rki.covpass.commonapp.databinding.AppRulesUpdateBinding
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -57,23 +58,29 @@ public class AppRulesUpdateFragment : BaseFragment() {
 
     @SuppressLint("StringFormatInvalid")
     private fun updateTimeDisplay(lastUpdate: Instant, lastRulesUpdate: Instant) {
-        binding.updateNote.setText(R.string.validation_start_screen_offline_modus_information)
+        binding.updateNote.setText(R.string.app_information_message_update)
         val certText = getString(
-            R.string.validation_start_screen_offline_modus_certificates,
+            R.string.app_information_message_update_certificates,
             LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
         )
         val ruleText = getString(
-            R.string.validation_start_screen_offline_modus_rules,
+            R.string.app_information_message_update_rules,
             LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTime()
         )
+        val certTextAccessibility = getString(
+            R.string.app_information_message_update_certificates,
+            LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTimeAccessibility()
+        )
+        val ruleTextAccessibility = getString(
+            R.string.app_information_message_update_rules,
+            LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTimeAccessibility()
+        )
         binding.updateInfoElement.showInfo(
-            title = getString(R.string.validation_start_screen_offline_modus_note_update),
-            subtitle = certText,
+            title = getString(R.string.app_information_message_update_note),
+            subtitle = "$certText\n$ruleText",
+            subtitleContentDescription = "$certTextAccessibility.\n$ruleTextAccessibility",
             subtitleStyle = R.style.DefaultText_OnBackground70,
             subtitleTopMarginDimenRes = R.dimen.grid_one,
-            description = ruleText,
-            descriptionTopMarginDimenRes = R.dimen.grid_half,
-            descriptionStyle = R.style.DefaultText_OnBackground70,
             iconRes = R.drawable.info_icon_update_app,
         )
     }
@@ -87,7 +94,7 @@ public class AppRulesUpdateFragment : BaseFragment() {
                 setHomeAsUpIndicator(R.drawable.back_arrow)
                 setHomeActionContentDescription(R.string.accessibility_app_information_contact_label_back)
             }
-            binding.informationToolbar.setTitle(R.string.validation_start_screen_offline_modus_information_title)
+            binding.informationToolbar.setTitle(R.string.app_information_title_update)
         }
     }
 }

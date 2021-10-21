@@ -50,12 +50,14 @@
   <string name="app_information_message_contact_info"/>
   <string name="app_information_message_contact_info_mail"/>
 
-  <string name="validation_start_screen_offline_modus_certificates"/>
-  <string name="validation_start_screen_offline_modus_rules"/>
-  <string name="validation_start_screen_offline_modus_note_update"/>
-  <string name="validation_start_screen_offline_modus_information_title"/>
-  <string name="validation_start_screen_offline_modus_information"/>
-  <string name="validation_start_screen_offline_modus_button"/>
+  <string name="app_information_title_update"/>
+  <string name="app_information_message_update"/>
+  <string name="app_information_message_update_note"/>
+  <string name="app_information_message_update_pattern"/>
+  <string name="app_information_message_update_certificates"/>
+  <string name="app_information_message_update_rules"/>
+  <string name="app_information_message_update_button"/>
+  <string name="accessibility_app_information_title_update"/>
 
   <string name="dialog_start_screen_title"/>
   <string name="dialog_start_screen_message"/>

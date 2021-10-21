@@ -42,6 +42,10 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoSubtitle.isGone = newValue.isNullOrEmpty()
     }
 
+    public var subtitleContentDescription: String? by Delegates.observable(null) { _, _, newValue ->
+        binding.infoSubtitle.contentDescription = newValue
+    }
+
     public var subtitleStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground70) { _, _, newValue ->
         binding.infoSubtitle.setTextAppearance(newValue)
     }
@@ -59,6 +63,10 @@ public class InfoElement @JvmOverloads constructor(
             stripUnderlines()
         }
         binding.infoDescription.isGone = newValue.isNullOrEmpty()
+    }
+
+    public var descriptionContentDescription: String? by Delegates.observable(null) { _, _, newValue ->
+        binding.infoDescription.contentDescription = newValue
     }
 
     public var descriptionLink: OnClickListener? by Delegates.observable(null) { _, _, newValue ->
@@ -170,6 +178,8 @@ public fun InfoElement.showInfo(
     descriptionStyle: Int? = null,
     subtitleTopMarginDimenRes: Int? = null,
     descriptionTopMarginDimenRes: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -186,5 +196,11 @@ public fun InfoElement.showInfo(
     }
     if (descriptionTopMarginDimenRes != null) {
         this.descriptionTopMarginDimenRes = descriptionTopMarginDimenRes
+    }
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
     }
 }
