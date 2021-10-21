@@ -408,7 +408,7 @@ internal class DetailFragment :
                 personalDataList.add(
                     DetailItem.Notification(
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_title,
-                        groupedCertificate.boosterNotification.description,
+                        groupedCertificate.boosterNotification.getLocalizedDescription(),
                         groupedCertificate.boosterNotification.ruleId,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
                             R.drawable.background_new_booster

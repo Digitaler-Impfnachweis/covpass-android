@@ -21,7 +21,7 @@ import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
-import de.rki.covpass.sdk.utils.getDescriptionLanguage
+import de.rki.covpass.sdk.utils.DescriptionLanguage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 
@@ -119,7 +119,8 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         return if (boosterResult != null) {
             BoosterNotification(
                 BoosterResult.Passed,
-                boosterResult.rule.getDescriptionFor(getDescriptionLanguage()),
+                boosterResult.rule.getDescriptionFor(DescriptionLanguage.ENGLISH.languageCode),
+                boosterResult.rule.getDescriptionFor(DescriptionLanguage.GERMAN.languageCode),
                 boosterResult.rule.identifier
             )
         } else {
