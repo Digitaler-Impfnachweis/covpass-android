@@ -7,7 +7,7 @@ public fun getDescriptionLanguage(): String = when (Locale.getDefault().language
     else -> DescriptionLanguage.ENGLISH.languageCode
 }
 
-private enum class DescriptionLanguage(val languageCode: String) {
+public enum class DescriptionLanguage(public val languageCode: String) {
     GERMAN("de"),
     ENGLISH("en")
 }

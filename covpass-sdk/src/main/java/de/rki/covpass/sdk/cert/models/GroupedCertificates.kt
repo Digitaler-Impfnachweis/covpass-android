@@ -7,6 +7,8 @@ package de.rki.covpass.sdk.cert.models
 
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST_EXPIRY_TIME_HOURS
+import de.rki.covpass.sdk.utils.DescriptionLanguage
+import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import de.rki.covpass.sdk.utils.isOlderThan
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -19,9 +21,17 @@ public enum class BoosterResult {
 @Serializable
 public data class BoosterNotification(
     val result: BoosterResult = BoosterResult.Failed,
-    val description: String = "",
+    val descriptionEn: String = "",
+    val descriptionDe: String = "",
     val ruleId: String = "",
-)
+) {
+    public fun getLocalizedDescription(): String {
+        return when (getDescriptionLanguage()) {
+            DescriptionLanguage.GERMAN.languageCode -> descriptionDe
+            else -> descriptionEn
+        }
+    }
+}
 
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).
