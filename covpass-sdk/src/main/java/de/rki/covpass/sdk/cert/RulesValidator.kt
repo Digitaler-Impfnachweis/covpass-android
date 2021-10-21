@@ -13,7 +13,7 @@ import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
 import de.rki.covpass.sdk.rules.local.rules.toRules
-import de.rki.covpass.sdk.rules.local.toValueSets
+import de.rki.covpass.sdk.rules.local.valuesets.toValueSets
 import de.rki.covpass.sdk.utils.toZonedDateTimeOrDefault
 import dgca.verifier.app.engine.CertLogicEngine
 import dgca.verifier.app.engine.ValidationResult

@@ -7,7 +7,6 @@ package de.rki.covpass.sdk.rules.local.valuesets
 
 import com.ensody.reactivestate.dispatchers
 import de.rki.covpass.sdk.rules.CovPassValueSet
-import de.rki.covpass.sdk.rules.local.toCovPassValueSetsLocal
 import kotlinx.coroutines.invoke
 
 @Suppress("SpreadOperator")

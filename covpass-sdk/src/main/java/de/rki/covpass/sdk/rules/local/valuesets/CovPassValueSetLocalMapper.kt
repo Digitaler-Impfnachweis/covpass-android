@@ -3,11 +3,10 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.rules.local
+package de.rki.covpass.sdk.rules.local.valuesets
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import de.rki.covpass.sdk.rules.CovPassValueSet
-import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetLocal
 import dgca.verifier.app.engine.data.ValueSet
 
 public fun CovPassValueSet.toCovPassValueSetLocal(): CovPassValueSetLocal =

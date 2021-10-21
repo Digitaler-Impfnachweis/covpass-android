@@ -16,7 +16,7 @@ public fun CBORObject.trimAllStrings(): CBORObject =
         CBORType.Map -> {
             CBORObject.FromObject(
                 entries.map { (key, value) ->
-                    key to value.trimAllStrings()
+                    key.trimAllStrings() to value.trimAllStrings()
                 }.toMap()
             )
         }

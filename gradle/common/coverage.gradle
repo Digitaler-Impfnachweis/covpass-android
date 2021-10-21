@@ -66,7 +66,12 @@ ext.trackCoverage = { args = [:] ->
             '**/Hilt_*.*',
             '**/*_HiltComponents_*.*',
             '**/*_HiltModules_*.*',
-            '**/*Module_*Factory*.*'
+            '**/*Module_*Factory*.*',
+            // ignore room database
+            '**/*Database.*',
+            '**/*Dao.*',
+            '**/*Dao_Impl.*',
+            '**/*Database_Impl.*'
         ]
         if (!config.trackUI) {
             fileFilter.addAll([
