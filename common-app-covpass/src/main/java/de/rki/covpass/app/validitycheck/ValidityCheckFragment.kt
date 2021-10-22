@@ -69,9 +69,10 @@ internal class ValidityCheckFragment :
             binding.validityCheckTravelRulesNotUpToDate.apply {
                 showWarning(
                     title = getString(R.string.certificate_check_validity_travel_rules_not_up_to_title),
-                    description = getString(R.string.certificate_check_validity_travel_rules_not_up_to_message),
+                    subtitle = getString(R.string.certificate_check_validity_travel_rules_not_up_to_message),
+                    subtitleStyle = R.style.DefaultText_OnBackground,
                     iconRes = R.drawable.info_warning,
-                    descriptionTopMarginDimenRes = R.dimen.grid_one
+                    subtitleTopMarginDimenRes = R.dimen.grid_one
                 )
                 isVisible = get(sdkDeps.rulesUpdateRepository.lastRulesUpdate).isBefore(
                     Instant.now().minus(DSC_UPDATE_INTERVAL_HOURS, ChronoUnit.HOURS)

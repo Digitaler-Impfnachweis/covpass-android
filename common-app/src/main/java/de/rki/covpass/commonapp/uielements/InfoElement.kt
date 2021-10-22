@@ -134,6 +134,8 @@ public fun InfoElement.showWarning(
     iconRes: Int? = null,
     subtitleTopMarginDimenRes: Int? = null,
     descriptionTopMarginDimenRes: Int? = null,
+    subtitleStyle: Int? = null,
+    descriptionStyle: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -143,6 +145,12 @@ public fun InfoElement.showWarning(
     }
     if (descriptionTopMarginDimenRes != null) {
         this.descriptionTopMarginDimenRes = descriptionTopMarginDimenRes
+    }
+    if (subtitleStyle != null) {
+        this.subtitleStyle = subtitleStyle
+    }
+    if (descriptionStyle != null) {
+        this.descriptionStyle = descriptionStyle
     }
 }
 
