@@ -11,6 +11,19 @@ import java.net.MalformedURLException
 import java.net.URI
 import java.net.URL
 
+/** Returns true, if the given [url] is a sub-URL of [parent], else false. */
+public fun isSubUrlOf(url: String, parent: String): Boolean {
+    val currentUrl = try {
+        URL(url)
+    } catch (e: MalformedURLException) {
+        return false
+    }
+    val parentHost = parent.substringBefore("/")
+    val parentPath = parent.substring(parentHost.length)
+    return isSubdomainOf(url, parentHost) &&
+        (currentUrl.path == parentPath || currentUrl.path.startsWith("$parentPath/"))
+}
+
 /** Returns true, if the given [url] is a subdomain of [parent], else false. */
 public fun isSubdomainOf(url: String, parent: String): Boolean {
     val host = try {

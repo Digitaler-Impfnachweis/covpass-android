@@ -5,10 +5,10 @@
 
 package de.rki.covpass.http.util
 
-/** Provides functionality to check if an url is whitelisted. */
+/** Provides functionality to check if a url is whitelisted. */
 public interface UrlWhitelist {
 
-    /** Return true, if the given [url] is whitelisted, else false. */
+    /** Return true if the given [url] is whitelisted, else false. */
     public fun isWhitelisted(url: String): Boolean
 }
 
@@ -23,5 +23,5 @@ public class HostBasedUrlWhitelist(whitelist: Collection<String>) : UrlWhitelist
     private val whitelist: Set<String> = whitelist.toSet()
 
     override fun isWhitelisted(url: String): Boolean =
-        whitelist.any { isSubdomainOf(url = url, parent = it) }
+        whitelist.any { isSubUrlOf(url = url, parent = it) }
 }
