@@ -7,6 +7,9 @@ package de.rki.covpass.app.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.AccessibilityDelegateCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isGone
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.viewBinding
@@ -30,6 +33,16 @@ internal class BoosterNotificationFragment : BaseBottomSheet() {
 
         bottomSheetBinding.bottomSheetHeader.isGone = true
         bottomSheetBinding.bottomSheetClose.isGone = true
+
+        ViewCompat.setAccessibilityDelegate(
+            binding.notificationBoosterTitle,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+                    info.isHeading = true
+                }
+            }
+        )
 
         binding.notificationBoosterTitle.text = getString(R.string.dialog_booster_vaccination_notification_title)
         binding.notificationBoosterText.text = getString(R.string.dialog_booster_vaccination_notification_message)
