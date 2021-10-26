@@ -30,6 +30,8 @@ public class DetailExportPdfSaveOptionActivity : BaseActivity(), DetailExportPdf
                 if (inputStream != null && outputStream != null) {
                     detailSavePdfViewModel.copyFile(inputStream, outputStream)
                 }
+            } else {
+                finish()
             }
         }
 
