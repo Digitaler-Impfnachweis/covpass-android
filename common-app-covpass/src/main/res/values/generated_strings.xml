@@ -39,7 +39,7 @@
 	<string name="dialog_start_screen_message">Would you like to update the CovPass-App now?</string>
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
-	<string name="dialog_booster_vaccination_notification_title">There is news about your certificates</string>
+	<string name="dialog_booster_vaccination_notification_title">There are news about your certificates</string>
 	<string name="dialog_booster_vaccination_notification_message">Please check the status of your EU Digital COVID Certificates.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
@@ -113,7 +113,7 @@
 	<string name="accessibility_certificate_check_validity_announce">The view \"Check validity\" has been opened</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">The view \"Choose destination\" has been opened</string>
 	<string name="accessibility_certificate_check_validity_selection_date_announce">The view \"Select date\" has been opened</string>
-	<string name="certificate_check_validity_title">Check validity for travelling within the EU</string>
+	<string name="certificate_check_validity_title">Check validity for travel</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, selected</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, selectable</string>
 	<string name="certificate_check_validity_message">Check beforehand if your certificates are valid in different countries. This tool checks them against the travel regulations applicable in your chosen destination country.</string>
@@ -542,6 +542,7 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
+	<string name="accessibility_app_information_title_update">The view \"Update travel rules\" has been opened</string>
 	<string name="accessibility_app_information_datenschutz_announce">Privacy policy has been opened</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
@@ -567,6 +568,14 @@
 	<string name="app_information_title_open_source">Open-source licences</string>
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
+	<string name="app_information_title_update">Update rules of entry</string>
+	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current COVID-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time. </string>
+	<string name="app_information_message_update_note">Most recent update</string>
+	<string name="app_information_message_update_pattern">Most recent update: %s</string>
+	<string name="app_information_message_update_certificates">List of certificate issuers: %s</string>
+	<string name="app_information_message_update_rules">Rules of entry: %s</string>
+	<string name="app_information_message_update_button">Update</string>
+	<string name="accessibility_app_information_update_back">Back</string>
 	<string name="app_information_version_label">Version %s</string>
 	<!-- generic key to be used as alt text for decorative images -->
 	<string name="accessibility_image_alternative_text">Decorative</string>
