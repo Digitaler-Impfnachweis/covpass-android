@@ -5,7 +5,10 @@
 
 package de.rki.covpass.commonapp
 
+import android.app.Activity
 import android.app.Application
+import android.os.Bundle
+import android.view.WindowManager
 import android.webkit.WebView
 import androidx.fragment.app.FragmentActivity
 import androidx.work.*
@@ -40,6 +43,7 @@ public abstract class CommonApplication : Application() {
 
         // IMPORTANT: The security provider has to be initialized before anything else
         initSecurityProvider()
+        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
         if (isDebuggable) {
             Lumber.plantDebugTreeIfNeeded()
@@ -118,6 +122,36 @@ public abstract class CommonApplication : Application() {
                 )
             }
         }
+    }
+
+    private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacks {
+        override fun onActivityStarted(activity: Activity) {
+            enableScreenshots(activity)
+        }
+
+        override fun onActivityResumed(activity: Activity) {
+            enableScreenshots(activity)
+        }
+
+        override fun onActivityPaused(activity: Activity) {
+            disableScreenshots(activity)
+        }
+
+        override fun onActivityStopped(activity: Activity) {
+            disableScreenshots(activity)
+        }
+
+        override fun onActivityCreated(activity: Activity, bundle: Bundle?) {}
+        override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
+        override fun onActivityDestroyed(activity: Activity) {}
+    }
+
+    private fun enableScreenshots(activity: Activity) {
+        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
+    private fun disableScreenshots(activity: Activity) {
+        activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     private companion object {
