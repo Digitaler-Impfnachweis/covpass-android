@@ -44,7 +44,7 @@
 	<string name="validation_start_screen_title">Overview</string>
 	<string name="validation_start_screen_scan_title">Checking a certificate</string>
 	<string name="validation_start_screen_scan_sync_message_title">Check date and time</string>
-	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your phone. \n\n It should be: %s</string>
+	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your smartphone. \n\n It should be: %s</string>
 	<string name="validation_start_screen_scan_message">Scan the EU Digital COVID Certificate now. You see immediately if the person you are checking has a valid Covid-19 certificate.</string>
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
 	<string name="validation_start_screen_scan_action_button_title">Scan certificate</string>
