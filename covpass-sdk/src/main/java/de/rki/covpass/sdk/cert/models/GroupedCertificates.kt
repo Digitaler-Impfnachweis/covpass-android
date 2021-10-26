@@ -41,6 +41,14 @@ public data class GroupedCertificates(
     var boosterNotification: BoosterNotification = BoosterNotification(),
 ) {
 
+    var boosterNotificationRuleIds: List<String>
+        get() = getMainCertificate().boosterNotificationRuleIds
+        set(value) {
+            certificates = certificates.map {
+                it.copy(boosterNotificationRuleIds = value)
+            }.toMutableList()
+        }
+
     var hasSeenBoosterNotification: Boolean
         get() = certificates.any { it.hasSeenBoosterNotification }
         set(value) {

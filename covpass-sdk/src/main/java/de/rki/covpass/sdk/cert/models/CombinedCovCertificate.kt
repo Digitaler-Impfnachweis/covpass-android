@@ -20,6 +20,7 @@ public data class CombinedCovCertificate(
     val hasSeenBoosterNotification: Boolean,
     val hasSeenBoosterDetailNotification: Boolean,
     val hasSeenExpiryNotification: Boolean,
+    val boosterNotificationRuleIds: List<String>,
 ) {
 
     /**
