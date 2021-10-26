@@ -56,7 +56,8 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                         },
                         hasSeenBoosterNotification = false,
                         hasSeenBoosterDetailNotification = false,
-                        hasSeenExpiryNotification = false
+                        hasSeenExpiryNotification = false,
+                        boosterNotificationRuleIds = mutableListOf(),
                     )
                 )
             }

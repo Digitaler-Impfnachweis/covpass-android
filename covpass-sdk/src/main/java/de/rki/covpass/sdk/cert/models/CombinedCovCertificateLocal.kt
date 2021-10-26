@@ -34,4 +34,6 @@ public data class CombinedCovCertificateLocal(
     val hasSeenBoosterDetailNotification: Boolean = false,
 
     val hasSeenExpiryNotification: Boolean = false,
+
+    val boosterNotificationRuleIds: List<String> = mutableListOf(),
 )

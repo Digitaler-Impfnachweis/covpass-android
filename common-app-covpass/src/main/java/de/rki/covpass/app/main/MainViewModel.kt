@@ -100,6 +100,14 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 else -> BoosterNotification(BoosterResult.Failed)
             }
             groupedCert.boosterNotification = boosterNotification
+            if (boosterNotification.result == BoosterResult.Passed &&
+                !groupedCert.boosterNotificationRuleIds.contains(boosterNotification.ruleId)
+            ) {
+                groupedCert.boosterNotificationRuleIds =
+                    groupedCert.boosterNotificationRuleIds + boosterNotification.ruleId
+                groupedCert.hasSeenBoosterNotification = false
+                groupedCert.hasSeenBoosterDetailNotification = false
+            }
         }
 
         if (groupedCertificatesList.certificates.isNotEmpty()) {
