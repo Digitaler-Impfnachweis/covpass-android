@@ -144,10 +144,12 @@ internal class MainFragment :
     }
 
     override fun onUpdateInfoFinish() {
+        viewModel.showingNotification = false
         viewModel.validateNotifications()
     }
 
     override fun onCheckRemarkFinish() {
+        viewModel.showingNotification = false
         viewModel.validateNotifications()
     }
 
@@ -159,6 +161,7 @@ internal class MainFragment :
                         it.hasSeenExpiryNotification = true
                     }
                 }
+                viewModel.showingNotification = false
                 viewModel.validateNotifications()
             }
         }
