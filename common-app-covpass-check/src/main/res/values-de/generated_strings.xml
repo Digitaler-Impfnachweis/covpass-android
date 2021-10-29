@@ -16,7 +16,7 @@
 	<string name="accessibility_onboarding_pages_label_back">Zurück</string>
 	<string name="accessibility_page_indicator">Seite %1$d von %2$d</string>
 	<string name="validation_first_onboarding_page_title">Erster Schritt: Den QR-Code mit der CovPassCheck-App scannen</string>
-	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat der EU. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronische Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate der EU hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
+	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat der EU. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronischen Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate der EU hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
 	<string name="validation_second_onboarding_page_title">Zweiter Schritt: Die Identität mit einem Ausweisdokument überprüfen</string>
 	<string name="validation_second_onboarding_page_message">Als prüfende Person sehen Sie in der CovPassCheck-App nur den Gültigkeitsstatus des digitalen COVID-Zertifikats sowie den Namen und das Geburtsdatum des Zertifikatsinhabers. Gleichen Sie diese Informationen mit einem Ausweisdokument (z. B. Personalausweis, Reisepass) ab. Eine aktive Internetverbindung ist für die Prüfung nicht erforderlich.</string>
 	<string name="validation_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
@@ -47,6 +47,7 @@
 	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Smartphones. \n\n Soll: %s</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
+	<string name="accessibility_scan_result_closing_announce">Die Ansicht Überprüfungsergebnis wurde geschlossen</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
 	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
@@ -56,9 +57,6 @@
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
 	<string name="validation_start_screen_offline_modus_certificates">Liste der Zertifikatsaussteller: %s</string>
 	<string name="validation_start_screen_offline_modus_rules">Prüfregeln: %s</string>
-	<string name="validation_start_screen_offline_modus_information_title">Prüfregeln aktualisieren</string>
-	<string name="validation_start_screen_offline_modus_information">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
-	<string name="validation_start_screen_offline_modus_button">Aktualisieren</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
@@ -67,6 +65,7 @@
 	<string name="scan_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_scan_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>
+	<string name="accessibility_scan_camera_closing_announce">Kamera-Ansicht wurde geschlossen</string>
 	<string name="error_camera_access_title">Die CovPassCheck-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
@@ -131,7 +130,8 @@
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
-	<string name="accessibility_app_information_datenschutz_announce">Die Datenschutzerklärung wurde geöffnet</string>
+	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung wurde geöffnet</string>
+	<string name="accessibility_app_information_datenschutz_closing_announce">Datenschutzerklärung wurde geschlossen</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
