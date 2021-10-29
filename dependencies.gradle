@@ -163,7 +163,7 @@ dependencies {
             api "androidx.camera:camera-core:${camerax_version}"
             api "androidx.camera:camera-camera2:${camerax_version}"
             api "androidx.camera:camera-lifecycle:${camerax_version}"
-            api 'androidx.camera:camera-view:1.0.0-alpha27'
+            api 'androidx.camera:camera-view:1.0.0-alpha30'
         }
 
         boofCV = {
