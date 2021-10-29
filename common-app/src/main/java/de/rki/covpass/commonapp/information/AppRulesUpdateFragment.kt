@@ -21,6 +21,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.AppRulesUpdateBinding
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.storage.DscRepository.Companion.NO_UPDATE_YET
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.Instant
@@ -59,30 +60,34 @@ public class AppRulesUpdateFragment : BaseFragment() {
     @SuppressLint("StringFormatInvalid")
     private fun updateTimeDisplay(lastUpdate: Instant, lastRulesUpdate: Instant) {
         binding.updateNote.setText(R.string.app_information_message_update)
-        val certText = getString(
-            R.string.app_information_message_update_certificates,
-            LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
-        )
-        val ruleText = getString(
-            R.string.app_information_message_update_rules,
-            LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTime()
-        )
-        val certTextAccessibility = getString(
-            R.string.app_information_message_update_certificates,
-            LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTimeAccessibility()
-        )
-        val ruleTextAccessibility = getString(
-            R.string.app_information_message_update_rules,
-            LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTimeAccessibility()
-        )
-        binding.updateInfoElement.showInfo(
-            title = getString(R.string.app_information_message_update_note),
-            subtitle = "$certText\n$ruleText",
-            subtitleContentDescription = "$certTextAccessibility.\n$ruleTextAccessibility",
-            subtitleStyle = R.style.DefaultText_OnBackground70,
-            subtitleTopMarginDimenRes = R.dimen.grid_one,
-            iconRes = R.drawable.info_icon_update_app,
-        )
+        if (lastUpdate != NO_UPDATE_YET || lastRulesUpdate != NO_UPDATE_YET) {
+            val certText = getString(
+                R.string.app_information_message_update_certificates,
+                LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
+            )
+            val ruleText = getString(
+                R.string.app_information_message_update_rules,
+                LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTime()
+            )
+            val certTextAccessibility = getString(
+                R.string.app_information_message_update_certificates,
+                LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTimeAccessibility()
+            )
+            val ruleTextAccessibility = getString(
+                R.string.app_information_message_update_rules,
+                LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTimeAccessibility()
+            )
+            binding.updateInfoElement.showInfo(
+                title = getString(R.string.app_information_message_update_note),
+                subtitle = "$certText\n$ruleText",
+                subtitleContentDescription = "$certTextAccessibility.\n$ruleTextAccessibility",
+                subtitleStyle = R.style.DefaultText_OnBackground70,
+                subtitleTopMarginDimenRes = R.dimen.grid_one,
+                iconRes = R.drawable.info_icon_update_app,
+            )
+        } else {
+            binding.updateInfoElement.isVisible = false
+        }
     }
 
     private fun setupActionBar() {

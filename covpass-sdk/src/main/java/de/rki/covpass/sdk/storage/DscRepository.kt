@@ -29,6 +29,6 @@ public class DscRepository(
     }
 
     public companion object {
-        public val NO_UPDATE_YET: Instant = Instant.MIN
+        public val NO_UPDATE_YET: Instant = Instant.EPOCH
     }
 }
