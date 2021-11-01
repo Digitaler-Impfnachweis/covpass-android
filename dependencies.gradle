@@ -159,25 +159,26 @@ dependencies {
         }
 
         camerax = {
-            def camerax_version = '1.0.2'
+            def camerax_version = "1.0.2"
             api "androidx.camera:camera-core:${camerax_version}"
             api "androidx.camera:camera-camera2:${camerax_version}"
             api "androidx.camera:camera-lifecycle:${camerax_version}"
             api 'androidx.camera:camera-view:1.0.0-alpha30'
         }
 
+        def boofCVVersion = "0.39.1"
         boofCV = {
-            api('org.boofcv:boofcv-core:0.36') {
+            api("org.boofcv:boofcv-core:$boofCVVersion") {
                 exclude group: "xmlpull", module: "xmlpull"
                 exclude group: "org.apache.commons", module: "commons-compress"
                 exclude group: "com.thoughtworks.xstream", module: "commons-compress"
             }
-            api 'org.boofcv:boofcv-android:0.36'
+            api "org.boofcv:boofcv-android:$boofCVVersion"
         }
 
         boofCVTest = {
-            testDependency 'org.boofcv:boofcv-core:0.36'
-            testDependency 'org.boofcv:boofcv-android:0.36'
+            testDependency "org.boofcv:boofcv-core:$boofCVVersion"
+            testDependency "org.boofcv:boofcv-android:$boofCVVersion"
         }
 
         cryptographic = {
@@ -212,7 +213,7 @@ dependencies {
         }
 
         clockSync = {
-            api 'com.github.instacart.truetime-android:library:3.4'
+            api "com.github.instacart.truetime-android:library:3.4"
         }
     }
 }
