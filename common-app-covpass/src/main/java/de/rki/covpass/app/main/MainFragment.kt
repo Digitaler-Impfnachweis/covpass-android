@@ -51,6 +51,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showNewUpdateInfo()
     fun showCheckerRemark()
     fun showBoosterNotification()
+    fun showBlacklistedNotification()
 }
 
 /**
@@ -63,6 +64,7 @@ internal class MainFragment :
     DialogListener,
     UpdateInfoCallback,
     CheckRemarkCallback,
+    BoosterNotificationCallback,
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
@@ -144,10 +146,17 @@ internal class MainFragment :
     }
 
     override fun onUpdateInfoFinish() {
+        viewModel.showingNotification = false
         viewModel.validateNotifications()
     }
 
     override fun onCheckRemarkFinish() {
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
+    }
+
+    override fun onBoosterNotificationFinish() {
+        viewModel.showingNotification = false
         viewModel.validateNotifications()
     }
 
@@ -159,6 +168,7 @@ internal class MainFragment :
                         it.hasSeenExpiryNotification = true
                     }
                 }
+                viewModel.showingNotification = false
                 viewModel.validateNotifications()
             }
         }
@@ -188,5 +198,9 @@ internal class MainFragment :
 
     override fun showBoosterNotification() {
         findNavigator().push(BoosterNotificationFragmentNav())
+    }
+
+    override fun showBlacklistedNotification() {
+        findNavigator().push(BlackListedNotificationFragmentNav())
     }
 }

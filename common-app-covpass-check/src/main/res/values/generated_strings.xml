@@ -77,6 +77,7 @@
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Person has recovery or vaccination certificate.</string>
+	<string name="validation_check_popup_valid_vaccination_abda_incident_note"> This is a valid certificate, but it will soon be revoked due to fraud investigations.\n\nPlease advise the certificate holder that he or she must present their yellow vaccination certificate and photo ID to a pharmacy by 11/11/2021. The pharmacy will issue a new vaccination certificate free of charge.</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Certificate not valid</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">The certificate is invalid for one of the following reasons:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Invalid signature</string>

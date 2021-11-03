@@ -11,6 +11,7 @@ import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.sdk.cert.BlacklistedEntityFromFutureDateException
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.cert.validateEntity
@@ -40,7 +41,12 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
     fun onQrContentReceived(qrContent: String) {
         launch {
             val covCertificate = qrCoder.decodeCovCert(qrContent)
-            validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
+            var hasBeenBlacklisted = false
+            try {
+                validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
+            } catch (e: BlacklistedEntityFromFutureDateException) {
+                hasBeenBlacklisted = true
+            }
             val certsFlow = certRepository.certs
             var certId: GroupedCertificatesId? = null
             certsFlow.update {
@@ -49,13 +55,20 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                         covCertificate = covCertificate,
                         qrContent = qrContent,
                         timestamp = System.currentTimeMillis(),
-                        status = if (covCertificate.isInExpiryPeriod()) {
-                            CertValidationResult.ExpiryPeriod
-                        } else {
-                            CertValidationResult.Valid
+                        status = when {
+                            covCertificate.isInExpiryPeriod() -> {
+                                CertValidationResult.ExpiryPeriod
+                            }
+                            hasBeenBlacklisted -> {
+                                CertValidationResult.ValidUntilDate
+                            }
+                            else -> {
+                                CertValidationResult.Valid
+                            }
                         },
                         hasSeenBoosterNotification = false,
                         hasSeenBoosterDetailNotification = false,
+                        hasSeenBlacklistedNotification = false,
                         hasSeenExpiryNotification = false,
                         boosterNotificationRuleIds = mutableListOf(),
                     )

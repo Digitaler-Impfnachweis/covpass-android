@@ -65,13 +65,26 @@ public data class GroupedCertificates(
             }.toMutableList()
         }
 
+    var hasSeenBlacklistedNotification: Boolean
+        get() = certificates.any { it.hasSeenBlacklistedNotification }
+        set(value) {
+            certificates = certificates.map {
+                it.copy(hasSeenBlacklistedNotification = value)
+            }.toMutableList()
+        }
+
+    val hasBeenBlacklisted: Boolean
+        get() = certificates.any { it.status == CertValidationResult.ValidUntilDate }
+
     var hasSeenExpiryNotification: Boolean
         get() = getMainCertificate().let {
             when (it.covCertificate.dgcEntry) {
                 is Vaccination, is Recovery -> when (it.status) {
                     CertValidationResult.Expired, CertValidationResult.ExpiryPeriod, CertValidationResult.Invalid ->
                         !it.hasSeenExpiryNotification
-                    CertValidationResult.Valid -> false
+                    CertValidationResult.ValidUntilDate,
+                    CertValidationResult.Valid,
+                    -> false
                 }
                 is TestCert -> false
             }
@@ -82,10 +95,13 @@ public data class GroupedCertificates(
                     when (it.status) {
                         CertValidationResult.Expired,
                         CertValidationResult.ExpiryPeriod,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        -> {
                             it.copy(hasSeenExpiryNotification = value)
                         }
-                        CertValidationResult.Valid -> {
+                        CertValidationResult.ValidUntilDate,
+                        CertValidationResult.Valid,
+                        -> {
                             it
                         }
                     }

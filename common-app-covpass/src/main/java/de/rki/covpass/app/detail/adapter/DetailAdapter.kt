@@ -159,7 +159,8 @@ private class CertificateViewHolder(
         (item as DetailItem.Certificate).let { cert ->
             when (cert.type) {
                 VaccinationCertType.VACCINATION_COMPLETE,
-                VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                VaccinationCertType.VACCINATION_FULL_PROTECTION,
+                -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
                             R.color.info
@@ -168,14 +169,15 @@ private class CertificateViewHolder(
                         }
                     )
                     when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
+                        CertValidationResult.Valid, CertValidationResult.ValidUntilDate -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_complete)
                         }
                         CertValidationResult.ExpiryPeriod -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -190,21 +192,23 @@ private class CertificateViewHolder(
                         }
                     )
                     when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
+                        CertValidationResult.Valid, CertValidationResult.ValidUntilDate -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_incomplete)
                         }
                         CertValidationResult.ExpiryPeriod -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
                     }
                 }
                 TestCertType.NEGATIVE_PCR_TEST,
-                TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                TestCertType.NEGATIVE_ANTIGEN_TEST,
+                -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
                             R.color.test_certificate_background
@@ -213,14 +217,15 @@ private class CertificateViewHolder(
                         }
                     )
                     when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
+                        CertValidationResult.Valid, CertValidationResult.ValidUntilDate -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_test)
                         }
                         CertValidationResult.ExpiryPeriod -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -235,21 +240,23 @@ private class CertificateViewHolder(
                         }
                     )
                     when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
+                        CertValidationResult.Valid, CertValidationResult.ValidUntilDate -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_recovery)
                         }
                         CertValidationResult.ExpiryPeriod -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
                     }
                 }
                 TestCertType.POSITIVE_PCR_TEST,
-                TestCertType.POSITIVE_ANTIGEN_TEST -> return
+                TestCertType.POSITIVE_ANTIGEN_TEST,
+                -> return
                 // .let{} to enforce exhaustiveness
             }.let {}
             binding.certificateTypeIcon.setTint(
@@ -278,7 +285,7 @@ private class CertificateViewHolder(
             }
 
             when (cert.certStatus) {
-                CertValidationResult.Valid -> {
+                CertValidationResult.Valid, CertValidationResult.ValidUntilDate -> {
                     binding.certificateExpiryInfo.isGone = true
                 }
                 CertValidationResult.ExpiryPeriod -> {
@@ -309,15 +316,20 @@ private class NotificationViewHolder(
 
         (item as DetailItem.Notification).let {
             binding.notificationTitle.text = getString(it.titleRes)
-            binding.notificationText.text = getString(
-                R.string.vaccination_certificate_overview_booster_vaccination_notification_message,
-                it.description,
-                it.ruleId
-            )
-            binding.notificationFaq.apply {
-                text = getSpanned(R.string.vaccination_certificate_overview_faqlink)
-                movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlines()
+            if (it.blacklistNotification) {
+                binding.notificationText.text = it.description
+                binding.notificationFaq.isVisible = false
+            } else {
+                binding.notificationText.text = getString(
+                    R.string.vaccination_certificate_overview_booster_vaccination_notification_message,
+                    it.description,
+                    it.ruleId
+                )
+                binding.notificationFaq.apply {
+                    text = getSpanned(R.string.vaccination_certificate_overview_faqlink)
+                    movementMethod = LinkMovementMethod.getInstance()
+                    stripUnderlines()
+                }
             }
             it.iconTextRes?.let { textIcon -> binding.notificationIcon.text = getString(textIcon) }
             it.iconBackgroundRes?.let { iconRes ->

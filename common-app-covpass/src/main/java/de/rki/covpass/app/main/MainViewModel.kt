@@ -40,28 +40,47 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         runValidations()
     }
 
+    internal var showingNotification = false
+
     internal fun validateNotifications() {
         when {
-            certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } ->
+            showingNotification -> return
+            certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } -> {
+                showingNotification = true
                 eventNotifier {
                     showExpiryNotification()
                 }
+            }
             commonDependencies.updateInfoRepository.updateInfoVersionShown.value
-                != UpdateInfoRepository.CURRENT_UPDATE_VERSION ->
+                != UpdateInfoRepository.CURRENT_UPDATE_VERSION -> {
+                showingNotification = true
                 eventNotifier {
                     showNewUpdateInfo()
                 }
+            }
             covpassDependencies.checkerRemarkRepository.checkerRemarkShown.value
-                != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION ->
+                != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION -> {
+                showingNotification = true
                 eventNotifier {
                     showCheckerRemark()
                 }
+            }
             covpassDependencies.certRepository.certs.value.certificates.any {
                 it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
-            } ->
+            } -> {
+                showingNotification = true
                 eventNotifier {
                     showBoosterNotification()
                 }
+            }
+            covpassDependencies.certRepository.certs.value.certificates.any {
+                it.hasBeenBlacklisted && !it.hasSeenBlacklistedNotification
+            } -> {
+                showingNotification = true
+                eventNotifier {
+                    showBlacklistedNotification()
+                }
+            }
         }
     }
 

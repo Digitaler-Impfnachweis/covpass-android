@@ -16,21 +16,17 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
-import de.rki.covpass.app.databinding.BoosterNotificationPopupContentBinding
+import de.rki.covpass.app.databinding.BlacklistNotificationPopupContentBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 
-internal interface BoosterNotificationCallback {
-    fun onBoosterNotificationFinish()
-}
-
 @Parcelize
-internal class BoosterNotificationFragmentNav : FragmentNav(BoosterNotificationFragment::class)
+internal class BlackListedNotificationFragmentNav : FragmentNav(BlackListedNotificationFragment::class)
 
-internal class BoosterNotificationFragment : BoosterNotificationEvents, BaseBottomSheet() {
+internal class BlackListedNotificationFragment : BlacklistedNotificationEvents, BaseBottomSheet() {
 
-    private val binding by viewBinding(BoosterNotificationPopupContentBinding::inflate)
-    private val viewModel by reactiveState { BoosterNotificationViewModel(scope) }
+    private val binding by viewBinding(BlacklistNotificationPopupContentBinding::inflate)
+    private val viewModel by reactiveState { BlacklistedNotificationViewModel(scope) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +35,7 @@ internal class BoosterNotificationFragment : BoosterNotificationEvents, BaseBott
         bottomSheetBinding.bottomSheetClose.isGone = true
 
         ViewCompat.setAccessibilityDelegate(
-            binding.notificationBoosterTitle,
+            binding.notificationBlacklistTitle,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
@@ -48,23 +44,23 @@ internal class BoosterNotificationFragment : BoosterNotificationEvents, BaseBott
             }
         )
 
-        binding.notificationBoosterTitle.text = getString(R.string.dialog_booster_vaccination_notification_title)
-        binding.notificationBoosterText.text = getString(R.string.dialog_booster_vaccination_notification_message)
-        binding.notificationBoosterIconNew.text =
-            getString(R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new)
+        binding.notificationBlacklistTitle.text = getString(R.string.certificate_abda_incident_notification_title)
+        binding.notificationBlacklistText.text = getString(R.string.certificate_abda_incident_notification_message)
+        binding.notificationBlacklistIconNew.text =
+            getString(R.string.certificate_abda_incident_notification_icon_new)
         bottomSheetBinding.bottomSheetActionButton.text =
-            getString(R.string.dialog_booster_vaccination_notification_button)
+            getString(R.string.certificate_abda_incident_notification_button)
     }
 
     override fun onActionButtonClicked() {
-        viewModel.updateHasSeenBoosterNotification()
+        viewModel.updateHasSeenBlacklistedNotification()
     }
 
     override fun onClickOutside() {
-        viewModel.updateHasSeenBoosterNotification()
+        viewModel.updateHasSeenBlacklistedNotification()
     }
 
-    override fun onUpdatedBoosterNotification() {
-        findNavigator().popUntil<BoosterNotificationCallback>()?.onBoosterNotificationFinish()
+    override fun onUpdatedBlacklistedNotification() {
+        findNavigator().pop()
     }
 }
