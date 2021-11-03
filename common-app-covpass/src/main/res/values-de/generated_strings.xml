@@ -43,6 +43,11 @@
 	<string name="dialog_booster_vaccination_notification_message">Bitte überprüfen Sie den Status Ihrer digitalen COVID-Zertifikate der EU.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
+	<string name="certificate_abda_incident_notification_icon_new">Neu</string>
+	<string name="certificate_abda_incident_notification_title">Ihr Zertifikat wird zum 11.11.2021 gesperrt</string>
+	<string name="certificate_abda_incident_notification_message"> Ihr digitales Impfzertifikat stammt von einer Apotheke, die illegale Zertifikate ausgestellt hat. Daher müssen alle von dieser Apotheke ausgestellten Zertifikate gesperrt werden.\n\nBitte lassen Sie sich unter Vorlage Ihres gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 bei Ihrer Apotheke kostenfrei ein neues Impfzertifikat ausstellen.\n\nVielen Dank für Ihr Verständnis!</string>
+	<string name="certificate_abda_incident_notification_button">OK</string>
+	<string name="accessibility_abda_incident_info_announce">Die Ansicht \"Zertifikat wird gesperrt\" wurde geöffnet</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
@@ -77,6 +82,7 @@
 	<string name="accessibility_scan_camera_torch_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
 	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"Nachweis hinzufügen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_add_popup_closing_announce">Die Ansicht \"Nachweis hinzufügen\" wurde geschlossen</string>
 	<string name="accessibility_scan_success_announce">Zertifikat von %s wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
@@ -92,6 +98,7 @@
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_scan_dialog_camera_access_announce">Die Ansicht \"Kamerazugriff benötigt\" wurde geöffnet</string>
 	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet. Der QR-Code wird automatisch gescannt. </string>
+	<string name="accessibility_scan_camera_closing_announce">Kamera-Ansicht wurde geschlossen</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
@@ -111,8 +118,13 @@
 	<string name="accessibility_certificate_check_validity_label_results">Ergebnisse der EU-Zertifikatsprüfung</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Zertifikat anzeigen</string>
 	<string name="accessibility_certificate_check_validity_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_check_validity_closing_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">Die Ansicht \"Reiseland wählen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_check_validity_selection_country_closing_announce">Die Ansicht \"Reiseland wählen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_check_validity_selection_date_announce">Die Ansicht \"Datum wählen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_check_validity_selection_date_closing_announce">Die Ansicht \"Datum wählen\" wurde geschlossen</string>
+	<string name="accessibility_certificate_check_validity_selection_time_announce">Die Ansicht \"Zeit wählen\" wurde geöffnet</string>
+	<string name="accessibility_certificate_check_validity_selection_time_closing_announce">Die Ansicht \"Zeit wählen\" wurde geschlossen</string>
 	<string name="certificate_check_validity_title">Gültigkeit für Reisen prüfen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, ausgewählt</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, auswählbar</string>
@@ -543,7 +555,9 @@
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Einreiseregeln aktualisieren\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_update_closing_announce">Die Ansicht \"Einreiseregeln aktualisieren\" wurde geschlossen</string>
 	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung-Ansicht wurde geöffnet</string>
+	<string name="accessibility_app_information_datenschutz_closing_announce">Die Datenschutzerklärung wurde geschlossen</string>
 	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>

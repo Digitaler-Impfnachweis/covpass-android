@@ -51,6 +51,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showNewUpdateInfo()
     fun showCheckerRemark()
     fun showBoosterNotification()
+    fun showBlacklistedNotification()
 }
 
 /**
@@ -63,6 +64,7 @@ internal class MainFragment :
     DialogListener,
     UpdateInfoCallback,
     CheckRemarkCallback,
+    BoosterNotificationCallback,
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
@@ -153,6 +155,11 @@ internal class MainFragment :
         viewModel.validateNotifications()
     }
 
+    override fun onBoosterNotificationFinish() {
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
+    }
+
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == EXPIRED_DIALOG_TAG) {
             launchWhenStarted {
@@ -191,5 +198,9 @@ internal class MainFragment :
 
     override fun showBoosterNotification() {
         findNavigator().push(BoosterNotificationFragmentNav())
+    }
+
+    override fun showBlacklistedNotification() {
+        findNavigator().push(BlackListedNotificationFragmentNav())
     }
 }

@@ -23,6 +23,7 @@ public class CertificateListMapper(
                     else
                         CertValidationResult.Valid
                 is ExpiredCwtException -> CertValidationResult.Expired
+                is BlacklistedEntityFromFutureDateException -> CertValidationResult.ValidUntilDate
                 is BadCoseSignatureException,
                 is CoseException,
                 is GeneralSecurityException,

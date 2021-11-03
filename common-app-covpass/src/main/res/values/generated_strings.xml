@@ -43,6 +43,11 @@
 	<string name="dialog_booster_vaccination_notification_message">Please check the status of your EU Digital COVID Certificates.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
+	<string name="certificate_abda_incident_notification_icon_new">New</string>
+	<string name="certificate_abda_incident_notification_title"> Your certificate will be revoked by 11.11.2021</string>
+	<string name="certificate_abda_incident_notification_message"> Your digital vaccination certificate comes from a pharmacy that issued illegal certificates. Therefore, all certificates issued by this pharmacy must be revoked.\n\nPlease have a new vaccination certificate issued free of charge at your pharmacy by 11/11/2021 by presenting your yellow vaccination certificate and photo ID.\n\nThank you for your understanding!</string>
+	<string name="certificate_abda_incident_notification_button">OK</string>
+	<string name="accessibility_abda_incident_info_announce">The view \"Certificate will be revoked\" has been opened</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">More information</string>
@@ -77,6 +82,7 @@
 	<string name="accessibility_scan_camera_torch_on">Switch on torch</string>
 	<string name="accessibility_scan_camera_torch_off">Switch off torch</string>
 	<string name="accessibility_certificate_add_popup_announce">The view \"Adding a certificate\" has been opened</string>
+	<string name="accessibility_certificate_add_popup_closing_announce">The view \"Adding a certificate\" has been closed</string>
 	<string name="accessibility_scan_success_announce">Certificate of %s was added successfully</string>
 	<string name="accessibility_certificate_add_popup_image">Image: Person holds smartphone over three different certificates with QR code</string>
 	<string name="certificate_add_popup_title">Adding a certificate</string>
@@ -92,6 +98,7 @@
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Close</string>
 	<string name="accessibility_scan_dialog_camera_access_announce">The view \"Camera access needed\" has been opened</string>
 	<string name="accessibility_scan_camera_announce">Camera has been opened. The QR code will be scanned automatically.</string>
+	<string name="accessibility_scan_camera_closing_announce">Camera has been closed</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Cancel</string>
 	<string name="error_camera_access_title">The CovPass App wants to access your camera.</string>
 	<string name="error_camera_access_message">Allow access to scan QR codes.</string>
@@ -111,8 +118,13 @@
 	<string name="accessibility_certificate_check_validity_label_results">Results of the EU certificate examination</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Display certificate</string>
 	<string name="accessibility_certificate_check_validity_announce">The view \"Check validity\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_closing_announce">The view \"Check validity\" has been closed</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">The view \"Choose destination\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_selection_country_closing_announce">The view \"Choose destination\" has been closed</string>
 	<string name="accessibility_certificate_check_validity_selection_date_announce">The view \"Select date\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_selection_date_closing_announce">The view \"Select date\" has been closed</string>
+	<string name="accessibility_certificate_check_validity_selection_time_announce">The view \"Select time\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_selection_time_closing_announce">The view \"Select time\" has been closed</string>
 	<string name="certificate_check_validity_title">Check validity for travel</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, selected</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, selectable</string>
@@ -543,7 +555,9 @@
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_title_update">The view \"Update rules of entry\" has been opened</string>
+	<string name="accessibility_app_information_title_update_closing_announce">The view \"Update travel rules\" has been closed</string>
 	<string name="accessibility_app_information_datenschutz_announce">Privacy policy has been opened</string>
+	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy policy has been closed</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
