@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.ensody.reactivestate.android.onDestroyView
 import kotlin.properties.ReadOnlyProperty
@@ -47,7 +48,7 @@ public fun <T : ViewBinding> BaseHookedFragment.viewBinding(
     ViewBindingInflaterProperty(fragment = this, bindingInflater = bindingInflater, invalidateOn = invalidateOn)
 
 private class ViewBindingInflaterProperty<T : ViewBinding>(
-    private val fragment: BaseHookedFragment,
+    fragment: BaseHookedFragment,
     private val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> T,
     private val invalidateOn: (invalidate: () -> Unit) -> Any?,
 ) : ReadOnlyProperty<BaseHookedFragment, T> {
@@ -56,8 +57,10 @@ private class ViewBindingInflaterProperty<T : ViewBinding>(
 
     init {
         fragment.inflaterHook = ::init
-        invalidateOn {
-            binding = null
+        fragment.lifecycleScope.launchWhenCreated {
+            invalidateOn {
+                binding = null
+            }
         }
     }
 
@@ -99,9 +102,10 @@ public fun <T : ViewBinding> Fragment.viewBinding(
     viewBinder: (View) -> T,
     invalidateOn: (invalidate: () -> Unit) -> Any? = ::onDestroyView,
 ): ReadOnlyProperty<Fragment, T> =
-    ViewBindingProperty(viewBinder = viewBinder, invalidateOn = invalidateOn)
+    ViewBindingProperty(fragment = this, viewBinder = viewBinder, invalidateOn = invalidateOn)
 
 private class ViewBindingProperty<T>(
+    fragment: Fragment,
     private val viewBinder: (View) -> T,
     private val invalidateOn: (invalidate: () -> Unit) -> Any?,
 ) : ReadOnlyProperty<Fragment, T> {
@@ -109,8 +113,10 @@ private class ViewBindingProperty<T>(
     private var binding: T? = null
 
     init {
-        invalidateOn {
-            binding = null
+        fragment.lifecycleScope.launchWhenCreated {
+            invalidateOn {
+                binding = null
+            }
         }
     }
 

@@ -19,7 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 /** All onNewIntent calls get routed here. */
-public val onNewIntentEvents: MutableSharedFlow<Intent> = MutableSharedFlow()
+public val onNewIntentEvents: MutableSharedFlow<Intent> = MutableSharedFlow(extraBufferCapacity = 1000)
 
 /** Base class that comes with hook support. */
 public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :

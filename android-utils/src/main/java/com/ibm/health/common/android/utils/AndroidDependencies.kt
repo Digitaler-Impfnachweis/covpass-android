@@ -31,7 +31,7 @@ public abstract class AndroidDependencies {
     public open fun currentActivityOrApplication(): Context = currentActivityOrNull() ?: application
 
     /** The [ResourceProvider]. */
-    public val resourceProvider: ResourceProvider by lazy {
+    public open val resourceProvider: ResourceProvider by lazy {
         ResourceProvider(application)
     }
 }

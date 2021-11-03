@@ -27,7 +27,7 @@ public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
 
     internal var inflaterHook: ((LayoutInflater, ViewGroup?) -> View)? = null
 
-    override val loading: MutableValueFlow<Int> = MutableValueFlow(0)
+    final override val loading: MutableValueFlow<Int> = MutableValueFlow(0)
 
     public open val announcementAccessibilityRes: Int? = null
 
