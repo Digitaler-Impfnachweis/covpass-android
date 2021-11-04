@@ -47,6 +47,7 @@
 	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your smartphone. \n\n It should be: %s</string>
 	<string name="validation_start_screen_scan_message">Scan the EU Digital COVID Certificate now. You see immediately if the person you are checking has a valid Covid-19 certificate.</string>
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
+	<string name="accessibility_scan_result_closing_announce">The view \"Verification result“ has been closed</string>
 	<string name="validation_start_screen_scan_action_button_title">Scan certificate</string>
 	<string name="validation_start_screen_offline_modus_title">Offline mode</string>
 	<string name="validation_start_screen_offline_modus_message">Keep your CovPassCheck app updated in order to check certificates offline. To do this, connect to the internet from time to time.</string>
@@ -67,6 +68,7 @@
 	<string name="scan_dialog_camera_access_action_button">Allow access</string>
 	<string name="accessibility_scan_dialog_camera_access_label_close">Close</string>
 	<string name="accessibility_scan_camera_announce">Camera has been opened</string>
+	<string name="accessibility_scan_camera_closing_announce">Camera has been closed</string>
 	<string name="error_camera_access_title">The CovPassCheck app wants to access your camera.</string>
 	<string name="error_camera_access_message">Allow access to scan QR codes.</string>
 	<string name="error_camera_access_button_do_not_allow">Do not allow</string>
@@ -77,6 +79,7 @@
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Person has recovery or vaccination certificate.</string>
+	<string name="validation_check_popup_valid_vaccination_abda_incident_note"> This is a valid certificate, but it will soon be revoked due to fraud investigations.\n\nPlease advise the certificate holder that he or she must present their yellow vaccination certificate and photo ID to a pharmacy by 11/11/2021. The pharmacy will issue a new vaccination certificate free of charge.</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Certificate not valid</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">The certificate is invalid for one of the following reasons:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Invalid signature</string>
@@ -132,6 +135,7 @@
 	<string name="app_information_title_faq_linked">#Frequently asked questions::$0#</string>
 	<string name="app_information_title_datenschutz">Privacy policy</string>
 	<string name="accessibility_app_information_datenschutz_announce">Privacy policy has been opened</string>
+	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy policy has been closed</string>
 	<string name="app_information_title_company_details">Legal information</string>
 	<string name="app_information_title_company_details_linked">#Legal information::$0#</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
@@ -142,6 +146,15 @@
 	<string name="accessibility_app_information_version_number_delimiter">point</string>
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
+	<string name="app_information_title_update">Update rule set</string>
+	<string name="app_information_message_update">To verify scanned certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Corona rules in Germany.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
+	<string name="app_information_message_update_note">Most recent update</string>
+	<string name="app_information_message_update_pattern">Most recent update: %s</string>
+	<string name="app_information_message_update_certificates">List of certificate issuers: %s</string>
+	<string name="app_information_message_update_rules">Rule set: %s</string>
+	<string name="app_information_message_update_button">Update</string>
+	<string name="accessibility_app_information_update_back">Back</string>
+	<string name="accessibility_app_information_title_update">The view \"Update rule set\" has been opened</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->

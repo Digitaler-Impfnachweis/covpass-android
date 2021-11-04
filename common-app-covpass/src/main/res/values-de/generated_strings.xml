@@ -45,7 +45,7 @@
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
 	<string name="certificate_will_be_revoked_notification_icon_new">Neu</string>
 	<string name="certificate_will_be_revoked_notification_title">Ihr Zertifikat wird zum 11.11.2021 gesperrt</string>
-	<string name="certificate_will_be_revoked_notification_message">Ihr digitales Impfzertifikat stammt von einer Apotheke, die unrechtmäßige Zertifikate ausgestellt hat. Daher müssen alle von dieser Apotheke ausgestellten Zertifikate gesperrt werden.\n\nBitte lassen Sie sich unter Vorlage Ihres gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 bei Ihrer Apotheke kostenfrei ein neues Impfzertifikat ausstellen.\n\nVielen Dank für Ihr Verständnis!</string>
+	<string name="certificate_will_be_revoked_notification_message"> Aus Sicherheitsgründen müssen alle Zertifikate der von Ihnen besuchten Apotheke neu ausgestellt werden.\n\nIhr Zertifikat wird am 11.11.2021 gesperrt. Sie können sich unter Vorlage Ihres gelben Impfpasses und eines Lichtbildausweises in Ihrer Apotheke kostenfrei ein neues Impfzertifikat ausstellen lassen.</string>
 	<string name="certificate_will_be_revoked_notification_button">OK</string>
 	<string name="accessibility_certificate_will_be_revoked_info_announce">Die Ansicht \"Zertifikat wird gesperrt\" wurde geöffnet</string>
 

@@ -16,7 +16,7 @@
 	<string name="accessibility_onboarding_pages_label_back">Zurück</string>
 	<string name="accessibility_page_indicator">Seite %1$d von %2$d</string>
 	<string name="validation_first_onboarding_page_title">Erster Schritt: Den QR-Code mit der CovPassCheck-App scannen</string>
-	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat der EU. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronische Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate der EU hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
+	<string name="validation_first_onboarding_page_message">Scannen Sie mit der CovPassCheck-App den QR-Code auf einem digitalen COVID-Zertifikat der EU. Die QR-Codes der Papierversion enthalten die gleichen Informationen wie die QR-Codes der elektronischen Version in der CovPass-App oder in anderen Apps, in denen digitale COVID-Zertifikate der EU hinterlegt sind. Daher sind beide Zertifikatsversionen gleichwertig.</string>
 	<string name="validation_second_onboarding_page_title">Zweiter Schritt: Die Identität mit einem Ausweisdokument überprüfen</string>
 	<string name="validation_second_onboarding_page_message">Als prüfende Person sehen Sie in der CovPassCheck-App nur den Gültigkeitsstatus des digitalen COVID-Zertifikats sowie den Namen und das Geburtsdatum des Zertifikatsinhabers. Gleichen Sie diese Informationen mit einem Ausweisdokument (z. B. Personalausweis, Reisepass) ab. Eine aktive Internetverbindung ist für die Prüfung nicht erforderlich.</string>
 	<string name="validation_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
@@ -47,6 +47,7 @@
 	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Smartphones. \n\n Soll: %s</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
+	<string name="accessibility_scan_result_closing_announce">Die Ansicht Überprüfungsergebnis wurde geschlossen</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
 	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
@@ -67,6 +68,7 @@
 	<string name="scan_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_scan_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>
+	<string name="accessibility_scan_camera_closing_announce">Kamera-Ansicht wurde geschlossen</string>
 	<string name="error_camera_access_title">Die CovPassCheck-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
@@ -77,6 +79,7 @@
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Genesenen- oder Impfzertifikat liegt vor.</string>
+	<string name="validation_check_popup_valid_vaccination_abda_incident_note">Dies ist ein gültiges Zertifikat, das jedoch aufgrund von Betrugsermittlungen bald gesperrt werden wird.\n\nWeisen Sie den oder die Zertifikatsinhaber:in unbedingt darauf hin, dass er oder sie sich unter Vorlage des gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 in der Apotheke ein neues, kostenfreies Impfzertifikat ausstellen lassen muss. </string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Zertifikat nicht gültig</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">Das geprüfte Zertifikat ist aus einem der folgenden Gründe nicht gültig:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Ungültige Signatur</string>
@@ -131,7 +134,8 @@
 	<string name="app_information_title_faq">Häufige Fragen</string>
 	<string name="app_information_title_faq_linked">#Häufige Fragen::$0#</string>
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
-	<string name="accessibility_app_information_datenschutz_announce">Die Datenschutzerklärung wurde geöffnet</string>
+	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung wurde geöffnet</string>
+	<string name="accessibility_app_information_datenschutz_closing_announce">Datenschutzerklärung wurde geschlossen</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
@@ -142,6 +146,15 @@
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
+	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
+	<string name="app_information_message_update">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="app_information_message_update_note">Letztes Update</string>
+	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
+	<string name="app_information_message_update_certificates">Liste der Zertifikatsaussteller: %s</string>
+	<string name="app_information_message_update_rules">Prüfregeln: %s</string>
+	<string name="app_information_message_update_button">Aktualisieren</string>
+	<string name="accessibility_app_information_update_back">Zurück</string>
+	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->
