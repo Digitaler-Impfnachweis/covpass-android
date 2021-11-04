@@ -14,8 +14,18 @@ public class RulesUpdateRepository(
 ) {
 
     public val lastRulesUpdate: SuspendMutableValueFlow<Instant> = store.getData("last_rules_update", NO_UPDATE_YET)
+    public val localDatabaseVersion: SuspendMutableValueFlow<Int> =
+        store.getData("local_database_update_version", 0)
 
     public suspend fun markRulesUpdated() {
         lastRulesUpdate.set(Instant.now())
+    }
+
+    public suspend fun updateLocalDatabaseVersion() {
+        localDatabaseVersion.set(CURRENT_LOCAL_DATABASE_VERSION)
+    }
+
+    public companion object {
+        public const val CURRENT_LOCAL_DATABASE_VERSION: Int = 1
     }
 }

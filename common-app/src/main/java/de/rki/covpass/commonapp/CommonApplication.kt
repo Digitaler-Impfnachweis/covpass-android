@@ -28,6 +28,7 @@ import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.storage.RulesUpdateRepository.Companion.CURRENT_LOCAL_DATABASE_VERSION
 import de.rki.covpass.sdk.utils.*
 import de.rki.covpass.sdk.worker.DscListWorker
 import de.rki.covpass.sdk.worker.RulesWorker
@@ -101,6 +102,13 @@ public abstract class CommonApplication : Application() {
 
     private fun prepopulateDb() {
         runBlocking {
+            if (sdkDeps.rulesUpdateRepository.localDatabaseVersion.value != CURRENT_LOCAL_DATABASE_VERSION) {
+                sdkDeps.covPassRulesRepository.deleteAll()
+                sdkDeps.covPassValueSetsRepository.deleteAll()
+                sdkDeps.covPassBoosterRulesRepository.deleteAll()
+                sdkDeps.covPassCountriesRepository.deleteAll()
+                sdkDeps.rulesUpdateRepository.updateLocalDatabaseVersion()
+            }
             if (sdkDeps.covPassRulesRepository.getAllCovPassRules().isNullOrEmpty()) {
                 sdkDeps.covPassRulesRepository.prepopulate(
                     sdkDeps.bundledRules
