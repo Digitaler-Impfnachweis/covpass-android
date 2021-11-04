@@ -8,20 +8,21 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
         maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
-        classpath "pl.allegro.tech.build:axion-release-plugin:1.13.3"
+        classpath "pl.allegro.tech.build:axion-release-plugin:1.13.6"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath "com.jaredsburrows:gradle-license-plugin:0.8.90"
     }
 }
 
 plugins {
-    id "com.github.ben-manes.versions" version "0.38.0"
+    id "com.github.ben-manes.versions" version "0.39.0"
 }
 
 apply plugin: 'pl.allegro.tech.build.axion-release'
