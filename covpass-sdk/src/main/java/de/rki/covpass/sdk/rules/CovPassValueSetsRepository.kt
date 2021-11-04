@@ -50,4 +50,8 @@ public class CovPassValueSetsRepository(
 
     public suspend fun getAllCovPassValueSets(): List<CovPassValueSetLocal> =
         localDataSource.getAll()
+
+    public suspend fun deleteAll() {
+        localDataSource.deleteAll()
+    }
 }

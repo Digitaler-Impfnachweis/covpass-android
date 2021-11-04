@@ -65,4 +65,8 @@ public class CovPassRulesRepository(
     ): List<CovPassRule> = localDataSource.getCovPassRulesBy(
         countryIsoCode, validationClock, type, ruleCertificateType
     )
+
+    public suspend fun deleteAll() {
+        localDataSource.deleteAll()
+    }
 }

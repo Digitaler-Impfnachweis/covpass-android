@@ -22,4 +22,10 @@ public class CovPassCountriesLocalDataSource(
         dispatchers.io {
             covPasCountriesDao.getAll().map { it.countryCode }
         }
+
+    public suspend fun deleteAll() {
+        dispatchers.io {
+            covPasCountriesDao.deleteAll()
+        }
+    }
 }

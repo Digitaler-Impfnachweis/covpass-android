@@ -45,4 +45,10 @@ public class CovPassRulesLocalDataSource(
             RuleCertificateType.GENERAL
         ).toCovPassRules()
     }
+
+    public suspend fun deleteAll() {
+        dispatchers.io {
+            covPassRulesDao.deleteAll()
+        }
+    }
 }

@@ -55,4 +55,8 @@ public class CovPassBoosterRulesRepository(
         validationClock: ZonedDateTime,
     ): List<BoosterRule> =
         localDataSource.getAllBoosterRulesBy(countryIsoCode, validationClock)
+
+    public suspend fun deleteAll() {
+        localDataSource.deleteAll()
+    }
 }

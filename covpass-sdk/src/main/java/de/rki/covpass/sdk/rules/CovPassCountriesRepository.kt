@@ -24,4 +24,8 @@ public class CovPassCountriesRepository(
     public suspend fun loadCountries() {
         localDataSource.insertAll(remoteDataSource.getCountries())
     }
+
+    public suspend fun deleteAll() {
+        localDataSource.deleteAll()
+    }
 }

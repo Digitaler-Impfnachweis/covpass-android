@@ -35,4 +35,10 @@ public class CovPassBoosterRulesLocalDataSource(
                 validationClock,
             ).toBoosterRules()
         }
+
+    public suspend fun deleteAll() {
+        dispatchers.io {
+            boosterRulesDao.deleteAll()
+        }
+    }
 }
