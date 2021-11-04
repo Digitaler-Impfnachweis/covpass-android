@@ -43,11 +43,11 @@
 	<string name="dialog_booster_vaccination_notification_message">Bitte überprüfen Sie den Status Ihrer digitalen COVID-Zertifikate der EU.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
-	<string name="certificate_will_be_revoked_notification_icon_new">Neu</string>
-	<string name="certificate_will_be_revoked_notification_title">Ihr Zertifikat wird zum 11.11.2021 gesperrt</string>
-	<string name="certificate_will_be_revoked_notification_message">Aus Sicherheitsgründen müssen alle Zertifikate der von Ihnen besuchten Apotheke neu ausgestellt werden.\n\nIhr Zertifikat wird am 11.11.2021 gesperrt. Sie können sich unter Vorlage Ihres gelben Impfpasses und eines Lichtbildausweises in Ihrer Apotheke kostenfrei ein neues Impfzertifikat ausstellen lassen.</string>
-	<string name="certificate_will_be_revoked_notification_button">OK</string>
-	<string name="accessibility_certificate_will_be_revoked_info_announce">Die Ansicht \"Zertifikat wird gesperrt\" wurde geöffnet</string>
+	<string name="certificate_abda_incident_notification_icon_new">Neu</string>
+	<string name="certificate_abda_incident_notification_title">Ihr Zertifikat wird zum 11.11.2021 gesperrt</string>
+	<string name="certificate_abda_incident_notification_message"> Ihr digitales Impfzertifikat stammt von einer Apotheke, die illegale Zertifikate ausgestellt hat. Daher müssen alle von dieser Apotheke ausgestellten Zertifikate gesperrt werden.\n\nBitte lassen Sie sich unter Vorlage Ihres gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 bei Ihrer Apotheke kostenfrei ein neues Impfzertifikat ausstellen.\n\nVielen Dank für Ihr Verständnis!</string>
+	<string name="certificate_abda_incident_notification_button">OK</string>
+	<string name="accessibility_abda_incident_info_announce">Die Ansicht \"Zertifikat wird gesperrt\" wurde geöffnet</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
@@ -65,7 +65,6 @@
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Abgelaufen</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Ungültig</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Impfstatus überprüfen</string>
-	<string name="vaccination_start_screen_qrcode_certificate_will_be_revoked_subtitle">Zertifikat wird bald gesperrt</string>
 	<string name="certificates_start_screen_qr_code_app_reference_text">Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App prüfen.</string>
 
 	<!-- SECTION: popup: Remark within the app towards the CovPassCheck app -->

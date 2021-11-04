@@ -44,12 +44,12 @@ internal class BlackListedNotificationFragment : BlacklistedNotificationEvents, 
             }
         )
 
-        binding.notificationBlacklistTitle.text = getString(R.string.certificate_will_be_revoked_notification_title)
-        binding.notificationBlacklistText.text = getString(R.string.certificate_will_be_revoked_notification_message)
+        binding.notificationBlacklistTitle.text = getString(R.string.certificate_abda_incident_notification_title)
+        binding.notificationBlacklistText.text = getString(R.string.certificate_abda_incident_notification_message)
         binding.notificationBlacklistIconNew.text =
-            getString(R.string.certificate_will_be_revoked_notification_icon_new)
+            getString(R.string.certificate_abda_incident_notification_icon_new)
         bottomSheetBinding.bottomSheetActionButton.text =
-            getString(R.string.certificate_will_be_revoked_notification_button)
+            getString(R.string.certificate_abda_incident_notification_button)
     }
 
     override fun onActionButtonClicked() {

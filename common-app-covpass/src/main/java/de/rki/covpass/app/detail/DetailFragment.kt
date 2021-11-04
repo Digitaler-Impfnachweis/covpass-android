@@ -427,11 +427,11 @@ internal class DetailFragment :
             if (groupedCertificate.getMainCertificate().status == CertValidationResult.ValidUntilDate) {
                 personalDataList.add(
                     DetailItem.Notification(
-                        R.string.certificate_will_be_revoked_notification_title,
-                        getString(R.string.certificate_will_be_revoked_notification_message),
+                        R.string.certificate_abda_incident_notification_title,
+                        getString(R.string.certificate_abda_incident_notification_message),
                         "",
                         R.drawable.background_new_booster,
-                        R.string.certificate_will_be_revoked_notification_icon_new,
+                        R.string.certificate_abda_incident_notification_icon_new,
                         blacklistNotification = true
                     )
                 )
