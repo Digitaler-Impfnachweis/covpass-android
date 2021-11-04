@@ -43,11 +43,6 @@
 	<string name="dialog_booster_vaccination_notification_message">Bitte überprüfen Sie den Status Ihrer digitalen COVID-Zertifikate der EU.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
-	<string name="certificate_abda_incident_notification_icon_new">Neu</string>
-	<string name="certificate_abda_incident_notification_title">Ihr Zertifikat wird zum 11.11.2021 gesperrt</string>
-	<string name="certificate_abda_incident_notification_message"> Ihr digitales Impfzertifikat stammt von einer Apotheke, die illegale Zertifikate ausgestellt hat. Daher müssen alle von dieser Apotheke ausgestellten Zertifikate gesperrt werden.\n\nBitte lassen Sie sich unter Vorlage Ihres gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 bei Ihrer Apotheke kostenfrei ein neues Impfzertifikat ausstellen.\n\nVielen Dank für Ihr Verständnis!</string>
-	<string name="certificate_abda_incident_notification_button">OK</string>
-	<string name="accessibility_abda_incident_info_announce">Die Ansicht \"Zertifikat wird gesperrt\" wurde geöffnet</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
@@ -82,12 +77,11 @@
 	<string name="accessibility_scan_camera_torch_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
 	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"Nachweis hinzufügen\" wurde geöffnet</string>
-	<string name="accessibility_certificate_add_popup_closing_announce">Die Ansicht \"Nachweis hinzufügen\" wurde geschlossen</string>
 	<string name="accessibility_scan_success_announce">Zertifikat von %s wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">Nachweis hinzufügen</string>
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
-	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, einen Code zum Entsperren Ihres Smartphones einzurichten.</string>
+	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, eine Code zum Entsperren Ihres Smartphones einzurichten.</string>
 	<string name="certificate_add_popup_message">Scannen Sie den QR-Code von einem digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.</string>
 	<string name="certificate_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
 	<string name="certificate_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
@@ -97,8 +91,7 @@
 	<string name="certificate_add_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_scan_dialog_camera_access_announce">Die Ansicht \"Kamerazugriff benötigt\" wurde geöffnet</string>
-	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet. Der QR-Code wird automatisch gescannt. </string>
-	<string name="accessibility_scan_camera_closing_announce">Kamera-Ansicht wurde geschlossen</string>
+	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
@@ -118,19 +111,14 @@
 	<string name="accessibility_certificate_check_validity_label_results">Ergebnisse der EU-Zertifikatsprüfung</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Zertifikat anzeigen</string>
 	<string name="accessibility_certificate_check_validity_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geöffnet</string>
-	<string name="accessibility_certificate_check_validity_closing_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">Die Ansicht \"Reiseland wählen\" wurde geöffnet</string>
-	<string name="accessibility_certificate_check_validity_selection_country_closing_announce">Die Ansicht \"Reiseland wählen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_check_validity_selection_date_announce">Die Ansicht \"Datum wählen\" wurde geöffnet</string>
-	<string name="accessibility_certificate_check_validity_selection_date_closing_announce">Die Ansicht \"Datum wählen\" wurde geschlossen</string>
-	<string name="accessibility_certificate_check_validity_selection_time_announce">Die Ansicht \"Zeit wählen\" wurde geöffnet</string>
-	<string name="accessibility_certificate_check_validity_selection_time_closing_announce">Die Ansicht \"Zeit wählen\" wurde geschlossen</string>
 	<string name="certificate_check_validity_title">Gültigkeit für Reisen prüfen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, ausgewählt</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, auswählbar</string>
 	<string name="certificate_check_validity_message">Prüfen Sie vorab, ob Ihre Zertifikate in verschiedenen Ländern gültig sind. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselands berücksichtigt.</string>
-	<string name="certificate_check_validity_travel_rules_not_up_to_title">Einreiseregeln nicht aktuell</string>
-	<string name="certificate_check_validity_travel_rules_not_up_to_message">Die Einreiseregeln werden in der App alle 24 Stunden aktualisiert. Leider schlug die letzte Aktualisierung fehl. Stellen Sie sicher, dass Ihr Smartphone mit dem Internet verbunden ist und versuchen Sie es erneut.</string>
+	<string name="certificate_check_validity_travel_rules_not_up_to_title">Reiseregeln nicht aktuell</string>
+	<string name="certificate_check_validity_travel_rules_not_up_to_message">Die Reiseregeln werden in der App alle 24 Stunden aktualisiert. Leider schlug die letzte Aktualisierung fehl. Stellen Sie sicher, dass Ihr Smartphone mit dem Internet verbunden ist und versuchen Sie es erneut.</string>
 	<string name="certificate_check_validity_selection_country">Land</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_country_title">Reiseland wählen</string>
@@ -251,7 +239,7 @@
 	<string name="certificate_check_validity_result_not_testable">Nicht prüfbar</string>
 	<string name="certificate_check_validity_note">Beachten Sie, dass sich die Einreiseregeln ändern können. Prüfen Sie daher die Zertifikate mindestens 48 Stunden vorher. Es können in einzelnen Regionen oder bei Ihrer Rückkehr weitere Regeln oder Einschränkungen gelten. Zudem ist es möglich, dass weitere Dokumente für eine Einreise notwendig sind.\n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_title">Digitales COVID-Impfzertifikat der EU</string>
-	<string name="accessbility_certificate_check_validity_detail_view_vaccination_result_title">Digitale COVID-Impfzertifikate der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
+	<string name="accessbility_certificate_check_validity_detail_view_vaccination_result_title">Digitale COVID Imofzertifikate der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_headline_data">Geprüfte Zertifikatsdaten:</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_button">QR-Code anzeigen</string>
 	<string name="certificate_check_validity_detail_view_vaccination_result_note_de">Das Impfzertifikat gilt innerhalb der EU als gültiger Nachweis für Reisen. Die Mitgliedsländer haben unterschiedliche Einreisebedingungen. Mehr Informationen finden Sie in den Häufigen Fragen. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
@@ -374,8 +362,6 @@
 	<string name="certificates_overview_pcr_test_certificate_title">Testzertifikat</string>
 	<string name="certificates_overview_pcr_test_certificate_message">PCR-Test</string>
 	<string name="certificates_overview_pcr_test_certificate_date">Probenahme am %s</string>
-	<string name="certificates_overview_all_certificates_app_reference_title">Scannen bitte!</string>
-	<string name="certificates_overview_all_certificates_app_reference_text">Zeigen Sie diese sensiblen Daten nicht in Gaststätten, bei Veranstaltungen oder in ähnlichen Situationen vor. Lassen Sie Ihren QR-Code immer mit der CovPassCheck-App prüfen.</string>
 
 	<!-- SECTION: detail view: delete certificate -->
 	<string name="accessibility_certificate_detail_view_label_delete_button">Zertifikat löschen</string>
@@ -385,7 +371,7 @@
 	<string name="vaccination_certificate_detail_view_vaccination_title">Impfung %1$d von %2$d</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_number_readable_text">%1$d von %2$d</string>
 	<string name="vaccination_certificate_detail_view_vaccination_headline">Digitales COVID-Impfzertifikat der EU</string>
-	<string name="accessibility_vaccination_certificate_detail_view_booster_vaccination_headline">Digitales COVID-Impfzertifikat der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
+	<string name="accessibility_vaccination_certificate_detail_view_booster_vaccination_headline">Digitales COVID Impfzertifikat der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="accessibility_vaccination_certificate_detail_view_qrcode_screen_announce">Die QR-Code-Ansicht wurde geöffnet</string>
 	<string name="vaccination_certificate_detail_view_vaccination_note">Es handelt sich hier um einen Impfstoff, bei dem nur eine Impfdosis erforderlich ist, oder um eine Impfung für Genesene, die nur eine Impfdosis benötigt.</string>
 	<string name="vaccination_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
@@ -408,8 +394,8 @@
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_date_">Datum der Impfung (Jahr-Monat-Tag)</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_country">Land der Impfung / Country vaccinating</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_country">Land der Impfung</string>
-	<string name="vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikatsaussteller / Certificate issuer</string>
-	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikatsaussteller</string>
+	<string name="vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikataussteller / Certificate issuer</string>
+	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikataussteller</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_identifier">Zertifikatkennung / Unique certificate identifier</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_identifier">Zertifikatkennung</string>
 	<string name="vaccination_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum / Technical expiry date</string>
@@ -427,13 +413,15 @@
 	<string name="test_certificate_detail_view_title">Antigen-Schnelltest</string>
 	<string name="test_certificate_detail_view_pcr_test_title">PCR-Test</string>
 	<string name="test_certificate_detail_view_headline">Digitales COVID-Testzertifikat der EU</string>
-	<string name="accessibility_test_certificate_detail_view_headline">Digitales COVID-Testzertifikat. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
+	<string name="accessibility_test_certificate_detail_view_headline">Digitales COVID Testzertifikat. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="test_certificate_detail_view_data_name">Name, Vorname / Name, first name</string>
 	<string name="accessibility_test_certificate_detail_view_data_name">Name</string>
 	<string name="test_certificate_detail_view_data_name_standard">Standardisierter Name, Vorname / Standardized name, first name</string>
 	<string name="accessibility_test_certificate_detail_view_data_name_standard">Standardisierter Name</string>
 	<string name="test_certificate_detail_view_data_date_of_birth">Geburtsdatum / Date of birth (YYYY-MM-DD)</string>
 	<string name="accessibility_test_certificate_detail_view_data_date_of_birth">Geburtsdatum (Jahr-Monat-Tag)</string>
+	<string name="certificates_overview_all_certificates_app_reference_title">Scannen bitte!</string>
+	<string name="certificates_overview_all_certificates_app_reference_text">Zeigen Sie diese sensiblen Daten nicht in Gaststätten, bei Veranstaltungen oder in ähnlichen Situationen vor. Lassen Sie Ihren QR-Code immer mit der CovPassCheck-App prüfen.</string>
 	<string name="test_certificate_detail_view_data_disease">Zielkrankheit oder -erreger / Disease or pathogen</string>
 	<string name="accessibility_test_certificate_detail_view_data_disease">Zielkrankheit oder -erreger</string>
 	<string name="test_certificate_detail_view_data_test_type">Art des Tests / Type of test</string>
@@ -554,10 +542,8 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
-	<string name="accessibility_app_information_title_update">Die Ansicht \"Einreiseregeln aktualisieren\" wurde geöffnet</string>
-	<string name="accessibility_app_information_title_update_closing_announce">Die Ansicht \"Einreiseregeln aktualisieren\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_update">Die Ansicht \"Reiseregeln aktualisieren\" wurde geöffnet</string>
 	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung-Ansicht wurde geöffnet</string>
-	<string name="accessibility_app_information_datenschutz_closing_announce">Die Datenschutzerklärung wurde geschlossen</string>
 	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>

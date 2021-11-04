@@ -7,7 +7,6 @@ package de.rki.covpass.sdk.cert.models
 
 public sealed interface CertValidationResult {
     public object Valid : CertValidationResult
-    public object ValidUntilDate : CertValidationResult
     public object Invalid : CertValidationResult
     public object Expired : CertValidationResult
     public object ExpiryPeriod : CertValidationResult
@@ -20,7 +19,6 @@ public data class CombinedCovCertificate(
     val status: CertValidationResult,
     val hasSeenBoosterNotification: Boolean,
     val hasSeenBoosterDetailNotification: Boolean,
-    val hasSeenBlacklistedNotification: Boolean,
     val hasSeenExpiryNotification: Boolean,
     val boosterNotificationRuleIds: List<String>,
 ) {

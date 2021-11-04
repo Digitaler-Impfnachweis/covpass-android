@@ -13,7 +13,6 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         status = status,
         hasSeenBoosterNotification = hasSeenBoosterNotification,
         hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
-        hasSeenBlacklistedNotification = hasSeenBlacklistedNotification,
         hasSeenExpiryNotification = hasSeenExpiryNotification,
         boosterNotificationRuleIds = boosterNotificationRuleIds,
     )
@@ -25,7 +24,6 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         timestamp = timestamp,
         hasSeenBoosterNotification = hasSeenBoosterNotification,
         hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
-        hasSeenBlacklistedNotification = hasSeenBlacklistedNotification,
         hasSeenExpiryNotification = hasSeenExpiryNotification,
         boosterNotificationRuleIds = boosterNotificationRuleIds,
     )

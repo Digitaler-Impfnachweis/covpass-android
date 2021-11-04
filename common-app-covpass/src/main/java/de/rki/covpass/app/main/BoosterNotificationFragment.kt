@@ -20,14 +20,10 @@ import de.rki.covpass.app.databinding.BoosterNotificationPopupContentBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 
-internal interface BoosterNotificationCallback {
-    fun onBoosterNotificationFinish()
-}
-
 @Parcelize
 internal class BoosterNotificationFragmentNav : FragmentNav(BoosterNotificationFragment::class)
 
-internal class BoosterNotificationFragment : BoosterNotificationEvents, BaseBottomSheet() {
+internal class BoosterNotificationFragment : BaseBottomSheet() {
 
     private val binding by viewBinding(BoosterNotificationPopupContentBinding::inflate)
     private val viewModel by reactiveState { BoosterNotificationViewModel(scope) }
@@ -58,13 +54,11 @@ internal class BoosterNotificationFragment : BoosterNotificationEvents, BaseBott
 
     override fun onActionButtonClicked() {
         viewModel.updateHasSeenBoosterNotification()
+        findNavigator().pop()
     }
 
     override fun onClickOutside() {
         viewModel.updateHasSeenBoosterNotification()
-    }
-
-    override fun onUpdatedBoosterNotification() {
-        findNavigator().popUntil<BoosterNotificationCallback>()?.onBoosterNotificationFinish()
+        findNavigator().pop()
     }
 }
