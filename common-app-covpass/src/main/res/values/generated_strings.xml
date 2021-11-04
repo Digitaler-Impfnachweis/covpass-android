@@ -43,11 +43,11 @@
 	<string name="dialog_booster_vaccination_notification_message">Please check the status of your EU Digital COVID Certificates.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
-	<string name="certificate_abda_incident_notification_icon_new">New</string>
-	<string name="certificate_abda_incident_notification_title"> Your certificate will be revoked by 11.11.2021</string>
-	<string name="certificate_abda_incident_notification_message"> Your digital vaccination certificate comes from a pharmacy that issued illegal certificates. Therefore, all certificates issued by this pharmacy must be revoked.\n\nPlease have a new vaccination certificate issued free of charge at your pharmacy by 11/11/2021 by presenting your yellow vaccination certificate and photo ID.\n\nThank you for your understanding!</string>
-	<string name="certificate_abda_incident_notification_button">OK</string>
-	<string name="accessibility_abda_incident_info_announce">The view \"Certificate will be revoked\" has been opened</string>
+	<string name="certificate_will_be_revoked_notification_icon_new">New</string>
+	<string name="certificate_will_be_revoked_notification_title">Your certificate will be revoked by 11.11.2021</string>
+	<string name="certificate_will_be_revoked_notification_message">Your digital vaccination certificate comes from a pharmacy that issued illegal certificates. Therefore, all certificates issued by this pharmacy must be revoked.\n\nPlease have a new vaccination certificate issued free of charge at your pharmacy by 11/11/2021 by presenting your yellow vaccination certificate and photo ID.\n\nThank you for your understanding!</string>
+	<string name="certificate_will_be_revoked_notification_button">OK</string>
+	<string name="accessibility_certificate_will_be_revoked_info_announce">The view \"Certificate will be revoked\" has been opened</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">More information</string>
@@ -65,6 +65,7 @@
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Expired</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Invalid</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Check vaccination status</string>
+	<string name="vaccination_start_screen_qrcode_certificate_will_be_revoked_subtitle">Certificate will be revoked soon</string>
 	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be reliably verified with the CovPassCheck app.</string>
 
 	<!-- SECTION: popup: Remark within the app towards the CovPassCheck app -->
