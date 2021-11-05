@@ -136,6 +136,8 @@ public fun InfoElement.showWarning(
     descriptionTopMarginDimenRes: Int? = null,
     subtitleStyle: Int? = null,
     descriptionStyle: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -152,6 +154,12 @@ public fun InfoElement.showWarning(
     if (descriptionStyle != null) {
         this.descriptionStyle = descriptionStyle
     }
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
+    }
 }
 
 public fun InfoElement.showError(
@@ -159,10 +167,18 @@ public fun InfoElement.showError(
     subtitle: String? = null,
     description: String? = null,
     iconRes: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.error_background)
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
+    }
 }
 
 public fun InfoElement.showSuccess(
@@ -170,10 +186,18 @@ public fun InfoElement.showSuccess(
     subtitle: String? = null,
     description: String? = null,
     iconRes: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.success_background)
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
+    }
 }
 
 public fun InfoElement.showInfo(
