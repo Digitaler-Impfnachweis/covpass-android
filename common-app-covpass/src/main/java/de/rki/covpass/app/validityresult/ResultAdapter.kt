@@ -23,6 +23,7 @@ import de.rki.covpass.commonapp.uielements.showSuccess
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.LocalDateTime
 import java.util.*
 
@@ -113,6 +114,11 @@ public class ResultAdapter(
                             getString(country.nameRes),
                             dateTime.formatDateTime()
                         ),
+                        subtitleContentDescription = getString(
+                            R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                            getString(country.nameRes),
+                            dateTime.formatDateTimeAccessibility()
+                        ),
                         iconRes = R.drawable.info_error_icon
                     )
                 }
@@ -123,6 +129,11 @@ public class ResultAdapter(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                             getString(country.nameRes),
                             dateTime.formatDateTime()
+                        ),
+                        subtitleContentDescription = getString(
+                            R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                            getString(country.nameRes),
+                            dateTime.formatDateTimeAccessibility()
                         ),
                         description = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_second_message
@@ -139,6 +150,11 @@ public class ResultAdapter(
                                 getString(country.nameRes),
                                 dateTime.formatDateTime()
                             ),
+                            subtitleContentDescription = getString(
+                                R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                                getString(country.nameRes),
+                                dateTime.formatDateTimeAccessibility()
+                            ),
                             description = getString(
                                 R.string.certificate_check_validity_detail_view_result_valid_info, rulesCount
                             ),
@@ -151,6 +167,11 @@ public class ResultAdapter(
                                 R.string.certificate_check_validity_detail_view_result_valid_message,
                                 getString(country.nameRes),
                                 dateTime.formatDateTime()
+                            ),
+                            subtitleContentDescription = getString(
+                                R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                                getString(country.nameRes),
+                                dateTime.formatDateTimeAccessibility()
                             ),
                             description = getString(
                                 R.string.certificate_check_validity_detail_view_result_no_rules_message
