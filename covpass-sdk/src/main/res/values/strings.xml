@@ -6,4 +6,5 @@
 
 <resources>
   <string name="trust_service_host">de.dscg.ubirch.com</string>
+  <string name="dcc_rules_host">distribution.dcc-rules.de</string>
 </resources>
