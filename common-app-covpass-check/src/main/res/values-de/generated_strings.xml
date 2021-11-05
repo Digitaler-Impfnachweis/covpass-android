@@ -57,9 +57,6 @@
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
 	<string name="validation_start_screen_offline_modus_certificates">Liste der Zertifikatsaussteller: %s</string>
 	<string name="validation_start_screen_offline_modus_rules">Prüfregeln: %s</string>
-	<string name="validation_start_screen_offline_modus_information_title">Prüfregeln aktualisieren</string>
-	<string name="validation_start_screen_offline_modus_information">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
-	<string name="validation_start_screen_offline_modus_button">Aktualisieren</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
@@ -79,7 +76,6 @@
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Genesenen- oder Impfzertifikat liegt vor.</string>
-	<string name="validation_check_popup_valid_vaccination_abda_incident_note">Dies ist ein gültiges Zertifikat, das jedoch aufgrund von Betrugsermittlungen bald gesperrt werden wird.\n\nWeisen Sie den oder die Zertifikatsinhaber:in unbedingt darauf hin, dass er oder sie sich unter Vorlage des gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 in der Apotheke ein neues, kostenfreies Impfzertifikat ausstellen lassen muss. </string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Zertifikat nicht gültig</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">Das geprüfte Zertifikat ist aus einem der folgenden Gründe nicht gültig:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Ungültige Signatur</string>

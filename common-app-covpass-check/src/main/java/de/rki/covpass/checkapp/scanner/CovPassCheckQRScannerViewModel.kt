@@ -43,7 +43,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
-                validateEntity(dgcEntry.idWithoutPrefix, true)
+                validateEntity(dgcEntry.idWithoutPrefix)
                 when (validate(covCertificate, rulesValidator)) {
                     CovPassCheckValidationResult.Success -> {
                         when (dgcEntry) {

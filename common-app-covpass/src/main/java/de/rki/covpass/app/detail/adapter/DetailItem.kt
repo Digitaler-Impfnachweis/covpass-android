@@ -57,6 +57,5 @@ public sealed class DetailItem {
         public val ruleId: String,
         public val iconBackgroundRes: Int?,
         public val iconTextRes: Int?,
-        public val blacklistNotification: Boolean = false,
     ) : DetailItem()
 }

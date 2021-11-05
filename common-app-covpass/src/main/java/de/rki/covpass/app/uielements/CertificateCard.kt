@@ -155,7 +155,6 @@ public class CertificateCard @JvmOverloads constructor(
 
         when (certStatus) {
             CertValidationResult.Valid,
-            CertValidationResult.ValidUntilDate,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
                 headerColor = ContextCompat.getColor(context, R.color.onInfo)
@@ -166,7 +165,7 @@ public class CertificateCard @JvmOverloads constructor(
                 statusImage = ContextCompat.getDrawable(
                     context,
                     when {
-                        showBoosterNotification || certStatus == CertValidationResult.ValidUntilDate -> {
+                        showBoosterNotification -> {
                             R.drawable.booster_notification_icon_white
                         }
                         certStatus == CertValidationResult.Valid -> {
@@ -204,7 +203,6 @@ public class CertificateCard @JvmOverloads constructor(
 
         when (certStatus) {
             CertValidationResult.Valid,
-            CertValidationResult.ValidUntilDate,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
                 headerColor = ContextCompat.getColor(context, R.color.onBackground)
@@ -215,7 +213,7 @@ public class CertificateCard @JvmOverloads constructor(
                 statusImage = ContextCompat.getDrawable(
                     context,
                     when {
-                        showBoosterNotification || certStatus == CertValidationResult.ValidUntilDate -> {
+                        showBoosterNotification -> {
                             R.drawable.booster_partial_notification_icon
                         }
                         completeVaccination -> {
@@ -252,7 +250,6 @@ public class CertificateCard @JvmOverloads constructor(
 
         when (certStatus) {
             CertValidationResult.Valid,
-            CertValidationResult.ValidUntilDate,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
                 headerColor = ContextCompat.getColor(context, R.color.onInfo)
@@ -262,7 +259,7 @@ public class CertificateCard @JvmOverloads constructor(
                 cardBackground = ContextCompat.getColor(context, R.color.test_certificate_background)
                 statusImage = ContextCompat.getDrawable(
                     context,
-                    if (certStatus == CertValidationResult.Valid || certStatus == CertValidationResult.ValidUntilDate) {
+                    if (certStatus == CertValidationResult.Valid) {
                         R.drawable.main_cert_test_white
                     } else {
                         R.drawable.main_cert_expiry_period_white
@@ -293,7 +290,6 @@ public class CertificateCard @JvmOverloads constructor(
 
         when (certStatus) {
             CertValidationResult.Valid,
-            CertValidationResult.ValidUntilDate,
             CertValidationResult.ExpiryPeriod -> {
                 this.status = status
                 headerColor = ContextCompat.getColor(context, R.color.onInfo)
@@ -303,16 +299,10 @@ public class CertificateCard @JvmOverloads constructor(
                 cardBackground = ContextCompat.getColor(context, R.color.brandAccent90)
                 statusImage = ContextCompat.getDrawable(
                     context,
-                    when (certStatus) {
-                        CertValidationResult.ValidUntilDate -> {
-                            R.drawable.booster_notification_icon_white
-                        }
-                        CertValidationResult.Valid -> {
-                            R.drawable.main_cert_status_complete_white
-                        }
-                        else -> {
-                            R.drawable.main_cert_expiry_period_white
-                        }
+                    if (certStatus == CertValidationResult.Valid) {
+                        R.drawable.main_cert_status_complete_white
+                    } else {
+                        R.drawable.main_cert_expiry_period_white
                     }
                 )
                 arrow = ContextCompat.getDrawable(context, R.drawable.arrow_right_white)

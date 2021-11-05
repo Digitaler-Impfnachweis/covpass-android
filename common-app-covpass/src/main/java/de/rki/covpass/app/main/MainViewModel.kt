@@ -73,14 +73,6 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                     showBoosterNotification()
                 }
             }
-            covpassDependencies.certRepository.certs.value.certificates.any {
-                it.hasBeenBlacklisted && !it.hasSeenBlacklistedNotification
-            } -> {
-                showingNotification = true
-                eventNotifier {
-                    showBlacklistedNotification()
-                }
-            }
         }
     }
 

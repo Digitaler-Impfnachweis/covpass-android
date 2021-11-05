@@ -16,7 +16,7 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.coroutines.CoroutineScope
 
 internal interface DetailEvents<T> : BaseEvents {
-    fun onHasSeenDetailNotificationUpdated(tag: T)
+    fun onHasSeenBoosterDetailNotificationUpdated(tag: T)
 }
 
 internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
@@ -31,19 +31,16 @@ internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
         }
     }
 
-    fun updateHasSeenDetailNotification(certId: GroupedCertificatesId, tag: T) {
+    fun updateHasSeenBoosterDetailNotification(certId: GroupedCertificatesId, tag: T) {
         launch {
             covpassDependencies.certRepository.certs.update { groupedCertificateList ->
                 groupedCertificateList.certificates.find { it.id == certId }?.let {
                     if (it.boosterNotification.result == BoosterResult.Passed) {
                         it.hasSeenBoosterDetailNotification = true
                     }
-                    if (it.hasBeenBlacklisted) {
-                        it.hasSeenBlacklistedNotification = true
-                    }
                 }
             }
-            eventNotifier { onHasSeenDetailNotificationUpdated(tag) }
+            eventNotifier { onHasSeenBoosterDetailNotificationUpdated(tag) }
         }
     }
 }

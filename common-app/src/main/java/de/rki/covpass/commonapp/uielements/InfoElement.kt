@@ -35,7 +35,6 @@ public class InfoElement @JvmOverloads constructor(
 
     public var title: String? by Delegates.observable(null) { _, _, newValue ->
         binding.infoTitle.text = newValue
-        binding.infoSubtitle.isGone = newValue.isNullOrEmpty()
     }
 
     public var subtitle: String? by Delegates.observable(null) { _, _, newValue ->

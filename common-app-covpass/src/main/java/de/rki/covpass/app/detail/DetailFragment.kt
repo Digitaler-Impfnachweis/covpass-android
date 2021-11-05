@@ -60,7 +60,7 @@ internal enum class DetailBoosterAction {
 @Parcelize
 internal class DetailFragmentNav(
     var certId: GroupedCertificatesId,
-    val isFirstAdded: Boolean = false,
+    val isFirstAdded: Boolean = false
 ) : FragmentNav(DetailFragment::class)
 
 /**
@@ -104,13 +104,13 @@ internal class DetailFragment :
         }
 
     override fun onBackPressed(): Abortable {
-        viewModel.updateHasSeenDetailNotification(args.certId, DetailBoosterAction.BackPressed)
+        viewModel.updateHasSeenBoosterDetailNotification(args.certId, DetailBoosterAction.BackPressed)
         return Abort
     }
 
     override fun onDeletionCompleted(isGroupedCertDeleted: Boolean) {
         if (isGroupedCertDeleted) {
-            viewModel.updateHasSeenDetailNotification(args.certId, DetailBoosterAction.Delete)
+            viewModel.updateHasSeenBoosterDetailNotification(args.certId, DetailBoosterAction.Delete)
         } else {
             val dialogModel = DialogModel(
                 titleRes = R.string.delete_result_dialog_header,
@@ -146,7 +146,6 @@ internal class DetailFragment :
 
             val isExpiredOrInvalid = when (mainCertificate.status) {
                 CertValidationResult.Expired, CertValidationResult.Invalid -> true
-                CertValidationResult.ValidUntilDate,
                 CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
             }
             val certStatus = mainCertificate.status
@@ -160,7 +159,6 @@ internal class DetailFragment :
                                     when (certStatus) {
                                         CertValidationResult.Expired -> R.string.certificates_overview_expired_title
                                         CertValidationResult.Invalid -> R.string.certificates_overview_invalid_title
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.string.vaccination_certificate_overview_complete_title
                                     }
@@ -169,7 +167,6 @@ internal class DetailFragment :
                                     when (certStatus) {
                                         CertValidationResult.Expired -> R.string.certificates_overview_expired_message
                                         CertValidationResult.Invalid -> R.string.certificates_overview_invalid_message
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.string.vaccination_certificate_overview_complete_message
                                     }
@@ -185,7 +182,6 @@ internal class DetailFragment :
                                         CertValidationResult.Expired,
                                         CertValidationResult.Invalid,
                                         -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.drawable.detail_cert_status_complete
                                     },
@@ -200,7 +196,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.vaccination_certificate_overview_complete_from_title,
@@ -212,7 +207,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(R.string.vaccination_certificate_overview_complete_from_message)
                                 }
@@ -226,7 +220,6 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.drawable.detail_cert_status_complete
                                     },
@@ -241,7 +234,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.vaccination_certificate_overview_incomplete_title,
@@ -254,7 +246,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(R.string.vaccination_certificate_overview_incomplete_message)
                                 }
@@ -270,7 +261,6 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.drawable.detail_cert_status_incomplete
                                     },
@@ -289,7 +279,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.pcr_test_certificate_overview_title,
@@ -301,7 +290,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(R.string.pcr_test_certificate_overview_message)
                                 }
@@ -317,7 +305,6 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.drawable.detail_cert_status_complete
                                     },
@@ -332,7 +319,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.test_certificate_overview_title,
@@ -344,7 +330,6 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.ValidUntilDate,
                                     CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                         getString(R.string.test_certificate_overview_message)
                                 }
@@ -360,7 +345,6 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.ValidUntilDate,
                                         CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                             R.drawable.detail_cert_status_complete
                                     },
@@ -378,7 +362,6 @@ internal class DetailFragment :
                                 getString(R.string.certificates_overview_expired_title)
                             CertValidationResult.Invalid ->
                                 getString(R.string.certificates_overview_invalid_title)
-                            CertValidationResult.ValidUntilDate,
                             CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                 if (dgcEntry.validFrom.isInFuture()) {
                                     getString(
@@ -397,7 +380,6 @@ internal class DetailFragment :
                                 getString(R.string.certificates_overview_expired_message)
                             CertValidationResult.Invalid ->
                                 getString(R.string.certificates_overview_invalid_message)
-                            CertValidationResult.ValidUntilDate,
                             CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                 getString(R.string.recovery_certificate_overview_message)
                         }
@@ -411,7 +393,6 @@ internal class DetailFragment :
                             statusIcon = when (certStatus) {
                                 CertValidationResult.Expired, CertValidationResult.Invalid ->
                                     R.drawable.detail_cert_status_expired
-                                CertValidationResult.ValidUntilDate,
                                 CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
                                     R.drawable.detail_cert_status_complete
                             },
@@ -422,20 +403,6 @@ internal class DetailFragment :
                     }
                 },
             )
-
-            // BlackList Notification
-            if (groupedCertificate.getMainCertificate().status == CertValidationResult.ValidUntilDate) {
-                personalDataList.add(
-                    DetailItem.Notification(
-                        R.string.certificate_will_be_revoked_notification_title,
-                        getString(R.string.certificate_will_be_revoked_notification_message),
-                        "",
-                        R.drawable.background_new_booster,
-                        R.string.certificate_will_be_revoked_notification_icon_new,
-                        blacklistNotification = true
-                    )
-                )
-            }
 
             if (groupedCertificate.boosterNotification.result == BoosterResult.Passed) {
                 personalDataList.add(
@@ -619,7 +586,7 @@ internal class DetailFragment :
         private const val FAVORITE_ITEM_ID = 82957
     }
 
-    override fun onHasSeenDetailNotificationUpdated(tag: DetailBoosterAction) {
+    override fun onHasSeenBoosterDetailNotificationUpdated(tag: DetailBoosterAction) {
         when (tag) {
             DetailBoosterAction.Delete -> {
                 findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
