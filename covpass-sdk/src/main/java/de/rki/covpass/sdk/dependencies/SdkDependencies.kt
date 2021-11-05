@@ -129,7 +129,10 @@ public abstract class SdkDependencies {
         CertLogicDeps(application)
     }
 
-    private val dccRulesHost: String by lazy { "distribution.dcc-rules.de" }
+    private val dccRulesHost: String by lazy {
+        application.getString(R.string.dcc_rules_host).takeIf { it.isNotEmpty() }
+            ?: throw IllegalStateException("You have to set @string/dcc_rules_host or override dccRulesHost")
+    }
 
     private val covPassRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
         CovPassRulesRemoteDataSource(httpClient, dccRulesHost)
