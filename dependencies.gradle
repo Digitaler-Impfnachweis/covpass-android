@@ -192,10 +192,6 @@ dependencies {
             api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
         }
 
-        worker = {
-            api "androidx.work:work-runtime-ktx:2.5.0"
-        }
-
         certLogic = {
             api "eu.ehn.dcc.certlogic:certlogic-kotlin:v0.9.0-kotlin"
             api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0"

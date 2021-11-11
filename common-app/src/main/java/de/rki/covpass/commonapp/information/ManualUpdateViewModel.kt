@@ -13,7 +13,7 @@ import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
 
-internal class AppUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
+internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BaseReactiveState<BaseEvents>(scope) {

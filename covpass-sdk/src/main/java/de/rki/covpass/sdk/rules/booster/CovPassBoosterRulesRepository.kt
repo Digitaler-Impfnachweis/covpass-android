@@ -9,6 +9,7 @@ import de.rki.covpass.sdk.cert.BoosterRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.booster.local.BoosterRuleLocal
 import de.rki.covpass.sdk.rules.booster.local.CovPassBoosterRulesLocalDataSource
 import de.rki.covpass.sdk.rules.booster.remote.toBoosterRule
+import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.distinctGroupBy
 import de.rki.covpass.sdk.utils.parallelMapNotNull
 import java.time.ZonedDateTime
@@ -16,6 +17,7 @@ import java.time.ZonedDateTime
 public class CovPassBoosterRulesRepository(
     private val remoteDataSource: BoosterRulesRemoteDataSource,
     private val localDataSource: CovPassBoosterRulesLocalDataSource,
+    private val rulesUpdateRepository: RulesUpdateRepository,
 ) {
 
     public suspend fun getAllBoosterRules(): List<BoosterRuleLocal> {
@@ -46,8 +48,9 @@ public class CovPassBoosterRulesRepository(
         // Do a transactional update of the DB (as far as that's possible).
         localDataSource.replaceRules(
             keep = (localRules - changed.keys - removed.keys).keys,
-            boosterRules = newRules
+            boosterRules = newRules,
         )
+        rulesUpdateRepository.markBoosterRulesUpdated()
     }
 
     public suspend fun getCovPassBoosterRulesBy(

@@ -252,21 +252,24 @@ public abstract class SdkDependencies {
     public val covPassValueSetsRepository: CovPassValueSetsRepository by lazy {
         CovPassValueSetsRepository(
             covPassValueSetsRemoteDataSource,
-            covPassValueSetsLocalDataSource
+            covPassValueSetsLocalDataSource,
+            rulesUpdateRepository
         )
     }
 
     public val covPassBoosterRulesRepository: CovPassBoosterRulesRepository by lazy {
         CovPassBoosterRulesRepository(
             boosterRulesRemoteDataSource,
-            covPassBoosterRulesLocalDataSource
+            covPassBoosterRulesLocalDataSource,
+            rulesUpdateRepository
         )
     }
 
     public val covPassCountriesRepository: CovPassCountriesRepository by lazy {
         CovPassCountriesRepository(
             countriesRemoteDataSource,
-            covPassCountriesLocalDataSource
+            covPassCountriesLocalDataSource,
+            rulesUpdateRepository
         )
     }
 
