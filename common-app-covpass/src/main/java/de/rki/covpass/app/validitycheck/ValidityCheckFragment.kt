@@ -26,16 +26,14 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.isBeforeUpdateInterval
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
-import de.rki.covpass.sdk.worker.DSC_UPDATE_INTERVAL_HOURS
 import kotlinx.parcelize.Parcelize
-import java.time.Instant
 import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 
 @Parcelize
 internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::class)
@@ -74,9 +72,7 @@ internal class ValidityCheckFragment :
                     iconRes = R.drawable.info_warning,
                     subtitleTopMarginDimenRes = R.dimen.grid_one
                 )
-                isVisible = get(sdkDeps.rulesUpdateRepository.lastRulesUpdate).isBefore(
-                    Instant.now().minus(DSC_UPDATE_INTERVAL_HOURS, ChronoUnit.HOURS)
-                )
+                isVisible = get(sdkDeps.rulesUpdateRepository.lastRulesUpdate).isBeforeUpdateInterval()
             }
         }
         autoRun {

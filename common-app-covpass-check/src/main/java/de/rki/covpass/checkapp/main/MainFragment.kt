@@ -13,6 +13,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -22,6 +23,8 @@ import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
+import de.rki.covpass.commonapp.BackgroundUpdateViewModel
+import de.rki.covpass.commonapp.BackgroundUpdateViewModel.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.truetime.TimeValidationState
@@ -30,7 +33,6 @@ import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.utils.formatDateTime
-import de.rki.covpass.sdk.worker.isDscListUpToDate
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 import java.time.LocalDateTime
@@ -45,6 +47,8 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 internal class MainFragment : BaseFragment() {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
+    @Suppress("UnusedPrivateMember")
+    private val backgroundUpdateViewModel by reactiveState { BackgroundUpdateViewModel(scope) }
 
     private val dscRepository get() = sdkDeps.dscRepository
     private val rulesUpdateRepository get() = sdkDeps.rulesUpdateRepository
@@ -118,6 +122,11 @@ internal class MainFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         commonDeps.timeValidationRepository.validate()
+    }
+
+    private fun isDscListUpToDate(lastUpdate: Instant): Boolean {
+        val dscUpdateIntervalSeconds = UPDATE_INTERVAL_HOURS * 60 * 60
+        return lastUpdate.isAfter(Instant.now().minusSeconds(dscUpdateIntervalSeconds))
     }
 
     private fun updateAvailabilityCard(lastUpdate: Instant, lastRulesUpdate: Instant) {

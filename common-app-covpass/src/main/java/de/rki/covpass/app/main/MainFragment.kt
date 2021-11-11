@@ -66,6 +66,8 @@ internal class MainFragment :
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
+    @Suppress("UnusedPrivateMember")
+    private val covPassBackgroundUpdateViewModel by reactiveState { CovPassBackgroundUpdateViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
     private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
     override val announcementAccessibilityRes: Int = R.string.accessibility_start_screen_info_announce

@@ -9,12 +9,14 @@ import de.rki.covpass.sdk.cert.CovPassValueSetsRemoteDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetLocal
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
 import de.rki.covpass.sdk.rules.remote.valuesets.toCovPassValueSet
+import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.distinctGroupBy
 import de.rki.covpass.sdk.utils.parallelMapNotNull
 
 public class CovPassValueSetsRepository(
     private val remoteDataSource: CovPassValueSetsRemoteDataSource,
-    private val localDataSource: CovPassValueSetsLocalDataSource
+    private val localDataSource: CovPassValueSetsLocalDataSource,
+    private val rulesUpdateRepository: RulesUpdateRepository,
 ) {
 
     public suspend fun prepopulate(valueSets: List<CovPassValueSet>) {
@@ -46,6 +48,7 @@ public class CovPassValueSetsRepository(
             keep = (localValueSets - changed.keys - removed.keys).keys,
             add = newValueSets
         )
+        rulesUpdateRepository.markValueSetsUpdated()
     }
 
     public suspend fun getAllCovPassValueSets(): List<CovPassValueSetLocal> =

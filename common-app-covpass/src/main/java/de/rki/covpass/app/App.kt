@@ -5,7 +5,6 @@
 
 package de.rki.covpass.app
 
-import androidx.work.WorkManager
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.app.dependencies.CovpassDependencies
 import de.rki.covpass.app.dependencies.covpassDeps
@@ -13,9 +12,6 @@ import de.rki.covpass.app.errorhandling.ErrorHandler
 import de.rki.covpass.commonapp.CommonApplication
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.utils.schedulePeriodicWorker
-import de.rki.covpass.sdk.worker.BoosterRulesWorker
-import de.rki.covpass.sdk.worker.CountriesWorker
 
 /**
  * Application class which defines dependencies for the Covpass App
@@ -30,13 +26,5 @@ internal class App : CommonApplication() {
             override val errorHandler = ErrorHandler()
         }
         start()
-    }
-
-    override fun initializeWorkManager(workManager: WorkManager) {
-        super.initializeWorkManager(workManager)
-        workManager.apply {
-            schedulePeriodicWorker<BoosterRulesWorker>("boosterRulesWorker")
-            schedulePeriodicWorker<CountriesWorker>("countriesWorker")
-        }
     }
 }

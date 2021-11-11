@@ -16,7 +16,6 @@ dependencies {
     coseJava()
     reactiveState()
     cryptographic()
-    worker()
     room()
     boofCVTest()
 }
