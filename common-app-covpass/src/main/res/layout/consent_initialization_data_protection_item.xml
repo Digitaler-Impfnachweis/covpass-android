@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/consent_ticketing_data_protection_note"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_five"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="@tools:sample/lorem[10]"
+    android:layout_marginBottom="@dimen/grid_one"/>
+
+  <TextView
+    android:id="@+id/consent_ticketing_data_protection_field"
+    style="@style/NavigationField"
+    app:drawableTint="@color/onBackground"/>
+
+  <View
+    style="@style/Divider"
+    android:layout_width="match_parent"
+    app:layout_constraintTop_toBottomOf="@+id/consent_ticketing_data_protection_field" />
+
+</LinearLayout>

@@ -9,10 +9,12 @@ import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.detail.DetailFragmentNav
+import de.rki.covpass.app.ticketing.ConsentInitializationTicketingFragmentNav
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -36,5 +38,9 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
     override fun onScanSuccess(certificateId: GroupedCertificatesId) {
         findNavigator().popAll()
         findNavigator().push(DetailFragmentNav(certificateId, true))
+    }
+
+    override fun onTicketingQrcodeScan(ticketingDataInitialization: TicketingDataInitialization) {
+        findNavigator().push(ConsentInitializationTicketingFragmentNav(ticketingDataInitialization))
     }
 }

@@ -11,18 +11,21 @@ import com.ensody.reactivestate.StateFlowStore
 import com.ensody.reactivestate.getData
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.serialization.SerializationException
 
 /**
  * Interface to communicate events from [CovPassQRScannerViewModel] to [CovPassQRScannerFragment].
  */
 internal interface CovPassQRScannerEvents : BaseEvents {
     fun onScanSuccess(certificateId: GroupedCertificatesId)
+    fun onTicketingQrcodeScan(ticketingDataInitialization: TicketingDataInitialization)
 }
 
 /**
@@ -39,32 +42,39 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
 
     fun onQrContentReceived(qrContent: String) {
         launch {
-            val covCertificate = qrCoder.decodeCovCert(qrContent)
-            validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
-            val certsFlow = certRepository.certs
-            var certId: GroupedCertificatesId? = null
-            certsFlow.update {
-                certId = it.addNewCertificate(
-                    CombinedCovCertificate(
-                        covCertificate = covCertificate,
-                        qrContent = qrContent,
-                        timestamp = System.currentTimeMillis(),
-                        status = if (covCertificate.isInExpiryPeriod()) {
-                            CertValidationResult.ExpiryPeriod
-                        } else {
-                            CertValidationResult.Valid
-                        },
-                        hasSeenBoosterNotification = false,
-                        hasSeenBoosterDetailNotification = false,
-                        hasSeenExpiryNotification = false,
-                        boosterNotificationRuleIds = mutableListOf(),
-                    )
-                )
-            }
-            certId?.let {
-                lastCertificateId.value = it
+            try {
+                val data = qrCoder.validateTicketing(qrContent)
                 eventNotifier {
-                    onScanSuccess(it)
+                    onTicketingQrcodeScan(data)
+                }
+            } catch (e: SerializationException) {
+                val covCertificate = qrCoder.decodeCovCert(qrContent)
+                validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
+                val certsFlow = certRepository.certs
+                var certId: GroupedCertificatesId? = null
+                certsFlow.update {
+                    certId = it.addNewCertificate(
+                        CombinedCovCertificate(
+                            covCertificate = covCertificate,
+                            qrContent = qrContent,
+                            timestamp = System.currentTimeMillis(),
+                            status = if (covCertificate.isInExpiryPeriod()) {
+                                CertValidationResult.ExpiryPeriod
+                            } else {
+                                CertValidationResult.Valid
+                            },
+                            hasSeenBoosterNotification = false,
+                            hasSeenBoosterDetailNotification = false,
+                            hasSeenExpiryNotification = false,
+                            boosterNotificationRuleIds = mutableListOf(),
+                        )
+                    )
+                }
+                certId?.let {
+                    lastCertificateId.value = it
+                    eventNotifier {
+                        onScanSuccess(it)
+                    }
                 }
             }
         }

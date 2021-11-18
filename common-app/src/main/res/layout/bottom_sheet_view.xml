@@ -57,12 +57,12 @@
       android:layout_alignParentEnd="true"
       android:layout_margin="@dimen/grid_two"
       android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/accessibility_popup_label_close"
       android:padding="@dimen/grid_one"
       android:src="@drawable/close_bottom_sheet"
       android:theme="@style/CovPassAppTheme.DarkControlHighlight"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      android:contentDescription="@string/accessibility_popup_label_close" />
+      app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
       android:id="@+id/bottom_sheet_content"
@@ -97,10 +97,23 @@
         android:layout_marginTop="@dimen/grid_three"
         android:layout_marginBottom="@dimen/grid_three"
         android:textSize="@dimen/textsize_default"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_cancel_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/bottom_sheet_cancel_button"
+        style="@style/Header.Info.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/grid_four"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_action_button"
+        tools:visibility="visible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

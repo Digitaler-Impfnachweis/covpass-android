@@ -43,6 +43,7 @@
 	<string name="dialog_booster_vaccination_notification_message">Please check the status of your EU Digital COVID Certificates.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
+	<string name="dialog_update_info_notification_action_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">More information</string>
@@ -60,7 +61,7 @@
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Expired</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Invalid</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Check vaccination status</string>
-	<string name="vaccination_start_screen_qrcode_certificate_will_be_revoked_subtitle">Certificate will be revoked soon</string>
+	<string name="vaccination_start_screen_qrcode_certificate_will_be_revoked_subtitle"> Certificate will be revoked soon</string>
 	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be reliably verified with the CovPassCheck app.</string>
 
 	<!-- SECTION: popup: Remark within the app towards the CovPassCheck app -->
@@ -77,13 +78,14 @@
 	<string name="accessibility_certificate_add_popup_label_close">Close</string>
 	<string name="accessibility_scan_camera_torch_on">Switch on torch</string>
 	<string name="accessibility_scan_camera_torch_off">Switch off torch</string>
-	<string name="accessibility_certificate_add_popup_announce">The view \"Adding a certificate\" has been opened</string>
+	<string name="accessibility_certificate_add_popup_announce">The view \"Scan QR code\" has been opened</string>
+	<string name="accessibility_certificate_add_popup_closing_announce">The view \"Scan QR code\" has been closed</string>
 	<string name="accessibility_scan_success_announce">Certificate of %s was added successfully</string>
 	<string name="accessibility_certificate_add_popup_image">Image: Person holds smartphone over three different certificates with QR code</string>
-	<string name="certificate_add_popup_title">Adding a certificate</string>
+	<string name="certificate_add_popup_title">Scan QR code</string>
 	<string name="certificate_add_popup_note_title">Your smartphone is not protected by a code</string>
 	<string name="certificate_add_popup_note_message">The CovPass app saves sensitive data to your smartphone. To protect your data against access by strangers, we recommend that you set up an unlock code for your smartphone.</string>
-	<string name="certificate_add_popup_message">Scan the QR code on an EU Digital COVID Certificate. The certificate is transferred directly to the CovPass app.</string>
+	<string name="certificate_add_popup_message">Scan the QR code on an EU Digital COVID Certificate. The certificate is transferred directly to the CovPass app.\n\nFor booking purposes (e.g. flight and hotel), you can submit your added COVID certificate to the provider online. To do so, scan the QR code displayed during the booking process.</string>
 	<string name="certificate_add_popup_action_title">Which QR code can I scan and save to my smartphone?</string>
 	<string name="certificate_add_popup_action_title_linked">#Which QR code can I scan and save to my smartphone?::$0#</string>
 	<string name="certificate_add_popup_scan_button_title">Scan QR code</string>
@@ -93,6 +95,7 @@
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Close</string>
 	<string name="accessibility_scan_dialog_camera_access_announce">The view \"Camera access needed\" has been opened</string>
 	<string name="accessibility_scan_camera_announce">Camera has been opened. The QR code will be scanned automatically.</string>
+	<string name="accessibility_scan_camera_closing_announce">Camera has been closed</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Cancel</string>
 	<string name="error_camera_access_title">The CovPass App wants to access your camera.</string>
 	<string name="error_camera_access_message">Allow access to scan QR codes.</string>
@@ -112,8 +115,13 @@
 	<string name="accessibility_certificate_check_validity_label_results">Results of the EU certificate examination</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Display certificate</string>
 	<string name="accessibility_certificate_check_validity_announce">The view \"Check validity\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_closing_announce">The view \"Check validity\" has been closed</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">The view \"Choose destination\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_selection_country_closing_announce">The view \"Choose destination\" has been closed</string>
 	<string name="accessibility_certificate_check_validity_selection_date_announce">The view \"Select date\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_selection_date_closing_announce">The view \"Select date\" has been closed</string>
+	<string name="accessibility_certificate_check_validity_selection_time_announce">The view \"Select time\" has been opened</string>
+	<string name="accessibility_certificate_check_validity_selection_time_closing_announce">The view \"Select time\" has been closed</string>
 	<string name="certificate_check_validity_title">Check validity for travel</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, selected</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, selectable</string>
@@ -224,9 +232,11 @@
 	<string name="accessibility_certificate_check_validity_selection_date_label_close">Close</string>
 	<string name="certificate_check_validity_selection_date_title">Select Date</string>
 	<string name="certificate_check_validity_selection_date_action_button">Next</string>
+	<string name="accessibility_certificate_check_validity_selection_date_label_action_button">Confirm date and continue to time selection</string>
 	<string name="certificate_check_validity_selection_time_title">Select time</string>
 	<string name="accessibility_certificate_check_validity_selection_time_label_close">Close</string>
 	<string name="certificate_check_validity_selection_time_action_button">OK</string>
+	<string name="accessibility_certificate_check_validity_selection_time_label_action_button">Confirm time</string>
 	<string name="certificate_check_validity_loading">Certificates are being validated</string>
 	<string name="certificate_check_invalidity_error_title">Please check the validity of your certificates.</string>
 	<string name="certificate_check_invalidity_error_text">One or multiple certificates are expired, or will expire soon.</string>
@@ -544,7 +554,9 @@
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_title_update">The view \"Update rules of entry\" has been opened</string>
-	<string name="accessibility_app_information_datenschutz_announce">Privacy policy has been opened</string>
+	<string name="accessibility_app_information_title_update_closing_announce">The view \"Update travel rules\" has been closed</string>
+	<string name="accessibility_app_information_datenschutz_announce">Privacy notice has been opened</string>
+	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy notice has been closed</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
@@ -561,7 +573,7 @@
 	<string name="accessibility_app_information_contact_label_back">Back</string>
 	<string name="app_information_title_faq">Frequently asked questions</string>
 	<string name="app_information_title_faq_linked">#Frequently asked questions::$0#</string>
-	<string name="app_information_title_datenschutz">Privacy policy</string>
+	<string name="app_information_title_datenschutz">Privacy notice</string>
 	<string name="app_information_title_company_details">Legal information</string>
 	<string name="app_information_title_company_details_linked">#Legal information::$0#</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
@@ -585,4 +597,88 @@
 	<!-- to be used as alt text for qr codes -->
 	<string name="accessibility_qr_code">QR code</string>
 	<string name="accessibility_button">Button</string>
+
+	<!-- SECTION: popup: share certification -->
+	<string name="share_certificate_title">Share your certificates for booking purposes</string>
+	<string name="share_certificate_details_provider">Provider</string>
+	<string name="share_certificate_details_booking">Booking</string>
+	<string name="share_certificate_message">The provider wants to ensure that a valid certificate is available for your booking. Your consent is required for the provider to retrieve your booking details and release your stored certificates.</string>
+	<string name="share_certificate_consent_title">Your consent</string>
+	<string name="share_certificate_consent_message">By tapping on “Accept”, you consent to the following steps:</string>
+	<string name="share_certificate_consent_first_list_item">The app will retrieve from the provider %s the name and date of birth of the person specified at the time of booking, the booking details relevant to the verification (e.g. destination country and date of travel) and the certificate requirements specified by the provider for your booking.</string>
+	<string name="share_certificate_consent_second_list_item">Once retrieved, the app will use this data to determine which of your stored certificates can be used</string>
+	<string name="share_certificate_notes_first_list_item">You are not obliged to allow your certificate to be verified with the CovPass app. There are other ways to prove that you have been vaccinated, tested negative or recovered from coronavirus.</string>
+	<string name="share_certificate_notes_second_list_item">The requirements for the certificate are set by the provider. The RKI has no influence on this. Please contact the provider for more information about the certificate requirements.</string>
+	<string name="share_certificate_notes_third_list_item">The determination of suitable certificates takes place locally on your smartphone. No data will be transmitted to the RKI or the provider.</string>
+	<string name="share_certificate_notes_fourth_list_item">The RKI does not receive the information about your booking or about the certificates you have stored.</string>
+	<string name="share_certificate_note_privacy_notice">Detailed information about this data processing is available in the privacy notice:</string>
+	<string name="share_certificate_privacy_notice_title">Privacy notice</string>
+	<string name="share_certificate_privacy_notice_linked">#Privacy notice::$0#</string>
+	<string name="share_certificate_action_button_agree">Accept</string>
+	<string name="share_certificate_action_button_cancel">Cancel</string>
+	<string name="accessibility_share_certificate_label_close">Close</string>
+	<string name="accessibility_share_certificate_label_back">Back</string>
+	<string name="accessibility_share_certificate_announce">The \"Release certificates for booking purposes\" view has been opened.</string>
+	<string name="accessibility_share_certificate_closing_announce">The \"Release certificates for booking purposes\" view has been closed.</string>
+	<string name="share_certificate_selection_title">Select certificate</string>
+	<string name="share_certificate_selection_message">Your certificate must meet the following requirements:</string>
+	<string name="share_certificate_selection_requirements_date_of_birth">Date of birth</string>
+	<string name="accessibility_share_certificate_selection_label_close">Close</string>
+	<string name="accessibility_share_certificate_selection_label_back">Back</string>
+	<string name="accessibility_share_certificate_selection_announce">The \"Select certificate\" view has been opened.</string>
+	<string name="accessibility_share_certificate_selection_closing_announce">The \"Select certificate\" view has been closed.</string>
+	<string name="share_certificate_selection_no_match_title">No certificate matches the above requirements.</string>
+	<string name="share_certificate_selection_no_match_subline">Please check if your certificate stored in the app matches the requirements.</string>
+	<string name="share_certificate_selection_no_match_action_button">Close</string>
+	<string name="share_certificate_transmission_title">Submitting your certificate for verification</string>
+	<string name="share_certificate_transmission_details_provider">Provider</string>
+	<string name="share_certificate_transmission_details_booking">Booking</string>
+	<string name="share_certificate_transmission_message">The selected certificate and your booking data will now be transmitted to the provider\'s verification partner. Your consent is required for the transmission of your data to the verification service.</string>
+	<string name="share_certificate_transmission_consent_title">Your consent</string>
+	<string name="share_certificate_transmission_consent_message">By tapping on “Accept”, you consent to the transfer of the following data to the verification partner of %s:</string>
+	<string name="share_certificate_transmission_consent_first_list_item">Content and electronic signature of the selected certificate (including name and date of birth of the certificate holder, validity period, issuer and date of issue, vaccine/test/recovery details).</string>
+	<string name="share_certificate_transmission_consent_second_list_item">The booking details retrieved from the provider %s:</string>
+	<string name="share_certificate_transmission_consent_second_list_item_first_subitem">Period during which the certificate must be valid (travel duration or event date)</string>
+	<string name="share_certificate_transmission_consent_second_list_item_second_subitem">For travel bookings: Country of origin and country of destination or journey</string>
+	<string name="share_certificate_transmission_consent_second_list_item_third_subitem">For cross-border travel: Certificate requirements imposed by the destination country</string>
+	<string name="share_certificate_transmission_consent_second_list_item_fourth_subitem">Further certificate requirements on the part of the provider (e.g. which vaccines or test procedures are accepted)</string>
+	<string name="share_certificate_transmission_notes_first_list_item">The verification partner will check whether the electronic signature is genuine and that the technical expiration date has not passed. You can view the technical expiration date and the transmitted certificate contents in the app when viewing the certificate in full.</string>
+	<string name="share_certificate_transmission_notes_second_list_item">The certificates contain sensitive data concerning health. You should therefore only allow providers to verify certificates if you know and trust them.</string>
+	<string name="share_certificate_transmission_notes_third_list_item">The RKI is not responsible for the data processing performed by the provider and the verification partner. Please read their privacy notices so that you know what your data is used for and how it is used.</string>
+	<string name="share_certificate_transmission_notes_fourth_list_item">The verification partner will immediately inform the provider of the result of this verification. The only information communicated will be whether the verification was successful or not.</string>
+	<string name="share_certificate_transmission_note_privacy_notice">Detailed information about this data processing is available in the privacy notice:</string>
+	<string name="share_certificate_transmission_privacy_notice_title">Privacy notice</string>
+	<string name="share_certificate_transmission_privacy_notice_linked">#Privacy notice::$0#</string>
+	<string name="share_certificate_transmission_action_button_agree">Accept</string>
+	<string name="accessibility_share_certificate_transmission_label_close">Close</string>
+	<string name="accessibility_share_certificate_transmission_label_back">Back</string>
+	<string name="accessibility_share_certificate_transmission_announce">The \"Submitting your certificate for verification\" view has been opened.</string>
+	<string name="accessibility_share_certificate_transmission_closing_announce">The \"Submitting your certificate for verification\" view has been closed.</string>
+	<string name="share_certificate_detail_view_requirements_met_title">Certificate meets the requirements of the provider</string>
+	<string name="share_certificate_detail_view_requirements_met_subline">Verified by %s</string>
+	<string name="share_certificate_detail_view_requirements_met_message">If you have any questions, please contact the provider %s.</string>
+	<string name="share_certificate_detail_view_requirements_not_verifiable_title">Certificate is not fully auditable</string>
+	<string name="share_certificate_detail_view_requirements_not_verifiable_subline">Verified by %s</string>
+	<string name="share_certificate_detail_view_requirements_not_verifiable_message">Unfortunately, an automatic check is not possible. Please check the information marked in yellow yourself.\n\nIf you have any questions, please contact the provider %s.</string>
+	<string name="share_certificate_detail_view_requirements_not_met_title">Certificate does not meet the requirements of the provider</string>
+	<string name="share_certificate_detail_view_requirements_not_met_subline">Verified by %s</string>
+	<string name="share_certificate_detail_view_requirements_not_met_message">The information that does not meet the requirements is marked in red below.\n\nIf you have any questions, please contact the provider %s.</string>
+	<string name="error_share_certificate_qr_code_not_recognized_title">QR code was not recognized</string>
+	<string name="error_share_certificate_qr_code_not_recognized_message">The scanned QR code is not valid for this booking. Please check if the QR code is intended for the CovPass app.\n\nYou can find more information in the Frequently Asked Questions.</string>
+	<string name="error_share_certificate_qr_code_not_recognized_action_button">OK</string>
+	<string name="error_share_certificate_provider_not_verified_title">The identity of the provider could not be verified</string>
+	<string name="error_share_certificate_provider_not_verified_message">Unfortunately, an error occurred while verifying the identity of the provider %s. Please try again later.</string>
+	<string name="error_share_certificate_provider_not_verified_action_button">OK</string>
+	<string name="error_share_certificate_test_partner_not_verified_title">The identity of the test partner could not be verified</string>
+	<string name="error_share_certificate_test_partner_not_verified_message">The booking portal suggests sharing your certificate with the following verification partner: %s. We do not know this verification partner.\n\nFor a list of supported verification partners, see the Frequently Asked Questions.</string>
+	<string name="error_share_certificate_test_partner_not_verified_action_button">OK</string>
+	<string name="error_share_certificate_no_connection_to_provider_title">Could not connect to the provider</string>
+	<string name="error_share_certificate_no_connection_to_provider_message">Check if your smartphone is connected to the Internet and try again.</string>
+	<string name="error_share_certificate_no_connection_to_provider_action_button">OK</string>
+	<string name="error_share_certificate_no_verification_possible_title">The certificate could not be verified</string>
+	<string name="error_share_certificate_no_verification_possible_message">Unfortunately, the verification could not be completed successfully. Possible reasons can be found in the Frequently Asked Questions. Please try again at a later time.</string>
+	<string name="error_share_certificate_no_verification_possible_action_button">OK</string>
+	<string name="cancellation_share_certificate_title">Do you really want to end the process?</string>
+	<string name="cancellation_share_certificate_action_button_no">Not now</string>
+	<string name="cancellation_share_certificate_action_button_yes">Yes, finish</string>
 </resources>
