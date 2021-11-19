@@ -101,7 +101,7 @@ subprojects {
         if (isAndroidProject) {
             android {
                 defaultConfig {
-                    versionName = "1.13.1"
+                    versionName = "1.13.2"
                 }
                 if (!isLibraryProject) {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")
