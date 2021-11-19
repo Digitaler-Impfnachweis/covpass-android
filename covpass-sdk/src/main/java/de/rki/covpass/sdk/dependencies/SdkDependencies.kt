@@ -143,7 +143,7 @@ public abstract class SdkDependencies {
     }
 
     private val boosterRulesRemoteDataSource: BoosterRulesRemoteDataSource by lazy {
-        BoosterRulesRemoteDataSource(httpClient, "distribution-cff4f7147260.dcc-rules.de")
+        BoosterRulesRemoteDataSource(httpClient, dccRulesHost)
     }
 
     private val countriesRemoteDataSource: CovPassCountriesRemoteDataSource by lazy {
