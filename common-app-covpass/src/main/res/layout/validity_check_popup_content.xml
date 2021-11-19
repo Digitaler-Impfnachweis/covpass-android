@@ -5,125 +5,138 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
-
-  <TextView
-    android:id="@+id/add_cov_cert_content"
-    style="@style/DefaultText.OnBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:text="@string/certificate_check_validity_message"
-    tools:ignore="HardcodedText" />
-
-  <de.rki.covpass.commonapp.uielements.InfoElement
-    android:id="@+id/validity_check_travel_rules_not_up_to_date"
-    style="@style/InfoElement.Warning"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_three"
-    android:focusable="true"
-    android:visibility="gone"
-    tools:description="@tools:sample/lorem[10]"
-    tools:title="@tools:sample/lorem[3]"
-    tools:visibility="visible" />
-
-  <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/layout_country"
-    style="@style/TextInputLayoutStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_two"
-    android:background="@color/backgroundSecondary"
-    android:hint="@string/certificate_check_validity_selection_country"
-    android:textColorHint="@color/onBackground"
-    app:endIconDrawable="@drawable/map_icon"
-    app:endIconMode="custom"
-    app:hintTextAppearance="@style/HintTextAppearance"
-    app:hintTextColor="@color/onBackground">
-
-    <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/country_value"
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:clickable="true"
-      android:focusable="false"
-      android:focusableInTouchMode="false"
-      android:text="@tools:sample/lorem[2]"
-      tools:ignore="KeyboardInaccessibleWidget" />
-
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/layout_date"
-    style="@style/TextInputLayoutStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_two"
-    android:background="@color/backgroundSecondary"
-    android:hint="@string/certificate_check_validity_selection_date"
-    android:textColorHint="@color/onBackground"
-    app:endIconDrawable="@drawable/calender_icon"
-    app:endIconMode="custom"
-    app:hintTextAppearance="@style/HintTextAppearance"
-    app:hintTextColor="@color/onBackground">
-
-    <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/date_value"
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:clickable="true"
-      android:focusable="false"
-      android:focusableInTouchMode="false"
-      tools:ignore="KeyboardInaccessibleWidget"
-      tools:text="@tools:sample/lorem[2]" />
-
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <LinearLayout
-    android:id="@+id/loading_layout"
-    android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:gravity="center"
     android:orientation="vertical">
 
-    <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/loading_animation"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:lottie_autoPlay="true"
-      app:lottie_colorFilter="@color/brandAccent70"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/loading_animation" />
+    <TextView
+        android:id="@+id/add_cov_cert_content"
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:text="@string/certificate_check_validity_message"
+        tools:ignore="HardcodedText" />
 
-  </LinearLayout>
+    <de.rki.covpass.commonapp.uielements.InfoElement
+        android:id="@+id/validity_check_travel_rules_not_up_to_date"
+        style="@style/InfoElement.Warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:description="@tools:sample/lorem[10]"
+        tools:title="@tools:sample/lorem[3]"
+        tools:visibility="visible" />
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recycler_certificates"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_four_half"
-    android:orientation="vertical"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    <de.rki.covpass.commonapp.uielements.InfoElement
+        android:id="@+id/validity_check_invalid_certs_warning"
+        style="@style/InfoElement.Warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:description="@tools:sample/lorem[10]"
+        tools:title="@tools:sample/lorem[3]"
+        tools:visibility="visible" />
 
-  <TextView
-    android:id="@+id/note_validity"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_two"
-    android:layout_marginVertical="@dimen/grid_five"
-    android:background="@drawable/background_grey_round_corners"
-    android:paddingHorizontal="@dimen/grid_two"
-    android:paddingVertical="@dimen/grid_two"
-    tools:text="@tools:sample/lorem[40]" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_country"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_two"
+        android:background="@color/backgroundSecondary"
+        android:hint="@string/certificate_check_validity_selection_country"
+        android:textColorHint="@color/onBackground"
+        app:endIconDrawable="@drawable/map_icon"
+        app:endIconMode="custom"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:hintTextColor="@color/onBackground">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/country_value"
+            style="@style/DefaultText.OnBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="@tools:sample/lorem[2]"
+            tools:ignore="KeyboardInaccessibleWidget" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_date"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_two"
+        android:background="@color/backgroundSecondary"
+        android:hint="@string/certificate_check_validity_selection_date"
+        android:textColorHint="@color/onBackground"
+        app:endIconDrawable="@drawable/calender_icon"
+        app:endIconMode="custom"
+        app:hintTextAppearance="@style/HintTextAppearance"
+        app:hintTextColor="@color/onBackground">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/date_value"
+            style="@style/DefaultText.OnBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            tools:ignore="KeyboardInaccessibleWidget"
+            tools:text="@tools:sample/lorem[2]" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_colorFilter="@color/brandAccent70"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_animation" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_certificates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_four_half"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <TextView
+        android:id="@+id/note_validity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_two"
+        android:layout_marginVertical="@dimen/grid_five"
+        android:background="@drawable/background_grey_round_corners"
+        android:paddingHorizontal="@dimen/grid_two"
+        android:paddingVertical="@dimen/grid_two"
+        tools:text="@tools:sample/lorem[40]" />
 
 </LinearLayout>
