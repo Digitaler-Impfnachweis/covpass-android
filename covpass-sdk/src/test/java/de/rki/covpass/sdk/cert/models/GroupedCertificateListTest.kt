@@ -6,17 +6,13 @@
 package de.rki.covpass.sdk.cert.models
 
 import com.ensody.reactivestate.test.CoroutineTest
-import de.rki.covpass.sdk.cert.BlacklistedEntityException
-import de.rki.covpass.sdk.cert.QRCoder
-import io.mockk.every
 import io.mockk.mockk
 import java.time.Instant
 import kotlin.test.*
 
 internal class GroupedCertificateListTest : CoroutineTest() {
 
-    private val qrCoder: QRCoder = mockk(relaxed = true)
-    private val mapper = CertificateListMapper(qrCoder)
+    private val mapper = CertificateListMapper(mockk(relaxed = true))
 
     private val name1 = "Hans"
     private val name2 = "Franz"
@@ -512,70 +508,6 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         assertEquals(idIncomplete2, groupedCertificatesList.certificates[1].certificates[0].covCertificate.dgcEntry.id)
     }
 
-    @Test
-    fun `getValidCertificates on full list of valid certificates`() = runBlockingTest {
-        val originalList = CovCertificateList(
-            mutableListOf(
-                certIncomplete1.toCombinedCertLocal(),
-                certComplete1.toCombinedCertLocal(),
-                certIncomplete2.toCombinedCertLocal(),
-                certComplete2.toCombinedCertLocal(),
-                certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
-        )
-        val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
-
-        assertEquals(
-            groupedCertificatesList.certificates.size,
-            groupedCertificatesList.getValidCertificates().size
-        )
-    }
-
-    @Test
-    fun `getValidCertificates on full list of invalid certificates`() = runBlockingTest {
-        val originalList = CovCertificateList(
-            mutableListOf(
-                certIncomplete1.toCombinedCertLocal(),
-                certComplete1.toCombinedCertLocal(),
-                certIncomplete2.toCombinedCertLocal(),
-                certComplete2.toCombinedCertLocal(),
-                certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
-        )
-        every { qrCoder.decodeCovCert(any()) } throws BlacklistedEntityException()
-        val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
-
-        assertTrue(groupedCertificatesList.getValidCertificates().isEmpty())
-    }
-
-    @Test
-    fun `getValidCertificates on one invalid certificate`() = runBlockingTest {
-        val originalList = CovCertificateList(
-            mutableListOf(
-                certComplete1.toCombinedCertLocal("certComplete1"),
-                certComplete2.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
-        )
-        every { qrCoder.decodeCovCert("certComplete1") } throws BlacklistedEntityException()
-        val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
-
-        assertEquals(
-            groupedCertificatesList.certificates.size - 1,
-            groupedCertificatesList.getValidCertificates().size
-        )
-    }
-
-    @Test
-    fun `getValidCertificates on empty list`() = runBlockingTest {
-        val originalList = CovCertificateList(emptyList())
-        val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
-
-        assertTrue(groupedCertificatesList.getValidCertificates().isEmpty())
-    }
-
-    private fun CovCertificate.toCombinedCertLocal(qrContent: String = "") =
-        CombinedCovCertificateLocal(this, qrContent)
+    private fun CovCertificate.toCombinedCertLocal() =
+        CombinedCovCertificateLocal(this, "")
 }

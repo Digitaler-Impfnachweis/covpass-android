@@ -145,25 +145,11 @@ internal class ValidityCheckFragment :
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
         }
         autoRun { showLoading(get(loading) > 0) }
-        autoRun { showInvalidCertWarning(get(validityCheckViewModel.isInvalidCertAvailable)) }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.loadingLayout.isVisible = isLoading
         binding.recyclerCertificates.isGone = isLoading
-    }
-
-    private fun showInvalidCertWarning(show: Boolean) {
-        binding.validityCheckInvalidCertsWarning.apply {
-            showWarning(
-                title = getString(R.string.certificate_check_validity_not_all_certs_checkable_title),
-                subtitle = getString(R.string.certificate_check_validity_not_all_certs_checkable_message),
-                subtitleStyle = R.style.DefaultText_OnBackground,
-                iconRes = R.drawable.info_warning,
-                subtitleTopMarginDimenRes = R.dimen.grid_one
-            )
-            isVisible = show
-        }
     }
 
     override fun onActionButtonClicked() {

@@ -29,23 +29,15 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
     val validationResults: MutableValueFlow<List<CertsValidationResults>> = MutableValueFlow(emptyList())
     val country: MutableValueFlow<Country> = MutableValueFlow(defaultCountry)
     val date: MutableValueFlow<LocalDateTime> = MutableValueFlow(LocalDateTime.now())
-    val isInvalidCertAvailable: MutableValueFlow<Boolean> = MutableValueFlow(false)
 
     init {
         launch {
-            showInvalidCertsWarning()
             validateCertificates()
         }
     }
 
-    private fun showInvalidCertsWarning() {
-        val groupedCertList = certRepository.certs.value
-        isInvalidCertAvailable.value =
-            groupedCertList.certificates.size > groupedCertList.getValidCertificates().size
-    }
-
     private suspend fun validateCertificates() {
-        validationResults.value = certRepository.certs.value.getValidCertificates().map {
+        validationResults.value = certRepository.certs.value.certificates.map {
             val covCertificate = it.getMainCertificate().covCertificate
             CertsValidationResults(
                 covCertificate,

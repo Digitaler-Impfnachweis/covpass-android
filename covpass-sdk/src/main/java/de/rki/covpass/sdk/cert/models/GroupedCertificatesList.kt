@@ -23,15 +23,6 @@ public data class GroupedCertificatesList private constructor(
         certificates.firstOrNull { it.id == certId }
 
     /**
-     * Returns a list for [GroupedCertificates] except certificates with [CertValidationResult.Invalid] status.
-     */
-    public fun getValidCertificates(): List<GroupedCertificates> {
-        return certificates.filterNot {
-            it.getMainCertificate().status == CertValidationResult.Invalid
-        }
-    }
-
-    /**
      * Returns the [CombinedCovCertificate] with the given [certId] if existent, else null.
      */
     public fun getCombinedCertificate(certId: String): CombinedCovCertificate? {
