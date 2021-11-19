@@ -22,7 +22,15 @@ public class CertificateListMapper(
                         CertValidationResult.ExpiryPeriod
                     else
                         CertValidationResult.Valid
-                is ExpiredCwtException -> CertValidationResult.Expired
+                is ExpiredCwtException -> {
+                    val blacklistedEntityError = runCatching {
+                        validateEntity(localCert.covCertificate.dgcEntry.idWithoutPrefix)
+                    }.exceptionOrNull()
+                    when (blacklistedEntityError) {
+                        null -> CertValidationResult.Expired
+                        else -> CertValidationResult.Invalid
+                    }
+                }
                 is BadCoseSignatureException,
                 is CoseException,
                 is GeneralSecurityException,

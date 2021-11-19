@@ -130,9 +130,9 @@
 	<string name="certificate_check_validity_travel_rules_not_up_to_message">The rules of entry are updated in the app every 24 hours. Unfortunately, the last update failed. Make sure your smartphone is connected to the internet and try again.</string>
 	<string name="certificate_check_validity_selection_country">Country</string>
 	<string name="no_cert_applicable_for_validation_dialog_header">No check possible</string>
-	<string name="no_cert_applicable_for_validation_dialog_message">A validity check of your currently deposited certificates is unfortunately not possible.</string>
+	<string name="no_cert_applicable_for_validation_dialog_message">Unfortunately, it is not possible to check the validity of your currently stored certificates.</string>
 	<string name="no_cert_applicable_for_validation_positive_button_text">OK</string>
-	<string name="certificate_check_validity_not_all_certs_checkable_title">Unfortunately not all certificates are checkable!</string>
+	<string name="certificate_check_validity_not_all_certs_checkable_title">Unfortunately, not all certificates can be checked!</string>
 	<string name="certificate_check_validity_not_all_certs_checkable_message">Unfortunately, a validity check is not possible for some of your deposited certificates. These will be excluded from the check.</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Close</string>
 	<string name="certificate_check_validity_selection_country_title">Choose destination</string>
