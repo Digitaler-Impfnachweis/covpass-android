@@ -57,8 +57,7 @@ public class ConsentInitializationTicketingFragment : BaseBottomSheet(), DialogL
     }
 
     override fun onActionButtonClicked() {
-        // TODO fix
-//        findNavigator().push(CertificateFilteringTicketingFragmentNav(args.ticketingDataInitialization))
+        findNavigator().push(CertificateFilteringTicketingFragmentNav(args.ticketingDataInitialization))
     }
 
     override fun onCloseButtonClicked() {
@@ -127,7 +126,7 @@ public class ConsentInitializationTicketingFragment : BaseBottomSheet(), DialogL
         }
     }
 
-    private companion object {
-        private const val CANCEL_TICKETING = "cancel_ticketing"
+    public companion object {
+        public const val CANCEL_TICKETING: String = "cancel_ticketing"
     }
 }
