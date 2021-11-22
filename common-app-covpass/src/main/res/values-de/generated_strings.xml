@@ -121,10 +121,10 @@
 	<string name="certificate_check_validity_travel_rules_not_up_to_message">Die Einreiseregeln werden in der App alle 24 Stunden aktualisiert. Leider schlug die letzte Aktualisierung fehl. Stellen Sie sicher, dass Ihr Smartphone mit dem Internet verbunden ist und versuchen Sie es erneut.</string>
 	<string name="certificate_check_validity_selection_country">Land</string>
 	<string name="no_cert_applicable_for_validation_dialog_header">Keine Prüfung möglich</string>
-	<string name="no_cert_applicable_for_validation_dialog_message">Eine Gültigkeitsprüfung Ihrer aktuell hinterlegten Zertifikate ist leider nicht möglich.</string>
+	<string name="no_cert_applicable_for_validation_dialog_message">Eine Gültigkeitsprüfung Ihrer aktuell gespeicherten Zertifikate ist leider nicht möglich.</string>
 	<string name="no_cert_applicable_for_validation_positive_button_text">OK</string>
-	<string name="certificate_check_validity_not_all_certs_checkable_title">Leider sind nicht alle Zertifikate prüfbar!</string>
-	<string name="certificate_check_validity_not_all_certs_checkable_message">Eine Gültigkeitsprüfung ist für manche Ihrer hinterlegten Zertifikate leider nicht möglich. Diese werden bei der Prüfung ausgeschlossen.</string>
+	<string name="certificate_check_validity_not_all_certs_checkable_title">Leider können nicht alle Zertifikate geprüft werden!</string>
+	<string name="certificate_check_validity_not_all_certs_checkable_message">Eine Gültigkeitsprüfung ist für manche Ihrer gespeicherten Zertifikate leider nicht möglich. Diese werden bei der Prüfung ausgeschlossen.</string>
 	<string name="accessibility_certificate_check_validity_selection_country_label_close">Schließen</string>
 	<string name="certificate_check_validity_selection_country_title">Reiseland wählen</string>
 	<string name="accessibility_certificate_check_validity_selection_country">Land: %s</string>
