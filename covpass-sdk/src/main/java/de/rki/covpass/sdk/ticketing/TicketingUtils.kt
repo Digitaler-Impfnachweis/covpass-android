@@ -9,7 +9,7 @@ import de.rki.covpass.sdk.cert.models.*
 
 public fun GroupedCertificatesList.filterCertificates(
     types: Collection<TicketingType>,
-    firstName: String,
+    firstName: String?,
     lastName: String,
     birthDate: String,
 ): List<CombinedCovCertificate> =
