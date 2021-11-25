@@ -10,10 +10,11 @@ import androidx.fragment.app.Fragment
 import com.ibm.health.common.annotations.Abortable
 
 /** Executes a back navigation action without triggering onBackPressed. */
-public fun Fragment.triggerBackNavigation() {
-    for (skip in 0..Int.MAX_VALUE) {
+public fun Fragment.triggerBackNavigation(skip: Int = 0) {
+    require(skip >= 0) { "Parameter must be >= 0" }
+    for (skipNavigators in skip..Int.MAX_VALUE) {
         try {
-            if (findNavigator(skip = skip).pop()) {
+            if (findNavigator(skip = skipNavigators).pop()) {
                 break
             }
         } catch (e: NoSuchElementInHierarchy) {

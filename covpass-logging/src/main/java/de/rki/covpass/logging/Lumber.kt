@@ -22,74 +22,99 @@ import timber.log.Timber
  */
 public class Lumber {
     public companion object {
+        public val enabled: Boolean
+            get() = Timber.treeCount > 0
 
         /** Plants debug tree if none was planted yet. */
-        public fun plantDebugTreeIfNeeded(shouldPlant: Boolean = true) {
-            if (shouldPlant && Timber.treeCount == 0) {
-                Timber.plant(LoggerTree())
+        public fun plantDebugTreeIfNeeded() {
+            if (Timber.treeCount == 0) {
+                Timber.plant(Timber.DebugTree())
             }
         }
 
+        /** Adds the given logging [tree]. */
+        public fun plant(tree: Timber.Tree) {
+            Timber.plant(tree)
+        }
+
+        /** Removes the given logging [tree]. */
+        public fun uproot(tree: Timber.Tree) {
+            Timber.uproot(tree)
+        }
+
+        /** Removes all logging trees. */
+        public fun uprootAll() {
+            Timber.uprootAll()
+        }
+
         /** Log a verbose exception and/or a message specified by [LogBlock]. */
-        public fun v(err: Throwable? = null, block: LogBlock? = null) {
-            Timber.v(err, block?.invoke())
+        public inline fun v(err: Throwable? = null, crossinline block: LogBlock = { null }) {
+            if (enabled) {
+                Timber.v(err, block())
+            }
         }
 
         /** Log a debug exception and/or a message specified by [LogBlock]. */
-        public fun d(err: Throwable? = null, block: LogBlock? = null) {
-            Timber.d(err, block?.invoke())
+        public inline fun d(err: Throwable? = null, crossinline block: LogBlock = { null }) {
+            if (enabled) {
+                Timber.d(err, block())
+            }
         }
 
         /** Log an info exception and/or a message specified by [LogBlock]. */
-        public fun i(err: Throwable? = null, block: LogBlock? = null) {
-            Timber.i(err, block?.invoke())
+        public inline fun i(err: Throwable? = null, crossinline block: LogBlock = { null }) {
+            if (enabled) {
+                Timber.i(err, block())
+            }
         }
 
         /** Log a warning exception and/or a message specified by [LogBlock]. */
-        public fun w(err: Throwable? = null, block: LogBlock? = null) {
-            Timber.w(err, block?.invoke())
+        public inline fun w(err: Throwable? = null, crossinline block: LogBlock = { null }) {
+            if (enabled) {
+                Timber.w(err, block())
+            }
         }
 
         /** Log an assert exception and/or a message specified by [LogBlock]. */
-        public fun wtf(err: Throwable? = null, block: LogBlock? = null) {
-            Timber.wtf(err, block?.invoke())
+        public inline fun wtf(err: Throwable? = null, crossinline block: LogBlock = { null }) {
+            if (enabled) {
+                Timber.wtf(err, block())
+            }
         }
 
         /** Log an error exception and/or a message specified by [block]. */
-        public fun e(err: Throwable? = null, block: LogBlock? = null) {
-            Timber.e(err, block?.invoke())
+        public inline fun e(err: Throwable? = null, crossinline block: LogBlock = { null }) {
+            if (enabled) {
+                Timber.e(err, block())
+            }
         }
 
         /** Log with given priority an exception and/or a message specified by [LogBlock]. */
-        public fun log(priority: Int, err: Throwable?, block: LogBlock) {
-            Timber.log(priority, err, block())
+        public inline fun log(priority: Int, err: Throwable?, crossinline block: LogBlock) {
+            if (enabled) {
+                Timber.log(priority, err, block())
+            }
         }
     }
 }
 
 /** A function returning a log message. Obfuscation can fully strip this, even when using string templates. */
-public fun interface LogBlock {
-    public operator fun invoke(): String
-}
+public typealias LogBlock = () -> String?
 
-// Since we wrap the call stack in another layer we have to fix the tag by going to the caller of Lumber, not of Timber
-private class LoggerTree : Timber.DebugTree() {
-    override fun createStackElementTag(element: StackTraceElement): String? {
-        return super.createStackElementTag(
-            Throwable().stackTrace.find { it.className !in fqcnIgnore } ?: element
-        )
+/** Records logging calls. Can be useful for unit tests. */
+public class LogRecorder : Timber.DebugTree() {
+    public val logs: MutableList<String> = mutableListOf()
+
+    public fun reset() {
+        logs.clear()
     }
-}
 
-private val fqcnIgnore by lazy {
-    listOf(
-        LoggerTree::class,
-        Lumber::class,
-        Lumber.Companion::class,
-        // This list is used by Timber
-        Timber::class,
-        Timber.Forest::class,
-        Timber.Tree::class,
-        Timber.DebugTree::class,
-    ).map { it.java.name }
+    public fun print() {
+        logs.forEach(::println)
+        logs.clear()
+    }
+
+    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+        logs.add("$tag: $message")
+    }
 }

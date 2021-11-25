@@ -17,6 +17,8 @@ pipeline {
     options {
         disableConcurrentBuilds()
         skipDefaultCheckout()
+        timeout(time: 1, unit: 'HOURS') // safeguard to auto-kill stuck builds
+        ansiColor("xterm") // needs AnsiColor plugin (https://wiki.jenkins.io/display/JENKINS/AnsiColor+Plugin)
     }
     triggers {
         issueCommentTrigger('.*clean build please.*')
@@ -289,17 +291,17 @@ pipeline {
                     def toPush = sh(
                         returnStdout: true,
                         script: "git push --dry-run --porcelain --tags | grep '^*' || [ \$? -eq 1 ]"
-                    ).trim()
+                    ).trim() != ""
 
                     // Add extra tag for release branches, so we can track them even when doing fast-forward merges.
-                    if (env.BRANCH_NAME != "main" && env.BRANCH_NAME != "master") {
+                    if (!toPush && env.BRANCH_NAME != "main" && env.BRANCH_NAME != "master") {
                         def prefix = env.BRANCH_NAME.replaceAll(/[^\/a-zA-Z0-9_\-]+/, '-')
                         def version = currentBuild.displayName
                         sh("git tag $prefix-$version || true")
                     }
 
                     // Only publish release if tag doesn't exist, yet.
-                    if (toPush != "") {
+                    if (toPush) {
                         gradle('publish', '--stacktrace')
                     }
                 }

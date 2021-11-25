@@ -131,7 +131,9 @@ public class Navigator internal constructor(
         fragmentManager.beginTransaction().apply {
 
             val overlayFragment = (fragment as? OverlayNavigation)?.getModalOverlayFragment()
-            if (overlayFragment != null && findFragment { it::class == overlayFragment::class } == null) {
+            if (overlayFragment != null &&
+                findFragment { if (it::class == overlayFragment::class) it else null } == null
+            ) {
                 animator(overlayFragment)
                 add(containerId, overlayFragment)
             }
@@ -168,7 +170,7 @@ public class Navigator internal constructor(
     /** Handles a back button press. */
     public fun onBackPressed(): Abortable {
         fragmentManager.executePendingTransactions()
-        val result = fragmentManager.fragments.lastOrNull().let {
+        val result = fragmentManager.fragments.lastOrNull()?.let {
             (it as? OnBackPressedNavigation)?.onBackPressed()
                 ?: (it as? NavigatorOwner)?.navigator?.onBackPressed()
         }
@@ -180,8 +182,10 @@ public class Navigator internal constructor(
      *
      * @return true if there was something to pop, false otherwise.
      */
-    public fun pop(): Boolean {
-        fragmentManager.executePendingTransactions()
+    public fun pop(executePendingTransactions: Boolean = true): Boolean {
+        if (executePendingTransactions) {
+            fragmentManager.executePendingTransactions()
+        }
 
         return if (fragmentManager.backStackEntryCount > 0) {
             fragmentManager.popBackStack()
@@ -333,20 +337,35 @@ public class Navigator internal constructor(
         }
     }
 
+    /** Clears the whole [FragmentManager]. */
+    public fun clear() {
+        popAll(immediate = true)
+        fragmentManager.beginTransaction().apply {
+            for (fragment in fragmentManager.fragments) {
+                remove(fragment)
+            }
+            commitNow()
+        }
+    }
+
     /**
      * Searches for a matching `Fragment` in the back stack.
      *
      * @return the matching [Fragment] or null if no matching fragment was found.
      */
-    public fun findFragment(func: (Fragment) -> Boolean): Fragment? =
-        fragmentManager.fragments.lastOrNull(func)
+    public fun <T> findFragment(block: (Fragment) -> T?): T? {
+        for (fragment in fragmentManager.fragments.reversed()) {
+            block(fragment)?.let { return it }
+        }
+        return null
+    }
 
     /**
      * Searches for a matching `Fragment` in the back stack with the given type [T].
      *
      * @return the matching [Fragment] or null if no matching fragment was found.
      */
-    public inline fun <reified T> findFragment(): T? = findFragment { it is T } as? T
+    public inline fun <reified T> findFragment(): T? = findFragment { it as? T }
 
     private fun update() {
         updateOrientation()

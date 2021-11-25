@@ -53,6 +53,13 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
         }
     }
 
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        for (fragment in supportFragmentManager.findFragments { it as? OnUserInteractionListener }) {
+            fragment.onUserInteraction()
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             android.R.id.home -> {
