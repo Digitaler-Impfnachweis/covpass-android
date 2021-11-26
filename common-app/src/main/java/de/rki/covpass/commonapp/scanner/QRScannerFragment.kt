@@ -9,6 +9,7 @@ import android.Manifest
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,6 +33,7 @@ import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import kotlinx.coroutines.flow.collect
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -172,20 +174,14 @@ public abstract class QRScannerFragment : BaseFragment() {
         cameraProvider.unbindAll()
 
         withErrorReporting {
-            val preparedCamera = cameraProvider.bindToLifecycle(
+            camera = cameraProvider.bindToLifecycle(
                 this,
                 cameraSelector,
                 preview,
                 imageCapture,
                 imageAnalyzer
             )
-            val factory = SurfaceOrientedMeteringPointFactory(metrics.width().toFloat(), metrics.height().toFloat())
-            val point = factory.createPoint(metrics.exactCenterX(), metrics.exactCenterX())
-            val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
-                .addPoint(point, FocusMeteringAction.FLAG_AE)
-                .build()
-            preparedCamera.cameraControl.startFocusAndMetering(action)
-            camera = preparedCamera
+            initFocusControl()
             binding.scannerFlashlightButton.isVisible = hasFlash()
             setTorch(isTorchOn.value)
             preview.setSurfaceProvider(binding.barcodeScanner.surfaceProvider)
@@ -275,6 +271,46 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     private fun hasFrontCamera(): Boolean {
         return cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false
+    }
+
+    private fun initFocusControl(): Boolean {
+        val metrics = windowManager.getCurrentWindowMetrics().bounds
+
+        // do initial autofocus
+        val initialAutoFocusPoint =
+            SurfaceOrientedMeteringPointFactory(metrics.width().toFloat(), metrics.height().toFloat())
+                .createPoint(metrics.exactCenterX(), metrics.exactCenterY())
+
+        val initialAutoFocusAction = FocusMeteringAction.Builder(
+            initialAutoFocusPoint, FocusMeteringAction.FLAG_AF
+        ).build()
+        camera?.cameraControl?.startFocusAndMetering(initialAutoFocusAction)
+
+        // do on-tap autofocus
+        binding.barcodeScanner.setOnTouchListener { view, motionEvent ->
+            return@setOnTouchListener when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    val autofocusPoint =
+                        SurfaceOrientedMeteringPointFactory(view.width.toFloat(), view.height.toFloat())
+                            .createPoint(motionEvent.x, motionEvent.y)
+                    camera?.cameraControl?.startFocusAndMetering(
+                        FocusMeteringAction.Builder(
+                            autofocusPoint, FocusMeteringAction.FLAG_AF
+                        ).apply {
+                            // only focus when user taps
+                            disableAutoCancel()
+                        }.build()
+                    )
+                    view.performClick()
+                }
+                else -> false
+            }
+        }
+
+        return true
     }
 
     private companion object {
