@@ -172,13 +172,20 @@ public abstract class QRScannerFragment : BaseFragment() {
         cameraProvider.unbindAll()
 
         withErrorReporting {
-            camera = cameraProvider.bindToLifecycle(
+            val preparedCamera = cameraProvider.bindToLifecycle(
                 this,
                 cameraSelector,
                 preview,
                 imageCapture,
                 imageAnalyzer
             )
+            val factory = SurfaceOrientedMeteringPointFactory(metrics.width().toFloat(), metrics.height().toFloat())
+            val point = factory.createPoint(metrics.exactCenterX(), metrics.exactCenterX())
+            val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
+                .addPoint(point, FocusMeteringAction.FLAG_AE)
+                .build()
+            preparedCamera.cameraControl.startFocusAndMetering(action)
+            camera = preparedCamera
             binding.scannerFlashlightButton.isVisible = hasFlash()
             setTorch(isTorchOn.value)
             preview.setSurfaceProvider(binding.barcodeScanner.surfaceProvider)
