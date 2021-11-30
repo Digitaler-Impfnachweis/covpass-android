@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.webkit.WebView
 import androidx.fragment.app.FragmentActivity
+import androidx.work.WorkManager
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.AndroidDependencies
 import com.ibm.health.common.android.utils.androidDeps
@@ -64,10 +65,21 @@ public abstract class CommonApplication : Application() {
             override val application: Application = this@CommonApplication
         }
         prepopulateDb()
+        removeWorkers()
     }
 
     public fun start() {
         sdkDeps.validator.updateTrustedCerts(sdkDeps.dscRepository.dscList.value.toTrustedCerts())
+    }
+
+    private fun removeWorkers() {
+        WorkManager.getInstance(this).apply {
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.DscListWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.RulesWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.ValueSetsWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.BoosterRulesWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.CountriesWorker")
+        }
     }
 
     public fun initializeTrueTime() {

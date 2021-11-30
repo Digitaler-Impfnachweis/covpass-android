@@ -18,6 +18,7 @@ dependencies {
     cryptographic()
     room()
     boofCVTest()
+    worker()
 }
 
 apply from: "$projectDir/download-dsc-list.gradle"
