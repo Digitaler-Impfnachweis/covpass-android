@@ -17,24 +17,20 @@ public class CovPassBackgroundUpdateViewModel @OptIn(DependencyAccessor::class) 
     private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BackgroundUpdateViewModel(scope, sdkDependencies) {
 
-    init {
-        fetchCountryList()
-        fetchBoosterRules()
+    private val countryListUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastCountryListUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassCountriesRepository.loadCountries()
+        }
     }
-
-    private fun fetchCountryList() {
-        launch(onError = ::logOnError, withLoading = null) {
-            if (sdkDependencies.rulesUpdateRepository.lastCountryListUpdate.value.isBeforeUpdateInterval()) {
-                sdkDependencies.covPassCountriesRepository.loadCountries()
-            }
+    private val boosterRulesUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastBoosterRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassBoosterRulesRepository.loadBoosterRules()
         }
     }
 
-    private fun fetchBoosterRules() {
-        launch(onError = ::logOnError, withLoading = null) {
-            if (sdkDependencies.rulesUpdateRepository.lastBoosterRulesUpdate.value.isBeforeUpdateInterval()) {
-                sdkDependencies.covPassBoosterRulesRepository.loadBoosterRules()
-            }
-        }
+    public override fun update() {
+        super.update()
+        countryListUpdater.update()
+        boosterRulesUpdater.update()
     }
 }

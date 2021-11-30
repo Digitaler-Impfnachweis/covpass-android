@@ -66,8 +66,6 @@ internal class MainFragment :
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
-
-    @Suppress("UnusedPrivateMember")
     private val covPassBackgroundUpdateViewModel by reactiveState { CovPassBackgroundUpdateViewModel(scope) }
     private val binding by viewBinding(CovpassMainBinding::inflate)
     private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
@@ -80,6 +78,11 @@ internal class MainFragment :
             val certs = get(covpassDeps.certRepository.certs)
             updateCertificates(certs, viewModel.selectedCertId)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        covPassBackgroundUpdateViewModel.update()
     }
 
     private fun setupViews() {
