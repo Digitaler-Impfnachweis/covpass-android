@@ -211,5 +211,9 @@ dependencies {
         clockSync = {
             api "com.github.instacart.truetime-android:library:3.5"
         }
+
+        worker = {
+            api "androidx.work:work-runtime-ktx:2.5.0"
+        }
     }
 }
