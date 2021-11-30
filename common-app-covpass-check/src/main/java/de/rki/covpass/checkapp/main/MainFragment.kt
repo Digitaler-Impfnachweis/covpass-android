@@ -47,7 +47,6 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 internal class MainFragment : BaseFragment() {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
-    @Suppress("UnusedPrivateMember")
     private val backgroundUpdateViewModel by reactiveState { BackgroundUpdateViewModel(scope) }
 
     private val dscRepository get() = sdkDeps.dscRepository
@@ -122,6 +121,7 @@ internal class MainFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         commonDeps.timeValidationRepository.validate()
+        backgroundUpdateViewModel.update()
     }
 
     private fun isDscListUpToDate(lastUpdate: Instant): Boolean {

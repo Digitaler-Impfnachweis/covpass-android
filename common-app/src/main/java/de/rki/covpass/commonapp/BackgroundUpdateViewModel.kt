@@ -13,6 +13,7 @@ import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
@@ -21,39 +22,41 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
     private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
-    init {
-        fetchDscList()
-        fetchRules()
-        fetchValueSets()
+    private val dscListUpdater: Updater = Updater {
+        if (sdkDependencies.dscRepository.lastUpdate.value.isBeforeUpdateInterval()) {
+            val result = sdkDependencies.dscListService.getTrustedList()
+            val dscList = sdkDependencies.decoder.decodeDscList(result)
+            sdkDependencies.validator.updateTrustedCerts(dscList.toTrustedCerts())
+            sdkDependencies.dscRepository.updateDscList(dscList)
+        }
+    }
+    private val rulesUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassRulesRepository.loadRules()
+        }
+    }
+    private val valueSetsUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastValueSetsUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassValueSetsRepository.loadValueSets()
+        }
+    }
+
+    public open fun update() {
+        dscListUpdater.update()
+        rulesUpdater.update()
+        valueSetsUpdater.update()
     }
 
     protected fun logOnError(throwable: Throwable) {
         Lumber.e(throwable)
     }
 
-    private fun fetchDscList() {
-        launch(onError = ::logOnError, withLoading = null) {
-            if (sdkDependencies.dscRepository.lastUpdate.value.isBeforeUpdateInterval()) {
-                val result = sdkDependencies.dscListService.getTrustedList()
-                val dscList = sdkDependencies.decoder.decodeDscList(result)
-                sdkDependencies.validator.updateTrustedCerts(dscList.toTrustedCerts())
-                sdkDependencies.dscRepository.updateDscList(dscList)
-            }
-        }
-    }
+    protected inner class Updater(private var block: suspend CoroutineScope.() -> Unit) {
+        private var job: Job? = null
 
-    private fun fetchRules() {
-        launch(onError = ::logOnError, withLoading = null) {
-            if (sdkDependencies.rulesUpdateRepository.lastRulesUpdate.value.isBeforeUpdateInterval()) {
-                sdkDependencies.covPassRulesRepository.loadRules()
-            }
-        }
-    }
-
-    private fun fetchValueSets() {
-        launch(onError = ::logOnError, withLoading = null) {
-            if (sdkDependencies.rulesUpdateRepository.lastValueSetsUpdate.value.isBeforeUpdateInterval()) {
-                sdkDependencies.covPassValueSetsRepository.loadValueSets()
+        public fun update() {
+            if (job?.isActive != true) {
+                job = launch(onError = ::logOnError, withLoading = null, block = block)
             }
         }
     }
