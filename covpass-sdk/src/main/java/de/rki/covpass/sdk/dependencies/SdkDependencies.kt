@@ -129,9 +129,13 @@ public abstract class SdkDependencies {
         CertLogicDeps(application)
     }
 
-    private val dccRulesHost: String by lazy {
-        application.getString(R.string.dcc_rules_host).takeIf { it.isNotEmpty() }
-            ?: throw IllegalStateException("You have to set @string/dcc_rules_host or override dccRulesHost")
+    private val dccRulesHost: String by lazy { "distribution.dcc-rules.de" }
+
+    private val dccBoosterRulesHost: String by lazy {
+        application.getString(R.string.dcc_booster_rules_host).takeIf { it.isNotEmpty() }
+            ?: throw IllegalStateException(
+                "You have to set @string/dcc_booster_rules_host or override dccBoosterRulesHost"
+            )
     }
 
     private val covPassRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
@@ -143,7 +147,7 @@ public abstract class SdkDependencies {
     }
 
     private val boosterRulesRemoteDataSource: BoosterRulesRemoteDataSource by lazy {
-        BoosterRulesRemoteDataSource(httpClient, dccRulesHost)
+        BoosterRulesRemoteDataSource(httpClient, dccBoosterRulesHost)
     }
 
     private val countriesRemoteDataSource: CovPassCountriesRemoteDataSource by lazy {
@@ -301,7 +305,7 @@ public abstract class SdkDependencies {
 }
 
 public class CertLogicDeps(
-    private val application: Application
+    private val application: Application,
 ) {
     private val objectMapper: ObjectMapper by lazy {
         ObjectMapper().apply {
