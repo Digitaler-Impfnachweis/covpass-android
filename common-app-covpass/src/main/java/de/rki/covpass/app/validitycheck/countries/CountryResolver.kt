@@ -457,6 +457,16 @@ public object CountryResolver {
             R.string.VN,
             "VN",
             R.drawable.flag_vn
+        ),
+        Country(
+            R.string.AR,
+            "AR",
+            R.drawable.flag_ar
+        ),
+        Country(
+            R.string.MX,
+            "MX",
+            R.drawable.flag_mx
         )
     ).map { it.countryCode.uppercase() to it }.toMap()
 

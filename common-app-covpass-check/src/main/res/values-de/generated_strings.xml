@@ -155,6 +155,10 @@
 	<string name="app_information_message_update_button">Aktualisieren</string>
 	<string name="accessibility_app_information_update_back">Zurück</string>
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
+	<string name="app_information_beep_when_checking_title">Signalton beim Scannen</string>
+	<string name="app_information_beep_when_checking_message">Sie hören bei der Anzeige eines Ergebnisses zusätzlich einen Signalton. Nutzen Sie diese Funktion nur, wenn Sie gewährleisten können, dass umstehende Dritte keine Rückschlüsse auf den Gültigkeitsstatus der geprüften Person ziehen können. Die Identitätsprüfung mittels eines Ausweisdokumentes ist auch weiterhin zwingend notwendig.</string>
+	<string name="accessibility_information_beep_when_checking_on">Signalton anschalten</string>
+	<string name="accessibility_information_beep_when_checking_off">Signalton ausschalten</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->

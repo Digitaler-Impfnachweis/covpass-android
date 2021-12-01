@@ -155,6 +155,10 @@
 	<string name="app_information_message_update_button">Update</string>
 	<string name="accessibility_app_information_update_back">Back</string>
 	<string name="accessibility_app_information_title_update">The view \"Update rule set\" has been opened</string>
+	<string name="app_information_beep_when_checking_title">Beep when checking</string>
+	<string name="app_information_beep_when_checking_message">You will also hear a beep when a result is displayed. Only use this function if you can guarantee that bystanders cannot draw any conclusions about the validity status of the person being checked. The identity check by means of an identification document is still mandatory.</string>
+	<string name="accessibility_information_beep_when_checking_on">Switch on beep</string>
+	<string name="accessibility_information_beep_when_checking_off">Switch off beep</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->

@@ -1,0 +1,28 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512"
+    tools:ignore="VectorRaster">
+  <path
+      android:pathData="M256,256m-256,0a256,256 0,1 1,512 0a256,256 0,1 1,-512 0"
+      android:fillColor="#f0f0f0"/>
+  <path
+      android:pathData="m512,256c0,-101.494 -59.065,-189.19 -144.696,-230.598v461.195c85.631,-41.407 144.696,-129.103 144.696,-230.597z"
+      android:fillColor="#d80027"/>
+  <path
+      android:pathData="m0,256c0,101.494 59.065,189.19 144.696,230.598v-461.196c-85.631,41.408 -144.696,129.104 -144.696,230.598z"
+      android:fillColor="#6da544"/>
+  <path
+      android:pathData="m189.217,256c0,36.883 29.9,66.783 66.783,66.783s66.783,-29.9 66.783,-66.783v-22.261h-133.566z"
+      android:fillColor="#6da544"/>
+  <path
+      android:pathData="m345.043,211.478h-66.783c0,-12.294 -9.967,-22.261 -22.261,-22.261s-22.261,9.967 -22.261,22.261h-66.783c0,12.295 10.709,22.261 23.002,22.261h-0.741c0,12.295 9.966,22.261 22.261,22.261 0,12.295 9.966,22.261 22.261,22.261h44.522c12.295,0 22.261,-9.966 22.261,-22.261 12.295,0 22.261,-9.966 22.261,-22.261h-0.742c12.295,0 23.003,-9.966 23.003,-22.261z"
+      android:fillColor="#ff9811"/>
+</vector>

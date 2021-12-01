@@ -105,6 +105,18 @@
 	<string name="error_test_certificate_not_valid_message">Der von Ihnen gescannte Nachweis für einen Corona-Test weist kein negatives Testergebnis nach. Die aktuelle Version der CovPass-App kann nur negative Corona-Testergebnisse speichern.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 
+	<!-- SECTION: popup: import qr code from photo library -->
+	<string name="accessibility_scan_camera_select_file">Datei auswählen</string>
+	<string name="error_scan_code_not_recognized_title">QR-Code wurde nicht erkannt</string>
+	<string name="error_scan_code_not_recognized_message">In der ausgewählten Datei wurde kein QR-Code gefunden. Bitte wählen Sie eine Datei oder ein Foto mit einem QR-Code aus.</string>
+	<string name="error_scan_code_not_recognized_action_button">OK</string>
+	<string name="error_scan_file_could_not_be_read_title">Die Datei konnte nicht gelesen werden</string>
+	<string name="error_scan_file_could_not_be_read_message">Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt. Bitte wählen Sie eine andere Datei aus.</string>
+	<string name="error_scan_file_could_not_be_read_action_button">OK</string>
+	<string name="error_scan_code_not_suitable_title">QR-Code ist nicht geeignet</string>
+	<string name="error_scan_code_not_suitable_message">Der QR-Code kann nicht in die CovPass-App übertragen werden, da dieser z. B. keine gültige Signatur besitzt. Möglicherweise ist der QR-Code auch nicht lesbar, weil mehrere QR-Codes in der Datei vorhanden sind. Bitte wählen Sie eine Datei mit einem zulässigen QR-Code aus.</string>
+	<string name="error_scan_code_not_suitable_action_button">OK</string>
+
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Zertifikate dieser Person immer an erster Stelle anzeigen: aktiv</string>
 	<string name="accessibility_certificate_favorite_button_label_not_active">Zertifikate dieser Person immer an erster Stelle anzeigen: nicht aktiv</string>
@@ -229,6 +241,8 @@
 	<string name="US">Vereinigte Staaten von Amerika</string>
 	<string name="UY">Uruguay</string>
 	<string name="VN">Vietnam</string>
+	<string name="AR">Argentinien</string>
+	<string name="MX">Mexiko</string>
 	<string name="certificate_check_validity_selection_country_note">Sie finden Ihr Reiseland nicht? In einem mehrstufigen Prozess werden nach und nach mehr Länder verfügbar gemacht. \n\nMehr Informationen finden Sie in den Häufigen Fragen und unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="certificate_check_validity_selection_country_action_button">Übernehmen</string>
 	<string name="certificate_check_validity_selection_date">Datum</string>
@@ -674,15 +688,27 @@
 	<string name="error_share_certificate_provider_not_verified_title">Die Identität des Anbieters konnte nicht überprüft werden</string>
 	<string name="error_share_certificate_provider_not_verified_message">Bei der Prüfung der Identität des Anbieters %s kam es leider zu einem Fehler. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal.</string>
 	<string name="error_share_certificate_provider_not_verified_action_button">OK</string>
-	<string name="error_share_certificate_test_partner_not_verified_title">Die Identität des Prüfpartners konnte nicht überprüft werden</string>
-	<string name="error_share_certificate_test_partner_not_verified_message">Das Buchungsportal schlägt vor, Ihr Zertifikat mit folgendem Prüfpartner zu teilen: %s. Dieser Prüfpartner ist uns nicht bekannt.\n\nEine Liste der unterstützten Prüfpartner finden Sie in den Häufigen Fragen.</string>
-	<string name="error_share_certificate_test_partner_not_verified_action_button">OK</string>
+	<string name="error_share_certificate_validation_partner_not_verified_title">Die Identität des Prüfpartners konnte nicht überprüft werden</string>
+	<string name="error_share_certificate_validation_partner_not_verified_message">Das Buchungsportal schlägt vor, Ihr Zertifikat mit folgendem Prüfpartner zu teilen: %s. Dieser Prüfpartner ist uns nicht bekannt.\n\nEine Liste der unterstützten Prüfpartner finden Sie in den Häufigen Fragen.</string>
+	<string name="error_share_certificate_validation_partner_not_verified_action_button">OK</string>
+	<string name="error_share_certificate_validation_partner_not_verified_title2">Die Identität des Prüfpartners konnte nicht überprüft werden</string>
+	<string name="error_share_certificate_validation_partner_not_verified_message2">Bei der Prüfung der Identität des Prüfpartners kam es leider zu einem Fehler. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal.</string>
+	<string name="error_share_certificate_validation_partner_not_verified_action_button2">OK</string>
+	<string name="error_share_certificate_access_token_not_retrieved_title">Die Buchungsdaten konnten nicht geladen werden</string>
+	<string name="error_share_certificate_access_token_not_retrieved_message">Bei der Übertragung der Buchungsdaten kam es leider zu einem Fehler. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal.</string>
+	<string name="error_share_certificate_access_token_not_retrieved_action_button">OK</string>
+	<string name="error_share_certificate_access_token_not_processed_title">Die Buchungsdaten konnten nicht verarbeitet werden</string>
+	<string name="error_share_certificate_access_token_not_processed_message">Bei der Verarbeitung der Buchungsdaten kam es leider zu einem Fehler. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal.</string>
+	<string name="error_share_certificate_access_token_not_processed_action_button">OK</string>
 	<string name="error_share_certificate_no_connection_to_provider_title">Es konnte keine Verbindung zum Anbieter hergestellt werden</string>
 	<string name="error_share_certificate_no_connection_to_provider_message">Überprüfen Sie, ob Ihr Smartphone mit dem Internet verbunden ist und probieren Sie es noch einmal.</string>
 	<string name="error_share_certificate_no_connection_to_provider_action_button">OK</string>
 	<string name="error_share_certificate_no_verification_possible_title">Das Zertifikat konnte nicht überprüft werden</string>
 	<string name="error_share_certificate_no_verification_possible_message">Leider konnte die Prüfung nicht erfolgreich abgeschlossen werden. Mögliche Gründe dazu finden Sie in den Häufigen Fragen. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal.</string>
 	<string name="error_share_certificate_no_verification_possible_action_button">OK</string>
+	<string name="error_share_certificate_no_verification_submission_possible_title">Das Zertifikat konnte nicht zur Prüfung übermittelt werden</string>
+	<string name="error_share_certificate_no_verification_submission_possible_message">Leider konnte das Zertifikat nicht an den Prüfpartner übermittelt werden. Mögliche Gründe dazu finden Sie in den Häufigen Fragen. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal.</string>
+	<string name="error_share_certificate_no_verification_submission_possible_action_button">OK</string>
 	<string name="cancellation_share_certificate_title">Wollen Sie den Vorgang wirklich beenden?</string>
 	<string name="cancellation_share_certificate_action_button_no">Nicht jetzt</string>
 	<string name="cancellation_share_certificate_action_button_yes">Ja, beenden</string>
