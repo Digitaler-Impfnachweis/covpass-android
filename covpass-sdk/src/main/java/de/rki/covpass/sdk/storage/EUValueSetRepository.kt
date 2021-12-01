@@ -477,6 +477,13 @@ internal object EUValueSetRepository {
                 active = true,
                 system = "https://covid-19-diagnostics.jrc.ec.europa.eu/devices",
                 version = "2021-04-22 02:23:55 CET"
+            ),
+            "1468" to EUValueSetValue(
+                display = "ACON Laboratories, Inc, Flowflex SARS-CoV-2 Antigen rapid test",
+                lang = "en",
+                active = true,
+                system = "https://covid-19-diagnostics.jrc.ec.europa.eu/devices",
+                version = "2021-05-11 00:00:00 CEST"
             )
         )
     )
