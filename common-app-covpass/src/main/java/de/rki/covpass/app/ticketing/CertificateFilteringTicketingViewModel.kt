@@ -111,7 +111,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
     ): TicketingServiceRemote {
         if (validationServices.isEmpty()) throw NoValidationServiceListed()
         return validationServices.find { httpConfig.hasPublicKey(it.serviceEndpoint) }
-            ?: throw InvalidValidationServiceProvider()
+            ?: throw InvalidValidationServiceProvider(validationServices.first().name)
     }
 
     private fun filterCertificates(encryptionData: BookingPortalEncryptionData) {
@@ -179,9 +179,8 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
         )
 }
 
-// Error number 9
-public class AccessTokenDecodingException : Exception()
+public class AccessTokenDecodingException : IllegalStateException()
 
-public class InvalidValidationServiceProvider : IllegalStateException()
+public class InvalidValidationServiceProvider(public val validationService: String) : IllegalStateException()
 
 public class NoValidationServiceListed : IllegalStateException()

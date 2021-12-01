@@ -61,7 +61,7 @@ public class CertificateFilteringTicketingFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottomSheetBinding.bottomSheetTitle.setText(R.string.share_certificate_title)
+        bottomSheetBinding.bottomSheetTitle.setText(R.string.share_certificate_selection_title)
         binding.certificateFilteringHeader.setText(R.string.share_certificate_selection_message)
         bottomSheetBinding.bottomSheetActionButton.isVisible = false
         adapter = CertificateFilteringTicketingAdapter(this, this)
@@ -86,7 +86,7 @@ public class CertificateFilteringTicketingFragment :
     }
 
     override fun showUserData(firstName: String, lastName: String, dob: String, types: List<TicketingType>) {
-        var data = "$firstName>>>$lastName\n"
+        var data = "$firstName $lastName\n"
         data += "${getString(R.string.share_certificate_selection_requirements_date_of_birth)}: $dob\n"
         types.forEachIndexed { index, ticketingType ->
             data += when (ticketingType) {

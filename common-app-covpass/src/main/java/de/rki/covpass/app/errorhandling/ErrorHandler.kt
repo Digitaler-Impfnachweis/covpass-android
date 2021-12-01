@@ -55,13 +55,16 @@ internal class ErrorHandler : CommonErrorHandler() {
             )
             is IdentityDocumentRequestException -> DialogModel(
                 titleRes = R.string.error_share_certificate_provider_not_verified_title,
-                messageString = getString(R.string.error_share_certificate_provider_not_verified_message) +
-                    " (Error $ERROR_CODE_CONNECTION_ERROR)",
+                messageString = getString(
+                    R.string.error_share_certificate_provider_not_verified_message,
+                    error.identityProvider
+                ) + " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes = R.string.error_share_certificate_provider_not_verified_action_button,
                 tag = TAG_ERROR_IDENTITY_DOCUMENT_REQUEST_FAILED
             )
             is AccessCredentialServiceEndpointNotFoundException,
-            is NoValidationServiceListed -> DialogModel(
+            is NoValidationServiceListed,
+            -> DialogModel(
                 titleRes = R.string.error_share_certificate_validation_partner_not_verified_title2,
                 messageString = getString(R.string.error_share_certificate_validation_partner_not_verified_message2) +
                     " (Error $ERROR_NO_VALIDATION_SERVICE_LISTED)",
@@ -70,8 +73,10 @@ internal class ErrorHandler : CommonErrorHandler() {
             )
             is InvalidValidationServiceProvider -> DialogModel(
                 titleRes = R.string.error_share_certificate_validation_partner_not_verified_title,
-                messageString = getString(R.string.error_share_certificate_validation_partner_not_verified_message) +
-                    " (Error $ERROR_INVALID_VALIDATION_SERVICE_PROVIDER)",
+                messageString = getString(
+                    R.string.error_share_certificate_validation_partner_not_verified_message,
+                    error.validationService
+                ) + " (Error $ERROR_INVALID_VALIDATION_SERVICE_PROVIDER)",
                 positiveButtonTextRes = R.string.error_share_certificate_validation_partner_not_verified_action_button,
                 tag = TAG_ERROR_INVALID_VALIDATION_SERVICE_PROVIDER
             )

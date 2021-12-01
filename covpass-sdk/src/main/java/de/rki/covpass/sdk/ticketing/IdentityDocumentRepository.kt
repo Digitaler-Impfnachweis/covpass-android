@@ -32,13 +32,21 @@ public class IdentityDocumentRepository(
                 validationServices
             )
         } catch (e: ClientRequestException) {
-            throw IdentityDocumentRequestException(e.response.status)
+            throw IdentityDocumentRequestException(
+                ticketingDataInitialization.serviceProvider,
+                e.response.status
+            )
+        } catch (e: IllegalArgumentException) {
+            throw IdentityDocumentRequestException(
+                identityProvider = ticketingDataInitialization.serviceProvider
+            )
         }
     }
 }
 
-// Error number 2
-public class IdentityDocumentRequestException(public val code: HttpStatusCode) : Exception()
+public class IdentityDocumentRequestException(
+    public val identityProvider: String,
+    public val code: HttpStatusCode? = null,
+) : IllegalStateException()
 
-// Error number 3
-public class AccessCredentialServiceEndpointNotFoundException : Exception()
+public class AccessCredentialServiceEndpointNotFoundException : IllegalStateException()
