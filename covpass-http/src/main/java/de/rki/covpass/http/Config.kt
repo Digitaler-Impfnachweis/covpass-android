@@ -38,6 +38,9 @@ public interface HttpConfig {
 
     /** Creates a Ktor `HttpClient` with correct TLS settings and optionally with an additional config [block]. */
     public fun ktorClient(block: HttpClientConfig<OkHttpConfig>.() -> Unit = {}): HttpClient
+
+    /** Returns true if the provided URL's hostname public key is pinned */
+    public fun hasPublicKey(url: String): Boolean
 }
 
 /**
@@ -176,6 +179,11 @@ private class DefaultHttpConfig : HttpConfig {
             }
             block()
         }
+
+    override fun hasPublicKey(url: String): Boolean {
+        val hostname = Url(url).host
+        return okHttpClient.certificatePinner.findMatchingPins(hostname).isNotEmpty()
+    }
 }
 
 /** Represents the amount of logging. */

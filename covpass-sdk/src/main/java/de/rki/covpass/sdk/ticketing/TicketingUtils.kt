@@ -5,7 +5,12 @@
 
 package de.rki.covpass.sdk.ticketing
 
+import android.util.Base64
 import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.ticketing.encoding.JwtObject
+import java.io.ByteArrayInputStream
+import java.security.cert.CertificateFactory
+import java.security.cert.X509Certificate
 
 public fun GroupedCertificatesList.filterCertificates(
     types: Collection<TicketingType>,
@@ -63,3 +68,19 @@ public sealed class TicketingType(vararg codes: String) {
         public fun valueOfOrNull(code: String): TicketingType? = values.find { code in it.codes }
     }
 }
+
+public fun String.parseJwtToken(): JwtObject {
+    val tokens = split('.')
+    val header = String(Base64.decode(tokens[0], Base64.NO_WRAP))
+    val body = String(Base64.decode(tokens[1], Base64.NO_WRAP))
+    return JwtObject(header, body)
+}
+
+public fun String.base64ToX509Certificate(): X509Certificate {
+    val decoded = Base64.decode(this, Base64.NO_WRAP)
+    val inputStream = ByteArrayInputStream(decoded)
+    val x509Certificate = CertificateFactory.getInstance("X.509").generateCertificate(inputStream) as? X509Certificate
+    return x509Certificate ?: throw IllegalStateException()
+}
+
+public fun String.createAuthHeader(): String = "Bearer $this"

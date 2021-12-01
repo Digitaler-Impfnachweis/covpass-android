@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -67,6 +66,7 @@
       android:layout_marginHorizontal="@dimen/grid_six"
       android:layout_marginTop="@dimen/grid_one_half"
       android:gravity="center_horizontal"
+      android:text="@string/share_certificate_selection_no_match_title"
       tools:text="@tools:sample/lorem[5]" />
 
     <TextView
@@ -76,6 +76,7 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/grid_nine"
       android:gravity="center_horizontal"
+      android:text="@string/share_certificate_selection_no_match_subline"
       tools:text="@tools:sample/lorem[25]" />
 
   </LinearLayout>

@@ -44,6 +44,10 @@ import de.rki.covpass.sdk.rules.remote.valuesets.toCovPassValueSet
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
+import de.rki.covpass.sdk.ticketing.*
+import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcCryptor
+import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcSigner
+import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
 import de.rki.covpass.sdk.utils.readTextAsset
 import dgca.verifier.app.engine.*
 import kotlinx.serialization.cbor.Cbor
@@ -301,6 +305,30 @@ public abstract class SdkDependencies {
             boosterCertLogicEngine,
             covPassBoosterRulesRepository
         )
+    }
+
+    public val ticketingApiService: TicketingApiService by lazy {
+        TicketingApiService(httpClient)
+    }
+
+    public val identityDocumentRepository: IdentityDocumentRepository by lazy {
+        IdentityDocumentRepository(ticketingApiService)
+    }
+
+    public val accessTokenRepository: AccessTokenRepository by lazy {
+        AccessTokenRepository(ticketingApiService)
+    }
+
+    public val validationServiceIdentityRepository: ValidationServiceIdentityRepository by lazy {
+        ValidationServiceIdentityRepository(ticketingApiService)
+    }
+
+    public val ticketingValidationRepository: TicketingValidationRepository by lazy {
+        TicketingValidationRepository(ticketingApiService)
+    }
+
+    public val ticketingValidationRequestProvider: TicketingValidationRequestProvider by lazy {
+        TicketingValidationRequestProvider(TicketingDgcCryptor(), TicketingDgcSigner())
     }
 }
 

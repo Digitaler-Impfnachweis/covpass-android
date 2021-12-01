@@ -18,15 +18,19 @@ import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST
 import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.ticketing.BookingPortalEncryptionData
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 
 @SuppressLint("NotifyDataSetChanged")
-public class CertificateFilteringTicketingAdapter(parent: Fragment) :
-    BaseRecyclerViewAdapter<CertificateFilteringTicketingAdapter.CertificateFilteringViewHolder>(parent) {
+public class CertificateFilteringTicketingAdapter(
+    parent: Fragment,
+    public val listener: FilterClickListener,
+) : BaseRecyclerViewAdapter<CertificateFilteringTicketingAdapter.CertificateFilteringViewHolder>(parent) {
 
     private lateinit var items: List<CombinedCovCertificate>
+    private lateinit var encryptionData: BookingPortalEncryptionData
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CertificateFilteringViewHolder {
         return CertificateFilteringViewHolder(parent)
@@ -38,8 +42,12 @@ public class CertificateFilteringTicketingAdapter(parent: Fragment) :
 
     override fun getItemCount(): Int = items.size
 
-    public fun updateList(items: List<CombinedCovCertificate>) {
+    public fun updateList(
+        items: List<CombinedCovCertificate>,
+        encryptionData: BookingPortalEncryptionData,
+    ) {
         this.items = items
+        this.encryptionData = encryptionData
         notifyDataSetChanged()
     }
 
@@ -51,7 +59,11 @@ public class CertificateFilteringTicketingAdapter(parent: Fragment) :
         public fun bind(item: CombinedCovCertificate) {
             with(binding) {
                 binding.certLayout.setOnClickListener {
-                    // TODO send to the right view
+                    listener.onCovCertificateClicked(
+                        item.covCertificate.dgcEntry.id,
+                        item.qrContent,
+                        encryptionData
+                    )
                 }
 
                 certificateFilteringItemName.text = item.covCertificate.fullName

@@ -41,6 +41,7 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
     }
 
     override fun onTicketingQrcodeScan(ticketingDataInitialization: TicketingDataInitialization) {
+        findNavigator().popAll()
         findNavigator().push(ConsentInitializationTicketingFragmentNav(ticketingDataInitialization))
     }
 }

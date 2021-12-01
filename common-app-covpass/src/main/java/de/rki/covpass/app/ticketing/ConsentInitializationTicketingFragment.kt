@@ -14,11 +14,6 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ConsentInitializationTicketingBinding
-import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
 import kotlinx.parcelize.Parcelize
 
@@ -27,7 +22,7 @@ public class ConsentInitializationTicketingFragmentNav(
     public val ticketingDataInitialization: TicketingDataInitialization,
 ) : FragmentNav(ConsentInitializationTicketingFragment::class)
 
-public class ConsentInitializationTicketingFragment : BaseBottomSheet(), DialogListener {
+public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
 
     private val binding by viewBinding(ConsentInitializationTicketingBinding::inflate)
 
@@ -45,7 +40,7 @@ public class ConsentInitializationTicketingFragment : BaseBottomSheet(), DialogL
             isVisible = true
             setText(R.string.share_certificate_action_button_cancel)
             setOnClickListener {
-                findNavigator().pop()
+                onCloseButtonClicked()
             }
         }
 
@@ -58,20 +53,6 @@ public class ConsentInitializationTicketingFragment : BaseBottomSheet(), DialogL
 
     override fun onActionButtonClicked() {
         findNavigator().push(CertificateFilteringTicketingFragmentNav(args.ticketingDataInitialization))
-    }
-
-    override fun onCloseButtonClicked() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.cancellation_share_certificate_title,
-            positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
-            negativeButtonTextRes = R.string.cancellation_share_certificate_action_button_no,
-            tag = CANCEL_TICKETING,
-        )
-        showDialog(dialogModel, childFragmentManager)
-    }
-
-    override fun onClickOutside() {
-        onCloseButtonClicked()
     }
 
     private fun updateView(provider: String, booking: String, privacyUrl: String) {
@@ -118,15 +99,5 @@ public class ConsentInitializationTicketingFragment : BaseBottomSheet(), DialogL
             )
         )
         ConsentTicketingAdapter(list, this).attachTo(binding.consentInitializationRecyclerView)
-    }
-
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == CANCEL_TICKETING && action == DialogAction.POSITIVE) {
-            findNavigator().popAll()
-        }
-    }
-
-    public companion object {
-        public const val CANCEL_TICKETING: String = "cancel_ticketing"
     }
 }

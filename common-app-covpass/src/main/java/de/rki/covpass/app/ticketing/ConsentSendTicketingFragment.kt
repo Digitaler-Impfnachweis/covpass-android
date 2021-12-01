@@ -7,72 +7,76 @@ package de.rki.covpass.app.ticketing
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ConsentSendTicketingBinding
-import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.detail.DetailExportPdfFragment
+import de.rki.covpass.app.ticketing.result.TicketingRecoveryResultFragmentNav
+import de.rki.covpass.app.ticketing.result.TicketingTestResultFragmentNav
+import de.rki.covpass.app.ticketing.result.TicketingVaccinationResultFragmentNav
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
+import de.rki.covpass.sdk.ticketing.data.validate.BookingValidationResponse
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
 
-// TODO add dcc parameter
 @Parcelize
 public class ConsentSendTicketingFragmentNav(
+    public val certId: String,
     public val ticketingDataInitialization: TicketingDataInitialization,
+    public val validationTicketingTestObject: ValidationTicketingTestObject,
 ) : FragmentNav(ConsentSendTicketingFragment::class)
 
-public class ConsentSendTicketingFragment : BaseBottomSheet(), DialogListener {
+public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationTicketingEvents {
 
+    private val certs by lazy { covpassDeps.certRepository.certs.value }
     private val args: ConsentSendTicketingFragmentNav by lazy { getArgs() }
     private val binding by viewBinding(ConsentSendTicketingBinding::inflate)
+    private val viewModel by reactiveState { ValidateTicketingViewModel(scope) }
+    override val buttonTextRes: Int = R.string.share_certificate_transmission_action_button_agree
+    override val cancelProcess: Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.share_certificate_transmission_title)
-        bottomSheetBinding.bottomSheetCancelButton.isVisible = true
+        bottomSheetBinding.bottomSheetCancelButton.apply {
+            isVisible = true
+            setText(R.string.share_certificate_action_button_cancel)
+            setOnClickListener {
+                onCloseButtonClicked()
+            }
+        }
 
         updateView(
             args.ticketingDataInitialization.serviceProvider,
             args.ticketingDataInitialization.subject,
             args.ticketingDataInitialization.privacyUrl
         )
-        // TODO updateCertificateView
-//        updateCertificateView(
-//            combinedCovCertificate
-//        )
+
+        updateCertificateView(
+            certs.getCombinedCertificate(args.certId)
+                ?: throw DetailExportPdfFragment.NullCertificateException()
+        )
     }
 
     override fun onActionButtonClicked() {
-        // TODO
-    }
-
-    override fun onCloseButtonClicked() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.cancellation_share_certificate_title,
-            positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
-            negativeButtonTextRes = R.string.cancellation_share_certificate_action_button_no,
-            tag = CANCEL_TICKETING_SECOND_CONSENT,
-        )
-        showDialog(dialogModel, childFragmentManager)
-    }
-
-    override fun onClickOutside() {
-        onCloseButtonClicked()
+        bottomSheetBinding.bottomSheetActionButton.isEnabled = false
+        binding.consentSendRecyclerView.isVisible = false
+        binding.resultLoadingLayout.isVisible = true
+        viewModel.validate(args.validationTicketingTestObject)
     }
 
     private fun updateView(provider: String, booking: String, privacyUrl: String) {
@@ -130,10 +134,9 @@ public class ConsentSendTicketingFragment : BaseBottomSheet(), DialogListener {
         ConsentTicketingAdapter(list, this).attachTo(binding.consentSendRecyclerView)
     }
 
-    // TODO remove suppress
-    @Suppress("UnusedPrivateMember")
     private fun updateCertificateView(combinedCovCertificate: CombinedCovCertificate) {
         with(binding.certificateFilteringItem) {
+            certificateFilteringItemArrow.isGone = true
             certificateFilteringItemName.text = combinedCovCertificate.covCertificate.fullName
             when (val dgcEntry = combinedCovCertificate.covCertificate.dgcEntry) {
                 is Vaccination -> {
@@ -187,13 +190,40 @@ public class ConsentSendTicketingFragment : BaseBottomSheet(), DialogListener {
         }
     }
 
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == CANCEL_TICKETING_SECOND_CONSENT && action == DialogAction.POSITIVE) {
-            findNavigator().popAll()
-        }
+    override fun onValidationComplete(bookingValidationResponse: BookingValidationResponse) {
+        viewModel.showResult(args.certId, bookingValidationResponse)
     }
 
-    public companion object {
-        public const val CANCEL_TICKETING_SECOND_CONSENT: String = "cancel_ticketing_second_consent"
+    override fun onVaccinationResult(bookingValidationResponse: BookingValidationResponse) {
+        findNavigator().push(
+            TicketingVaccinationResultFragmentNav(
+                args.certId,
+                args.ticketingDataInitialization,
+                bookingValidationResponse,
+                args.validationTicketingTestObject.validationServiceId
+            )
+        )
+    }
+
+    override fun onRecoveryResult(bookingValidationResponse: BookingValidationResponse) {
+        findNavigator().push(
+            TicketingRecoveryResultFragmentNav(
+                args.certId,
+                args.ticketingDataInitialization,
+                bookingValidationResponse,
+                args.validationTicketingTestObject.validationServiceId
+            )
+        )
+    }
+
+    override fun onTestCertResult(bookingValidationResponse: BookingValidationResponse) {
+        findNavigator().push(
+            TicketingTestResultFragmentNav(
+                args.certId,
+                args.ticketingDataInitialization,
+                bookingValidationResponse,
+                args.validationTicketingTestObject.validationServiceId
+            )
+        )
     }
 }

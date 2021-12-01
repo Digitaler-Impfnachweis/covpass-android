@@ -102,9 +102,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-      <TextView
+      <com.google.android.material.button.MaterialButton
         android:id="@+id/bottom_sheet_cancel_button"
-        style="@style/Header.Info.Small"
+        style="@style/PrimaryButton.Dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/grid_four"
