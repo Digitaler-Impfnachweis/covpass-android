@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 24px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Last amended: 15 November 2021, app version 1.13</p>
+<body><p>Last amended: 15 December 2021, app version 1.15</p>
 <h1 id="covpass-app-privacy-notice">CovPass app privacy notice</h1>
 <p>This privacy notice explains how your data is processed and what data protection rights you have when using the
     CovPass app to manage certain certificates – digital COVID Certificates proving coronavirus vaccinations, negative
@@ -105,7 +105,8 @@
     <li>The certificate has not been revoked.</li>
     <li>The technical expiration date of the certificate has not yet been reached.</li>
     <li>The certificate meets the formal criteria applicable at the place where
-        it is verified (e.g. regional entry rules).</li>
+        it is verified (e.g. regional entry rules).
+    </li>
 </ul>
 <p>The verification app will show whether the certificate provided is valid. If
     the certificate is valid, the name and date of birth of the certificate holder will also be disclosed, as will
@@ -162,13 +163,13 @@
 <p>Please note that entry rules are subject to change and additional rules may apply both in the destination country and
     when you return. Guidance on entry requirements can also be found on this EU website: <a
             href="https://reopen.europa.eu/en" class="uri">https://reopen.europa.eu/en</a></p>
-<h3>e. Reminder feature</h3>
+<h3>d. Reminder feature</h3>
 <p>The app can remind you to check stored vaccination certificates if you received your last vaccination a
     long time ago. To do this, the app downloads the current rules on booster vaccination recommendations from the app’s
     server system at regular intervals. The app then uses the data contained in the certificates to check whether a
     booster vaccination is recommended soon. This check also takes place exclusively offline in the app and no data
     about the vaccination is passed on to the RKI.</p>
-<h3>f. Export feature</h3>
+<h3>e. Export feature</h3>
 <p>You have the option of exporting a certificate stored in the CovPass app, in order to print it out and use the paper
     version (e.g. when travelling for extended periods) or scan the certificate afterwards with a new smartphone and
     store it again as an electronic version in the CovPass app (e.g. if you get a new smartphone). The “Create EU
@@ -178,6 +179,22 @@
     test results or recovery from confirmed cases of coronavirus). Therefore, please keep the stored or printed
     certificate safe and do not publish or share the document. The EU printout feature only works for certificates
     issued in Germany by the RKI.</p>
+<h3>f. Verifications of certificates for ticket bookings</h3>
+<p>When you book a ticket with a travel or event company or other provider, you can use the app to submit a digital
+    COVID certificate to the provider’s verification partner so that it can verify the validity of the certificate for
+    your booking with the travel or event company.</p>
+<p>To do this, you will need to have added a digital COVID certificate in the CovPass app. The app will ask the provider
+    for the booking information to be used for verification and suggest a suitable certificate based on this
+    information. You can then select this and send it to the verification partner together with the booking information
+    made available by the provider (See Section 5 c.).</p>
+<p>The verification partner will check whether the certificate’s electronic signature is genuine and that the technical
+    expiration date has not passed. The verification partner will immediately inform the provider of the result of this
+    verification. The only information communicated will be whether the verification was successful or not. You will
+    also be shown the result of the verification in the CovPass app.</p>
+<p>The booking information made available by the provider is only processed locally in the CovPass app. This means the
+    RKI cannot tell which certificates you have selected and had verified or which trips or events you have booked.</p>
+<p>The RKI is not responsible for the data processing performed by the provider and the verification partner. Please
+    read their privacy notices so that you know what your data is used for and how it is used.</p>
 <h2 id="what-data-is-processed">5. What data is processed?</h2>
 <h3 id="a.-certificate-data">a. Certificate data</h3>
 <p>The certificates contain health data and are stored in a secure area on your smartphone. The certificates contain the
@@ -210,6 +227,29 @@
 <p>This access data is processed to enable and secure the connection and data exchange between the app and the server.
     You will not be identified personally as a user of the app and no user profile will be created. Your IP address will
     not be stored beyond the end of the individual usage procedure.</p>
+<h3 id="c.-access-data">c. Booking information</h3>
+<p>If you make a booking via the internet with a travel or event company or other provider, you can use the CovPass app
+    to prove to the provider that you have a valid digital COVID certificate (verification of certificates for ticket
+    bookings). To do this, you will need to have added a digital COVID certificate in the CovPass app. In addition, the
+    provider must be connected to a verification service.</p>
+<p>To check the certificate, you will require a special QR code which you will receive from the provider as part of the
+    booking process. This QR code contains a unique transaction ID, a short description of the booking (e.g. “booking
+    number 1234”) and an internet address (URL).</p>
+<p>The CovPass app uses this information to retrieve technical specifications from the provider as well as the following
+    booking information for consideration when verifying the COVID certificate: </p>
+<ul>
+    <li>Your name</li>
+    <li>Your date of birth</li>
+    <li>Information about the date of the required validity of the COVID certificate (date of travel or date of event)
+    </li>
+    <li>For travel: Country of origin and country of destination</li>
+    <li>Proof requirements, i.e. in particular the types of certificate suitable for proof, e.g. vaccination certificate
+        (in the case of cross-border travel, also the requirements of the destination country)
+    </li>
+    <li>For certain bookings, information on the type of event is also shared (e.g. concert or major event).</li>
+</ul>
+<p>The provider decides which specific information will be used to verify the COVID certificate, and which COVID
+    certificates are permitted as proof.</p>
 <h2 id="on-what-legal-basis-is-your-data-processed">6. On what legal basis is your data processed?</h2>
 <p>The RKI processes the certificate data mentioned above in Section 5 a. for the purpose of technically creating and
     signing the requested certificate. The legal basis for the processing in each case is Art. 6(1) Sentence 1(c), Art.
@@ -226,6 +266,8 @@
     the European Parliament and of the Council of 14 June 2021 on a framework for the issuance, verification and
     acceptance of interoperable COVID-19 vaccination, test and recovery certificates (EU Digital COVID Certificate) to
     facilitate free movement during the COVID-19 pandemic).</p>
+<p>The processing of data in connection with the feature for verifying COVID certificates for ticket bookings is based
+    on your consent. The legal basis is Art. 6 (1) lit. a, Art. 9 (2) lit. a DSGVO.</p>
 <p>The legal basis for the processing of the access data mentioned above in Section 5 b. is Sect. 3 of the German
     Federal Data Protection Act (BDSG) and Art. 6(1) Sentence 1(e) GDPR.</p>
 <h2 id="what-permissions-does-the-app-require">7. What permissions does the app require?</h2>
@@ -237,6 +279,8 @@
     your app. If you wish to delete a certificate, you can remove a certificate from the app yourself at any time or
     delete the app. To add the certificate again later, you will need to rescan the QR code of the printed
     certificate.</p>
+<p>The booking information required for the verification of certificates for ticket bookings will be deleted after the
+    verification.</p>
 <p>The RKI does not permanently store any personal data relating to the certificates on the server system. Immediately
     after the signed certificate has been provided to the issuing entity, the data is permanently deleted at the
     RKI.</p>
@@ -257,6 +301,10 @@
     result is still valid.</p>
 <p>The verification app will only process the displayed data for a short time. Once the verification is complete, the
     displayed data is discarded, meaning the data that has been read is not permanently stored.</p>
+<p>During certificate verification for ticket bookings, your COVID certificates and booking information are transmitted
+    to a verification partner used by the provider. The specific verification partner is displayed in the CovPass app
+    before transmitting the information. To retrieve the individual booking information, the CovPass app transmits to
+    the provider the booking identifier contained in the provider’s booking QR code.</p>
 <h2 id="what-rights-do-you-have-under-data-protection-law">10. What rights do you have under data protection law?</h2>
 <p>If the RKI processes your personal data, you have the following data protection rights:</p>
 <ul>
