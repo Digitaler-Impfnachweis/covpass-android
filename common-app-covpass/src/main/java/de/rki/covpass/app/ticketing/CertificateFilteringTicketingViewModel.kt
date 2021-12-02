@@ -12,6 +12,7 @@ import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.http.httpConfig
+import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -192,8 +193,13 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
 
     public fun cancel(token: String) {
         launch {
-            getCancellationUrl()?.let {
-                cancellationRepository.cancelTicketing(it, token)
+            try {
+                getCancellationUrl()?.let {
+                    cancellationRepository.cancelTicketing(it, token)
+                    eventNotifier { onCancelled() }
+                }
+            } catch (e: Exception) {
+                Lumber.e(e)
                 eventNotifier { onCancelled() }
             }
         }

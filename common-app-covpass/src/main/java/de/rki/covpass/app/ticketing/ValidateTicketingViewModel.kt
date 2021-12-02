@@ -7,13 +7,8 @@ package de.rki.covpass.app.ticketing
 
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
-import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.detail.DetailExportPdfFragment
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.TestCert
-import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.ticketing.CancellationRepository
 import de.rki.covpass.sdk.ticketing.TicketingValidationRepository
 import de.rki.covpass.sdk.ticketing.base64ToX509Certificate
@@ -24,9 +19,7 @@ import java.security.PublicKey
 
 public interface ValidationTicketingEvents : TicketingCancellationEvents {
     public fun onValidationComplete(bookingValidationResponse: BookingValidationResponse)
-    public fun onVaccinationResult(bookingValidationResponse: BookingValidationResponse)
-    public fun onRecoveryResult(bookingValidationResponse: BookingValidationResponse)
-    public fun onTestCertResult(bookingValidationResponse: BookingValidationResponse)
+    public fun onResult(bookingValidationResponse: BookingValidationResponse)
 }
 
 public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constructor(
@@ -37,7 +30,6 @@ public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constr
         sdkDeps.ticketingValidationRequestProvider,
     private val cancellationRepository: CancellationRepository =
         sdkDeps.cancellationRepository,
-    private val covPassCertRepository: CertRepository = covpassDeps.certRepository,
 ) : BaseReactiveState<ValidationTicketingEvents>(scope) {
 
     public fun validate(validationTicketingTestObject: ValidationTicketingTestObject) {
@@ -65,26 +57,19 @@ public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constr
         }
     }
 
-    public fun showResult(certId: String, bookingValidationResponse: BookingValidationResponse) {
-        val combinedCovCertificate = covPassCertRepository.certs.value.getCombinedCertificate(certId)
-            ?: throw DetailExportPdfFragment.NullCertificateException()
-        when (combinedCovCertificate.covCertificate.dgcEntry) {
-            is Vaccination -> {
-                eventNotifier { onVaccinationResult(bookingValidationResponse) }
-            }
-            is Recovery -> {
-                eventNotifier { onRecoveryResult(bookingValidationResponse) }
-            }
-            is TestCert -> {
-                eventNotifier { onTestCertResult(bookingValidationResponse) }
-            }
-        }
+    public fun showResult(bookingValidationResponse: BookingValidationResponse) {
+        eventNotifier { onResult(bookingValidationResponse) }
     }
 
     public fun cancel(url: String?, token: String) {
         launch {
-            url?.let {
-                cancellationRepository.cancelTicketing(url, token)
+            try {
+                url?.let {
+                    cancellationRepository.cancelTicketing(url, token)
+                    eventNotifier { onCancelled() }
+                }
+            } catch (e: Exception) {
+                Lumber.e(e)
                 eventNotifier { onCancelled() }
             }
         }

@@ -11,6 +11,8 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.viewBinding
+import com.ibm.health.common.annotations.Abort
+import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
@@ -18,9 +20,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ConsentSendTicketingBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailExportPdfFragment
-import de.rki.covpass.app.ticketing.result.TicketingRecoveryResultFragmentNav
-import de.rki.covpass.app.ticketing.result.TicketingTestResultFragmentNav
-import de.rki.covpass.app.ticketing.result.TicketingVaccinationResultFragmentNav
+import de.rki.covpass.app.ticketing.result.TicketingResultScreenFragmentNav
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
@@ -62,7 +62,7 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
 
         updateView(
             args.ticketingDataInitialization.serviceProvider,
-            args.ticketingDataInitialization.subject,
+            args.validationTicketingTestObject.validationServiceId,
             args.ticketingDataInitialization.privacyUrl
         )
 
@@ -86,12 +86,16 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
         viewModel.validate(args.validationTicketingTestObject)
     }
 
-    private fun updateView(provider: String, booking: String, privacyUrl: String) {
+    override fun onBackPressed(): Abortable {
+        findNavigator().pop()
+        return Abort
+    }
+
+    private fun updateView(provider: String, validationServiceId: String, privacyUrl: String) {
         val list = mutableListOf(
-            // TODO fix this element
             ConsentInitItem.TicketingData(
                 getString(R.string.share_certificate_transmission_details_booking),
-                booking
+                validationServiceId
             ),
             ConsentInitItem.TicketingData(
                 getString(R.string.share_certificate_transmission_details_provider),
@@ -104,8 +108,7 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                 getString(R.string.share_certificate_transmission_consent_title),
                 getString(
                     R.string.share_certificate_transmission_consent_message,
-                    // TODO verify value
-                    args.ticketingDataInitialization.serviceProvider
+                    validationServiceId
                 ),
                 listOf(
                     getString(R.string.share_certificate_transmission_consent_first_list_item),
@@ -198,34 +201,12 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
     }
 
     override fun onValidationComplete(bookingValidationResponse: BookingValidationResponse) {
-        viewModel.showResult(args.certId, bookingValidationResponse)
+        viewModel.showResult(bookingValidationResponse)
     }
 
-    override fun onVaccinationResult(bookingValidationResponse: BookingValidationResponse) {
+    override fun onResult(bookingValidationResponse: BookingValidationResponse) {
         findNavigator().push(
-            TicketingVaccinationResultFragmentNav(
-                args.certId,
-                args.ticketingDataInitialization,
-                bookingValidationResponse,
-                args.validationTicketingTestObject.validationServiceId
-            )
-        )
-    }
-
-    override fun onRecoveryResult(bookingValidationResponse: BookingValidationResponse) {
-        findNavigator().push(
-            TicketingRecoveryResultFragmentNav(
-                args.certId,
-                args.ticketingDataInitialization,
-                bookingValidationResponse,
-                args.validationTicketingTestObject.validationServiceId
-            )
-        )
-    }
-
-    override fun onTestCertResult(bookingValidationResponse: BookingValidationResponse) {
-        findNavigator().push(
-            TicketingTestResultFragmentNav(
+            TicketingResultScreenFragmentNav(
                 args.certId,
                 args.ticketingDataInitialization,
                 bookingValidationResponse,
