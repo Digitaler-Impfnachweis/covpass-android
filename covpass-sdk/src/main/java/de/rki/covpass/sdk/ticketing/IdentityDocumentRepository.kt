@@ -24,12 +24,16 @@ public class IdentityDocumentRepository(
             val validationServices = identityResponse.serviceRemoteTicketing.filter {
                 it.type == ServiceType.VALIDATION_SERVICE.type
             }
+            val cancellationService = identityResponse.serviceRemoteTicketing.first {
+                it.type == ServiceType.CANCELLATION_SERVICE.type
+            }
             if (validationServices.isEmpty()) {
                 throw AccessTokenRequestException(HttpStatusCode.NotFound)
             }
             return TicketingIdentityDocument(
                 accessTokenService,
-                validationServices
+                validationServices,
+                cancellationService
             )
         } catch (e: ClientRequestException) {
             throw IdentityDocumentRequestException(

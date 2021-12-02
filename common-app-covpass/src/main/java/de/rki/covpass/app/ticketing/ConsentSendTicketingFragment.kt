@@ -72,6 +72,13 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
         )
     }
 
+    override fun onCancelTicketing() {
+        viewModel.cancel(
+            args.validationTicketingTestObject.accessTokenValidationUrl,
+            args.ticketingDataInitialization.token
+        )
+    }
+
     override fun onActionButtonClicked() {
         bottomSheetBinding.bottomSheetActionButton.isEnabled = false
         binding.consentSendRecyclerView.isVisible = false

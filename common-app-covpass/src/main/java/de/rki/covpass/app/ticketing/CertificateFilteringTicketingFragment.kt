@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
+import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -67,13 +69,19 @@ public class CertificateFilteringTicketingFragment :
         adapter = CertificateFilteringTicketingAdapter(this, this)
         adapter.attachTo(binding.certificateFilteringCertificatesRecycler)
         bottomSheetBinding.bottomSheet.setOnClickListener(null)
+
+        autoRun { showLoading(get(loading) > 0) }
     }
 
     override fun onActionButtonClicked() {
         onCloseButtonClicked()
     }
 
-    override fun setLoading(isLoading: Boolean) {
+    override fun onCancelTicketing() {
+        viewModel.cancel(args.ticketingDataInitialization.token)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
         binding.certificateFilteringLoadingLayout.isVisible = isLoading
     }
 
@@ -123,7 +131,8 @@ public class CertificateFilteringTicketingFragment :
             encryptionData.ticketingValidationServiceIdentity,
             encryptionData.accessTokenContainer.ticketingAccessTokenData.iv,
             encryptionData.accessTokenContainer.accessToken.validationUrl,
-            encryptionData.validationServiceId
+            encryptionData.validationServiceId,
+            encryptionData.cancellationServiceUrl
         )
         findNavigator().push(
             ConsentSendTicketingFragmentNav(

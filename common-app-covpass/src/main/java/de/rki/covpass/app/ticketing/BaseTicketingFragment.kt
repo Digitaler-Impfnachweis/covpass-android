@@ -15,14 +15,20 @@ import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 
-public abstract class BaseTicketingFragment : BaseBottomSheet(), DialogListener {
+public abstract class BaseTicketingFragment :
+    BaseBottomSheet(),
+    TicketingCancellationEvents,
+    DialogListener {
 
     public open val cancelProcess: Boolean = false
 
     private fun cancelTicketing() {
-        // TODO cancellation request will be added after
-//        if (cancelProcess) {
-//        }
+        if (cancelProcess) {
+            onCancelTicketing()
+        }
+    }
+
+    override fun onCancelled() {
         findNavigator().popAll()
     }
 
@@ -35,6 +41,8 @@ public abstract class BaseTicketingFragment : BaseBottomSheet(), DialogListener 
         )
         showDialog(dialogModel, childFragmentManager)
     }
+
+    public open fun onCancelTicketing() {}
 
     override fun onClickOutside() {
         onCloseButtonClicked()

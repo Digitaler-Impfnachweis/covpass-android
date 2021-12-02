@@ -8,4 +8,5 @@ package de.rki.covpass.sdk.ticketing.data.identity
 public data class TicketingIdentityDocument(
     val accessTokenService: TicketingServiceRemote,
     val validationServices: List<TicketingServiceRemote>,
+    val cancellationService: TicketingServiceRemote,
 )

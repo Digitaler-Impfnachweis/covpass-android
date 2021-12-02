@@ -14,4 +14,5 @@ public data class BookingPortalEncryptionData(
     val accessTokenContainer: TicketingAccessTokenResponseContainer,
     val ticketingValidationServiceIdentity: TicketingValidationServiceIdentityResponse,
     val validationServiceId: String,
+    val cancellationServiceUrl: String?,
 )

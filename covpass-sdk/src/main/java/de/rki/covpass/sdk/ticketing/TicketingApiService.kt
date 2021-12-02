@@ -56,6 +56,16 @@ public class TicketingApiService(httpClient: HttpClient) {
         body = ticketingValidationRequest
     }
 
+    public suspend fun cancelValidation(
+        url: String,
+        authHeader: String
+    ): HttpResponse = client.get(url) {
+        contentType(ContentType.Application.Json)
+        accept(ContentType.Any)
+        header(X_VERSION_HEADER, X_VERSION_VALUE)
+        header(AUTHORIZATION_HEADER, authHeader.createAuthHeader())
+    }
+
     private companion object {
         const val X_VERSION_HEADER = "X-Version"
         const val X_VERSION_VALUE = "1.0.0"

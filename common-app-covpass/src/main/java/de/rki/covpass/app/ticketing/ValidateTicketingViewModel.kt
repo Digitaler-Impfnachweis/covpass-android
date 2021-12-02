@@ -7,7 +7,6 @@ package de.rki.covpass.app.ticketing
 
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
-import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailExportPdfFragment
 import de.rki.covpass.sdk.cert.models.Recovery
@@ -15,6 +14,7 @@ import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
+import de.rki.covpass.sdk.ticketing.CancellationRepository
 import de.rki.covpass.sdk.ticketing.TicketingValidationRepository
 import de.rki.covpass.sdk.ticketing.base64ToX509Certificate
 import de.rki.covpass.sdk.ticketing.data.validate.BookingValidationResponse
@@ -22,7 +22,7 @@ import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
 import kotlinx.coroutines.CoroutineScope
 import java.security.PublicKey
 
-public interface ValidationTicketingEvents : BaseEvents {
+public interface ValidationTicketingEvents : TicketingCancellationEvents {
     public fun onValidationComplete(bookingValidationResponse: BookingValidationResponse)
     public fun onVaccinationResult(bookingValidationResponse: BookingValidationResponse)
     public fun onRecoveryResult(bookingValidationResponse: BookingValidationResponse)
@@ -35,7 +35,9 @@ public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constr
         sdkDeps.ticketingValidationRepository,
     private val ticketingValidationRequestProvider: TicketingValidationRequestProvider =
         sdkDeps.ticketingValidationRequestProvider,
-    private val covPassCertRepository: CertRepository = covpassDeps.certRepository
+    private val cancellationRepository: CancellationRepository =
+        sdkDeps.cancellationRepository,
+    private val covPassCertRepository: CertRepository = covpassDeps.certRepository,
 ) : BaseReactiveState<ValidationTicketingEvents>(scope) {
 
     public fun validate(validationTicketingTestObject: ValidationTicketingTestObject) {
@@ -75,6 +77,15 @@ public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constr
             }
             is TestCert -> {
                 eventNotifier { onTestCertResult(bookingValidationResponse) }
+            }
+        }
+    }
+
+    public fun cancel(url: String?, token: String) {
+        launch {
+            url?.let {
+                cancellationRepository.cancelTicketing(url, token)
+                eventNotifier { onCancelled() }
             }
         }
     }

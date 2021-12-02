@@ -7,5 +7,6 @@ package de.rki.covpass.sdk.ticketing.data.identity
 
 public enum class ServiceType(public val type: String) {
     VALIDATION_SERVICE("ValidationService"),
-    ACCESS_TOKEN_SERVICE("AccessTokenService")
+    ACCESS_TOKEN_SERVICE("AccessTokenService"),
+    CANCELLATION_SERVICE("CancellationService")
 }

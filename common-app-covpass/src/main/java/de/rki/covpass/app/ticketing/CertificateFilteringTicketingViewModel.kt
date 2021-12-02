@@ -25,13 +25,14 @@ import de.rki.covpass.sdk.ticketing.data.identity.TicketingIdentityDocument
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingServiceRemote
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import java.security.KeyPair
 import java.security.KeyPairGenerator
 
-public interface CertificateFilteringEvents : BaseEvents {
+public interface CertificateFilteringEvents : TicketingCancellationEvents {
     public fun onFilteringCompleted(
         list: List<CombinedCovCertificate>,
         encryptionData: BookingPortalEncryptionData,
@@ -46,6 +47,10 @@ public interface CertificateFilteringEvents : BaseEvents {
     )
 }
 
+public interface TicketingCancellationEvents : BaseEvents {
+    public fun onCancelled()
+}
+
 @Parcelize
 public data class ValidationTicketingTestObject(
     val qrString: String,
@@ -55,28 +60,31 @@ public data class ValidationTicketingTestObject(
     val iv: String,
     val accessTokenValidationUrl: String,
     val validationServiceId: String,
+    val cancellationServiceUrl: String?,
 ) : Parcelable
 
 public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    ticketingDataInitialization: TicketingDataInitialization,
+    private val ticketingDataInitialization: TicketingDataInitialization,
     private val identityDocumentRepository: IdentityDocumentRepository =
         sdkDeps.identityDocumentRepository,
     private val accessTokenRepository: AccessTokenRepository =
         sdkDeps.accessTokenRepository,
     private val validationServiceIdentityRepository: ValidationServiceIdentityRepository =
         sdkDeps.validationServiceIdentityRepository,
+    private val cancellationRepository: CancellationRepository =
+        sdkDeps.cancellationRepository,
     private val certRepository: CertRepository =
         covpassDeps.certRepository,
 ) : BaseReactiveState<CertificateFilteringEvents>(scope) {
 
+    private val state: MutableStateFlow<State> = MutableStateFlow(State.Initial)
+
     init {
-        initialize(ticketingDataInitialization)
+        initialize()
     }
 
-    private fun initialize(
-        ticketingDataInitialization: TicketingDataInitialization,
-    ) {
+    private fun initialize() {
         launch {
             val keyPairGen = KeyPairGenerator.getInstance("EC")
             keyPairGen.initialize(256)
@@ -85,6 +93,9 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
             val ticketingIdentityDocument = fetchIdentityDocument(ticketingDataInitialization)
             val validationService = getTrustedValidationService(
                 ticketingIdentityDocument.validationServices
+            )
+            state.value = State.Fetched(
+                ticketingIdentityDocument.cancellationService.serviceEndpoint
             )
             val ticketingValidationServiceIdentity = fetchValidationServiceIdentity(
                 validationService
@@ -99,7 +110,8 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
                 keyPair,
                 ticketingAccessTokenResponseContainer,
                 ticketingValidationServiceIdentity,
-                validationService.id
+                validationService.id,
+                getCancellationUrl()
             )
 
             filterCertificates(bookingPortalEncryptionData)
@@ -177,6 +189,29 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
         validationServiceIdentityRepository.fetchValidationServiceIdentity(
             validationService.serviceEndpoint
         )
+
+    public fun cancel(token: String) {
+        launch {
+            getCancellationUrl()?.let {
+                cancellationRepository.cancelTicketing(it, token)
+                eventNotifier { onCancelled() }
+            }
+        }
+    }
+
+    private fun getCancellationUrl(): String? {
+        return when (val state = state.value) {
+            is State.Fetched -> {
+                state.cancellationServiceUrl
+            }
+            is State.Initial -> null
+        }
+    }
+
+    private sealed interface State {
+        object Initial : State
+        data class Fetched(val cancellationServiceUrl: String) : State
+    }
 }
 
 public class AccessTokenDecodingException : IllegalStateException()

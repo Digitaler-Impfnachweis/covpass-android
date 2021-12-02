@@ -327,6 +327,10 @@ public abstract class SdkDependencies {
         TicketingValidationRepository(ticketingApiService)
     }
 
+    public val cancellationRepository: CancellationRepository by lazy {
+        CancellationRepository(ticketingApiService)
+    }
+
     public val ticketingValidationRequestProvider: TicketingValidationRequestProvider by lazy {
         TicketingValidationRequestProvider(TicketingDgcCryptor(), TicketingDgcSigner())
     }
