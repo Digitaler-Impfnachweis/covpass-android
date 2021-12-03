@@ -14,6 +14,8 @@ import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
+import com.ibm.health.common.annotations.Abort
+import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
@@ -75,6 +77,15 @@ public class CertificateFilteringTicketingFragment :
 
     override fun onActionButtonClicked() {
         onCloseButtonClicked()
+    }
+
+    override fun onBackPressed(): Abortable {
+        onCancelTicketing()
+        return Abort
+    }
+
+    override fun onCancelled() {
+        findNavigator().pop()
     }
 
     override fun onCancelTicketing() {
