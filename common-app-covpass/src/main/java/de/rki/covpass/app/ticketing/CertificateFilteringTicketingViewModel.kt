@@ -49,7 +49,7 @@ public interface CertificateFilteringEvents : TicketingCancellationEvents {
 }
 
 public interface TicketingCancellationEvents : BaseEvents {
-    public fun onCancelled()
+    public fun onCancelled(popOnce: Boolean = false)
 }
 
 @Parcelize
@@ -191,16 +191,16 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
             validationService.serviceEndpoint
         )
 
-    public fun cancel(token: String) {
+    public fun cancel(token: String, popOnce: Boolean = false) {
         launch {
             try {
                 getCancellationUrl()?.let {
                     cancellationRepository.cancelTicketing(it, token)
-                    eventNotifier { onCancelled() }
+                    eventNotifier { onCancelled(popOnce) }
                 }
             } catch (e: Exception) {
                 Lumber.e(e)
-                eventNotifier { onCancelled() }
+                eventNotifier { onCancelled(popOnce) }
             }
         }
     }

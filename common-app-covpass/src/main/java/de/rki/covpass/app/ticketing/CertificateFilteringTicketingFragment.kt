@@ -80,16 +80,12 @@ public class CertificateFilteringTicketingFragment :
     }
 
     override fun onBackPressed(): Abortable {
-        onCancelTicketing()
+        onCancelTicketing(true)
         return Abort
     }
 
-    override fun onCancelled() {
-        findNavigator().pop()
-    }
-
-    override fun onCancelTicketing() {
-        viewModel.cancel(args.ticketingDataInitialization.token)
+    override fun onCancelTicketing(popOnce: Boolean) {
+        viewModel.cancel(args.ticketingDataInitialization.token, popOnce)
     }
 
     private fun showLoading(isLoading: Boolean) {

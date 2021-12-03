@@ -25,11 +25,17 @@ public abstract class BaseTicketingFragment :
     private fun cancelTicketing() {
         if (cancelProcess) {
             onCancelTicketing()
+        } else {
+            findNavigator().popAll()
         }
     }
 
-    override fun onCancelled() {
-        findNavigator().popAll()
+    override fun onCancelled(popOnce: Boolean) {
+        if (popOnce) {
+            findNavigator().pop()
+        } else {
+            findNavigator().popAll()
+        }
     }
 
     override fun onCloseButtonClicked() {
@@ -42,7 +48,7 @@ public abstract class BaseTicketingFragment :
         showDialog(dialogModel, childFragmentManager)
     }
 
-    public open fun onCancelTicketing() {}
+    public open fun onCancelTicketing(popOnce: Boolean = false) {}
 
     override fun onClickOutside() {
         onCloseButtonClicked()

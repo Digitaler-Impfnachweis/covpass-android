@@ -42,9 +42,9 @@ public class TicketingResultScreenAdapter(
         public fun bind(item: BookingPortalValidationResponseResultItem) {
             binding.ticketingResultItemImage.setImageResource(
                 if (item.result == BookingPortalValidationResponseResult.NOK) {
-                    R.drawable.ticketing_item_icon_open
-                } else {
                     R.drawable.ticketing_item_icon_fail
+                } else {
+                    R.drawable.ticketing_item_icon_open
                 }
             )
             binding.ticketingResultItemText.text = item.details

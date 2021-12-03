@@ -72,7 +72,7 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
         )
     }
 
-    override fun onCancelTicketing() {
+    override fun onCancelTicketing(popOnce: Boolean) {
         viewModel.cancel(
             args.validationTicketingTestObject.accessTokenValidationUrl,
             args.ticketingDataInitialization.token
