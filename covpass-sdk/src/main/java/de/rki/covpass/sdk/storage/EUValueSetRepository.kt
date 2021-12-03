@@ -23,7 +23,7 @@ internal object EUValueSetRepository {
                 version = ""
             ),
             "EU/1/20/1507" to EUValueSetValue(
-                display = "COVID-19 Vaccine Moderna",
+                display = "Spikevax (previously COVID-19 Vaccine Moderna)",
                 lang = "en",
                 active = true,
                 system = "https://ec.europa.eu/health/documents/community-register/html/",
