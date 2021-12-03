@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.viewBinding
+import com.ibm.health.common.annotations.Abort
+import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
@@ -106,5 +108,10 @@ internal class TicketingResultScreenFragment : BaseBottomSheet() {
 
     override fun onClickOutside() {
         findNavigator().popAll()
+    }
+
+    override fun onBackPressed(): Abortable {
+        findNavigator().popAll()
+        return Abort
     }
 }
