@@ -25,7 +25,6 @@ import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
-import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
@@ -538,7 +537,10 @@ internal class DetailFragment :
     }
 
     override fun onShowCertificateClicked() {
-        triggerBackPress()
+        val certList = covpassDeps.certRepository.certs.value
+        val groupedCertificate = certList.getGroupedCertificates(args.certId) ?: return
+        val mainCertificate = groupedCertificate.getMainCertificate()
+        findNavigator().push(DisplayQrCodeFragmentNav(mainCertificate.covCertificate.dgcEntry.id))
     }
 
     override fun onNewCertificateScanClicked() {
