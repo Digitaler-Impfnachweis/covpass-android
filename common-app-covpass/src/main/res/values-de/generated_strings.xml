@@ -8,6 +8,8 @@
 
 	<!-- SECTION: common -->
 	<string name="ok">OK</string>
+	<string name="close">Schließen</string>
+	<string name="cancel">Abbrechen</string>
 
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Willkommen in der CovPass-App</string>
@@ -620,6 +622,17 @@
 	<string name="share_certificate_action_button_cancel">Abbrechen</string>
 	<string name="accessibility_share_certificate_label_close">Schließen</string>
 	<string name="accessibility_share_certificate_label_back">Zurück</string>
+
+	<!-- SECTION: Warning: Unknown service provider -->
+	<string name="warning_unknown_provider_title">Unbekannter Anbieter</string>
+	<string name="warning_unknown_provider_copy">Der Anbieter „%s“ ist uns nicht bekannt. Falls Sie fortfahren, überprüfen Sie bitte die Herkunft des QR-Codes und vergewissern Sie sich, ob Sie dem Anbieter Ihr Zertifikat übermitteln wollen.</string>
+	<string name="warning_unknown_provider_box_title">Achten Sie besonders auf:</string>
+	<string name="warning_unknown_provider_box_item_1">Der Name des Anbieters sollte Ihnen bekannt sein.</string>
+	<string name="warning_unknown_provider_box_item_2">Der Name des Anbieters sollte mit dem Namen auf dem Buchungsportal übereinstimmen.</string>
+	<string name="warning_unknown_provider_box_item_3">Sollten Sie Zweifel an der Seriösität des Anbieters haben, brechen Sie den Vorgang lieber ab.</string>
+	<string name="warning_unknown_provider_box_item_4">Sollten Sie weitere Fragen haben, wenden Sie sich an den Anbieter.</string>
+	<string name="warning_unknown_provider_box_button_primary">Trotzdem weiter</string>
+	<string name="warning_unknown_provider_box_button_secondary">Abbrechen</string>
 	<string name="accessibility_share_certificate_announce">Die Ansicht \"Zertifikate zu Buchungszwecken freigeben\" wurde geöffnet.</string>
 	<string name="accessibility_share_certificate_closing_announce">Die Ansicht \"Zertifikate zu Buchungszwecken freigeben\" wurde geschlossen.</string>
 	<string name="share_certificate_selection_title">Zertifikat auswählen</string>

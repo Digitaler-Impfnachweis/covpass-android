@@ -36,6 +36,7 @@
       tools:text="@tools:sample/lorem[2]" />
 
     <View style="@style/Divider" />
+
   </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

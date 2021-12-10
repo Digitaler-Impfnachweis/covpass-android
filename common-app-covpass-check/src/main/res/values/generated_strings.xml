@@ -87,7 +87,7 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading">QR code unreadable</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Unable to read the QR code. Please update the CovPassCheck App, if the problem is recurring.</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_title">Scan another certificate</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Certificate does not fulfil all conditions</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Certificate does not fulfill all conditions</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subline">The checked person can see the reason in their CovPass App. The most common reasons:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Test expired</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">A negative rapid test has a maximal validity of 48 hours. A negative PCR test has a maximal validity of 72 hours.</string>

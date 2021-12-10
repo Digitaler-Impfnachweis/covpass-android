@@ -8,6 +8,8 @@
 
 	<!-- SECTION: common -->
 	<string name="ok">OK</string>
+	<string name="close">Close</string>
+	<string name="cancel">Cancel</string>
 
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Welcome to the CovPass app</string>
@@ -620,6 +622,17 @@
 	<string name="share_certificate_action_button_cancel">Cancel</string>
 	<string name="accessibility_share_certificate_label_close">Close</string>
 	<string name="accessibility_share_certificate_label_back">Back</string>
+
+	<!-- SECTION: Warning: Unknown service provider -->
+	<string name="warning_unknown_provider_title">Unknown provider</string>
+	<string name="warning_unknown_provider_copy">The provider \"%s\" is not known to us. If you proceed, please check the origin of the QR code and make sure you want to submit your certificate to the provider.</string>
+	<string name="warning_unknown_provider_box_title">Pay particular attention to:</string>
+	<string name="warning_unknown_provider_box_item_1">The name of the provider should be familiar to you.</string>
+	<string name="warning_unknown_provider_box_item_2">The name of the provider should match the name on the booking portal.</string>
+	<string name="warning_unknown_provider_box_item_3">If you have any doubts about the seriousness of the provider, it is better to cancel the process.</string>
+	<string name="warning_unknown_provider_box_item_4">If you have any further questions, please contact the provider.</string>
+	<string name="warning_unknown_provider_box_button_primary">Continue anyway</string>
+	<string name="warning_unknown_provider_box_button_secondary">Cancel</string>
 	<string name="accessibility_share_certificate_announce">The \"Release certificates for booking purposes\" view has been opened.</string>
 	<string name="accessibility_share_certificate_closing_announce">The \"Release certificates for booking purposes\" view has been closed.</string>
 	<string name="share_certificate_selection_title">Select certificate</string>

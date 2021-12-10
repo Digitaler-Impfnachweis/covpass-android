@@ -14,6 +14,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ConsentInitializationTicketingBinding
+import de.rki.covpass.http.httpConfig
 import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
 import kotlinx.parcelize.Parcelize
 
@@ -52,7 +53,15 @@ public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
     }
 
     override fun onActionButtonClicked() {
-        findNavigator().push(CertificateFilteringTicketingFragmentNav(args.ticketingDataInitialization))
+        validateServiceIdentity()
+    }
+
+    private fun validateServiceIdentity() {
+        if (httpConfig.hasPublicKey(args.ticketingDataInitialization.serviceIdentity)) {
+            findNavigator().push(CertificateFilteringTicketingFragmentNav(args.ticketingDataInitialization))
+        } else {
+            findNavigator().push(UnknownProviderTicketingFragmentNav(args.ticketingDataInitialization))
+        }
     }
 
     private fun updateView(provider: String, booking: String, privacyUrl: String) {

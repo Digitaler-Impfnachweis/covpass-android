@@ -19,7 +19,7 @@ public sealed class ConsentInitItem {
 
     public class Infobox(
         public val title: String,
-        public val description: String,
+        public val description: String? = null,
         public val list: List<String>,
     ) : ConsentInitItem()
 

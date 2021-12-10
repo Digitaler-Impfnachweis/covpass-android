@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -34,6 +35,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_five"
     android:orientation="vertical"
+    android:overScrollMode="never"
     android:visibility="gone"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     app:layout_constraintTop_toBottomOf="@+id/certificate_filtering_data"
