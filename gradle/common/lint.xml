@@ -11,6 +11,7 @@
   <issue id="RequiredSize" severity="ignore" />
   <issue id="PluralsCandidate" severity="ignore" />
   <issue id="VectorPath" severity="ignore" />
+  <issue id="Typos" severity="ignore" />
   <issue id="UnusedResources" severity="ignore" />
   <issue id="GradleDependency" severity="ignore" />
   <issue id="TrustAllX509TrustManager" severity="ignore">
