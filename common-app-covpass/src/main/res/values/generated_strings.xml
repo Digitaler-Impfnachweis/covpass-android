@@ -120,7 +120,7 @@
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Always display this person\'s certificates in first place: active</string>
 	<string name="accessibility_certificate_favorite_button_label_not_active">Always display this person\'s certificates in first place: not active</string>
-	<string name="certificate_action_button_check_validity">Check validity</string>
+	<string name="certificate_action_button_check_validity">Check for travel</string>
 
 	<!-- SECTION: screen: check validity -->
 	<string name="accessibility_certificate_check_validity_label_close">Close</string>
@@ -712,4 +712,16 @@
 	<string name="cancellation_share_certificate_title">Do you really want to end the process?</string>
 	<string name="cancellation_share_certificate_action_button_no">Not now</string>
 	<string name="cancellation_share_certificate_action_button_yes">Yes, finish</string>
+	<string name="accessibility_certificate_add_warning_maximum_announce">The view \"Are you authorized?\" has been opened</string>
+	<string name="accessibility_certificate_add_warning_maximum_image">Image: Two people are facing each other. One person shows her smartphone with a QR code. The other person scans the QR code and sees a green check mark.</string>
+	<string name="certificate_add_warning_maximum_title">Warning: Are you really authorized?</string>
+	<string name="certificate_add_warning_maximum_copy_ios">Please make sure that you are authorized to add the certificate of another person, e.g. for your children or relatives. You can find more information in the #Frequently Asked Questions::https://www.digitaler-impfnachweis-app.de/en/faq#.\n\n Do you only want to check the validity? Please use the #CovPassCheck app::https://apps.apple.com/en/app/covpass-check/id1566140314# for that.</string>
+	<string name="certificate_add_warning_maximum_copy_android">Please make sure that you are authorized to add the certificate of another person, e.g. for your children or relatives. You can find more information in the #Frequently Asked Questions::https://www.digitaler-impfnachweis-app.de/en/faq#.\n\n Do you only want to check the validity? Please use the #CovPassCheck app::https://play.google.com/store/apps/details?id=de.rki.covpass.checkapp# for that.</string>
+	<string name="certificate_add_warning_maximum_button_primary">Add certificate</string>
+	<string name="accessibility_certificate_add_error_maximum_announce">An error dialog was opened</string>
+	<string name="certificate_add_error_maximum_title">Certificate cannot be added</string>
+	<string name="certificate_add_error_maximum_copy">To prevent misuse, certificates from a maximum of 20 different people can be added.\n\n The CovPass app is not suitable for checking third-party certificates. Use only the CovPassCheck app for verification.</string>
+	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck app</string>
+	<string name="certificate_add_error_maximum_button_2">FAQ for the certificate check</string>
+	<string name="certificate_add_error_maximum_button_3">OK</string>
 </resources>
