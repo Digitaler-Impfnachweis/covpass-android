@@ -712,6 +712,7 @@
 	<string name="cancellation_share_certificate_title">Do you really want to end the process?</string>
 	<string name="cancellation_share_certificate_action_button_no">Not now</string>
 	<string name="cancellation_share_certificate_action_button_yes">Yes, finish</string>
+	<string name="certificate_add_warning_maximum_button_secondary">Cancel</string>
 	<string name="accessibility_certificate_add_warning_maximum_announce">The view \"Are you authorized?\" has been opened</string>
 	<string name="accessibility_certificate_add_warning_maximum_image">Image: Two people are facing each other. One person shows her smartphone with a QR code. The other person scans the QR code and sees a green check mark.</string>
 	<string name="certificate_add_warning_maximum_title">Warning: Are you really authorized?</string>

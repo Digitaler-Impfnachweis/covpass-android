@@ -80,19 +80,6 @@
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
 	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"QR-Code scannen\" wurde geöffnet</string>
 	<string name="accessibility_certificate_add_popup_closing_announce">Die Ansicht \"QR-Code scannen\" wurde geschlossen</string>
-	<string name="accessibility_certificate_add_warning_maximum_announce">Die Ansicht \"Sind Sie berechtigt?\" wurde geöffnet</string>
-	<string name="accessibility_certificate_add_warning_maximum_image">Bild: Zwei Personen stehen sich gegenüber. Die eine Person zeigt ihr Smartphone mit einem QR-Code. Die andere Person scannt den QR-Code und sieht einen grünen Haken.</string>
-	<string name="certificate_add_warning_maximum_title">Achtung: Sind Sie wirklich berechtigt?</string>
-	<string name="certificate_add_warning_maximum_copy_ios">Bitte stellen Sie sicher, dass Sie berechtigt sind, das Zertifikat einer anderen Person hinzuzufügen, z.B. für Ihre Kinder oder Angehörige. Mehr Informationen finden Sie in den #Häufigen Fragen::https://www.digitaler-impfnachweis-app.de/faq#.\n\n Wollen Sie nur die Gültigkeit prüfen? Nutzen Sie dafür bitte die #CovPassCheck-App::https://apps.apple.com/de/app/covpass-check/id1566140314#.</string>
-	<string name="certificate_add_warning_maximum_copy_android">Bitte stellen Sie sicher, dass Sie berechtigt sind, das Zertifikat einer anderen Person hinzuzufügen, z.B. für Ihre Kinder oder Angehörige. Mehr Informationen finden Sie in den #Häufigen Fragen::https://www.digitaler-impfnachweis-app.de/faq#.\n\n Wollen Sie nur die Gültigkeit prüfen? Nutzen Sie dafür bitte die #CovPassCheck-App::https://play.google.com/store/apps/details?id=de.rki.covpass.checkapp#.</string>
-	<string name="certificate_add_warning_maximum_button_primary">Zertifikat hinzufügen</string>
-	<string name="certificate_add_warning_maximum_button_secondary">Abbrechen</string>
-	<string name="accessibility_certificate_add_error_maximum_announce">Ein Fehler-Dialog wurde geöffnet</string>
-	<string name="certificate_add_error_maximum_title">Zertifikat kann nicht hinzugefügt werden</string>
-	<string name="certificate_add_error_maximum_copy">Um Missbrauch zu vermeiden, können Zertifikate von maximal 20 verschiedenen Personen hinzugefügt werden.\n\n Die CovPass-App ist nicht zur Prüfung fremder Zertifikate geeignet. Nutzen Sie zur Prüfung ausschließlich die CovPassCheck-App.</string>
-	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck-App</string>
-	<string name="certificate_add_error_maximum_button_2">FAQ zur Zertifikatsprüfung</string>
-	<string name="certificate_add_error_maximum_button_3">OK</string>
 	<string name="accessibility_scan_success_announce">Zertifikat von %s wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">QR-Code scannen</string>
@@ -725,6 +712,7 @@
 	<string name="cancellation_share_certificate_title">Wollen Sie den Vorgang wirklich beenden?</string>
 	<string name="cancellation_share_certificate_action_button_no">Nicht jetzt</string>
 	<string name="cancellation_share_certificate_action_button_yes">Ja, beenden</string>
+	<string name="certificate_add_warning_maximum_button_secondary">Abbrechen</string>
 	<string name="accessibility_certificate_add_warning_maximum_announce">Die Ansicht \"Sind Sie berechtigt?\" wurde geöffnet</string>
 	<string name="accessibility_certificate_add_warning_maximum_image">Bild: Zwei Personen stehen sich gegenüber. Die eine Person zeigt ihr Smartphone mit einem QR-Code. Die andere Person scannt den QR-Code und sieht einen grünen Haken.</string>
 	<string name="certificate_add_warning_maximum_title">Achtung: Sind Sie wirklich berechtigt?</string>
