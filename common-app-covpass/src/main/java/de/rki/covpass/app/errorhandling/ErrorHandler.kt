@@ -7,6 +7,7 @@ package de.rki.covpass.app.errorhandling
 
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
+import de.rki.covpass.app.scanner.SavingBlockedException
 import de.rki.covpass.app.ticketing.AccessTokenDecodingException
 import de.rki.covpass.app.ticketing.InvalidValidationServiceProvider
 import de.rki.covpass.app.ticketing.NoValidationServiceListed
@@ -117,6 +118,14 @@ internal class ErrorHandler : CommonErrorHandler() {
                 R.string.error_share_certificate_no_verification_submission_possible_action_button,
                 tag = TAG_ERROR_TICKETING_SENDING_CERTIFICATE
             )
+            is SavingBlockedException -> DialogModel(
+                titleRes = R.string.certificate_add_error_maximum_title,
+                messageString = getString(R.string.certificate_add_error_maximum_copy),
+                positiveButtonTextRes = R.string.certificate_add_error_maximum_button_3,
+                negativeButtonTextRes = R.string.certificate_add_error_maximum_button_1,
+                neutralButtonTextRes = R.string.certificate_add_error_maximum_button_2,
+                tag = TAG_ERROR_SAVING_BLOCKED
+            )
             else -> null
         }
 
@@ -135,6 +144,7 @@ internal class ErrorHandler : CommonErrorHandler() {
         const val TAG_ERROR_TICKETING_SENDING_CERTIFICATE: String = "error_ticketing_sending_certificate"
         const val TAG_ERROR_INVALID_VALIDATION_SERVICE_PROVIDER: String = "error_invalid_validation_service_provider"
         const val TAG_ERROR_NO_VALIDATION_SERVICE_LISTED: String = "error_no_validation_service_listed"
+        const val TAG_ERROR_SAVING_BLOCKED: String = "error_saving_blocked"
 
         // Error codes
         const val ERROR_NO_VALIDATION_SERVICE_LISTED = 103

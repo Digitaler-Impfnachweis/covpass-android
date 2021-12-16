@@ -79,6 +79,19 @@
 	<string name="accessibility_scan_camera_torch_off">Switch off torch</string>
 	<string name="accessibility_certificate_add_popup_announce">The view \"Scan QR code\" has been opened</string>
 	<string name="accessibility_certificate_add_popup_closing_announce">The view \"Scan QR code\" has been closed</string>
+	<string name="accessibility_certificate_add_warning_maximum_announce">The view \"Are you authorized?\" has been opened</string>
+	<string name="accessibility_certificate_add_warning_maximum_image">Image: Two people are facing each other. One person shows her smartphone with a QR code. The other person scans the QR code and sees a green check mark.</string>
+	<string name="certificate_add_warning_maximum_title">Warning: Are you really authorized?</string>
+	<string name="certificate_add_warning_maximum_copy_ios">Please make sure that you are authorized to add the certificate of another person, e.g. for your children or relatives. You can find more information in the #Frequently Asked Questions::https://www.digitaler-impfnachweis-app.de/en/faq#.\n\n Do you only want to check the validity? Please use the #CovPassCheck app::https://apps.apple.com/en/app/covpass-check/id1566140314# for that.</string>
+	<string name="certificate_add_warning_maximum_copy_android">Please make sure that you are authorized to add the certificate of another person, e.g. for your children or relatives. You can find more information in the #Frequently Asked Questions::https://www.digitaler-impfnachweis-app.de/en/faq#.\n\n Do you only want to check the validity? Please use the #CovPassCheck app::https://play.google.com/store/apps/details?id=de.rki.covpass.checkapp# for that.</string>
+	<string name="certificate_add_warning_maximum_button_primary">Add certificate</string>
+	<string name="certificate_add_warning_maximum_button_secondary">Cancel</string>
+	<string name="accessibility_certificate_add_error_maximum_announce">An error dialog was opened</string>
+	<string name="certificate_add_error_maximum_title">Certificate cannot be added</string>
+	<string name="certificate_add_error_maximum_copy">To prevent misuse, certificates from a maximum of 20 different people can be added.\n\n The CovPass app is not suitable for checking third-party certificates. Use only the CovPassCheck app for verification.</string>
+	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck app</string>
+	<string name="certificate_add_error_maximum_button_2">FAQ for the certificate check</string>
+	<string name="certificate_add_error_maximum_button_3">OK</string>
 	<string name="accessibility_scan_success_announce">Certificate of %s was added successfully</string>
 	<string name="accessibility_certificate_add_popup_image">Image: Person holds smartphone over three different certificates with QR code</string>
 	<string name="certificate_add_popup_title">Scan QR code</string>
@@ -119,7 +132,7 @@
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Always display this person\'s certificates in first place: active</string>
 	<string name="accessibility_certificate_favorite_button_label_not_active">Always display this person\'s certificates in first place: not active</string>
-	<string name="certificate_action_button_check_validity">Check validity</string>
+	<string name="certificate_action_button_check_validity">Check for travel</string>
 
 	<!-- SECTION: screen: check validity -->
 	<string name="accessibility_certificate_check_validity_label_close">Close</string>
@@ -341,10 +354,10 @@
 	<string name="recovery_certificate_overview_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="recovery_certificate_overview_action_button_title">Display current QR Code</string>
 	<string name="certificates_overview_expired_title">Certificate expired</string>
-	<string name="certificates_overview_expired_message">The expiry date of your certificates has passed. Please make every effort to have a new digital certificate issued. </string>
+	<string name="certificates_overview_expired_message">The expiry date of your certificates has passed. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificates_overview_expired_action_button_title">Add new certificate</string>
 	<string name="certificates_overview_soon_expiring_title">Current certificate expires on %1$s at %2$s</string>
-	<string name="certificates_overview_soon_expiring_subtitle">Please make every effort to have a new digital certificate issued. </string>
+	<string name="certificates_overview_soon_expiring_subtitle">Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificates_overview_invalid_title">Certificate invalid</string>
 	<string name="certificates_overview_invalid_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificates_overview_invalid_action_button_title">Add new certificate</string>
@@ -586,7 +599,7 @@
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
 	<string name="app_information_title_update">Update rules of entry</string>
-	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Covid-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time. </string>
+	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Covid-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
 	<string name="app_information_message_update_note">Most recent update</string>
 	<string name="app_information_message_update_pattern">Most recent update: %s</string>
 	<string name="app_information_message_update_certificates">List of certificate issuers: %s</string>

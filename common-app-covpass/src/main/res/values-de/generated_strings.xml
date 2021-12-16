@@ -20,12 +20,12 @@
 	<string name="next_onboarding_page_button_title">Weiter</string>
 	<string name="accessibility_onboarding_pages_label_back">Zurück</string>
 	<string name="accessibility_page_indicator">Seite %1$d von %2$d</string>
-	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Übertragen Sie das digitale COVID-Zertifikat der EU auf Ihr Smartphone</string>
-	<string name="vaccination_first_onboarding_page_message">Scannen Sie mit der CovPass-App das digitale COVID-Zertifikat der EU für eine Corona-Impfung oder eine Genesung von der Corona-Infektion. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Das digitale COVID-Zertifikat der EU wird sofort auf Ihr Smartphone übertragen.</string>
+	<string name="vaccination_first_onboarding_page_title">Erster Schritt: Übertragen Sie das digitale COVID-Zertifikat der EU auf Ihr Smartphone</string>
+	<string name="vaccination_first_onboarding_page_message">Scannen Sie mit der CovPass-App das digitale COVID-Zertifikat der EU für eine Corona-Impfung oder eine Genesung von der Corona-Infektion. Halten Sie dafür die Kamera Ihres Smartphones über den QR-Code. Das digitale COVID-Zertifikat der EU wird sofort auf Ihr Smartphone übertragen.</string>
 	<string name="vaccination_second_onboarding_page_title">Zweiter Schritt: Rufen Sie den QR-Code in der CovPass-App auf</string>
 	<string name="vaccination_second_onboarding_page_message">Mit dem QR-Code können Sie eine Corona-Impfung oder eine Genesung von einer Corona-Infektion nachweisen. Nach dem Scannen wird der QR-Code direkt in der CovPass-App angezeigt. Bitte beachten Sie, dass eine ausreichende Wirksamkeit des Impfschutzes erst etwa 14 Tage nach der letzten Impfung eintritt. Der QR-Code für den vollständigen Impfschutz ist deshalb erst nach Ablauf der 14 Tage gültig.</string>
 	<string name="vaccination_third_onboarding_page_title">Dritter Schritt: Zeigen Sie den QR-Code bei Bedarf vor</string>
-	<string name="vaccination_third_onboarding_page_message">Bei Bedarf können Sie den QR-Code in der CovPass-App vorzeigen. Der QR-Code wird dann von der prüfenden Person gescannt. Halten Sie dazu ergänzend Ihr Ausweisdokument bereit. Da der QR-Code nur auf Ihrem Smartphone gespeichert ist, können Sie ihn jederzeit auch ohne Internetverbindung anzeigen lassen.</string>
+	<string name="vaccination_third_onboarding_page_message">Bei Bedarf können Sie den QR-Code in der CovPass-App vorzeigen. Der QR-Code wird dann von der prüfenden Person gescannt. Halten Sie dazu ergänzend Ihr Ausweisdokument bereit. Da der QR-Code nur auf Ihrem Smartphone gespeichert ist, können Sie ihn jederzeit auch ohne Internetverbindung anzeigen lassen.</string>
 	<string name="vaccination_fourth_onboarding_page_title">Datenschutz und Datensicherheit</string>
 	<string name="vaccination_fourth_onboarding_page_first_list_item">Die Nutzung der CovPass-App ist freiwillig. Sie können Ihre digitalen COVID-Zertifikate der EU auch in Papierform verwenden.</string>
 	<string name="vaccination_fourth_onboarding_page_second_list_item">Zum Schutz vor Fälschungen oder Manipulationen werden die digitalen COVID-Zertifikate der EU durch das RKI elektronisch signiert. Hierzu werden die notwendigen Daten einmalig verschlüsselt an das RKI übermittelt. Nach der Erstellung des digitalen COVID-Zertifikats werden Ihre Daten vom RKI sofort unwiderruflich gelöscht. Der QR-Code enthält in kodierter Form die auf dem digitalen COVID-Zertifikat enthaltenen Informationen und die elektronische Signatur des RKI.</string>
@@ -79,11 +79,24 @@
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
 	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"QR-Code scannen\" wurde geöffnet</string>
 	<string name="accessibility_certificate_add_popup_closing_announce">Die Ansicht \"QR-Code scannen\" wurde geschlossen</string>
+	<string name="accessibility_certificate_add_warning_maximum_announce">Die Ansicht \"Sind Sie berechtigt?\" wurde geöffnet</string>
+	<string name="accessibility_certificate_add_warning_maximum_image">Bild: Zwei Personen stehen sich gegenüber. Die eine Person zeigt ihr Smartphone mit einem QR-Code. Die andere Person scannt den QR-Code und sieht einen grünen Haken.</string>
+	<string name="certificate_add_warning_maximum_title">Achtung: Sind Sie wirklich berechtigt?</string>
+	<string name="certificate_add_warning_maximum_copy_ios">Bitte stellen Sie sicher, dass Sie berechtigt sind, das Zertifikat einer anderen Person hinzuzufügen, z.B. für Ihre Kinder oder Angehörige. Mehr Informationen finden Sie in den #Häufigen Fragen::https://www.digitaler-impfnachweis-app.de/faq#.\n\n Wollen Sie nur die Gültigkeit prüfen? Nutzen Sie dafür bitte die #CovPassCheck-App::https://apps.apple.com/de/app/covpass-check/id1566140314#.</string>
+	<string name="certificate_add_warning_maximum_copy_android">Bitte stellen Sie sicher, dass Sie berechtigt sind, das Zertifikat einer anderen Person hinzuzufügen, z.B. für Ihre Kinder oder Angehörige. Mehr Informationen finden Sie in den #Häufigen Fragen::https://www.digitaler-impfnachweis-app.de/faq#.\n\n Wollen Sie nur die Gültigkeit prüfen? Nutzen Sie dafür bitte die #CovPassCheck-App::https://play.google.com/store/apps/details?id=de.rki.covpass.checkapp#.</string>
+	<string name="certificate_add_warning_maximum_button_primary">Zertifikat hinzufügen</string>
+	<string name="certificate_add_warning_maximum_button_secondary">Abbrechen</string>
+	<string name="accessibility_certificate_add_error_maximum_announce">Ein Fehler-Dialog wurde geöffnet</string>
+	<string name="certificate_add_error_maximum_title">Zertifikat kann nicht hinzugefügt werden</string>
+	<string name="certificate_add_error_maximum_copy">Um Missbrauch zu vermeiden, können Zertifikate von maximal 20 verschiedenen Personen hinzugefügt werden.\n\n Die CovPass-App ist nicht zur Prüfung fremder Zertifikate geeignet. Nutzen Sie zur Prüfung ausschließlich die CovPassCheck-App.</string>
+	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck-App</string>
+	<string name="certificate_add_error_maximum_button_2">FAQ zur Zertifikatsprüfung</string>
+	<string name="certificate_add_error_maximum_button_3">OK</string>
 	<string name="accessibility_scan_success_announce">Zertifikat von %s wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
 	<string name="certificate_add_popup_title">QR-Code scannen</string>
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
-	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, einen Code zum Entsperren Ihres Smartphones einzurichten.</string>
+	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, einen Code zum Entsperren Ihres Smartphones einzurichten.</string>
 	<string name="certificate_add_popup_message">Scannen Sie den QR-Code von einem digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.\n\nZu Buchungszwecken (z. B. Flug und Hotel) können Sie Ihr hinzugefügtes COVID-Zertifikat online an den Anbieter übermitteln. Scannen Sie dazu den QR-Code, der bei der Buchung angezeigt wird.</string>
 	<string name="certificate_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
 	<string name="certificate_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
@@ -93,7 +106,7 @@
 	<string name="certificate_add_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_certificate_add_dialog_camera_access_label_close">Schließen</string>
 	<string name="accessibility_scan_dialog_camera_access_announce">Die Ansicht \"Kamerazugriff benötigt\" wurde geöffnet</string>
-	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet. Der QR-Code wird automatisch gescannt. </string>
+	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet. Der QR-Code wird automatisch gescannt.</string>
 	<string name="accessibility_scan_camera_closing_announce">Kamera-Ansicht wurde geschlossen</string>
 	<string name="accessibility_certificate_scan_mode_label_cancel">Abbrechen</string>
 	<string name="error_camera_access_title">Die CovPass-App möchte auf Ihre Kamera zugreifen.</string>
@@ -113,13 +126,13 @@
 	<string name="error_scan_file_could_not_be_read_message">Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt. Bitte wählen Sie eine andere Datei aus.</string>
 	<string name="error_scan_file_could_not_be_read_action_button">OK</string>
 	<string name="error_scan_code_not_suitable_title">QR-Code ist nicht geeignet</string>
-	<string name="error_scan_code_not_suitable_message">Der QR-Code kann nicht in die CovPass-App übertragen werden, da dieser z. B. keine gültige Signatur besitzt. Möglicherweise ist der QR-Code auch nicht lesbar, weil mehrere QR-Codes in der Datei vorhanden sind. Bitte wählen Sie eine Datei mit einem zulässigen QR-Code aus.</string>
+	<string name="error_scan_code_not_suitable_message">Der QR-Code kann nicht in die CovPass-App übertragen werden, da dieser z. B. keine gültige Signatur besitzt. Möglicherweise ist der QR-Code auch nicht lesbar, weil mehrere QR-Codes in der Datei vorhanden sind. Bitte wählen Sie eine Datei mit einem zulässigen QR-Code aus.</string>
 	<string name="error_scan_code_not_suitable_action_button">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Zertifikate dieser Person immer an erster Stelle anzeigen: aktiv</string>
 	<string name="accessibility_certificate_favorite_button_label_not_active">Zertifikate dieser Person immer an erster Stelle anzeigen: nicht aktiv</string>
-	<string name="certificate_action_button_check_validity">Gültigkeit prüfen</string>
+	<string name="certificate_action_button_check_validity">Für Reisen prüfen</string>
 
 	<!-- SECTION: screen: check validity -->
 	<string name="accessibility_certificate_check_validity_label_close">Schließen</string>
@@ -206,7 +219,7 @@
 	<string name="BJ">Benin</string>
 	<string name="BA">Bosnien und Herzegowina</string>
 	<string name="BR">Brasilien</string>
-	<string name="BI">Burundi </string>
+	<string name="BI">Burundi</string>
 	<string name="CV">Kap Verde</string>
 	<string name="CA">Kanada</string>
 	<string name="CL">Chile</string>
@@ -586,7 +599,7 @@
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_title_update">Einreiseregeln aktualisieren</string>
-	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan geltenden Corona-Einreiseregeln in den entsprechenden Ländern.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen. </string>
+	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan geltenden Corona-Einreiseregeln in den entsprechenden Ländern.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
 	<string name="app_information_message_update_certificates">Liste der Zertifikatsaussteller: %s</string>

@@ -5,10 +5,15 @@
 
 package de.rki.covpass.app.scanner
 
+import android.content.Intent
+import android.net.Uri
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
+import de.rki.covpass.app.R
 import de.rki.covpass.app.detail.DetailFragmentNav
+import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_SAVING_BLOCKED
+import de.rki.covpass.app.misuseprevention.MisusePreventionFragmentNav
 import de.rki.covpass.app.ticketing.ConsentInitializationTicketingFragmentNav
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -25,7 +30,7 @@ internal class CovPassQRScannerFragmentNav : FragmentNav(CovPassQRScannerFragmen
  */
 internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, CovPassQRScannerEvents {
 
-    private val viewModel by reactiveState { CovPassQRScannerViewModel(scope, stateFlowStore) }
+    private val viewModel by reactiveState { CovPassQRScannerViewModel(scope) }
 
     override fun onBarcodeResult(qrCode: String) {
         viewModel.onQrContentReceived(qrCode)
@@ -33,6 +38,29 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         scanEnabled.value = true
+        if (tag == TAG_ERROR_SAVING_BLOCKED) {
+            when (action) {
+                DialogAction.NEGATIVE -> {
+                    findNavigator().pop()
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.covpass_check_store_link))
+                        )
+                    )
+                }
+                DialogAction.NEUTRAL -> {
+                    findNavigator().pop()
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.information_faq_link))
+                        )
+                    )
+                }
+                else -> {}
+            }
+        }
     }
 
     override fun onScanSuccess(certificateId: GroupedCertificatesId) {
@@ -43,5 +71,10 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
     override fun onTicketingQrcodeScan(ticketingDataInitialization: TicketingDataInitialization) {
         findNavigator().popAll()
         findNavigator().push(ConsentInitializationTicketingFragmentNav(ticketingDataInitialization))
+    }
+
+    override fun onLimitationWarning(qrContent: String) {
+        findNavigator().popAll()
+        findNavigator().push(MisusePreventionFragmentNav(qrContent))
     }
 }
