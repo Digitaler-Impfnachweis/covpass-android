@@ -721,7 +721,7 @@
 	<string name="certificate_add_warning_maximum_button_primary">Add certificate</string>
 	<string name="accessibility_certificate_add_error_maximum_announce">An error dialog was opened</string>
 	<string name="certificate_add_error_maximum_title">Certificate cannot be added</string>
-	<string name="certificate_add_error_maximum_copy">To prevent misuse, certificates from a maximum of 20 different people can be added.\n\n The CovPass app is not suitable for checking third-party certificates. Use only the CovPassCheck app for verification.</string>
+	<string name="certificate_add_error_maximum_copy">To prevent misuse, certificates from a maximum of 20 different people can be added.\n\nThe CovPass app is not suitable for checking third-party certificates. Use only the CovPassCheck app for verification.</string>
 	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck app</string>
 	<string name="certificate_add_error_maximum_button_2">FAQ for the certificate check</string>
 	<string name="certificate_add_error_maximum_button_3">OK</string>

@@ -721,7 +721,7 @@
 	<string name="certificate_add_warning_maximum_button_primary">Zertifikat hinzufügen</string>
 	<string name="accessibility_certificate_add_error_maximum_announce">Ein Fehler-Dialog wurde geöffnet</string>
 	<string name="certificate_add_error_maximum_title">Zertifikat kann nicht hinzugefügt werden</string>
-	<string name="certificate_add_error_maximum_copy">Um Missbrauch zu vermeiden, können Zertifikate von maximal 20 verschiedenen Personen hinzugefügt werden.\n\n Die CovPass-App ist nicht zur Prüfung fremder Zertifikate geeignet. Nutzen Sie zur Prüfung ausschließlich die CovPassCheck-App.</string>
+	<string name="certificate_add_error_maximum_copy">Um Missbrauch zu vermeiden, können Zertifikate von maximal 20 verschiedenen Personen hinzugefügt werden.\n\nDie CovPass-App ist nicht zur Prüfung fremder Zertifikate geeignet. Nutzen Sie zur Prüfung ausschließlich die CovPassCheck-App.</string>
 	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck-App</string>
 	<string name="certificate_add_error_maximum_button_2">FAQ zur Zertifikatsprüfung</string>
 	<string name="certificate_add_error_maximum_button_3">OK</string>
