@@ -8,6 +8,7 @@ package de.rki.covpass.commonapp.scanner
 import android.Manifest
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
@@ -29,9 +30,12 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -60,7 +64,7 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     private val requestPermissionLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
+            ActivityResultContracts.RequestPermission(),
         ) { isGranted: Boolean ->
             if (isGranted) {
                 startScanning()
@@ -86,6 +90,18 @@ public abstract class QRScannerFragment : BaseFragment() {
             }
         }
 
+        // XXX: Old Android devices don't seem to auto-focus continuously, so we do this manually.
+        // Don't enable this for new devices because this code makes auto-focus react more slowly
+        // than the built-in continuous auto-focus.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            launchWhenStarted {
+                while (true) {
+                    runCatching { autoFocus() }
+                    delay(1000)
+                }
+            }
+        }
+
         binding.scannerFlashlightButton.setOnClickListener {
             setTorch(!isTorchOn.value)
         }
@@ -99,8 +115,8 @@ public abstract class QRScannerFragment : BaseFragment() {
                 ScannerDrawable(
                     binding.barcodeScanner.width,
                     binding.barcodeScanner.height - binding.scannerCloseLayout.height,
-                    resources.getDimension(R.dimen.grid_four)
-                )
+                    resources.getDimension(R.dimen.grid_four),
+                ),
             )
         }
     }
@@ -177,11 +193,37 @@ public abstract class QRScannerFragment : BaseFragment() {
                 cameraSelector,
                 preview,
                 imageCapture,
-                imageAnalyzer
+                imageAnalyzer,
             )
             binding.scannerFlashlightButton.isVisible = hasFlash()
             setTorch(isTorchOn.value)
             preview.setSurfaceProvider(binding.barcodeScanner.surfaceProvider)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        cameraExecutor.shutdown()
+    }
+
+    private suspend fun autoFocus() {
+        val metrics = windowManager.getCurrentWindowMetrics().bounds
+        val initialAutoFocusPoint =
+            SurfaceOrientedMeteringPointFactory(metrics.width().toFloat(), metrics.height().toFloat())
+                .createPoint(metrics.exactCenterX(), metrics.exactCenterY())
+        val initialAutoFocusAction = FocusMeteringAction.Builder(
+            initialAutoFocusPoint,
+            FocusMeteringAction.FLAG_AF,
+        ).build()
+        camera?.cameraControl?.startFocusAndMetering(initialAutoFocusAction)?.let { future ->
+            suspendCoroutine<Unit> { continuation ->
+                future.addListener(
+                    {
+                        continuation.resume(Unit)
+                    },
+                    ContextCompat.getMainExecutor(requireContext()),
+                )
+            }
         }
     }
 
@@ -200,11 +242,6 @@ public abstract class QRScannerFragment : BaseFragment() {
             displayId = binding.barcodeScanner.display.displayId
             setUpCamera()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        cameraExecutor.shutdown()
     }
 
     private class ScannerDrawable(
@@ -227,7 +264,7 @@ public abstract class QRScannerFragment : BaseFragment() {
                     bounds.width() / 2f + squareSize / 2,
                     bounds.height() / 2f + squareSize / 2,
                 ),
-                Path.Direction.CW
+                Path.Direction.CW,
             )
 
             val paint = Paint()
