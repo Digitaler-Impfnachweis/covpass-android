@@ -57,7 +57,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/grid_one"
                         android:text="@string/startscreen_card_title"
-                        app:layout_constraintBottom_toBottomOf="@+id/certificate_status_imageview"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
                         app:layout_constraintTop_toTopOf="@+id/certificate_status_imageview" />
