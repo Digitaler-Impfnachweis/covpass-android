@@ -1,9 +1,18 @@
-rootProject.name = 'android-covpass-app'
-
 /*
  * (C) Copyright IBM Deutschland GmbH 2021
  * (C) Copyright IBM Corp. 2021
  */
+
+// The pluginManagement {} block must appear before any other statements in the script.
+pluginManagement {
+    repositories {
+        google()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'android-covpass-app'
 
 // SDK modules
 include ':covpass-bom'
