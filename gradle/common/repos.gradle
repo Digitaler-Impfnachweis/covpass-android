@@ -27,7 +27,12 @@ ext.setupRepos = { Set<RepoType> repos = new HashSet(RepoType.values().toList())
         repositories {
             google()
             mavenCentral()
-            maven { url 'https://jitpack.io' }
+            maven {
+                url 'https://jitpack.io'
+                content {
+                    includeModule 'com.github.instacart.truetime-android', 'library'
+                }
+            }
             mavenLocal()  // since we need this so often, let's just keep it as the last fallback
         }
     }
