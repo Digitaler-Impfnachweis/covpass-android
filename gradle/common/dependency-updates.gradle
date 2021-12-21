@@ -3,15 +3,17 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-dependencyUpdates.resolutionStrategy {
-    componentSelection { rules ->
-        rules.all { ComponentSelection selection ->
-            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
-                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
-            }
-            if (rejected) {
-                selection.reject('Release candidate')
-            }
-        }
+dependencyUpdates {
+    gradleReleaseChannel = "current"
+    rejectVersionIf {
+        releaseType(it.candidate.version) < releaseType(it.currentVersion)
     }
+}
+
+static def releaseType(String version) {
+    def sortedReleaseQualifiers = ['alpha', 'beta', 'm', 'rc']
+    def index = sortedReleaseQualifiers.findIndexOf { qualifier ->
+        version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+    }
+    if (index < 0) return sortedReleaseQualifiers.size() else return index
 }
