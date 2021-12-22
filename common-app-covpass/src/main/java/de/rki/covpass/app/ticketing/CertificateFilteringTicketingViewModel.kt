@@ -196,8 +196,8 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
             try {
                 getCancellationUrl()?.let {
                     cancellationRepository.cancelTicketing(it, token)
-                    eventNotifier { onCancelled(popOnce) }
                 }
+                eventNotifier { onCancelled(popOnce) }
             } catch (e: Exception) {
                 Lumber.e(e)
                 eventNotifier { onCancelled(popOnce) }

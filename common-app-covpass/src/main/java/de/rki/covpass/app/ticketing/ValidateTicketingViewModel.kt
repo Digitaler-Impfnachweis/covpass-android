@@ -66,8 +66,8 @@ public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constr
             try {
                 url?.let {
                     cancellationRepository.cancelTicketing(url, token)
-                    eventNotifier { onCancelled() }
                 }
+                eventNotifier { onCancelled() }
             } catch (e: Exception) {
                 Lumber.e(e)
                 eventNotifier { onCancelled() }
