@@ -5,6 +5,7 @@
 
 package de.rki.covpass.checkapp.scanner
 
+import android.icu.text.RelativeDateTimeFormatter
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -17,6 +18,8 @@ import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.utils.formatDate
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeParseException
 
@@ -42,11 +45,15 @@ internal class CovPassCheckQRScannerFragment :
     }
 
     override fun onValidationSuccess(certificate: CovCertificate) {
+        var vaccinationDate = certificate.vaccination?.occurrence;
+        var vaccinationDatePeriod = vaccinationDate?.until(LocalDate.now());
         findNavigator().push(
             ValidationResultSuccessNav(
                 certificate.fullName,
                 certificate.fullTransliteratedName,
-                formatDate(certificate.birthDateFormatted)
+                formatDate(certificate.birthDateFormatted),
+                vaccinationDatePeriod?.months,
+                certificate.vaccination?.isBooster ?: false,
             )
         )
     }
