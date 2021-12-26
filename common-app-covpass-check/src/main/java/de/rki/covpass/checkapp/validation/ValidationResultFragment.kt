@@ -120,6 +120,8 @@ internal class ValidationResultSuccessNav(
     val name: String,
     val transliteratedName: String,
     val birthDate: String,
+    val vaccinationNumberOfMonthsAgo: Int?,
+    val isBooster : Boolean,
 ) : FragmentNav(ValidationResultSuccessFragment::class)
 
 /**
@@ -138,12 +140,20 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
     override val titleInfo1 by lazy { args.name }
     override val subtitleInfo1 by lazy { args.transliteratedName }
     override val textInfo1 by lazy {
-        getString(R.string.validation_check_popup_valid_vaccination_date_of_birth, args.birthDate)
+        getString(R.string.validation_check_popup_valid_vaccination_date_of_birth, args.birthDate) +
+        if (args.vaccinationNumberOfMonthsAgo != null) {
+            "\n" +
+                getString(R.string.validation_check_popup_valid_vaccination_date, args.vaccinationNumberOfMonthsAgo)
+        } else ""
     }
     override val imageInfo1Res = R.drawable.result_person
 
     override val textFooter by lazy {
-        getString(R.string.validation_check_popup_valid_vaccination_recovery_note)
+        if (args.isBooster) {
+            getString(R.string.validation_check_popup_valid_vaccination_booster)
+        } else {
+            getString(R.string.validation_check_popup_valid_vaccination_recovery_note)
+        }
     }
 
     override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
