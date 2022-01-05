@@ -9,7 +9,6 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.logging.Lumber
-import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.coroutines.CoroutineScope
@@ -22,12 +21,9 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
     private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
-    private val dscListUpdater: Updater = Updater {
+    private val backgroundDscListUpdater: Updater = Updater {
         if (sdkDependencies.dscRepository.lastUpdate.value.isBeforeUpdateInterval()) {
-            val result = sdkDependencies.dscListService.getTrustedList()
-            val dscList = sdkDependencies.decoder.decodeDscList(result)
-            sdkDependencies.validator.updateTrustedCerts(dscList.toTrustedCerts())
-            sdkDependencies.dscRepository.updateDscList(dscList)
+            sdkDependencies.dscListUpdater.update()
         }
     }
     private val rulesUpdater: Updater = Updater {
@@ -42,7 +38,7 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
     }
 
     public open fun update() {
-        dscListUpdater.update()
+        backgroundDscListUpdater.update()
         rulesUpdater.update()
         valueSetsUpdater.update()
     }

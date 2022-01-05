@@ -48,6 +48,7 @@ import de.rki.covpass.sdk.ticketing.*
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcCryptor
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcSigner
 import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
+import de.rki.covpass.sdk.utils.DscListUpdater
 import de.rki.covpass.sdk.utils.readTextAsset
 import dgca.verifier.app.engine.*
 import kotlinx.serialization.cbor.Cbor
@@ -96,10 +97,16 @@ public abstract class SdkDependencies {
         )
     }
 
-    public val dscListService: DscListService by lazy { DscListService(httpClient, trustServiceHost) }
+    public val dscListService: DscListService by lazy {
+        DscListService(httpClient, trustServiceHost, decoder)
+    }
 
     public val dscRepository: DscRepository by lazy {
         DscRepository(CborSharedPrefsStore("dsc_cert_prefs", cbor), dscList)
+    }
+
+    public val dscListUpdater: DscListUpdater by lazy {
+        DscListUpdater(dscListService, dscRepository, validator)
     }
 
     public val rulesUpdateRepository: RulesUpdateRepository by lazy {

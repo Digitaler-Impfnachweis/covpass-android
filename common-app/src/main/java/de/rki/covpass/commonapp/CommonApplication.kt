@@ -7,6 +7,7 @@ package de.rki.covpass.commonapp
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.webkit.WebView
@@ -47,6 +48,10 @@ public abstract class CommonApplication : Application() {
             httpConfig.enableLogging(HttpLogLevel.HEADERS)
             WebView.setWebContentsDebuggingEnabled(true)
         }
+        httpConfig.setUserAgent(
+            "${getAppVariantAndVersion()} " +
+                "(${getLibraryPackageName()}; Android ${Build.VERSION.SDK_INT})"
+        )
 
         navigationDeps = object : NavigationDependencies() {
             override val application = this@CommonApplication
@@ -67,6 +72,10 @@ public abstract class CommonApplication : Application() {
         prepopulateDb()
         removeWorkers()
     }
+
+    public abstract fun getAppVariantAndVersion(): String
+
+    public abstract fun getLibraryPackageName(): String
 
     public fun start() {
         sdkDeps.validator.updateTrustedCerts(sdkDeps.dscRepository.dscList.value.toTrustedCerts())

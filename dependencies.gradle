@@ -130,8 +130,8 @@ dependencies {
         ktor = {
             coroutines()
 
-            api "io.ktor:ktor-client-core"
             api "io.ktor:ktor-client-android"
+            api "io.ktor:ktor-client-core"
             api "io.ktor:ktor-client-json-jvm"
             api "io.ktor:ktor-client-okhttp"
             api "io.ktor:ktor-client-serialization"
