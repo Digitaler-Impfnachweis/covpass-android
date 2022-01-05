@@ -6,16 +6,21 @@
 package de.rki.covpass.app.detail
 
 import android.content.Context
-import de.rki.covpass.sdk.cert.*
+import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.utils.formatDateInternational
 import de.rki.covpass.sdk.utils.formatDateTimeInternational
 import de.rki.covpass.sdk.utils.readTextAsset
 
+@OptIn(DependencyAccessor::class)
 internal object PdfUtils {
+
+    private val valueSetsRepository: CovPassValueSetsRepository by lazy { sdkDeps.covPassValueSetsRepository }
 
     fun replaceVaccinationValues(
         context: Context,
@@ -26,10 +31,10 @@ internal object PdfUtils {
         .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
         .replace("\$ci", vaccination.idWithoutPrefix.sanitizeXMLString())
-        .replace("\$tg", getDiseaseAgentName(vaccination.targetDisease).sanitizeXMLString())
-        .replace("\$vp", getProphylaxisName(vaccination.vaccineCode).sanitizeXMLString())
-        .replace("\$mp", getProductName(vaccination.product).sanitizeXMLString())
-        .replace("\$ma", getManufacturerName(vaccination.manufacturer).sanitizeXMLString())
+        .replace("\$tg", valueSetsRepository.getDiseaseAgentName(vaccination.targetDisease).sanitizeXMLString())
+        .replace("\$vp", valueSetsRepository.getProphylaxisName(vaccination.vaccineCode).sanitizeXMLString())
+        .replace("\$mp", valueSetsRepository.getProductName(vaccination.product).sanitizeXMLString())
+        .replace("\$ma", valueSetsRepository.getManufacturerName(vaccination.manufacturer).sanitizeXMLString())
         .replace("\$dn", vaccination.doseNumber.toString())
         .replace("\$sd", vaccination.totalSerialDoses.toString())
         .replace("\$dt", vaccination.occurrence?.formatDateInternational() ?: "")
@@ -46,7 +51,7 @@ internal object PdfUtils {
         .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
         .replace("\$ci", recovery.idWithoutPrefix.sanitizeXMLString())
-        .replace("\$tg", getDiseaseAgentName(recovery.targetDisease).sanitizeXMLString())
+        .replace("\$tg", valueSetsRepository.getDiseaseAgentName(recovery.targetDisease).sanitizeXMLString())
         .replace("\$fr", recovery.firstResult?.formatDateInternational() ?: "")
         .replace("\$co", recovery.country.sanitizeXMLString())
         .replace("\$is", recovery.certificateIssuer.sanitizeXMLString())
@@ -63,12 +68,12 @@ internal object PdfUtils {
         .replace("\$nam", combinedCertificate.covCertificate.fullNameReverse.sanitizeXMLString())
         .replace("\$dob", combinedCertificate.covCertificate.birthDateFormatted.sanitizeXMLString())
         .replace("\$ci", testCert.idWithoutPrefix.sanitizeXMLString())
-        .replace("\$tg", getDiseaseAgentName(testCert.targetDisease).sanitizeXMLString())
-        .replace("\$tt", getTestTypeName(testCert.testType).sanitizeXMLString())
+        .replace("\$tg", valueSetsRepository.getDiseaseAgentName(testCert.targetDisease).sanitizeXMLString())
+        .replace("\$tt", valueSetsRepository.getTestTypeName(testCert.testType).sanitizeXMLString())
         .replace("\$nm", testCert.testName ?: "")
-        .replace("\$ma", getTestManufacturerName(testCert.manufacturer ?: "").sanitizeXMLString())
+        .replace("\$ma", valueSetsRepository.getTestManufacturerName(testCert.manufacturer ?: "").sanitizeXMLString())
         .replace("\$sc", testCert.sampleCollection?.formatDateTimeInternational() ?: "")
-        .replace("\$tr", getTestResultName(testCert.testResult).sanitizeXMLString())
+        .replace("\$tr", valueSetsRepository.getTestResultName(testCert.testResult).sanitizeXMLString())
         .replace("\$tc", testCert.testingCenter)
         .replace("\$co", testCert.country.sanitizeXMLString())
         .replace("\$is", testCert.certificateIssuer.sanitizeXMLString())

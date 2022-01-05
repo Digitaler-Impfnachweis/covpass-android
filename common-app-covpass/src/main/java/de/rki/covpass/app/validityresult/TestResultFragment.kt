@@ -10,10 +10,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validitycheck.countries.CountryResolver
-import de.rki.covpass.sdk.cert.getDiseaseAgentName
-import de.rki.covpass.sdk.cert.getTestManufacturerName
-import de.rki.covpass.sdk.cert.getTestResultName
-import de.rki.covpass.sdk.cert.getTestTypeName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -74,13 +70,13 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_test_certificate_detail_view_data_disease),
-                getDiseaseAgentName(test.targetDisease),
+                valueSetsRepository.getDiseaseAgentName(test.targetDisease),
                 args.derivedValidationResults.getResultsBy("tg")
             ),
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_type),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_type),
-                getTestTypeName(test.testType),
+                valueSetsRepository.getTestTypeName(test.testType),
                 args.derivedValidationResults.getResultsBy("tt")
             ),
             ResultRowData(
@@ -92,7 +88,7 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_manufacturer),
-                test.manufacturer?.let { getTestManufacturerName(it) },
+                test.manufacturer?.let { valueSetsRepository.getTestManufacturerName(it) },
                 args.derivedValidationResults.getResultsBy("ma")
             ),
             ResultRowData(
@@ -106,7 +102,7 @@ internal class TestResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.test_certificate_detail_view_data_test_results),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_results),
-                getTestResultName(test.testResult),
+                valueSetsRepository.getTestResultName(test.testResult),
                 args.derivedValidationResults.getResultsBy("tr")
             ),
             ResultRowData(
