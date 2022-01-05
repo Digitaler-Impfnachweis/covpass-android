@@ -28,6 +28,4 @@ public class App : CommonApplication() {
     }
 
     override fun getAppVariantAndVersion(): String = "CovPassCheckApp/$appVersion"
-
-    override fun getLibraryPackageName(): String = BuildConfig.LIBRARY_PACKAGE_NAME
 }
