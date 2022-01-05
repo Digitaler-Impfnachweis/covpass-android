@@ -27,6 +27,7 @@ import de.rki.covpass.commonapp.BackgroundUpdateViewModel
 import de.rki.covpass.commonapp.BackgroundUpdateViewModel.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.truetime.TimeValidationState
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
@@ -115,6 +116,11 @@ internal class MainFragment : BaseFragment() {
                     binding.mainClockOutOfSync.isVisible = false
                 }
             }.let { }
+        }
+        if (commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value
+            != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION
+        ) {
+            findNavigator().push(DataProtectionFragmentNav())
         }
     }
 

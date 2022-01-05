@@ -9,8 +9,8 @@ import android.os.Bundle
 import de.rki.covpass.app.onboarding.WelcomeFragmentNav
 import de.rki.covpass.commonapp.BaseActivity
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
+import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.FIRST_DATA_PRIVACY_VERSION
 
 /**
  * The only Activity in the app, hosts all fragments.
@@ -26,7 +26,7 @@ internal class MainActivity : BaseActivity() {
             }
         }
         if (navigator.isEmpty() && savedInstanceState == null) {
-            if (commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value >= CURRENT_DATA_PRIVACY_VERSION) {
+            if (commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value != FIRST_DATA_PRIVACY_VERSION) {
                 navigator.push(MainFragmentNav())
             } else {
                 navigator.push(WelcomeFragmentNav())

@@ -49,6 +49,7 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
 internal interface NotificationEvents : BaseEvents {
     fun showExpiryNotification()
     fun showNewUpdateInfo()
+    fun showNewDataPrivacy()
     fun showCheckerRemark()
     fun showBoosterNotification()
 }
@@ -62,6 +63,7 @@ internal class MainFragment :
     DetailCallback,
     DialogListener,
     UpdateInfoCallback,
+    DataProtectionCallback,
     CheckRemarkCallback,
     NotificationEvents {
 
@@ -180,6 +182,11 @@ internal class MainFragment :
         viewModel.validateNotifications()
     }
 
+    override fun onDataProtectionFinish() {
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
+    }
+
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == EXPIRED_DIALOG_TAG) {
             launchWhenStarted {
@@ -210,6 +217,10 @@ internal class MainFragment :
 
     override fun showNewUpdateInfo() {
         findNavigator().push(UpdateInfoCovpassFragmentNav())
+    }
+
+    override fun showNewDataPrivacy() {
+        findNavigator().push(DataProtectionFragmentNav())
     }
 
     override fun showCheckerRemark() {
