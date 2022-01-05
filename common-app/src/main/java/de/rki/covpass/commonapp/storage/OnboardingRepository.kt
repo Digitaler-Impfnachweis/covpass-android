@@ -14,9 +14,10 @@ import de.rki.covpass.sdk.storage.CborSharedPrefsStore
  */
 public class OnboardingRepository(store: CborSharedPrefsStore) {
     public val dataPrivacyVersionAccepted: SuspendMutableValueFlow<Int> =
-        store.getData("data_privacy_version_accepted", 0)
+        store.getData("data_privacy_version_accepted", FIRST_DATA_PRIVACY_VERSION)
 
     public companion object {
         public const val CURRENT_DATA_PRIVACY_VERSION: Int = 4
+        public const val FIRST_DATA_PRIVACY_VERSION: Int = 0
     }
 }
