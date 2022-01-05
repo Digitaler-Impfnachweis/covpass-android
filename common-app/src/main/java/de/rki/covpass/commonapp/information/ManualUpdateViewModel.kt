@@ -8,26 +8,23 @@ package de.rki.covpass.commonapp.information
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
-import de.rki.covpass.sdk.cert.toTrustedCerts
-import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.rules.CovPassRulesRepository
+import de.rki.covpass.sdk.utils.DscListUpdater
 import kotlinx.coroutines.CoroutineScope
 
 internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    private val sdkDependencies: SdkDependencies = sdkDeps,
+    private val dscListUpdater: DscListUpdater = sdkDeps.dscListUpdater,
+    private val covPassRulesRepository: CovPassRulesRepository = sdkDeps.covPassRulesRepository,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     fun updateRulesAndCertificates() {
         launch {
             // update certificates
-            val result = sdkDependencies.dscListService.getTrustedList()
-            val dscList = sdkDependencies.decoder.decodeDscList(result)
-            sdkDependencies.validator.updateTrustedCerts(dscList.toTrustedCerts())
-            sdkDependencies.dscRepository.updateDscList(dscList)
-
+            dscListUpdater.update()
             // update rules
-            sdkDependencies.covPassRulesRepository.loadRules()
+            covPassRulesRepository.loadRules()
         }
     }
 }

@@ -41,6 +41,9 @@ public interface HttpConfig {
 
     /** Returns true if the provided URL's hostname public key is pinned */
     public fun hasPublicKey(url: String): Boolean
+
+    /** Sets UserAgent for the Ktor client */
+    public fun setUserAgent(userAgent: String)
 }
 
 /**
@@ -80,6 +83,7 @@ internal fun resetHttpConfig() {
 private class DefaultHttpConfig : HttpConfig {
     private var frozen = false
     private var logging: HttpLogLevel = HttpLogLevel.NONE
+    private var userAgent: String? = null
 
     private fun checkFrozen() {
         // This is meant as a security measure, so you don't mistakenly enable logging or change configs after the fact.
@@ -172,6 +176,11 @@ private class DefaultHttpConfig : HttpConfig {
                 requestTimeoutMillis = 15_000
                 socketTimeoutMillis = 15_000
             }
+            userAgent?.let {
+                install(UserAgent) {
+                    agent = it
+                }
+            }
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
@@ -183,6 +192,10 @@ private class DefaultHttpConfig : HttpConfig {
     override fun hasPublicKey(url: String): Boolean {
         val hostname = Url(url).host
         return okHttpClient.certificatePinner.findMatchingPins(hostname).isNotEmpty()
+    }
+
+    override fun setUserAgent(userAgent: String) {
+        this.userAgent = userAgent
     }
 }
 
