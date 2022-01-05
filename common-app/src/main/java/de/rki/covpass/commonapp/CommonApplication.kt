@@ -50,7 +50,7 @@ public abstract class CommonApplication : Application() {
         }
         httpConfig.setUserAgent(
             "${getAppVariantAndVersion()} " +
-                "(${getLibraryPackageName()}; Android ${Build.VERSION.SDK_INT})"
+                "($packageName; Android ${Build.VERSION.SDK_INT})"
         )
 
         navigationDeps = object : NavigationDependencies() {
@@ -74,8 +74,6 @@ public abstract class CommonApplication : Application() {
     }
 
     public abstract fun getAppVariantAndVersion(): String
-
-    public abstract fun getLibraryPackageName(): String
 
     public fun start() {
         sdkDeps.validator.updateTrustedCerts(sdkDeps.dscRepository.dscList.value.toTrustedCerts())
