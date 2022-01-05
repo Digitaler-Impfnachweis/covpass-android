@@ -9,7 +9,6 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.validitycheck.countries.CountryResolver
-import de.rki.covpass.sdk.cert.getDiseaseAgentName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.utils.formatDateInternational
@@ -60,7 +59,7 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_disease),
-                getDiseaseAgentName(recovery.targetDisease)
+                valueSetsRepository.getDiseaseAgentName(recovery.targetDisease)
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),

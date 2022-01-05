@@ -37,6 +37,8 @@ import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import java.util.*
@@ -54,6 +56,7 @@ internal interface DgcEntryDetailCallback {
 public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEvents, DialogListener {
 
     protected abstract val certId: String
+    protected val valueSetsRepository: CovPassValueSetsRepository by lazy { sdkDeps.covPassValueSetsRepository }
 
     private val viewModel by reactiveState { DgcEntryDetailViewModel(scope) }
     private val binding by viewBinding(DgcEntryDetailBinding::inflate)

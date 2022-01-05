@@ -16,6 +16,8 @@ import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -27,6 +29,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
     private var titleString: String? = null
     private lateinit var resultType: LocalResult
     private val certs by lazy { covpassDeps.certRepository.certs }
+    protected val valueSetsRepository: CovPassValueSetsRepository by lazy { sdkDeps.covPassValueSetsRepository }
     protected abstract val certId: String
     protected abstract val subtitleString: String
     protected abstract val subtitleAccessibleDescription: String
