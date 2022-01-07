@@ -13,6 +13,7 @@ import com.ensody.reactivestate.DependencyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.http.pinPublicKey
+import de.rki.covpass.http.pinVaasPublicKey
 import de.rki.covpass.sdk.R
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CertificateListMapper
@@ -91,6 +92,14 @@ public abstract class SdkDependencies {
         application.readPemAsset("covpass-sdk/backend-ca.pem")
     }
 
+    public val vaasCa: List<X509Certificate> by lazy {
+        application.readPemAsset("covpass-sdk/vaas-ca.pem")
+    }
+
+    public val vaasTsiCa: List<X509Certificate> by lazy {
+        application.readPemAsset("covpass-sdk/vaas-tsi-ca.pem")
+    }
+
     public val dscList: DscList by lazy {
         decoder.decodeDscList(
             application.readTextAsset("covpass-sdk/dsc-list.json")
@@ -130,6 +139,8 @@ public abstract class SdkDependencies {
 
     internal fun init() {
         httpConfig.pinPublicKey(backendCa)
+        httpConfig.pinVaasPublicKey(vaasCa)
+        httpConfig.pinVaasPublicKey("*.dcc-validation.eu", vaasTsiCa)
     }
 
     public val certificateListMapper: CertificateListMapper by lazy {

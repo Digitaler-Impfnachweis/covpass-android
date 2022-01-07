@@ -60,9 +60,33 @@ public fun HttpConfig.pinPublicKey(certs: List<X509Certificate>) {
     }
 }
 
+/**
+ * Enables public key pinning for the given list of [X509Certificates][X509Certificate] and the hosts defined within (Validation as a Service).
+ */
+public fun HttpConfig.pinVaasPublicKey(certs: List<X509Certificate>) {
+    for (cert in certs) {
+        for (san in cert.subjectAlternativeNames) {
+            // Check if this is a DNS SAN (code 2)
+            if (san.size >= 2 && san[0] == 2 && san[1] is String) {
+                val pattern = san[1] as String
+                vaasCertificatePatterns.add(pattern)
+                pinPublicKey(pattern, cert)
+            }
+        }
+    }
+}
+
 /** Enables public key pinning for the given [pattern] using a list of [X509Certificates][X509Certificate]. */
 public fun HttpConfig.pinPublicKey(pattern: String, certs: List<X509Certificate>) {
     for (cert in certs) {
+        pinPublicKey(pattern, cert)
+    }
+}
+
+/** Enables public key pinning for the given [pattern] using a list of [X509Certificates][X509Certificate] for Validation as a Service. */
+public fun HttpConfig.pinVaasPublicKey(pattern: String, certs: List<X509Certificate>) {
+    for (cert in certs) {
+        vaasCertificatePatterns.add(pattern)
         pinPublicKey(pattern, cert)
     }
 }
@@ -71,6 +95,8 @@ public fun HttpConfig.pinPublicKey(pattern: String, certs: List<X509Certificate>
 public fun HttpConfig.pinPublicKey(pattern: String, cert: X509Certificate) {
     pinPublicKey(pattern, CertificatePinner.pin(cert))
 }
+
+public var vaasCertificatePatterns: MutableList<String> = mutableListOf()
 
 /** The global [HttpConfig] instance. */
 public var httpConfig: HttpConfig = DefaultHttpConfig()
@@ -191,7 +217,9 @@ private class DefaultHttpConfig : HttpConfig {
 
     override fun hasPublicKey(url: String): Boolean {
         val hostname = Url(url).host
-        return okHttpClient.certificatePinner.findMatchingPins(hostname).isNotEmpty()
+        return okHttpClient.certificatePinner.pins.filter {
+            it.pattern in vaasCertificatePatterns
+        }.any { it.matchesHostname(hostname) }
     }
 
     override fun setUserAgent(userAgent: String) {
