@@ -24,7 +24,7 @@ import java.time.ZonedDateTime
  */
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     fun onValidationSuccess(certificate: CovCertificate)
-    fun onValidationFailure(isTechnical: Boolean = false)
+    fun onValidationFailure(isTechnical: Boolean = false, certificate: CovCertificate? = null)
     fun onValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun onValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
 }
@@ -62,8 +62,12 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                             // .let{} to enforce exhaustiveness
                         }.let {}
                     }
-                    CovPassCheckValidationResult.TechnicalError -> eventNotifier { onValidationFailure(true) }
-                    CovPassCheckValidationResult.ValidationError -> eventNotifier { onValidationFailure() }
+                    CovPassCheckValidationResult.TechnicalError -> eventNotifier {
+                        onValidationFailure(true, covCertificate)
+                    }
+                    CovPassCheckValidationResult.ValidationError -> eventNotifier {
+                        onValidationFailure(certificate = covCertificate)
+                    }
                 }
             } catch (exception: Exception) {
                 Lumber.e(exception)

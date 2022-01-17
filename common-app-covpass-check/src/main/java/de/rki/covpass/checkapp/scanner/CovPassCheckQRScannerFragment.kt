@@ -8,28 +8,38 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
+import com.ibm.health.common.navigation.android.getArgs
+import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.validation.*
-import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
+import de.rki.covpass.commonapp.dialog.DialogModel
+import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.utils.formatDate
+import de.rki.covpass.sdk.utils.formatDateFromString
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDate
 import java.time.ZonedDateTime
-import java.time.format.DateTimeParseException
 
 @Parcelize
-internal class CovPassCheckQRScannerFragmentNav : FragmentNav(CovPassCheckQRScannerFragment::class)
+internal class CovPassCheckQRScannerFragmentNav(
+    val isTwoGOn: Boolean,
+) : FragmentNav(CovPassCheckQRScannerFragment::class)
 
 /**
  * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
  */
 internal class CovPassCheckQRScannerFragment :
-    QRScannerFragment(), DialogListener, CovPassCheckQRScannerEvents, ValidationResultListener {
+    QRScannerFragment(),
+    DialogListener,
+    CovPassCheckQRScannerEvents,
+    ValidationResultListener,
+    ValidationResult2GListener,
+    CovPassCheckQRScannerDataEvents {
 
+    private val isTwoGOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGOn }
     private val viewModel by reactiveState { CovPassCheckQRScannerViewModel(scope) }
+    private val dataViewModel by reactiveState { CovPassCheckQRScannerDataViewModel(scope, isTwoGOn) }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
 
@@ -42,49 +52,29 @@ internal class CovPassCheckQRScannerFragment :
     }
 
     override fun onValidationSuccess(certificate: CovCertificate) {
-        findNavigator().push(
-            ValidationResultSuccessNav(
-                certificate.fullName,
-                certificate.fullTransliteratedName,
-                formatDate(certificate.birthDateFormatted)
-            )
-        )
+        scanEnabled.value = false
+        dataViewModel.prepareDataOnSuccess(certificate)
     }
 
     override fun onValidPcrTest(
         certificate: CovCertificate,
         sampleCollection: ZonedDateTime?,
     ) {
-        findNavigator().push(
-            ValidPcrTestFragmentNav(
-                certificate.fullName,
-                formatDate(certificate.birthDateFormatted),
-                certificate.fullTransliteratedName,
-                sampleCollection
-            )
-        )
+        scanEnabled.value = false
+        dataViewModel.prepareDataOnValidPcrTest(certificate, sampleCollection)
     }
 
     override fun onValidAntigenTest(
         certificate: CovCertificate,
         sampleCollection: ZonedDateTime?,
     ) {
-        findNavigator().push(
-            ValidAntigenTestFragmentNav(
-                certificate.fullName,
-                certificate.fullTransliteratedName,
-                formatDate(certificate.birthDateFormatted),
-                sampleCollection
-            )
-        )
+        scanEnabled.value = false
+        dataViewModel.prepareDataOnValidAntigenTest(certificate, sampleCollection)
     }
 
-    override fun onValidationFailure(isTechnical: Boolean) {
-        if (isTechnical) {
-            findNavigator().push(ValidationResultTechnicalFailureFragmentNav())
-        } else {
-            findNavigator().push(ValidationResultFailureFragmentNav())
-        }
+    override fun onValidationFailure(isTechnical: Boolean, certificate: CovCertificate?) {
+        scanEnabled.value = false
+        dataViewModel.prepareDataOnValidationFailure(isTechnical, certificate)
     }
 
     override fun onValidationResultClosed() {
@@ -92,15 +82,117 @@ internal class CovPassCheckQRScannerFragment :
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
     }
 
-    /**
-     * Formats the birth date to "12.03.1989" only in case the given date is
-     * in XXXX-XX-XX format. Otherwise we show the unformatted birth date.
-     */
-    private fun formatDate(birthDate: String): String {
-        return try {
-            LocalDate.parse(birthDate).formatDate()
-        } catch (e: DateTimeParseException) {
-            birthDate
-        }
+    override fun onValidationResetOrFinish() {
+        scanEnabled.value = true
+        sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
+        dataViewModel.certificateData2G = null
+        dataViewModel.testCertificateData2G = null
+    }
+
+    override fun onValidatingFirstCertificate(
+        certificateData: ValidationResult2gData?,
+        testCertificateData: ValidationResult2gData?,
+    ) {
+        scanEnabled.value = true
+        sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
+        dataViewModel.certificateData2G = certificateData
+        dataViewModel.testCertificateData2G = testCertificateData
+    }
+
+    override fun on2gData(certData: ValidationResult2gData?, testData: ValidationResult2gData?, certFirst: Boolean) {
+        findNavigator().push(
+            when (dataViewModel.compareData(certData, testData)) {
+                DataComparison.Equal, DataComparison.HasNullData -> {
+                    ValidationResult2gFragmentNav(
+                        certData,
+                        testData
+                    )
+                }
+                DataComparison.NameDifferent -> {
+                    if (certData != null && testData != null) {
+                        ValidationResult2gDifferentDataFragmentNav(
+                            certData,
+                            testData,
+                            certFirst,
+                            false
+                        )
+                    } else {
+                        ValidationResult2gFragmentNav(
+                            certData,
+                            testData
+                        )
+                    }
+                }
+                DataComparison.DateOfBirthDifferent -> {
+                    if (certData != null && testData != null) {
+                        ValidationResult2gDifferentDataFragmentNav(
+                            certData,
+                            testData,
+                            certFirst,
+                            true
+                        )
+                    } else {
+                        ValidationResult2gFragmentNav(
+                            certData,
+                            testData
+                        )
+                    }
+                }
+            }
+        )
+    }
+
+    override fun on3gSuccess(certificate: CovCertificate) {
+        findNavigator().push(
+            ValidationResultSuccessNav(
+                certificate.fullName,
+                certificate.fullTransliteratedName,
+                formatDateFromString(certificate.birthDateFormatted)
+            )
+        )
+    }
+
+    override fun on3gValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
+        findNavigator().push(
+            ValidPcrTestFragmentNav(
+                certificate.fullName,
+                formatDateFromString(certificate.birthDateFormatted),
+                certificate.fullTransliteratedName,
+                sampleCollection
+            )
+        )
+    }
+
+    override fun on3gValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
+        findNavigator().push(
+            ValidAntigenTestFragmentNav(
+                certificate.fullName,
+                certificate.fullTransliteratedName,
+                formatDateFromString(certificate.birthDateFormatted),
+                sampleCollection
+            )
+        )
+    }
+
+    override fun on3gTechnicalFailure() {
+        findNavigator().push(ValidationResultTechnicalFailureFragmentNav())
+    }
+
+    override fun on3gFailure() {
+        findNavigator().push(ValidationResultFailureFragmentNav())
+    }
+
+    override fun showWarning2gUnexpectedType() {
+        val dialog = DialogModel(
+            titleRes = R.string.error_2G_unexpected_type_title,
+            messageString = getString(R.string.error_2G_unexpected_type_copy),
+            positiveButtonTextRes = R.string.error_scan_qrcode_cannot_be_parsed_button_title,
+            tag = TAG_ERROR_2G_UNEXPECTED_TYPE
+        )
+        showDialog(dialog, childFragmentManager)
+    }
+
+    private companion object {
+        const val TAG_ERROR_2G_UNEXPECTED_TYPE = "tag_error_2g_unexpected_type"
     }
 }

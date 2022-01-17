@@ -1,0 +1,23 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="32dp"
+  android:height="32dp"
+  android:viewportWidth="32"
+  android:viewportHeight="32">
+  <path
+    android:fillColor="#065FC4"
+    android:fillType="evenOdd"
+    android:pathData="M16,32C24.8366,32 32,24.8366 32,16C32,7.1634 24.8366,0 16,0C7.1634,0 0,7.1634 0,16C0,24.8366 7.1634,32 16,32Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+  <path
+    android:fillColor="#FFFFFF"
+    android:fillType="evenOdd"
+    android:pathData="M21.2398,5.8947L10.7602,5.8947C10.3985,5.8947 10.1053,6.2011 10.1053,6.5789C10.1053,6.9568 10.3985,7.2632 10.7602,7.2632L11.3301,7.2632L11.3301,22.9179C11.3301,25.6084 13.4179,27.7895 15.9935,27.7895C18.569,27.7895 20.6568,25.6084 20.6568,22.9179L20.6568,7.2632L21.2398,7.2632C21.6015,7.2632 21.8947,6.9568 21.8947,6.5789C21.8947,6.2011 21.6015,5.8947 21.2398,5.8947ZM19.3535,10.6158C19.0063,11.1324 17.716,12.8361 15.9116,13.0961C14.7515,13.2649 13.6369,13.6806 12.6367,14.3174L12.6367,7.2632L19.3535,7.2632L19.3535,10.6158Z"
+    android:strokeWidth="1"
+    android:strokeColor="#00000000" />
+</vector>

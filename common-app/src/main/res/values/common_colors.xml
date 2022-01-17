@@ -234,6 +234,8 @@
 
     <color name="expired_overlay_tint">#1AFFFFFF</color>
 
+    <color name="validation_result_2g_element_background_color">#E1E4F3</color>
+
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/onBackground40</color>
 
 </resources>

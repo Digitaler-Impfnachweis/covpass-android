@@ -88,7 +88,7 @@
 	<string name="certificate_add_warning_maximum_button_secondary">Cancel</string>
 	<string name="accessibility_certificate_add_error_maximum_announce">An error dialog was opened</string>
 	<string name="certificate_add_error_maximum_title">Certificate cannot be added</string>
-	<string name="certificate_add_error_maximum_copy">To prevent misuse, certificates from a maximum of 20 different people can be added.\n\n The CovPass app is not suitable for checking third-party certificates. Use only the CovPassCheck app for verification.</string>
+	<string name="certificate_add_error_maximum_copy">To prevent misuse, certificates from a maximum of 20 different people can be added.\n\nThe CovPass app is not suitable for checking third-party certificates. Use only the CovPassCheck app for verification.</string>
 	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck app</string>
 	<string name="certificate_add_error_maximum_button_2">FAQ for the certificate check</string>
 	<string name="certificate_add_error_maximum_button_3">OK</string>
@@ -598,6 +598,7 @@
 	<string name="app_information_title_open_source">Open-source licences</string>
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
+	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="app_information_title_update">Update rules of entry</string>
 	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Covid-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
 	<string name="app_information_message_update_note">Most recent update</string>

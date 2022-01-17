@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/result_info_cardview"
+    style="@style/CovPassCardView.Level"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="true"
+    android:minHeight="@dimen/grid_twelve"
+    app:cardBackgroundColor="@color/validation_result_2g_element_background_color"
+    app:cardUseCompatPadding="false"
+    app:rippleColor="?attr/colorControlHighlight"
+    tools:background="@color/validation_result_2g_element_background_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/grid_twelve">
+
+      <ImageView
+        android:id="@+id/result_info_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_search" />
+
+      <LinearLayout
+        android:id="@+id/result_info_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:layout_marginBottom="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+          android:id="@+id/result_info_title"
+          style="@style/Header.OnBackground.Standard"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+          android:id="@+id/result_info_subtitle"
+          style="@style/DefaultText.OnBackground70"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          tools:text="@tools:sample/lorem[3]"
+          tools:visibility="visible" />
+
+        <TextView
+          android:id="@+id/result_info_text"
+          style="@style/DefaultText.OnBackground"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+      </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

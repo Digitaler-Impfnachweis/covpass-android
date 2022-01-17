@@ -88,7 +88,7 @@
 	<string name="certificate_add_warning_maximum_button_secondary">Abbrechen</string>
 	<string name="accessibility_certificate_add_error_maximum_announce">Ein Fehler-Dialog wurde geöffnet</string>
 	<string name="certificate_add_error_maximum_title">Zertifikat kann nicht hinzugefügt werden</string>
-	<string name="certificate_add_error_maximum_copy">Um Missbrauch zu vermeiden, können Zertifikate von maximal 20 verschiedenen Personen hinzugefügt werden.\n\n Die CovPass-App ist nicht zur Prüfung fremder Zertifikate geeignet. Nutzen Sie zur Prüfung ausschließlich die CovPassCheck-App.</string>
+	<string name="certificate_add_error_maximum_copy">Um Missbrauch zu vermeiden, können Zertifikate von maximal 20 verschiedenen Personen hinzugefügt werden.\n\nDie CovPass-App ist nicht zur Prüfung fremder Zertifikate geeignet. Nutzen Sie zur Prüfung ausschließlich die CovPassCheck-App.</string>
 	<string name="certificate_add_error_maximum_button_1">Download CovPassCheck-App</string>
 	<string name="certificate_add_error_maximum_button_2">FAQ zur Zertifikatsprüfung</string>
 	<string name="certificate_add_error_maximum_button_3">OK</string>
@@ -598,6 +598,7 @@
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
+	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="app_information_title_update">Einreiseregeln aktualisieren</string>
 	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan geltenden Corona-Einreiseregeln in den entsprechenden Ländern.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
 	<string name="app_information_message_update_note">Letztes Update</string>

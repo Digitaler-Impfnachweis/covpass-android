@@ -6,6 +6,11 @@
 	<!-- SECTION: app -->
 	<string name="validator_app_name">CovPass Check</string>
 
+	<!-- SECTION: common -->
+	<string name="ok">OK</string>
+	<string name="close">Close</string>
+	<string name="cancel">Cancel</string>
+
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Welcome to the CovPassCheck app</string>
 	<string name="start_onboarding_message">Find out in just a few seconds if the person you are checking has a valid EU Covid-19 certificate.</string>
@@ -42,10 +47,12 @@
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">More information</string>
 	<string name="validation_start_screen_title">Overview</string>
-	<string name="validation_start_screen_scan_title">Checking a certificate</string>
+	<string name="validation_start_screen_scan_title">Check 3G</string>
+	<string name="validation_start_screen_scan_title_2G">Check 2G+</string>
+	<string name="validation_start_screen_scan_message">Scan a G-Proof according to the 3G rules. Which rule applies depends on the federal state you are in.</string>
+	<string name="validation_start_screen_scan_message_2G">Scan the necessary evidence for 2G+ one by one.</string>
 	<string name="validation_start_screen_scan_sync_message_title">Check date and time</string>
 	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your smartphone. \n\n It should be: %s</string>
-	<string name="validation_start_screen_scan_message">Scan the EU Digital COVID Certificate now. You see immediately if the person you are checking has a valid Covid-19 certificate.</string>
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
 	<string name="accessibility_scan_result_closing_announce">The view \"Verification result“ has been closed</string>
 	<string name="validation_start_screen_scan_action_button_title">Scan certificate</string>
@@ -119,6 +126,39 @@
 	<string name="validation_check_popup_valid_pcr_test_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_valid_pcr_test_label_close">Close</string>
 
+	<!-- SECTION: 2G+ check results -->
+	<string name="accessibility_scan_result_announce_2G">Verification result for 2G+ is displayed</string>
+	<string name="accessibility_scan_result_closing_announce_2G">The view \"Verification result for 2G+“ has been closed</string>
+	<string name="result_2G_title">2G+ check</string>
+	<string name="result_2G_close">Close</string>
+	<string name="result_2G_footnote">* Basic immunization, booster vaccination or recovery.</string>
+	<string name="result_2G_button_scan_test">Scan test certificate</string>
+	<string name="result_2G_button_scan_gproof">Scan 2G proof</string>
+	<string name="result_2G_button_retry">Try again</string>
+	<string name="result_2G_button_startover">New check</string>
+	<string name="result_2G_gproof_empty">2G proof*</string>
+	<string name="result_2G_gproof_valid">Valid 2G proof*</string>
+	<string name="result_2G_gproof_invalid">Invalid 2G proof*</string>
+	<string name="result_2G_test_empty">Test certificate</string>
+	<string name="result_2G_test_invalid">Invalid test certificate</string>
+	<string name="result_2G_invalid_subtitle">Show details</string>
+	<string name="result_2G_empty_subtitle">Not checked yet</string>
+	<string name="accessibility_warning_2G_names_announce_open">Error message \"Deviating data\" was opened</string>
+	<string name="accessibility_warning_2G_names_announce_close">Error message \"Deviating data\" was closed</string>
+	<string name="warning_2G_names_title">Deviating details</string>
+	<string name="warning_2G_names_subtitle">The personal details of the two scanned certificates do not match:</string>
+	<string name="warning_2G_names_label_1stcert">2G proof</string>
+	<string name="warning_2G_names_label_2ndcert">Test certificate</string>
+	<string name="warning_2G_names_ignore_title">Not an error?</string>
+	<string name="warning_2G_names_ignore_copy">If you think this is not an error (e.g. a typo), you can ignore the discrepancy and continue the check.</string>
+	<string name="warning_2G_names_ignore_link">Ignore the discrepancy</string>
+	<string name="error_2G_scanned_twice_title">Certificate already scanned</string>
+	<string name="error_2G_scanned_twice_copy">You have just scanned this certificate. For 2G+, there is usually one test certificate and one vaccination or recovery certificate to check.</string>
+	<string name="error_2G_scanned_twice_button">OK</string>
+	<string name="error_2G_unexpected_type_title">Wrong certificate type</string>
+	<string name="error_2G_unexpected_type_copy">The scanned certificate does not match the expected certificate type. For 2G+, you must scan a 2G proof (recovery or vaccination certificate) and a test certificate.</string>
+	<string name="error_2G_unexpected_type_button">OK</string>
+
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
 	<string name="app_information_title">Information</string>
@@ -141,6 +181,7 @@
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-source licences</string>
+	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
 	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
 	<string name="accessibility_app_information_version_number_delimiter">point</string>

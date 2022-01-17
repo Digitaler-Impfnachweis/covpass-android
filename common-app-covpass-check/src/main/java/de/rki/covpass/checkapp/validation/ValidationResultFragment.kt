@@ -239,7 +239,7 @@ internal class ValidationResultFailureFragmentNav : FragmentNav(ValidationResult
 /**
  * Overrides the texts and icons from [ValidationResultFragment] to display validation failure.
  */
-internal class ValidationResultFailureFragment : ValidationResultFragment() {
+internal open class ValidationResultFailureFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_failure_image
     override val title by lazy {
         getString(R.string.functional_validation_check_popup_unsuccessful_certificate_title)
@@ -276,13 +276,34 @@ internal class ValidationResultFailureFragment : ValidationResultFragment() {
 }
 
 @Parcelize
+internal class ValidationResultFailure2gFragmentNav :
+    FragmentNav(ValidationResultFailure2gFragment::class)
+
+/**
+ * Overrides close button and hides action button from [ValidationResultFailureFragment] to display validation failure
+ * in 2g+.
+ */
+internal class ValidationResultFailure2gFragment : ValidationResultFailureFragment() {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        bottomSheetBinding.bottomSheetActionButton.isVisible = false
+    }
+
+    override fun onCloseButtonClicked() {
+        findNavigator().pop()
+    }
+}
+
+@Parcelize
 internal class ValidationResultTechnicalFailureFragmentNav :
     FragmentNav(ValidationResultTechnicalFailureFragment::class)
 
 /**
  * Overrides the texts and icons from [ValidationResultFragment] to display validation failure.
  */
-internal class ValidationResultTechnicalFailureFragment : ValidationResultFragment() {
+internal open class ValidationResultTechnicalFailureFragment : ValidationResultFragment() {
     override val imageRes = R.drawable.result_failure_image
     override val title by lazy {
         getString(R.string.technical_validation_check_popup_unsuccessful_certificate_title)
@@ -308,4 +329,25 @@ internal class ValidationResultTechnicalFailureFragment : ValidationResultFragme
     }
 
     override val buttonTextRes = R.string.technical_validation_check_popup_valid_vaccination_button_title
+}
+
+@Parcelize
+internal class ValidationResultTechnicalFailure2gFragmentNav :
+    FragmentNav(ValidationResultTechnicalFailure2gFragment::class)
+
+/**
+ * Overrides close button and hides action button from [ValidationResultTechnicalFailureFragment] to display validation failure
+ * in 2g+.
+ */
+internal class ValidationResultTechnicalFailure2gFragment : ValidationResultTechnicalFailureFragment() {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        bottomSheetBinding.bottomSheetActionButton.isVisible = false
+    }
+
+    override fun onCloseButtonClicked() {
+        findNavigator().pop()
+    }
 }
