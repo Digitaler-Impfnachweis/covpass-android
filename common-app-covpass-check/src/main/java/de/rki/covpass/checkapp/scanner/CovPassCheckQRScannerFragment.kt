@@ -6,6 +6,8 @@
 package de.rki.covpass.checkapp.scanner
 
 import com.ensody.reactivestate.android.reactiveState
+import com.ibm.health.common.annotations.Abort
+import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
@@ -174,12 +176,12 @@ internal class CovPassCheckQRScannerFragment :
         )
     }
 
-    override fun on3gTechnicalFailure() {
-        findNavigator().push(ValidationResultTechnicalFailureFragmentNav())
+    override fun on3gTechnicalFailure(is2gOn: Boolean) {
+        findNavigator().push(ValidationResultTechnicalFailureFragmentNav(is2gOn))
     }
 
-    override fun on3gFailure() {
-        findNavigator().push(ValidationResultFailureFragmentNav())
+    override fun on3gFailure(is2gOn: Boolean) {
+        findNavigator().push(ValidationResultFailureFragmentNav(is2gOn))
     }
 
     override fun showWarning2gUnexpectedType() {
@@ -190,6 +192,23 @@ internal class CovPassCheckQRScannerFragment :
             tag = TAG_ERROR_2G_UNEXPECTED_TYPE
         )
         showDialog(dialog, childFragmentManager)
+    }
+
+    override fun onBackPressed(): Abortable {
+        if (
+            dataViewModel.certificateData2G != null ||
+            dataViewModel.testCertificateData2G != null
+        ) {
+            findNavigator().push(
+                ValidationResult2gFragmentNav(
+                    dataViewModel.certificateData2G,
+                    dataViewModel.testCertificateData2G
+                )
+            )
+        } else {
+            super.onBackPressed()
+        }
+        return Abort
     }
 
     private companion object {

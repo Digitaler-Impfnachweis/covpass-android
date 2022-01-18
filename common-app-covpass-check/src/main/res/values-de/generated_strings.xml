@@ -120,7 +120,7 @@
 	<string name="validation_check_popup_test_button_title">Weiteres Zertifikat scannen</string>
 	<string name="accessibility_validation_check_popup_test_label_close">Schließen</string>
 	<string name="validation_check_popup_valid_pcr_test_title">Negativer PCR-Test von vor %d Stunden</string>
-	<string name="validation_check_popup_valid_pcr_test_message">Gleichen Sie folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
+	<string name="validation_check_popup_valid_pcr_test_message">Gleichen Sie folgende Daten mit einem Ausweisdokument der geprüften Person ab:</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_issue">Zeitpunkt der Probenahme</string>
 	<string name="validation_check_popup_valid_pcr_test_button_title">Weiteres Zertifikat scannen</string>

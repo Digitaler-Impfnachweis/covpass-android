@@ -25,8 +25,8 @@ internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
     fun on3gSuccess(certificate: CovCertificate)
     fun on3gValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun on3gValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
-    fun on3gTechnicalFailure()
-    fun on3gFailure()
+    fun on3gTechnicalFailure(is2gOn: Boolean = false)
+    fun on3gFailure(is2gOn: Boolean = false)
     fun showWarning2gUnexpectedType()
 }
 
@@ -215,12 +215,12 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         when {
             certificateData2G == null && testCertificateData2G == null && isTechnical -> {
                 eventNotifier {
-                    on3gTechnicalFailure()
+                    on3gTechnicalFailure(true)
                 }
             }
             certificateData2G == null && testCertificateData2G == null && !isTechnical -> {
                 eventNotifier {
-                    on3gFailure()
+                    on3gFailure(true)
                 }
             }
             certificateData2G != null -> {

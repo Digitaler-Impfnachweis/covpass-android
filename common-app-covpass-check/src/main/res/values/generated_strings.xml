@@ -120,7 +120,7 @@
 	<string name="validation_check_popup_test_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_test_label_close">Close</string>
 	<string name="validation_check_popup_valid_pcr_test_title">Negative PCR test from %d hours ago</string>
-	<string name="validation_check_popup_valid_pcr_test_message">Check the following data against an ID document from the person you are checking.</string>
+	<string name="validation_check_popup_valid_pcr_test_message">Check the following data against an ID document from the person you are checking:</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_issue">Time sample taken</string>
 	<string name="validation_check_popup_valid_pcr_test_button_title">Scan another certificate</string>

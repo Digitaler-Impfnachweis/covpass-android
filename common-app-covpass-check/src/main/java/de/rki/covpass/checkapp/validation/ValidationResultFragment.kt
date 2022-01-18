@@ -234,7 +234,9 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
 }
 
 @Parcelize
-internal class ValidationResultFailureFragmentNav : FragmentNav(ValidationResultFailureFragment::class)
+internal class ValidationResultFailureFragmentNav(
+    val is2gOn: Boolean = false
+) : FragmentNav(ValidationResultFailureFragment::class)
 
 /**
  * Overrides the texts and icons from [ValidationResultFragment] to display validation failure.
@@ -272,7 +274,13 @@ internal open class ValidationResultFailureFragment : ValidationResultFragment()
         getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
     }
 
-    override val buttonTextRes = R.string.technical_validation_check_popup_valid_vaccination_button_further
+    override val buttonTextRes by lazy {
+        if (getArgs<ValidationResultFailureFragmentNav>().is2gOn) {
+            R.string.result_2G_button_startover
+        } else {
+            R.string.technical_validation_check_popup_valid_vaccination_button_further
+        }
+    }
 }
 
 @Parcelize
@@ -297,8 +305,9 @@ internal class ValidationResultFailure2gFragment : ValidationResultFailureFragme
 }
 
 @Parcelize
-internal class ValidationResultTechnicalFailureFragmentNav :
-    FragmentNav(ValidationResultTechnicalFailureFragment::class)
+internal class ValidationResultTechnicalFailureFragmentNav(
+    val is2gOn: Boolean = false
+) : FragmentNav(ValidationResultTechnicalFailureFragment::class)
 
 /**
  * Overrides the texts and icons from [ValidationResultFragment] to display validation failure.
@@ -328,7 +337,13 @@ internal open class ValidationResultTechnicalFailureFragment : ValidationResultF
         getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline)
     }
 
-    override val buttonTextRes = R.string.technical_validation_check_popup_valid_vaccination_button_title
+    override val buttonTextRes by lazy {
+        if (getArgs<ValidationResultTechnicalFailureFragmentNav>().is2gOn) {
+            R.string.result_2G_button_startover
+        } else {
+            R.string.technical_validation_check_popup_valid_vaccination_button_title
+        }
+    }
 }
 
 @Parcelize
