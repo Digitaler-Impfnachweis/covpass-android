@@ -206,7 +206,7 @@ internal class CovPassCheckQRScannerFragment :
                 )
             )
         } else {
-            super.onBackPressed()
+            return super.onBackPressed()
         }
         return Abort
     }
