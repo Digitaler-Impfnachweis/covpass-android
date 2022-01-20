@@ -149,7 +149,6 @@ internal class ErrorHandler : CommonErrorHandler() {
         // Error codes
         const val ERROR_NO_VALIDATION_SERVICE_LISTED = 103
         const val ERROR_INVALID_VALIDATION_SERVICE_PROVIDER = 106
-        const val ERROR_CODE_QR_CODE_DUPLICATED: Int = 201
         const val ERROR_CODE_CERTIFICATE_BAD_SIGNATURE: Int = 412
         const val ERROR_CODE_CERTIFICATE_POSITIVE_RESULT: Int = 421
         const val ERROR_CODE_ILLEGAL_KEY_USAGE: Int =

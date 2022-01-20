@@ -89,5 +89,6 @@ public abstract class CommonErrorHandler {
         public const val ERROR_CODE_CBOR_DECODING: Int = 414
         public const val ERROR_CODE_EXPIRED_CERTIFICATE: Int = 422
         public const val ERROR_CODE_GENERAL: Int = 902
+        public const val ERROR_CODE_QR_CODE_DUPLICATED: Int = 201
     }
 }

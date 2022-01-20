@@ -17,6 +17,7 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler.Companion.ERROR_CODE_QR_CODE_DUPLICATED
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.utils.formatDateFromString
@@ -187,7 +188,8 @@ internal class CovPassCheckQRScannerFragment :
     override fun showWarning2gUnexpectedType() {
         val dialog = DialogModel(
             titleRes = R.string.error_2G_unexpected_type_title,
-            messageString = getString(R.string.error_2G_unexpected_type_copy),
+            messageString = "${getString(R.string.error_2G_unexpected_type_copy)} (Error " +
+                "$ERROR_CODE_QR_CODE_DUPLICATED)",
             positiveButtonTextRes = R.string.error_scan_qrcode_cannot_be_parsed_button_title,
             tag = TAG_ERROR_2G_UNEXPECTED_TYPE
         )
