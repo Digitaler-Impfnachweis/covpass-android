@@ -167,7 +167,7 @@ dependencies {
             api 'androidx.camera:camera-view:1.0.0-alpha30'
         }
 
-        def boofCVVersion = "0.39.1"
+        def boofCVVersion = "0.40"
         boofCV = {
             api("org.boofcv:boofcv-core:$boofCVVersion") {
                 exclude group: "xmlpull", module: "xmlpull"
