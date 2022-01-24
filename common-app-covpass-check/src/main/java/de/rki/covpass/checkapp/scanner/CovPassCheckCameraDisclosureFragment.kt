@@ -18,7 +18,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class CovPassCheckCameraDisclosureFragmentNav(
-    val isTwoGOn: Boolean
+    val isTwoGOn: Boolean,
+    val isTwoGPlusBOn: Boolean,
 ) : FragmentNav(CovPassCheckCameraDisclosureFragment::class)
 
 /**
@@ -27,6 +28,7 @@ internal class CovPassCheckCameraDisclosureFragmentNav(
 internal class CovPassCheckCameraDisclosureFragment : BaseBottomSheet() {
 
     private val isTwoGOn by lazy { getArgs<CovPassCheckCameraDisclosureFragmentNav>().isTwoGOn }
+    private val isTwoGPlusBOn by lazy { getArgs<CovPassCheckCameraDisclosureFragmentNav>().isTwoGPlusBOn }
     private val binding by viewBinding(CameraDisclosurePopupContentBinding::inflate)
     override val buttonTextRes = R.string.scan_dialog_camera_access_action_button
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_dialog_camera_access_announce
@@ -39,6 +41,6 @@ internal class CovPassCheckCameraDisclosureFragment : BaseBottomSheet() {
 
     override fun onActionButtonClicked() {
         findNavigator().pop()
-        findNavigator().push(CovPassCheckQRScannerFragmentNav(isTwoGOn))
+        findNavigator().push(CovPassCheckQRScannerFragmentNav(isTwoGOn, isTwoGPlusBOn))
     }
 }

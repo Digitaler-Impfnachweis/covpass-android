@@ -51,6 +51,7 @@
 	<string name="validation_start_screen_scan_title_2G">2G+ prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie einen G-Nachweis nach den 3G-Regeln. Welche Regelung gilt, ist abhängig vom Bundesland in dem Sie sich befinden.</string>
 	<string name="validation_start_screen_scan_message_2G">Scannen Sie nacheinander die notwendigen Nachweise für 2G+.</string>
+	<string name="validation_start_screen_scan_message_2G_toggle">Bei Auffrischungsimpfungen ist kein Test nötig</string>
 	<string name="validation_start_screen_scan_sync_message_title">Datum und Uhrzeit prüfen</string>
 	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Smartphones. \n\n Soll: %s</string>
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
@@ -138,6 +139,7 @@
 	<string name="result_2G_button_startover">Neue Prüfung</string>
 	<string name="result_2G_gproof_empty">2G-Nachweis*</string>
 	<string name="result_2G_gproof_valid">2G-Nachweis gültig*</string>
+	<string name="result_2G_booster_valid">Auffrischungsimpfung gültig</string>
 	<string name="result_2G_gproof_invalid">2G-Nachweis ungültig*</string>
 	<string name="result_2G_test_empty">Testzertifikat</string>
 	<string name="result_2G_test_invalid">Testzertifikat ungültig</string>

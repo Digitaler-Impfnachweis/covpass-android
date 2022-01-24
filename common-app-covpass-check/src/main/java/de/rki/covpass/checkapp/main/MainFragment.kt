@@ -62,21 +62,34 @@ internal class MainFragment : BaseFragment() {
         }
         binding.mainCheckCertButton.setOnClickListener {
             if (isCameraPermissionGranted(requireContext())) {
-                findNavigator().push(CovPassCheckQRScannerFragmentNav(viewModel.isTwoGOn.value))
+                findNavigator().push(
+                    CovPassCheckQRScannerFragmentNav(viewModel.isTwoGOn.value, viewModel.isTwoGPlusBOn.value)
+                )
             } else {
-                findNavigator().push(CovPassCheckCameraDisclosureFragmentNav(viewModel.isTwoGOn.value))
+                findNavigator().push(
+                    CovPassCheckCameraDisclosureFragmentNav(viewModel.isTwoGOn.value, viewModel.isTwoGPlusBOn.value)
+                )
             }
         }
+        binding.mainCheckCert2gBText.setText(R.string.validation_start_screen_scan_message_2G_toggle)
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     viewModel.isTwoGOn.value = tab?.position == 1
+                    binding.mainCheckCert2gBLayout.isVisible = tab?.position == 1
+                    if (tab?.position == 0) {
+                        viewModel.isTwoGPlusBOn.value = false
+                        binding.mainCheckCert2gBSwitch.isChecked = false
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
                 override fun onTabReselected(tab: TabLayout.Tab?) {}
             }
         )
+        binding.mainCheckCert2gBSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.isTwoGPlusBOn.value = isChecked
+        }
         ViewCompat.setAccessibilityDelegate(
             binding.mainHeaderTextview,
             object : AccessibilityDelegateCompat() {

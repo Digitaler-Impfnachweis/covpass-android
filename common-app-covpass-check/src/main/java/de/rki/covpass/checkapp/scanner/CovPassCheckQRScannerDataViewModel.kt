@@ -36,6 +36,7 @@ internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
 internal class CovPassCheckQRScannerDataViewModel constructor(
     scope: CoroutineScope,
     private val isTwoGOn: Boolean,
+    private val isTwoGPlusBOn: Boolean,
 ) : BaseReactiveState<CovPassCheckQRScannerDataEvents>(scope) {
 
     var certificateData2G: ValidationResult2gData? = null
@@ -52,7 +53,9 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             formatDateFromString(certificate.birthDateFormatted),
                             null,
                             CovPassCheckValidationResult.Success,
-                            certificate.dgcEntry.id
+                            certificate.dgcEntry.id,
+                            certificate.dgcEntry is Vaccination &&
+                                (certificate.dgcEntry as? Vaccination)?.isBooster == true
                         ),
                         testCertificateData2G,
                         false
@@ -140,21 +143,28 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     }
 
     fun compareData(certData: ValidationResult2gData?, testData: ValidationResult2gData?) =
-        if (isDataNotNull(certData, testData)) {
-            when {
-                certData?.certificateTransliteratedName != testData?.certificateTransliteratedName &&
-                    certData?.certificateBirthDate == testData?.certificateBirthDate -> {
-                    DataComparison.NameDifferent
-                }
-                certData?.certificateBirthDate != testData?.certificateBirthDate -> {
-                    DataComparison.DateOfBirthDifferent
-                }
-                else -> {
-                    DataComparison.Equal
+        when {
+            isTwoGPlusBOn && certData?.certificateResult == CovPassCheckValidationResult.Success &&
+                certData.isBooster -> {
+                DataComparison.IsBoosterInTwoGPlusB
+            }
+            isDataNotNull(certData, testData) -> {
+                when {
+                    certData?.certificateTransliteratedName != testData?.certificateTransliteratedName &&
+                        certData?.certificateBirthDate == testData?.certificateBirthDate -> {
+                        DataComparison.NameDifferent
+                    }
+                    certData?.certificateBirthDate != testData?.certificateBirthDate -> {
+                        DataComparison.DateOfBirthDifferent
+                    }
+                    else -> {
+                        DataComparison.Equal
+                    }
                 }
             }
-        } else {
-            DataComparison.HasNullData
+            else -> {
+                DataComparison.HasNullData
+            }
         }
 
     private fun isDataNotNull(certData: ValidationResult2gData?, testData: ValidationResult2gData?) =
@@ -285,5 +295,5 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 }
 
 internal enum class DataComparison {
-    Equal, NameDifferent, DateOfBirthDifferent, HasNullData
+    Equal, NameDifferent, DateOfBirthDifferent, HasNullData, IsBoosterInTwoGPlusB
 }

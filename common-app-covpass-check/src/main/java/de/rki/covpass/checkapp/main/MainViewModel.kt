@@ -16,4 +16,5 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     var isTwoGOn = MutableValueFlow(false)
+    var isTwoGPlusBOn = MutableValueFlow(false)
 }

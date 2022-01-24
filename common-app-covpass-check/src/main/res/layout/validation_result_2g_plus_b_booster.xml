@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingBottom="@dimen/grid_thirteen">
+
+  <de.rki.covpass.checkapp.uielements.ValidationResult2gCertificateElement
+    android:id="@+id/validation_result_2g_plus_b_certificate"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:minHeight="@dimen/grid_twelve"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <LinearLayout
+    android:id="@+id/validation_result_2g_plus_b_info_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintTop_toBottomOf="@+id/validation_result_2g_plus_b_certificate">
+
+    <TextView
+      android:id="@+id/validation_result_2g_plus_b_info_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_three" />
+
+    <de.rki.covpass.checkapp.uielements.ValidationResult2gInfoElement
+      android:id="@+id/validation_result_2g_plus_b_info_element"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_one"
+      android:layout_marginHorizontal="@dimen/grid_three" />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

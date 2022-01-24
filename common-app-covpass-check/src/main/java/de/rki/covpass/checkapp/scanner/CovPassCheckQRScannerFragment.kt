@@ -27,6 +27,7 @@ import java.time.ZonedDateTime
 @Parcelize
 internal class CovPassCheckQRScannerFragmentNav(
     val isTwoGOn: Boolean,
+    val isTwoGPlusBOn: Boolean,
 ) : FragmentNav(CovPassCheckQRScannerFragment::class)
 
 /**
@@ -41,8 +42,9 @@ internal class CovPassCheckQRScannerFragment :
     CovPassCheckQRScannerDataEvents {
 
     private val isTwoGOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGOn }
+    private val isTwoGPlusBOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGPlusBOn }
     private val viewModel by reactiveState { CovPassCheckQRScannerViewModel(scope) }
-    private val dataViewModel by reactiveState { CovPassCheckQRScannerDataViewModel(scope, isTwoGOn) }
+    private val dataViewModel by reactiveState { CovPassCheckQRScannerDataViewModel(scope, isTwoGOn, isTwoGPlusBOn) }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
 
@@ -140,6 +142,11 @@ internal class CovPassCheckQRScannerFragment :
                             testData
                         )
                     }
+                }
+                DataComparison.IsBoosterInTwoGPlusB -> {
+                    ValidationResult2gPlusBBoosterFragmentNav(
+                        certData,
+                    )
                 }
             }
         )

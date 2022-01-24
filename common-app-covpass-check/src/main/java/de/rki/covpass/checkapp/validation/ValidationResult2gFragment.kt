@@ -276,4 +276,5 @@ public data class ValidationResult2gData(
     public val sampleCollection: ZonedDateTime?,
     public val certificateResult: CovPassCheckValidationResult,
     public val certificateId: String?,
+    public val isBooster: Boolean = false,
 ) : Parcelable

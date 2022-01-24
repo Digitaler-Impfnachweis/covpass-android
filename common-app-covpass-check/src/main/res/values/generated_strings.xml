@@ -51,6 +51,7 @@
 	<string name="validation_start_screen_scan_title_2G">Check 2G+</string>
 	<string name="validation_start_screen_scan_message">Scan a G-Proof according to the 3G rules. Which rule applies depends on the federal state you are in.</string>
 	<string name="validation_start_screen_scan_message_2G">Scan the necessary evidence for 2G+ one by one.</string>
+	<string name="validation_start_screen_scan_message_2G_toggle">No test is needed when a booster vaccination is given</string>
 	<string name="validation_start_screen_scan_sync_message_title">Check date and time</string>
 	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your smartphone. \n\n It should be: %s</string>
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
@@ -138,6 +139,7 @@
 	<string name="result_2G_button_startover">New check</string>
 	<string name="result_2G_gproof_empty">2G proof*</string>
 	<string name="result_2G_gproof_valid">Valid 2G proof*</string>
+	<string name="result_2G_booster_valid">Booster vaccination valid</string>
 	<string name="result_2G_gproof_invalid">Invalid 2G proof*</string>
 	<string name="result_2G_test_empty">Test certificate</string>
 	<string name="result_2G_test_invalid">Invalid test certificate</string>
