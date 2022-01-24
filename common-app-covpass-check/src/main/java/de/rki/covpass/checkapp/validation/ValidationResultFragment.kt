@@ -274,7 +274,7 @@ internal open class ValidationResultFailureFragment : ValidationResultFragment()
         getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
     }
 
-    override val buttonTextRes by lazy {
+    override val buttonTextRes: Int? by lazy {
         if (getArgs<ValidationResultFailureFragmentNav>().is2gOn) {
             R.string.result_2G_button_startover
         } else {
@@ -292,6 +292,8 @@ internal class ValidationResultFailure2gFragmentNav :
  * in 2g+.
  */
 internal class ValidationResultFailure2gFragment : ValidationResultFailureFragment() {
+
+    override val buttonTextRes: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -337,7 +339,7 @@ internal open class ValidationResultTechnicalFailureFragment : ValidationResultF
         getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline)
     }
 
-    override val buttonTextRes by lazy {
+    override val buttonTextRes: Int? by lazy {
         if (getArgs<ValidationResultTechnicalFailureFragmentNav>().is2gOn) {
             R.string.result_2G_button_startover
         } else {
@@ -355,6 +357,8 @@ internal class ValidationResultTechnicalFailure2gFragmentNav :
  * in 2g+.
  */
 internal class ValidationResultTechnicalFailure2gFragment : ValidationResultTechnicalFailureFragment() {
+
+    override val buttonTextRes: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
