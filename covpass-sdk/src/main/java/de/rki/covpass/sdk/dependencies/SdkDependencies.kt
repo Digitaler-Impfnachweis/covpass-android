@@ -11,9 +11,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ensody.reactivestate.DependencyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
+import de.rki.covpass.http.getDnsSubjectAlternativeNames
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.http.pinPublicKey
-import de.rki.covpass.http.pinVaasPublicKey
 import de.rki.covpass.sdk.R
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CertificateListMapper
@@ -50,6 +50,7 @@ import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcCryptor
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcSigner
 import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
 import de.rki.covpass.sdk.utils.DscListUpdater
+import de.rki.covpass.sdk.utils.HostPatternWhitelist
 import de.rki.covpass.sdk.utils.readTextAsset
 import dgca.verifier.app.engine.*
 import kotlinx.serialization.cbor.Cbor
@@ -96,8 +97,20 @@ public abstract class SdkDependencies {
         application.readPemAsset("covpass-sdk/vaas-ca.pem")
     }
 
-    public val vaasTsiCa: List<X509Certificate> by lazy {
-        application.readPemAsset("covpass-sdk/vaas-tsi-ca.pem")
+    public val vaasIntermediateCa: Map<String, List<X509Certificate>> by lazy {
+        mapOf(
+            "**.dcc-validation.eu" to application.readPemAsset(
+                "covpass-sdk/vaas-tsi-ca.pem"
+            )
+        )
+    }
+
+    public val vaasWhitelist: Set<String> by lazy {
+        (vaasCa.flatMap { it.getDnsSubjectAlternativeNames() } + vaasIntermediateCa.keys).toSet()
+    }
+
+    public val hostPatternWhitelist: HostPatternWhitelist by lazy {
+        HostPatternWhitelist(vaasWhitelist)
     }
 
     public val dscList: DscList by lazy {
@@ -138,9 +151,10 @@ public abstract class SdkDependencies {
     public val json: Json = defaultJson
 
     internal fun init() {
-        httpConfig.pinPublicKey(backendCa)
-        httpConfig.pinVaasPublicKey(vaasCa)
-        httpConfig.pinVaasPublicKey("*.dcc-validation.eu", vaasTsiCa)
+        httpConfig.pinPublicKey(backendCa + vaasCa)
+        vaasIntermediateCa.forEach {
+            httpConfig.pinPublicKey(it.key, it.value)
+        }
     }
 
     public val certificateListMapper: CertificateListMapper by lazy {

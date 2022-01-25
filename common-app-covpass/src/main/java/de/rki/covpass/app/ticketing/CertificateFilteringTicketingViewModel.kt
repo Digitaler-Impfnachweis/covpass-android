@@ -11,7 +11,6 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.http.httpConfig
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.dependencies.defaultJson
@@ -25,6 +24,7 @@ import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenRespons
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingIdentityDocument
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingServiceRemote
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
+import de.rki.covpass.sdk.utils.HostPatternWhitelist
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.parcelize.Parcelize
@@ -77,6 +77,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
         sdkDeps.cancellationRepository,
     private val certRepository: CertRepository =
         covpassDeps.certRepository,
+    private val hostPatternWhitelist: HostPatternWhitelist = sdkDeps.hostPatternWhitelist
 ) : BaseReactiveState<CertificateFilteringEvents>(scope) {
 
     private val state: MutableStateFlow<State> = MutableStateFlow(State.Initial)
@@ -123,7 +124,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
         validationServices: List<TicketingServiceRemote>,
     ): TicketingServiceRemote {
         if (validationServices.isEmpty()) throw NoValidationServiceListed()
-        return validationServices.find { httpConfig.hasPublicKey(it.serviceEndpoint) }
+        return validationServices.find { hostPatternWhitelist.isWhitelisted(it.serviceEndpoint) }
             ?: throw InvalidValidationServiceProvider(validationServices.first().name)
     }
 

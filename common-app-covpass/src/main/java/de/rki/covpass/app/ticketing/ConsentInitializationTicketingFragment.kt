@@ -8,13 +8,13 @@ package de.rki.covpass.app.ticketing
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ConsentInitializationTicketingBinding
-import de.rki.covpass.http.httpConfig
 import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
 import kotlinx.parcelize.Parcelize
 
@@ -26,6 +26,7 @@ public class ConsentInitializationTicketingFragmentNav(
 public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
 
     private val binding by viewBinding(ConsentInitializationTicketingBinding::inflate)
+    private val viewModel by reactiveState { ConsentInitializationTicketingViewModel(scope) }
 
     public val args: ConsentInitializationTicketingFragmentNav by lazy { getArgs() }
 
@@ -57,7 +58,7 @@ public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
     }
 
     private fun validateServiceIdentity() {
-        if (httpConfig.hasPublicKey(args.ticketingDataInitialization.serviceIdentity)) {
+        if (viewModel.isWhitelisted(args.ticketingDataInitialization.serviceIdentity)) {
             findNavigator().push(CertificateFilteringTicketingFragmentNav(args.ticketingDataInitialization))
         } else {
             findNavigator().push(UnknownProviderTicketingFragmentNav(args.ticketingDataInitialization))
