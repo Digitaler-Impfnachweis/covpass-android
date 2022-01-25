@@ -160,10 +160,7 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(
-                                            R.string.vaccination_certificate_overview_complete_title,
-                                            dgcEntry.validDate.formatDateOrEmpty()
-                                        )
+                                        getString(R.string.vaccination_certificate_overview_complete_title)
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,

@@ -335,7 +335,7 @@
 	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_overview_complete_from_title">Vollständiger Impfschutz ab %s</string>
 	<string name="vaccination_certificate_overview_complete_from_message">Ihr Impfschutz ist noch nicht vollständig. Der Impfschutz ist erst 14 Tage nach der letzten Impfung vollständig.</string>
-	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz seit %s</string>
+	<string name="vaccination_certificate_overview_complete_title">Vollständiger Impfschutz</string>
 	<string name="certificates_overview_qr_scan_hint">Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.</string>
 	<string name="vaccination_certificate_overview_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Aktuellen QR-Code anzeigen</string>
@@ -349,7 +349,7 @@
 	<string name="pcr_test_certificate_overview_title">Negativer PCR-Test vom %s</string>
 	<string name="pcr_test_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="pcr_test_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
-	<string name="recovery_certificate_overview_valid_until_title">Genesung gültig bis %s</string>
+	<string name="recovery_certificate_overview_valid_until_title">Genesung höchstens gültig bis %s</string>
 	<string name="recovery_certificate_overview_valid_from_title">Genesung gültig ab %s</string>
 	<string name="recovery_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="recovery_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
@@ -382,7 +382,7 @@
 	<string name="certificates_overview_vaccination_certificate_date">Geimpft am %s</string>
 	<string name="certificates_overview_recovery_certificate_title">Genesenenzertifikat</string>
 	<string name="certificates_overview_recovery_certificate_message">Vollständige Genesung</string>
-	<string name="certificates_overview_recovery_certificate_valid_until_date">Gültig bis %s</string>
+	<string name="certificates_overview_recovery_certificate_valid_until_date">Höchstens gültig bis %s</string>
 	<string name="certificates_overview_recovery_certificate_valid_from_date">Gültig ab %s</string>
 	<string name="certificates_overview_test_certificate_title">Testzertifikat</string>
 	<string name="certificates_overview_test_certificate_message">Antigen-Schnelltest</string>
