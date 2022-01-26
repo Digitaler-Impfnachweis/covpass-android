@@ -11,6 +11,7 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.http.util.HostPatternWhitelist
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.dependencies.defaultJson
@@ -24,7 +25,6 @@ import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenRespons
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingIdentityDocument
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingServiceRemote
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
-import de.rki.covpass.sdk.utils.HostPatternWhitelist
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.parcelize.Parcelize

@@ -6,6 +6,7 @@
 package de.rki.covpass.http
 
 import de.rki.covpass.http.retry.RetryInterceptor
+import de.rki.covpass.http.util.getDnsSubjectAlternativeNames
 import de.rki.covpass.logging.Lumber
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
@@ -68,16 +69,6 @@ public fun HttpConfig.pinPublicKey(pattern: String, certs: List<X509Certificate>
 /** Enables public key pinning for the given [pattern] using a list of [X509Certificates][X509Certificate]. */
 public fun HttpConfig.pinPublicKey(pattern: String, cert: X509Certificate) {
     pinPublicKey(pattern, CertificatePinner.pin(cert))
-}
-
-/**
- * Extract the SAN from [X509Certificate]
- * @return [Set] which contains SubjectAlternativeNames as Strings
- */
-public fun X509Certificate.getDnsSubjectAlternativeNames(): Set<String> {
-    return subjectAlternativeNames.filter { san ->
-        san.size >= 2 && san[0] == 2 && san[1] is String
-    }.mapNotNull { it[1] as String }.toSet()
 }
 
 /** The global [HttpConfig] instance. */

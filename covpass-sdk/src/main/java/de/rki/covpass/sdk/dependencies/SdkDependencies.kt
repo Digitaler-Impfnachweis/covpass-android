@@ -11,9 +11,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ensody.reactivestate.DependencyAccessor
 import com.fasterxml.jackson.databind.ObjectMapper
-import de.rki.covpass.http.getDnsSubjectAlternativeNames
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.http.pinPublicKey
+import de.rki.covpass.http.util.HostPatternWhitelist
+import de.rki.covpass.http.util.getDnsSubjectAlternativeNames
 import de.rki.covpass.sdk.R
 import de.rki.covpass.sdk.cert.*
 import de.rki.covpass.sdk.cert.models.CertificateListMapper
@@ -50,7 +51,6 @@ import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcCryptor
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcSigner
 import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
 import de.rki.covpass.sdk.utils.DscListUpdater
-import de.rki.covpass.sdk.utils.HostPatternWhitelist
 import de.rki.covpass.sdk.utils.readTextAsset
 import dgca.verifier.app.engine.*
 import kotlinx.serialization.cbor.Cbor
@@ -105,8 +105,8 @@ public abstract class SdkDependencies {
         )
     }
 
-    public val vaasWhitelist: Set<String> by lazy {
-        (vaasCa.flatMap { it.getDnsSubjectAlternativeNames() } + vaasIntermediateCa.keys).toSet()
+    public val vaasWhitelist: Collection<String> by lazy {
+        (vaasCa.flatMap { it.getDnsSubjectAlternativeNames() } + vaasIntermediateCa.keys)
     }
 
     public val hostPatternWhitelist: HostPatternWhitelist by lazy {

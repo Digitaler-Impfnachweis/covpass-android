@@ -8,8 +8,8 @@ package de.rki.covpass.app.ticketing
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
+import de.rki.covpass.http.util.HostPatternWhitelist
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.utils.HostPatternWhitelist
 import kotlinx.coroutines.CoroutineScope
 
 public class ConsentInitializationTicketingViewModel @OptIn(DependencyAccessor::class) constructor(
