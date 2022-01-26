@@ -44,29 +44,25 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     fun prepareDataOnSuccess(certificate: CovCertificate) {
         if (isTwoGOn) {
-            when {
-                isNewCertificateValid(certificateData2G, certificate) ||
-                    isNewCertificateBoosterAndTwoGPlusBOn(certificate) -> {
-                    eventNotifier {
-                        on2gData(
-                            ValidationResult2gData(
-                                certificate.fullName,
-                                certificate.fullTransliteratedName,
-                                formatDateFromString(certificate.birthDateFormatted),
-                                null,
-                                CovPassCheckValidationResult.Success,
-                                certificate.dgcEntry.id,
-                                certificate.dgcEntry is Vaccination &&
-                                    (certificate.dgcEntry as? Vaccination)?.isBooster == true
-                            ),
-                            testCertificateData2G,
-                            false
-                        )
-                    }
+            if (isNewCertificateValid(certificateData2G, certificate)) {
+                eventNotifier {
+                    on2gData(
+                        ValidationResult2gData(
+                            certificate.fullName,
+                            certificate.fullTransliteratedName,
+                            formatDateFromString(certificate.birthDateFormatted),
+                            null,
+                            CovPassCheckValidationResult.Success,
+                            certificate.dgcEntry.id,
+                            certificate.dgcEntry is Vaccination &&
+                                (certificate.dgcEntry as? Vaccination)?.isBooster == true
+                        ),
+                        testCertificateData2G,
+                        false
+                    )
                 }
-                else -> {
-                    show2GError()
-                }
+            } else {
+                show2GError()
             }
         } else {
             eventNotifier {
@@ -296,12 +292,6 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                 certificateData.certificateId != certificate.dgcEntry.id &&
                     certificateData.certificateResult != CovPassCheckValidationResult.Success
                 )
-
-    private fun isNewCertificateBoosterAndTwoGPlusBOn(certificate: CovCertificate) = (
-        certificate.dgcEntry is Vaccination &&
-            (certificate.dgcEntry as Vaccination).isBooster &&
-            isTwoGPlusBOn
-        )
 }
 
 internal enum class DataComparison {
