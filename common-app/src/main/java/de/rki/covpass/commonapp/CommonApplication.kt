@@ -93,6 +93,9 @@ public abstract class CommonApplication : Application() {
         Thread {
             runBlocking {
                 retry {
+                    // TODO temporary fix
+                    TrueTime.clearCachedInfo()
+
                     TrueTime
                         .build()
                         .withNtpHost(DE_NTP_HOST)
