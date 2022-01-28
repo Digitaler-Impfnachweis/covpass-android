@@ -43,6 +43,17 @@
 	<string name="dialog_start_screen_button_later">Nicht jetzt</string>
 	<string name="dialog_start_screen_button_update">Aktualisieren</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
+	<string name="accessibility_check_context_onboarding_announce_open">Die Ansicht “Wann nutzen Sie die CovPassCheck-App?” wurde geöffnet.</string>
+	<string name="accessibility_check_context_onboarding_announce_close">Die Ansicht “Wann nutzen Sie die CovPassCheck-App?” wurde geschlossen.</string>
+	<string name="check_context_onboarding_title">Wann nutzen Sie die CovPassCheck-App?</string>
+	<string name="check_context_onboarding_tag">Neu</string>
+	<string name="check_context_onboarding_image">Abbildung von zwei Menschen in einer Prüfsituation. Eine Person scannt das Zertifikat einer anderen Person. Darüber ist die EU-Flagge abgebildet.</string>
+	<string name="check_context_onboarding_option1_title">Ich prüfe bei Einreisen</string>
+	<string name="check_context_onboarding_option1_subtitle">Zum Beispiel am Flughafen oder Bahnhof</string>
+	<string name="check_context_onboarding_option2_title">Ich prüfe innerhalb Deutschlands</string>
+	<string name="check_context_onboarding_option2_subtitle">Zum Beispiel in Geschäften oder in der Gastronomie</string>
+	<string name="check_context_onboarding_footnote">Anhand dieser Angabe werden die Regeln angepasst, nach denen Zertifikate als Gültig oder Ungültig ausgewiesen werden. Sie können die Angabe jederzeit in den Einstellungen ändern.</string>
+	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">Mehr Informationen</string>
@@ -57,6 +68,8 @@
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
 	<string name="accessibility_scan_result_closing_announce">Die Ansicht Überprüfungsergebnis wurde geschlossen</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
+	<string name="startscreen_rules_tag_local">Prüfung innerhalb Deutschlands</string>
+	<string name="startscreen_rules_tag_europe">Prüfung bei Einreisen nach Deutschland</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
 	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Offline-Modus verfügbar</string>
@@ -198,6 +211,11 @@
 	<string name="app_information_message_update_button">Aktualisieren</string>
 	<string name="accessibility_app_information_update_back">Zurück</string>
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_local_rules">Die Ansicht \"Prüfsituation\" wurde geöffnet</string>
+	<string name="app_information_title_local_rules">Prüfsituation</string>
+	<string name="app_information_title_local_rules_button">Übernehmen</string>
+	<string name="app_information_title_local_rules_status_DE">Innerhalb DE</string>
+	<string name="app_information_title_local_rules_status_EU">Einreise</string>
 	<string name="app_information_beep_when_checking_title">Signalton beim Scannen</string>
 	<string name="app_information_beep_when_checking_message">Sie hören bei der Anzeige eines Ergebnisses zusätzlich einen Signalton. Nutzen Sie diese Funktion nur, wenn Sie gewährleisten können, dass umstehende Dritte keine Rückschlüsse auf den Gültigkeitsstatus der geprüften Person ziehen können. Die Identitätsprüfung mittels eines Ausweisdokumentes ist auch weiterhin zwingend notwendig.</string>
 	<string name="accessibility_information_beep_when_checking_on">Signalton anschalten</string>

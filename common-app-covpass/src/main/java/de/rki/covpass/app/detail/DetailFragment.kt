@@ -470,7 +470,7 @@ internal class DetailFragment :
                         groupedCertificate.boosterNotification.getLocalizedDescription(),
                         groupedCertificate.boosterNotification.ruleId,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
-                            R.drawable.background_new_booster
+                            R.drawable.background_new_warning
                         } else {
                             null
                         },

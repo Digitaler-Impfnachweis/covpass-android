@@ -5,6 +5,7 @@
 
 package de.rki.covpass.checkapp.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.AccessibilityDelegateCompat
@@ -28,6 +29,7 @@ import de.rki.covpass.commonapp.BackgroundUpdateViewModel
 import de.rki.covpass.commonapp.BackgroundUpdateViewModel.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.truetime.TimeValidationState
 import de.rki.covpass.commonapp.uielements.showWarning
@@ -46,7 +48,7 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 /**
  * Displays the start view of the app.
  */
-internal class MainFragment : BaseFragment() {
+internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val backgroundUpdateViewModel by reactiveState { BackgroundUpdateViewModel(scope) }
@@ -145,11 +147,10 @@ internal class MainFragment : BaseFragment() {
         autoRun {
             updateScannerCard(get(viewModel.isTwoGOn))
         }
-        if (commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value
-            != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION
-        ) {
-            findNavigator().push(DataProtectionFragmentNav())
+        autoRun {
+            showActivatedRules(get(commonDeps.checkContextRepository.isDomesticRulesOn))
         }
+        showNotificationIfNeeded()
     }
 
     override fun onResume() {
@@ -161,6 +162,36 @@ internal class MainFragment : BaseFragment() {
         }
         commonDeps.timeValidationRepository.validate()
         backgroundUpdateViewModel.update()
+    }
+
+    override fun onDataProtectionFinish() {
+        showNotificationIfNeeded()
+    }
+
+    private fun showNotificationIfNeeded() {
+        when {
+            commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value
+                != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION -> {
+                findNavigator().push(DataProtectionFragmentNav())
+            }
+            commonDeps.checkContextRepository.checkContextNotificationVersionShown.value
+                != CheckContextRepository.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION -> {
+                findNavigator().push(CheckContextNotificationFragmentNav())
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showActivatedRules(isDomesticRulesOn: Boolean) {
+        if (isDomesticRulesOn) {
+            binding.mainActivatedRules.text =
+                String(Character.toChars(0x1F1E9) + Character.toChars(0x1F1EA)) +
+                    " ${getString(R.string.startscreen_rules_tag_local)}"
+        } else {
+            binding.mainActivatedRules.text =
+                String(Character.toChars(0x1F1EA) + Character.toChars(0x1F1FA)) +
+                    " ${getString(R.string.startscreen_rules_tag_europe)}"
+        }
     }
 
     private fun updateScannerCard(isTwoG: Boolean) {

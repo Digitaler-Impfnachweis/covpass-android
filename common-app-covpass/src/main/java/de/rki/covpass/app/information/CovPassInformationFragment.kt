@@ -23,4 +23,6 @@ internal class CovPassInformationFragment : InformationFragment() {
     override fun getImprintLinkRes() = R.string.information_imprint_link
 
     override fun getEasyLanguageLinkRes(): Int = R.string.easy_language_link
+
+    override fun isCovpassCheck(): Boolean = false
 }

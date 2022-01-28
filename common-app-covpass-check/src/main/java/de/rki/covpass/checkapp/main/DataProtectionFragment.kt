@@ -18,6 +18,10 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import kotlinx.parcelize.Parcelize
 
+internal interface DataProtectionCallback {
+    fun onDataProtectionFinish()
+}
+
 @Parcelize
 internal class DataProtectionFragmentNav : FragmentNav(DataProtectionFragment::class)
 
@@ -41,7 +45,7 @@ internal class DataProtectionFragment : BaseBottomSheet() {
         launchWhenStarted {
             commonDeps.onboardingRepository.dataPrivacyVersionAccepted
                 .set(OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION)
-            findNavigator().popAll()
+            findNavigator().popUntil<DataProtectionCallback>()?.onDataProtectionFinish()
         }
     }
 

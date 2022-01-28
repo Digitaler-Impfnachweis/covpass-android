@@ -170,6 +170,16 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+      android:id="@+id/main_activated_rules"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_one"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/main_check_cert_cardview" />
+
     <de.rki.covpass.commonapp.uielements.InfoElement
       android:id="@+id/main_clock_out_of_sync"
       style="@style/InfoElement.Warning"
@@ -178,7 +188,7 @@
       android:layout_marginHorizontal="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_three"
       android:visibility="gone"
-      app:layout_constraintTop_toBottomOf="@+id/main_check_cert_cardview"
+      app:layout_constraintTop_toBottomOf="@+id/main_activated_rules"
       tools:subtitle="@tools:sample/lorem[10]"
       tools:title="@tools:sample/lorem[3]"
       tools:visibility="visible" />

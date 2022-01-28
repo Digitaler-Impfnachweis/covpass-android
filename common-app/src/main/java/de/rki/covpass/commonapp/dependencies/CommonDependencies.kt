@@ -9,6 +9,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
+import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.truetime.TimeValidationRepository
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
@@ -24,7 +25,8 @@ import kotlinx.serialization.cbor.Cbor
 public lateinit var commonDeps: CommonDependencies
 
 @OptIn(DependencyAccessor::class)
-public val LifecycleOwner.commonDeps: CommonDependencies get() = de.rki.covpass.commonapp.dependencies.commonDeps
+public val LifecycleOwner.commonDeps: CommonDependencies
+    get() = de.rki.covpass.commonapp.dependencies.commonDeps
 
 /**
  * Access to various dependencies for common-app module.
@@ -45,6 +47,10 @@ public abstract class CommonDependencies {
 
     public val updateInfoRepository: UpdateInfoRepository = UpdateInfoRepository(
         CborSharedPrefsStore("update_info_prefs", cbor)
+    )
+
+    public val checkContextRepository: CheckContextRepository = CheckContextRepository(
+        CborSharedPrefsStore("covpass_check_prefs", cbor)
     )
 
     public val timeValidationRepository: TimeValidationRepository = TimeValidationRepository()

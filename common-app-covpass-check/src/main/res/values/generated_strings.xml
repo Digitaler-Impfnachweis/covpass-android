@@ -43,6 +43,17 @@
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
+	<string name="accessibility_check_context_onboarding_announce_open">The view \"When do you use the CovPassCheck app?\" has been opened.</string>
+	<string name="accessibility_check_context_onboarding_announce_close">The view \"When do you use the CovPassCheck app?\" has been closed.</string>
+	<string name="check_context_onboarding_title">When do you use the CovPassCheck app?</string>
+	<string name="check_context_onboarding_tag">New</string>
+	<string name="check_context_onboarding_image">Illustration of two people in a checking situation. One person is scanning the certificate of another person. The EU flag is depicted above it.</string>
+	<string name="check_context_onboarding_option1_title">I check at entries into Germany</string>
+	<string name="check_context_onboarding_option1_subtitle">For example at the airport or train station</string>
+	<string name="check_context_onboarding_option2_title">I check within Germany</string>
+	<string name="check_context_onboarding_option2_subtitle">For example, in stores or in the gastronomy</string>
+	<string name="check_context_onboarding_footnote">This information is used to adjust the rules according to which certificates are shown as valid or invalid. You can change the specification at any time in the settings.</string>
+	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">More information</string>
@@ -57,6 +68,8 @@
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
 	<string name="accessibility_scan_result_closing_announce">The view \"Verification result“ has been closed</string>
 	<string name="validation_start_screen_scan_action_button_title">Scan certificate</string>
+	<string name="startscreen_rules_tag_local">Checking within Germany</string>
+	<string name="startscreen_rules_tag_europe">Checking at entries into Germany</string>
 	<string name="validation_start_screen_offline_modus_title">Offline mode</string>
 	<string name="validation_start_screen_offline_modus_message">Keep your CovPassCheck app updated in order to check certificates offline. To do this, connect to the internet from time to time.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Offline mode available</string>
@@ -198,6 +211,11 @@
 	<string name="app_information_message_update_button">Update</string>
 	<string name="accessibility_app_information_update_back">Back</string>
 	<string name="accessibility_app_information_title_update">The view \"Update rule set\" has been opened</string>
+	<string name="accessibility_app_information_title_local_rules">The view \"Check situation\" has been opened</string>
+	<string name="app_information_title_local_rules">Check situation</string>
+	<string name="app_information_title_local_rules_button">Apply</string>
+	<string name="app_information_title_local_rules_status_DE">Within DE</string>
+	<string name="app_information_title_local_rules_status_EU">Entering DE</string>
 	<string name="app_information_beep_when_checking_title">Beep when checking</string>
 	<string name="app_information_beep_when_checking_message">You will also hear a beep when a result is displayed. Only use this function if you can guarantee that bystanders cannot draw any conclusions about the validity status of the person being checked. The identity check by means of an identification document is still mandatory.</string>
 	<string name="accessibility_information_beep_when_checking_on">Switch on beep</string>
