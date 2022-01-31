@@ -26,6 +26,8 @@
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_three"
     android:visibility="gone"
+    tools:description="@string/certificate_add_popup_note_message"
+    tools:title="@string/certificate_add_popup_note_title"
     tools:visibility="visible" />
 
   <TextView
