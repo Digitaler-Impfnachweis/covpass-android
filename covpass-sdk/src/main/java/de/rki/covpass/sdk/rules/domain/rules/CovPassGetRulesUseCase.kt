@@ -24,7 +24,7 @@ public class CovPassGetRulesUseCase(
     ): List<CovPassRule> {
         val filteredAcceptanceRules = mutableMapOf<String, CovPassRule>()
         val selectedRegion: String = region?.trim() ?: ""
-        val acceptanceRules = covPassRulesRepository.getCovPassRulesBy(
+        val acceptanceRules = covPassRulesRepository.getRulesBy(
             acceptanceCountryIsoCode,
             validationClock,
             Type.ACCEPTANCE,
@@ -46,7 +46,7 @@ public class CovPassGetRulesUseCase(
 
         val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
-            val invalidationRules = covPassRulesRepository.getCovPassRulesBy(
+            val invalidationRules = covPassRulesRepository.getRulesBy(
                 issuanceCountryIsoCode,
                 validationClock,
                 Type.INVALIDATION,

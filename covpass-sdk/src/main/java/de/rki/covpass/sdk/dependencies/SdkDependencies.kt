@@ -33,8 +33,10 @@ import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
 import de.rki.covpass.sdk.rules.local.CovPassDatabase
 import de.rki.covpass.sdk.rules.local.countries.CountriesDao
 import de.rki.covpass.sdk.rules.local.countries.CovPassCountriesLocalDataSource
-import de.rki.covpass.sdk.rules.local.rules.CovPassRulesDao
-import de.rki.covpass.sdk.rules.local.rules.CovPassRulesLocalDataSource
+import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRulesDao
+import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRulesLocalDataSource
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesDao
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesLocalDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
 import de.rki.covpass.sdk.rules.remote.rules.CovPassRuleInitial
@@ -174,8 +176,12 @@ public abstract class SdkDependencies {
             )
     }
 
-    private val covPassRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
-        CovPassRulesRemoteDataSource(httpClient, dccRulesHost)
+    private val covPassEuRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
+        CovPassRulesRemoteDataSource(httpClient, dccRulesHost, "rules")
+    }
+
+    private val covPassDomesticRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
+        CovPassRulesRemoteDataSource(httpClient, dccRulesHost, "domesticrules")
     }
 
     private val covPassValueSetsRemoteDataSource: CovPassValueSetsRemoteDataSource by lazy {
@@ -197,8 +203,12 @@ public abstract class SdkDependencies {
             .fallbackToDestructiveMigration()
             .build()
 
-    private val covPassRulesLocalDataSource: CovPassRulesLocalDataSource by lazy {
-        CovPassRulesLocalDataSource(covPassRulesDao)
+    private val covPassEuRulesLocalDataSource: CovPassEuRulesLocalDataSource by lazy {
+        CovPassEuRulesLocalDataSource(covPassEuRulesDao)
+    }
+
+    private val covPassDomesticRulesLocalDataSource: CovPassDomesticRulesLocalDataSource by lazy {
+        CovPassDomesticRulesLocalDataSource(covPassDomesticRulesDao)
     }
 
     private val covPassValueSetsLocalDataSource: CovPassValueSetsLocalDataSource by lazy {
@@ -213,7 +223,11 @@ public abstract class SdkDependencies {
         CovPassCountriesLocalDataSource(countriesDao)
     }
 
-    private val covPassRulesDao: CovPassRulesDao by lazy { covPassDatabase.covPassRulesDao() }
+    private val covPassEuRulesDao: CovPassEuRulesDao by lazy { covPassDatabase.covPassEuRulesDao() }
+
+    private val covPassDomesticRulesDao: CovPassDomesticRulesDao by lazy {
+        covPassDatabase.covPassDomesticRulesDao()
+    }
 
     private val covPassValueSetsDao: CovPassValueSetsDao by lazy { covPassDatabase.covPassValueSetsDao() }
 
@@ -222,20 +236,39 @@ public abstract class SdkDependencies {
     private val countriesDao: CountriesDao by lazy { covPassDatabase.countriesDao() }
 
     private val euRulePath: String by lazy { "covpass-sdk/eu-rules.json" }
-    private val covPassRulesInitial: List<CovPassRuleInitial> by lazy {
+    private val covPassEuRulesInitial: List<CovPassRuleInitial> by lazy {
         defaultJson.decodeFromString(
             application.readTextAsset(euRulePath)
         )
     }
 
-    private val covPassRulesRemote: List<CovPassRuleRemote> by lazy {
+    private val covPassEuRulesRemote: List<CovPassRuleRemote> by lazy {
         defaultJson.decodeFromString(
             application.readTextAsset(euRulePath)
         )
     }
 
-    public val bundledRules: List<CovPassRule> by lazy {
-        covPassRulesRemote.zip(covPassRulesInitial).map {
+    public val bundledEuRules: List<CovPassRule> by lazy {
+        covPassEuRulesRemote.zip(covPassEuRulesInitial).map {
+            it.first.toCovPassRule(it.second.hash)
+        }
+    }
+
+    private val domesticRulePath: String by lazy { "covpass-sdk/domestic-rules.json" }
+    private val covPassDomesticRulesInitial: List<CovPassRuleInitial> by lazy {
+        defaultJson.decodeFromString(
+            application.readTextAsset(domesticRulePath)
+        )
+    }
+
+    private val covPassDomesticRulesRemote: List<CovPassRuleRemote> by lazy {
+        defaultJson.decodeFromString(
+            application.readTextAsset(domesticRulePath)
+        )
+    }
+
+    public val bundledDomesticRules: List<CovPassRule> by lazy {
+        covPassDomesticRulesRemote.zip(covPassDomesticRulesInitial).map {
             it.first.toCovPassRule(it.second.hash)
         }
     }
@@ -284,10 +317,18 @@ public abstract class SdkDependencies {
         )
     }
 
-    public val covPassRulesRepository: CovPassRulesRepository by lazy {
-        CovPassRulesRepository(
-            covPassRulesRemoteDataSource,
-            covPassRulesLocalDataSource,
+    public val covPassEuRulesRepository: CovPassEuRulesRepository by lazy {
+        CovPassEuRulesRepository(
+            covPassEuRulesRemoteDataSource,
+            covPassEuRulesLocalDataSource,
+            rulesUpdateRepository
+        )
+    }
+
+    public val covPassDomesticRulesRepository: CovPassDomesticRulesRepository by lazy {
+        CovPassDomesticRulesRepository(
+            covPassDomesticRulesRemoteDataSource,
+            covPassDomesticRulesLocalDataSource,
             rulesUpdateRepository
         )
     }
@@ -316,13 +357,25 @@ public abstract class SdkDependencies {
         )
     }
 
-    private val getRulesUseCase: CovPassGetRulesUseCase by lazy {
-        CovPassGetRulesUseCase(covPassRulesRepository)
+    private val getEuRulesUseCase: CovPassGetRulesUseCase by lazy {
+        CovPassGetRulesUseCase(covPassEuRulesRepository)
     }
 
-    public val rulesValidator: RulesValidator by lazy {
-        RulesValidator(
-            getRulesUseCase,
+    private val getDomesticRulesUseCase: CovPassGetRulesUseCase by lazy {
+        CovPassGetRulesUseCase(covPassDomesticRulesRepository)
+    }
+
+    public val euRulesValidator: CovPassRulesValidator by lazy {
+        CovPassRulesValidator(
+            getEuRulesUseCase,
+            certLogicDeps.certLogicEngine,
+            covPassValueSetsRepository
+        )
+    }
+
+    public val domesticRulesValidator: CovPassRulesValidator by lazy {
+        CovPassRulesValidator(
+            getDomesticRulesUseCase,
             certLogicDeps.certLogicEngine,
             covPassValueSetsRepository
         )

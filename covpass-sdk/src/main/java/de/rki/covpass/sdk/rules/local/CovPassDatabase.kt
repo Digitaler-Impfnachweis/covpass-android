@@ -13,28 +13,35 @@ import de.rki.covpass.sdk.rules.booster.local.BoosterRuleLocal
 import de.rki.covpass.sdk.rules.booster.local.BoosterRulesDao
 import de.rki.covpass.sdk.rules.local.countries.CountriesDao
 import de.rki.covpass.sdk.rules.local.countries.CountryLocal
-import de.rki.covpass.sdk.rules.local.rules.CovPassRuleDescriptionLocal
-import de.rki.covpass.sdk.rules.local.rules.CovPassRuleLocal
-import de.rki.covpass.sdk.rules.local.rules.CovPassRulesDao
+import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRuleDescriptionLocal
+import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRuleLocal
+import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRulesDao
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleDescriptionLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesDao
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetLocal
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
 
 @Database(
     entities = [
-        CovPassRuleLocal::class,
-        CovPassRuleDescriptionLocal::class,
+        CovPassEuRuleLocal::class,
+        CovPassEuRuleDescriptionLocal::class,
+        CovPassDomesticRuleLocal::class,
+        CovPassDomesticRuleDescriptionLocal::class,
         CovPassValueSetLocal::class,
         BoosterDescriptionLocal::class,
         BoosterRuleLocal::class,
         CountryLocal::class
     ],
-    version = 4
+    version = 5
 )
 
 @TypeConverters(Converters::class)
 public abstract class CovPassDatabase : RoomDatabase() {
 
-    public abstract fun covPassRulesDao(): CovPassRulesDao
+    public abstract fun covPassEuRulesDao(): CovPassEuRulesDao
+
+    public abstract fun covPassDomesticRulesDao(): CovPassDomesticRulesDao
 
     public abstract fun covPassValueSetsDao(): CovPassValueSetsDao
 

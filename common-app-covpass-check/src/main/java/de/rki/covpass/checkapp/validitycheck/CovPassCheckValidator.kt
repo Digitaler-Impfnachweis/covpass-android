@@ -5,7 +5,7 @@
 
 package de.rki.covpass.checkapp.validitycheck
 
-import de.rki.covpass.sdk.cert.RulesValidator
+import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import dgca.verifier.app.engine.Result
 
@@ -17,9 +17,9 @@ public enum class CovPassCheckValidationResult {
 
 public suspend fun validate(
     covCertificate: CovCertificate,
-    rulesValidator: RulesValidator,
+    covPassRulesValidator: CovPassRulesValidator,
 ): CovPassCheckValidationResult {
-    val validationResults = rulesValidator.validate(covCertificate)
+    val validationResults = covPassRulesValidator.validate(covCertificate)
     if (validationResults.isEmpty()) {
         return CovPassCheckValidationResult.TechnicalError
     }

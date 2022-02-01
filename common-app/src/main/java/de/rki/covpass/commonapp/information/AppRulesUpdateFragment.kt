@@ -46,7 +46,7 @@ public class AppRulesUpdateFragment : BaseFragment() {
         autoRun {
             updateTimeDisplay(
                 get(dscRepository.lastUpdate),
-                get(rulesUpdateRepository.lastRulesUpdate)
+                get(rulesUpdateRepository.lastEuRulesUpdate)
             )
         }
     }

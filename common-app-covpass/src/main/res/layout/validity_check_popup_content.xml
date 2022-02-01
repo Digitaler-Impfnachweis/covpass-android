@@ -102,6 +102,19 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <de.rki.covpass.commonapp.uielements.InfoElement
+      android:id="@+id/domestic_rules_warning"
+      style="@style/InfoElement.Info"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_three"
+      android:focusable="true"
+      android:visibility="gone"
+      tools:description="@tools:sample/lorem[10]"
+      tools:title="@tools:sample/lorem[3]"
+      tools:visibility="visible" />
+
     <LinearLayout
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"

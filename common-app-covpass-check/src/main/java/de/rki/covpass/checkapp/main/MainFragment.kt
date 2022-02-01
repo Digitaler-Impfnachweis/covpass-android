@@ -123,7 +123,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         autoRun {
             updateAvailabilityCard(
                 get(dscRepository.lastUpdate),
-                get(rulesUpdateRepository.lastRulesUpdate)
+                get(rulesUpdateRepository.lastEuRulesUpdate)
             )
         }
         autoRun {

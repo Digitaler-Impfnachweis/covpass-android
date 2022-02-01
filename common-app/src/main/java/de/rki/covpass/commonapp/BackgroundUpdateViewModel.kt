@@ -26,9 +26,14 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
             sdkDependencies.dscListUpdater.update()
         }
     }
-    private val rulesUpdater: Updater = Updater {
-        if (sdkDependencies.rulesUpdateRepository.lastRulesUpdate.value.isBeforeUpdateInterval()) {
-            sdkDependencies.covPassRulesRepository.loadRules()
+    private val euRulesUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastEuRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassEuRulesRepository.loadRules()
+        }
+    }
+    private val domesticRulesUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastDomesticRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassDomesticRulesRepository.loadRules()
         }
     }
     private val valueSetsUpdater: Updater = Updater {
@@ -39,7 +44,8 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
 
     public open fun update() {
         backgroundDscListUpdater.update()
-        rulesUpdater.update()
+        euRulesUpdater.update()
+        domesticRulesUpdater.update()
         valueSetsUpdater.update()
     }
 

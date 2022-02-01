@@ -107,15 +107,21 @@ public abstract class CommonApplication : Application() {
     private fun prepopulateDb() {
         runBlocking {
             if (sdkDeps.rulesUpdateRepository.localDatabaseVersion.value != CURRENT_LOCAL_DATABASE_VERSION) {
-                sdkDeps.covPassRulesRepository.deleteAll()
+                sdkDeps.covPassEuRulesRepository.deleteAll()
+                sdkDeps.covPassDomesticRulesRepository.deleteAll()
                 sdkDeps.covPassValueSetsRepository.deleteAll()
                 sdkDeps.covPassBoosterRulesRepository.deleteAll()
                 sdkDeps.covPassCountriesRepository.deleteAll()
                 sdkDeps.rulesUpdateRepository.updateLocalDatabaseVersion()
             }
-            if (sdkDeps.covPassRulesRepository.getAllCovPassRules().isNullOrEmpty()) {
-                sdkDeps.covPassRulesRepository.prepopulate(
-                    sdkDeps.bundledRules
+            if (sdkDeps.covPassEuRulesRepository.getAllRules().isNullOrEmpty()) {
+                sdkDeps.covPassEuRulesRepository.prepopulate(
+                    sdkDeps.bundledEuRules
+                )
+            }
+            if (sdkDeps.covPassDomesticRulesRepository.getAllRules().isNullOrEmpty()) {
+                sdkDeps.covPassDomesticRulesRepository.prepopulate(
+                    sdkDeps.bundledDomesticRules
                 )
             }
             if (sdkDeps.covPassValueSetsRepository.getAllCovPassValueSets().isNullOrEmpty()) {

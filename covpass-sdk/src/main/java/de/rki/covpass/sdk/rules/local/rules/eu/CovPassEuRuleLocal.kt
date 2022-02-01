@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.rules.local.rules
+package de.rki.covpass.sdk.rules.local.rules.eu
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,8 +11,10 @@ import dgca.verifier.app.engine.data.RuleCertificateType
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
+public interface CovPassRuleLocal
+
 @Entity(tableName = "covpass_rules")
-public data class CovPassRuleLocal(
+public data class CovPassEuRuleLocal(
     @PrimaryKey(autoGenerate = true)
     val ruleId: Long = 0,
     val identifier: String,

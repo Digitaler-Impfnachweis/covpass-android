@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.rules.local.rules
+package de.rki.covpass.sdk.rules.local.rules.eu
 
 import com.ensody.reactivestate.dispatchers
 import de.rki.covpass.sdk.rules.CovPassRule
@@ -13,31 +13,31 @@ import kotlinx.coroutines.invoke
 import java.time.ZonedDateTime
 
 @Suppress("SpreadOperator")
-public class CovPassRulesLocalDataSource(
-    private val covPassRulesDao: CovPassRulesDao
+public class CovPassEuRulesLocalDataSource(
+    private val covPassEuRulesDao: CovPassEuRulesDao
 ) {
 
     public suspend fun replaceRules(keep: Collection<String>, add: List<CovPassRule>) {
         dispatchers.io {
-            covPassRulesDao.replaceAll(
+            covPassEuRulesDao.replaceAll(
                 keep = keep,
                 add = add.toCovPassRulesWithDescriptionLocal()
             )
         }
     }
 
-    public suspend fun getAllCovPassRules(): List<CovPassRuleLocal> =
+    public suspend fun getAllRules(): List<CovPassEuRuleLocal> =
         dispatchers.io {
-            covPassRulesDao.getAll()
+            covPassEuRulesDao.getAll()
         }
 
-    public suspend fun getCovPassRulesBy(
+    public suspend fun getRulesBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
         ruleCertificateType: RuleCertificateType
     ): List<CovPassRule> = dispatchers.io {
-        covPassRulesDao.getCovPassRulesWithDescriptionsBy(
+        covPassEuRulesDao.getRulesWithDescriptionsBy(
             countryIsoCode,
             validationClock,
             type,
@@ -48,7 +48,7 @@ public class CovPassRulesLocalDataSource(
 
     public suspend fun deleteAll() {
         dispatchers.io {
-            covPassRulesDao.deleteAll()
+            covPassEuRulesDao.deleteAll()
         }
     }
 }

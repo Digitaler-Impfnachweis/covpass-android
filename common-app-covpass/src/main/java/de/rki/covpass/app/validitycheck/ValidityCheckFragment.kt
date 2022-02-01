@@ -25,8 +25,10 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.isBeforeUpdateInterval
+import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -72,7 +74,7 @@ internal class ValidityCheckFragment :
                     iconRes = R.drawable.info_warning,
                     subtitleTopMarginDimenRes = R.dimen.grid_one
                 )
-                isVisible = get(sdkDeps.rulesUpdateRepository.lastRulesUpdate).isBeforeUpdateInterval()
+                isVisible = get(sdkDeps.rulesUpdateRepository.lastEuRulesUpdate).isBeforeUpdateInterval()
             }
         }
         autoRun {
@@ -83,6 +85,18 @@ internal class ValidityCheckFragment :
         autoRun {
             val country = get(validityCheckViewModel.country)
             binding.countryValue.setText(country.nameRes)
+            if (country.countryCode == defaultCountry.countryCode) {
+                binding.domesticRulesWarning.apply {
+                    isVisible = true
+                    showInfo(
+                        getString(R.string.certificate_check_german_infobox),
+                        titleStyle = R.style.DefaultText_OnBackground,
+                        iconRes = R.drawable.info_icon
+                    )
+                }
+            } else {
+                binding.domesticRulesWarning.isVisible = false
+            }
             binding.countryValue.setOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }

@@ -13,8 +13,10 @@ public class RulesUpdateRepository(
     store: CborSharedPrefsStore
 ) {
 
-    public val lastRulesUpdate: SuspendMutableValueFlow<Instant> =
+    public val lastEuRulesUpdate: SuspendMutableValueFlow<Instant> =
         store.getData("last_rules_update", NO_UPDATE_YET)
+    public val lastDomesticRulesUpdate: SuspendMutableValueFlow<Instant> =
+        store.getData("last_domestic_rules_update", NO_UPDATE_YET)
     public val lastValueSetsUpdate: SuspendMutableValueFlow<Instant> =
         store.getData("last_value_sets_update", NO_UPDATE_YET)
     public val lastCountryListUpdate: SuspendMutableValueFlow<Instant> =
@@ -24,8 +26,12 @@ public class RulesUpdateRepository(
     public val localDatabaseVersion: SuspendMutableValueFlow<Int> =
         store.getData("local_database_update_version", 0)
 
-    public suspend fun markRulesUpdated() {
-        lastRulesUpdate.set(Instant.now())
+    public suspend fun markEuRulesUpdated() {
+        lastEuRulesUpdate.set(Instant.now())
+    }
+
+    public suspend fun markDomesticRulesUpdated() {
+        lastDomesticRulesUpdate.set(Instant.now())
     }
 
     public suspend fun markValueSetsUpdated() {

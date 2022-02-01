@@ -73,6 +73,10 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoDescription.setOnClickListener(newValue)
     }
 
+    public var titleStyle: Int by Delegates.observable(R.style.Header_OnBackground_Small) { _, _, newValue ->
+        binding.infoTitle.setTextAppearance(newValue)
+    }
+
     public var descriptionStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground) { _, _, newValue ->
         binding.infoDescription.setTextAppearance(newValue)
     }
@@ -212,6 +216,7 @@ public fun InfoElement.showInfo(
     descriptionTopMarginDimenRes: Int? = null,
     subtitleContentDescription: String? = null,
     descriptionContentDescription: String? = null,
+    titleStyle: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -222,6 +227,9 @@ public fun InfoElement.showInfo(
     }
     if (descriptionStyle != null) {
         this.descriptionStyle = descriptionStyle
+    }
+    if (titleStyle != null) {
+        this.titleStyle = titleStyle
     }
     if (subtitleTopMarginDimenRes != null) {
         this.subtitleTopMarginDimenRes = subtitleTopMarginDimenRes

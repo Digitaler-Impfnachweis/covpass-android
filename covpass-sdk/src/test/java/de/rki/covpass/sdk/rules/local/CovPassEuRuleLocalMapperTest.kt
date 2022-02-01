@@ -7,7 +7,7 @@ package de.rki.covpass.sdk.rules.local
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import de.rki.covpass.sdk.rules.CovPassRule
-import de.rki.covpass.sdk.rules.local.rules.*
+import de.rki.covpass.sdk.rules.local.rules.eu.*
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.RuleCertificateType
@@ -16,7 +16,7 @@ import java.time.ZonedDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-public class CovPassRuleLocalMapperTest {
+public class CovPassEuRuleLocalMapperTest {
 
     private val date by lazy {
         ZonedDateTime.now()
@@ -41,13 +41,13 @@ public class CovPassRuleLocalMapperTest {
         )
     }
     private val covPassRuleWithDescription by lazy {
-        CovPassRuleWithDescriptionsLocal(
+        CovPassEuRuleWithDescriptionsLocal(
             covPassRuleLocal,
-            descriptions = listOf(CovPassRuleDescriptionLocal(lang = "description", desc = "value"))
+            descriptions = listOf(CovPassEuRuleDescriptionLocal(lang = "description", desc = "value"))
         )
     }
     private val covPassRuleLocal by lazy {
-        CovPassRuleLocal(
+        CovPassEuRuleLocal(
             identifier = "identifier",
             type = Type.ACCEPTANCE,
             version = "version",
@@ -92,7 +92,9 @@ public class CovPassRuleLocalMapperTest {
     @Test
     public fun `test toCovPassDescriptionsLocal() and toDescriptions()`() {
         val map = mapOf(Pair("description", "value"))
-        val covPassRuleDescriptionLocalList = listOf(CovPassRuleDescriptionLocal(lang = "description", desc = "value"))
+        val covPassRuleDescriptionLocalList = listOf(
+            CovPassEuRuleDescriptionLocal(lang = "description", desc = "value")
+        )
 
         val convertedCovPassRuleDescriptionLocalList = map.toCovPassDescriptionsLocal()
         assertEquals(convertedCovPassRuleDescriptionLocalList, covPassRuleDescriptionLocalList)

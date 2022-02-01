@@ -12,7 +12,7 @@ import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
-import de.rki.covpass.sdk.rules.local.rules.toRules
+import de.rki.covpass.sdk.rules.local.rules.eu.toRules
 import de.rki.covpass.sdk.rules.local.valuesets.toValueSets
 import de.rki.covpass.sdk.utils.toZonedDateTimeOrDefault
 import dgca.verifier.app.engine.CertLogicEngine
@@ -22,7 +22,7 @@ import dgca.verifier.app.engine.data.ExternalParameter
 import kotlinx.serialization.encodeToString
 import java.time.ZonedDateTime
 
-public class RulesValidator(
+public class CovPassRulesValidator(
     private val rulesUseCase: CovPassGetRulesUseCase,
     private val certLogicEngine: CertLogicEngine,
     private val valueSetsRepository: CovPassValueSetsRepository

@@ -46,6 +46,12 @@
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
 	<string name="dialog_update_info_notification_action_button">OK</string>
+	<string name="accessibility_dialog_local_rulecheck_title_announce">The view \"New domestic rules\" has been opened</string>
+	<string name="dialog_local_rulecheck_title">Are your certificates valid in Germany?</string>
+	<string name="dialog_local_rulecheck_image">Illustration of two people in a checking situation. One person is scanning the certificate of another person. The EU flag is depicted above it.</string>
+	<string name="dialog_local_rulecheck_subtitle">When your certificates are checked within Germany, stricter rules sometimes apply than when traveling within the EU.</string>
+	<string name="dialog_local_rulecheck_copy">For example, certificates of recovery are valid for a shorter period in Germany than in the EU. In addition, a single vaccination with Johnson &amp; Johnson no longer counts as complete basic immunization.\nFrom now on, you can preview whether your certificates are valid in Germany according to the domestic rules under \"Check validity\" on the start screen.</string>
+	<string name="dialog_local_rulecheck_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">More information</string>
@@ -175,7 +181,8 @@
 	<string name="PL">Poland</string>
 	<string name="BE">Belgium</string>
 	<string name="BG">Bulgaria</string>
-	<string name="DE">Germany</string>
+	<string name="DE">Germany — Entry rules</string>
+	<string name="DE2">Germany — Domestic rules</string>
 	<string name="LU">Luxembourg</string>
 	<string name="EE">Estonia</string>
 	<string name="CY">Cyprus</string>
@@ -273,6 +280,7 @@
 	<string name="certificate_check_invalidity_error_text">One or multiple certificates are expired, or will expire soon.</string>
 	<string name="certificate_check_validity_no_certificate_saved_title">You have not saved any certificates yet</string>
 	<string name="certificate_check_validity_no_certificate_saved_message">Add a certificate so you can check its validity.</string>
+	<string name="certificate_check_german_infobox">Different rules apply within Germany than for entry into Germany. You can change your selection above.</string>
 	<string name="certificate_check_validity_vaccination">Vaccination certificate</string>
 	<string name="certificate_check_validity_test">Test certificate</string>
 	<string name="certificate_check_validity_recovery">Recovery certificate</string>
@@ -552,7 +560,7 @@
 	<string name="error_no_connection_to_server_message">There was an error while trying to connect to the internet. Please check your internet connection.</string>
 	<string name="error_no_connection_to_server_button_title">OK</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_title">QR code not recognised</string>
-	<string name="error_scan_qrcode_cannot_be_parsed_message">This QR code does not belong to an EU Digital COVID Certificate. In Germany, you can see that a certificate is correct when it has been issued by the Robert Koch Institute. \n\nYou cannot add QR codes from doctor-issued vaccination certificates or the QR codes on some batch labels in yellow vaccination booklets.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">The scanned QR code could not be recognized as an EU COVID certificate or as a proof for ticket bookings. Please scan a suitable QR code.</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 	<string name="error_scan_present_data_is_not_supported_title">Update the app</string>
 	<string name="error_scan_present_data_is_not_supported_message">The current version of the app you are using does not support this data format. Please check if you have installed the latest version of the app available from the app store on your smartphone.</string>

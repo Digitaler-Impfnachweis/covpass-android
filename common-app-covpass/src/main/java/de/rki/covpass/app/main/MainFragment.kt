@@ -50,6 +50,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showExpiryNotification()
     fun showNewUpdateInfo()
     fun showNewDataPrivacy()
+    fun showDomesticRulesNotification()
     fun showCheckerRemark()
     fun showBoosterNotification()
 }
@@ -65,6 +66,7 @@ internal class MainFragment :
     UpdateInfoCallback,
     DataProtectionCallback,
     CheckRemarkCallback,
+    DomesticRulesNotificationCallback,
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
@@ -187,6 +189,11 @@ internal class MainFragment :
         viewModel.validateNotifications()
     }
 
+    override fun onDomesticRulesNotificationFinish() {
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
+    }
+
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == EXPIRED_DIALOG_TAG) {
             launchWhenStarted {
@@ -221,6 +228,10 @@ internal class MainFragment :
 
     override fun showNewDataPrivacy() {
         findNavigator().push(DataProtectionFragmentNav())
+    }
+
+    override fun showDomesticRulesNotification() {
+        findNavigator().push(DomesticRulesNotificationFragmentNav())
     }
 
     override fun showCheckerRemark() {

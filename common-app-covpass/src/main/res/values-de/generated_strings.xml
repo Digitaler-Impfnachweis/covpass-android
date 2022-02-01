@@ -46,6 +46,12 @@
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
 	<string name="dialog_update_info_notification_action_button">OK</string>
+	<string name="accessibility_dialog_local_rulecheck_title_announce">Die Ansicht \"Neue Inlandsregeln\" wurde geöffnet</string>
+	<string name="dialog_local_rulecheck_title">Sind Ihre Zertifikate in Deutschland gültig?</string>
+	<string name="dialog_local_rulecheck_image">Abbildung von zwei Menschen in einer Prüfsituation. Eine Person scannt das Zertifikat einer anderen Person. Darüber ist die EU-Flagge abgebildet.</string>
+	<string name="dialog_local_rulecheck_subtitle">Wenn Ihre Zertifikate innerhalb Deutschlands geprüft werden, gelten mitunter strengere Regeln als bei Reisen in der EU.</string>
+	<string name="dialog_local_rulecheck_copy">Zum Beispiel sind Genesenenzertifikate in Deutschland kürzer gültig als in der EU. Außerdem gilt eine einmalige Impfung mit Johnson &amp; Johnson nicht mehr als vollständige Grundimmunisierung.\nSie können ab jetzt auf dem Startbildschirm unter „Gültigkeit prüfen“ eine Vorschau sehen, ob Ihre Zertifikate nach den Inlandsregeln in Deutschland gültig sind.</string>
+	<string name="dialog_local_rulecheck_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
@@ -175,7 +181,8 @@
 	<string name="PL">Polen</string>
 	<string name="BE">Belgien</string>
 	<string name="BG">Bulgarien</string>
-	<string name="DE">Deutschland</string>
+	<string name="DE">Deutschland — Einreiseregeln</string>
+	<string name="DE2">Deutschland – Inlandsregeln</string>
 	<string name="LU">Luxemburg</string>
 	<string name="EE">Estland</string>
 	<string name="CY">Zypern</string>
@@ -273,6 +280,7 @@
 	<string name="certificate_check_invalidity_error_text">Ein oder mehrere Zertifikate laufen bald ab oder sind abgelaufen.</string>
 	<string name="certificate_check_validity_no_certificate_saved_title">Sie haben noch keine Zertifikate gespeichert</string>
 	<string name="certificate_check_validity_no_certificate_saved_message">Fügen Sie ein Zertifikat hinzu, um dessen Gültigkeit zu überprüfen.</string>
+	<string name="certificate_check_german_infobox">Innerhalb Deutschlands gelten andere Regeln als für die Einreise nach Deutschland. Sie können Ihre Auswahl oberhalb ändern.</string>
 	<string name="certificate_check_validity_vaccination">Impfzertifikat</string>
 	<string name="certificate_check_validity_test">Testzertifikat</string>
 	<string name="certificate_check_validity_recovery">Genesenenzertifikat</string>
@@ -552,7 +560,7 @@
 	<string name="error_no_connection_to_server_message">Bei der Verbindung zum Server ist ein Fehler aufgetreten. Bitte überprüfen Sie Ihre Internetverbindung.</string>
 	<string name="error_no_connection_to_server_button_title">OK</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_title">QR-Code wurde nicht erkannt</string>
-	<string name="error_scan_qrcode_cannot_be_parsed_message">Der QR-Code gehört nicht zu einem digitalen COVID-Zertifikat der EU. Sie erkennen das richtige Zertifikat in Deutschland daran, dass der Aussteller das Robert Koch-Institut ist.\n\nQR-Codes von zum Beispiel Impfbescheinigungen oder QR-Codes auf einigen Chargen-Aufklebern aus dem gelben Impfbuch können nicht hinzugefügt werden.</string>
+	<string name="error_scan_qrcode_cannot_be_parsed_message">Der gescannte QR-Code konnte nicht als COVID-Zertifikat der EU oder als Nachweis für Ticketbuchungen erkannt werden. Bitte scannen Sie einen geeigneten QR-Code.</string>
 	<string name="error_scan_qrcode_cannot_be_parsed_button_title">OK</string>
 	<string name="error_scan_present_data_is_not_supported_title">Aktualisieren Sie die App</string>
 	<string name="error_scan_present_data_is_not_supported_message">Ihre aktuelle Version der App unterstützt das vorliegende Datenformat nicht. Bitte überprüfen Sie, ob Sie die aktuelle Version der App aus dem App Store auf Ihrem Smartphone installiert haben.</string>

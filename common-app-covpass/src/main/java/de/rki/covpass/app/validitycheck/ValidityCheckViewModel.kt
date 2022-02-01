@@ -12,7 +12,7 @@ import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
-import de.rki.covpass.sdk.cert.RulesValidator
+import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +23,8 @@ import java.time.ZonedDateTime
 internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val certRepository: CertRepository = covpassDeps.certRepository,
-    private val rulesValidator: RulesValidator = sdkDeps.rulesValidator,
+    private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
+    private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     val validationResults: MutableValueFlow<List<CertsValidationResults>> = MutableValueFlow(emptyList())
@@ -49,11 +50,18 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
             val covCertificate = it.getMainCertificate().covCertificate
             CertsValidationResults(
                 covCertificate,
-                rulesValidator.validate(
-                    covCertificate,
-                    country.value.countryCode.lowercase(),
-                    ZonedDateTime.of(date.value, ZoneId.systemDefault())
-                )
+                if (country.value.countryCode.equals(defaultCountry.countryCode, ignoreCase = true)) {
+                    domesticRulesValidator.validate(
+                        cert = covCertificate,
+                        validationClock = ZonedDateTime.of(date.value, ZoneId.systemDefault())
+                    )
+                } else {
+                    euRulesValidator.validate(
+                        covCertificate,
+                        country.value.countryCode.lowercase(),
+                        ZonedDateTime.of(date.value, ZoneId.systemDefault())
+                    )
+                }
             )
         }
     }
