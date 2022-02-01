@@ -208,6 +208,7 @@ internal class CovPassCheckQRScannerFragment :
             dataViewModel.certificateData2G != null ||
             dataViewModel.testCertificateData2G != null
         ) {
+            scanEnabled.value = false
             findNavigator().push(
                 ValidationResult2gFragmentNav(
                     dataViewModel.certificateData2G,
