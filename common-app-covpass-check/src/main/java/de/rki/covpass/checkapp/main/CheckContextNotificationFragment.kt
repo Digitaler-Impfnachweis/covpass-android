@@ -41,7 +41,7 @@ public class CheckContextNotificationFragment : BaseBottomSheet() {
                 R.string.check_context_onboarding_option1_title,
                 R.string.check_context_onboarding_option1_subtitle
             )
-            updateCheckbox(true)
+            updateCheckbox(false)
             setOnClickListener {
                 updateCheckbox(true)
                 binding.checkContextNotificationLocalCheckbox.updateCheckbox(false)
@@ -52,7 +52,7 @@ public class CheckContextNotificationFragment : BaseBottomSheet() {
                 R.string.check_context_onboarding_option2_title,
                 R.string.check_context_onboarding_option2_subtitle
             )
-            updateCheckbox(false)
+            updateCheckbox(true)
             setOnClickListener {
                 updateCheckbox(true)
                 binding.checkContextNotificationEuCheckbox.updateCheckbox(false)
