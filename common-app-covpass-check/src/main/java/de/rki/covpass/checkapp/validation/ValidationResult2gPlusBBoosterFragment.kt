@@ -52,6 +52,7 @@ public class ValidationResult2gPlusBBoosterFragment : BaseBottomSheet() {
         binding.validationResult2gPlusBCertificate.showValidCertificate(
             R.drawable.validation_result_2g_valid_certificate,
             getString(R.string.result_2G_booster_valid),
+            null
         )
     }
 

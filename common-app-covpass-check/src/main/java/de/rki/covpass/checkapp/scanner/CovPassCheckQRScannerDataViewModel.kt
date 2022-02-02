@@ -7,12 +7,10 @@ package de.rki.covpass.checkapp.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
 import com.ibm.health.common.android.utils.BaseEvents
+import de.rki.covpass.checkapp.validation.ValidationResult2gCertificateType
 import de.rki.covpass.checkapp.validation.ValidationResult2gData
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.Recovery
-import de.rki.covpass.sdk.cert.models.TestCert
-import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateFromString
 import kotlinx.coroutines.CoroutineScope
 import java.time.ZonedDateTime
@@ -54,8 +52,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             null,
                             CovPassCheckValidationResult.Success,
                             certificate.dgcEntry.id,
-                            certificate.dgcEntry is Vaccination &&
-                                (certificate.dgcEntry as? Vaccination)?.isBooster == true
+                            verify2gCertificateType(certificate),
+                            certificate.validFrom
                         ),
                         testCertificateData2G,
                         false
@@ -83,7 +81,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             formatDateFromString(certificate.birthDateFormatted),
                             sampleCollection,
                             CovPassCheckValidationResult.Success,
-                            certificate.dgcEntry.id
+                            certificate.dgcEntry.id,
+                            ValidationResult2gCertificateType.PCRTest
                         ),
                         true
                     )
@@ -110,7 +109,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             formatDateFromString(certificate.birthDateFormatted),
                             sampleCollection,
                             CovPassCheckValidationResult.Success,
-                            certificate.dgcEntry.id
+                            certificate.dgcEntry.id,
+                            ValidationResult2gCertificateType.AntigenTest
                         ),
                         true
                     )
@@ -145,7 +145,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     fun compareData(certData: ValidationResult2gData?, testData: ValidationResult2gData?) =
         when {
             isTwoGPlusBOn && certData?.certificateResult == CovPassCheckValidationResult.Success &&
-                certData.isBooster -> {
+                certData.isBooster() -> {
                 DataComparison.IsBoosterInTwoGPlusB
             }
             isDataNotNull(certData, testData) -> {
@@ -188,7 +188,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                                 formatDateFromString(certificate.birthDateFormatted),
                                 null,
                                 validationResult,
-                                certificate.dgcEntry.id
+                                certificate.dgcEntry.id,
+                                verify2gCertificateType(certificate)
                             ),
                             testCertificateData2G,
                             false
@@ -209,7 +210,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                                 formatDateFromString(certificate.birthDateFormatted),
                                 null,
                                 validationResult,
-                                certificate.dgcEntry.id
+                                certificate.dgcEntry.id,
+                                verify2gCertificateType(certificate)
                             ),
                             true
                         )
@@ -243,7 +245,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             null,
                             null,
                             validationResult,
-                            null
+                            null,
+                            ValidationResult2gCertificateType.NullCertificateOrUnknown
                         ),
                         true
                     )
@@ -258,7 +261,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             null,
                             null,
                             validationResult,
-                            null
+                            null,
+                            ValidationResult2gCertificateType.NullCertificateOrUnknown
                         ),
                         testCertificateData2G,
                         false
@@ -292,6 +296,40 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                 certificateData.certificateId != certificate.dgcEntry.id &&
                     certificateData.certificateResult != CovPassCheckValidationResult.Success
                 )
+
+    private fun verify2gCertificateType(certificate: CovCertificate?) =
+        when {
+            certificate == null -> {
+                ValidationResult2gCertificateType.NullCertificateOrUnknown
+            }
+            certificate.dgcEntry is Vaccination &&
+                (certificate.dgcEntry as? Vaccination)?.isBooster == true -> {
+                ValidationResult2gCertificateType.Booster
+            }
+            certificate.dgcEntry is Vaccination -> {
+                ValidationResult2gCertificateType.Vaccination
+            }
+            certificate.dgcEntry is Recovery -> {
+                ValidationResult2gCertificateType.Recovery
+            }
+            certificate.dgcEntry is TestCert &&
+                (
+                    certificate.dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST ||
+                        certificate.dgcEntry.type == TestCertType.POSITIVE_PCR_TEST
+                    ) -> {
+                ValidationResult2gCertificateType.PCRTest
+            }
+            certificate.dgcEntry is TestCert &&
+                (
+                    certificate.dgcEntry.type == TestCertType.NEGATIVE_ANTIGEN_TEST ||
+                        certificate.dgcEntry.type == TestCertType.POSITIVE_ANTIGEN_TEST
+                    ) -> {
+                ValidationResult2gCertificateType.AntigenTest
+            }
+            else -> {
+                ValidationResult2gCertificateType.NullCertificateOrUnknown
+            }
+        }
 }
 
 internal enum class DataComparison {

@@ -63,12 +63,19 @@
           android:layout_height="wrap_content" />
 
         <TextView
+          android:id="@+id/result_certificate_valid_from"
+          style="@style/DefaultText.OnBackground70.Standard"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          tools:visibility="visible" />
+
+        <TextView
           android:id="@+id/result_certificate_text_not_validated"
           style="@style/DefaultText.OnBackground70"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:visibility="gone"
-          tools:ignore="HardcodedText"
           tools:visibility="visible" />
 
         <LinearLayout

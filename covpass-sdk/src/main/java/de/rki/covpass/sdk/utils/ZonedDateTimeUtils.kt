@@ -8,7 +8,6 @@ package de.rki.covpass.sdk.utils
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
 
 /**
  * @return True, if the [ZonedDateTime] is older than given [hours], else false.
@@ -78,3 +77,11 @@ public fun Instant?.formatTimeOrEmpty(): String {
 
 public fun Instant?.toZonedDateTimeOrDefault(defaultEpochMilli: Long): ZonedDateTime =
     (this ?: Instant.ofEpochMilli(defaultEpochMilli)).atZone(ZoneOffset.UTC)
+
+public fun Instant.daysTillNow(): Int {
+    return Duration.between(this, Instant.now()).toDays().toInt()
+}
+
+public fun Instant.monthTillNow(): Int {
+    return Duration.between(this, Instant.now()).toDays().toInt() / 30
+}

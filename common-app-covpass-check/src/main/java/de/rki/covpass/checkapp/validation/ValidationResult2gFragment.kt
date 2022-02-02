@@ -20,8 +20,11 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResult2gBinding
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.sdk.utils.daysTillNow
 import de.rki.covpass.sdk.utils.hoursTillNow
+import de.rki.covpass.sdk.utils.monthTillNow
 import kotlinx.parcelize.Parcelize
+import java.time.Instant
 import java.time.ZonedDateTime
 
 internal interface ValidationResult2GListener {
@@ -115,7 +118,31 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 CovPassCheckValidationResult.Success -> {
                     binding.validationResultCertificate.showValidCertificate(
                         R.drawable.validation_result_2g_valid_certificate,
-                        getString(R.string.result_2G_gproof_valid),
+                        getString(
+                            when {
+                                args.certificateData?.isBooster() == true -> {
+                                    R.string.result_2G_2nd_booster_valid
+                                }
+                                args.certificateData?.isVaccination() == true -> {
+                                    R.string.result_2G_2nd_basic_valid
+                                }
+                                else -> {
+                                    R.string.result_2G_2nd_recovery_valid
+                                }
+                            }
+                        ),
+                        getString(
+                            if (args.certificateData?.isBooster() == true) {
+                                R.string.result_2G_2nd_timestamp_days
+                            } else {
+                                R.string.result_2G_2nd_timestamp_months
+                            },
+                            if (args.certificateData?.isBooster() == true) {
+                                args.certificateData?.validFrom?.daysTillNow()
+                            } else {
+                                args.certificateData?.validFrom?.monthTillNow()
+                            }
+                        )
                     )
                 }
             }
@@ -151,9 +178,16 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                     binding.validationResultTestCertificate.showValidCertificate(
                         R.drawable.validation_result_2g_valid_test,
                         getString(
-                            R.string.validation_check_popup_test_title,
-                            args.testCertificateData?.sampleCollection?.hoursTillNow() ?: 0
+                            if (args.certificateData?.isTestPCR() == true) {
+                                R.string.result_2G_2nd_pcrtest_valid
+                            } else {
+                                R.string.result_2G_2nd_rapidtest_valid
+                            }
                         ),
+                        getString(
+                            R.string.result_2G_2nd_timestamp_hours,
+                            args.testCertificateData?.sampleCollection?.hoursTillNow()
+                        )
                     )
                 }
             }
@@ -276,5 +310,25 @@ public data class ValidationResult2gData(
     public val sampleCollection: ZonedDateTime?,
     public val certificateResult: CovPassCheckValidationResult,
     public val certificateId: String?,
-    public val isBooster: Boolean = false,
-) : Parcelable
+    public val type: ValidationResult2gCertificateType,
+    public val validFrom: Instant? = null,
+) : Parcelable {
+    public fun isBooster(): Boolean =
+        type == ValidationResult2gCertificateType.Booster
+
+    public fun isVaccination(): Boolean =
+        type == ValidationResult2gCertificateType.Vaccination
+
+    public fun isTestPCR(): Boolean =
+        type == ValidationResult2gCertificateType.PCRTest
+}
+
+@Parcelize
+public enum class ValidationResult2gCertificateType : Parcelable {
+    Booster,
+    Vaccination,
+    Recovery,
+    PCRTest,
+    AntigenTest,
+    NullCertificateOrUnknown
+}

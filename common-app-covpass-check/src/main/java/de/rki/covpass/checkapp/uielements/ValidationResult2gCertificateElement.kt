@@ -41,6 +41,12 @@ public class ValidationResult2gCertificateElement @JvmOverloads constructor(
         binding.resultCertificateTitle.isVisible = newValue != null
     }
 
+    private var validFromText: String? by Delegates.observable(null) { _, _, newValue ->
+        if (newValue != null) {
+            binding.resultCertificateValidFrom.text = newValue
+        }
+        binding.resultCertificateValidFrom.isVisible = newValue != null
+    }
     private var textNotValidated: Int? by Delegates.observable(null) { _, _, newValue ->
         if (newValue != null) {
             binding.resultCertificateTextNotValidated.setText(newValue)
@@ -60,9 +66,10 @@ public class ValidationResult2gCertificateElement @JvmOverloads constructor(
             LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    public fun showValidCertificate(icon: Int?, title: String?) {
+    public fun showValidCertificate(icon: Int?, title: String?, validFromText: String?) {
         this.icon = icon
         this.title = title
+        this.validFromText = validFromText
         binding.resultCertificateCardview.isClickable = false
     }
 
