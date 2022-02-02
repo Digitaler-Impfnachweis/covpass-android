@@ -158,6 +158,15 @@
 	<string name="result_2G_test_invalid">Testzertifikat ungültig</string>
 	<string name="result_2G_invalid_subtitle">Details anzeigen</string>
 	<string name="result_2G_empty_subtitle">Noch nicht geprüft</string>
+	<string name="result_2G_2nd_recovery_valid">Genesung</string>
+	<string name="result_2G_2nd_basic_valid">Grundimmunisierung</string>
+	<string name="result_2G_2nd_booster_valid">Auffrischungsimpfung</string>
+	<string name="result_2G_2nd_rapidtest_valid">Negativer Schnelltest</string>
+	<string name="result_2G_2nd_pcrtest_valid">Negativer PCR-Test</string>
+	<string name="result_2G_2nd_empty">Kann für 2G+ notwendig sein</string>
+	<string name="result_2G_2nd_timestamp_hours">Vor %d Stunden</string>
+	<string name="result_2G_2nd_timestamp_days">Vor %d Tagen</string>
+	<string name="result_2G_2nd_timestamp_months">Vor %d Monaten</string>
 	<string name="accessibility_warning_2G_names_announce_open">Fehlermeldung \"Abweichende Daten\" wurde geöffnet</string>
 	<string name="accessibility_warning_2G_names_announce_close">Fehlermeldung \"Abweichende Daten\" wurde geschlossen</string>
 	<string name="warning_2G_names_title">Abweichende Daten</string>
