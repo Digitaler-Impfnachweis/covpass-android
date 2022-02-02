@@ -11,7 +11,7 @@ import com.ensody.reactivestate.MutableValueFlow
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
@@ -28,7 +28,7 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     val validationResults: MutableValueFlow<List<CertsValidationResults>> = MutableValueFlow(emptyList())
-    val country: MutableValueFlow<Country> = MutableValueFlow(defaultCountry)
+    val country: MutableValueFlow<Country> = MutableValueFlow(defaultDeDomesticCountry)
     val date: MutableValueFlow<LocalDateTime> = MutableValueFlow(LocalDateTime.now())
     val isInvalidCertAvailable: MutableValueFlow<Boolean> = MutableValueFlow(false)
 
@@ -50,7 +50,7 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
             val covCertificate = it.getMainCertificate().covCertificate
             CertsValidationResults(
                 covCertificate,
-                if (country.value.countryCode.equals(defaultCountry.countryCode, ignoreCase = true)) {
+                if (country.value.countryCode.equals(defaultDeDomesticCountry.countryCode, ignoreCase = true)) {
                     domesticRulesValidator.validate(
                         cert = covCertificate,
                         validationClock = ZonedDateTime.of(date.value, ZoneId.systemDefault())

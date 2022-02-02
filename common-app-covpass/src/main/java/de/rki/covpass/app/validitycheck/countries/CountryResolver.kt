@@ -10,9 +10,15 @@ import de.rki.covpass.app.R
 
 public object CountryResolver {
 
-    public val defaultCountry: Country = Country(
+    public val defaultDeDomesticCountry: Country = Country(
         R.string.DE2,
         "DE_domestic",
+        R.drawable.flag_de
+    )
+
+    public val defaultDeCountry: Country = Country(
+        R.string.DE,
+        "DE",
         R.drawable.flag_de
     )
 
@@ -72,12 +78,8 @@ public object CountryResolver {
             "BG",
             R.drawable.flag_bg
         ),
-        defaultCountry,
-        Country(
-            R.string.DE,
-            "DE",
-            R.drawable.flag_de
-        ),
+        defaultDeDomesticCountry,
+        defaultDeCountry,
         Country(
             R.string.LU,
             "LU",
@@ -476,7 +478,7 @@ public object CountryResolver {
     ).associateBy { it.countryCode.uppercase() }
 
     public fun getSortedCountryList(countryCodes: List<String>): List<Country> {
-        val list = countryCodes + defaultCountry.countryCode
+        val list = countryCodes + defaultDeDomesticCountry.countryCode
         return list.mapNotNull {
             getCountryByCode(it.uppercase())
         }.sortedBy { getString(it.nameRes) }

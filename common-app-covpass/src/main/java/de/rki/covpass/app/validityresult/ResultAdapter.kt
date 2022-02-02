@@ -17,7 +17,7 @@ import de.rki.covpass.app.databinding.ResultHeaderBinding
 import de.rki.covpass.app.databinding.ResultRowBinding
 import de.rki.covpass.app.detail.DisplayQrCodeFragmentNav
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
 import de.rki.covpass.commonapp.uielements.showError
 import de.rki.covpass.commonapp.uielements.showSuccess
 import de.rki.covpass.commonapp.uielements.showWarning
@@ -36,7 +36,7 @@ public class ResultAdapter(
 
     private var resultItems: List<ResultFragment.ResultRowData> = emptyList()
     private var resultType: LocalResult = LocalResult.FAIL
-    private var country: Country = defaultCountry
+    private var country: Country = defaultDeDomesticCountry
     private var dateTime: LocalDateTime = LocalDateTime.now()
     private var certId: String = ""
     private var rulesCount: Int = 0
