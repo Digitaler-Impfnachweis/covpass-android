@@ -73,7 +73,6 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                 )
             }
         }
-        binding.mainCheckCert2gBText.setText(R.string.validation_start_screen_scan_message_2G_toggle)
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {

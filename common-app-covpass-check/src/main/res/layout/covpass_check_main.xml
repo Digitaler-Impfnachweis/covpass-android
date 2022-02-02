@@ -145,10 +145,13 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/grid_two"
             android:layout_marginStart="@dimen/grid_three"
+            android:labelFor="@+id/main_check_cert_2g_b_switch"
+            android:text="@string/validation_start_screen_scan_message_2G_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/main_check_cert_2g_b_switch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="false"/>
 
           <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/main_check_cert_2g_b_switch"
