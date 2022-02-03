@@ -25,7 +25,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.deCountry
 import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.isBeforeUpdateInterval
@@ -87,7 +87,7 @@ internal class ValidityCheckFragment :
             val country = get(validityCheckViewModel.country)
             binding.countryValue.setText(country.nameRes)
             if (country.countryCode == defaultDeDomesticCountry.countryCode ||
-                country.countryCode == defaultDeCountry.countryCode
+                country.countryCode == deCountry.countryCode
             ) {
                 binding.domesticRulesWarning.apply {
                     isVisible = true
