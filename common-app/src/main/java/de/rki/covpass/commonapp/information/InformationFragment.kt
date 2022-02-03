@@ -100,6 +100,7 @@ public abstract class InformationFragment : BaseFragment() {
         }
 
         if (isCovpassCheck()) {
+            binding.informationFieldContextSettingsContainer.isVisible = true
             binding.informationFieldContextSettingsLayout.setOnClickListener {
                 findNavigator().push(ContextSettingsFragment())
             }
@@ -113,6 +114,8 @@ public abstract class InformationFragment : BaseFragment() {
                     R.string.app_information_title_local_rules_status_EU
                 }
             )
+        } else {
+            binding.informationFieldContextSettingsContainer.isVisible = false
         }
     }
 
