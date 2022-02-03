@@ -9,7 +9,7 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.deCountry
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -46,6 +46,6 @@ internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constru
     fun checkPdfExport(certId: String) {
         val combinedCovCertificate = certRepository.certs.value.getCombinedCertificate(certId) ?: return
         isPdfExportEnabled.value =
-            combinedCovCertificate.covCertificate.issuer.equals(defaultDeCountry.countryCode, ignoreCase = true)
+            combinedCovCertificate.covCertificate.issuer.equals(deCountry.countryCode, ignoreCase = true)
     }
 }

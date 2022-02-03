@@ -16,7 +16,7 @@ public object CountryResolver {
         R.drawable.flag_de
     )
 
-    public val defaultDeCountry: Country = Country(
+    public val deCountry: Country = Country(
         R.string.DE,
         "DE",
         R.drawable.flag_de
@@ -79,7 +79,7 @@ public object CountryResolver {
             R.drawable.flag_bg
         ),
         defaultDeDomesticCountry,
-        defaultDeCountry,
+        deCountry,
         Country(
             R.string.LU,
             "LU",
