@@ -16,6 +16,7 @@ import kotlinx.coroutines.Job
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
+@SuppressWarnings("UnusedPrivateMember")
 public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val sdkDependencies: SdkDependencies = sdkDeps,
@@ -45,7 +46,8 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
     public open fun update() {
         backgroundDscListUpdater.update()
         euRulesUpdater.update()
-        domesticRulesUpdater.update()
+        // TODO add after endpoint is available
+//        domesticRulesUpdater.update()
         valueSetsUpdater.update()
     }
 

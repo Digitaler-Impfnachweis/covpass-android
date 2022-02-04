@@ -14,6 +14,7 @@ import de.rki.covpass.sdk.rules.CovPassEuRulesRepository
 import de.rki.covpass.sdk.utils.DscListUpdater
 import kotlinx.coroutines.CoroutineScope
 
+@SuppressWarnings("UnusedPrivateMember")
 internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val dscListUpdater: DscListUpdater = sdkDeps.dscListUpdater,
@@ -28,7 +29,8 @@ internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) construct
             dscListUpdater.update()
             // update rules
             covPassEuRulesRepository.loadRules()
-            covPassDomesticEuRulesRepository.loadRules()
+            // TODO add after endpoint is available
+//            covPassDomesticEuRulesRepository.loadRules()
         }
     }
 }
