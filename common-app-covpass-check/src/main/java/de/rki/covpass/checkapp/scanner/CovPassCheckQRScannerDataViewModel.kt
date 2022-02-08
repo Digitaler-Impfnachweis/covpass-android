@@ -84,7 +84,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             sampleCollection,
                             CovPassCheckValidationResult.Success,
                             certificate.dgcEntry.id,
-                            true
+                            isBooster = true,
+                            isPcrTest = true
                         ),
                         true
                     )
