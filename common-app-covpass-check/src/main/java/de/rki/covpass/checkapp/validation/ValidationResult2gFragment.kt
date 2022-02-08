@@ -151,7 +151,11 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                     binding.validationResultTestCertificate.showValidCertificate(
                         R.drawable.validation_result_2g_valid_test,
                         getString(
-                            R.string.validation_check_popup_test_title,
+                            if (args.testCertificateData?.isPcrTest == false) {
+                                R.string.validation_check_popup_test_title
+                            } else {
+                                R.string.validation_check_popup_valid_pcr_test_title
+                            },
                             args.testCertificateData?.sampleCollection?.hoursTillNow() ?: 0
                         ),
                     )
@@ -277,4 +281,5 @@ public data class ValidationResult2gData(
     public val certificateResult: CovPassCheckValidationResult,
     public val certificateId: String?,
     public val isBooster: Boolean = false,
+    public val isPcrTest: Boolean = false
 ) : Parcelable

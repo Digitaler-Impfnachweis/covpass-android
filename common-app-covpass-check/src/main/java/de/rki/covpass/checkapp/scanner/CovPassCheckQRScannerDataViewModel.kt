@@ -83,7 +83,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             formatDateFromString(certificate.birthDateFormatted),
                             sampleCollection,
                             CovPassCheckValidationResult.Success,
-                            certificate.dgcEntry.id
+                            certificate.dgcEntry.id,
+                            true
                         ),
                         true
                     )
