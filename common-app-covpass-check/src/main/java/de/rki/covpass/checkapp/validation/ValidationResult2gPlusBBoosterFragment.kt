@@ -16,6 +16,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResult2gPlusBBoosterBinding
+import de.rki.covpass.checkapp.scanner.ValidationResult2gData
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 

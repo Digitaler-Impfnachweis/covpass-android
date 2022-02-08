@@ -167,6 +167,11 @@
 	<string name="result_2G_2nd_timestamp_hours">%d hours ago</string>
 	<string name="result_2G_2nd_timestamp_days">%d days ago</string>
 	<string name="result_2G_2nd_timestamp_months">%d months ago</string>
+	<string name="result_2G_3rd_test_vacc_empty">Test or vaccination*</string>
+	<string name="result_2G_3rd_test_recov_empty">Test or recovery</string>
+	<string name="result_2G_3rd_vacc_recov_empty">Vaccination* or recovery</string>
+	<string name="result_2G__3rd_footnote">* Basic immunization or booster vaccination expected</string>
+	<string name="result_2G__3rd_button">Scan second certificate</string>
 	<string name="accessibility_warning_2G_names_announce_open">Error message \"Deviating data\" was opened</string>
 	<string name="accessibility_warning_2G_names_announce_close">Error message \"Deviating data\" was closed</string>
 	<string name="warning_2G_names_title">Deviating details</string>

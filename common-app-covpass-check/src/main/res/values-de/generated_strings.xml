@@ -167,6 +167,11 @@
 	<string name="result_2G_2nd_timestamp_hours">Vor %d Stunden</string>
 	<string name="result_2G_2nd_timestamp_days">Vor %d Tagen</string>
 	<string name="result_2G_2nd_timestamp_months">Vor %d Monaten</string>
+	<string name="result_2G_3rd_test_vacc_empty">Test oder Impfung*</string>
+	<string name="result_2G_3rd_test_recov_empty">Test oder Genesung</string>
+	<string name="result_2G_3rd_vacc_recov_empty">Impfung* oder Genesung</string>
+	<string name="result_2G__3rd_footnote">* Erwartet Grundimmunisierung oder Auffrischungsimpfung</string>
+	<string name="result_2G__3rd_button">Zweites Zertifikat scannen</string>
 	<string name="accessibility_warning_2G_names_announce_open">Fehlermeldung \"Abweichende Daten\" wurde geöffnet</string>
 	<string name="accessibility_warning_2G_names_announce_close">Fehlermeldung \"Abweichende Daten\" wurde geschlossen</string>
 	<string name="warning_2G_names_title">Abweichende Daten</string>

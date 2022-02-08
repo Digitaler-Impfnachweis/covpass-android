@@ -50,7 +50,7 @@
 	<string name="dialog_local_rulecheck_title">Are your certificates valid in Germany?</string>
 	<string name="dialog_local_rulecheck_image">Illustration of two people in a checking situation. One person is scanning the certificate of another person. The EU flag is depicted above it.</string>
 	<string name="dialog_local_rulecheck_subtitle">When your certificates are checked within Germany, stricter rules sometimes apply than when traveling within the EU.</string>
-	<string name="dialog_local_rulecheck_copy">For example, certificates of recovery are valid for a shorter period in Germany than in the EU. In addition, a single vaccination with Johnson &amp; Johnson no longer counts as complete basic immunization.\nFrom now on, you can preview whether your certificates are valid in Germany according to the domestic rules under \"Check validity\" on the start screen.</string>
+	<string name="dialog_local_rulecheck_copy">For example, certificates of recovery are valid for a shorter period in Germany than in the EU. In addition, a single vaccination with Johnson &amp; Johnson no longer counts as complete basic immunization.\n\nFrom now on, you can preview whether your certificates are valid in Germany according to the domestic rules under \"Check validity\" on the start screen.</string>
 	<string name="dialog_local_rulecheck_button">OK</string>
 
 	<!-- SECTION: start screen -->

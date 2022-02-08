@@ -90,65 +90,62 @@ internal class CovPassCheckQRScannerFragment :
     override fun onValidationResetOrFinish() {
         scanEnabled.value = true
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
-        dataViewModel.certificateData2G = null
-        dataViewModel.testCertificateData2G = null
+        dataViewModel.firstCertificateData2G = null
+        dataViewModel.secondCertificateData2G = null
     }
 
     override fun onValidatingFirstCertificate(
-        certificateData: ValidationResult2gData?,
-        testCertificateData: ValidationResult2gData?,
+        firstCertificateData: ValidationResult2gData?,
     ) {
         scanEnabled.value = true
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
-        dataViewModel.certificateData2G = certificateData
-        dataViewModel.testCertificateData2G = testCertificateData
+        dataViewModel.firstCertificateData2G = firstCertificateData
+        dataViewModel.secondCertificateData2G = null
     }
 
-    override fun on2gData(certData: ValidationResult2gData?, testData: ValidationResult2gData?, certFirst: Boolean) {
+    override fun on2gData(firstCertData: ValidationResult2gData?, secondCertData: ValidationResult2gData?) {
+        if (firstCertData == null) return
+        if (secondCertData == null) {
+            findNavigator().push(
+                ValidationResult2gFragmentNav(
+                    firstCertData,
+                    secondCertData
+                )
+            )
+            return
+        }
+
         findNavigator().push(
-            when (dataViewModel.compareData(certData, testData)) {
+            when (dataViewModel.compareData(firstCertData, secondCertData)) {
                 DataComparison.Equal, DataComparison.HasNullData -> {
                     ValidationResult2gFragmentNav(
-                        certData,
-                        testData
+                        firstCertData,
+                        secondCertData
                     )
                 }
                 DataComparison.NameDifferent -> {
-                    if (certData != null && testData != null) {
-                        ValidationResult2gDifferentDataFragmentNav(
-                            certData,
-                            testData,
-                            certFirst,
-                            false
-                        )
-                    } else {
-                        ValidationResult2gFragmentNav(
-                            certData,
-                            testData
-                        )
-                    }
+                    ValidationResult2gDifferentDataFragmentNav(
+                        firstCertData,
+                        secondCertData,
+                        false
+                    )
                 }
                 DataComparison.DateOfBirthDifferent -> {
-                    if (certData != null && testData != null) {
-                        ValidationResult2gDifferentDataFragmentNav(
-                            certData,
-                            testData,
-                            certFirst,
-                            true
-                        )
-                    } else {
-                        ValidationResult2gFragmentNav(
-                            certData,
-                            testData
-                        )
-                    }
-                }
-                DataComparison.IsBoosterInTwoGPlusB -> {
-                    ValidationResult2gPlusBBoosterFragmentNav(
-                        certData,
+                    ValidationResult2gDifferentDataFragmentNav(
+                        firstCertData,
+                        secondCertData,
+                        true
                     )
                 }
             }
+        )
+    }
+
+    override fun on2gPlusBData(boosterCertData: ValidationResult2gData) {
+        findNavigator().push(
+            ValidationResult2gPlusBBoosterFragmentNav(
+                boosterCertData
+            )
         )
     }
 
@@ -205,16 +202,18 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onBackPressed(): Abortable {
         if (
-            dataViewModel.certificateData2G != null ||
-            dataViewModel.testCertificateData2G != null
+            dataViewModel.firstCertificateData2G != null ||
+            dataViewModel.secondCertificateData2G != null
         ) {
             scanEnabled.value = false
-            findNavigator().push(
-                ValidationResult2gFragmentNav(
-                    dataViewModel.certificateData2G,
-                    dataViewModel.testCertificateData2G
+            dataViewModel.firstCertificateData2G?.let { firstCertificateData2G ->
+                findNavigator().push(
+                    ValidationResult2gFragmentNav(
+                        firstCertificateData2G,
+                        dataViewModel.secondCertificateData2G
+                    )
                 )
-            )
+            }
         } else {
             return super.onBackPressed()
         }

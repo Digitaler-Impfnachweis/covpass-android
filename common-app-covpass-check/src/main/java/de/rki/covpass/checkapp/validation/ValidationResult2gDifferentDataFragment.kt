@@ -16,14 +16,14 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResult2gDifferentDataBinding
+import de.rki.covpass.checkapp.scanner.ValidationResult2gData
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 public class ValidationResult2gDifferentDataFragmentNav(
-    public val certificateData: ValidationResult2gData,
-    public val testCertificateData: ValidationResult2gData,
-    public val certificateFirst: Boolean,
+    public val firstCertificateData: ValidationResult2gData,
+    public val secondCertificateData: ValidationResult2gData,
     public val dateDifferent: Boolean,
 ) : FragmentNav(ValidationResult2gDifferentDataFragment::class)
 
@@ -33,6 +33,7 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
     private val binding by viewBinding(ValidationResult2gDifferentDataBinding::inflate)
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_warning_2G_names_announce_open
+
     // TODO add close announcement accessibility_warning_2G_names_announce_close
     override val buttonTextRes: Int = R.string.result_2G_button_retry
 
@@ -50,34 +51,30 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
         }
 
         binding.validationResultDifferentDataCertificateDataElement.showInfo(
-            if (args.certificateFirst) R.drawable.validation_result_2g_data
-            else R.drawable.validation_result_2g_data_warning,
-            args.certificateData.certificateName,
-            args.certificateData.certificateTransliteratedName,
+            R.drawable.validation_result_2g_data,
+            args.firstCertificateData.certificateName,
+            args.firstCertificateData.certificateTransliteratedName,
             getString(
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
-                args.certificateData.certificateBirthDate
+                args.firstCertificateData.certificateBirthDate
             ),
-            warning = !args.certificateFirst
         )
 
         binding.validationResultDifferentDataTestDataElement.showInfo(
-            if (args.certificateFirst) R.drawable.validation_result_2g_data_warning
-            else R.drawable.validation_result_2g_data,
-            args.testCertificateData.certificateName,
-            args.testCertificateData.certificateTransliteratedName,
+            R.drawable.validation_result_2g_data_warning,
+            args.secondCertificateData.certificateName,
+            args.secondCertificateData.certificateTransliteratedName,
             getString(
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
-                args.testCertificateData.certificateBirthDate,
+                args.secondCertificateData.certificateBirthDate,
             ),
-            args.certificateFirst
         )
 
         binding.validationResultDifferentDataValidDifferenceButton.setOnClickListener {
             findNavigator().push(
                 ValidationResult2gFragmentNav(
-                    args.certificateData,
-                    args.testCertificateData
+                    args.firstCertificateData,
+                    args.secondCertificateData
                 )
             )
         }
@@ -88,13 +85,8 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
     }
 
     private fun tryAgainAndBackEvent() {
-        if (args.certificateFirst) {
-            findNavigator().popUntil<ValidationResult2GListener>()
-                ?.onValidatingFirstCertificate(args.certificateData, null)
-        } else {
-            findNavigator().popUntil<ValidationResult2GListener>()
-                ?.onValidatingFirstCertificate(null, args.testCertificateData)
-        }
+        findNavigator().popUntil<ValidationResult2GListener>()
+            ?.onValidatingFirstCertificate(args.firstCertificateData)
     }
 
     override fun onActionButtonClicked() {

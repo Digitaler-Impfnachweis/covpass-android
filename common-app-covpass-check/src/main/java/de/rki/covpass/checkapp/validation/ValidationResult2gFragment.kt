@@ -6,7 +6,6 @@
 package de.rki.covpass.checkapp.validation
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -18,32 +17,33 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResult2gBinding
+import de.rki.covpass.checkapp.scanner.ValidationResult2gData
+import de.rki.covpass.checkapp.uielements.ValidationResult2gCertificateElement
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.sdk.utils.daysTillNow
 import de.rki.covpass.sdk.utils.hoursTillNow
 import de.rki.covpass.sdk.utils.monthTillNow
 import kotlinx.parcelize.Parcelize
-import java.time.Instant
-import java.time.ZonedDateTime
 
 internal interface ValidationResult2GListener {
     fun onValidationResetOrFinish()
     fun onValidatingFirstCertificate(
-        certificateData: ValidationResult2gData?,
-        testCertificateData: ValidationResult2gData?,
+        firstCertificateData: ValidationResult2gData?
     )
 }
 
 @Parcelize
 public class ValidationResult2gFragmentNav(
-    public val certificateData: ValidationResult2gData?,
-    public val testCertificateData: ValidationResult2gData?,
+    public val firstCertificateData: ValidationResult2gData,
+    public val secondCertificateData: ValidationResult2gData?,
 ) : FragmentNav(ValidationResult2gFragment::class)
 
 public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultListener {
 
     private val args by lazy { getArgs<ValidationResult2gFragmentNav>() }
+    private val firstCertificateData by lazy { args.firstCertificateData }
+    private val secondCertificateData by lazy { args.secondCertificateData }
     private val binding by viewBinding(ValidationResult2gBinding::inflate)
 
     override val buttonTextRes: Int by lazy { textForActivationButton() }
@@ -60,28 +60,26 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
     private fun prepareView() {
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.result_2G_title)
 
-        fillCertificateElement()
+        fillCertificateElements(binding.validationResultCertificate, firstCertificateData)
 
-        fillTestElement()
+        if (secondCertificateData != null) {
+            secondCertificateData?.let { secondCertificateData ->
+                fillCertificateElements(binding.validationResultSecondCertificate, secondCertificateData)
+            }
+        } else {
+            fillEmptyElement()
+        }
 
         fillDataElement()
 
-        binding.validationResultTypeText.setText(R.string.result_2G_footnote)
+        binding.validationResultTypeText.setText(R.string.result_2G__3rd_footnote)
         bottomSheetBinding.bottomSheetSecondWhiteButtonWithBorder.apply {
             isVisible = !(
-                args.testCertificateData != null && args.certificateData != null &&
-                    args.certificateData?.certificateResult == CovPassCheckValidationResult.Success &&
-                    args.testCertificateData?.certificateResult == CovPassCheckValidationResult.Success
+                secondCertificateData != null &&
+                    firstCertificateData.isValid() &&
+                    secondCertificateData?.isValid() == true
                 ) &&
-                !(
-                    args.testCertificateData == null && args.certificateData != null &&
-                        args.certificateData?.certificateResult != CovPassCheckValidationResult.Success
-                    ) &&
-                !(
-                    args.certificateData == null && args.testCertificateData != null &&
-                        args.testCertificateData?.certificateResult != CovPassCheckValidationResult.Success
-                    )
-
+                !(secondCertificateData == null && firstCertificateData.isInvalid())
             setOnClickListener {
                 findNavigator().popUntil<ValidationResult2GListener>()?.onValidationResetOrFinish()
             }
@@ -90,106 +88,102 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
         bottomSheetBinding.bottomSheetActionButton.isVisible = true
     }
 
-    private fun fillCertificateElement() {
-        if (args.certificateData == null) {
-            binding.validationResultCertificate.showEmptyCertificate(
-                R.drawable.validation_result_2g_empty_certificate,
-                R.string.result_2G_gproof_empty,
-                R.string.result_2G_empty_subtitle,
-            )
-        } else {
-            when (args.certificateData?.certificateResult) {
-                CovPassCheckValidationResult.TechnicalError -> {
-                    binding.validationResultCertificate.showInvalidCertificate(
-                        R.drawable.validation_result_2g_invalid_certificate,
-                        R.string.result_2G_gproof_invalid,
-                    ) {
-                        findNavigator().push(ValidationResultTechnicalFailure2gFragmentNav())
-                    }
+    private fun fillCertificateElements(
+        validationResultCertificate: ValidationResult2gCertificateElement,
+        certificateData: ValidationResult2gData,
+    ) {
+        when (certificateData.certificateResult) {
+            CovPassCheckValidationResult.TechnicalError -> {
+                validationResultCertificate.showInvalidCertificate(
+                    R.drawable.validation_result_2g_invalid_certificate,
+                    R.string.result_2G_gproof_invalid,
+                ) {
+                    findNavigator().push(ValidationResultTechnicalFailure2gFragmentNav())
                 }
-                CovPassCheckValidationResult.ValidationError -> {
-                    binding.validationResultCertificate.showInvalidCertificate(
-                        R.drawable.validation_result_2g_invalid_certificate,
-                        R.string.result_2G_gproof_invalid,
-                    ) {
-                        findNavigator().push(ValidationResultFailure2gFragmentNav())
-                    }
+            }
+            CovPassCheckValidationResult.ValidationError -> {
+                validationResultCertificate.showInvalidCertificate(
+                    R.drawable.validation_result_2g_invalid_certificate,
+                    R.string.result_2G_gproof_invalid,
+                ) {
+                    findNavigator().push(ValidationResultFailure2gFragmentNav())
                 }
-                CovPassCheckValidationResult.Success -> {
-                    binding.validationResultCertificate.showValidCertificate(
-                        R.drawable.validation_result_2g_valid_certificate,
-                        getString(
-                            when {
-                                args.certificateData?.isBooster() == true -> {
-                                    R.string.result_2G_2nd_booster_valid
-                                }
-                                args.certificateData?.isVaccination() == true -> {
-                                    R.string.result_2G_2nd_basic_valid
-                                }
-                                else -> {
-                                    R.string.result_2G_2nd_recovery_valid
-                                }
+            }
+            CovPassCheckValidationResult.Success -> {
+                validationResultCertificate.showValidCertificate(
+                    if (certificateData.isTest()) {
+                        R.drawable.validation_result_2g_valid_test
+                    } else {
+                        R.drawable.validation_result_2g_valid_certificate
+                    },
+                    getString(
+                        when {
+                            certificateData.isBooster() -> {
+                                R.string.result_2G_2nd_booster_valid
                             }
-                        ),
-                        getString(
-                            if (args.certificateData?.isBooster() == true) {
-                                R.string.result_2G_2nd_timestamp_days
-                            } else {
-                                R.string.result_2G_2nd_timestamp_months
-                            },
-                            if (args.certificateData?.isBooster() == true) {
-                                args.certificateData?.validFrom?.daysTillNow()
-                            } else {
-                                args.certificateData?.validFrom?.monthTillNow()
+                            certificateData.isVaccination() -> {
+                                R.string.result_2G_2nd_basic_valid
                             }
-                        )
-                    )
-                }
+                            certificateData.isRecovery() -> {
+                                R.string.result_2G_2nd_recovery_valid
+                            }
+                            certificateData.isPCRTest() -> {
+                                R.string.result_2G_2nd_pcrtest_valid
+                            }
+                            else -> {
+                                R.string.result_2G_2nd_rapidtest_valid
+                            }
+                        }
+                    ),
+                    when {
+                        certificateData.isBooster() -> {
+                            getString(
+                                R.string.result_2G_2nd_timestamp_days,
+                                certificateData.validFrom?.daysTillNow()
+                            )
+                        }
+                        certificateData.isTest() -> {
+                            getString(
+                                R.string.result_2G_2nd_timestamp_hours,
+                                certificateData.sampleCollection?.hoursTillNow()
+                            )
+                        }
+                        else -> {
+                            getString(
+                                R.string.result_2G_2nd_timestamp_months,
+                                certificateData.validFrom?.monthTillNow()
+                            )
+                        }
+                    }
+                )
             }
         }
     }
 
-    private fun fillTestElement() {
-        if (args.testCertificateData == null) {
-            binding.validationResultTestCertificate.showEmptyCertificate(
-                R.drawable.validation_result_2g_empty_test,
-                R.string.result_2G_test_empty,
-                R.string.result_2G_empty_subtitle,
-            )
-        } else {
-            when (args.testCertificateData?.certificateResult) {
-                CovPassCheckValidationResult.TechnicalError -> {
-                    binding.validationResultTestCertificate.showInvalidCertificate(
-                        R.drawable.validation_result_2g_invalid_certificate,
-                        R.string.result_2G_test_invalid,
-                    ) {
-                        findNavigator().push(ValidationResultTechnicalFailure2gFragmentNav())
-                    }
-                }
-                CovPassCheckValidationResult.ValidationError -> {
-                    binding.validationResultTestCertificate.showInvalidCertificate(
-                        R.drawable.validation_result_2g_invalid_certificate,
-                        R.string.result_2G_test_invalid,
-                    ) {
-                        findNavigator().push(ValidationResultFailure2gFragmentNav())
-                    }
-                }
-                CovPassCheckValidationResult.Success -> {
-                    binding.validationResultTestCertificate.showValidCertificate(
-                        R.drawable.validation_result_2g_valid_test,
-                        getString(
-                            if (args.certificateData?.isTestPCR() == true) {
-                                R.string.result_2G_2nd_pcrtest_valid
-                            } else {
-                                R.string.result_2G_2nd_rapidtest_valid
-                            }
-                        ),
-                        getString(
-                            R.string.result_2G_2nd_timestamp_hours,
-                            args.testCertificateData?.sampleCollection?.hoursTillNow()
-                        )
-                    )
-                }
+    private fun fillEmptyElement() {
+        binding.validationResultTypeText.isVisible =
+            !firstCertificateData.isVaccination() && !firstCertificateData.isBooster()
+        when {
+            firstCertificateData.isVaccination() || firstCertificateData.isBooster() -> {
+                binding.validationResultSecondCertificate.showEmptyCertificate(
+                    R.drawable.validation_result_2g_empty_certificate,
+                    R.string.result_2G_3rd_test_recov_empty,
+                    R.string.result_2G_empty_subtitle,
+                )
+            }
+            firstCertificateData.isRecovery() -> {
+                binding.validationResultSecondCertificate.showEmptyCertificate(
+                    R.drawable.validation_result_2g_empty_certificate,
+                    R.string.result_2G_3rd_test_vacc_empty,
+                    R.string.result_2G_empty_subtitle,
+                )
+            }
+            firstCertificateData.isTest() -> {
+                binding.validationResultSecondCertificate.showEmptyCertificate(
+                    R.drawable.validation_result_2g_empty_certificate,
+                    R.string.result_2G_3rd_vacc_recov_empty,
+                    R.string.result_2G_empty_subtitle,
+                )
             }
         }
     }
@@ -204,48 +198,31 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
             binding.validationResultInfoText.setText(R.string.validation_check_popup_valid_pcr_test_message)
             binding.validationResultInfoElement.showInfo(
                 R.drawable.validation_result_2g_data,
-                args.certificateData?.certificateName
-                    ?: args.testCertificateData?.certificateName,
-                args.certificateData?.certificateTransliteratedName
-                    ?: args.testCertificateData?.certificateTransliteratedName,
+                firstCertificateData.certificateName
+                    ?: secondCertificateData?.certificateName,
+                firstCertificateData.certificateTransliteratedName
+                    ?: secondCertificateData?.certificateTransliteratedName,
                 getString(
                     R.string.validation_check_popup_valid_vaccination_date_of_birth,
-                    args.certificateData?.certificateBirthDate ?: args.testCertificateData?.certificateBirthDate,
+                    firstCertificateData.certificateBirthDate ?: secondCertificateData?.certificateBirthDate,
                 )
             )
         }
     }
 
-    private fun validateDataElement() = (
-        args.certificateData == null &&
-            args.testCertificateData?.certificateResult != CovPassCheckValidationResult.Success
-        ) ||
-        (
-            args.testCertificateData == null &&
-                args.certificateData?.certificateResult != CovPassCheckValidationResult.Success
-            )
+    private fun validateDataElement() = secondCertificateData == null && firstCertificateData.isInvalid()
 
     private fun textForActivationButton() =
         when {
-            args.testCertificateData == null && args.certificateData != null &&
-                args.certificateData?.certificateResult == CovPassCheckValidationResult.Success -> {
-                R.string.result_2G_button_scan_test
+            secondCertificateData == null && firstCertificateData.isValid() -> {
+                R.string.result_2G__3rd_button
             }
-            args.testCertificateData != null && args.certificateData == null &&
-                args.testCertificateData?.certificateResult == CovPassCheckValidationResult.Success -> {
-                R.string.result_2G_button_scan_gproof
-            }
-            args.testCertificateData == null && args.certificateData != null &&
-                args.certificateData?.certificateResult != CovPassCheckValidationResult.Success -> {
+            secondCertificateData == null && firstCertificateData.isInvalid() -> {
                 R.string.result_2G_button_startover
             }
-            args.testCertificateData != null && args.certificateData == null &&
-                args.testCertificateData?.certificateResult != CovPassCheckValidationResult.Success -> {
-                R.string.result_2G_button_startover
-            }
-            args.testCertificateData != null && args.certificateData != null &&
-                args.certificateData?.certificateResult == CovPassCheckValidationResult.Success &&
-                args.testCertificateData?.certificateResult == CovPassCheckValidationResult.Success -> {
+            secondCertificateData != null &&
+                firstCertificateData.isValid() &&
+                secondCertificateData?.isValid() == true -> {
                 R.string.result_2G_button_startover
             }
             else -> {
@@ -259,19 +236,16 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 findNavigator().popUntil<ValidationResult2GListener>()
                     ?.onValidationResetOrFinish()
             }
-            args.certificateData != null &&
-                args.certificateData?.certificateResult != CovPassCheckValidationResult.Success -> {
-                findNavigator().popUntil<ValidationResult2GListener>()
-                    ?.onValidatingFirstCertificate(null, args.testCertificateData)
+            firstCertificateData.isInvalid() -> {
+                findNavigator().popUntil<ValidationResult2GListener>()?.onValidationResetOrFinish()
             }
-            args.testCertificateData != null &&
-                args.testCertificateData?.certificateResult != CovPassCheckValidationResult.Success -> {
+            secondCertificateData != null && secondCertificateData?.isInvalid() == true -> {
                 findNavigator().popUntil<ValidationResult2GListener>()
-                    ?.onValidatingFirstCertificate(args.certificateData, null)
+                    ?.onValidatingFirstCertificate(firstCertificateData)
             }
             else -> {
                 findNavigator().popUntil<ValidationResult2GListener>()
-                    ?.onValidatingFirstCertificate(args.certificateData, args.testCertificateData)
+                    ?.onValidatingFirstCertificate(firstCertificateData)
             }
         }
     }
@@ -284,15 +258,13 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
 
     override fun onBackPressed(): Abortable {
         when {
-            args.certificateData != null &&
-                args.certificateData?.certificateResult != CovPassCheckValidationResult.Success -> {
+            firstCertificateData.isInvalid() -> {
                 findNavigator().popUntil<ValidationResult2GListener>()
-                    ?.onValidatingFirstCertificate(null, args.testCertificateData)
+                    ?.onValidationResetOrFinish()
             }
-            args.testCertificateData != null &&
-                args.testCertificateData?.certificateResult != CovPassCheckValidationResult.Success -> {
+            secondCertificateData != null && secondCertificateData?.isInvalid() == true -> {
                 findNavigator().popUntil<ValidationResult2GListener>()
-                    ?.onValidatingFirstCertificate(args.certificateData, null)
+                    ?.onValidatingFirstCertificate(firstCertificateData)
             }
             else -> {
                 findNavigator().popAll()
@@ -300,35 +272,4 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
         }
         return Abort
     }
-}
-
-@Parcelize
-public data class ValidationResult2gData(
-    public val certificateName: String?,
-    public val certificateTransliteratedName: String?,
-    public val certificateBirthDate: String?,
-    public val sampleCollection: ZonedDateTime?,
-    public val certificateResult: CovPassCheckValidationResult,
-    public val certificateId: String?,
-    public val type: ValidationResult2gCertificateType,
-    public val validFrom: Instant? = null,
-) : Parcelable {
-    public fun isBooster(): Boolean =
-        type == ValidationResult2gCertificateType.Booster
-
-    public fun isVaccination(): Boolean =
-        type == ValidationResult2gCertificateType.Vaccination
-
-    public fun isTestPCR(): Boolean =
-        type == ValidationResult2gCertificateType.PCRTest
-}
-
-@Parcelize
-public enum class ValidationResult2gCertificateType : Parcelable {
-    Booster,
-    Vaccination,
-    Recovery,
-    PCRTest,
-    AntigenTest,
-    NullCertificateOrUnknown
 }

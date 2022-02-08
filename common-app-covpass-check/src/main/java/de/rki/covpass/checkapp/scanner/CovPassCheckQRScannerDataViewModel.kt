@@ -7,8 +7,6 @@ package de.rki.covpass.checkapp.scanner
 
 import com.ensody.reactivestate.BaseReactiveState
 import com.ibm.health.common.android.utils.BaseEvents
-import de.rki.covpass.checkapp.validation.ValidationResult2gCertificateType
-import de.rki.covpass.checkapp.validation.ValidationResult2gData
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.formatDateFromString
@@ -19,7 +17,8 @@ import java.time.ZonedDateTime
  * Interface to communicate events from [CovPassCheckQRScannerDataViewModel] to [CovPassCheckQRScannerFragment].
  */
 internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
-    fun on2gData(certData: ValidationResult2gData?, testData: ValidationResult2gData?, certFirst: Boolean)
+    fun on2gData(firstCertData: ValidationResult2gData?, secondCertData: ValidationResult2gData?)
+    fun on2gPlusBData(boosterCertData: ValidationResult2gData)
     fun on3gSuccess(certificate: CovCertificate)
     fun on3gValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun on3gValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
@@ -37,14 +36,33 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     private val isTwoGPlusBOn: Boolean,
 ) : BaseReactiveState<CovPassCheckQRScannerDataEvents>(scope) {
 
-    var certificateData2G: ValidationResult2gData? = null
-    var testCertificateData2G: ValidationResult2gData? = null
+    var firstCertificateData2G: ValidationResult2gData? = null
+    var secondCertificateData2G: ValidationResult2gData? = null
 
     fun prepareDataOnSuccess(certificate: CovCertificate) {
         if (isTwoGOn) {
-            if (isNewCertificateValid(certificateData2G, certificate)) {
-                eventNotifier {
-                    on2gData(
+            when {
+                isTwoGPlusBOn && certificate.dgcEntry is Vaccination &&
+                    (certificate.dgcEntry as Vaccination).isBooster -> {
+                    firstCertificateData2G = ValidationResult2gData(
+                        certificate.fullName,
+                        certificate.fullTransliteratedName,
+                        formatDateFromString(certificate.birthDateFormatted),
+                        null,
+                        CovPassCheckValidationResult.Success,
+                        certificate.dgcEntry.id,
+                        verify2gCertificateType(certificate),
+                        certificate.validFrom
+                    )
+                    secondCertificateData2G = null
+                    eventNotifier {
+                        firstCertificateData2G?.let {
+                            on2gPlusBData(it)
+                        }
+                    }
+                }
+                isNewCertificateValid(certificate) -> {
+                    onDataPreparationFinish(
                         ValidationResult2gData(
                             certificate.fullName,
                             certificate.fullTransliteratedName,
@@ -54,13 +72,12 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             certificate.dgcEntry.id,
                             verify2gCertificateType(certificate),
                             certificate.validFrom
-                        ),
-                        testCertificateData2G,
-                        false
+                        )
                     )
                 }
-            } else {
-                show2GError()
+                else -> {
+                    show2GError()
+                }
             }
         } else {
             eventNotifier {
@@ -71,22 +88,18 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     fun prepareDataOnValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         if (isTwoGOn) {
-            if (isNewCertificateValid(testCertificateData2G, certificate)) {
-                eventNotifier {
-                    on2gData(
-                        certificateData2G,
-                        ValidationResult2gData(
-                            certificate.fullName,
-                            certificate.fullTransliteratedName,
-                            formatDateFromString(certificate.birthDateFormatted),
-                            sampleCollection,
-                            CovPassCheckValidationResult.Success,
-                            certificate.dgcEntry.id,
-                            ValidationResult2gCertificateType.PCRTest
-                        ),
-                        true
+            if (isNewCertificateValid(certificate)) {
+                onDataPreparationFinish(
+                    ValidationResult2gData(
+                        certificate.fullName,
+                        certificate.fullTransliteratedName,
+                        formatDateFromString(certificate.birthDateFormatted),
+                        sampleCollection,
+                        CovPassCheckValidationResult.Success,
+                        certificate.dgcEntry.id,
+                        ValidationResult2gCertificateType.PcrTest
                     )
-                }
+                )
             } else {
                 show2GError()
             }
@@ -99,22 +112,18 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     fun prepareDataOnValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         if (isTwoGOn) {
-            if (isNewCertificateValid(testCertificateData2G, certificate)) {
-                eventNotifier {
-                    on2gData(
-                        certificateData2G,
-                        ValidationResult2gData(
-                            certificate.fullName,
-                            certificate.fullTransliteratedName,
-                            formatDateFromString(certificate.birthDateFormatted),
-                            sampleCollection,
-                            CovPassCheckValidationResult.Success,
-                            certificate.dgcEntry.id,
-                            ValidationResult2gCertificateType.AntigenTest
-                        ),
-                        true
+            if (isNewCertificateValid(certificate)) {
+                onDataPreparationFinish(
+                    ValidationResult2gData(
+                        certificate.fullName,
+                        certificate.fullTransliteratedName,
+                        formatDateFromString(certificate.birthDateFormatted),
+                        sampleCollection,
+                        CovPassCheckValidationResult.Success,
+                        certificate.dgcEntry.id,
+                        ValidationResult2gCertificateType.AntigenTest
                     )
-                }
+                )
             } else {
                 show2GError()
             }
@@ -143,79 +152,82 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     }
 
     fun compareData(certData: ValidationResult2gData?, testData: ValidationResult2gData?) =
-        when {
-            isTwoGPlusBOn && certData?.certificateResult == CovPassCheckValidationResult.Success &&
-                certData.isBooster() -> {
-                DataComparison.IsBoosterInTwoGPlusB
-            }
-            isDataNotNull(certData, testData) -> {
-                when {
-                    certData?.certificateTransliteratedName != testData?.certificateTransliteratedName &&
-                        certData?.certificateBirthDate == testData?.certificateBirthDate -> {
-                        DataComparison.NameDifferent
-                    }
-                    certData?.certificateBirthDate != testData?.certificateBirthDate -> {
-                        DataComparison.DateOfBirthDifferent
-                    }
-                    else -> {
-                        DataComparison.Equal
-                    }
+        if (isDataNotNull(certData, testData)) {
+            when {
+                certData?.certificateTransliteratedName != testData?.certificateTransliteratedName &&
+                    certData?.certificateBirthDate == testData?.certificateBirthDate -> {
+                    DataComparison.NameDifferent
+                }
+                certData?.certificateBirthDate != testData?.certificateBirthDate -> {
+                    DataComparison.DateOfBirthDifferent
+                }
+                else -> {
+                    DataComparison.Equal
                 }
             }
-            else -> {
-                DataComparison.HasNullData
-            }
+        } else {
+            DataComparison.HasNullData
         }
 
-    private fun isDataNotNull(certData: ValidationResult2gData?, testData: ValidationResult2gData?) =
-        certData != null && testData != null &&
-            certData.certificateTransliteratedName != null &&
-            testData.certificateTransliteratedName != null &&
-            certData.certificateBirthDate != null &&
-            testData.certificateBirthDate != null
+    private fun addValidationResult2gData(certificateData2G: ValidationResult2gData) {
+        if (firstCertificateData2G == null) {
+            firstCertificateData2G = certificateData2G
+        } else {
+            secondCertificateData2G = certificateData2G
+        }
+    }
+
+    private fun onDataPreparationFinish(certificateData2G: ValidationResult2gData) {
+        addValidationResult2gData(certificateData2G)
+        eventNotifier {
+            on2gData(
+                firstCertificateData2G,
+                secondCertificateData2G
+            )
+        }
+    }
+
+    private fun isDataNotNull(firstCertData: ValidationResult2gData?, secondCertData: ValidationResult2gData?) =
+        firstCertData != null && secondCertData != null &&
+            firstCertData.certificateTransliteratedName != null &&
+            secondCertData.certificateTransliteratedName != null &&
+            firstCertData.certificateBirthDate != null &&
+            secondCertData.certificateBirthDate != null
 
     private fun prepareData2g(certificate: CovCertificate, validationResult: CovPassCheckValidationResult) {
         when (certificate.dgcEntry) {
             is Recovery,
             is Vaccination,
             -> {
-                if (isNewCertificateValid(certificateData2G, certificate)) {
-                    eventNotifier {
-                        on2gData(
-                            ValidationResult2gData(
-                                certificate.fullName,
-                                certificate.fullTransliteratedName,
-                                formatDateFromString(certificate.birthDateFormatted),
-                                null,
-                                validationResult,
-                                certificate.dgcEntry.id,
-                                verify2gCertificateType(certificate)
-                            ),
-                            testCertificateData2G,
-                            false
+                if (isNewCertificateValid(certificate)) {
+                    onDataPreparationFinish(
+                        ValidationResult2gData(
+                            certificate.fullName,
+                            certificate.fullTransliteratedName,
+                            formatDateFromString(certificate.birthDateFormatted),
+                            null,
+                            validationResult,
+                            certificate.dgcEntry.id,
+                            verify2gCertificateType(certificate)
                         )
-                    }
+                    )
                 } else {
                     show2GError()
                 }
             }
             is TestCert -> {
-                if (isNewCertificateValid(testCertificateData2G, certificate)) {
-                    eventNotifier {
-                        on2gData(
-                            certificateData2G,
-                            ValidationResult2gData(
-                                certificate.fullName,
-                                certificate.fullTransliteratedName,
-                                formatDateFromString(certificate.birthDateFormatted),
-                                null,
-                                validationResult,
-                                certificate.dgcEntry.id,
-                                verify2gCertificateType(certificate)
-                            ),
-                            true
+                if (isNewCertificateValid(certificate)) {
+                    onDataPreparationFinish(
+                        ValidationResult2gData(
+                            certificate.fullName,
+                            certificate.fullTransliteratedName,
+                            formatDateFromString(certificate.birthDateFormatted),
+                            null,
+                            validationResult,
+                            certificate.dgcEntry.id,
+                            verify2gCertificateType(certificate)
                         )
-                    }
+                    )
                 } else {
                     show2GError()
                 }
@@ -225,49 +237,41 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     private fun prepareData2gNullCert(isTechnical: Boolean, validationResult: CovPassCheckValidationResult) {
         when {
-            certificateData2G == null && testCertificateData2G == null && isTechnical -> {
+            firstCertificateData2G == null && secondCertificateData2G == null && isTechnical -> {
                 eventNotifier {
                     on3gTechnicalFailure(true)
                 }
             }
-            certificateData2G == null && testCertificateData2G == null && !isTechnical -> {
+            firstCertificateData2G == null && secondCertificateData2G == null && !isTechnical -> {
                 eventNotifier {
                     on3gFailure(true)
                 }
             }
-            certificateData2G != null -> {
-                eventNotifier {
-                    on2gData(
-                        certificateData2G,
-                        ValidationResult2gData(
-                            null,
-                            null,
-                            null,
-                            null,
-                            validationResult,
-                            null,
-                            ValidationResult2gCertificateType.NullCertificateOrUnknown
-                        ),
-                        true
+            firstCertificateData2G != null -> {
+                onDataPreparationFinish(
+                    ValidationResult2gData(
+                        null,
+                        null,
+                        null,
+                        null,
+                        validationResult,
+                        null,
+                        ValidationResult2gCertificateType.NullCertificateOrUnknown
                     )
-                }
+                )
             }
-            testCertificateData2G != null -> {
-                eventNotifier {
-                    on2gData(
-                        ValidationResult2gData(
-                            null,
-                            null,
-                            null,
-                            null,
-                            validationResult,
-                            null,
-                            ValidationResult2gCertificateType.NullCertificateOrUnknown
-                        ),
-                        testCertificateData2G,
-                        false
+            secondCertificateData2G != null -> {
+                onDataPreparationFinish(
+                    ValidationResult2gData(
+                        null,
+                        null,
+                        null,
+                        null,
+                        validationResult,
+                        null,
+                        ValidationResult2gCertificateType.NullCertificateOrUnknown
                     )
-                }
+                )
             }
         }
     }
@@ -290,12 +294,26 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         }
     }
 
-    private fun isNewCertificateValid(certificateData: ValidationResult2gData?, certificate: CovCertificate) =
-        certificateData == null ||
+    private fun isNewCertificateValid(certificate: CovCertificate) =
+        firstCertificateData2G == null ||
             (
-                certificateData.certificateId != certificate.dgcEntry.id &&
-                    certificateData.certificateResult != CovPassCheckValidationResult.Success
+                firstCertificateData2G != null &&
+                    secondCertificateData2G == null &&
+                    firstCertificateData2G?.let {
+                        compareCertificateTypes(verify2gCertificateType(certificate), it.type)
+                    } ?: false
                 )
+
+    private fun compareCertificateTypes(
+        firstCertType: ValidationResult2gCertificateType,
+        secondCertType: ValidationResult2gCertificateType
+    ) = when {
+        firstCertType == ValidationResult2gCertificateType.Vaccination &&
+            secondCertType == ValidationResult2gCertificateType.Booster -> false
+        secondCertType == ValidationResult2gCertificateType.Vaccination &&
+            firstCertType == ValidationResult2gCertificateType.Booster -> false
+        else -> firstCertType != secondCertType
+    }
 
     private fun verify2gCertificateType(certificate: CovCertificate?) =
         when {
@@ -317,7 +335,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                     certificate.dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST ||
                         certificate.dgcEntry.type == TestCertType.POSITIVE_PCR_TEST
                     ) -> {
-                ValidationResult2gCertificateType.PCRTest
+                ValidationResult2gCertificateType.PcrTest
             }
             certificate.dgcEntry is TestCert &&
                 (
@@ -333,5 +351,5 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 }
 
 internal enum class DataComparison {
-    Equal, NameDifferent, DateOfBirthDifferent, HasNullData, IsBoosterInTwoGPlusB
+    Equal, NameDifferent, DateOfBirthDifferent, HasNullData
 }

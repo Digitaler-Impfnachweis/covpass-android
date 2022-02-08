@@ -21,7 +21,7 @@
     app:layout_constraintTop_toTopOf="parent" />
 
   <de.rki.covpass.checkapp.uielements.ValidationResult2gCertificateElement
-    android:id="@+id/validation_result_test_certificate"
+    android:id="@+id/validation_result_second_certificate"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
@@ -34,7 +34,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:layout_constraintTop_toBottomOf="@+id/validation_result_test_certificate">
+    app:layout_constraintTop_toBottomOf="@+id/validation_result_second_certificate">
 
     <TextView
       android:id="@+id/validation_result_info_text"
