@@ -8,7 +8,7 @@ package de.rki.covpass.sdk.rules
 import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleLocal
 import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesLocalDataSource
-import de.rki.covpass.sdk.rules.remote.rules.toCovPassRule
+import de.rki.covpass.sdk.rules.remote.rules.eu.toCovPassRule
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.distinctGroupBy
 import de.rki.covpass.sdk.utils.parallelMapNotNull

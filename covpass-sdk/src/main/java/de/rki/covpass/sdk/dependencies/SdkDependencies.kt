@@ -39,9 +39,9 @@ import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesDao
 import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesLocalDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
-import de.rki.covpass.sdk.rules.remote.rules.CovPassRuleInitial
-import de.rki.covpass.sdk.rules.remote.rules.CovPassRuleRemote
-import de.rki.covpass.sdk.rules.remote.rules.toCovPassRule
+import de.rki.covpass.sdk.rules.remote.rules.eu.CovPassRuleInitial
+import de.rki.covpass.sdk.rules.remote.rules.eu.CovPassRuleRemote
+import de.rki.covpass.sdk.rules.remote.rules.eu.toCovPassRule
 import de.rki.covpass.sdk.rules.remote.valuesets.CovPassValueSetInitial
 import de.rki.covpass.sdk.rules.remote.valuesets.CovPassValueSetRemote
 import de.rki.covpass.sdk.rules.remote.valuesets.toCovPassValueSet
@@ -169,10 +169,10 @@ public abstract class SdkDependencies {
 
     private val dccRulesHost: String by lazy { "distribution.dcc-rules.de" }
 
-    private val dccBoosterRulesHost: String by lazy {
-        application.getString(R.string.dcc_booster_rules_host).takeIf { it.isNotEmpty() }
+    private val dccBoosterAndDomesticRulesHost: String by lazy {
+        application.getString(R.string.dcc_booster_and_domestic_rules_host).takeIf { it.isNotEmpty() }
             ?: throw IllegalStateException(
-                "You have to set @string/dcc_booster_rules_host or override dccBoosterRulesHost"
+                "You have to set @string/dcc_booster_and_domestic_rules_host or override dccBoosterRulesHost"
             )
     }
 
@@ -180,8 +180,8 @@ public abstract class SdkDependencies {
         CovPassRulesRemoteDataSource(httpClient, dccRulesHost, "rules")
     }
 
-    private val covPassDomesticRulesRemoteDataSource: CovPassRulesRemoteDataSource by lazy {
-        CovPassRulesRemoteDataSource(httpClient, dccRulesHost, "domesticrules")
+    private val covPassDomesticRulesRemoteDataSource: CovPassDomesticRulesRemoteDataSource by lazy {
+        CovPassDomesticRulesRemoteDataSource(httpClient, dccBoosterAndDomesticRulesHost)
     }
 
     private val covPassValueSetsRemoteDataSource: CovPassValueSetsRemoteDataSource by lazy {
@@ -189,7 +189,7 @@ public abstract class SdkDependencies {
     }
 
     private val boosterRulesRemoteDataSource: BoosterRulesRemoteDataSource by lazy {
-        BoosterRulesRemoteDataSource(httpClient, dccBoosterRulesHost)
+        BoosterRulesRemoteDataSource(httpClient, dccBoosterAndDomesticRulesHost)
     }
 
     private val countriesRemoteDataSource: CovPassCountriesRemoteDataSource by lazy {

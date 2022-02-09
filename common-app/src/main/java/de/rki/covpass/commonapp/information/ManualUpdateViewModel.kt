@@ -29,8 +29,7 @@ internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) construct
             dscListUpdater.update()
             // update rules
             covPassEuRulesRepository.loadRules()
-            // TODO add after endpoint is available
-//            covPassDomesticEuRulesRepository.loadRules()
+            covPassDomesticEuRulesRepository.loadRules()
         }
     }
 }

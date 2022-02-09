@@ -5,10 +5,10 @@
 
 package de.rki.covpass.sdk.rules
 
-import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
+import de.rki.covpass.sdk.cert.CovPassDomesticRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRuleLocal
 import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRulesLocalDataSource
-import de.rki.covpass.sdk.rules.remote.rules.toCovPassRule
+import de.rki.covpass.sdk.rules.remote.rules.eu.toCovPassRule
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.distinctGroupBy
 import de.rki.covpass.sdk.utils.parallelMapNotNull
@@ -17,7 +17,7 @@ import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
 public class CovPassDomesticRulesRepository(
-    private val remoteDataSource: CovPassRulesRemoteDataSource,
+    private val remoteDataSource: CovPassDomesticRulesRemoteDataSource,
     private val localDataSource: CovPassDomesticRulesLocalDataSource,
     private val rulesUpdateRepository: RulesUpdateRepository,
 ) : CovPassRulesRepository {
@@ -43,10 +43,7 @@ public class CovPassDomesticRulesRepository(
         }
 
         val newRules = (added + changed).values.parallelMapNotNull { identifier ->
-            remoteDataSource.getRule(
-                identifier.country.lowercase(),
-                identifier.hash
-            ).toCovPassRule(identifier.hash)
+            remoteDataSource.getRule(identifier.hash).toCovPassRule(identifier.hash)
         }
 
         // Do a transactional update of the DB (as far as that's possible).

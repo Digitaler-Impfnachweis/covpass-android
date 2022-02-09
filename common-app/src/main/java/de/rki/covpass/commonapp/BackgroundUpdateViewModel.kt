@@ -46,8 +46,7 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
     public open fun update() {
         backgroundDscListUpdater.update()
         euRulesUpdater.update()
-        // TODO add after endpoint is available
-//        domesticRulesUpdater.update()
+        domesticRulesUpdater.update()
         valueSetsUpdater.update()
     }
 

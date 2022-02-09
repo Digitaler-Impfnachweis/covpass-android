@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.rules.remote.rules
+package de.rki.covpass.sdk.rules.remote.rules.eu
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
