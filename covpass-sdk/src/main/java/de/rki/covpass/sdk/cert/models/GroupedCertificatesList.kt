@@ -5,6 +5,8 @@
 
 package de.rki.covpass.sdk.cert.models
 
+import de.rki.covpass.sdk.utils.DccNameMatchingUtils.isHolderSame
+
 /**
  * Data model which contains a list of [GroupedCertificates] and a pointer to the favorite / own certificate.
  * This data model is used at runtime, while for the persistent data the [CovCertificateList] is used.
@@ -72,8 +74,7 @@ public data class GroupedCertificatesList private constructor(
             throw CertTestPositiveException()
         }
         var matchingGroupedCert: GroupedCertificates? = certificates.firstOrNull { groupedCerts ->
-            groupedCerts.id ==
-                GroupedCertificatesId(addedCert.covCertificate.name.trimmedName, addedCert.covCertificate.birthDate)
+            isHolderSame(groupedCerts.certificates.first().covCertificate, addedCert.covCertificate)
         }
         val certDoesNotExistYet = certificates.none { groupedCerts ->
             groupedCerts.certificates.any { combinedCert ->
