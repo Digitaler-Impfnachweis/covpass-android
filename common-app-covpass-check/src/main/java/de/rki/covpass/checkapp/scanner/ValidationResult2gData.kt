@@ -7,6 +7,7 @@ package de.rki.covpass.checkapp.scanner
 
 import android.os.Parcelable
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
+import de.rki.covpass.sdk.cert.models.Name
 import kotlinx.parcelize.Parcelize
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -21,6 +22,7 @@ public data class ValidationResult2gData(
     public val certificateId: String?,
     public val type: ValidationResult2gCertificateType,
     public val validFrom: Instant? = null,
+    public val validationName: ValidationResult2gName?
 ) : Parcelable {
     public fun isBooster(): Boolean =
         type == ValidationResult2gCertificateType.Booster
@@ -55,3 +57,27 @@ public enum class ValidationResult2gCertificateType : Parcelable {
     AntigenTest,
     NullCertificateOrUnknown
 }
+
+@Parcelize
+public data class ValidationResult2gName(
+    val givenName: String? = null,
+    val familyName: String? = null,
+    val givenNameTransliterated: String? = null,
+    val familyNameTransliterated: String = ""
+) : Parcelable
+
+public fun Name.toValidationResult2gName(): ValidationResult2gName =
+    ValidationResult2gName(
+        this.givenName,
+        this.familyName,
+        this.givenNameTransliterated,
+        this.familyNameTransliterated,
+    )
+
+public fun ValidationResult2gName.toName(): Name =
+    Name(
+        this.givenName,
+        this.familyName,
+        this.givenNameTransliterated,
+        this.familyNameTransliterated,
+    )

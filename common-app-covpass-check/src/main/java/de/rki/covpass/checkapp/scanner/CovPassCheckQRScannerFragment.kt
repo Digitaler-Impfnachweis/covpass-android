@@ -20,6 +20,7 @@ import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler.Companion.ERROR_CODE_QR_CODE_DUPLICATED
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.utils.DataComparison
 import de.rki.covpass.sdk.utils.formatDateFromString
 import kotlinx.parcelize.Parcelize
 import java.time.ZonedDateTime

@@ -9,6 +9,8 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.utils.DataComparison
+import de.rki.covpass.sdk.utils.DccNameMatchingUtils.compareHolder
 import de.rki.covpass.sdk.utils.formatDateFromString
 import kotlinx.coroutines.CoroutineScope
 import java.time.ZonedDateTime
@@ -52,7 +54,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         CovPassCheckValidationResult.Success,
                         certificate.dgcEntry.id,
                         verify2gCertificateType(certificate),
-                        certificate.validFrom
+                        certificate.validFrom,
+                        validationName = certificate.name.toValidationResult2gName()
                     )
                     secondCertificateData2G = null
                     eventNotifier {
@@ -71,7 +74,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             CovPassCheckValidationResult.Success,
                             certificate.dgcEntry.id,
                             verify2gCertificateType(certificate),
-                            certificate.validFrom
+                            certificate.validFrom,
+                            validationName = certificate.name.toValidationResult2gName()
                         )
                     )
                 }
@@ -97,7 +101,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         sampleCollection,
                         CovPassCheckValidationResult.Success,
                         certificate.dgcEntry.id,
-                        ValidationResult2gCertificateType.PcrTest
+                        ValidationResult2gCertificateType.PcrTest,
+                        validationName = certificate.name.toValidationResult2gName()
                     )
                 )
             } else {
@@ -121,7 +126,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         sampleCollection,
                         CovPassCheckValidationResult.Success,
                         certificate.dgcEntry.id,
-                        ValidationResult2gCertificateType.AntigenTest
+                        ValidationResult2gCertificateType.AntigenTest,
+                        validationName = certificate.name.toValidationResult2gName()
                     )
                 )
             } else {
@@ -151,23 +157,13 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         }
     }
 
-    fun compareData(certData: ValidationResult2gData?, testData: ValidationResult2gData?) =
-        if (isDataNotNull(certData, testData)) {
-            when {
-                certData?.certificateTransliteratedName != testData?.certificateTransliteratedName &&
-                    certData?.certificateBirthDate == testData?.certificateBirthDate -> {
-                    DataComparison.NameDifferent
-                }
-                certData?.certificateBirthDate != testData?.certificateBirthDate -> {
-                    DataComparison.DateOfBirthDifferent
-                }
-                else -> {
-                    DataComparison.Equal
-                }
-            }
-        } else {
-            DataComparison.HasNullData
-        }
+    fun compareData(certData: ValidationResult2gData?, testData: ValidationResult2gData?): DataComparison {
+        val name1 = certData?.validationName?.toName()
+        val name2 = testData?.validationName?.toName()
+        val dob1 = certData?.certificateBirthDate
+        val dob2 = testData?.certificateBirthDate
+        return compareHolder(name1, name2, dob1, dob2)
+    }
 
     private fun addValidationResult2gData(certificateData2G: ValidationResult2gData) {
         if (firstCertificateData2G == null) {
@@ -187,13 +183,6 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         }
     }
 
-    private fun isDataNotNull(firstCertData: ValidationResult2gData?, secondCertData: ValidationResult2gData?) =
-        firstCertData != null && secondCertData != null &&
-            firstCertData.certificateTransliteratedName != null &&
-            secondCertData.certificateTransliteratedName != null &&
-            firstCertData.certificateBirthDate != null &&
-            secondCertData.certificateBirthDate != null
-
     private fun prepareData2g(certificate: CovCertificate, validationResult: CovPassCheckValidationResult) {
         when (certificate.dgcEntry) {
             is Recovery,
@@ -208,7 +197,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             null,
                             validationResult,
                             certificate.dgcEntry.id,
-                            verify2gCertificateType(certificate)
+                            verify2gCertificateType(certificate),
+                            validationName = certificate.name.toValidationResult2gName()
                         )
                     )
                 } else {
@@ -225,7 +215,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             null,
                             validationResult,
                             certificate.dgcEntry.id,
-                            verify2gCertificateType(certificate)
+                            verify2gCertificateType(certificate),
+                            validationName = certificate.name.toValidationResult2gName()
                         )
                     )
                 } else {
@@ -256,7 +247,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         null,
                         validationResult,
                         null,
-                        ValidationResult2gCertificateType.NullCertificateOrUnknown
+                        ValidationResult2gCertificateType.NullCertificateOrUnknown,
+                        validationName = null
                     )
                 )
             }
@@ -269,7 +261,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         null,
                         validationResult,
                         null,
-                        ValidationResult2gCertificateType.NullCertificateOrUnknown
+                        ValidationResult2gCertificateType.NullCertificateOrUnknown,
+                        validationName = null
                     )
                 )
             }
@@ -348,8 +341,4 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                 ValidationResult2gCertificateType.NullCertificateOrUnknown
             }
         }
-}
-
-internal enum class DataComparison {
-    Equal, NameDifferent, DateOfBirthDifferent, HasNullData
 }
