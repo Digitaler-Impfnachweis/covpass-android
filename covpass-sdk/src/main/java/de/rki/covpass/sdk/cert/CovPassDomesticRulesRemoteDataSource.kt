@@ -6,7 +6,7 @@
 package de.rki.covpass.sdk.cert
 
 import de.rki.covpass.sdk.dependencies.defaultJson
-import de.rki.covpass.sdk.rules.remote.rules.eu.CovPassRuleIdentifierRemote
+import de.rki.covpass.sdk.rules.remote.rules.domestic.CovPassDomesticRuleIdentifierRemote
 import de.rki.covpass.sdk.rules.remote.rules.eu.CovPassRuleRemote
 import io.ktor.client.*
 import io.ktor.client.features.*
@@ -14,11 +14,7 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 
-public class CovPassRulesRemoteDataSource(
-    httpClient: HttpClient,
-    host: String,
-    private val urlString: String
-) {
+public class CovPassDomesticRulesRemoteDataSource(httpClient: HttpClient, host: String) {
     private val client = httpClient.config {
         defaultRequest {
             this.host = host
@@ -28,9 +24,9 @@ public class CovPassRulesRemoteDataSource(
         }
     }
 
-    public suspend fun getRuleIdentifiers(): List<CovPassRuleIdentifierRemote> =
-        client.get(urlString)
+    public suspend fun getRuleIdentifiers(): List<CovPassDomesticRuleIdentifierRemote> =
+        client.get("domesticrules")
 
-    public suspend fun getRule(country: String, hash: String): CovPassRuleRemote =
-        client.get("$urlString/$country/$hash")
+    public suspend fun getRule(hash: String): CovPassRuleRemote =
+        client.get("domesticrules/$hash")
 }

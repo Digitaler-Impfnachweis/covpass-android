@@ -3,14 +3,13 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.sdk.rules.remote.rules
+package de.rki.covpass.sdk.rules.remote.rules.domestic
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-public data class CovPassRuleIdentifierRemote(
+public data class CovPassDomesticRuleIdentifierRemote(
     val identifier: String,
     val version: String,
-    val country: String,
     val hash: String
 )

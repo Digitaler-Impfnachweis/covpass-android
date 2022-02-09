@@ -7,7 +7,7 @@ package de.rki.covpass.sdk.rules
 
 import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesLocalDataSource
-import de.rki.covpass.sdk.rules.remote.rules.CovPassRuleRemote
+import de.rki.covpass.sdk.rules.remote.rules.eu.CovPassRuleRemote
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import io.mockk.*
 import kotlinx.coroutines.test.runBlockingTest
