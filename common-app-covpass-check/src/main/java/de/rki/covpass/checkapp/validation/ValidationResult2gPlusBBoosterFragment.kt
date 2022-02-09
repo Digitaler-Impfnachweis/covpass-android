@@ -18,6 +18,7 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResult2gPlusBBoosterBinding
 import de.rki.covpass.checkapp.scanner.ValidationResult2gData
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.sdk.utils.daysTillNow
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -52,8 +53,11 @@ public class ValidationResult2gPlusBBoosterFragment : BaseBottomSheet() {
     private fun fillCertificateElement() {
         binding.validationResult2gPlusBCertificate.showValidCertificate(
             R.drawable.validation_result_2g_valid_certificate,
-            getString(R.string.result_2G_booster_valid),
-            null
+            getString(R.string.result_2G_2nd_booster_valid),
+            getString(
+                R.string.result_2G_2nd_timestamp_days,
+                args.certificateData?.validFrom?.daysTillNow()
+            )
         )
     }
 

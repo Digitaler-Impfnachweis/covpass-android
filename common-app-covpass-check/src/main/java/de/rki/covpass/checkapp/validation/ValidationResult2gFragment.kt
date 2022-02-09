@@ -162,7 +162,7 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
 
     private fun fillEmptyElement() {
         binding.validationResultTypeText.isVisible =
-            !firstCertificateData.isVaccination() && !firstCertificateData.isBooster()
+            !firstCertificateData.isVaccination() && !firstCertificateData.isBooster() && secondCertificateData == null
         when {
             firstCertificateData.isVaccination() || firstCertificateData.isBooster() -> {
                 binding.validationResultSecondCertificate.showEmptyCertificate(
