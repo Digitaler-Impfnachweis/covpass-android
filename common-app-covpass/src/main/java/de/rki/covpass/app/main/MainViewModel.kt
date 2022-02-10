@@ -17,13 +17,11 @@ import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.cert.BoosterRulesValidator
-import de.rki.covpass.sdk.cert.models.BoosterNotification
-import de.rki.covpass.sdk.cert.models.BoosterResult
-import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.utils.DescriptionLanguage
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 
@@ -42,57 +40,56 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         runValidations()
     }
 
-    internal var showingNotification = false
+    internal var showingNotification = CompletableDeferred<Unit>()
+    var selectedCertId: GroupedCertificatesId? = null
 
-    internal fun validateNotifications() {
+    /**
+     * @return true if the notification is displayed
+     */
+    private suspend fun validateNotifications(): Boolean =
         when {
-            showingNotification -> return
             commonDependencies.onboardingRepository.dataPrivacyVersionAccepted.value
                 != CURRENT_DATA_PRIVACY_VERSION -> {
-                showingNotification = true
                 eventNotifier {
                     showNewDataPrivacy()
                 }
+                true
             }
             commonDependencies.updateInfoRepository.updateInfoVersionShown.value
                 != UpdateInfoRepository.CURRENT_UPDATE_VERSION -> {
-                showingNotification = true
                 eventNotifier {
                     showNewUpdateInfo()
                 }
+                true
             }
             commonDependencies.checkContextRepository.checkContextNotificationVersionShown.value !=
                 CheckContextRepository.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION -> {
-                showingNotification = true
                 eventNotifier {
                     showDomesticRulesNotification()
                 }
+                true
             }
             certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } -> {
-                showingNotification = true
                 eventNotifier {
                     showExpiryNotification()
                 }
+                true
             }
             covpassDependencies.checkerRemarkRepository.checkerRemarkShown.value
                 != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION -> {
-                showingNotification = true
                 eventNotifier {
                     showCheckerRemark()
                 }
+                true
             }
-            covpassDependencies.certRepository.certs.value.certificates.any {
-                it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
-            } -> {
-                showingNotification = true
+            checkBoosterNotification() -> {
                 eventNotifier {
                     showBoosterNotification()
                 }
+                true
             }
+            else -> false
         }
-    }
-
-    var selectedCertId: GroupedCertificatesId? = null
 
     fun onPageSelected(position: Int) {
         selectedCertId = certRepository.certs.value.getSortedCertificates()[position].id
@@ -101,20 +98,23 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private fun runValidations() {
         launch(dispatchers.default) {
             while (true) {
-                checkBoosterNotification()
-                validateNotifications()
+                showingNotification = CompletableDeferred()
+                if (validateNotifications()) {
+                    showingNotification.await()
+                    continue
+                }
                 delay(BOOSTER_RULE_VALIDATION_INTERVAL_MS)
             }
         }
     }
 
-    private suspend fun checkBoosterNotification() {
+    private suspend fun checkBoosterNotification(): Boolean {
         val groupedCertificatesList = certRepository.certs.value
         for (groupedCert in groupedCertificatesList.certificates) {
             val latestVaccination = groupedCert.getLatestVaccination()?.covCertificate
             val latestRecovery = groupedCert.getLatestRecovery()?.covCertificate
             val recovery = latestRecovery?.recovery
-            val boosterNotification = when {
+            val boosterNotifications = when {
                 latestVaccination != null && recovery != null -> {
                     val mergedCertificate = latestVaccination.copy(
                         recoveries = listOf(recovery)
@@ -124,16 +124,20 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 latestVaccination != null -> {
                     validateBoosterRules(boosterRulesValidator, latestVaccination)
                 }
-                else -> BoosterNotification(BoosterResult.Failed)
+                else -> emptyList()
             }
-            groupedCert.boosterNotification = boosterNotification
-            if (boosterNotification.result == BoosterResult.Passed &&
-                !groupedCert.boosterNotificationRuleIds.contains(boosterNotification.ruleId)
-            ) {
-                groupedCert.boosterNotificationRuleIds =
-                    groupedCert.boosterNotificationRuleIds + boosterNotification.ruleId
+
+            boosterNotifications.find { it.ruleId !in groupedCert.boosterNotificationRuleIds }?.let {
+                groupedCert.boosterNotification = it
+                groupedCert.boosterNotificationRuleIds += it.ruleId
                 groupedCert.hasSeenBoosterNotification = false
                 groupedCert.hasSeenBoosterDetailNotification = false
+            }
+
+            if (boosterNotifications.isNotEmpty()) {
+                groupedCert.boosterNotification = boosterNotifications.find {
+                    it.ruleId == groupedCert.boosterNotificationRuleIds.lastOrNull()
+                } ?: boosterNotifications.last()
             }
         }
 
@@ -142,24 +146,29 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 it.certificates = groupedCertificatesList.certificates
             }
         }
+
+        return isBoosterNotificationToShow(groupedCertificatesList)
+    }
+
+    private fun isBoosterNotificationToShow(groupedCertificatesList: GroupedCertificatesList): Boolean {
+        return groupedCertificatesList.certificates.any {
+            it.boosterNotification.result == BoosterResult.Passed && !it.hasSeenBoosterNotification
+        }
     }
 
     private suspend fun validateBoosterRules(
         boosterRulesValidator: BoosterRulesValidator,
         covCertificate: CovCertificate,
-    ): BoosterNotification {
-        val boosterResult = boosterRulesValidator.validate(covCertificate).firstOrNull {
+    ): List<BoosterNotification> {
+        return boosterRulesValidator.validate(covCertificate).filter {
             it.result == de.rki.covpass.sdk.cert.BoosterResult.PASSED
-        }
-        return if (boosterResult != null) {
+        }.map {
             BoosterNotification(
                 BoosterResult.Passed,
-                boosterResult.rule.getDescriptionFor(DescriptionLanguage.ENGLISH.languageCode),
-                boosterResult.rule.getDescriptionFor(DescriptionLanguage.GERMAN.languageCode),
-                boosterResult.rule.identifier
+                it.rule.getDescriptionFor(DescriptionLanguage.ENGLISH.languageCode),
+                it.rule.getDescriptionFor(DescriptionLanguage.GERMAN.languageCode),
+                it.rule.identifier
             )
-        } else {
-            BoosterNotification(BoosterResult.Failed)
         }
     }
 

@@ -13,9 +13,9 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.DomesticRulesNotificationBinding
-import de.rki.covpass.commonapp.storage.CheckContextRepository.Companion.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.CheckContextRepository.Companion.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
 import kotlinx.parcelize.Parcelize
 
 internal interface DomesticRulesNotificationCallback {
@@ -49,7 +49,7 @@ public class DomesticRulesNotificationFragment : BaseBottomSheet() {
             commonDeps.checkContextRepository.checkContextNotificationVersionShown.set(
                 CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
             )
-            findNavigator().pop()
+            findNavigator().popUntil<DomesticRulesNotificationCallback>()?.onDomesticRulesNotificationFinish()
         }
     }
 }
