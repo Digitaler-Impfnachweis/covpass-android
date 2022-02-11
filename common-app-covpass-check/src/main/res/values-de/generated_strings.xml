@@ -211,6 +211,7 @@
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
 	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
+	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_informationt_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>

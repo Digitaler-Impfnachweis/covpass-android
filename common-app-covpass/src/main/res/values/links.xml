@@ -14,4 +14,5 @@
   <string name="terms_of_use_us" translatable="false">file:///android_asset/us-terms-of-use.html</string>
   <string name="easy_language_link" translatable="false">https://digitaler-impfnachweis-app.de/webviews/leichte-sprache/covpassapp</string>
   <string name="covpass_check_store_link" translatable="false">https://play.google.com/store/apps/details?id=de.rki.covpass.checkapp</string>
+  <string name="information_accessibility_statement">https://www.digitaler-impfnachweis-app.de/en/webviews/covpass-app-android-accessibility-statement</string>
 </resources>

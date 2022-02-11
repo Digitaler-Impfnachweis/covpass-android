@@ -50,6 +50,8 @@
   <string name="app_information_message_contact_info"/>
   <string name="app_information_message_contact_info_mail"/>
 
+  <string name="app_information_title_accessibility_statement_linked"/>
+
   <string name="app_information_title_update"/>
   <string name="app_information_message_update"/>
   <string name="app_information_message_update_note"/>

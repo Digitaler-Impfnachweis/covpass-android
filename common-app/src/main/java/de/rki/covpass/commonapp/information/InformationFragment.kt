@@ -34,7 +34,7 @@ public abstract class InformationFragment : BaseFragment() {
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_informationt_announce
 
-    @SuppressLint("StringFormatInvalid")
+    @SuppressLint("StringFormatInvalid", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
@@ -97,6 +97,15 @@ public abstract class InformationFragment : BaseFragment() {
             setOnClickListener {
                 findNavigator().push(AppRulesUpdateFragment())
             }
+        }
+
+        binding.informationFieldAccessibilityStatement.apply {
+            text = getSpanned(
+                R.string.app_information_title_accessibility_statement_linked,
+                getString(R.string.information_accessibility_statement)
+            )
+            movementMethod = LinkMovementMethod.getInstance()
+            stripUnderlines()
         }
 
         if (isCovpassCheck()) {

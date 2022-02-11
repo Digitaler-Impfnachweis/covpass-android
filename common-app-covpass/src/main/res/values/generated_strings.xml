@@ -607,6 +607,7 @@
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
 	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
+	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
 	<string name="app_information_title_update">Update rules of entry</string>
 	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Covid-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
 	<string name="app_information_message_update_note">Most recent update</string>
