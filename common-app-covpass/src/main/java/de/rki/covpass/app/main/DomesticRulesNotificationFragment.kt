@@ -49,7 +49,7 @@ public class DomesticRulesNotificationFragment : BaseBottomSheet() {
             commonDeps.checkContextRepository.checkContextNotificationVersionShown.set(
                 CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
             )
-            findNavigator().popUntil<DomesticRulesNotificationCallback>()?.onDomesticRulesNotificationFinish()
+            findNavigator().pop()
         }
     }
 }

@@ -67,7 +67,6 @@ internal class MainFragment :
     DataProtectionCallback,
     CheckRemarkCallback,
     DomesticRulesNotificationCallback,
-    BoosterNotificationCallback,
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
@@ -176,23 +175,23 @@ internal class MainFragment :
     }
 
     override fun onUpdateInfoFinish() {
-        viewModel.showingNotification.complete(Unit)
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
     }
 
     override fun onCheckRemarkFinish() {
-        viewModel.showingNotification.complete(Unit)
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
     }
 
     override fun onDataProtectionFinish() {
-        viewModel.showingNotification.complete(Unit)
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
     }
 
     override fun onDomesticRulesNotificationFinish() {
-        viewModel.showingNotification.complete(Unit)
-    }
-
-    override fun onBoosterNotificationFinish() {
-        viewModel.showingNotification.complete(Unit)
+        viewModel.showingNotification = false
+        viewModel.validateNotifications()
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
@@ -203,7 +202,8 @@ internal class MainFragment :
                         it.hasSeenExpiryNotification = true
                     }
                 }
-                viewModel.showingNotification.complete(Unit)
+                viewModel.showingNotification = false
+                viewModel.validateNotifications()
             }
         }
     }
