@@ -169,10 +169,10 @@ public abstract class SdkDependencies {
 
     private val dccRulesHost: String by lazy { "distribution.dcc-rules.de" }
 
-    private val dccBoosterAndDomesticRulesHost: String by lazy {
-        application.getString(R.string.dcc_booster_and_domestic_rules_host).takeIf { it.isNotEmpty() }
+    private val dccBoosterRulesHost: String by lazy {
+        application.getString(R.string.dcc_booster_rules_host).takeIf { it.isNotEmpty() }
             ?: throw IllegalStateException(
-                "You have to set @string/dcc_booster_and_domestic_rules_host or override dccBoosterRulesHost"
+                "You have to set @string/dcc_booster_rules_host or override dccBoosterRulesHost"
             )
     }
 
@@ -181,7 +181,7 @@ public abstract class SdkDependencies {
     }
 
     private val covPassDomesticRulesRemoteDataSource: CovPassDomesticRulesRemoteDataSource by lazy {
-        CovPassDomesticRulesRemoteDataSource(httpClient, dccBoosterAndDomesticRulesHost)
+        CovPassDomesticRulesRemoteDataSource(httpClient, dccRulesHost)
     }
 
     private val covPassValueSetsRemoteDataSource: CovPassValueSetsRemoteDataSource by lazy {
@@ -189,7 +189,7 @@ public abstract class SdkDependencies {
     }
 
     private val boosterRulesRemoteDataSource: BoosterRulesRemoteDataSource by lazy {
-        BoosterRulesRemoteDataSource(httpClient, dccBoosterAndDomesticRulesHost)
+        BoosterRulesRemoteDataSource(httpClient, dccBoosterRulesHost)
     }
 
     private val countriesRemoteDataSource: CovPassCountriesRemoteDataSource by lazy {

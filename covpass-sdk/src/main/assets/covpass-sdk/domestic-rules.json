@@ -1,15 +1,4 @@
 [{
-  "ValidFrom": "2021-07-03T00:00:00Z",
-  "AffectedFields": ["r.0", "r.0.fr"],
-  "CertificateType": "Recovery",
-  "Identifier": "RR-DE-0001",
-  "SchemaVersion": "1.0.0",
-  "Type": "Acceptance",
-  "EngineVersion": "0.7.5",
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "hash": "5a73c97d8c59495a5b48f3169e85d2cca0b4872548be21d9180f8c835c5004ba",
-  "Country": "DE",
-  "Version": "1.0.0",
   "Logic": {
     "if": [{
       "var": "payload.r.0"
@@ -25,7 +14,6 @@
       }]
     }, true]
   },
-  "Engine": "CERTLOGIC",
   "Description": [{
     "lang": "en",
     "desc": "The positive NAA test result (e.g., PCR) must be older than 28 days."
@@ -41,29 +29,27 @@
   }, {
     "lang": "it",
     "desc": "Il NAAT positivo (ad es. test PRC) deve risalire minimo a 28 giorni fa."
-  }]
-}, {
-  "Country": "DE",
-  "ValidFrom": "2022-02-08T22:00:00Z",
-  "Identifier": "RR-DE-5002",
-  "SchemaVersion": "1.0.0",
-  "Description": [{
-    "lang": "en",
-    "desc": "The positive NAA test result (e.g., PCR) must be no older than 90 days."
-  }, {
-    "lang": "de",
-    "desc": "Der positive NAA-Test (z.B. PCR) darf maximal 90 Tage zurückliegen."
-  }, {
-    "lang": "fr",
-    "desc": "Le test TAN positif (p. ex. PCR) ne doit pas dater de plus de 90 jours."
-  }, {
-    "lang": "es",
-    "desc": "Deben haber transcurrido 90 días como máximo desde que una prueba de amplificación de ácidos nucleicos (por ejemplo, una PCR) diese positivo."
-  }, {
-    "lang": "it",
-    "desc": "Il NAAT positivo (ad es. test PRC) deve risalire massimo a 90 giorni fa."
   }],
-  "Version": "1.0.3",
+  "ValidFrom": "2021-07-03T00:00:00Z",
+  "SchemaVersion": "1.0.0",
+  "EngineVersion": "0.7.5",
+  "Version": "1.0.0",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "Engine": "CERTLOGIC",
+  "hash": "5a73c97d8c59495a5b48f3169e85d2cca0b4872548be21d9180f8c835c5004ba",
+  "AffectedFields": ["r.0", "r.0.fr"],
+  "Identifier": "RR-DE-0001",
+  "Country": "DE",
+  "Type": "Acceptance",
+  "CertificateType": "Recovery"
+}, {
+  "SchemaVersion": "1.0.0",
+  "CertificateType": "Recovery",
+  "Engine": "CERTLOGIC",
+  "EngineVersion": "0.7.5",
+  "Version": "1.0.1",
+  "Identifier": "RR-DE-0002",
+  "hash": "0b1b94d78386b2b9777856ce5de70212de2d3cbf91e124de35084544ca11af09",
   "Logic": {
     "if": [{
       "var": "payload.r.0"
@@ -75,35 +61,33 @@
       }, {
         "plusTime": [{
           "var": "payload.r.0.fr"
-        }, 90, "day"]
+        }, 180, "day"]
       }]
     }, true]
   },
-  "Engine": "CERTLOGIC",
-  "CertificateType": "Recovery",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "Type": "Acceptance",
+  "Description": [{
+    "lang": "en",
+    "desc": "The positive NAA test result (e.g., PCR) must be no older than 6 months."
+  }, {
+    "lang": "de",
+    "desc": "Der positive NAA-Test (z.B. PCR) darf maximal 6 Monate zurückliegen."
+  }, {
+    "lang": "fr",
+    "desc": "Le test TAN positif (p. ex. PCR) ne doit pas dater de plus de 180 jours."
+  }, {
+    "lang": "es",
+    "desc": "Deben haber transcurrido 180 días como máximo desde que una prueba de amplificación de ácidos nucleicos (por ejemplo, una PCR) diese positivo."
+  }, {
+    "lang": "it",
+    "desc": "Il NAAT positivo (ad es. test PRC) deve risalire massimo a 180 giorni fa."
+  }],
   "AffectedFields": ["r.0", "r.0.fr"],
-  "hash": "ac3340b68df28ff93681b76327943e1e8b6db0a7a772da85a021dd636f021268",
-  "Type": "Acceptance",
-  "EngineVersion": "0.7.5",
-  "ValidTo": "2030-06-01T00:00:00Z"
+  "ValidFrom": "2021-07-15T22:00:00Z",
+  "Country": "DE"
 }, {
-  "Type": "Acceptance",
   "Engine": "CERTLOGIC",
-  "Identifier": "TR-DE-0001",
-  "Logic": {
-    "if": [{
-      "var": "payload.t.0"
-    }, {
-      "in": [{
-        "var": "payload.t.0.tt"
-      },
-        ["LP217198-3", "LP6464-4"]
-      ]
-    }, true]
-  },
-  "Country": "DE",
-  "ValidFrom": "2021-07-03T00:00:00Z",
-  "SchemaVersion": "1.0.0",
   "Description": [{
     "lang": "en",
     "desc": "This must be an antigen test (e.g., rapid test) or NAA test (e.g., PCR)."
@@ -120,15 +104,31 @@
     "lang": "it",
     "desc": "Deve trattarsi di un test antigenico (test rapido) o NAAT (come PRC)."
   }],
-  "EngineVersion": "0.7.5",
-  "CertificateType": "Test",
   "hash": "b3c4e2af3259bf5c793e0bed4ccf965ac54cb704a4949dfb55f4681d494a9a0e",
-  "AffectedFields": ["t.0", "t.0.tt"],
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "Version": "1.0.0"
-}, {
+  "Country": "DE",
+  "Logic": {
+    "if": [{
+      "var": "payload.t.0"
+    }, {
+      "in": [{
+        "var": "payload.t.0.tt"
+      },
+        ["LP217198-3", "LP6464-4"]
+      ]
+    }, true]
+  },
+  "SchemaVersion": "1.0.0",
   "Version": "1.0.0",
-  "Identifier": "TR-DE-0002",
+  "EngineVersion": "0.7.5",
+  "ValidFrom": "2021-07-03T00:00:00Z",
+  "AffectedFields": ["t.0", "t.0.tt"],
+  "CertificateType": "Test",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "Type": "Acceptance",
+  "Identifier": "TR-DE-0001"
+}, {
+  "Type": "Acceptance",
+  "CertificateType": "Test",
   "Description": [{
     "lang": "en",
     "desc": "The sample for an antigen test (e.g., rapid test) must have been taken no longer than 48 hours ago."
@@ -145,14 +145,15 @@
     "lang": "it",
     "desc": "Il campione per il test antigenico (test rapido) deve essere stato rilevato nelle ultime 48 ore."
   }],
-  "hash": "d43e24f487849ba261ca5c62c288482ccc454c75806acda550a442693bae8a1d",
+  "Version": "1.0.0",
+  "Identifier": "TR-DE-0002",
   "ValidTo": "2030-06-01T00:00:00Z",
-  "CertificateType": "Test",
-  "EngineVersion": "0.7.5",
-  "AffectedFields": ["t.0", "t.0.sc", "t.0.tt"],
-  "Type": "Acceptance",
+  "SchemaVersion": "1.0.0",
+  "hash": "d43e24f487849ba261ca5c62c288482ccc454c75806acda550a442693bae8a1d",
   "Engine": "CERTLOGIC",
+  "AffectedFields": ["t.0", "t.0.sc", "t.0.tt"],
   "ValidFrom": "2021-07-03T00:00:00Z",
+  "EngineVersion": "0.7.5",
   "Country": "DE",
   "Logic": {
     "if": [{
@@ -174,14 +175,12 @@
         }]
       }, true]
     }, true]
-  },
-  "SchemaVersion": "1.0.0"
+  }
 }, {
-  "Identifier": "TR-DE-0003",
   "Country": "DE",
-  "Type": "Acceptance",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "Engine": "CERTLOGIC",
   "EngineVersion": "0.7.5",
-  "ValidFrom": "2021-07-03T00:00:00Z",
   "Logic": {
     "if": [{
       "var": "payload.t.0"
@@ -203,13 +202,7 @@
       }, true]
     }, true]
   },
-  "SchemaVersion": "1.0.0",
-  "Version": "1.0.0",
-  "Engine": "CERTLOGIC",
-  "AffectedFields": ["t.0", "t.0.sc", "t.0.tt"],
-  "CertificateType": "Test",
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "hash": "130171fd2b90dadbd65c44650f60e715c59bfb2ca03913105a079c11d58b5803",
+  "Type": "Acceptance",
   "Description": [{
     "lang": "en",
     "desc": "The sample for an NAA test (e.g., PCR) must have been taken no longer than 72 hours ago."
@@ -225,8 +218,19 @@
   }, {
     "lang": "it",
     "desc": "Il campione per il NAAT (test PRC) deve essere stato rilevato nelle ultime 72 ore."
-  }]
+  }],
+  "Version": "1.0.0",
+  "ValidFrom": "2021-07-03T00:00:00Z",
+  "SchemaVersion": "1.0.0",
+  "Identifier": "TR-DE-0003",
+  "CertificateType": "Test",
+  "hash": "130171fd2b90dadbd65c44650f60e715c59bfb2ca03913105a079c11d58b5803",
+  "AffectedFields": ["t.0", "t.0.sc", "t.0.tt"]
 }, {
+  "Identifier": "TR-DE-0004",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "SchemaVersion": "1.0.0",
+  "Type": "Acceptance",
   "Logic": {
     "if": [{
       "var": "payload.t.0"
@@ -236,17 +240,14 @@
       }, "260415000"]
     }, true]
   },
-  "Type": "Acceptance",
+  "ValidFrom": "2021-07-03T00:00:00Z",
+  "CertificateType": "Test",
   "EngineVersion": "0.7.5",
   "hash": "34d53cfc0e330a05ddadb6262500e65a430a587b0dd29c027b5492f552e046d0",
-  "ValidFrom": "2021-07-03T00:00:00Z",
-  "SchemaVersion": "1.0.0",
-  "CertificateType": "Test",
-  "Country": "DE",
+  "Version": "1.0.0",
   "Engine": "CERTLOGIC",
-  "ValidTo": "2030-06-01T00:00:00Z",
   "AffectedFields": ["t.0", "t.0.tr"],
-  "Identifier": "TR-DE-0004",
+  "Country": "DE",
   "Description": [{
     "lang": "en",
     "desc": "The test result must be negative."
@@ -262,11 +263,29 @@
   }, {
     "lang": "it",
     "desc": "Il risultato del test deve essere negativo."
-  }],
-  "Version": "1.0.0"
+  }]
 }, {
-  "Type": "Acceptance",
+  "AffectedFields": ["t.0", "t.0.ma", "t.0.tt"],
+  "Description": [{
+    "lang": "en",
+    "desc": "The antigen test (e.g., rapid test) must be included in the EU’s \"Common list of COVID-19 rapid antigen tests\"."
+  }, {
+    "lang": "de",
+    "desc": "Der Antigen-Test (z.B. Schnelltest) muss in der Liste \"Common list of rapid antigen tests\" der EU enthalten sein."
+  }, {
+    "lang": "fr",
+    "desc": "Le test antigénique (p. ex. test rapide) doit figurer sur la liste commune des tests antigéniques rapides « Common list of rapid antigen tests » de l’UE."
+  }, {
+    "lang": "es",
+    "desc": "La prueba de antígenos (por ejemplo, una prueba rápida) debe estar incluida en la lista \"Common list of rapid antigen tests\" de la Unión Europea."
+  }, {
+    "lang": "it",
+    "desc": "Il test antigenico (ad es. test rapido) deve corrispondere a uno dei test della \"Common list of rapid antigen tests\" dell’UE."
+  }],
+  "Country": "DE",
   "hash": "7e177d5c072d0c1bdee4339e649e74ae5bf53198a4c44d615a203f98c57bbc1f",
+  "Identifier": "TR-DE-0005",
+  "Version": "1.0.0",
   "ValidTo": "2030-06-01T00:00:00Z",
   "Logic": {
     "if": [{
@@ -285,53 +304,15 @@
       }, true]
     }, true]
   },
-  "ValidFrom": "2021-07-03T00:00:00Z",
-  "Country": "DE",
-  "Description": [{
-    "lang": "en",
-    "desc": "The antigen test (e.g., rapid test) must be included in the EU’s \"Common list of COVID-19 rapid antigen tests\"."
-  }, {
-    "lang": "de",
-    "desc": "Der Antigen-Test (z.B. Schnelltest) muss in der Liste \"Common list of rapid antigen tests\" der EU enthalten sein."
-  }, {
-    "lang": "fr",
-    "desc": "Le test antigénique (p. ex. test rapide) doit figurer sur la liste commune des tests antigéniques rapides « Common list of rapid antigen tests » de l’UE."
-  }, {
-    "lang": "es",
-    "desc": "La prueba de antígenos (por ejemplo, una prueba rápida) debe estar incluida en la lista \"Common list of rapid antigen tests\" de la Unión Europea."
-  }, {
-    "lang": "it",
-    "desc": "Il test antigenico (ad es. test rapido) deve corrispondere a uno dei test della \"Common list of rapid antigen tests\" dell’UE."
-  }],
-  "Version": "1.0.0",
-  "Engine": "CERTLOGIC",
+  "Type": "Acceptance",
   "SchemaVersion": "1.0.0",
-  "Identifier": "TR-DE-0005",
   "EngineVersion": "0.7.5",
-  "AffectedFields": ["t.0", "t.0.ma", "t.0.tt"],
-  "CertificateType": "Test"
+  "ValidFrom": "2021-07-03T00:00:00Z",
+  "CertificateType": "Test",
+  "Engine": "CERTLOGIC"
 }, {
   "Type": "Acceptance",
-  "hash": "bc092f8000606c57a8fd80bc7a31ff720a4c4428510d88c774bed2f839c76b66",
-  "Logic": {
-    "if": [{
-      "var": "payload.v.0"
-    }, {
-      ">=": [{
-        "var": "payload.v.0.dn"
-      }, {
-        "var": "payload.v.0.sd"
-      }]
-    }, true]
-  },
-  "SchemaVersion": "1.0.0",
-  "Country": "DE",
-  "ValidFrom": "2021-07-03T00:00:00Z",
-  "Version": "1.0.0",
-  "AffectedFields": ["v.0", "v.0.dn", "v.0.sd"],
-  "EngineVersion": "0.7.5",
-  "CertificateType": "Vaccination",
-  "Engine": "CERTLOGIC",
+  "ValidTo": "2030-06-01T00:00:00Z",
   "Description": [{
     "lang": "en",
     "desc": "The vaccination schedule must be complete (e.g., 1\/1, 2\/2)."
@@ -348,18 +329,46 @@
     "lang": "it",
     "desc": "Il ciclo di vaccinazione deve essere stato completato (ad es. 1\/1, 2\/2)."
   }],
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "Identifier": "VR-DE-0001"
-}, {
-  "AffectedFields": ["v.0", "v.0.mp"],
+  "CertificateType": "Vaccination",
+  "Logic": {
+    "if": [{
+      "var": "payload.v.0"
+    }, {
+      ">=": [{
+        "var": "payload.v.0.dn"
+      }, {
+        "var": "payload.v.0.sd"
+      }]
+    }, true]
+  },
+  "Engine": "CERTLOGIC",
+  "ValidFrom": "2021-07-03T00:00:00Z",
+  "Identifier": "VR-DE-0001",
+  "hash": "bc092f8000606c57a8fd80bc7a31ff720a4c4428510d88c774bed2f839c76b66",
+  "AffectedFields": ["v.0", "v.0.dn", "v.0.sd"],
+  "Country": "DE",
   "EngineVersion": "0.7.5",
   "SchemaVersion": "1.0.0",
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "Version": "1.0.0",
-  "Engine": "CERTLOGIC",
-  "Identifier": "VR-DE-0002",
+  "Version": "1.0.0"
+}, {
+  "Logic": {
+    "if": [{
+      "var": "payload.v.0"
+    }, {
+      "in": [{
+        "var": "payload.v.0.mp"
+      },
+        ["EU\/1\/20\/1528", "EU\/1\/20\/1507", "EU\/1\/21\/1529", "EU\/1\/20\/1525"]
+      ]
+    }, true]
+  },
+  "hash": "debe40616360fb03d57d292dfcf55edf77b377b23594ae50bc0d7996c6b55bca",
   "ValidFrom": "2021-07-03T00:00:00Z",
-  "Type": "Acceptance",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "SchemaVersion": "1.0.0",
+  "Country": "DE",
+  "EngineVersion": "0.7.5",
+  "Engine": "CERTLOGIC",
   "Description": [{
     "lang": "en",
     "desc": "Only the following vaccines are accepted: AstraZeneca, Biontech, Janssen, Moderna."
@@ -376,23 +385,15 @@
     "lang": "it",
     "desc": "Saranno accettati solamente i seguenti vaccini: AstraZeneca, Biontech, Janssen, Moderna."
   }],
-  "CertificateType": "Vaccination",
-  "Country": "DE",
-  "Logic": {
-    "if": [{
-      "var": "payload.v.0"
-    }, {
-      "in": [{
-        "var": "payload.v.0.mp"
-      },
-        ["EU\/1\/20\/1528", "EU\/1\/20\/1507", "EU\/1\/21\/1529", "EU\/1\/20\/1525"]
-      ]
-    }, true]
-  },
-  "hash": "debe40616360fb03d57d292dfcf55edf77b377b23594ae50bc0d7996c6b55bca"
+  "Version": "1.0.0",
+  "AffectedFields": ["v.0", "v.0.mp"],
+  "Identifier": "VR-DE-0002",
+  "Type": "Acceptance",
+  "CertificateType": "Vaccination"
 }, {
   "Engine": "CERTLOGIC",
   "hash": "992f4a432f22fb712eddd376248493b2b15d055da0bda3bee480fe6ad6ec5937",
+  "SchemaVersion": "1.0.0",
   "Logic": {
     "if": [{
       "var": "payload.v.0"
@@ -446,6 +447,14 @@
       }]
     }, true]
   },
+  "EngineVersion": "0.7.5",
+  "CertificateType": "Vaccination",
+  "Version": "1.0.4",
+  "AffectedFields": ["v.0", "v.0.dt", "v.0.mp", "v.0.dn", "v.0.sd"],
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "Identifier": "VR-DE-0003",
+  "ValidFrom": "2021-10-03T00:00:00Z",
+  "Type": "Acceptance",
   "Description": [{
     "lang": "en",
     "desc": "At least 14 days must have elapsed since completing the primary course of immunization. A booster shot or vaccination of someone who recovered from COVID-19 is valid immediately as long as it is clearly identified as such."
@@ -462,17 +471,10 @@
     "lang": "it",
     "desc": "Devono essere passati minimo 14 giorni dalla vaccinazione finale necessaria per l’immunizzazione di base. Il richiamo del vaccino o il vaccino per le persone che sono guarite dal virus è valido da subito purché sia riconoscibile come tale in maniera univoca."
   }],
-  "Version": "1.0.4",
-  "Type": "Acceptance",
-  "Identifier": "VR-DE-0003",
-  "AffectedFields": ["v.0", "v.0.dt", "v.0.mp", "v.0.dn", "v.0.sd"],
-  "EngineVersion": "0.7.5",
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "SchemaVersion": "1.0.0",
-  "ValidFrom": "2021-10-03T00:00:00Z",
-  "CertificateType": "Vaccination",
   "Country": "DE"
 }, {
+  "CertificateType": "Vaccination",
+  "Country": "DE",
   "Logic": {
     "if": [{
       "var": "payload.v.0"
@@ -488,9 +490,6 @@
       }]
     }, true]
   },
-  "ValidTo": "2030-06-01T00:00:00Z",
-  "Engine": "CERTLOGIC",
-  "hash": "1313e59f84f472694eece639cbe955b5c469ed7e0adb319a731d2d77f62f3e31",
   "Description": [{
     "lang": "en",
     "desc": "The vaccine must have been administered no longer than one year ago."
@@ -507,13 +506,14 @@
     "lang": "it",
     "desc": "La vaccinazione non può risalire a più di 365 giorni fa."
   }],
-  "AffectedFields": ["v.0", "v.0.dt"],
-  "CertificateType": "Vaccination",
-  "SchemaVersion": "1.0.0",
-  "Identifier": "VR-DE-0004",
   "Type": "Acceptance",
   "EngineVersion": "0.7.5",
-  "Country": "DE",
+  "SchemaVersion": "1.0.0",
+  "Identifier": "VR-DE-0004",
   "Version": "1.0.0",
+  "AffectedFields": ["v.0", "v.0.dt"],
+  "hash": "1313e59f84f472694eece639cbe955b5c469ed7e0adb319a731d2d77f62f3e31",
+  "ValidTo": "2030-06-01T00:00:00Z",
+  "Engine": "CERTLOGIC",
   "ValidFrom": "2021-07-03T00:00:00Z"
 }]
