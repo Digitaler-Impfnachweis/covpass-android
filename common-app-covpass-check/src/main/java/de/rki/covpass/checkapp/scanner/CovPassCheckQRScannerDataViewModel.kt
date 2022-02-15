@@ -13,6 +13,8 @@ import de.rki.covpass.sdk.utils.DataComparison
 import de.rki.covpass.sdk.utils.DccNameMatchingUtils.compareHolder
 import de.rki.covpass.sdk.utils.formatDateFromString
 import kotlinx.coroutines.CoroutineScope
+import java.time.Instant
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 /**
@@ -54,7 +56,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         CovPassCheckValidationResult.Success,
                         certificate.dgcEntry.id,
                         verify2gCertificateType(certificate),
-                        certificate.validFrom,
+                        (certificate.dgcEntry as Vaccination)
+                            .occurrence?.atStartOfDay(ZoneId.systemDefault())?.toInstant(),
                         validationName = certificate.name.toValidationResult2gName()
                     )
                     secondCertificateData2G = null
@@ -74,7 +77,19 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             CovPassCheckValidationResult.Success,
                             certificate.dgcEntry.id,
                             verify2gCertificateType(certificate),
-                            certificate.validFrom,
+                            when (certificate.dgcEntry) {
+                                is Recovery -> {
+                                    (certificate.dgcEntry as Recovery)
+                                        .firstResult?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
+                                }
+                                is TestCert -> {
+                                    (certificate.dgcEntry as TestCert).sampleCollection
+                                }
+                                is Vaccination -> {
+                                    (certificate.dgcEntry as Vaccination)
+                                        .occurrence?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
+                                }
+                            } as Instant?,
                             validationName = certificate.name.toValidationResult2gName()
                         )
                     )
@@ -305,6 +320,10 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
             secondCertType == ValidationResult2gCertificateType.Booster -> false
         secondCertType == ValidationResult2gCertificateType.Vaccination &&
             firstCertType == ValidationResult2gCertificateType.Booster -> false
+        firstCertType == ValidationResult2gCertificateType.PcrTest &&
+            secondCertType == ValidationResult2gCertificateType.AntigenTest -> false
+        firstCertType == ValidationResult2gCertificateType.AntigenTest &&
+            secondCertType == ValidationResult2gCertificateType.PcrTest -> false
         else -> firstCertType != secondCertType
     }
 

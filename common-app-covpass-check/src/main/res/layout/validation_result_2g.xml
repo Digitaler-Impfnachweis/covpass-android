@@ -16,8 +16,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
-    android:minHeight="@dimen/grid_twelve"
     android:layout_marginTop="@dimen/grid_half"
+    android:minHeight="@dimen/grid_twelve"
     app:layout_constraintTop_toTopOf="parent" />
 
   <de.rki.covpass.checkapp.uielements.ValidationResult2gCertificateElement
@@ -25,8 +25,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
-    android:minHeight="@dimen/grid_twelve"
     android:layout_marginTop="@dimen/grid_one_half"
+    android:minHeight="@dimen/grid_twelve"
     app:layout_constraintTop_toBottomOf="@+id/validation_result_certificate" />
 
   <LinearLayout
@@ -47,8 +47,8 @@
       android:id="@+id/validation_result_info_element"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_one"
-      android:layout_marginHorizontal="@dimen/grid_three" />
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_one" />
 
   </LinearLayout>
 
@@ -58,6 +58,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_two"
+    android:visibility="gone"
     app:layout_constraintTop_toBottomOf="@+id/validation_result_info_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

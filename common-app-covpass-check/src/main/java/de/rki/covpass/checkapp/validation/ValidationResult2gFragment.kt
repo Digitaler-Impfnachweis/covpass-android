@@ -96,7 +96,11 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
             CovPassCheckValidationResult.TechnicalError -> {
                 validationResultCertificate.showInvalidCertificate(
                     R.drawable.validation_result_2g_invalid_certificate,
-                    R.string.result_2G_gproof_invalid,
+                    if (certificateData.isTest()) {
+                        R.string.result_2G_test_invalid
+                    } else {
+                        R.string.result_2G_gproof_invalid
+                    },
                 ) {
                     findNavigator().push(ValidationResultTechnicalFailure2gFragmentNav())
                 }
@@ -104,7 +108,11 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
             CovPassCheckValidationResult.ValidationError -> {
                 validationResultCertificate.showInvalidCertificate(
                     R.drawable.validation_result_2g_invalid_certificate,
-                    R.string.result_2G_gproof_invalid,
+                    if (certificateData.isTest()) {
+                        R.string.result_2G_test_invalid
+                    } else {
+                        R.string.result_2G_gproof_invalid
+                    },
                 ) {
                     findNavigator().push(ValidationResultFailure2gFragmentNav())
                 }
