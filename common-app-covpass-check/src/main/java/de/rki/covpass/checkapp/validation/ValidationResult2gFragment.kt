@@ -104,6 +104,9 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 ) {
                     findNavigator().push(ValidationResultTechnicalFailure2gFragmentNav())
                 }
+                if (!certificateData.isTest()) {
+                    binding.validationResultTypeText.isVisible = true
+                }
             }
             CovPassCheckValidationResult.ValidationError -> {
                 validationResultCertificate.showInvalidCertificate(
@@ -115,6 +118,9 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                     },
                 ) {
                     findNavigator().push(ValidationResultFailure2gFragmentNav())
+                }
+                if (!certificateData.isTest()) {
+                    binding.validationResultTypeText.isVisible = true
                 }
             }
             CovPassCheckValidationResult.Success -> {
@@ -170,7 +176,7 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
 
     private fun fillEmptyElement() {
         binding.validationResultTypeText.isVisible =
-            !firstCertificateData.isVaccination() && !firstCertificateData.isBooster() && secondCertificateData == null
+            !firstCertificateData.isVaccination() && !firstCertificateData.isBooster()
         when {
             firstCertificateData.isVaccination() || firstCertificateData.isBooster() -> {
                 binding.validationResultSecondCertificate.showEmptyCertificate(
