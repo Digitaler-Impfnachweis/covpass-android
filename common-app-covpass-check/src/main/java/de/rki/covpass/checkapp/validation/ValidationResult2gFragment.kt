@@ -182,21 +182,21 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 binding.validationResultSecondCertificate.showEmptyCertificate(
                     R.drawable.validation_result_2g_empty_certificate,
                     R.string.result_2G_3rd_test_recov_empty,
-                    R.string.result_2G_empty_subtitle,
+                    R.string.result_2G_2nd_empty,
                 )
             }
             firstCertificateData.isRecovery() -> {
                 binding.validationResultSecondCertificate.showEmptyCertificate(
                     R.drawable.validation_result_2g_empty_certificate,
                     R.string.result_2G_3rd_test_vacc_empty,
-                    R.string.result_2G_empty_subtitle,
+                    R.string.result_2G_2nd_empty,
                 )
             }
             firstCertificateData.isTest() -> {
                 binding.validationResultSecondCertificate.showEmptyCertificate(
                     R.drawable.validation_result_2g_empty_certificate,
                     R.string.result_2G_3rd_vacc_recov_empty,
-                    R.string.result_2G_empty_subtitle,
+                    R.string.result_2G_2nd_empty,
                 )
             }
         }
