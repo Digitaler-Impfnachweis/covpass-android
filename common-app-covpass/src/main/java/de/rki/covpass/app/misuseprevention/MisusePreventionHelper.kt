@@ -7,7 +7,7 @@ package de.rki.covpass.app.misuseprevention
 
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
-import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.utils.DccNameMatchingUtils.isHolderSame
 
 public object MisusePreventionHelper {
 
@@ -31,7 +31,7 @@ public object MisusePreventionHelper {
         groupedCertificates: List<GroupedCertificates>,
         covCertificate: CovCertificate
     ): Boolean = groupedCertificates.firstOrNull {
-        it.id == GroupedCertificatesId(covCertificate.name.trimmedName, covCertificate.birthDate)
+        isHolderSame(it.certificates.first().covCertificate, covCertificate)
     } != null
 
     private const val FIRST_LIMITATION_COUNT = 1
