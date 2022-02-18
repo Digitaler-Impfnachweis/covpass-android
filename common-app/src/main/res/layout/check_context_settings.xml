@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -39,20 +40,20 @@
         style="@style/DefaultText.OnBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_four"
         android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_four"
         tools:text="@tools:sample/lorem[7]" />
 
       <de.rki.covpass.commonapp.uielements.CheckContextCheckboxElement
         android:id="@+id/check_context_settings_eu_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_three"/>
+        android:layout_marginTop="@dimen/grid_three" />
 
       <de.rki.covpass.commonapp.uielements.CheckContextCheckboxElement
         android:id="@+id/check_context_settings_local_checkbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     </LinearLayout>
 

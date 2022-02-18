@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -66,6 +67,5 @@
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_three"
     app:layout_constraintTop_toBottomOf="@+id/check_context_notification_local_checkbox" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

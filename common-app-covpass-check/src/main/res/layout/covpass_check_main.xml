@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -145,13 +146,13 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/grid_two"
             android:layout_marginStart="@dimen/grid_three"
+            android:focusable="false"
             android:labelFor="@+id/main_check_cert_2g_b_switch"
             android:text="@string/validation_start_screen_scan_message_2G_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/main_check_cert_2g_b_switch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:focusable="false"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
           <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/main_check_cert_2g_b_switch"

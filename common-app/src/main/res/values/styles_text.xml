@@ -17,6 +17,10 @@
     <item name="android:textColor">@color/onBackground</item>
   </style>
 
+  <style name="DefaultText.OnBackground.Bold">
+    <item name="android:fontFamily">@font/opensans_bold</item>
+  </style>
+
   <style name="DefaultText.OnBackground70">
     <item name="android:textColor">@color/onBackground70</item>
   </style>
