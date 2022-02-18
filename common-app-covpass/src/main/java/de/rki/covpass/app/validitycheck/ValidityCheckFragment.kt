@@ -56,7 +56,7 @@ internal class ValidityCheckFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_action_button_check_validity)
+        bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_title)
         bottomSheetBinding.bottomSheetActionButton.isVisible = false
         binding.noteValidity.apply {
             text = getSpanned(R.string.certificate_check_validity_note)
