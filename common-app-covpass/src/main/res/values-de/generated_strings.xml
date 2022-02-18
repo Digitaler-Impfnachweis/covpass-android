@@ -138,7 +138,7 @@
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Zertifikate dieser Person immer an erster Stelle anzeigen: aktiv</string>
 	<string name="accessibility_certificate_favorite_button_label_not_active">Zertifikate dieser Person immer an erster Stelle anzeigen: nicht aktiv</string>
-	<string name="certificate_action_button_check_validity">Für Reisen prüfen</string>
+	<string name="certificate_action_button_check_validity">Gültigkeit prüfen</string>
 
 	<!-- SECTION: screen: check validity -->
 	<string name="accessibility_certificate_check_validity_label_close">Schließen</string>
@@ -152,7 +152,7 @@
 	<string name="accessibility_certificate_check_validity_selection_date_closing_announce">Die Ansicht \"Datum wählen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_check_validity_selection_time_announce">Die Ansicht \"Zeit wählen\" wurde geöffnet</string>
 	<string name="accessibility_certificate_check_validity_selection_time_closing_announce">Die Ansicht \"Zeit wählen\" wurde geschlossen</string>
-	<string name="certificate_check_validity_title">Gültigkeit für Reisen prüfen</string>
+	<string name="certificate_check_validity_title">Gültigkeit prüfen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, ausgewählt</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, auswählbar</string>
 	<string name="certificate_check_validity_message">Prüfen Sie vorab, ob Ihre Zertifikate in verschiedenen Ländern gültig sind. Hierfür werden die geltenden Einreiseregeln des gewählten Reiselands berücksichtigt.</string>
@@ -431,6 +431,7 @@
 	<string name="vaccination_certificate_detail_view_data_vaccine_date_">Datum der Impfung / Date of vaccination (YYYY-MM-DD)</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_date_">Datum der Impfung (Jahr-Monat-Tag)</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_country">Land der Impfung / Country vaccinating</string>
+	<string name="vaccination_certificate_detail_view_data_vaccine_country_germany">Deutschland</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_country">Land der Impfung</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikatsaussteller / Certificate issuer</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikatsaussteller</string>
@@ -731,4 +732,28 @@
 	<string name="cancellation_share_certificate_title">Wollen Sie den Vorgang wirklich beenden?</string>
 	<string name="cancellation_share_certificate_action_button_no">Nicht jetzt</string>
 	<string name="cancellation_share_certificate_action_button_yes">Ja, beenden</string>
+
+	<!-- SECTION: dcc renewal -->
+	<string name="certificate_renewal_startpage_headline">Änderungen bei Ihren Zertifikaten</string>
+	<string name="certificate_renewal_startpage_copy">Die Spezifikationen der EU für bestimmte Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht der aktuellen Nummerierung. Es ist weiterhin gültig. Falls es sich jedoch um ein Zertifikat für eine Auffrischungsimpfung handelt, wird diese bei einer Prüfung nicht erkannt. Wir empfehlen Ihnen daher, ein neues Impfzertifikat mit der Nummer 2/1 direkt kostenlos über die App anzufordern. Hierfür ist Ihr Einverständnis erforderlich.</string>
+	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Detailansicht Ihrer Zertifikate anstoßen.</string>
+	<string name="certificate_renewal_startpage_main_button">Jetzt erneuern</string>
+	<string name="certificate_renewal_startpage_secondary_button">Später nachholen</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_headline">Einwilligung zur Übermittlung Ihrer Zertifikate an das RKI</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_subline">Zertifikate, die einmalig übermittelt werden:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_subline">Ihr Einverständnis</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy">Durch Antippen von „Einverstanden“ willigen Sie in die folgenden Schritte ein:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1">Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2">Das RKI überprüft das Impfzertifikat, stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_copy">Die Aktualisierung des Zertifikats ist freiwillig und kostenlos. Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_button_link">Datenschutzerklärung</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_confirmation_button">Einverstanden</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_cancel_button">Abbrechen</string>
+	<string name="certificate_renewal_confirmation_page_headline">Ihr Zertifikat wurde erfolgreich erneuert</string>
+	<string name="certificate_renewal_confirmation_page_copy">Ihr neues Zertifikat ersetzt das vorherige vollständig. Sie können das alte Zertifikat jetzt löschen.</string>
+	<string name="certificate_renewal_confirmation_page_certificate_list_new">Neues Zertifikat:</string>
+	<string name="certificate_renewal_confirmation_page_certificate_list_old">Altes Zertifikat:</string>
+	<string name="certificate_renewal_confirmation_page_certificate_delete_button">Altes Zertifikat löschen</string>
+	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Später löschen</string>
 </resources>

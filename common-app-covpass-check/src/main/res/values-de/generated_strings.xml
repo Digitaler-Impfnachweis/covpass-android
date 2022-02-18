@@ -179,7 +179,7 @@
 	<string name="warning_2G_names_label_1stcert">2G-Nachweis</string>
 	<string name="warning_2G_names_label_2ndcert">Testzertifikat</string>
 	<string name="warning_2G_names_ignore_title">Kein Fehler?</string>
-	<string name="warning_2G_names_ignore_copy">Sollte es sich Ihrer Ansicht zum Beispiel um einen Tippfehler handeln, können Sie diese Abweichung ignorieren und die Prüfung fortsetzen.</string>
+	<string name="warning_2G_names_ignore_copy">Sollte es sich Ihrer Ansicht nach zum Beispiel um einen Tippfehler handeln, können Sie diese Abweichung ignorieren und die Prüfung fortsetzen.</string>
 	<string name="warning_2G_names_ignore_link">Abweichung ignorieren</string>
 	<string name="error_2G_scanned_twice_title">Zertifikat bereits gescannt</string>
 	<string name="error_2G_scanned_twice_copy">Sie haben dieses Zertifikat gerade gescannt. Für 2G+ sind meist jeweils ein Test- und ein Impf- oder Genesenenzertifikat zu prüfen.</string>

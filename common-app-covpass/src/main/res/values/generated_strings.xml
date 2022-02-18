@@ -138,7 +138,7 @@
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Always display this person\'s certificates in first place: active</string>
 	<string name="accessibility_certificate_favorite_button_label_not_active">Always display this person\'s certificates in first place: not active</string>
-	<string name="certificate_action_button_check_validity">Check for travel</string>
+	<string name="certificate_action_button_check_validity">Check validity</string>
 
 	<!-- SECTION: screen: check validity -->
 	<string name="accessibility_certificate_check_validity_label_close">Close</string>
@@ -152,7 +152,7 @@
 	<string name="accessibility_certificate_check_validity_selection_date_closing_announce">The view \"Select date\" has been closed</string>
 	<string name="accessibility_certificate_check_validity_selection_time_announce">The view \"Select time\" has been opened</string>
 	<string name="accessibility_certificate_check_validity_selection_time_closing_announce">The view \"Select time\" has been closed</string>
-	<string name="certificate_check_validity_title">Check validity for travel</string>
+	<string name="certificate_check_validity_title">Check validity</string>
 	<string name="accessibility_certificate_check_validity_selection_country_selected">%s, selected</string>
 	<string name="accessibility_certificate_check_validity_selection_country_unselected">%s, selectable</string>
 	<string name="certificate_check_validity_message">Check beforehand if your certificates are valid in different countries. This tool checks them against the travel regulations applicable in your chosen destination country.</string>
@@ -431,6 +431,7 @@
 	<string name="vaccination_certificate_detail_view_data_vaccine_date_">Datum der Impfung / Date of vaccination (YYYY-MM-DD)</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_date_">Date of vaccination (Year-Month-Day)</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_country">Land der Impfung / Country vaccinating</string>
+	<string name="vaccination_certificate_detail_view_data_vaccine_country_germany">Germany</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_country">Country vaccinating</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_issuer">Zertifikatsaussteller / Certificate issuer</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_vaccine_issuer">Certificate issuer</string>
@@ -731,4 +732,28 @@
 	<string name="cancellation_share_certificate_title">Do you really want to end the process?</string>
 	<string name="cancellation_share_certificate_action_button_no">Not now</string>
 	<string name="cancellation_share_certificate_action_button_yes">Yes, finish</string>
+
+	<!-- SECTION: dcc renewal -->
+	<string name="certificate_renewal_startpage_headline">Changes to your certificates</string>
+	<string name="certificate_renewal_startpage_copy">The EU specifications for certain vaccination certificates have been changed. This certificate does not correspond to the current numbering. It is still valid. However, if it is a certificate for a booster vaccination, it will not be recognized as such when checked. Therefore we recommend requesting a new certificate with the number 2/1 directly free of charge via the app.</string>
+	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later in the detail view of your certificates.</string>
+	<string name="certificate_renewal_startpage_main_button">Renew now</string>
+	<string name="certificate_renewal_startpage_secondary_button">Renew later</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_headline">Consent to transmitting your certificates to the RKI</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_subline">Certificates transmitted once:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_subline">Your consent</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy">By clicking \"Agree\" you agree to the following steps:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1">The app transmits the vaccination certificate to the RKI.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2">The RKI checks/verifies the certificate, issues an updated certificate and transmits it to the app.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_copy">The renewal of the certificate is voluntary and free of charge. Detailed information on data processing can be found in the privacy policy:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_button_link">Privacy policy</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_confirmation_button">Agree</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_cancel_button">Cancel</string>
+	<string name="certificate_renewal_confirmation_page_headline">Your certificate was successfully renewed</string>
+	<string name="certificate_renewal_confirmation_page_copy">Your new certificate completely replaces the previous one. You can delete the old certificate now.</string>
+	<string name="certificate_renewal_confirmation_page_certificate_list_new">New certificate:</string>
+	<string name="certificate_renewal_confirmation_page_certificate_list_old">Old certificate:</string>
+	<string name="certificate_renewal_confirmation_page_certificate_delete_button">Delete old certificate</string>
+	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Delete later</string>
 </resources>

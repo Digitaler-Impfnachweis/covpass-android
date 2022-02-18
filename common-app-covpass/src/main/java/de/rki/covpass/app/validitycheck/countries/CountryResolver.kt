@@ -488,6 +488,10 @@ public object CountryResolver {
 
     public fun getCountryLocalized(countryCode: String): String =
         getCountryByCode(countryCode.uppercase())?.let {
-            getString(it.nameRes)
+            if (it == deCountry) {
+                getString(R.string.vaccination_certificate_detail_view_data_vaccine_country_germany)
+            } else {
+                getString(it.nameRes)
+            }
         } ?: countryCode
 }
