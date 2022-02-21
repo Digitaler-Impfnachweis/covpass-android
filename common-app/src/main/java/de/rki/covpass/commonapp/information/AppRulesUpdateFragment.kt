@@ -31,7 +31,7 @@ import java.time.ZoneId
 public class AppRulesUpdateFragment : BaseFragment() {
 
     private val binding by viewBinding(AppRulesUpdateBinding::inflate)
-    private val appUpdateViewModel by reactiveState { AppUpdateViewModel(scope) }
+    private val manualUpdateViewModel by reactiveState { ManualUpdateViewModel(scope) }
     private val dscRepository get() = sdkDeps.dscRepository
     private val rulesUpdateRepository get() = sdkDeps.rulesUpdateRepository
 
@@ -40,13 +40,13 @@ public class AppRulesUpdateFragment : BaseFragment() {
 
         setupActionBar()
         binding.updateButton.setOnClickListener {
-            appUpdateViewModel.updateRulesAndCertificates()
+            manualUpdateViewModel.updateRulesAndCertificates()
         }
 
         autoRun {
             updateTimeDisplay(
                 get(dscRepository.lastUpdate),
-                get(rulesUpdateRepository.lastRulesUpdate)
+                get(rulesUpdateRepository.lastEuRulesUpdate)
             )
         }
     }

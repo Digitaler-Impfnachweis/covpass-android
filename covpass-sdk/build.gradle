@@ -16,9 +16,9 @@ dependencies {
     coseJava()
     reactiveState()
     cryptographic()
-    worker()
     room()
     boofCVTest()
+    worker()
 }
 
 apply from: "$projectDir/download-dsc-list.gradle"

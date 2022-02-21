@@ -30,4 +30,10 @@ public class CovPassValueSetsLocalDataSource(
         dispatchers.io {
             covPassValueSetsDao.getAll()
         }
+
+    public suspend fun deleteAll() {
+        dispatchers.io {
+            covPassValueSetsDao.deleteAll()
+        }
+    }
 }

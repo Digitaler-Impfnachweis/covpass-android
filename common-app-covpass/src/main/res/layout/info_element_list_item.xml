@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <TextView
+    android:id="@+id/consent_initialization_note_bullet_point"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:text="\u2022"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="HardcodedText" />
+
+  <TextView
+    android:id="@+id/consent_initialization_note_value"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_half"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginEnd="@dimen/grid_three"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/consent_initialization_note_bullet_point"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_goneMarginStart="@dimen/grid_three"
+    tools:text="@tools:sample/lorem[2]" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

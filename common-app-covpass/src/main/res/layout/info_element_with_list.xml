@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <TextView
+    android:id="@+id/info_title"
+    style="@style/Header.OnBackground.Small"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_two"
+    app:layout_constraintBottom_toTopOf="@+id/info_subtitle"
+    app:layout_constraintEnd_toStartOf="@+id/info_icon"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="@tools:sample/lorem[5]" />
+
+  <ImageView
+    android:id="@+id/info_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginEnd="@dimen/grid_one_half"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/info_title"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="ContentDescription" />
+
+  <TextView
+    android:id="@+id/info_subtitle"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_two"
+    android:layout_marginTop="@dimen/grid_one"
+    app:layout_constraintBottom_toTopOf="@+id/info_recycler"
+    app:layout_constraintEnd_toStartOf="@+id/info_icon"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/info_title"
+    app:layout_goneMarginBottom="@dimen/grid_two"
+    tools:text="@tools:sample/lorem[5]" />
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/info_recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/grid_two"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/info_subtitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

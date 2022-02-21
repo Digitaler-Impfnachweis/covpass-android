@@ -5,7 +5,6 @@
 
 package com.ibm.health.common.navigation.android
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
@@ -18,12 +17,16 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.logging.Lumber
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
 
 /**
  * Holds a reference to the [currentActivity] and offers some functions for activity navigation.
  */
 public class ActivityNavigator {
+
+    public val activity: StateFlow<Activity> get() = currentActivityFlow
 
     init {
         initActivityNavigator
@@ -69,7 +72,7 @@ public class ActivityNavigator {
      * Returns [currentActivity] if initialized, else null.
      */
     public fun getCurrentActivityOrNull(): Activity? =
-        if (::currentActivity.isInitialized) currentActivity else null
+        if (::currentActivityFlow.isInitialized) currentActivity else null
 
     /**
      * Returns [currentActivity].
@@ -95,8 +98,17 @@ private val initActivityNavigator by lazy {
     }
 }
 
-@SuppressLint("StaticFieldLeak")
-private lateinit var currentActivity: Activity
+private lateinit var currentActivityFlow: MutableStateFlow<Activity>
+
+private var currentActivity: Activity
+    get() = currentActivityFlow.value
+    set(value) {
+        if (!::currentActivityFlow.isInitialized) {
+            currentActivityFlow = MutableStateFlow(value)
+        } else {
+            currentActivityFlow.value = value
+        }
+    }
 
 private object LifecycleTracker : Application.ActivityLifecycleCallbacks {
 

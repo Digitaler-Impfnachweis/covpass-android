@@ -19,7 +19,8 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
-import de.rki.covpass.commonapp.onboarding.DataProtectionFragmentNav
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.onboarding.OnboardingDataProtectionFragmentNav
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import java.util.*
 
@@ -65,7 +66,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldDataSecurityPolicy.apply {
             text = getString(R.string.app_information_title_datenschutz)
             setOnClickListener {
-                findNavigator().push(DataProtectionFragmentNav())
+                findNavigator().push(OnboardingDataProtectionFragmentNav())
             }
         }
         binding.informationFieldImprint.apply {
@@ -97,6 +98,22 @@ public abstract class InformationFragment : BaseFragment() {
                 findNavigator().push(AppRulesUpdateFragment())
             }
         }
+
+        if (isCovpassCheck()) {
+            binding.informationFieldContextSettingsLayout.setOnClickListener {
+                findNavigator().push(ContextSettingsFragment())
+            }
+            binding.informationFieldContextSettingsTitle.setText(
+                R.string.app_information_title_local_rules
+            )
+            binding.informationFieldContextSettingsStatus.setText(
+                if (commonDeps.checkContextRepository.isDomesticRulesOn.value) {
+                    R.string.app_information_title_local_rules_status_DE
+                } else {
+                    R.string.app_information_title_local_rules_status_EU
+                }
+            )
+        }
     }
 
     private fun setupActionBar() {
@@ -115,4 +132,5 @@ public abstract class InformationFragment : BaseFragment() {
     protected abstract fun getFAQLinkRes(): Int
     protected abstract fun getImprintLinkRes(): Int
     protected abstract fun getEasyLanguageLinkRes(): Int
+    protected abstract fun isCovpassCheck(): Boolean
 }

@@ -6,6 +6,11 @@
 	<!-- SECTION: app -->
 	<string name="validator_app_name">CovPass Check</string>
 
+	<!-- SECTION: common -->
+	<string name="ok">OK</string>
+	<string name="close">Schließen</string>
+	<string name="cancel">Abbrechen</string>
+
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Willkommen in der CovPassCheck-App</string>
 	<string name="start_onboarding_message">Finden Sie in wenigen Sekunden heraus, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
@@ -38,17 +43,33 @@
 	<string name="dialog_start_screen_button_later">Nicht jetzt</string>
 	<string name="dialog_start_screen_button_update">Aktualisieren</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
+	<string name="accessibility_check_context_onboarding_announce_open">Die Ansicht “Wann nutzen Sie die CovPassCheck-App?” wurde geöffnet.</string>
+	<string name="accessibility_check_context_onboarding_announce_close">Die Ansicht “Wann nutzen Sie die CovPassCheck-App?” wurde geschlossen.</string>
+	<string name="check_context_onboarding_title">Wann nutzen Sie die CovPassCheck-App?</string>
+	<string name="check_context_onboarding_tag">Neu</string>
+	<string name="check_context_onboarding_image">Abbildung von zwei Menschen in einer Prüfsituation. Eine Person scannt das Zertifikat einer anderen Person. Darüber ist die EU-Flagge abgebildet.</string>
+	<string name="check_context_onboarding_option1_title">Ich prüfe bei Einreisen</string>
+	<string name="check_context_onboarding_option1_subtitle">Zum Beispiel am Flughafen oder Bahnhof</string>
+	<string name="check_context_onboarding_option2_title">Ich prüfe innerhalb Deutschlands</string>
+	<string name="check_context_onboarding_option2_subtitle">Zum Beispiel in Geschäften oder in der Gastronomie</string>
+	<string name="check_context_onboarding_footnote">Anhand dieser Angabe werden die Regeln angepasst, nach denen Zertifikate als Gültig oder Ungültig ausgewiesen werden. Sie können die Angabe jederzeit in den Einstellungen ändern.</string>
+	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">Mehr Informationen</string>
 	<string name="validation_start_screen_title">Übersicht</string>
-	<string name="validation_start_screen_scan_title">Zertifikat prüfen</string>
+	<string name="validation_start_screen_scan_title">3G prüfen</string>
+	<string name="validation_start_screen_scan_title_2G">2G+ prüfen</string>
+	<string name="validation_start_screen_scan_message">Scannen Sie einen G-Nachweis nach den 3G-Regeln. Welche Regelung gilt, ist abhängig vom Bundesland in dem Sie sich befinden.</string>
+	<string name="validation_start_screen_scan_message_2G">Scannen Sie nacheinander die notwendigen Nachweise für 2G+.</string>
+	<string name="validation_start_screen_scan_message_2G_toggle">Bei Auffrischungsimpfungen ist kein Test nötig</string>
 	<string name="validation_start_screen_scan_sync_message_title">Datum und Uhrzeit prüfen</string>
 	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Smartphones. \n\n Soll: %s</string>
-	<string name="validation_start_screen_scan_message">Scannen Sie jetzt das digitale COVID-Zertifikat der EU. Sie sehen sofort, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
 	<string name="accessibility_scan_result_closing_announce">Die Ansicht Überprüfungsergebnis wurde geschlossen</string>
 	<string name="validation_start_screen_scan_action_button_title">Zertifikat scannen</string>
+	<string name="startscreen_rules_tag_local">Prüfung innerhalb Deutschlands</string>
+	<string name="startscreen_rules_tag_europe">Prüfung bei Einreisen nach Deutschland</string>
 	<string name="validation_start_screen_offline_modus_title">Offline-Modus</string>
 	<string name="validation_start_screen_offline_modus_message">Um offline prüfen zu können, halten Sie die CovPassCheck-App auf dem aktuellen Stand. Stellen Sie dafür ab und an eine Verbindung mit dem Internet her.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Offline-Modus verfügbar</string>
@@ -57,6 +78,9 @@
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Letztes Update: %s</string>
 	<string name="validation_start_screen_offline_modus_certificates">Liste der Zertifikatsaussteller: %s</string>
 	<string name="validation_start_screen_offline_modus_rules">Prüfregeln: %s</string>
+	<string name="validation_start_screen_offline_modus_information_title">Prüfregeln aktualisieren</string>
+	<string name="validation_start_screen_offline_modus_information">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="validation_start_screen_offline_modus_button">Aktualisieren</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
@@ -76,6 +100,7 @@
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Genesenen- oder Impfzertifikat liegt vor.</string>
+	<string name="validation_check_popup_valid_vaccination_abda_incident_note">Dies ist ein gültiges Zertifikat, das jedoch aufgrund von Betrugsermittlungen bald gesperrt werden wird.\n\nWeisen Sie den oder die Zertifikatsinhaber:in unbedingt darauf hin, dass er oder sie sich unter Vorlage des gelben Impfpasses und eines Lichtbildausweises bis zum 11.11.2021 in der Apotheke ein neues, kostenfreies Impfzertifikat ausstellen lassen muss. </string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Zertifikat nicht gültig</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">Das geprüfte Zertifikat ist aus einem der folgenden Gründe nicht gültig:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Ungültige Signatur</string>
@@ -109,11 +134,54 @@
 	<string name="validation_check_popup_test_button_title">Weiteres Zertifikat scannen</string>
 	<string name="accessibility_validation_check_popup_test_label_close">Schließen</string>
 	<string name="validation_check_popup_valid_pcr_test_title">Negativer PCR-Test von vor %d Stunden</string>
-	<string name="validation_check_popup_valid_pcr_test_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
+	<string name="validation_check_popup_valid_pcr_test_message">Gleichen Sie folgende Daten mit einem Ausweisdokument der geprüften Person ab:</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_issue">Zeitpunkt der Probenahme</string>
 	<string name="validation_check_popup_valid_pcr_test_button_title">Weiteres Zertifikat scannen</string>
 	<string name="accessibility_validation_check_popup_valid_pcr_test_label_close">Schließen</string>
+
+	<!-- SECTION: 2G+ check results -->
+	<string name="accessibility_scan_result_announce_2G">Überprüfungsergebnis für 2G+ wird angezeigt</string>
+	<string name="accessibility_scan_result_closing_announce_2G">Die Ansicht Überprüfungsergebnis für 2G+ wurde geschlossen</string>
+	<string name="result_2G_title">Prüfung 2G+</string>
+	<string name="result_2G_close">Schließen</string>
+	<string name="result_2G_footnote">* Grundimmunisierung, Auffrischungsimpfung oder Genesung</string>
+	<string name="result_2G_button_scan_test">Testzertifikat scannen</string>
+	<string name="result_2G_button_scan_gproof">2G-Nachweis scannen</string>
+	<string name="result_2G_button_retry">Nochmal versuchen</string>
+	<string name="result_2G_button_startover">Neue Prüfung</string>
+	<string name="result_2G_gproof_empty">2G-Nachweis*</string>
+	<string name="result_2G_gproof_valid">2G-Nachweis gültig*</string>
+	<string name="result_2G_booster_valid">Auffrischungsimpfung gültig</string>
+	<string name="result_2G_gproof_invalid">2G-Nachweis ungültig*</string>
+	<string name="result_2G_test_empty">Testzertifikat</string>
+	<string name="result_2G_test_invalid">Testzertifikat ungültig</string>
+	<string name="result_2G_invalid_subtitle">Details anzeigen</string>
+	<string name="result_2G_empty_subtitle">Noch nicht geprüft</string>
+	<string name="result_2G_2nd_recovery_valid">Genesung</string>
+	<string name="result_2G_2nd_basic_valid">Grundimmunisierung</string>
+	<string name="result_2G_2nd_booster_valid">Auffrischungsimpfung</string>
+	<string name="result_2G_2nd_rapidtest_valid">Negativer Schnelltest</string>
+	<string name="result_2G_2nd_pcrtest_valid">Negativer PCR-Test</string>
+	<string name="result_2G_2nd_empty">Kann für 2G+ notwendig sein</string>
+	<string name="result_2G_2nd_timestamp_hours">Vor %d Stunden</string>
+	<string name="result_2G_2nd_timestamp_days">Vor %d Tagen</string>
+	<string name="result_2G_2nd_timestamp_months">Vor %d Monaten</string>
+	<string name="accessibility_warning_2G_names_announce_open">Fehlermeldung \"Abweichende Daten\" wurde geöffnet</string>
+	<string name="accessibility_warning_2G_names_announce_close">Fehlermeldung \"Abweichende Daten\" wurde geschlossen</string>
+	<string name="warning_2G_names_title">Abweichende Daten</string>
+	<string name="warning_2G_names_subtitle">Die persönlichen Daten der beiden gescannten Nachweise stimmen nicht überein:</string>
+	<string name="warning_2G_names_label_1stcert">2G-Nachweis</string>
+	<string name="warning_2G_names_label_2ndcert">Testzertifikat</string>
+	<string name="warning_2G_names_ignore_title">Kein Fehler?</string>
+	<string name="warning_2G_names_ignore_copy">Sollte es sich Ihrer Ansicht zum Beispiel um einen Tippfehler handeln, können Sie diese Abweichung ignorieren und die Prüfung fortsetzen.</string>
+	<string name="warning_2G_names_ignore_link">Abweichung ignorieren</string>
+	<string name="error_2G_scanned_twice_title">Zertifikat bereits gescannt</string>
+	<string name="error_2G_scanned_twice_copy">Sie haben dieses Zertifikat gerade gescannt. Für 2G+ sind meist jeweils ein Test- und ein Impf- oder Genesenenzertifikat zu prüfen.</string>
+	<string name="error_2G_scanned_twice_button">OK</string>
+	<string name="error_2G_unexpected_type_title">Falscher Zertifikatstyp</string>
+	<string name="error_2G_unexpected_type_copy">Das gescannte Zertifikat entspricht nicht dem erwarteten Zertifikatstyp. Für 2G+ müssen Sie einen 2G-Nachweis (Genesenen- oder Impfzertifikat) und ein Testzertifikat scannen.</string>
+	<string name="error_2G_unexpected_type_button">OK</string>
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
@@ -137,6 +205,7 @@
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
+	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_informationt_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>
@@ -151,6 +220,15 @@
 	<string name="app_information_message_update_button">Aktualisieren</string>
 	<string name="accessibility_app_information_update_back">Zurück</string>
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_local_rules">Die Ansicht \"Prüfsituation\" wurde geöffnet</string>
+	<string name="app_information_title_local_rules">Prüfsituation</string>
+	<string name="app_information_title_local_rules_button">Übernehmen</string>
+	<string name="app_information_title_local_rules_status_DE">Innerhalb DE</string>
+	<string name="app_information_title_local_rules_status_EU">Einreise</string>
+	<string name="app_information_beep_when_checking_title">Signalton beim Scannen</string>
+	<string name="app_information_beep_when_checking_message">Sie hören bei der Anzeige eines Ergebnisses zusätzlich einen Signalton. Nutzen Sie diese Funktion nur, wenn Sie gewährleisten können, dass umstehende Dritte keine Rückschlüsse auf den Gültigkeitsstatus der geprüften Person ziehen können. Die Identitätsprüfung mittels eines Ausweisdokumentes ist auch weiterhin zwingend notwendig.</string>
+	<string name="accessibility_information_beep_when_checking_on">Signalton anschalten</string>
+	<string name="accessibility_information_beep_when_checking_off">Signalton ausschalten</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->

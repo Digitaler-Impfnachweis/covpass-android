@@ -6,6 +6,11 @@
 	<!-- SECTION: app -->
 	<string name="validator_app_name">CovPass Check</string>
 
+	<!-- SECTION: common -->
+	<string name="ok">OK</string>
+	<string name="close">Close</string>
+	<string name="cancel">Cancel</string>
+
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Welcome to the CovPassCheck app</string>
 	<string name="start_onboarding_message">Find out in just a few seconds if the person you are checking has a valid EU Covid-19 certificate.</string>
@@ -38,17 +43,33 @@
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
+	<string name="accessibility_check_context_onboarding_announce_open">The view \"When do you use the CovPassCheck app?\" has been opened.</string>
+	<string name="accessibility_check_context_onboarding_announce_close">The view \"When do you use the CovPassCheck app?\" has been closed.</string>
+	<string name="check_context_onboarding_title">When do you use the CovPassCheck app?</string>
+	<string name="check_context_onboarding_tag">New</string>
+	<string name="check_context_onboarding_image">Illustration of two people in a checking situation. One person is scanning the certificate of another person. The EU flag is depicted above it.</string>
+	<string name="check_context_onboarding_option1_title">I check at entries into Germany</string>
+	<string name="check_context_onboarding_option1_subtitle">For example at the airport or train station</string>
+	<string name="check_context_onboarding_option2_title">I check within Germany</string>
+	<string name="check_context_onboarding_option2_subtitle">For example, in stores or in the gastronomy</string>
+	<string name="check_context_onboarding_footnote">This information is used to adjust the rules according to which certificates are shown as valid or invalid. You can change the specification at any time in the settings.</string>
+	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">More information</string>
 	<string name="validation_start_screen_title">Overview</string>
-	<string name="validation_start_screen_scan_title">Checking a certificate</string>
+	<string name="validation_start_screen_scan_title">Check 3G</string>
+	<string name="validation_start_screen_scan_title_2G">Check 2G+</string>
+	<string name="validation_start_screen_scan_message">Scan a G-Proof according to the 3G rules. Which rule applies depends on the federal state you are in.</string>
+	<string name="validation_start_screen_scan_message_2G">Scan the necessary evidence for 2G+ one by one.</string>
+	<string name="validation_start_screen_scan_message_2G_toggle">No test is needed when a booster vaccination is given</string>
 	<string name="validation_start_screen_scan_sync_message_title">Check date and time</string>
 	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your smartphone. \n\n It should be: %s</string>
-	<string name="validation_start_screen_scan_message">Scan the EU Digital COVID Certificate now. You see immediately if the person you are checking has a valid Covid-19 certificate.</string>
 	<string name="accessibility_scan_result_announce">Verification result is displayed</string>
 	<string name="accessibility_scan_result_closing_announce">The view \"Verification result“ has been closed</string>
 	<string name="validation_start_screen_scan_action_button_title">Scan certificate</string>
+	<string name="startscreen_rules_tag_local">Checking within Germany</string>
+	<string name="startscreen_rules_tag_europe">Checking at entries into Germany</string>
 	<string name="validation_start_screen_offline_modus_title">Offline mode</string>
 	<string name="validation_start_screen_offline_modus_message">Keep your CovPassCheck app updated in order to check certificates offline. To do this, connect to the internet from time to time.</string>
 	<string name="validation_start_screen_offline_modus_note_latest_version">Offline mode available</string>
@@ -57,6 +78,9 @@
 	<string name="validation_start_screen_offline_modus_note_update_pattern">Most recent update: %s</string>
 	<string name="validation_start_screen_offline_modus_certificates">List of certificate issuers: %s</string>
 	<string name="validation_start_screen_offline_modus_rules">Rule set: %s</string>
+	<string name="validation_start_screen_offline_modus_information_title">Update rule set</string>
+	<string name="validation_start_screen_offline_modus_information">To verify scanned certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Corona rules in Germany.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
+	<string name="validation_start_screen_offline_modus_button">Update</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Camera access needed</string>
@@ -76,6 +100,7 @@
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Person has recovery or vaccination certificate.</string>
+	<string name="validation_check_popup_valid_vaccination_abda_incident_note"> This is a valid certificate, but it will soon be revoked due to fraud investigations.\n\nPlease advise the certificate holder that he or she must present their yellow vaccination certificate and photo ID to a pharmacy by 11/11/2021. The pharmacy will issue a new vaccination certificate free of charge.</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Certificate not valid</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">The certificate is invalid for one of the following reasons:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Invalid signature</string>
@@ -83,7 +108,7 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading">QR code unreadable</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Unable to read the QR code. Please update the CovPassCheck App, if the problem is recurring.</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_title">Scan another certificate</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Certificate does not fulfil all conditions</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Certificate does not fulfill all conditions</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subline">The checked person can see the reason in their CovPass App. The most common reasons:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Test expired</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">A negative rapid test has a maximal validity of 48 hours. A negative PCR test has a maximal validity of 72 hours.</string>
@@ -109,11 +134,54 @@
 	<string name="validation_check_popup_test_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_test_label_close">Close</string>
 	<string name="validation_check_popup_valid_pcr_test_title">Negative PCR test from %d hours ago</string>
-	<string name="validation_check_popup_valid_pcr_test_message">Check the following data against an ID document from the person you are checking.</string>
+	<string name="validation_check_popup_valid_pcr_test_message">Check the following data against an ID document from the person you are checking:</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_issue">Time sample taken</string>
 	<string name="validation_check_popup_valid_pcr_test_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_valid_pcr_test_label_close">Close</string>
+
+	<!-- SECTION: 2G+ check results -->
+	<string name="accessibility_scan_result_announce_2G">Verification result for 2G+ is displayed</string>
+	<string name="accessibility_scan_result_closing_announce_2G">The view \"Verification result for 2G+“ has been closed</string>
+	<string name="result_2G_title">2G+ check</string>
+	<string name="result_2G_close">Close</string>
+	<string name="result_2G_footnote">* Basic immunization, booster vaccination or recovery.</string>
+	<string name="result_2G_button_scan_test">Scan test certificate</string>
+	<string name="result_2G_button_scan_gproof">Scan 2G proof</string>
+	<string name="result_2G_button_retry">Try again</string>
+	<string name="result_2G_button_startover">New check</string>
+	<string name="result_2G_gproof_empty">2G proof*</string>
+	<string name="result_2G_gproof_valid">Valid 2G proof*</string>
+	<string name="result_2G_booster_valid">Booster vaccination valid</string>
+	<string name="result_2G_gproof_invalid">Invalid 2G proof*</string>
+	<string name="result_2G_test_empty">Test certificate</string>
+	<string name="result_2G_test_invalid">Invalid test certificate</string>
+	<string name="result_2G_invalid_subtitle">Show details</string>
+	<string name="result_2G_empty_subtitle">Not checked yet</string>
+	<string name="result_2G_2nd_recovery_valid">Recovery</string>
+	<string name="result_2G_2nd_basic_valid">Basic immunisation</string>
+	<string name="result_2G_2nd_booster_valid">Booster vaccination</string>
+	<string name="result_2G_2nd_rapidtest_valid">Negative rapid test</string>
+	<string name="result_2G_2nd_pcrtest_valid">Negative PCR test</string>
+	<string name="result_2G_2nd_empty">May be required for 2G+</string>
+	<string name="result_2G_2nd_timestamp_hours">%d hours ago</string>
+	<string name="result_2G_2nd_timestamp_days">%d days ago</string>
+	<string name="result_2G_2nd_timestamp_months">%d months ago</string>
+	<string name="accessibility_warning_2G_names_announce_open">Error message \"Deviating data\" was opened</string>
+	<string name="accessibility_warning_2G_names_announce_close">Error message \"Deviating data\" was closed</string>
+	<string name="warning_2G_names_title">Deviating details</string>
+	<string name="warning_2G_names_subtitle">The personal details of the two scanned certificates do not match:</string>
+	<string name="warning_2G_names_label_1stcert">2G proof</string>
+	<string name="warning_2G_names_label_2ndcert">Test certificate</string>
+	<string name="warning_2G_names_ignore_title">Not an error?</string>
+	<string name="warning_2G_names_ignore_copy">If you think this is not an error (e.g. a typo), you can ignore the discrepancy and continue the check.</string>
+	<string name="warning_2G_names_ignore_link">Ignore the discrepancy</string>
+	<string name="error_2G_scanned_twice_title">Certificate already scanned</string>
+	<string name="error_2G_scanned_twice_copy">You have just scanned this certificate. For 2G+, there is usually one test certificate and one vaccination or recovery certificate to check.</string>
+	<string name="error_2G_scanned_twice_button">OK</string>
+	<string name="error_2G_unexpected_type_title">Wrong certificate type</string>
+	<string name="error_2G_unexpected_type_copy">The scanned certificate does not match the expected certificate type. For 2G+, you must scan a 2G proof (recovery or vaccination certificate) and a test certificate.</string>
+	<string name="error_2G_unexpected_type_button">OK</string>
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
@@ -137,6 +205,7 @@
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-source licences</string>
+	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
 	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
 	<string name="accessibility_app_information_version_number_delimiter">point</string>
@@ -151,6 +220,15 @@
 	<string name="app_information_message_update_button">Update</string>
 	<string name="accessibility_app_information_update_back">Back</string>
 	<string name="accessibility_app_information_title_update">The view \"Update rule set\" has been opened</string>
+	<string name="accessibility_app_information_title_local_rules">The view \"Check situation\" has been opened</string>
+	<string name="app_information_title_local_rules">Check situation</string>
+	<string name="app_information_title_local_rules_button">Apply</string>
+	<string name="app_information_title_local_rules_status_DE">Within DE</string>
+	<string name="app_information_title_local_rules_status_EU">Entering DE</string>
+	<string name="app_information_beep_when_checking_title">Beep when checking</string>
+	<string name="app_information_beep_when_checking_message">You will also hear a beep when a result is displayed. Only use this function if you can guarantee that bystanders cannot draw any conclusions about the validity status of the person being checked. The identity check by means of an identification document is still mandatory.</string>
+	<string name="accessibility_information_beep_when_checking_on">Switch on beep</string>
+	<string name="accessibility_information_beep_when_checking_off">Switch off beep</string>
 	<string name="app_information_version_label">Version %s</string>
 
 	<!-- SECTION: error handling -->

@@ -73,6 +73,10 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoDescription.setOnClickListener(newValue)
     }
 
+    public var titleStyle: Int by Delegates.observable(R.style.Header_OnBackground_Small) { _, _, newValue ->
+        binding.infoTitle.setTextAppearance(newValue)
+    }
+
     public var descriptionStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground) { _, _, newValue ->
         binding.infoDescription.setTextAppearance(newValue)
     }
@@ -136,6 +140,8 @@ public fun InfoElement.showWarning(
     descriptionTopMarginDimenRes: Int? = null,
     subtitleStyle: Int? = null,
     descriptionStyle: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -152,6 +158,12 @@ public fun InfoElement.showWarning(
     if (descriptionStyle != null) {
         this.descriptionStyle = descriptionStyle
     }
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
+    }
 }
 
 public fun InfoElement.showError(
@@ -159,10 +171,18 @@ public fun InfoElement.showError(
     subtitle: String? = null,
     description: String? = null,
     iconRes: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.error_background)
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
+    }
 }
 
 public fun InfoElement.showSuccess(
@@ -170,10 +190,18 @@ public fun InfoElement.showSuccess(
     subtitle: String? = null,
     description: String? = null,
     iconRes: Int? = null,
+    subtitleContentDescription: String? = null,
+    descriptionContentDescription: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.success_background)
+    if (subtitleContentDescription != null) {
+        this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionContentDescription != null) {
+        this.descriptionContentDescription = descriptionContentDescription
+    }
 }
 
 public fun InfoElement.showInfo(
@@ -188,6 +216,7 @@ public fun InfoElement.showInfo(
     descriptionTopMarginDimenRes: Int? = null,
     subtitleContentDescription: String? = null,
     descriptionContentDescription: String? = null,
+    titleStyle: Int? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -198,6 +227,9 @@ public fun InfoElement.showInfo(
     }
     if (descriptionStyle != null) {
         this.descriptionStyle = descriptionStyle
+    }
+    if (titleStyle != null) {
+        this.titleStyle = titleStyle
     }
     if (subtitleTopMarginDimenRes != null) {
         this.subtitleTopMarginDimenRes = subtitleTopMarginDimenRes

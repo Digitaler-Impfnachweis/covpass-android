@@ -125,13 +125,7 @@ public data class CovCertificate(
                 yearCount -> "${Year.parse(birthDate)}-XX-XX"
                 yearMonthCount -> "${YearMonth.parse(birthDate)}-XX"
                 yearMonthDayCount -> "${LocalDate.parse(birthDate)}"
-                else -> {
-                    if (birthDate.contains(dateTimeSeparator)) {
-                        birthDate.substringBefore(dateTimeSeparator)
-                    } else {
-                        birthDate
-                    }
-                }
+                else -> birthDate.substringBefore(dateTimeSeparator)
             }
         } catch (e: DateTimeParseException) {
             birthDate

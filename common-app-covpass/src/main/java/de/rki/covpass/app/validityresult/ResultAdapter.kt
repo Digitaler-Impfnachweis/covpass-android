@@ -17,12 +17,13 @@ import de.rki.covpass.app.databinding.ResultHeaderBinding
 import de.rki.covpass.app.databinding.ResultRowBinding
 import de.rki.covpass.app.detail.DisplayQrCodeFragmentNav
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
 import de.rki.covpass.commonapp.uielements.showError
 import de.rki.covpass.commonapp.uielements.showSuccess
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.LocalDateTime
 import java.util.*
 
@@ -35,7 +36,7 @@ public class ResultAdapter(
 
     private var resultItems: List<ResultFragment.ResultRowData> = emptyList()
     private var resultType: LocalResult = LocalResult.FAIL
-    private var country: Country = defaultCountry
+    private var country: Country = defaultDeDomesticCountry
     private var dateTime: LocalDateTime = LocalDateTime.now()
     private var certId: String = ""
     private var rulesCount: Int = 0
@@ -113,6 +114,11 @@ public class ResultAdapter(
                             getString(country.nameRes),
                             dateTime.formatDateTime()
                         ),
+                        subtitleContentDescription = getString(
+                            R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                            getString(country.nameRes),
+                            dateTime.formatDateTimeAccessibility()
+                        ),
                         iconRes = R.drawable.info_error_icon
                     )
                 }
@@ -123,6 +129,11 @@ public class ResultAdapter(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                             getString(country.nameRes),
                             dateTime.formatDateTime()
+                        ),
+                        subtitleContentDescription = getString(
+                            R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                            getString(country.nameRes),
+                            dateTime.formatDateTimeAccessibility()
                         ),
                         description = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_second_message
@@ -139,6 +150,11 @@ public class ResultAdapter(
                                 getString(country.nameRes),
                                 dateTime.formatDateTime()
                             ),
+                            subtitleContentDescription = getString(
+                                R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                                getString(country.nameRes),
+                                dateTime.formatDateTimeAccessibility()
+                            ),
                             description = getString(
                                 R.string.certificate_check_validity_detail_view_result_valid_info, rulesCount
                             ),
@@ -151,6 +167,11 @@ public class ResultAdapter(
                                 R.string.certificate_check_validity_detail_view_result_valid_message,
                                 getString(country.nameRes),
                                 dateTime.formatDateTime()
+                            ),
+                            subtitleContentDescription = getString(
+                                R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
+                                getString(country.nameRes),
+                                dateTime.formatDateTimeAccessibility()
                             ),
                             description = getString(
                                 R.string.certificate_check_validity_detail_view_result_no_rules_message

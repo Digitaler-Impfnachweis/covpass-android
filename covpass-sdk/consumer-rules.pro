@@ -7,3 +7,4 @@
 -keepclasseswithmembers class * {
     kotlinx.serialization.KSerializer serializer(...);
 }
+-keep,includedescriptorclasses class de.rki.covpass.sdk.ticketing.TicketingType** { *; }

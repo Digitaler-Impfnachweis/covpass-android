@@ -3,28 +3,15 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-buildscript {
-    ext.kotlin_version = '1.5.31'
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:7.0.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.18.1"
-        classpath "pl.allegro.tech.build:axion-release-plugin:1.13.3"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        classpath "com.jaredsburrows:gradle-license-plugin:0.8.90"
-    }
-}
-
 plugins {
-    id "com.github.ben-manes.versions" version "0.38.0"
+    id 'com.android.application' version '7.0.4' apply false
+    id 'org.jetbrains.kotlin.android' version '1.5.31' apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.31' apply false
+    id 'io.gitlab.arturbosch.detekt' version '1.18.1' apply false
+    id 'com.jaredsburrows.license' version '0.8.90' apply false
+    id 'pl.allegro.tech.build.axion-release' version '1.13.3'
+    id 'com.github.ben-manes.versions' version '0.39.0'
 }
-
-apply plugin: 'pl.allegro.tech.build.axion-release'
 
 apply from: "$rootDir/gradle/common/repos.gradle"
 setupRepos()
@@ -100,7 +87,7 @@ subprojects {
         if (isAndroidProject) {
             android {
                 defaultConfig {
-                    versionName = "1.13.0"
+                    versionName = "1.18.0"
                 }
                 if (!isLibraryProject) {
                     def codeName = project.name.substring("app-".length()).replaceAll("-", "")

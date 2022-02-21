@@ -6,8 +6,8 @@
 package de.rki.covpass.sdk.cert.models
 
 import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
-import de.rki.covpass.sdk.rules.CovPassRulesRepository
-import de.rki.covpass.sdk.rules.local.rules.CovPassRulesLocalDataSource
+import de.rki.covpass.sdk.rules.CovPassEuRulesRepository
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesLocalDataSource
 import de.rki.covpass.sdk.rules.remote.rules.CovPassRuleRemote
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import io.mockk.*
@@ -19,18 +19,18 @@ internal class BoosterCertLogicEngineTest {
     @Test
     fun `test empty rule repository`() {
         val remoteDataSource: CovPassRulesRemoteDataSource = mockk()
-        val localDataSource: CovPassRulesLocalDataSource = mockk()
+        val localDataSourceEu: CovPassEuRulesLocalDataSource = mockk()
         val covPassRuleRemote: CovPassRuleRemote = mockk()
         val rulesUpdateRepository: RulesUpdateRepository = mockk(relaxed = true)
 
         coEvery { remoteDataSource.getRuleIdentifiers() } returns emptyList()
         coEvery { remoteDataSource.getRule("", "") } returns covPassRuleRemote
-        coEvery { localDataSource.getAllCovPassRules() } returns emptyList()
-        coEvery { localDataSource.replaceRules(any(), any()) } just Runs
+        coEvery { localDataSourceEu.getAllRules() } returns emptyList()
+        coEvery { localDataSourceEu.replaceRules(any(), any()) } just Runs
 
-        val repository = CovPassRulesRepository(
+        val repository = CovPassEuRulesRepository(
             remoteDataSource,
-            localDataSource,
+            localDataSourceEu,
             rulesUpdateRepository
         )
         runBlockingTest {
@@ -38,7 +38,7 @@ internal class BoosterCertLogicEngineTest {
         }
 
         coVerify { remoteDataSource.getRuleIdentifiers() }
-        coVerify { localDataSource.getAllCovPassRules() }
-        coVerify { localDataSource.replaceRules(any(), any()) }
+        coVerify { localDataSourceEu.getAllRules() }
+        coVerify { localDataSourceEu.replaceRules(any(), any()) }
     }
 }

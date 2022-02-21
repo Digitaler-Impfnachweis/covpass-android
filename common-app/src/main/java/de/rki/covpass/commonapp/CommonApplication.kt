@@ -5,13 +5,11 @@
 
 package de.rki.covpass.commonapp
 
-import android.app.Activity
 import android.app.Application
-import android.os.Bundle
-import android.view.WindowManager
+import android.os.Build
 import android.webkit.WebView
 import androidx.fragment.app.FragmentActivity
-import androidx.work.*
+import androidx.work.WorkManager
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.AndroidDependencies
 import com.ibm.health.common.android.utils.androidDeps
@@ -21,17 +19,14 @@ import com.ibm.health.common.securityprovider.initSecurityProvider
 import com.instacart.library.truetime.TrueTime
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.truetime.CustomCache
-import de.rki.covpass.commonapp.utils.schedulePeriodicWorker
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.utils.*
-import de.rki.covpass.sdk.worker.DscListWorker
-import de.rki.covpass.sdk.worker.RulesWorker
-import de.rki.covpass.sdk.worker.ValueSetsWorker
+import de.rki.covpass.sdk.storage.RulesUpdateRepository.Companion.CURRENT_LOCAL_DATABASE_VERSION
+import de.rki.covpass.sdk.utils.retry
 import kotlinx.coroutines.runBlocking
 
 /** Common base application with some common functionality like setting up logging. */
@@ -43,13 +38,16 @@ public abstract class CommonApplication : Application() {
 
         // IMPORTANT: The security provider has to be initialized before anything else
         initSecurityProvider()
-        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
 
         if (isDebuggable) {
             Lumber.plantDebugTreeIfNeeded()
             httpConfig.enableLogging(HttpLogLevel.HEADERS)
             WebView.setWebContentsDebuggingEnabled(true)
         }
+        httpConfig.setUserAgent(
+            "${getAppVariantAndVersion()} " +
+                "($packageName; Android ${Build.VERSION.SDK_INT})"
+        )
 
         navigationDeps = object : NavigationDependencies() {
             override val application = this@CommonApplication
@@ -68,18 +66,22 @@ public abstract class CommonApplication : Application() {
             override val application: Application = this@CommonApplication
         }
         prepopulateDb()
+        removeWorkers()
     }
+
+    public abstract fun getAppVariantAndVersion(): String
 
     public fun start() {
         sdkDeps.validator.updateTrustedCerts(sdkDeps.dscRepository.dscList.value.toTrustedCerts())
-        initializeWorkManager(WorkManager.getInstance(this))
     }
 
-    public open fun initializeWorkManager(workManager: WorkManager) {
-        workManager.apply {
-            schedulePeriodicWorker<DscListWorker>("dscListWorker")
-            schedulePeriodicWorker<RulesWorker>("rulesWorker")
-            schedulePeriodicWorker<ValueSetsWorker>("valueSetsWorker")
+    private fun removeWorkers() {
+        WorkManager.getInstance(this).apply {
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.DscListWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.RulesWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.ValueSetsWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.BoosterRulesWorker")
+            cancelAllWorkByTag("de.rki.covpass.sdk.worker.CountriesWorker")
         }
     }
 
@@ -87,6 +89,9 @@ public abstract class CommonApplication : Application() {
         Thread {
             runBlocking {
                 retry {
+                    // TODO temporary fix
+                    TrueTime.clearCachedInfo()
+
                     TrueTime
                         .build()
                         .withNtpHost(DE_NTP_HOST)
@@ -101,9 +106,22 @@ public abstract class CommonApplication : Application() {
 
     private fun prepopulateDb() {
         runBlocking {
-            if (sdkDeps.covPassRulesRepository.getAllCovPassRules().isNullOrEmpty()) {
-                sdkDeps.covPassRulesRepository.prepopulate(
-                    sdkDeps.bundledRules
+            if (sdkDeps.rulesUpdateRepository.localDatabaseVersion.value != CURRENT_LOCAL_DATABASE_VERSION) {
+                sdkDeps.covPassEuRulesRepository.deleteAll()
+                sdkDeps.covPassDomesticRulesRepository.deleteAll()
+                sdkDeps.covPassValueSetsRepository.deleteAll()
+                sdkDeps.covPassBoosterRulesRepository.deleteAll()
+                sdkDeps.covPassCountriesRepository.deleteAll()
+                sdkDeps.rulesUpdateRepository.updateLocalDatabaseVersion()
+            }
+            if (sdkDeps.covPassEuRulesRepository.getAllRules().isNullOrEmpty()) {
+                sdkDeps.covPassEuRulesRepository.prepopulate(
+                    sdkDeps.bundledEuRules
+                )
+            }
+            if (sdkDeps.covPassDomesticRulesRepository.getAllRules().isNullOrEmpty()) {
+                sdkDeps.covPassDomesticRulesRepository.prepopulate(
+                    sdkDeps.bundledDomesticRules
                 )
             }
             if (sdkDeps.covPassValueSetsRepository.getAllCovPassValueSets().isNullOrEmpty()) {
@@ -122,36 +140,6 @@ public abstract class CommonApplication : Application() {
                 )
             }
         }
-    }
-
-    private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacks {
-        override fun onActivityStarted(activity: Activity) {
-            enableScreenshots(activity)
-        }
-
-        override fun onActivityResumed(activity: Activity) {
-            enableScreenshots(activity)
-        }
-
-        override fun onActivityPaused(activity: Activity) {
-            disableScreenshots(activity)
-        }
-
-        override fun onActivityStopped(activity: Activity) {
-            disableScreenshots(activity)
-        }
-
-        override fun onActivityCreated(activity: Activity, bundle: Bundle?) {}
-        override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {}
-        override fun onActivityDestroyed(activity: Activity) {}
-    }
-
-    private fun enableScreenshots(activity: Activity) {
-        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-    }
-
-    private fun disableScreenshots(activity: Activity) {
-        activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     private companion object {

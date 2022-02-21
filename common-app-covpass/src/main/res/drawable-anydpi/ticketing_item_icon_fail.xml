@@ -1,0 +1,29 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M20.3654,22.2661C21.9754,22.2661 23,21.0952 23,19.6203C23,19.1812 22.8874,18.7421 22.651,18.3255L14.2743,3.3398C13.7902,2.4616 12.9007,2 12,2C11.1105,2 10.2098,2.4504 9.7257,3.3398L1.3603,18.3367C1.1126,18.7421 1,19.1812 1,19.6203C1,21.0952 2.0246,22.2661 3.6346,22.2661L20.3654,22.2661Z"
+      android:strokeWidth="1"
+      android:fillColor="#D62E42"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M12,14.9365C11.4258,14.9365 11.0993,14.61 11.0768,14.0133L10.9191,8.8792C10.8966,8.2825 11.3582,7.8434 11.9887,7.8434C12.6192,7.8434 13.0921,8.2938 13.0696,8.8905L12.912,14.0133C12.8895,14.6213 12.5629,14.9365 12,14.9365Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+  <path
+      android:pathData="M12,18.8884C11.3582,18.8884 10.7728,18.4043 10.7728,17.7175C10.7728,17.042 11.347,16.5466 12,16.5466C12.653,16.5466 13.2272,17.0307 13.2272,17.7175C13.2272,18.4043 12.6418,18.8884 12,18.8884Z"
+      android:strokeWidth="1"
+      android:fillColor="#FFFFFF"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+</vector>

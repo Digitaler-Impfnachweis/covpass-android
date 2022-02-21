@@ -25,17 +25,18 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCheckPopupContentBinding
 import de.rki.covpass.app.validitycheck.countries.Country
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeCountry
+import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.isBeforeUpdateInterval
+import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
-import de.rki.covpass.sdk.worker.DSC_UPDATE_INTERVAL_HOURS
 import kotlinx.parcelize.Parcelize
-import java.time.Instant
 import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 
 @Parcelize
 internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::class)
@@ -74,9 +75,7 @@ internal class ValidityCheckFragment :
                     iconRes = R.drawable.info_warning,
                     subtitleTopMarginDimenRes = R.dimen.grid_one
                 )
-                isVisible = get(sdkDeps.rulesUpdateRepository.lastRulesUpdate).isBefore(
-                    Instant.now().minus(DSC_UPDATE_INTERVAL_HOURS, ChronoUnit.HOURS)
-                )
+                isVisible = get(sdkDeps.rulesUpdateRepository.lastEuRulesUpdate).isBeforeUpdateInterval()
             }
         }
         autoRun {
@@ -87,6 +86,20 @@ internal class ValidityCheckFragment :
         autoRun {
             val country = get(validityCheckViewModel.country)
             binding.countryValue.setText(country.nameRes)
+            if (country.countryCode == defaultDeDomesticCountry.countryCode ||
+                country.countryCode == defaultDeCountry.countryCode
+            ) {
+                binding.domesticRulesWarning.apply {
+                    isVisible = true
+                    showInfo(
+                        getString(R.string.certificate_check_german_infobox),
+                        titleStyle = R.style.DefaultText_OnBackground,
+                        iconRes = R.drawable.info_icon
+                    )
+                }
+            } else {
+                binding.domesticRulesWarning.isVisible = false
+            }
             binding.countryValue.setOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }
@@ -149,11 +162,25 @@ internal class ValidityCheckFragment :
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
         }
         autoRun { showLoading(get(loading) > 0) }
+        autoRun { showInvalidCertWarning(get(validityCheckViewModel.isInvalidCertAvailable)) }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.loadingLayout.isVisible = isLoading
         binding.recyclerCertificates.isGone = isLoading
+    }
+
+    private fun showInvalidCertWarning(show: Boolean) {
+        binding.validityCheckInvalidCertsWarning.apply {
+            showWarning(
+                title = getString(R.string.certificate_check_validity_not_all_certs_checkable_title),
+                subtitle = getString(R.string.certificate_check_validity_not_all_certs_checkable_message),
+                subtitleStyle = R.style.DefaultText_OnBackground,
+                iconRes = R.drawable.info_warning,
+                subtitleTopMarginDimenRes = R.dimen.grid_one
+            )
+            isVisible = show
+        }
     }
 
     override fun onActionButtonClicked() {

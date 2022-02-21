@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <LinearLayout
+    android:id="@+id/consent_ticketing_data_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/consent_ticketing_data_header"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_one"
+      tools:text="@tools:sample/lorem[2]" />
+
+    <TextView
+      android:id="@+id/consent_ticketing_data_value"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginBottom="@dimen/grid_one"
+      tools:text="@tools:sample/lorem[2]" />
+
+    <View style="@style/Divider" />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

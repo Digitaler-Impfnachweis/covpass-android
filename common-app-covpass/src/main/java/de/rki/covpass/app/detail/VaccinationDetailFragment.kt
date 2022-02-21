@@ -9,10 +9,6 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.validitycheck.countries.CountryResolver
-import de.rki.covpass.sdk.cert.getDiseaseAgentName
-import de.rki.covpass.sdk.cert.getManufacturerName
-import de.rki.covpass.sdk.cert.getProductName
-import de.rki.covpass.sdk.cert.getProphylaxisName
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational
@@ -72,22 +68,22 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_disease),
-                getDiseaseAgentName(vaccination.targetDisease)
+                valueSetsRepository.getDiseaseAgentName(vaccination.targetDisease)
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine),
-                getProductName(vaccination.product)
+                valueSetsRepository.getProductName(vaccination.product)
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_type),
-                getProphylaxisName(vaccination.vaccineCode)
+                valueSetsRepository.getProphylaxisName(vaccination.vaccineCode)
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_manufacturer),
-                getManufacturerName(vaccination.manufacturer)
+                valueSetsRepository.getManufacturerName(vaccination.manufacturer)
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),

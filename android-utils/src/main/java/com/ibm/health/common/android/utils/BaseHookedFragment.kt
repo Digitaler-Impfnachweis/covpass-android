@@ -23,11 +23,12 @@ import kotlinx.coroutines.CoroutineScope
 public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
     Fragment(contentLayoutId),
     LoadingStateHook,
+    OnUserInteractionListener,
     BaseEvents {
 
     internal var inflaterHook: ((LayoutInflater, ViewGroup?) -> View)? = null
 
-    override val loading: MutableValueFlow<Int> = MutableValueFlow(0)
+    final override val loading: MutableValueFlow<Int> = MutableValueFlow(0)
 
     public open val announcementAccessibilityRes: Int? = null
 
@@ -47,6 +48,12 @@ public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
     override fun onResume() {
         super.onResume()
         announcementAccessibilityRes?.let { sendAccessibilityAnnouncementEvent(it) }
+    }
+
+    override fun onUserInteraction() {
+        for (fragment in childFragmentManager.findFragments { it as? OnUserInteractionListener }) {
+            fragment.onUserInteraction()
+        }
     }
 
     public open fun launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {

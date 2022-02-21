@@ -14,7 +14,11 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 
-public class CovPassRulesRemoteDataSource(httpClient: HttpClient, host: String) {
+public class CovPassRulesRemoteDataSource(
+    httpClient: HttpClient,
+    host: String,
+    private val urlString: String
+) {
     private val client = httpClient.config {
         defaultRequest {
             this.host = host
@@ -25,8 +29,8 @@ public class CovPassRulesRemoteDataSource(httpClient: HttpClient, host: String) 
     }
 
     public suspend fun getRuleIdentifiers(): List<CovPassRuleIdentifierRemote> =
-        client.get("rules")
+        client.get(urlString)
 
     public suspend fun getRule(country: String, hash: String): CovPassRuleRemote =
-        client.get("rules/$country/$hash")
+        client.get("$urlString/$country/$hash")
 }

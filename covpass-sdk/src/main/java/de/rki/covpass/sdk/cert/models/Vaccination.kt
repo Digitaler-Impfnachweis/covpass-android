@@ -48,13 +48,14 @@ public data class Vaccination(
     override val id: String = "",
 ) : DGCEntry {
     public val isComplete: Boolean
-        get() = doseNumber == totalSerialDoses
+        get() = doseNumber >= totalSerialDoses
 
     public val isCompleteSingleDose: Boolean
         get() = doseNumber == 1 && totalSerialDoses == 1
 
     public val isBooster: Boolean
-        get() = (isComplete && doseNumber > 2) || (isComplete && product == JANSSEN && doseNumber == 2)
+        get() = (isComplete && doseNumber > 2) || (isComplete && product == JANSSEN && doseNumber == 2) ||
+            doseNumber > totalSerialDoses
 
     public val hasFullProtectionAfterRecovery: Boolean
         get() = (isCompleteSingleDose && ((product == BIONTECH) || (product == MODERNA) || (product == ASTRAZENECA)))

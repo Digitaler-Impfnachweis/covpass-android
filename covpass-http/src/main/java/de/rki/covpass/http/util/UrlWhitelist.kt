@@ -5,6 +5,8 @@
 
 package de.rki.covpass.http.util
 
+import io.ktor.http.*
+
 /** Provides functionality to check if a url is whitelisted. */
 public interface UrlWhitelist {
 
@@ -24,4 +26,14 @@ public class HostBasedUrlWhitelist(whitelist: Collection<String>) : UrlWhitelist
 
     override fun isWhitelisted(url: String): Boolean =
         whitelist.any { isSubUrlOf(url = url, parent = it) }
+}
+
+/** [UrlWhitelist] which whitelists every url that matches the pattern contained in the given [whitelist]. */
+public class HostPatternWhitelist(whitelist: Collection<String>) : UrlWhitelist {
+    private val whitelist: Set<String> = whitelist.toSet()
+
+    override fun isWhitelisted(url: String): Boolean {
+        val hostname = Url(url).host
+        return whitelist.any { matchesHostname(it, hostname) }
+    }
 }

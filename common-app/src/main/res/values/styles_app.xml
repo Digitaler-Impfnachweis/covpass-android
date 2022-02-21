@@ -32,4 +32,8 @@
     <item name="colorControlHighlight">@color/brandAccent40</item>
   </style>
 
+  <style name="SwitchTheme" parent="Widget.MaterialComponents.CompoundButton.Switch">
+    <item name="colorSecondary">#34C759</item>
+  </style>
+
 </resources>

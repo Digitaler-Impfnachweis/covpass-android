@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <attr name="title" format="string" />
+  <attr name="subtitle" format="string" />
+  <attr name="description" format="string" />
+  <attr name="icon" format="reference" />
+  <attr name="elementColor" format="reference" />
+
   <declare-styleable name="InfoElement">
-    <attr name="title" format="string" />
-    <attr name="subtitle" format="string" />
-    <attr name="description" format="string" />
-    <attr name="icon" format="reference" />
-    <attr name="elementColor" format="reference" />
+    <attr name="title"/>
+    <attr name="subtitle"/>
+    <attr name="description"/>
+    <attr name="icon"/>
+    <attr name="elementColor"/>
+  </declare-styleable>
+
+  <declare-styleable name="InfoElementWithList">
+    <attr name="title"/>
+    <attr name="subtitle"/>
+    <attr name="icon"/>
+    <attr name="elementColor"/>
   </declare-styleable>
 </resources>

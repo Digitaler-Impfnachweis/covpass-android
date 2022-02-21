@@ -27,7 +27,7 @@
     style="@style/Header.OnInfo.Small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_new_booster"
+    android:background="@drawable/background_new_warning"
     android:gravity="center"
     android:textAlignment="center"
     app:layout_constraintEnd_toEndOf="parent"

@@ -12,7 +12,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public data class DscList(
-    var certificates: List<DscListEntry>
+    var certificates: List<DscListEntry>,
+    val etag: String = "",
 )
 
 /**

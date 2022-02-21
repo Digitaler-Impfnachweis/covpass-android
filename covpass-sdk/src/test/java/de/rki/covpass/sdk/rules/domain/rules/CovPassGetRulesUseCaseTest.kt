@@ -5,7 +5,7 @@
 
 package de.rki.covpass.sdk.rules.domain.rules
 
-import de.rki.covpass.sdk.rules.CovPassRulesRepository
+import de.rki.covpass.sdk.rules.CovPassEuRulesRepository
 import dgca.verifier.app.engine.data.CertificateType
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -18,13 +18,13 @@ internal class CovPassGetRulesUseCaseTest {
 
     @Test
     fun `test with empty empty issuanceCountryIsoCode`() {
-        val repository: CovPassRulesRepository = mockk()
+        val repositoryEu: CovPassEuRulesRepository = mockk()
 
         coEvery {
-            repository.getCovPassRulesBy(any(), any(), any(), any())
+            repositoryEu.getRulesBy(any(), any(), any(), any())
         } returns emptyList()
 
-        val covPassGetRulesUseCase = CovPassGetRulesUseCase(repository)
+        val covPassGetRulesUseCase = CovPassGetRulesUseCase(repositoryEu)
 
         runBlockingTest {
             covPassGetRulesUseCase.invoke(
@@ -36,19 +36,19 @@ internal class CovPassGetRulesUseCaseTest {
         }
 
         coVerify(exactly = 1) {
-            repository.getCovPassRulesBy(any(), any(), any(), any())
+            repositoryEu.getRulesBy(any(), any(), any(), any())
         }
     }
 
     @Test
     fun `test with issuanceCountryIsoCode`() {
-        val repository: CovPassRulesRepository = mockk()
+        val repositoryEu: CovPassEuRulesRepository = mockk()
 
         coEvery {
-            repository.getCovPassRulesBy(any(), any(), any(), any())
+            repositoryEu.getRulesBy(any(), any(), any(), any())
         } returns emptyList()
 
-        val covPassGetRulesUseCase = CovPassGetRulesUseCase(repository)
+        val covPassGetRulesUseCase = CovPassGetRulesUseCase(repositoryEu)
 
         runBlockingTest {
             covPassGetRulesUseCase.invoke(
@@ -60,7 +60,7 @@ internal class CovPassGetRulesUseCaseTest {
         }
 
         coVerify(exactly = 2) {
-            repository.getCovPassRulesBy(any(), any(), any(), any())
+            repositoryEu.getRulesBy(any(), any(), any(), any())
         }
     }
 }

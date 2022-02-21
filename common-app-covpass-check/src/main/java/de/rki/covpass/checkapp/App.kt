@@ -6,6 +6,7 @@
 package de.rki.covpass.checkapp
 
 import com.ensody.reactivestate.DependencyAccessor
+import com.ibm.health.common.android.utils.appVersion
 import de.rki.covpass.checkapp.errorhandling.ErrorHandler
 import de.rki.covpass.commonapp.CommonApplication
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
@@ -25,4 +26,6 @@ public class App : CommonApplication() {
         start()
         initializeTrueTime()
     }
+
+    override fun getAppVariantAndVersion(): String = "CovPassCheckApp/$appVersion"
 }

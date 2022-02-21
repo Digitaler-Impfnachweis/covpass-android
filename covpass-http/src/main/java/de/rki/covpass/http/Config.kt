@@ -6,6 +6,7 @@
 package de.rki.covpass.http
 
 import de.rki.covpass.http.retry.RetryInterceptor
+import de.rki.covpass.http.util.getDnsSubjectAlternativeNames
 import de.rki.covpass.logging.Lumber
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
@@ -38,6 +39,12 @@ public interface HttpConfig {
 
     /** Creates a Ktor `HttpClient` with correct TLS settings and optionally with an additional config [block]. */
     public fun ktorClient(block: HttpClientConfig<OkHttpConfig>.() -> Unit = {}): HttpClient
+
+    /** Returns true if the provided URL's hostname public key is pinned */
+    public fun hasPublicKey(url: String): Boolean
+
+    /** Sets UserAgent for the Ktor client */
+    public fun setUserAgent(userAgent: String)
 }
 
 /**
@@ -45,11 +52,9 @@ public interface HttpConfig {
  */
 public fun HttpConfig.pinPublicKey(certs: List<X509Certificate>) {
     for (cert in certs) {
-        for (san in cert.subjectAlternativeNames) {
-            // Check if this is a DNS SAN (code 2)
-            if (san.size >= 2 && san[0] == 2 && san[1] is String) {
-                pinPublicKey(san[1] as String, cert)
-            }
+        // Check if this is a DNS SAN (code 2)
+        cert.getDnsSubjectAlternativeNames().forEach {
+            pinPublicKey(it, cert)
         }
     }
 }
@@ -77,6 +82,7 @@ internal fun resetHttpConfig() {
 private class DefaultHttpConfig : HttpConfig {
     private var frozen = false
     private var logging: HttpLogLevel = HttpLogLevel.NONE
+    private var userAgent: String? = null
 
     private fun checkFrozen() {
         // This is meant as a security measure, so you don't mistakenly enable logging or change configs after the fact.
@@ -169,6 +175,11 @@ private class DefaultHttpConfig : HttpConfig {
                 requestTimeoutMillis = 15_000
                 socketTimeoutMillis = 15_000
             }
+            userAgent?.let {
+                install(UserAgent) {
+                    agent = it
+                }
+            }
             defaultRequest {
                 url {
                     protocol = URLProtocol.HTTPS
@@ -176,6 +187,15 @@ private class DefaultHttpConfig : HttpConfig {
             }
             block()
         }
+
+    override fun hasPublicKey(url: String): Boolean {
+        val hostname = Url(url).host
+        return okHttpClient.certificatePinner.findMatchingPins(hostname).isNotEmpty()
+    }
+
+    override fun setUserAgent(userAgent: String) {
+        this.userAgent = userAgent
+    }
 }
 
 /** Represents the amount of logging. */

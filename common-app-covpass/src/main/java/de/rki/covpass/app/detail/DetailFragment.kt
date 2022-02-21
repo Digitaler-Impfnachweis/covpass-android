@@ -25,7 +25,6 @@ import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
-import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
@@ -60,7 +59,7 @@ internal enum class DetailBoosterAction {
 @Parcelize
 internal class DetailFragmentNav(
     var certId: GroupedCertificatesId,
-    val isFirstAdded: Boolean = false
+    val isFirstAdded: Boolean = false,
 ) : FragmentNav(DetailFragment::class)
 
 /**
@@ -155,20 +154,28 @@ internal class DetailFragment :
                     is Vaccination -> {
                         when (dgcEntry.type) {
                             VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
-                                val title = getString(
-                                    when (certStatus) {
-                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_title
-                                        CertValidationResult.Invalid -> R.string.certificates_overview_invalid_title
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
-                                            R.string.vaccination_certificate_overview_complete_title
-                                    }
-                                )
+                                val title = when (certStatus) {
+                                    CertValidationResult.Expired ->
+                                        getString(R.string.certificates_overview_expired_title)
+                                    CertValidationResult.Invalid ->
+                                        getString(R.string.certificates_overview_invalid_title)
+                                    CertValidationResult.Valid ->
+                                        getString(R.string.vaccination_certificate_overview_complete_title)
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.certificates_overview_soon_expiring_title,
+                                            cert.validUntil.formatDateOrEmpty(),
+                                            cert.validUntil.formatTimeOrEmpty(),
+                                        )
+                                }
                                 val message = getString(
                                     when (certStatus) {
                                         CertValidationResult.Expired -> R.string.certificates_overview_expired_message
                                         CertValidationResult.Invalid -> R.string.certificates_overview_invalid_message
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        CertValidationResult.Valid ->
                                             R.string.vaccination_certificate_overview_complete_message
+                                        CertValidationResult.ExpiryPeriod ->
+                                            R.string.certificates_overview_soon_expiring_subtitle
                                     }
                                 )
                                 val buttonText = if (isExpiredOrInvalid) {
@@ -182,8 +189,10 @@ internal class DetailFragment :
                                         CertValidationResult.Expired,
                                         CertValidationResult.Invalid,
                                         -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        CertValidationResult.Valid ->
                                             R.drawable.detail_cert_status_complete
+                                        CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_expiring
                                     },
                                     message = message,
                                     buttonText = buttonText,
@@ -196,10 +205,16 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(
                                             R.string.vaccination_certificate_overview_complete_from_title,
                                             mainCertificate.covCertificate.validDate.formatDateOrEmpty()
+                                        )
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.certificates_overview_soon_expiring_title,
+                                            cert.validUntil.formatDateOrEmpty(),
+                                            cert.validUntil.formatTimeOrEmpty(),
                                         )
                                 }
                                 val message = when (certStatus) {
@@ -207,8 +222,10 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(R.string.vaccination_certificate_overview_complete_from_message)
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -220,8 +237,10 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        CertValidationResult.Valid ->
                                             R.drawable.detail_cert_status_complete
+                                        CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_expiring
                                     },
                                     message = message,
                                     buttonText = buttonText,
@@ -234,11 +253,17 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(
                                             R.string.vaccination_certificate_overview_incomplete_title,
                                             dgcEntry.doseNumber,
                                             dgcEntry.totalSerialDoses
+                                        )
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.certificates_overview_soon_expiring_title,
+                                            cert.validUntil.formatDateOrEmpty(),
+                                            cert.validUntil.formatTimeOrEmpty(),
                                         )
                                 }
                                 val message = when (certStatus) {
@@ -246,8 +271,10 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(R.string.vaccination_certificate_overview_incomplete_message)
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -261,8 +288,10 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        CertValidationResult.Valid ->
                                             R.drawable.detail_cert_status_incomplete
+                                        CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_expiring
                                     },
                                     message = message,
                                     buttonText = buttonText,
@@ -279,10 +308,16 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(
                                             R.string.pcr_test_certificate_overview_title,
                                             dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                        )
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.certificates_overview_soon_expiring_title,
+                                            cert.validUntil.formatDateOrEmpty(),
+                                            cert.validUntil.formatTimeOrEmpty(),
                                         )
                                 }
                                 val message = when (certStatus) {
@@ -290,8 +325,10 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(R.string.pcr_test_certificate_overview_message)
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -305,8 +342,10 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        CertValidationResult.Valid ->
                                             R.drawable.detail_cert_status_complete
+                                        CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_expiring
                                     },
                                     message = message,
                                     buttonText = buttonText,
@@ -319,10 +358,16 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_title)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(
                                             R.string.test_certificate_overview_title,
                                             dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                        )
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(
+                                            R.string.certificates_overview_soon_expiring_title,
+                                            cert.validUntil.formatDateOrEmpty(),
+                                            cert.validUntil.formatTimeOrEmpty(),
                                         )
                                 }
                                 val message = when (certStatus) {
@@ -330,8 +375,10 @@ internal class DetailFragment :
                                         getString(R.string.certificates_overview_expired_message)
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
-                                    CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                    CertValidationResult.Valid ->
                                         getString(R.string.test_certificate_overview_message)
+                                    CertValidationResult.ExpiryPeriod ->
+                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -345,8 +392,10 @@ internal class DetailFragment :
                                     statusIcon = when (certStatus) {
                                         CertValidationResult.Expired, CertValidationResult.Invalid ->
                                             R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                        CertValidationResult.Valid ->
                                             R.drawable.detail_cert_status_complete
+                                        CertValidationResult.ExpiryPeriod ->
+                                            R.drawable.detail_cert_status_expiring
                                     },
                                     message = message,
                                     buttonText = buttonText,
@@ -362,7 +411,7 @@ internal class DetailFragment :
                                 getString(R.string.certificates_overview_expired_title)
                             CertValidationResult.Invalid ->
                                 getString(R.string.certificates_overview_invalid_title)
-                            CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                            CertValidationResult.Valid ->
                                 if (dgcEntry.validFrom.isInFuture()) {
                                     getString(
                                         R.string.recovery_certificate_overview_valid_from_title,
@@ -374,14 +423,22 @@ internal class DetailFragment :
                                         dgcEntry.validUntil?.formatDateOrEmpty()
                                     )
                                 }
+                            CertValidationResult.ExpiryPeriod ->
+                                getString(
+                                    R.string.certificates_overview_soon_expiring_title,
+                                    cert.validUntil.formatDateOrEmpty(),
+                                    cert.validUntil.formatTimeOrEmpty(),
+                                )
                         }
                         val message = when (certStatus) {
                             CertValidationResult.Expired ->
                                 getString(R.string.certificates_overview_expired_message)
                             CertValidationResult.Invalid ->
                                 getString(R.string.certificates_overview_invalid_message)
-                            CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                            CertValidationResult.Valid ->
                                 getString(R.string.recovery_certificate_overview_message)
+                            CertValidationResult.ExpiryPeriod ->
+                                getString(R.string.certificates_overview_soon_expiring_subtitle)
                         }
                         val buttonText = if (isExpiredOrInvalid) {
                             getString(R.string.certificates_overview_expired_action_button_title)
@@ -393,8 +450,10 @@ internal class DetailFragment :
                             statusIcon = when (certStatus) {
                                 CertValidationResult.Expired, CertValidationResult.Invalid ->
                                     R.drawable.detail_cert_status_expired
-                                CertValidationResult.Valid, CertValidationResult.ExpiryPeriod ->
+                                CertValidationResult.Valid ->
                                     R.drawable.detail_cert_status_complete
+                                CertValidationResult.ExpiryPeriod ->
+                                    R.drawable.detail_cert_status_expiring
                             },
                             message = message,
                             buttonText = buttonText,
@@ -411,7 +470,7 @@ internal class DetailFragment :
                         groupedCertificate.boosterNotification.getLocalizedDescription(),
                         groupedCertificate.boosterNotification.ruleId,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
-                            R.drawable.background_new_booster
+                            R.drawable.background_new_warning
                         } else {
                             null
                         },
@@ -538,7 +597,10 @@ internal class DetailFragment :
     }
 
     override fun onShowCertificateClicked() {
-        triggerBackPress()
+        val certList = covpassDeps.certRepository.certs.value
+        val groupedCertificate = certList.getGroupedCertificates(args.certId) ?: return
+        val mainCertificate = groupedCertificate.getMainCertificate()
+        findNavigator().push(DisplayQrCodeFragmentNav(mainCertificate.covCertificate.dgcEntry.id))
     }
 
     override fun onNewCertificateScanClicked() {

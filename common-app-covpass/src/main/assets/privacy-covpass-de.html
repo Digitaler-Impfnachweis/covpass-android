@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 24px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Stand: 28.10.2021, App-Version 1.12</p>
+<body><p>Stand 31.01.2022, zuletzt aktualisiert mit der App-Version 1.17</p>
 <h1 id="datenschutzerklärung-covpass-app">Daten­schutz­erklärung CovPass-App</h1>
 <p>In dieser Datenschutzerklärung erfahren Sie, wie Ihre Daten verarbeitet werden und welche Datenschutzrechte Sie
     haben, wenn Sie die CovPass-App zur Verwaltung der Nachweise in Form der digitalen COVID-Zertifikate zu
@@ -79,24 +79,32 @@
     einscannen und das Zertifikat in der App speichern möchten. Ebenso können Sie das Zertifikat jederzeit aus der App
     löschen.</p>
 <h2 id="wofür-werden-ihre-daten-verarbeitet">4. Wofür werden Ihre Daten verarbeitet?</h2>
+<h3>a. Erstellung der Zertifikate</h3>
 <p>Das RKI verarbeitet kurzfristig die notwendigen personenbezogenen Daten von Zertifikatsinhabern zur technischen
     Erstellung und Signierung des gewünschten Zertifikats (§ 22 Abs. 5 bis 7 Infektionsschutzgesetz). Nachdem die
     technische Erstellung des Zertifikats abgeschlossen ist, werden die personenbezogenen Daten beim RKI sofort wieder
     gelöscht. Es gibt kein zentralverwaltetes Impf- oder Zertifikatsregister.</p>
+<h3>b. Verwenden der Zertifikate zum Nachweis</h3>
 <p>Mit der CovPass-App können Sie ausgedruckte eigene Zertifikate und Zertifikate von Familienmitgliedern scannen und
     verschlüsselt auf Ihrem Smartphone speichern.</p>
 <p>Um in den gesetzlich vorgesehenen Fällen gegenüber Dritten eine Impfung, ein negatives Testergebnis oder eine
     durchgemachte COVID-19-Erkrankung nachzuweisen, können Sie das entsprechende Zertifikat der prüfenden Person
     vorzeigen. Wenn die prüfende Person eine spezielle Prüf-Anwendung (etwa die CovPassCheck-App des RKI) nutzt, genügt
-    es den QR-Code des Zertifikats vorzuzeigen und scannen zu lassen. Tippen Sie hierfür die Schaltfläche „Aktuellen
-    QR-Code anzeigen” an. In dieser Darstellung werden der QR-Code, Name, Geburtsdatum und die Art des Zertifikats
-    dargestellt. Zudem können Sie eine spezielle Ansicht in der App auswählen, in der nur noch der isolierte QR-Code
-    ohne die weiteren Angaben angezeigt wird (tippen Sie hierfür die Schaltfläche „QR-Code anzeigen” in der
-    Detailansicht eines Zertifikats an). Der QR-Code stellt das Zertifikat in digitaler Form dar und enthält
+    es den QR-Code des Zertifikats vorzuzeigen und scannen zu lassen. Der QR-Code stellt das Zertifikat in digitaler Form dar und enthält
     ausschließlich die für die jeweilige Art des Zertifikats notwendigen Informationen (siehe Abschnitt 5).</p>
 <p>Mit der Prüf-Anwendung kann der QR-Code beispielsweise von Behörden, Reiseunternehmen und anderen Dienstleistern in
     der EU gescannt werden, um die Gültigkeit des vorgezeigten Zertifikats zu überprüfen. Bei der Prüfung werden die im
-    Zertifikat enthaltenen Daten ausgelesen. In der Prüf-Anwendung wird angezeigt, ob das vorgelegte Zertifikat gültig
+    Zertifikat enthaltenen Daten ausgelesen. Damit das Zertifikat gültig ist, muss es folgende technische und
+    inhaltliche Kriterien erfüllen:</p>
+<ul>
+    <li>Das Zertifikat enthält eine gültige elektronische Signatur.</li>
+    <li>Das Zertifikat wurde nicht widerrufen.</li>
+    <li>Das technische Ablaufdatum des Zertifikats ist noch nicht erreicht.</li>
+    <li>Das Zertifikat erfüllt die am Prüfungsort geltenden inhaltlichen Kriterien
+        (z. B. regionale Einreisebestimmungen).
+    </li>
+</ul>
+<p>In der Prüf-Anwendung wird angezeigt, ob das vorgelegte Zertifikat gültig
     ist. Im Falle eines gültigen Zertifikats wird zusätzlich der Name und das Geburtsdatum des Zertifikatsinhabers
     mitgeteilt und ob es sich um ein Testzertifikat handelt oder nicht. Bei Testzertifikaten wird zudem der Zeitpunkt
     der Probenahme angezeigt.</p>
@@ -104,6 +112,7 @@
     einem Identitätsnachweis (z. B. Reisepass oder Personalausweis) abgleichen kann. Die Mitteilung, ob es sich um ein
     Testzertifikat handelt und der Zeitpunkt der Probenahme sind erforderlich, damit die prüfende Person beurteilen
     kann, ob das dem Zertifikat zugrunde liegende Testergebnis noch gültig ist.</p>
+<h3>c. Elektronische Signatur der Zertifikate, Widerruf und Einreiseregeln</h3>
 <p>Zum Schutz vor Fälschungen muss die Echtheit der gespeicherten Zertifikate überprüft werden. Hierzu wird die im
     QR-Code eines Zertifikats enthaltene elektronische Signatur verwendet. Die elektronische Signatur wird bei der
     Erstellung des Zertifikats vom RKI auf Basis der im Zertifikat enthaltenen Daten (siehe Abschnitt 5) erzeugt. Bei
@@ -112,14 +121,40 @@
 <p>Das RKI stellt zudem die zugehörigen öffentlichen Schlüssel des RKI (sogenannte Public Keys) bereit. Mit diesen
     öffentlichen Schlüsseln kann geprüft werden, ob die elektronische Signatur des Zertifikats tatsächlich vom RKI
     stammt und ob das Zertifikat nach der elektronischen Signierung manipuliert worden ist.</p>
-<p>Die CovPass-App lädt regelmäßig im Hintergrund die öffentlichen Schlüssel des RKI und speichert diese lokal auf Ihrem
-    Smartphone. So kann die App regelmäßig die Gültigkeit der elektronischen Signatur und damit die Echtheit der
-    gespeicherten Zertifikate überprüfen. Die öffentlichen Schlüssel enthalten keine personenbezogenen Daten.</p>
-<p>Sie können mit der App die Gültigkeit der in der App gespeicherten Zertifikate prüfen. Die EU-Länder können eigene
-    Regeln für die Gültigkeit der Zertifikate erlassen. Beispielsweise können Testzertifikate in einigen EU-Ländern
+<p>Zum Gesundheitsschutz von Zertifikatsinhabern und der Bevölkerung können
+    in besonderen Fällen bestimmte Zertifikate widerrufen werden. Das kann
+    beispielsweise dann notwendig sein, wenn eine zuständige Einrichtung (z. B.
+    Apotheke, Impfzentrum oder Praxis) die Zertifikate irrtümlich oder in
+    betrügerischer Absicht ausgestellt hat. Der Widerruf führt dazu, dass das
+    Zertifikat ungültig wird und bei Überprüfungen nicht mehr anerkannt wird.
+    Dabei spielt es keine Rolle, ob das Zertifikat bei der Überprüfung in
+    elektronischer Form auf dem Smartphone oder im Papierformat verwendet
+    wird. Wenn Sie ein widerrufenes Zertifikat in der App gespeichert haben, wird
+    es als „ungültig“ angezeigt.</p>
+<p>Um die Gültigkeit der elektronischen Signatur oder den Widerruf der
+    gespeicherten Zertifikate feststellen zu können lädt die App regelmäßig im Hintergrund die aktuellen öffentlichen
+    Schlüssel und Widerrufslisten des RKI und speichert diese lokal auf Ihrem Smartphone.
+    So kann die App regelmäßig die elektronischen Signatur
+    und damit die Echtheit sowie den Widerrufsstatus der gespeicherten Zertifikate überprüfen. Die öffentlichen
+    Schlüssel und Widerrufslisten enthalten keine personenbezogenen Daten.
+    Die Widerrufslisten enthalten lediglich einen
+    kleinen Teilabschnitt aus der eindeutigen Zertifikatskennung der
+    widerrufenen Zertifikate. Dieser Teilabschnitt ist bei allen Zertifikaten, die
+    von der gleichen zuständigen Einrichtung (z. B. Apotheke) ausgegeben
+    worden sind, identisch. Die CovPass-App gleicht diesen dann mit der
+    eindeutigen Zertifikatskennung der auf dem Smartphone gespeicherten
+    Zertifikate ab. Sofern es eine Übereinstimmung gibt, wird das betreffende
+    Zertifikat in der CovPass-App als ungültig angezeigt. Das widerrufene
+    Zertifikat selbst wird dabei jedoch nicht verändert. Sowohl die Prüfung der
+    elektronischen Signatur als auch der Abgleich mit den Widerrufslisten findet
+    ausschließlich offline in der App statt und es werden keine Daten über diesen
+    Vorgang an das RKI weitergegeben.</p>
+<p>Sie können mit der Funktion „Gültigkeit prüfen“ selbst prüfen, ob die in der App gespeicherten Zertifikate die
+    offiziellen inhaltlichen Anforderungen eines bestimmten EU-Landes erfüllt. Die EU-Länder können eigene
+    Regeln für die Gültigkeit der Zertifikate erlassen. Beispielsweise können Testzertifikate in einigen EU-Ländern eine
     längere Gültigkeit aufweisen als in anderen. Die EU-Länder tauschen diese Regeln über einen gemeinsamen
     Austausch-Server aus. Vor dem Antritt einer Reise können Sie daher mit der App die Gültigkeit der Zertifikate im
-    Reiseland überprüfen.</p>
+    Reiseland überprüfen</p>
 <p>Wenn Sie die Gültigkeit eines Zertifikats überprüfen möchten, lädt Ihre App die jeweils aktuellen Regeln aller
     Mitgliedstaaten vom Serversystem der App herunter. Die App überprüft dann anhand der in einem Zertifikat enthaltenen
     Daten, ob das Zertifikat den Regeln entspricht und zeigt Ihnen das entsprechende Ergebnis an. Die Überprüfung findet
@@ -128,11 +163,13 @@
 <p>Bitte beachten Sie, dass sich die Einreiseregeln ändern können und sowohl im Reiseland als auch bei der Rückkehr
     weitere Regeln gelten können. Hinweise auf die Einreisebestimmungen finden Sie auch auf dieser Website der EU: <a
             href="https://reopen.europa.eu/de" class="uri">https://reopen.europa.eu/de</a>.</p>
-<p>Zusätzlich kann die App Sie daran erinnern, gespeicherte Impfzertifikate zu überprüfen, sobald die letzte Impfung
+<h3>d. Erinnerungsfunktion</h3>
+<p>Die App kann Sie daran erinnern, gespeicherte Impfzertifikate zu überprüfen, sobald die letzte Impfung
     länger zurückliegt. Dazu lädt die App in regelmäßigen Abständen die aktuellen Regeln für die Empfehlungen der
     Auffrischungsimpfungen vom Serversystem der App herunter. Die App überprüft dann anhand der in den Zertifikaten
     enthaltenen Daten, ob eine baldige Auffrischungsimpfung empfohlen ist. Auch diese Überprüfung findet ausschließlich
     offline in der App statt und es werden keine Daten über die Impfung an das RKI weitergegeben.</p>
+<h3>e. Exportfunktion</h3>
 <p>Sie haben die Möglichkeit ein in der CovPass-App gespeichertes Zertifikat zu exportieren, um es auszudrucken und in
     der Papierversion zu verwenden (z.B. auf längeren Reisen) oder das Zertifikat anschließend mit einem neuen
     Smartphone zu scannen und erneut in der elektronischen Version in der CovPass-App zu speichern (z.B. nach einem
@@ -143,6 +180,23 @@
     Corona-Erkrankungen). Bitte bewahren Sie das gespeicherte oder ausgedruckte Zertifikat daher sicher auf und
     veröffentlichen oder teilen Sie das Dokument nicht. Ein EU-Ausdruck ist nur für Zertifikate möglich, die in
     Deutschland vom RKI erstellt wurden.</p>
+<h3>f. Zertifikatsprüfung bei Ticketbuchungen</h3>
+<p>Wenn Sie bei einem Reise- oder Veranstaltungsunternehmen oder einem sonstigen Anbieter eine Ticketbuchung vornehmen,
+    können Sie über die App ein digitales COVID-Zertifikat an den Prüfpartner des Anbieters übermitteln, damit dieser
+    die Gültigkeit des Zertifikats für Ihre Buchung gegenüber dem Reise- oder Veranstaltungsunternehmen bestätigt.</p>
+<p>Voraussetzung hierfür ist, dass Sie in der CovPass-App ein digitales COVID-Zertifikat hinzugefügt haben. Die App
+    erfragt beim jeweiligen Anbieter die zur Prüfung zu verwendenden Buchungsdaten und schlägt auf Basis dieser Angaben
+    ein geeignetes Zertifikat vor. Dieses können Sie sodann auswählen und zusammen mit den vom Anbieter bereitgestellten
+    Buchungsdaten (siehe Punkt 5 c.) dem Prüfpartner übermitteln.</p>
+<p>Der Prüfpartner überprüft, ob die elektronische Signatur des Zertifikats echt und das technische Ablaufdatum des
+    Zertifikats noch nicht erreicht ist. Der Prüfpartner teilt dem Anbieter sofort das Prüfungsergebnis mit. Es wird nur
+    mitgeteilt, ob die Prüfung erfolgreich war oder nicht. Das Prüfungsergebnis wird Ihnen auch in der CovPass-App
+    angezeigt.</p>
+<p>Die vom Anbieter bereitgestellten Buchungsdaten werden nur lokal in der CovPass-App verarbeitet. Das RKI kann daher
+    nicht nachvollziehen, welche Zertifikate Sie ausgewählt und prüfen lassen haben oder welche Reisen oder
+    Veranstaltungen Sie gebucht haben.</p>
+<p>Für die Datenverarbeitung durch den Anbieter und den Prüfpartner ist das RKI nicht verantwortlich. Lesen Sie bitte
+    deren Datenschutzhinweise, damit Sie wissen, wozu und wie Ihre Daten verwendet werden.</p>
 <h2 id="welche-daten-werden-verarbeitet">5. Welche Daten werden verarbeitet?</h2>
 <h3 id="a.-zertifikatsdaten">a. Zertifikatsdaten</h3>
 <p>Die Zertifikate enthalten Gesundheitsdaten und werden in einem gesicherten Bereich auf Ihrem Smartphone gespeichert.
@@ -150,22 +204,23 @@
 <ul>
     <li>Daten zum Zertifikatsinhaber (Name, Vorname, Geburtsdatum)</li>
     <li>Art des Zertifikats (Impfzertifikat, Testzertifikat, Genesenen-Zertifikat),</li>
-    <li>die notwendigen Informationen zur Impfung, dem Test oder der Genesung. Welche Informationen dies im Einzelnen
-        sind, können Sie vollständig den Angaben auf dem jeweiligen Zertifikat (in deutscher und englischer Sprache)
-        entnehmen. Weitere Informationen als die auf dem jeweiligen Zertifikat enthaltenen Angaben werden nicht
-        gespeichert,
-    </li>
+    <li>die notwendigen Informationen zur Impfung, dem Test oder der Genesung.</li>
+    <li>eine eindeutige Zertifikatskennung,</li>
     <li>die elektronische Signatur des RKI und</li>
     <li>einen QR-Code, der die zuvor genannten Daten in kodierter Form enthält.</li>
 </ul>
+<p>Welche konkreten Informationen in einem Zertifikat enthalten sind, können
+    Sie vollständig den Angaben auf dem jeweiligen Zertifikat (in deutscher und
+    englischer Sprache) entnehmen. Weitere Informationen als die auf dem
+    jeweiligen Zertifikat angegebenen Daten werden nicht gespeichert.</p>
 <p>Diese Daten werden in der App gespeichert, sobald Sie den QR-Code auf dem ausgedruckten Zertifikat scannen. Diese
     Daten wurden zuvor von der Stelle, die das Zertifikat ausgegeben hat, erhoben und zur Signierung des Zertifikats an
     das RKI übermittelt.</p>
 <h3 id="b.-zugriffsdaten">b. Zugriffsdaten</h3>
-<p>Um den öffentlichen Schlüssel des RKI für die Echtheitsprüfung der elektronischen Signatur, die aktuellen Regeln der
-    Mitgliedstaaten für die Gültigkeit der Zertifikate und die Regeln für die Empfehlungen von Auffrischungsimpfungen
-    herunterzuladen, wird eine Verbindung zu einem Server des RKI aufgebaut. Dabei werden durch den Server technische
-    Zugriffsdaten verarbeitet. Diese umfassen folgende Daten:</p>
+<p>Um den öffentlichen Schlüssel des RKI für die Echtheitsprüfung der elektronischen Signatur, die aktuellen
+    Widerrufslisten und Regeln der Mitgliedstaaten für die Gültigkeit der Zertifikate und die Regeln für die
+    Empfehlungen von Auffrischungsimpfungen herunterzuladen, wird eine Verbindung zu einem Server des RKI aufgebaut.
+    Dabei werden durch den Server technische Zugriffsdaten verarbeitet. Diese umfassen folgende Daten:</p>
 <ul>
     <li>IP-Adresse</li>
     <li>Datum und Uhrzeit des Abrufs</li>
@@ -176,6 +231,31 @@
     ermöglichen und abzusichern. Sie werden dabei nicht als Nutzer der App persönlich identifiziert und es wird kein
     Nutzungsprofil erstellt. Eine Speicherung der IP-Adresse über das Ende des einzelnen Nutzungsvorgangs hinaus erfolgt
     nicht.</p>
+<h3>c. Buchungsdaten</h3>
+<p>Wenn Sie über das Internet bei einem Reise- oder Veranstaltungsunternehmen oder einem sonstigen Anbieter eine Buchung
+    vornehmen, können Sie die CovPass-App zum Nachweis eines gültigen digitalen COVID-Zertifikats gegenüber dem
+    jeweiligen Anbieter nutzen (Zertifikat-Prüfung bei Ticketbuchungen). Voraussetzung hierfür ist, dass Sie in der
+    CovPass-App ein digitales COVID-Zertifikat hinzugefügt haben. Zudem muss der jeweilige Anbieter an einen
+    Überprüfungsservice angebunden sein.</p>
+<p>Zur Zertifikatsprüfung benötigen Sie einen speziellen QR-Code, den Sie im Rahmen des Buchungsvorgangs von dem
+    jeweiligen Anbieter erhalten. Dieser QR-Code enthält eine eindeutige Transaktions-ID, eine kurze Beschreibung des
+    Buchungsvorgangs (z. B. „Buchungsnummer 1234“) und eine Internetadresse (URL).</p>
+<p>Die CovPass-App nutzt diese Informationen, um beim Anbieter technische Spezifikationen sowie die folgenden Details
+    zur Buchung abzurufen, die für die Überprüfung des COVID-Zertifikats berücksichtigt werden sollen:</p>
+<ul>
+    <li>Ihren Namen</li>
+    <li>Ihr Geburtsdatum</li>
+    <li>Angaben zum Datum der erforderlichen Gültigkeit des COVID-Zertifikats (Reisedatum oder Veranstaltungsdatum)</li>
+    <li>Bei Reisen: Ausgangsland und Zielland</li>
+    <li>Nachweisanforderungen, insbesondere also die zum Nachweis geeigneten Zertifikatstypen, wie z.B. Impfzertifikat
+        (bei grenzüberschreitenden Reisen auch die Anforderungen des Ziellandes)
+    </li>
+    <li>Bei bestimmten Buchungen werden zusätzlich auch Angaben zur Veranstaltungsart mitgeteilt (z. B. Konzert oder
+        Großveranstaltung).
+    </li>
+</ul>
+<p>Welche konkreten Informationen für die Überprüfung des COVID-Zertifikats verwendet werden sollen und welche
+    COVID-Zertifikate als Nachweis zugelassen sind, wird vom jeweiligen Anbieter individuell festgelegt.</p>
 <h2 id="auf-welcher-rechtsgrundlage-werden-ihre-daten-verarbeitet">6. Auf welcher Rechtsgrundlage werden Ihre Daten
     verarbeitet?</h2>
 <p>Das RKI verarbeitet die oben unter Abschnitt 5 a. genannten Zertifikatsdaten im Rahmen der technischen Erstellung und
@@ -195,6 +275,9 @@
     Überprüfung und Anerkennung interoperabler Zertifikate zur Bescheinigung von COVID-19-Impfungen und -Tests sowie der
     Genesung von einer COVID-19-Infektion (digitales COVID-Zertifikat der EU) mit der Zielsetzung der Erleichterung der
     Freizügigkeit während der COVID-19-Pandemie).</p>
+<p>Im Zusammenhang mit der Funktion zur Überprüfung von COVID-Zertifikaten bei Ticketbuchungen werden Ihre Daten auf
+    Grundlage Ihres Einverständnisses verarbeitet. Die Rechtsgrundlage ist Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a
+    DSGVO. </p>
 <p>Die Rechtsgrundlage für die Verarbeitung der oben unter Abschnitt 5 b. genannten Zugriffsdaten ist § 3
     Bundesdatenschutzgesetz und Art. 6 Abs. 1 lit. e DSGVO.</p>
 <h2 id="welche-berechtigungen-benötigt-die-app">7. Welche Berechtigungen benötigt die App?</h2>
@@ -207,6 +290,8 @@
     automatisch gelöscht. Wenn Sie die Löschung wünschen, können Sie das betreffende Zertifikate jederzeit selbst aus
     der App entfernen oder die App löschen. Um das Zertifikat später wieder hinzuzufügen, müssen Sie den QR-Code des
     ausgedruckten Zertifikats erneut scannen.</p>
+<p>Die für die Zertifikatsprüfung bei Ticketbuchungen erforderlichen Buchungsdaten werden nach der Prüfung wieder
+    gelöscht.</p>
 <p>Das RKI speichert keine personenbezogenen Daten zu den Zertifikaten dauerhaft auf dem Serversystem. Unmittelbar nach
     der Bereitstellung des signierten Zertifikats an die ausgebende Einrichtung werden die Daten beim RKI unwiderruflich
     gelöscht.</p>
@@ -218,7 +303,7 @@
 <p>Wenn Sie anderen Personen oder Einrichtungen in den gesetzlich vorgesehenen Situationen (beispielsweise europäische
     Grenzbehörden oder Dienstleister) ein Zertifikat vorzeigen, erlangen diese Kenntnis über alle im Zertifikat
     enthaltenen Daten.</p>
-<p>Dies können Sie verhindern, indem Sie nur den QR-Code in der App anzeigen lassen, sodass dieser mit einer
+<p>Dies können Sie verhindern, indem Sie den QR-Code in der App vorzeigen, sodass dieser mit einer
     Prüf-Anwendung gescannt werden kann. Dann werden die im QR-Code enthaltenen Daten ausgelesen. In der Prüf-Anwendung
     wird dabei aber nur angezeigt, ob das vorgezeigte Zertifikat gültig ist sowie eine Erläuterung des Ergebnisses. Im
     Falle eines gültigen Zertifikats werden zusätzlich der Name und das Geburtsdatum des Zertifikatsinhabers in der
@@ -228,6 +313,10 @@
     kann, ob das zugrunde liegende Testergebnis noch gültig ist.</p>
 <p>In der Prüf-Anwendung werden die angezeigten Daten nur kurzzeitig verarbeitet. Nach Abschluss der Prüfung werden die
     angezeigten Daten verworfen, d. h. es erfolgt keine dauerhafte Speicherung der ausgelesenen Daten.</p>
+<p>Bei der Zertifikatsprüfung für Ticketbuchungen werden Ihre COVID-Zertifikate und die Buchungsdaten an einen
+    Prüfpartner des Anbieters übermittelt. Der konkrete Prüfpartner wird Ihnen vor der Übermittlung in der CovPass-App
+    angezeigt. Zum Abruf der individuellen Buchungsdaten übermittelt die CovPass-App dem Anbieter die im
+    Buchungs-QR-Code des Anbieters enthaltene Buchungskennung.</p>
 <h2 id="welche-datenschutzrechte-haben-sie">10. Welche Datenschutz­rechte haben Sie?</h2>
 <p>Soweit das RKI personenbezogene Daten von Ihnen verarbeitet, stehen Ihnen folgende Datenschutzrechte zu:</p>
 <ul>

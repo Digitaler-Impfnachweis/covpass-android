@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:ignore="UseCompoundDrawables">
+
+  <ImageView
+    android:id="@+id/misuse_prevention_illustration"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:contentDescription="@string/accessibility_certificate_add_warning_maximum_image"
+    android:src="@drawable/misuse_prevention_illustration" />
+
+  <TextView
+    android:id="@+id/misuse_prevention_title"
+    style="@style/Header.OnBackground.Big"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_three"
+    android:text="@string/certificate_add_warning_maximum_title" />
+
+  <TextView
+    android:id="@+id/misuse_prevention_content"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    tools:text="@tools:sample/lorem[10]" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/misuse_prevention_action_button"
+    style="@style/PrimaryButton.Dark"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_four"
+    android:text="@string/certificate_add_warning_maximum_button_primary" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/misuse_prevention_cancel_button"
+    style="@style/PrimaryButton.Light"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_five"
+    android:text="@string/certificate_add_warning_maximum_button_secondary"
+    android:textColor="@color/brandAccent" />
+
+</LinearLayout>

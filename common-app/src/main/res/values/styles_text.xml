@@ -25,7 +25,7 @@
     <item name="android:textColor">@color/onInfo</item>
   </style>
 
-  <style name="DefaultText.Small">
+  <style name="DefaultText.OnBackground.Small">
     <item name="android:textSize">@dimen/textsize_small</item>
   </style>
 
