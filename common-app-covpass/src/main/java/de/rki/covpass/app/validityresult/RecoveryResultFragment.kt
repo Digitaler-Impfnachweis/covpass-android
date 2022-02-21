@@ -81,8 +81,8 @@ internal class RecoveryResultFragment : ResultFragment() {
             ),
             ResultRowData(
                 getString(R.string.recovery_certificate_detail_view_data_country),
-                CountryResolver.getCountryLocalized(recovery.country),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_country),
+                CountryResolver.getCountryLocalized(recovery.country),
                 args.derivedValidationResults.getResultsBy("co")
             ),
             ResultRowData(
