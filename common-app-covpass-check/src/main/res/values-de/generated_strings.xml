@@ -52,7 +52,7 @@
 	<string name="check_context_onboarding_option1_subtitle">Zum Beispiel am Flughafen oder Bahnhof</string>
 	<string name="check_context_onboarding_option2_title">Ich prüfe innerhalb Deutschlands</string>
 	<string name="check_context_onboarding_option2_subtitle">Zum Beispiel in Geschäften oder in der Gastronomie</string>
-	<string name="check_context_onboarding_footnote">Anhand dieser Angabe werden die Regeln angepasst, nach denen Zertifikate als Gültig oder Ungültig ausgewiesen werden. Sie können die Angabe jederzeit in den Einstellungen ändern.</string>
+	<string name="check_context_onboarding_footnote">Anhand dieser Angabe werden die Regeln angepasst, nach denen Zertifikate als gültig oder ungültig ausgewiesen werden. Sie können die Angabe jederzeit in den Einstellungen ändern.</string>
 	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
@@ -156,6 +156,7 @@
 	<string name="result_2G_gproof_invalid">2G-Nachweis ungültig*</string>
 	<string name="result_2G_test_empty">Testzertifikat</string>
 	<string name="result_2G_test_invalid">Testzertifikat ungültig</string>
+	<string name="result_2G_certificate_invalid">Zertifikat ungültig</string>
 	<string name="result_2G_invalid_subtitle">Details anzeigen</string>
 	<string name="result_2G_empty_subtitle">Noch nicht geprüft</string>
 	<string name="result_2G_2nd_recovery_valid">Genesung</string>
