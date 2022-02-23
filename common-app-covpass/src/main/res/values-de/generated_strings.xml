@@ -735,7 +735,7 @@
 
 	<!-- SECTION: dcc renewal -->
 	<string name="certificate_renewal_startpage_headline">Änderungen bei Ihren Zertifikaten</string>
-	<string name="certificate_renewal_startpage_copy">Die Spezifikationen der EU für bestimmte Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht der aktuellen Nummerierung. Es ist weiterhin gültig. Falls es sich jedoch um ein Zertifikat für eine Auffrischungsimpfung handelt, wird diese bei einer Prüfung nicht erkannt. Wir empfehlen Ihnen daher, ein neues Impfzertifikat mit der Nummer 2/1 direkt kostenlos über die App anzufordern. Hierfür ist Ihr Einverständnis erforderlich.</string>
+	<string name="certificate_renewal_startpage_copy">Die Spezifikationen der EU für bestimmte Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht der aktuellen Nummerierung. Es ist weiterhin gültig. Falls es sich jedoch um ein Zertifikat für eine Auffrischungsimpfung handelt, wird diese bei einer Prüfung nicht erkannt.\n\nWir empfehlen Ihnen daher, ein neues Impfzertifikat mit der Nummer 2/1 direkt kostenlos über die App anzufordern. Hierfür ist Ihr Einverständnis erforderlich.</string>
 	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Detailansicht Ihrer Zertifikate anstoßen.</string>
 	<string name="certificate_renewal_startpage_main_button">Jetzt erneuern</string>
 	<string name="certificate_renewal_startpage_secondary_button">Später nachholen</string>
@@ -746,7 +746,8 @@
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1">Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2">Das RKI überprüft das Impfzertifikat, stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.</string>
-	<string name="certificate_renewal_consent_page_transfer_certificates_copy">Die Aktualisierung des Zertifikats ist freiwillig und kostenlos. Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_copy">Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy">Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_button_link">Datenschutzerklärung</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_confirmation_button">Einverstanden</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_cancel_button">Abbrechen</string>
@@ -756,4 +757,5 @@
 	<string name="certificate_renewal_confirmation_page_certificate_list_old">Altes Zertifikat:</string>
 	<string name="certificate_renewal_confirmation_page_certificate_delete_button">Altes Zertifikat löschen</string>
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Später löschen</string>
+	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Aktualisieren</string>
 </resources>

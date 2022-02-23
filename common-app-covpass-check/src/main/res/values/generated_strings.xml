@@ -156,6 +156,7 @@
 	<string name="result_2G_gproof_invalid">Invalid 2G proof*</string>
 	<string name="result_2G_test_empty">Test certificate</string>
 	<string name="result_2G_test_invalid">Invalid test certificate</string>
+	<string name="result_2G_certificate_invalid">Invalid certificate</string>
 	<string name="result_2G_invalid_subtitle">Show details</string>
 	<string name="result_2G_empty_subtitle">Not checked yet</string>
 	<string name="result_2G_2nd_recovery_valid">Recovery</string>

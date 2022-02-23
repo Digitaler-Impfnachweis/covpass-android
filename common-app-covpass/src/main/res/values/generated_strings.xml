@@ -735,7 +735,7 @@
 
 	<!-- SECTION: dcc renewal -->
 	<string name="certificate_renewal_startpage_headline">Changes to your certificates</string>
-	<string name="certificate_renewal_startpage_copy">The EU specifications for certain vaccination certificates have been changed. This certificate does not correspond to the current numbering. It is still valid. However, if it is a certificate for a booster vaccination, it will not be recognized as such when checked. Therefore we recommend requesting a new certificate with the number 2/1 directly free of charge via the app.</string>
+	<string name="certificate_renewal_startpage_copy">The EU specifications for certain vaccination certificates have been changed. This certificate does not correspond to the current numbering. It is still valid. However, if it is a certificate for a booster vaccination, it will not be recognized as such when checked.\n\nTherefore we recommend requesting a new certificate with the number 2/1 directly free of charge via the app.</string>
 	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later in the detail view of your certificates.</string>
 	<string name="certificate_renewal_startpage_main_button">Renew now</string>
 	<string name="certificate_renewal_startpage_secondary_button">Renew later</string>
@@ -746,7 +746,8 @@
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1">The app transmits the vaccination certificate to the RKI.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2">The RKI checks/verifies the certificate, issues an updated certificate and transmits it to the app.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.</string>
-	<string name="certificate_renewal_consent_page_transfer_certificates_copy">The renewal of the certificate is voluntary and free of charge. Detailed information on data processing can be found in the privacy policy:</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_copy">The renewal of the certificate is voluntary and free of charge.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy">Detailed information on data processing can be found in the privacy policy:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_button_link">Privacy policy</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_confirmation_button">Agree</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_cancel_button">Cancel</string>
@@ -756,4 +757,5 @@
 	<string name="certificate_renewal_confirmation_page_certificate_list_old">Old certificate:</string>
 	<string name="certificate_renewal_confirmation_page_certificate_delete_button">Delete old certificate</string>
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Delete later</string>
+	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Update</string>
 </resources>
