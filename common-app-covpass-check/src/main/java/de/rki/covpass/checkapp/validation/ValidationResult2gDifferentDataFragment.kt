@@ -69,6 +69,7 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
                 args.secondCertificateData.certificateBirthDate,
             ),
+            true
         )
 
         binding.validationResultDifferentDataValidDifferenceButton.setOnClickListener {
