@@ -146,52 +146,52 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
 
     private fun updateCertificateView(combinedCovCertificate: CombinedCovCertificate) {
         with(binding.certificateFilteringItem) {
-            certificateFilteringItemArrow.isGone = true
-            certificateFilteringItemName.text = combinedCovCertificate.covCertificate.fullName
+            certificateDataElementArrow.isGone = true
+            certificateDataElementName.text = combinedCovCertificate.covCertificate.fullName
             when (val dgcEntry = combinedCovCertificate.covCertificate.dgcEntry) {
                 is Vaccination -> {
                     if (dgcEntry.isComplete) {
-                        certificateFilteringItemLayout.setBackgroundResource(R.color.info)
-                        certificateFilteringItemTypeIcon.setImageResource(
+                        certificateDataElementLayout.setBackgroundResource(R.color.info)
+                        certificateDataElementTypeIcon.setImageResource(
                             R.drawable.main_cert_status_complete_white
                         )
                     } else {
-                        certificateFilteringItemLayout.setBackgroundResource(R.color.info20)
-                        certificateFilteringItemTypeIcon.setImageResource(
+                        certificateDataElementLayout.setBackgroundResource(R.color.info20)
+                        certificateDataElementTypeIcon.setImageResource(
                             R.drawable.main_cert_status_incomplete
                         )
                     }
-                    certificateFilteringItemType.setText(R.string.certificate_check_validity_vaccination)
-                    certificateFilteringItemInfo.text = com.ibm.health.common.android.utils.getString(
+                    certificateDataElementType.setText(R.string.certificate_check_validity_vaccination)
+                    certificateDataElementInfo.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_vaccination_certificate_message,
                         dgcEntry.doseNumber,
                         dgcEntry.totalSerialDoses
                     )
-                    certificateFilteringItemDate.text = com.ibm.health.common.android.utils.getString(
+                    certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_vaccination_certificate_date,
                         dgcEntry.validDate.formatDateOrEmpty()
                     )
                 }
                 is TestCert -> {
-                    certificateFilteringItemLayout.setBackgroundResource(R.color.test_certificate_background)
-                    certificateFilteringItemType.setText(R.string.certificate_check_validity_test)
-                    certificateFilteringItemTypeIcon.setImageResource(R.drawable.main_cert_test_white)
+                    certificateDataElementLayout.setBackgroundResource(R.color.test_certificate_background)
+                    certificateDataElementType.setText(R.string.certificate_check_validity_test)
+                    certificateDataElementTypeIcon.setImageResource(R.drawable.main_cert_test_white)
                     if (dgcEntry.testType == TestCert.PCR_TEST) {
-                        certificateFilteringItemInfo.setText(R.string.test_certificate_detail_view_pcr_test_title)
+                        certificateDataElementInfo.setText(R.string.test_certificate_detail_view_pcr_test_title)
                     } else {
-                        certificateFilteringItemInfo.setText(R.string.test_certificate_detail_view_title)
+                        certificateDataElementInfo.setText(R.string.test_certificate_detail_view_title)
                     }
-                    certificateFilteringItemDate.text = com.ibm.health.common.android.utils.getString(
+                    certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_test_certificate_date,
                         dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: ""
                     )
                 }
                 is Recovery -> {
-                    certificateFilteringItemLayout.setBackgroundResource(R.color.info90)
-                    certificateFilteringItemType.setText(R.string.certificate_check_validity_recovery)
-                    certificateFilteringItemTypeIcon.setImageResource(R.drawable.main_cert_status_complete_white)
-                    certificateFilteringItemInfo.setText(R.string.recovery_certificate_detail_view_title)
-                    certificateFilteringItemDate.text = com.ibm.health.common.android.utils.getString(
+                    certificateDataElementLayout.setBackgroundResource(R.color.info90)
+                    certificateDataElementType.setText(R.string.certificate_check_validity_recovery)
+                    certificateDataElementTypeIcon.setImageResource(R.drawable.main_cert_status_complete_white)
+                    certificateDataElementInfo.setText(R.string.recovery_certificate_detail_view_title)
+                    certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_recovery_certificate_valid_until_date,
                         combinedCovCertificate.covCertificate.validUntil?.formatDateOrEmpty() ?: ""
                     )

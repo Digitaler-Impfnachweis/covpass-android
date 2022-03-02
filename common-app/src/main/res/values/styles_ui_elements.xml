@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -101,6 +100,15 @@
     <item name="backgroundTint">@drawable/button_secondary_background_tint</item>
     <item name="android:paddingTop">@dimen/button_padding_vertical</item>
     <item name="android:paddingBottom">@dimen/button_padding_vertical</item>
+  </style>
+
+  <style name="TextButton.Dark" parent="Widget.MaterialComponents.Button.TextButton">
+    <item name="android:fontFamily">@font/opensans_semibold</item>
+    <item name="android:letterSpacing">0.05</item>
+    <item name="android:textColor">@color/brandAccent</item>
+    <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:textAllCaps">false</item>
   </style>
 
   <style name="ButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.SmallComponent">

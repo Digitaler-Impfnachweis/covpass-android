@@ -60,7 +60,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         binding.onboardingInfoDataProtectionField.apply {
             text = getString(R.string.app_information_title_datenschutz)
             setOnClickListener {
-                findNavigator().push(OnboardingDataProtectionFragmentNav())
+                findNavigator().push(CommonDataProtectionFragmentNav())
             }
         }
         binding.onboardingScrollView.run {

@@ -46,6 +46,7 @@ internal class DetailAdapter(
         private const val ITEM_VIEW_TYPE_INFOBOX = 4
         private const val ITEM_VIEW_TYPE_CERTIFICATE = 5
         private const val ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION = 6
+        private const val ITEM_VIEW_TYPE_REISSUE_NOTIFICATION = 7
     }
 
     override fun getItemCount(): Int = items.size
@@ -58,7 +59,8 @@ internal class DetailAdapter(
             ITEM_VIEW_TYPE_PERSONAL -> PersonalDataViewHolder(parent)
             ITEM_VIEW_TYPE_INFOBOX -> InfoboxViewHolder(parent)
             ITEM_VIEW_TYPE_CERTIFICATE -> CertificateViewHolder(parent, listener)
-            ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION -> NotificationViewHolder(parent)
+            ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION -> BoosterNotificationViewHolder(parent)
+            ITEM_VIEW_TYPE_REISSUE_NOTIFICATION -> ReissueNotificationViewHolder(parent)
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -75,7 +77,8 @@ internal class DetailAdapter(
             is DetailItem.Personal -> ITEM_VIEW_TYPE_PERSONAL
             is DetailItem.Infobox -> ITEM_VIEW_TYPE_INFOBOX
             is DetailItem.Certificate -> ITEM_VIEW_TYPE_CERTIFICATE
-            is DetailItem.Notification -> ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION
+            is DetailItem.BoosterNotification -> ITEM_VIEW_TYPE_BOOSTER_NOTIFICATION
+            is DetailItem.ReissueNotification -> ITEM_VIEW_TYPE_REISSUE_NOTIFICATION
         }
     }
 }
@@ -301,13 +304,30 @@ private class CertificateViewHolder(
     }
 }
 
-private class NotificationViewHolder(
+private class ReissueNotificationViewHolder(
     val parent: ViewGroup,
-) : BaseViewHolder<DetailNotificationItemBinding>(parent, DetailNotificationItemBinding::inflate) {
+) : BaseViewHolder<DetailReissueNotificationItemBinding>(parent, DetailReissueNotificationItemBinding::inflate) {
 
     override fun onItemBind(item: DetailItem) {
 
-        (item as DetailItem.Notification).let {
+        (item as DetailItem.ReissueNotification).let {
+            binding.reissueNotificationTitle.text = getString(it.titleRes)
+            binding.reissueNotificationText.text = getString(it.textRes)
+            binding.reissueNotificationIcon.text = getString(it.iconTextRes)
+            binding.reissueNotificationIcon.background = getDrawable(parent.context, it.iconBackgroundRes)
+            binding.reissueNotificationButton.setText(it.buttonRes)
+            binding.reissueNotificationButton.setOnClickListener(it.buttonClickListener)
+        }
+    }
+}
+
+private class BoosterNotificationViewHolder(
+    val parent: ViewGroup,
+) : BaseViewHolder<DetailBoosterNotificationItemBinding>(parent, DetailBoosterNotificationItemBinding::inflate) {
+
+    override fun onItemBind(item: DetailItem) {
+
+        (item as DetailItem.BoosterNotification).let {
             binding.notificationTitle.text = getString(it.titleRes)
             binding.notificationText.text = getString(
                 R.string.vaccination_certificate_overview_booster_vaccination_notification_message,

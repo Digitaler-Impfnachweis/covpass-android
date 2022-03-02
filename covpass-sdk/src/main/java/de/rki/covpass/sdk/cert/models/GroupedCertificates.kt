@@ -7,6 +7,7 @@ package de.rki.covpass.sdk.cert.models
 
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST_EXPIRY_TIME_HOURS
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getBoosterAfterVaccinationAfterRecoveryIds
 import de.rki.covpass.sdk.utils.DescriptionLanguage
 import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import de.rki.covpass.sdk.utils.isOlderThan
@@ -95,6 +96,20 @@ public data class GroupedCertificates(
             }.toMutableList()
         }
 
+    var hasSeenReissueNotification: Boolean
+        get() = certificates.any {
+            it.isReadyForReissue && it.hasSeenReissueNotification
+        }
+        set(value) {
+            certificates = certificates.map {
+                if (it.isReadyForReissue) {
+                    it.copy(hasSeenReissueNotification = value)
+                } else {
+                    it
+                }
+            }.toMutableList()
+        }
+
     /**
      * The [GroupedCertificatesId] to identify this [GroupedCertificates].
      */
@@ -174,5 +189,61 @@ public data class GroupedCertificates(
     public fun getLatestRecovery(): CombinedCovCertificate? {
         val sortedCertificates = certificates.sortedByDescending { it.covCertificate.validUntil }
         return sortedCertificates.find { it.covCertificate.dgcEntry is Recovery }
+    }
+
+    public fun validateReissue() {
+        val boosterAndVaccinationAndRecoveryIds =
+            getBoosterAfterVaccinationAfterRecoveryIds(certificates)
+
+        val listIds: List<String> = when {
+            boosterAndVaccinationAndRecoveryIds.isNotEmpty() -> boosterAndVaccinationAndRecoveryIds
+            else -> return
+        }
+
+        certificates = certificates.map {
+            if (listIds.contains(it.covCertificate.dgcEntry.id)) {
+                it.copy(isReadyForReissue = true)
+            } else {
+                it
+            }
+        }.toMutableList()
+    }
+
+    public fun isReadyForReissue(): Boolean =
+        certificates.any { it.isReadyForReissue && !it.alreadyReissued }
+
+    public fun finishedReissued() {
+        certificates = certificates.map {
+            if (it.isReadyForReissue && !it.alreadyReissued) {
+                it.copy(alreadyReissued = true)
+            } else {
+                it
+            }
+        }.toMutableList()
+    }
+
+    public fun getListOfIdsReadyForReissue(): List<String> {
+        val list = mutableListOf<String>()
+        list.addAll(
+            certificates
+                .filter {
+                    it.isReadyForReissue &&
+                        !it.alreadyReissued &&
+                        it.covCertificate.dgcEntry is Vaccination &&
+                        (it.covCertificate.dgcEntry as Vaccination).doseNumber == 2
+                }
+                .map { it.covCertificate.dgcEntry.id }
+        )
+
+        list.addAll(
+            certificates
+                .filter {
+                    it.isReadyForReissue &&
+                        !it.alreadyReissued &&
+                        !list.contains(it.covCertificate.dgcEntry.id)
+                }
+                .map { it.covCertificate.dgcEntry.id }
+        )
+        return list
     }
 }

@@ -85,6 +85,8 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
             }
             setText(R.string.result_2G_button_startover)
         }
+        bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible =
+            bottomSheetBinding.bottomSheetSecondWhiteButtonWithBorder.isVisible
         bottomSheetBinding.bottomSheetActionButton.isVisible = true
     }
 

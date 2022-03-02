@@ -24,6 +24,8 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
+import de.rki.covpass.app.boosterreissue.ReissueCallback
+import de.rki.covpass.app.boosterreissue.ReissueNotificationFragmentNav
 import de.rki.covpass.app.checkerremark.CheckRemarkCallback
 import de.rki.covpass.app.checkerremark.CheckerRemarkFragmentNav
 import de.rki.covpass.app.databinding.CovpassMainBinding
@@ -53,6 +55,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showDomesticRulesNotification()
     fun showCheckerRemark()
     fun showBoosterNotification()
+    fun showReissueNotification(listIds: List<String>)
 }
 
 /**
@@ -68,6 +71,7 @@ internal class MainFragment :
     CheckRemarkCallback,
     DomesticRulesNotificationCallback,
     BoosterNotificationCallback,
+    ReissueCallback,
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
@@ -195,6 +199,14 @@ internal class MainFragment :
         viewModel.showingNotification.complete(Unit)
     }
 
+    override fun onReissueCancel() {
+        viewModel.showingNotification.complete(Unit)
+    }
+
+    override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
+        viewModel.showingNotification.complete(Unit)
+    }
+
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == EXPIRED_DIALOG_TAG) {
             launchWhenStarted {
@@ -240,5 +252,13 @@ internal class MainFragment :
 
     override fun showBoosterNotification() {
         findNavigator().push(BoosterNotificationFragmentNav())
+    }
+
+    override fun showReissueNotification(listIds: List<String>) {
+        if (listIds.isNotEmpty()) {
+            findNavigator().push(ReissueNotificationFragmentNav(listIds))
+        } else {
+            viewModel.showingNotification.complete(Unit)
+        }
     }
 }

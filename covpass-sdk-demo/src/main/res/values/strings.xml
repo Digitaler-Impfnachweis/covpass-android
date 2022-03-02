@@ -6,5 +6,6 @@
 
 <resources>
   <string name="trust_service_host">de.test.dscg.ubirch.com</string>
+  <string name="reissue_service_host">api.reissue.demo.ubirch.com</string>
   <string name="dcc_booster_rules_host">distribution-cff4f7147260.dcc-rules.de</string>
 </resources>

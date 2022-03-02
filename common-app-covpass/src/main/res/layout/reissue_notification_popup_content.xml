@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingBottom="@dimen/grid_thirteen">
+
+  <ImageView
+    android:id="@+id/reissue_notification_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="@null"
+    android:src="@drawable/image_reissue_notification"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <de.rki.covpass.app.uielements.CertificateDataElement
+    android:id="@+id/reissue_notification_certificate_data_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_five"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_notification_image" />
+
+  <TextView
+    android:id="@+id/reissue_notification_note"
+    style="@style/DefaultText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three_half"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_notification_certificate_data_element" />
+
+  <de.rki.covpass.commonapp.uielements.InfoElement
+    android:id="@+id/reissue_notification_info_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_two"
+    app:layout_constraintTop_toBottomOf="@id/reissue_notification_note" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

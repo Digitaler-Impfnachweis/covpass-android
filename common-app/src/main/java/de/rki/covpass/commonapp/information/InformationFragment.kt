@@ -20,7 +20,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.onboarding.OnboardingDataProtectionFragmentNav
+import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import java.util.*
 
@@ -66,7 +66,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldDataSecurityPolicy.apply {
             text = getString(R.string.app_information_title_datenschutz)
             setOnClickListener {
-                findNavigator().push(OnboardingDataProtectionFragmentNav())
+                findNavigator().push(CommonDataProtectionFragmentNav())
             }
         }
         binding.informationFieldImprint.apply {

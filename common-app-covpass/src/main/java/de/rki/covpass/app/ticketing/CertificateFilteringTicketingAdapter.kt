@@ -12,7 +12,7 @@ import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
-import de.rki.covpass.app.databinding.CertificateFilteringItemBinding
+import de.rki.covpass.app.databinding.CertificateDataElementBinding
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
@@ -52,9 +52,9 @@ public class CertificateFilteringTicketingAdapter(
     }
 
     public inner class CertificateFilteringViewHolder(parent: ViewGroup) :
-        BindingViewHolder<CertificateFilteringItemBinding>(
+        BindingViewHolder<CertificateDataElementBinding>(
             parent,
-            CertificateFilteringItemBinding::inflate
+            CertificateDataElementBinding::inflate
         ) {
         public fun bind(item: CombinedCovCertificate) {
             with(binding) {
@@ -66,51 +66,51 @@ public class CertificateFilteringTicketingAdapter(
                     )
                 }
 
-                certificateFilteringItemName.text = item.covCertificate.fullName
+                certificateDataElementName.text = item.covCertificate.fullName
                 when (val dgcEntry = item.covCertificate.dgcEntry) {
                     is Vaccination -> {
                         if (dgcEntry.isComplete) {
-                            certificateFilteringItemLayout.setBackgroundResource(R.color.info)
-                            certificateFilteringItemTypeIcon.setImageResource(
+                            certificateDataElementLayout.setBackgroundResource(R.color.info)
+                            certificateDataElementTypeIcon.setImageResource(
                                 R.drawable.main_cert_status_complete_white
                             )
                         } else {
-                            certificateFilteringItemLayout.setBackgroundResource(R.color.info20)
-                            certificateFilteringItemTypeIcon.setImageResource(
+                            certificateDataElementLayout.setBackgroundResource(R.color.info20)
+                            certificateDataElementTypeIcon.setImageResource(
                                 R.drawable.main_cert_status_incomplete
                             )
                         }
-                        certificateFilteringItemType.setText(R.string.certificate_check_validity_vaccination)
-                        certificateFilteringItemInfo.text = getString(
+                        certificateDataElementType.setText(R.string.certificate_check_validity_vaccination)
+                        certificateDataElementInfo.text = getString(
                             R.string.certificates_overview_vaccination_certificate_message,
                             dgcEntry.doseNumber,
                             dgcEntry.totalSerialDoses
                         )
-                        certificateFilteringItemDate.text = getString(
+                        certificateDataElementDate.text = getString(
                             R.string.certificates_overview_vaccination_certificate_date,
                             dgcEntry.validDate.formatDateOrEmpty()
                         )
                     }
                     is TestCert -> {
-                        certificateFilteringItemLayout.setBackgroundResource(R.color.test_certificate_background)
-                        certificateFilteringItemType.setText(R.string.certificate_check_validity_test)
-                        certificateFilteringItemTypeIcon.setImageResource(R.drawable.main_cert_test_white)
+                        certificateDataElementLayout.setBackgroundResource(R.color.test_certificate_background)
+                        certificateDataElementType.setText(R.string.certificate_check_validity_test)
+                        certificateDataElementTypeIcon.setImageResource(R.drawable.main_cert_test_white)
                         if (dgcEntry.testType == PCR_TEST) {
-                            certificateFilteringItemInfo.setText(R.string.test_certificate_detail_view_pcr_test_title)
+                            certificateDataElementInfo.setText(R.string.test_certificate_detail_view_pcr_test_title)
                         } else {
-                            certificateFilteringItemInfo.setText(R.string.test_certificate_detail_view_title)
+                            certificateDataElementInfo.setText(R.string.test_certificate_detail_view_title)
                         }
-                        certificateFilteringItemDate.text = getString(
+                        certificateDataElementDate.text = getString(
                             R.string.certificates_overview_test_certificate_date,
                             dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: ""
                         )
                     }
                     is Recovery -> {
-                        certificateFilteringItemLayout.setBackgroundResource(R.color.info90)
-                        certificateFilteringItemType.setText(R.string.certificate_check_validity_recovery)
-                        certificateFilteringItemTypeIcon.setImageResource(R.drawable.main_cert_status_complete_white)
-                        certificateFilteringItemInfo.setText(R.string.recovery_certificate_detail_view_title)
-                        certificateFilteringItemDate.text = getString(
+                        certificateDataElementLayout.setBackgroundResource(R.color.info90)
+                        certificateDataElementType.setText(R.string.certificate_check_validity_recovery)
+                        certificateDataElementTypeIcon.setImageResource(R.drawable.main_cert_status_complete_white)
+                        certificateDataElementInfo.setText(R.string.recovery_certificate_detail_view_title)
+                        certificateDataElementDate.text = getString(
                             R.string.certificates_overview_recovery_certificate_valid_until_date,
                             item.covCertificate.validUntil?.formatDateOrEmpty() ?: ""
                         )

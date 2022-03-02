@@ -12,7 +12,7 @@
 
     <include
         android:id="@+id/certificate_filtering_item"
-        layout="@layout/certificate_filtering_item" />
+        layout="@layout/certificate_data_element" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/consent_send_recycler_view"

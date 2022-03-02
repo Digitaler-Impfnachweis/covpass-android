@@ -31,6 +31,9 @@ public object CovPassCertificateStorageHelper {
                     hasSeenBoosterDetailNotification = false,
                     hasSeenExpiryNotification = false,
                     boosterNotificationRuleIds = mutableListOf(),
+                    isReadyForReissue = false,
+                    alreadyReissued = false,
+                    hasSeenReissueNotification = false
                 )
             )
         }

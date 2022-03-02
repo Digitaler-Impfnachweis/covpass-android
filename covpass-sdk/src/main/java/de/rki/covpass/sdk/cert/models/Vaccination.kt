@@ -53,6 +53,9 @@ public data class Vaccination(
     public val isCompleteSingleDose: Boolean
         get() = doseNumber == 1 && totalSerialDoses == 1
 
+    public val isCompleteDoubleDose: Boolean
+        get() = doseNumber == 2 && totalSerialDoses == 2
+
     public val isBooster: Boolean
         get() = (isComplete && doseNumber > 2) || (isComplete && product == JANSSEN && doseNumber == 2) ||
             doseNumber > totalSerialDoses
@@ -66,6 +69,9 @@ public data class Vaccination(
         // or 1/1 after Recovery
         get() =
             (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster || hasFullProtectionAfterRecovery
+
+    public val isJanssen: Boolean
+        get() = product == JANSSEN
 
     public val validDate: LocalDate?
         get() = occurrence?.plusDays(if (isBooster || hasFullProtectionAfterRecovery) 0 else 15)

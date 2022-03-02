@@ -21,6 +21,8 @@ import de.rki.covpass.sdk.cert.models.CertificateListMapper
 import de.rki.covpass.sdk.cert.models.DscList
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
+import de.rki.covpass.sdk.reissuing.ReissuingApiService
+import de.rki.covpass.sdk.reissuing.ReissuingRepository
 import de.rki.covpass.sdk.rules.*
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import de.rki.covpass.sdk.rules.booster.CovPassBoosterRulesRepository
@@ -418,6 +420,21 @@ public abstract class SdkDependencies {
 
     public val ticketingValidationRequestProvider: TicketingValidationRequestProvider by lazy {
         TicketingValidationRequestProvider(TicketingDgcCryptor(), TicketingDgcSigner())
+    }
+
+    private val reissueServiceHost: String by lazy {
+        application.getString(R.string.reissue_service_host).takeIf { it.isNotEmpty() }
+            ?: throw IllegalStateException(
+                "You have to set @string/reissue_service_host or override reissueServiceHost"
+            )
+    }
+
+    public val reissuingService: ReissuingApiService by lazy {
+        ReissuingApiService(httpClient, reissueServiceHost)
+    }
+
+    public val reissuingRepository: ReissuingRepository by lazy {
+        ReissuingRepository(reissuingService)
     }
 }
 

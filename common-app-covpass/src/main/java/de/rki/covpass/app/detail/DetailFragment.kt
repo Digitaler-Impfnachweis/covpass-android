@@ -27,6 +27,8 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
+import de.rki.covpass.app.boosterreissue.ReissueCallback
+import de.rki.covpass.app.boosterreissue.ReissueNotificationFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DetailAdapter
@@ -67,7 +69,7 @@ internal class DetailFragmentNav(
  * Further actions (Show QR Code, Add cov certificate)
  */
 internal class DetailFragment :
-    BaseFragment(), DgcEntryDetailCallback, DetailClickListener, DetailEvents<DetailBoosterAction> {
+    BaseFragment(), DgcEntryDetailCallback, DetailClickListener, DetailEvents<DetailBoosterAction>, ReissueCallback {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState { DetailViewModel<DetailBoosterAction>(scope) }
@@ -463,9 +465,27 @@ internal class DetailFragment :
                 },
             )
 
+            if (groupedCertificate.isReadyForReissue()) {
+                personalDataList.add(
+                    DetailItem.ReissueNotification(
+                        R.string.certificate_renewal_startpage_headline,
+                        R.string.certificate_renewal_startpage_copy,
+                        R.drawable.background_new_warning,
+                        R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new,
+                        R.string.certificate_renewal_detail_view_notification_box_secondary_button
+                    ) {
+                        findNavigator().push(
+                            ReissueNotificationFragmentNav(
+                                groupedCertificate.getListOfIdsReadyForReissue()
+                            )
+                        )
+                    }
+                )
+            }
+
             if (groupedCertificate.boosterNotification.result == BoosterResult.Passed) {
                 personalDataList.add(
-                    DetailItem.Notification(
+                    DetailItem.BoosterNotification(
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_title,
                         groupedCertificate.boosterNotification.getLocalizedDescription(),
                         groupedCertificate.boosterNotification.ruleId,
@@ -670,4 +690,8 @@ internal class DetailFragment :
             manager.sendAccessibilityEvent(accessibilityEvent)
         }
     }
+
+    override fun onReissueCancel() {}
+
+    override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {}
 }

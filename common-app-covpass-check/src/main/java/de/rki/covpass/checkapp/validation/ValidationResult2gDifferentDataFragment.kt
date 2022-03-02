@@ -41,6 +41,7 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.warning_2G_names_title)
+        bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
         bottomSheetBinding.bottomSheetSecondWhiteButtonWithBorder.apply {
             isVisible = true
             setOnClickListener {

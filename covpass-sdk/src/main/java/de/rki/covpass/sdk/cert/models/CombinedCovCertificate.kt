@@ -21,6 +21,9 @@ public data class CombinedCovCertificate(
     val hasSeenBoosterDetailNotification: Boolean,
     val hasSeenExpiryNotification: Boolean,
     val boosterNotificationRuleIds: List<String>,
+    val isReadyForReissue: Boolean,
+    val alreadyReissued: Boolean,
+    val hasSeenReissueNotification: Boolean,
 ) {
 
     /**

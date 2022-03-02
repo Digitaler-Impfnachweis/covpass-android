@@ -88,8 +88,28 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+            checkReissueNotification() -> {
+                eventNotifier {
+                    showReissueNotification(getReissueIdsList())
+                }
+                true
+            }
             else -> false
         }
+
+    private fun checkReissueNotification(): Boolean {
+        certRepository.certs.value.certificates.forEach { it.validateReissue() }
+        return checkReadyForReissue()
+    }
+
+    private fun checkReadyForReissue() =
+        certRepository.certs.value.certificates.any { it.isReadyForReissue() && !it.hasSeenReissueNotification }
+
+    private fun getReissueIdsList(): List<String> {
+        return certRepository.certs.value.certificates.first {
+            it.isReadyForReissue() && !it.hasSeenReissueNotification
+        }.getListOfIdsReadyForReissue()
+    }
 
     fun onPageSelected(position: Int) {
         selectedCertId = certRepository.certs.value.getSortedCertificates()[position].id

@@ -17,16 +17,16 @@ import de.rki.covpass.commonapp.databinding.DataProtectionBinding
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class OnboardingDataProtectionFragmentNav : FragmentNav(OnboardingDataProtectionFragment::class)
+public class CommonDataProtectionFragmentNav : FragmentNav(CommonDataProtectionFragment::class)
 
 /**
  * Fragment which represents data protection information
  */
-internal class OnboardingDataProtectionFragment : BaseBottomSheet() {
+public class CommonDataProtectionFragment : BaseBottomSheet() {
 
-    override val heightLayoutParams by lazy { ViewGroup.LayoutParams.MATCH_PARENT }
+    override val heightLayoutParams: Int by lazy { ViewGroup.LayoutParams.MATCH_PARENT }
     private val binding by viewBinding(DataProtectionBinding::inflate)
-    override val announcementAccessibilityRes = R.string.accessibility_app_information_datenschutz_announce
+    override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_datenschutz_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
