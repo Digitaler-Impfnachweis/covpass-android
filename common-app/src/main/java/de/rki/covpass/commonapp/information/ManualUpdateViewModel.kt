@@ -19,7 +19,7 @@ internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) construct
     scope: CoroutineScope,
     private val dscListUpdater: DscListUpdater = sdkDeps.dscListUpdater,
     private val covPassEuRulesRepository: CovPassEuRulesRepository = sdkDeps.covPassEuRulesRepository,
-    private val covPassDomesticEuRulesRepository: CovPassDomesticRulesRepository =
+    private val covPassDomesticRulesRepository: CovPassDomesticRulesRepository =
         sdkDeps.covPassDomesticRulesRepository,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
@@ -29,7 +29,7 @@ internal class ManualUpdateViewModel @OptIn(DependencyAccessor::class) construct
             dscListUpdater.update()
             // update rules
             covPassEuRulesRepository.loadRules()
-            covPassDomesticEuRulesRepository.loadRules()
+            covPassDomesticRulesRepository.loadRules()
         }
     }
 }

@@ -12,7 +12,9 @@ import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
+import de.rki.covpass.commonapp.isBeforeUpdateInterval
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
+import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +27,7 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
+    private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     val validationResults: MutableValueFlow<List<CertsValidationResults>> = MutableValueFlow(emptyList())
@@ -35,7 +38,26 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
     init {
         launch {
             showInvalidCertsWarning()
+            updateRulesAndCountries()
             validateCertificates()
+        }
+    }
+
+    fun startUpdateRulesAndCountries() {
+        launch {
+            updateRulesAndCountries()
+        }
+    }
+
+    private suspend fun updateRulesAndCountries() {
+        if (sdkDependencies.rulesUpdateRepository.lastEuRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassEuRulesRepository.loadRules()
+        }
+        if (sdkDependencies.rulesUpdateRepository.lastDomesticRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassDomesticRulesRepository.loadRules()
+        }
+        if (sdkDependencies.rulesUpdateRepository.lastCountryListUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassCountriesRepository.loadCountries()
         }
     }
 

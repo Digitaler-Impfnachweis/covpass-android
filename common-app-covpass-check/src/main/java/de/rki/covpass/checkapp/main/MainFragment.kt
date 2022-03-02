@@ -25,7 +25,6 @@ import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
-import de.rki.covpass.commonapp.BackgroundUpdateViewModel
 import de.rki.covpass.commonapp.BackgroundUpdateViewModel.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
@@ -51,7 +50,7 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
-    private val backgroundUpdateViewModel by reactiveState { BackgroundUpdateViewModel(scope) }
+    private val covpassCheckBackgroundViewModel by reactiveState { CovpassCheckBackgroundViewModel(scope) }
     private val viewModel by reactiveState { MainViewModel(scope) }
 
     private val dscRepository get() = sdkDeps.dscRepository
@@ -160,7 +159,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             binding.mainCheckCertTabLayout.getTabAt(0)?.select()
         }
         commonDeps.timeValidationRepository.validate()
-        backgroundUpdateViewModel.update()
+        covpassCheckBackgroundViewModel.update()
     }
 
     override fun onDataProtectionFinish() {

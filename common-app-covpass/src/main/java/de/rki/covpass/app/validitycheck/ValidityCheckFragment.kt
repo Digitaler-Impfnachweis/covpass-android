@@ -28,6 +28,11 @@ import de.rki.covpass.app.validitycheck.countries.Country
 import de.rki.covpass.app.validitycheck.countries.CountryResolver.deCountry
 import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomesticCountry
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.dialog.DialogAction
+import de.rki.covpass.commonapp.dialog.DialogListener
+import de.rki.covpass.commonapp.dialog.DialogModel
+import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.errorhandling.isNoInternetError
 import de.rki.covpass.commonapp.isBeforeUpdateInterval
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
@@ -47,7 +52,8 @@ internal class ValidityCheckFragmentNav : FragmentNav(ValidityCheckFragment::cla
 internal class ValidityCheckFragment :
     BaseBottomSheet(),
     ChangeCountryCallback,
-    ChangeDateTimeCallback {
+    ChangeDateTimeCallback,
+    DialogListener {
 
     private val validityCheckViewModel by reactiveState { ValidityCheckViewModel(scope) }
     private val binding by viewBinding(ValidityCheckPopupContentBinding::inflate)
@@ -75,7 +81,8 @@ internal class ValidityCheckFragment :
                     iconRes = R.drawable.info_warning,
                     subtitleTopMarginDimenRes = R.dimen.grid_one
                 )
-                isVisible = get(sdkDeps.rulesUpdateRepository.lastEuRulesUpdate).isBeforeUpdateInterval()
+                isVisible = get(sdkDeps.rulesUpdateRepository.lastEuRulesUpdate).isBeforeUpdateInterval() &&
+                    get(this@ValidityCheckFragment.loading) == 0
             }
         }
         autoRun {
@@ -193,5 +200,30 @@ internal class ValidityCheckFragment :
 
     override fun updateDate(dateTime: LocalDateTime) {
         validityCheckViewModel.updateDate(dateTime)
+    }
+
+    override fun onDialogAction(tag: String, action: DialogAction) {
+        if (tag == NO_INTERNET_CONNECTION && action == DialogAction.POSITIVE) {
+            validityCheckViewModel.startUpdateRulesAndCountries()
+        }
+    }
+
+    override fun onError(error: Throwable) {
+        if (isNoInternetError(error)) {
+            val dialogModel = DialogModel(
+                titleRes = R.string.error_check_validity_no_internet_title,
+                messageString = getString(R.string.error_check_validity_no_internet_message),
+                positiveButtonTextRes = R.string.error_check_validity_no_internet_button_try_again,
+                negativeButtonTextRes = R.string.error_check_validity_no_internet_button_cancel,
+                tag = NO_INTERNET_CONNECTION
+            )
+            showDialog(dialogModel, childFragmentManager)
+        } else {
+            super.onError(error)
+        }
+    }
+
+    companion object {
+        private const val NO_INTERNET_CONNECTION = "no_internet_connection"
     }
 }
