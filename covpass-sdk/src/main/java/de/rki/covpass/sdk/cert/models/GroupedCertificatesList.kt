@@ -113,11 +113,20 @@ public data class GroupedCertificatesList private constructor(
             }
         }
         matchingGroupedCert?.certificates?.remove(matchingCombinedCert)
-        if (matchingGroupedCert?.certificates?.isEmpty() == true) {
+        if (matchingCombinedCert?.isReadyForReissue == true && matchingCombinedCert?.alreadyReissued == false) {
+            certificates.forEach { groupedCertificates ->
+                if (groupedCertificates == matchingGroupedCert) {
+                    groupedCertificates.certificates = groupedCertificates.certificates.map {
+                        it.copy(isReadyForReissue = false)
+                    }.toMutableList()
+                }
+            }
+        }
+        return if (matchingGroupedCert?.certificates?.isEmpty() == true) {
             certificates.remove(matchingGroupedCert)
-            return true
+            true
         } else {
-            return false
+            false
         }
     }
 
