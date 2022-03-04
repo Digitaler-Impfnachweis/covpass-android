@@ -113,11 +113,15 @@ public data class GroupedCertificatesList private constructor(
             }
         }
         matchingGroupedCert?.certificates?.remove(matchingCombinedCert)
-        if (matchingCombinedCert?.isReadyForReissue == true && matchingCombinedCert?.alreadyReissued == false) {
+        if (isReissueUpdateNeeded(matchingCombinedCert)) {
             certificates.forEach { groupedCertificates ->
                 if (groupedCertificates == matchingGroupedCert) {
                     groupedCertificates.certificates = groupedCertificates.certificates.map {
-                        it.copy(isReadyForReissue = false)
+                        it.copy(
+                            isReadyForReissue = false,
+                            alreadyReissued = false,
+                            hasSeenReissueNotification = false
+                        )
                     }.toMutableList()
                 }
             }
@@ -128,6 +132,12 @@ public data class GroupedCertificatesList private constructor(
         } else {
             false
         }
+    }
+
+    private fun isReissueUpdateNeeded(matchingCombinedCert: CombinedCovCertificate?): Boolean {
+        val dgcEntry = matchingCombinedCert?.covCertificate?.dgcEntry
+        return (matchingCombinedCert?.isReadyForReissue == true || matchingCombinedCert?.alreadyReissued == true) &&
+            (dgcEntry is Vaccination && (dgcEntry.isCompleteSingleDose || dgcEntry.isCompleteDoubleDose))
     }
 
     /**
