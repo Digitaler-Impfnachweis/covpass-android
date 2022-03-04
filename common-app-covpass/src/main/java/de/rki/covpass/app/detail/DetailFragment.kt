@@ -491,14 +491,10 @@ internal class DetailFragment :
                         groupedCertificate.boosterNotification.ruleId,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
                             R.drawable.background_new_warning
-                        } else {
-                            null
-                        },
+                        } else null,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
                             R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
-                        } else {
-                            null
-                        }
+                        } else null
                     )
                 )
             }
@@ -693,5 +689,7 @@ internal class DetailFragment :
 
     override fun onReissueCancel() {}
 
-    override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {}
+    override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
+        updateViews(covpassDeps.certRepository.certs.value)
+    }
 }
