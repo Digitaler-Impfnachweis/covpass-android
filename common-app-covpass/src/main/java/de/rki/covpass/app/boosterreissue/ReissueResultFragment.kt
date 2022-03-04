@@ -20,10 +20,6 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueResultPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
@@ -38,7 +34,7 @@ public class ReissueResultFragmentNav(
     public val listCertIds: List<String>,
 ) : FragmentNav(ReissueResultFragment::class)
 
-public class ReissueResultFragment : BaseBottomSheet(), DialogListener, ReissueResultEvents {
+public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents {
 
     private val args: ReissueResultFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState { ReissueResultViewModel(scope, args.listCertIds) }
@@ -63,13 +59,7 @@ public class ReissueResultFragment : BaseBottomSheet(), DialogListener, ReissueR
             setText(R.string.certificate_renewal_confirmation_page_certificate_secondary_button)
             isVisible = true
             setOnClickListener {
-                val dialogModel = DialogModel(
-                    titleRes = R.string.cancellation_share_certificate_title,
-                    positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
-                    negativeButtonTextRes = R.string.cancellation_share_certificate_action_button_no,
-                    tag = REISSUE_RESULT_END_PROCESS,
-                )
-                showDialog(dialogModel, childFragmentManager)
+                findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
             }
         }
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_renewal_confirmation_page_headline)
@@ -106,26 +96,8 @@ public class ReissueResultFragment : BaseBottomSheet(), DialogListener, ReissueR
         findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
     }
 
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        when {
-            tag == REISSUE_RESULT_END_PROCESS && action == DialogAction.POSITIVE -> {
-                findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
-            }
-            tag == REISSUE_RESULT_END_PROCESS && action == DialogAction.NEGATIVE -> {}
-            else -> {
-                findNavigator().popUntil<ReissueCallback>()?.onReissueCancel()
-            }
-        }
-    }
-
     override fun onBackPressed(): Abortable {
-        val dialogModel = DialogModel(
-            titleRes = R.string.cancellation_share_certificate_title,
-            positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
-            negativeButtonTextRes = R.string.cancellation_share_certificate_action_button_no,
-            tag = REISSUE_RESULT_END_PROCESS,
-        )
-        showDialog(dialogModel, childFragmentManager)
+        findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
         return Abort
     }
 

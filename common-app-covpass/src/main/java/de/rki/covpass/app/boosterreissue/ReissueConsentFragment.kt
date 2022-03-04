@@ -52,7 +52,7 @@ public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
             setText(R.string.certificate_renewal_consent_page_transfer_certificates_cancel_button)
             isVisible = true
             setOnClickListener {
-                findNavigator().popUntil<ReissueCallback>()?.onReissueCancel()
+                showDialogCancelProcess()
             }
         }
         bottomSheetBinding.bottomSheetTitle.setText(
@@ -97,6 +97,11 @@ public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
     }
 
     override fun onBackPressed(): Abortable {
+        showDialogCancelProcess()
+        return Abort
+    }
+
+    private fun showDialogCancelProcess() {
         val dialogModel = DialogModel(
             titleRes = R.string.cancellation_share_certificate_title,
             positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
@@ -104,7 +109,6 @@ public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
             tag = REISSUE_CONSENT_END_PROCESS,
         )
         showDialog(dialogModel, childFragmentManager)
-        return Abort
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
