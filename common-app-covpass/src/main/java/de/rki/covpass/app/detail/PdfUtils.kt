@@ -14,7 +14,7 @@ import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.utils.formatDateInternational
-import de.rki.covpass.sdk.utils.formatDateTimeInternational
+import de.rki.covpass.sdk.utils.formatDateTimeInternationalWithTimezone
 import de.rki.covpass.sdk.utils.readTextAsset
 
 @OptIn(DependencyAccessor::class)
@@ -72,7 +72,7 @@ internal object PdfUtils {
         .replace("\$tt", valueSetsRepository.getTestTypeName(testCert.testType).sanitizeXMLString())
         .replace("\$nm", testCert.testName ?: "")
         .replace("\$ma", valueSetsRepository.getTestManufacturerName(testCert.manufacturer ?: "").sanitizeXMLString())
-        .replace("\$sc", testCert.sampleCollection?.formatDateTimeInternational() ?: "")
+        .replace("\$sc", testCert.sampleCollection?.formatDateTimeInternationalWithTimezone() ?: "")
         .replace("\$tr", valueSetsRepository.getTestResultName(testCert.testResult).sanitizeXMLString())
         .replace("\$tc", testCert.testingCenter)
         .replace("\$co", testCert.country.sanitizeXMLString())

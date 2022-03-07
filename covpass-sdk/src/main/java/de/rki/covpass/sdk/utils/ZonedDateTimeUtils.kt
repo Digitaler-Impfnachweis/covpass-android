@@ -32,6 +32,14 @@ public fun ZonedDateTime.formatDateTimeInternational(): String {
 }
 
 /**
+ * Formats a [ZonedDateTime] to e.g. "1989-03-28T14:52:00+0000".
+ */
+public fun ZonedDateTime.formatDateTimeInternationalWithTimezone(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXX")
+    return format(formatter)
+}
+
+/**
  * Formats a [ZonedDateTime] to e.g. "12.03.1989, 14:52".
  */
 public fun ZonedDateTime.formatDateTime(): String {
