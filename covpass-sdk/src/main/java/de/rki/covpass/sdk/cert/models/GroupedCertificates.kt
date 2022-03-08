@@ -96,6 +96,20 @@ public data class GroupedCertificates(
             }.toMutableList()
         }
 
+    var hasSeenReissueDetailNotification: Boolean
+        get() = certificates.any {
+            it.isReadyForReissue && it.hasSeenReissueDetailNotification
+        }
+        set(value) {
+            certificates = certificates.map {
+                if (it.isReadyForReissue) {
+                    it.copy(hasSeenReissueDetailNotification = value)
+                } else {
+                    it
+                }
+            }.toMutableList()
+        }
+
     var hasSeenReissueNotification: Boolean
         get() = certificates.any {
             it.isReadyForReissue && it.hasSeenReissueNotification

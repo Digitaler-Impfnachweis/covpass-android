@@ -33,7 +33,8 @@ public object CovPassCertificateStorageHelper {
                     boosterNotificationRuleIds = mutableListOf(),
                     isReadyForReissue = false,
                     alreadyReissued = false,
-                    hasSeenReissueNotification = false
+                    hasSeenReissueNotification = false,
+                    hasSeenReissueDetailNotification = false,
                 )
             )
         }

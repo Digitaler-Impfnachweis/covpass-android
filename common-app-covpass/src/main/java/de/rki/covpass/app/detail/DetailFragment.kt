@@ -105,13 +105,13 @@ internal class DetailFragment :
         }
 
     override fun onBackPressed(): Abortable {
-        viewModel.updateHasSeenBoosterDetailNotification(args.certId, DetailBoosterAction.BackPressed)
+        viewModel.updateHasSeenAllDetailNotification(args.certId, DetailBoosterAction.BackPressed)
         return Abort
     }
 
     override fun onDeletionCompleted(isGroupedCertDeleted: Boolean) {
         if (isGroupedCertDeleted) {
-            viewModel.updateHasSeenBoosterDetailNotification(args.certId, DetailBoosterAction.Delete)
+            viewModel.updateHasSeenAllDetailNotification(args.certId, DetailBoosterAction.Delete)
         } else {
             val dialogModel = DialogModel(
                 titleRes = R.string.delete_result_dialog_header,
@@ -470,7 +470,9 @@ internal class DetailFragment :
                     DetailItem.ReissueNotification(
                         R.string.certificate_renewal_startpage_headline,
                         R.string.certificate_renewal_startpage_copy,
-                        R.drawable.background_new_warning,
+                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                            R.drawable.background_new_warning
+                        } else null,
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new,
                         R.string.certificate_renewal_detail_view_notification_box_secondary_button
                     ) {
@@ -664,7 +666,7 @@ internal class DetailFragment :
         private const val FAVORITE_ITEM_ID = 82957
     }
 
-    override fun onHasSeenBoosterDetailNotificationUpdated(tag: DetailBoosterAction) {
+    override fun onHasSeenAllDetailNotificationUpdated(tag: DetailBoosterAction) {
         when (tag) {
             DetailBoosterAction.Delete -> {
                 findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()

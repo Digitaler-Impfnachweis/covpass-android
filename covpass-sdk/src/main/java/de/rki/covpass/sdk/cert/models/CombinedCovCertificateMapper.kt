@@ -18,6 +18,7 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         isReadyForReissue = isReadyForReissue,
         alreadyReissued = alreadyReissued,
         hasSeenReissueNotification = hasSeenReissueNotification,
+        hasSeenReissueDetailNotification = hasSeenReissueDetailNotification,
     )
 
 public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCertificateLocal =
@@ -32,6 +33,7 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         isReadyForReissue = isReadyForReissue,
         alreadyReissued = alreadyReissued,
         hasSeenReissueNotification = hasSeenReissueNotification,
+        hasSeenReissueDetailNotification = hasSeenReissueDetailNotification
     )
 
 public fun CovCertificate.isInExpiryPeriod(): Boolean =
