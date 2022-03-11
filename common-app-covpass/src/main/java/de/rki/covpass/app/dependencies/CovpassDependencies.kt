@@ -7,7 +7,6 @@ package de.rki.covpass.app.dependencies
 
 import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
-import com.ibm.health.common.android.utils.androidDeps
 import de.rki.covpass.app.checkerremark.CheckerRemarkRepository
 import de.rki.covpass.app.common.ToggleFavoriteUseCase
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -33,8 +32,6 @@ internal abstract class CovpassDependencies {
     private val cbor: Cbor get() = sdkDeps.cbor
 
     private val certificateListMapper get() = sdkDeps.certificateListMapper
-
-    val fileProviderAuthority: String get() = androidDeps.application.packageName + ".covpass.provider"
 
     val certRepository: CertRepository by lazy {
         CertRepository(

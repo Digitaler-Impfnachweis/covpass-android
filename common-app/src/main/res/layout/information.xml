@@ -105,7 +105,7 @@
       <View style="@style/Divider" />
 
       <LinearLayout
-        android:id="@+id/information_field_context_settings_container"
+        android:id="@+id/information_field_covpass_check_settings_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -134,6 +134,33 @@
             app:layout_constraintBottom_toBottomOf="@+id/information_field_context_settings_title"
             app:layout_constraintEnd_toEndOf="@+id/information_field_context_settings_title"
             app:layout_constraintTop_toTopOf="@+id/information_field_context_settings_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View style="@style/Divider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/information_field_expert_mode_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:clickable="true"
+          android:focusable="true">
+
+          <TextView
+            android:id="@+id/information_field_expert_mode_title"
+            style="@style/NavigationField"
+            android:background="@color/onBrandBase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+            android:id="@+id/information_field_expert_mode_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/grid_seven"
+            app:layout_constraintBottom_toBottomOf="@+id/information_field_expert_mode_title"
+            app:layout_constraintEnd_toEndOf="@+id/information_field_expert_mode_title"
+            app:layout_constraintTop_toTopOf="@+id/information_field_expert_mode_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

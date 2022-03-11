@@ -74,6 +74,15 @@ public fun Instant?.formatDateOrEmpty(): String {
     }
 }
 
+public fun Instant?.formatDateDeOrEmpty(): String {
+    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.of("Europe/Berlin")).format(formatter)
+    } else {
+        ""
+    }
+}
+
 public fun Instant?.formatTimeOrEmpty(): String {
     val formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
     return if (this != null) {

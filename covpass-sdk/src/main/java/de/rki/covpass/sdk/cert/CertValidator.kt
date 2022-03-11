@@ -12,6 +12,7 @@ import android.util.Base64
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.crypto.KeyIdentifier
 import de.rki.covpass.sdk.dependencies.defaultCbor
+import de.rki.covpass.sdk.utils.toHex
 import de.rki.covpass.sdk.utils.trimAllStrings
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
@@ -85,7 +86,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
      * @throws ExpiredCwtException If the [CBORWebToken] has expired.
      * @throws BadCoseSignatureException If the signature validation failed.
      */
-    public fun decodeAndValidate(cose: Sign1Message): CovCertificate {
+    public fun decodeAndValidate(cose: Sign1Message, isExpertMode: Boolean = false): CovCertificate {
         val cwt = CBORWebToken.decode(cose.GetContent())
         if (cwt.validUntil.isBefore(Instant.now())) {
             throw ExpiredCwtException()
@@ -95,6 +96,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             cose.protectedAttributes?.get(4)?.GetByteString()?.sliceArray(0..7)
                 ?: cose.unprotectedAttributes.get(4).GetByteString().sliceArray(0..7)
         )
+        val rValue = cose.EncodeToCBORObject().get(3).GetByteString().sliceArray(0..31)
         val certs = findByKid(kid).takeIf { it.isNotEmpty() }
             ?: state.trustedCerts.toList()
         for (cert in certs) {
@@ -102,7 +104,8 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
                 cert.certificate.checkValidity()
                 // Validate the COSE signature
                 if (cose.validate(OneKey(cert.certificate.publicKey, null))) {
-                    return decodeAndValidate(cwt, cert.certificate)
+                    val covCertificate = decodeAndValidate(cwt, cert.certificate)
+                    return addDataForExportMode(isExpertMode, covCertificate, cert.kid, rValue)
                 }
             } catch (e: CoseException) {
                 continue
@@ -111,6 +114,22 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             }
         }
         throw BadCoseSignatureException()
+    }
+
+    private fun addDataForExportMode(
+        isExpertMode: Boolean,
+        covCertificate: CovCertificate,
+        kid: String,
+        rValue: ByteArray
+    ): CovCertificate {
+        return if (isExpertMode) {
+            covCertificate.copy(
+                kid = kid,
+                rValue = rValue.toHex().trim()
+            )
+        } else {
+            covCertificate
+        }
     }
 
     private fun X509Certificate.checkCertOid(dgcEntry: DGCEntry): Boolean {

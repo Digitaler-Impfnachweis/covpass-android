@@ -31,7 +31,7 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".detail.DetailExportPdfSaveOptionActivity"
+    <activity android:name="de.rki.covpass.commonapp.pdfexport.ExportPdfSaveOptionActivity"
       android:exported="false"
       android:icon="@drawable/save_pdf"
       android:label="@string/certificate_share_pdf_shareitem_android"

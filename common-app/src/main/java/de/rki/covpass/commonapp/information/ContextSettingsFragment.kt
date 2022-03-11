@@ -16,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 public class ContextSettingsFragmentNav : FragmentNav(ContextSettingsFragment::class)
 
 /**
- * Displays the contacts
+ * Displays the Domestic or EU rules toggle
  */
 public class ContextSettingsFragment : BaseFragment() {
 

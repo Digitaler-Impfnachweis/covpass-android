@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <TextView
+    android:id="@+id/expert_mode_toggle_element_title"
+    style="@style/Header.OnBackground.Small"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginEnd="@dimen/grid_one_half"
+    app:layout_constraintBottom_toBottomOf="@+id/expert_mode_toggle_element"
+    app:layout_constraintEnd_toStartOf="@+id/expert_mode_toggle_element"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/expert_mode_toggle_element" />
+
+  <com.google.android.material.switchmaterial.SwitchMaterial
+    android:id="@+id/expert_mode_toggle_element"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginEnd="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_one_half"
+    android:clickable="false"
+    android:focusable="false"
+    android:scaleX="1.5"
+    android:scaleY="1.5"
+    android:theme="@style/SwitchTheme"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <View
+    style="@style/Divider"
+    android:layout_width="match_parent"
+    app:layout_constraintTop_toBottomOf="@+id/expert_mode_toggle_element" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,7 +45,10 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                val covCertificate = qrCoder.decodeCovCert(qrContent)
+                val covCertificate = qrCoder.decodeCovCert(
+                    qrContent,
+                    checkContextRepository.isExpertModeOn.value
+                )
                 val dgcEntry = covCertificate.dgcEntry
                 validateEntity(dgcEntry.idWithoutPrefix)
                 when (validate(covCertificate, getRuleValidator())) {
@@ -88,7 +91,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
         }
 
     private fun handleNegativePcrResult(
-        covCertificate: CovCertificate,
+        covCertificate: CovCertificate
     ) {
         val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
@@ -100,7 +103,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     }
 
     private fun handleNegativeAntigenResult(
-        covCertificate: CovCertificate,
+        covCertificate: CovCertificate
     ) {
         val test = covCertificate.dgcEntry as TestCert
         eventNotifier {

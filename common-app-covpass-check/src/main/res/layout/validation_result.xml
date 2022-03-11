@@ -78,9 +78,9 @@
       style="@style/DefaultText.OnBackground70"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]"
       android:visibility="gone"
-      tools:visibility="visible"/>
+      tools:text="@tools:sample/lorem[3]"
+      tools:visibility="visible" />
 
     <TextView
       android:id="@+id/result_info_text_1"
@@ -181,5 +181,38 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/result_info_layout_3"
     tools:text="@tools:sample/lorem[3]" />
+
+  <LinearLayout
+    android:id="@+id/result_expert_mode_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_one"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/result_info_footer">
+
+    <TextView
+      android:id="@+id/result_expert_mode_textview"
+      style="@style/Header.Info.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingVertical="@dimen/grid_one"
+      android:text="@string/validation_check_popup_revoked_certificate_link_text" />
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/grid_one"
+      android:layout_marginTop="@dimen/grid_eighth"
+      android:importantForAccessibility="no"
+      android:src="@drawable/arrow_right_blue"
+      tools:ignore="ContentDescription" />
+
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -109,12 +109,18 @@ public abstract class InformationFragment : BaseFragment() {
         }
 
         if (isCovpassCheck()) {
-            binding.informationFieldContextSettingsContainer.isVisible = true
+            binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
             binding.informationFieldContextSettingsLayout.setOnClickListener {
-                findNavigator().push(ContextSettingsFragment())
+                findNavigator().push(ContextSettingsFragmentNav())
+            }
+            binding.informationFieldExpertModeLayout.setOnClickListener {
+                findNavigator().push(ExpertModeSettingsFragmentNav())
             }
             binding.informationFieldContextSettingsTitle.setText(
                 R.string.app_information_title_local_rules
+            )
+            binding.informationFieldExpertModeTitle.setText(
+                R.string.app_information_authorities_function_title
             )
             binding.informationFieldContextSettingsStatus.setText(
                 if (commonDeps.checkContextRepository.isDomesticRulesOn.value) {
@@ -123,8 +129,15 @@ public abstract class InformationFragment : BaseFragment() {
                     R.string.app_information_title_local_rules_status_EU
                 }
             )
+            binding.informationFieldExpertModeStatus.setText(
+                if (commonDeps.checkContextRepository.isExpertModeOn.value) {
+                    R.string.app_information_authorities_function_state_on
+                } else {
+                    R.string.app_information_authorities_function_state_off
+                }
+            )
         } else {
-            binding.informationFieldContextSettingsContainer.isVisible = false
+            binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
         }
     }
 

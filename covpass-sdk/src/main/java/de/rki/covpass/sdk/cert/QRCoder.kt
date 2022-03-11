@@ -44,8 +44,8 @@ public class QRCoder(private val validator: CertValidator) {
      * @throws CoseException For generic COSE errors.
      * @throws GeneralSecurityException For generic cryptography errors.
      */
-    public fun decodeCovCert(qrContent: String): CovCertificate =
-        validator.decodeAndValidate(decodeCose(qrContent))
+    public fun decodeCovCert(qrContent: String, isExpertMode: Boolean = false): CovCertificate =
+        validator.decodeAndValidate(decodeCose(qrContent), isExpertMode)
 
     public fun validateTicketing(qrContent: String): TicketingDataInitialization {
         val ticketingData = defaultJson.decodeFromString<TicketingDataInitialization>(qrContent)

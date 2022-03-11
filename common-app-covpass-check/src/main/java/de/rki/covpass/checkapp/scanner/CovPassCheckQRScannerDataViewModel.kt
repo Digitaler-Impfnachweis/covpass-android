@@ -27,7 +27,7 @@ internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
     fun on3gValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun on3gValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
     fun on3gTechnicalFailure(is2gOn: Boolean = false)
-    fun on3gFailure(is2gOn: Boolean = false)
+    fun on3gFailure(certificate: CovCertificate? = null, is2gOn: Boolean = false)
     fun showWarning2gUnexpectedType()
 }
 
@@ -168,7 +168,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                 prepareData2gNullCert(isTechnical, validationResult)
             }
         } else {
-            prepareDataOnValidationFailure3g(isTechnical)
+            prepareDataOnValidationFailure3g(isTechnical, certificate)
         }
     }
 
@@ -241,7 +241,10 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         }
     }
 
-    private fun prepareData2gNullCert(isTechnical: Boolean, validationResult: CovPassCheckValidationResult) {
+    private fun prepareData2gNullCert(
+        isTechnical: Boolean,
+        validationResult: CovPassCheckValidationResult
+    ) {
         when {
             firstCertificateData2G == null && secondCertificateData2G == null && isTechnical -> {
                 eventNotifier {
@@ -250,7 +253,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
             }
             firstCertificateData2G == null && secondCertificateData2G == null && !isTechnical -> {
                 eventNotifier {
-                    on3gFailure(true)
+                    on3gFailure(is2gOn = true)
                 }
             }
             firstCertificateData2G != null -> {
@@ -284,14 +287,17 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         }
     }
 
-    private fun prepareDataOnValidationFailure3g(isTechnical: Boolean) {
+    private fun prepareDataOnValidationFailure3g(
+        isTechnical: Boolean,
+        certificate: CovCertificate?,
+    ) {
         if (isTechnical) {
             eventNotifier {
                 on3gTechnicalFailure()
             }
         } else {
             eventNotifier {
-                on3gFailure()
+                on3gFailure(certificate = certificate)
             }
         }
     }

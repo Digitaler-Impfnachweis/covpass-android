@@ -12,6 +12,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
+import de.rki.covpass.checkapp.revocation.CovPassCheckCountryResolver
 import de.rki.covpass.checkapp.validation.*
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -20,8 +21,8 @@ import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler.Companion.ERROR_CODE_QR_CODE_DUPLICATED
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.utils.DataComparison
-import de.rki.covpass.sdk.utils.formatDateFromString
+import de.rki.covpass.sdk.cert.models.ExpertModeData
+import de.rki.covpass.sdk.utils.*
 import kotlinx.parcelize.Parcelize
 import java.time.ZonedDateTime
 
@@ -64,16 +65,13 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidPcrTest(
         certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?,
+        sampleCollection: ZonedDateTime?
     ) {
         scanEnabled.value = false
         dataViewModel.prepareDataOnValidPcrTest(certificate, sampleCollection)
     }
 
-    override fun onValidAntigenTest(
-        certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?,
-    ) {
+    override fun onValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         scanEnabled.value = false
         dataViewModel.prepareDataOnValidAntigenTest(certificate, sampleCollection)
     }
@@ -150,12 +148,28 @@ internal class CovPassCheckQRScannerFragment :
         )
     }
 
+    private fun CovCertificate.getExpertModeData(): ExpertModeData? {
+        return if (kid.isNotEmpty() && rValue.isNotEmpty()) {
+            ExpertModeData(
+                "$kid$rValue${System.currentTimeMillis() / 1000}".sha256().toHex().trim(),
+                kid,
+                rValue,
+                CovPassCheckCountryResolver.getCountryLocalized(issuer),
+                validFrom.formatDateDeOrEmpty(),
+                validUntil.formatDateDeOrEmpty()
+            )
+        } else {
+            null
+        }
+    }
+
     override fun on3gSuccess(certificate: CovCertificate) {
         findNavigator().push(
             ValidationResultSuccessNav(
                 certificate.fullName,
                 certificate.fullTransliteratedName,
-                formatDateFromString(certificate.birthDateFormatted)
+                formatDateFromString(certificate.birthDateFormatted),
+                certificate.getExpertModeData()
             )
         )
     }
@@ -166,7 +180,8 @@ internal class CovPassCheckQRScannerFragment :
                 certificate.fullName,
                 formatDateFromString(certificate.birthDateFormatted),
                 certificate.fullTransliteratedName,
-                sampleCollection
+                sampleCollection,
+                certificate.getExpertModeData()
             )
         )
     }
@@ -177,7 +192,8 @@ internal class CovPassCheckQRScannerFragment :
                 certificate.fullName,
                 certificate.fullTransliteratedName,
                 formatDateFromString(certificate.birthDateFormatted),
-                sampleCollection
+                sampleCollection,
+                certificate.getExpertModeData()
             )
         )
     }
@@ -186,8 +202,13 @@ internal class CovPassCheckQRScannerFragment :
         findNavigator().push(ValidationResultTechnicalFailureFragmentNav(is2gOn))
     }
 
-    override fun on3gFailure(is2gOn: Boolean) {
-        findNavigator().push(ValidationResultFailureFragmentNav(is2gOn))
+    override fun on3gFailure(certificate: CovCertificate?, is2gOn: Boolean) {
+        findNavigator().push(
+            ValidationResultFailureFragmentNav(
+                is2gOn,
+                certificate?.getExpertModeData()
+            )
+        )
     }
 
     override fun showWarning2gUnexpectedType() {

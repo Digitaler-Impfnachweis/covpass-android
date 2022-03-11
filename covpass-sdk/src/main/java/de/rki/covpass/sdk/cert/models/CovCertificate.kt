@@ -44,6 +44,9 @@ public data class CovCertificate(
 
     @SerialName("ver")
     val version: String = "",
+
+    val kid: String = "",
+    val rValue: String = ""
 ) {
 
     init {

@@ -18,11 +18,11 @@ import de.rki.covpass.sdk.utils.formatDateTimeInternationalWithTimezone
 import de.rki.covpass.sdk.utils.readTextAsset
 
 @OptIn(DependencyAccessor::class)
-internal object PdfUtils {
+public object PdfUtils {
 
     private val valueSetsRepository: CovPassValueSetsRepository by lazy { sdkDeps.covPassValueSetsRepository }
 
-    fun replaceVaccinationValues(
+    public fun replaceVaccinationValues(
         context: Context,
         combinedCertificate: CombinedCovCertificate,
         base64EncodedQrCode: String,
@@ -42,7 +42,7 @@ internal object PdfUtils {
         .replace("\$is", vaccination.certificateIssuer.sanitizeXMLString())
         .replace("\$qr", base64EncodedQrCode)
 
-    fun replaceRecoveryValues(
+    public fun replaceRecoveryValues(
         context: Context,
         combinedCertificate: CombinedCovCertificate,
         base64EncodedQrCode: String,
@@ -59,7 +59,7 @@ internal object PdfUtils {
         .replace("\$du", recovery.validUntil?.formatDateInternational() ?: "")
         .replace("\$qr", base64EncodedQrCode)
 
-    fun replaceTestCertificateValues(
+    public fun replaceTestCertificateValues(
         context: Context,
         combinedCertificate: CombinedCovCertificate,
         base64EncodedQrCode: String,

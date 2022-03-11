@@ -8,6 +8,7 @@ package de.rki.covpass.commonapp.dependencies
 import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
+import com.ibm.health.common.android.utils.androidDeps
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
@@ -40,6 +41,8 @@ public abstract class CommonDependencies {
     public abstract val errorHandler: CommonErrorHandler
 
     private val cbor: Cbor = sdkDeps.cbor
+
+    public val fileProviderAuthority: String get() = androidDeps.application.packageName + ".covpass.provider"
 
     public val onboardingRepository: OnboardingRepository = OnboardingRepository(
         CborSharedPrefsStore("onboarding_prefs", cbor)

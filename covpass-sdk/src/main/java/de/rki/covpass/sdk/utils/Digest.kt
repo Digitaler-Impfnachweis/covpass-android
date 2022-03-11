@@ -12,3 +12,9 @@ internal fun String.sha512(): ByteArray =
 
 internal fun ByteArray.sha512(): ByteArray =
     MessageDigest.getInstance("SHA-512").digest(this)
+
+public fun String.sha256(): ByteArray =
+    toByteArray().sha256()
+
+internal fun ByteArray.sha256(): ByteArray =
+    MessageDigest.getInstance("SHA-256").digest(this)

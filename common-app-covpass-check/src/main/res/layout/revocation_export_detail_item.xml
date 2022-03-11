@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/backgroundSecondary"
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
+
+  <TextView
+    android:id="@+id/revocation_export_detail_header_textview"
+    style="@style/Header.OnBackground.Small"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_one_half" />
+
+  <TextView
+    android:id="@+id/revocation_export_detail_textview"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_one_half" />
+
+  <View style="@style/Divider" />
+
+</LinearLayout>

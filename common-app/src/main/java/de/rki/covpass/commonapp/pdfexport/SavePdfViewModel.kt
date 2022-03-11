@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.app.detail
+package de.rki.covpass.commonapp.pdfexport
 
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.dispatchers
@@ -11,9 +11,9 @@ import kotlinx.coroutines.CoroutineScope
 import java.io.InputStream
 import java.io.OutputStream
 
-internal class DetailSavePdfViewModel(
+internal class SavePdfViewModel(
     scope: CoroutineScope,
-) : BaseReactiveState<DetailExportPdfSaveEvents>(scope) {
+) : BaseReactiveState<ExportPdfSaveEvents>(scope) {
 
     fun copyFile(inputStream: InputStream, outputStream: OutputStream) {
         launch(dispatchers.io) {

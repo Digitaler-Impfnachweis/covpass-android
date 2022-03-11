@@ -66,11 +66,17 @@
   <string name="app_information_title_local_rules_status_DE"/>
   <string name="app_information_title_local_rules_status_EU"/>
   <string name="accessibility_app_information_title_local_rules"/>
+  <string name="app_information_authorities_function_title"/>
+  <string name="app_information_authorities_function_state_on"/>
+  <string name="app_information_authorities_function_state_off"/>
   <string name="check_context_onboarding_footnote"/>
   <string name="check_context_onboarding_option1_title"/>
   <string name="check_context_onboarding_option1_subtitle"/>
   <string name="check_context_onboarding_option2_title"/>
   <string name="check_context_onboarding_option2_subtitle"/>
+  <string name="revocation_copy"/>
+  <string name="revocation_headline"/>
+  <string name="revocation_toggle_text"/>
 
   <string name="dialog_start_screen_title"/>
   <string name="dialog_start_screen_message"/>

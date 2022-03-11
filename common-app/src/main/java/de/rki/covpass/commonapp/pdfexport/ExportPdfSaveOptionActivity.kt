@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.app.detail
+package de.rki.covpass.commonapp.pdfexport
 
 import android.app.Activity
 import android.content.Intent
@@ -15,11 +15,11 @@ import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.commonapp.BaseActivity
 
-internal interface DetailExportPdfSaveEvents : BaseEvents {
-    fun onSaveFinished()
+public interface ExportPdfSaveEvents : BaseEvents {
+    public fun onSaveFinished()
 }
 
-public class DetailExportPdfSaveOptionActivity : BaseActivity(), DetailExportPdfSaveEvents {
+public class ExportPdfSaveOptionActivity : BaseActivity(), ExportPdfSaveEvents {
 
     private val data by lazy { intent.data }
     private val startForResult =
@@ -35,7 +35,7 @@ public class DetailExportPdfSaveOptionActivity : BaseActivity(), DetailExportPdf
             }
         }
 
-    private val detailSavePdfViewModel by reactiveState { DetailSavePdfViewModel(scope) }
+    private val detailSavePdfViewModel by reactiveState { SavePdfViewModel(scope) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
