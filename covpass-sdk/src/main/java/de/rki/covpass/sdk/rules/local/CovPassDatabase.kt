@@ -33,7 +33,7 @@ import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
         BoosterRuleLocal::class,
         CountryLocal::class
     ],
-    version = 5
+    version = 6
 )
 
 @TypeConverters(Converters::class)
