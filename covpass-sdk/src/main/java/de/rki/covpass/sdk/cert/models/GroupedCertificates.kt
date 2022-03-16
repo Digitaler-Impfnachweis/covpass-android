@@ -224,7 +224,12 @@ public data class GroupedCertificates(
     }
 
     public fun isReadyForReissue(): Boolean =
-        certificates.any { it.isReadyForReissue && !it.alreadyReissued }
+        certificates.any { it.isReadyForReissue && !it.alreadyReissued } &&
+            !certificates.any {
+                it.covCertificate.dgcEntry is Vaccination &&
+                    (it.covCertificate.dgcEntry as Vaccination).doseNumber == 2 &&
+                    (it.covCertificate.dgcEntry as Vaccination).totalSerialDoses == 1
+            }
 
     public fun finishedReissued() {
         certificates = certificates.map {
