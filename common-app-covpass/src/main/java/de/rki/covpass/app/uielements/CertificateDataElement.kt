@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateDataElementBinding
+import de.rki.covpass.app.detail.adapter.setTint
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
@@ -99,7 +100,7 @@ public class CertificateDataElement @JvmOverloads constructor(
             is Vaccination -> {
                 if (dgcEntry.isComplete) {
                     typeBackground = if (isOldCertificate) {
-                        R.color.onBrandBase50
+                        R.color.backgroundSecondary20
                     } else {
                         R.color.info
                     }
@@ -143,6 +144,9 @@ public class CertificateDataElement @JvmOverloads constructor(
                     covCertificate.validUntil?.formatDateOrEmpty() ?: ""
                 )
             }
+        }
+        if (isOldCertificate) {
+            binding.certificateDataElementTypeIcon.setTint(R.color.backgroundSecondary60)
         }
     }
 }

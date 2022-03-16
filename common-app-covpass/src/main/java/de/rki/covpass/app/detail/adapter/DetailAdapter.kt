@@ -356,7 +356,7 @@ internal abstract class BaseViewHolder<B : ViewBinding>(
     abstract fun onItemBind(item: DetailItem)
 }
 
-private fun ImageView.setTint(@ColorRes color: Int) {
+internal fun ImageView.setTint(@ColorRes color: Int) {
     drawable.invalidateSelf()
     val wrapDrawable = DrawableCompat.wrap(drawable).mutate()
     DrawableCompat.setTint(
