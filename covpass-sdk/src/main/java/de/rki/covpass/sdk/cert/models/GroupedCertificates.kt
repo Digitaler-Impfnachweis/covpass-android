@@ -153,9 +153,20 @@ public data class GroupedCertificates(
      * Negative PCR-Test, older then (>) 72 Hrs, or negative quick test older then (>) 48 Hrs
      */
     public fun getMainCertificate(): CombinedCovCertificate {
-        val certificateSortedList = certificates.sortedWith { cert1, cert2 ->
-            cert2.covCertificate.validFrom?.compareTo(cert1.covCertificate.validFrom) ?: 0
-        }
+        val certificateSortedList =
+            certificates.filter { it.covCertificate.dgcEntry is Vaccination }.sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                ) ?: 0
+            } + certificates.filter { it.covCertificate.dgcEntry is Recovery }.sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+                ) ?: 0
+            } + certificates.filter { it.covCertificate.dgcEntry is TestCert }.sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
+                ) ?: 0
+            }
         return certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is TestCert && dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST &&
