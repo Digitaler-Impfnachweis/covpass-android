@@ -20,6 +20,8 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueResultPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.dialog.DialogAction
+import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
@@ -34,7 +36,7 @@ public class ReissueResultFragmentNav(
     public val listCertIds: List<String>,
 ) : FragmentNav(ReissueResultFragment::class)
 
-public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents {
+public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, DialogListener {
 
     private val args: ReissueResultFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState { ReissueResultViewModel(scope, args.listCertIds) }
@@ -99,6 +101,10 @@ public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents {
     override fun onBackPressed(): Abortable {
         findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
         return Abort
+    }
+
+    override fun onDialogAction(tag: String, action: DialogAction) {
+        findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
     }
 
     override fun onClickOutside() {}
