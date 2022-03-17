@@ -166,10 +166,10 @@ internal class CovPassCheckQRScannerFragment :
     override fun on3gSuccess(certificate: CovCertificate) {
         findNavigator().push(
             ValidationResultSuccessNav(
-                certificate.fullName,
-                certificate.fullTransliteratedName,
-                formatDateFromString(certificate.birthDateFormatted),
-                certificate.getExpertModeData()
+                name = certificate.fullName,
+                transliteratedName = certificate.fullTransliteratedName,
+                birthDate = formatDateFromString(certificate.birthDateFormatted),
+                expertModeData = certificate.getExpertModeData()
             )
         )
     }
@@ -177,11 +177,11 @@ internal class CovPassCheckQRScannerFragment :
     override fun on3gValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         findNavigator().push(
             ValidPcrTestFragmentNav(
-                certificate.fullName,
-                formatDateFromString(certificate.birthDateFormatted),
-                certificate.fullTransliteratedName,
-                sampleCollection,
-                certificate.getExpertModeData()
+                name = certificate.fullName,
+                transliteratedName = certificate.fullTransliteratedName,
+                birthDate = formatDateFromString(certificate.birthDateFormatted),
+                sampleCollection = sampleCollection,
+                expertModeData = certificate.getExpertModeData()
             )
         )
     }
@@ -189,11 +189,11 @@ internal class CovPassCheckQRScannerFragment :
     override fun on3gValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         findNavigator().push(
             ValidAntigenTestFragmentNav(
-                certificate.fullName,
-                certificate.fullTransliteratedName,
-                formatDateFromString(certificate.birthDateFormatted),
-                sampleCollection,
-                certificate.getExpertModeData()
+                name = certificate.fullName,
+                transliteratedName = certificate.fullTransliteratedName,
+                birthDate = formatDateFromString(certificate.birthDateFormatted),
+                sampleCollection = sampleCollection,
+                expertModeData = certificate.getExpertModeData()
             )
         )
     }
