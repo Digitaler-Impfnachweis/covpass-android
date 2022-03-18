@@ -329,6 +329,7 @@ internal class ValidationResultFailure2gFragmentNav :
 internal class ValidationResultFailure2gFragment : ValidationResultFailureFragment() {
 
     override val buttonTextRes: Int? = null
+    override val expertModeData: ExpertModeData? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
