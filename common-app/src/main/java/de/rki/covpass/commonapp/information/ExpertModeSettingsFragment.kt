@@ -22,7 +22,7 @@ public class ExpertModeSettingsFragment : BaseFragment() {
 
     private val binding by viewBinding(ExpertModeSettingsBinding::inflate)
 
-    override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_local_rules
+    override val announcementAccessibilityRes: Int = R.string.accessibility_revocation_detail_page_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,8 +54,7 @@ public class ExpertModeSettingsFragment : BaseFragment() {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
                 setHomeAsUpIndicator(R.drawable.back_arrow)
-                // TODO add accessibility title
-//                setHomeActionContentDescription(R.string.accessibility_app_information_contact_label_back)
+                setHomeActionContentDescription(R.string.accessibility_app_information_contact_label_back)
             }
             binding.expertModeToolbar.setTitle(R.string.revocation_headline)
         }

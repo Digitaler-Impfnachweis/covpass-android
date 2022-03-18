@@ -77,6 +77,7 @@
   <string name="revocation_copy"/>
   <string name="revocation_headline"/>
   <string name="revocation_toggle_text"/>
+  <string name="accessibility_revocation_detail_page_announce"/>
 
   <string name="dialog_start_screen_title"/>
   <string name="dialog_start_screen_message"/>
