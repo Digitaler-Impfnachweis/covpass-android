@@ -155,6 +155,10 @@ public data class GroupedCertificates(
     public fun getMainCertificate(): CombinedCovCertificate {
         val certificateSortedList =
             certificates.filter { it.covCertificate.dgcEntry is Vaccination }.sortedWith { cert1, cert2 ->
+                (cert1.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses?.compareTo(
+                    (cert2.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses ?: 0
+                ) ?: 0
+            }.sortedWith { cert1, cert2 ->
                 (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
                     (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
                 ) ?: 0
@@ -198,7 +202,8 @@ public data class GroupedCertificates(
     /**
      * @return The [certificates] sorted by the date of adding them. Most recently added one first.
      */
-    public fun getSortedCertificates(): List<CombinedCovCertificate> = certificates.sortedByDescending { it.timestamp }
+    public fun getSortedCertificates(): List<CombinedCovCertificate> =
+        certificates.sortedByDescending { it.timestamp }
 
     /**
      * @return The latest [CombinedCovCertificate] that is a [Vaccination]

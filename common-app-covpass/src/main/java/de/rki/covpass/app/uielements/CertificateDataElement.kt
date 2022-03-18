@@ -141,7 +141,7 @@ public class CertificateDataElement @JvmOverloads constructor(
                 info = getString(R.string.recovery_certificate_detail_view_title)
                 date = getString(
                     R.string.certificates_overview_recovery_certificate_valid_until_date,
-                    covCertificate.validUntil?.formatDateOrEmpty() ?: ""
+                    (covCertificate.dgcEntry as Recovery).validUntil?.formatDateOrEmpty() ?: ""
                 )
             }
         }
