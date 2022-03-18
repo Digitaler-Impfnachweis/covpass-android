@@ -88,7 +88,7 @@ public class CertificateFilteringTicketingAdapter(
                         )
                         certificateDataElementDate.text = getString(
                             R.string.certificates_overview_vaccination_certificate_date,
-                            dgcEntry.validDate.formatDateOrEmpty()
+                            dgcEntry.occurrence.formatDateOrEmpty()
                         )
                     }
                     is TestCert -> {

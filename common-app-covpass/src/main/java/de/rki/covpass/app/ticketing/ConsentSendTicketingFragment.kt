@@ -169,7 +169,7 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                     )
                     certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_vaccination_certificate_date,
-                        dgcEntry.validDate.formatDateOrEmpty()
+                        dgcEntry.occurrence.formatDateOrEmpty()
                     )
                 }
                 is TestCert -> {
