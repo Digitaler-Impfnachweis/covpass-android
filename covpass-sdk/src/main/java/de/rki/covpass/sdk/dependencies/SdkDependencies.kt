@@ -55,6 +55,7 @@ import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcCryptor
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcSigner
 import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
 import de.rki.covpass.sdk.utils.DscListUpdater
+import de.rki.covpass.sdk.utils.RevocationCodeEncryptor
 import de.rki.covpass.sdk.utils.readTextAsset
 import dgca.verifier.app.engine.*
 import kotlinx.serialization.cbor.Cbor
@@ -144,6 +145,14 @@ public abstract class SdkDependencies {
     public val decoder: DscListDecoder by lazy { DscListDecoder(publicKey.first()) }
 
     private val publicKey by lazy { application.readPemKeyAsset("covpass-sdk/dsc-list-signing-key.pem") }
+
+    private val revocationPublicKey by lazy {
+        application.readPemKeyAsset("covpass-sdk/revocation-public-key.pem")
+    }
+
+    public val revocationCodeEncryptor: RevocationCodeEncryptor by lazy {
+        RevocationCodeEncryptor(revocationPublicKey.first())
+    }
 
     /**
      * The [QRCoder].
