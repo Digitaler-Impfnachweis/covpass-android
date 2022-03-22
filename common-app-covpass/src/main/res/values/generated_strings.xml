@@ -758,4 +758,8 @@
 	<string name="certificate_renewal_confirmation_page_certificate_delete_button">Delete old certificate</string>
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Delete later</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Update</string>
+	<string name="certificate_renewal_error_title">Reissue failed</string>
+	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your Internet connection and note that the same certificate can be reissued a maximum of three times a year. If the error persists, please refer to the Frequently Asked Questions for more information using the error code below.\n\nError code: %s</string>
+	<string name="certificate_renewal_error_button_primary">OK</string>
+	<string name="certificate_renewal_error_button_secondary">More information</string>
 </resources>

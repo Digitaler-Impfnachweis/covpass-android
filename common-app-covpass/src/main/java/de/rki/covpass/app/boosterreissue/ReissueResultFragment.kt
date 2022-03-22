@@ -5,6 +5,8 @@
 
 package de.rki.covpass.app.boosterreissue
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -104,7 +106,20 @@ public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, Dia
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
+        when (action) {
+            DialogAction.NEGATIVE -> {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.covpass_reissuing_faq_link))
+                    )
+                )
+            }
+            DialogAction.POSITIVE -> {
+                findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
+            }
+            else -> {}
+        }
     }
 
     override fun onClickOutside() {}
