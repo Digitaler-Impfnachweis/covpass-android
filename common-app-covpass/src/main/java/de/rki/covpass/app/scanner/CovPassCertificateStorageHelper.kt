@@ -22,10 +22,10 @@ public object CovPassCertificateStorageHelper {
                     covCertificate = covCertificate,
                     qrContent = qrContent,
                     timestamp = System.currentTimeMillis(),
-                    status = if (covCertificate.isInExpiryPeriod()) {
-                        CertValidationResult.ExpiryPeriod
-                    } else {
-                        CertValidationResult.Valid
+                    status = when {
+                        covCertificate.isExpired() -> CertValidationResult.Expired
+                        covCertificate.isInExpiryPeriod() -> CertValidationResult.ExpiryPeriod
+                        else -> CertValidationResult.Valid
                     },
                     hasSeenBoosterNotification = false,
                     hasSeenBoosterDetailNotification = false,

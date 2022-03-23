@@ -41,3 +41,9 @@ public fun CovCertificate.isInExpiryPeriod(): Boolean =
         validUntil,
         ZoneId.systemDefault()
     ).minusDays(28).isBefore(ZonedDateTime.now())
+
+public fun CovCertificate.isExpired(): Boolean =
+    ZonedDateTime.ofInstant(
+        validUntil,
+        ZoneId.systemDefault()
+    ).isBefore(ZonedDateTime.now())

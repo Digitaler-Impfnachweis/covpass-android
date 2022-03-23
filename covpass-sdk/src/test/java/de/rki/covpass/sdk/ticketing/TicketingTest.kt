@@ -103,7 +103,7 @@ internal class TicketingTest {
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.ExpiryPeriod)
+            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
         )
     }
 
@@ -120,7 +120,7 @@ internal class TicketingTest {
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.ExpiryPeriod)
+            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
         )
     }
 
@@ -137,7 +137,7 @@ internal class TicketingTest {
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certVaccinationIncomplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.ExpiryPeriod)
+            certVaccinationIncomplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
         )
     }
 
@@ -154,7 +154,7 @@ internal class TicketingTest {
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certRecovery.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.ExpiryPeriod)
+            certRecovery.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
         )
     }
 
@@ -184,7 +184,7 @@ internal class TicketingTest {
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certVaccinationComplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.ExpiryPeriod)
+            certVaccinationComplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
         )
     }
 

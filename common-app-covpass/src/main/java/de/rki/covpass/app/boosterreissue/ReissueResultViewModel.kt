@@ -47,7 +47,7 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
                 qrContents
             ).certificate
 
-            val covCertificate = qrCoder.decodeCovCert(qrContent = reissuedCertificate)
+            val covCertificate = qrCoder.decodeCovCert(qrContent = reissuedCertificate, allowExpiredCertificates = true)
 
             CovPassCertificateStorageHelper.addNewCertificate(
                 certRepository.certs,

@@ -48,7 +48,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                     onTicketingQrcodeScan(data)
                 }
             } catch (e: SerializationException) {
-                val covCertificate = qrCoder.decodeCovCert(qrContent)
+                val covCertificate = qrCoder.decodeCovCert(qrContent, allowExpiredCertificates = true)
                 validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
                 validateMisusePrevention(
                     certRepository.certs.value.certificates,

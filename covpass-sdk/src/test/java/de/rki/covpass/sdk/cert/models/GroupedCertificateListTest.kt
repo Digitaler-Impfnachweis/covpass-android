@@ -312,32 +312,32 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
         assertEquals(
             certIncomplete1.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idIncomplete1)
         )
         assertEquals(
             certComplete1.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idComplete1)
         )
         assertEquals(
             certIncomplete2.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idIncomplete2)
         )
         assertEquals(
             certComplete2.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idComplete2)
         )
         assertEquals(
             certIncomplete3.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idIncomplete3)
         )
         assertEquals(
             certComplete3.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idComplete3)
         )
     }
@@ -357,24 +357,24 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
         assertEquals(
             certIncomplete1.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idIncomplete1)
         )
         assertNull(groupedCertificatesList.getCombinedCertificate(idComplete1))
         assertNull(groupedCertificatesList.getCombinedCertificate(idIncomplete2))
         assertEquals(
             certComplete2.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idComplete2)
         )
         assertEquals(
             certIncomplete3.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idIncomplete3)
         )
         assertEquals(
             certComplete3.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             groupedCertificatesList.getCombinedCertificate(idComplete3)
         )
     }
@@ -455,7 +455,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         assertEquals(1, certificatesComplete1?.certificates?.size)
         assertEquals(
             certComplete1.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             certificatesComplete1?.certificates?.get(0)
         )
 
@@ -480,12 +480,12 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         assertEquals(2, certificatesComplete3?.certificates?.size)
         assertEquals(
             certIncomplete3.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             certificatesComplete3?.certificates?.get(0)
         )
         assertEquals(
             certComplete3.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.ExpiryPeriod),
+                .toCombinedCovCertificate(CertValidationResult.Expired),
             certificatesComplete3?.certificates?.get(1)
         )
     }
@@ -550,7 +550,10 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         every { qrCoder.decodeCovCert(any()) } throws BlacklistedEntityException()
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
 
-        assertTrue(groupedCertificatesList.getValidCertificates().isEmpty())
+        assertEquals(
+            groupedCertificatesList.certificates.size,
+            groupedCertificatesList.getValidCertificates().size
+        )
     }
 
     @Test
@@ -566,7 +569,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
 
         assertEquals(
-            groupedCertificatesList.certificates.size - 1,
+            groupedCertificatesList.certificates.size,
             groupedCertificatesList.getValidCertificates().size
         )
     }

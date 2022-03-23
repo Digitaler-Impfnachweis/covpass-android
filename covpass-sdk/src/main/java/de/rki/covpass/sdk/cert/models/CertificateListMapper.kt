@@ -13,15 +13,16 @@ public class CertificateListMapper(
         val groupedCertificatesList = GroupedCertificatesList()
         for (localCert in covCertificateList.certificates) {
             val error = runCatching {
-                val covCertificate = qrCoder.decodeCovCert(localCert.qrContent)
+                val covCertificate = qrCoder.decodeCovCert(localCert.qrContent, allowExpiredCertificates = true)
                 validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
             }.exceptionOrNull()
             val status = when (error) {
                 null ->
-                    if (localCert.covCertificate.isInExpiryPeriod())
-                        CertValidationResult.ExpiryPeriod
-                    else
-                        CertValidationResult.Valid
+                    when {
+                        localCert.covCertificate.isExpired() -> CertValidationResult.Expired
+                        localCert.covCertificate.isInExpiryPeriod() -> CertValidationResult.ExpiryPeriod
+                        else -> CertValidationResult.Valid
+                    }
                 is ExpiredCwtException -> {
                     val blacklistedEntityError = runCatching {
                         validateEntity(localCert.covCertificate.dgcEntry.idWithoutPrefix)

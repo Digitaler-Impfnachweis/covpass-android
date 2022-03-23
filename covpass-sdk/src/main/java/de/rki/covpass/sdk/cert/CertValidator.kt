@@ -17,6 +17,7 @@ import de.rki.covpass.sdk.utils.trimAllStrings
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
 import java.security.GeneralSecurityException
+import java.security.cert.CertificateExpiredException
 import java.security.cert.X509Certificate
 import java.time.Instant
 
@@ -86,9 +87,13 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
      * @throws ExpiredCwtException If the [CBORWebToken] has expired.
      * @throws BadCoseSignatureException If the signature validation failed.
      */
-    public fun decodeAndValidate(cose: Sign1Message, isExpertMode: Boolean = false): CovCertificate {
+    public fun decodeAndValidate(
+        cose: Sign1Message,
+        isExpertMode: Boolean = false,
+        allowExpiredCertificates: Boolean = false
+    ): CovCertificate {
         val cwt = CBORWebToken.decode(cose.GetContent())
-        if (cwt.validUntil.isBefore(Instant.now())) {
+        if (cwt.validUntil.isBefore(Instant.now()) && !allowExpiredCertificates) {
             throw ExpiredCwtException()
         }
 
@@ -101,7 +106,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             ?: state.trustedCerts.toList()
         for (cert in certs) {
             try {
-                cert.certificate.checkValidity()
+                checkValidity(cert, allowExpiredCertificates)
                 // Validate the COSE signature
                 if (cose.validate(OneKey(cert.certificate.publicKey, null))) {
                     val covCertificate = decodeAndValidate(cwt, cert.certificate)
@@ -114,6 +119,16 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             }
         }
         throw BadCoseSignatureException()
+    }
+
+    private fun checkValidity(cert: TrustedCert, allowExpiredCertificates: Boolean) {
+        try {
+            cert.certificate.checkValidity()
+        } catch (e: CertificateExpiredException) {
+            if (!allowExpiredCertificates) {
+                throw e
+            }
+        }
     }
 
     private fun addDataForExportMode(
