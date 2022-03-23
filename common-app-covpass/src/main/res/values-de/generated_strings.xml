@@ -759,7 +759,7 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Später löschen</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Aktualisieren</string>
 	<string name="certificate_renewal_error_title">Neuausstellung fehlgeschlagen</string>
-	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuaustellung Ihres Zertifikates.Bitte überprüfen Sie Ihre Internetverbindung und beachten Sie, dass das selbe Zertifikat maximal drei Mal im Jahr neu ausgestellt werden kann. Sollte der Fehler wiederholt auftreten, finden Sie mit Hilfe des unten aufgeführten Fehlercodes weitere Informationen in den Häufigen Fragen.\n\nFehlercode: %s</string>
+	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuaustellung Ihres Zertifikates. Bitte überprüfen Sie Ihre Internetverbindung und beachten Sie, dass das selbe Zertifikat maximal drei Mal im Jahr neu ausgestellt werden kann. Sollte der Fehler wiederholt auftreten, finden Sie mit Hilfe des unten aufgeführten Fehlercodes weitere Informationen in den Häufigen Fragen.\n\nFehlercode: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
 	<string name="certificate_renewal_error_button_secondary">Mehr Informationen</string>
 </resources>

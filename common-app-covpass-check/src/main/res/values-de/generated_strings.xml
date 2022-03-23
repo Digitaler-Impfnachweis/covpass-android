@@ -270,6 +270,7 @@
 	<string name="revocation_detail_page_date_of_issuance">Ausstellungsdatum</string>
 	<string name="accessibility_revocation_detail_page_announce">Technische Details zum Zertifikat wurden geöffnet</string>
 	<string name="certificate_share_pdf_shareitem_android_covpasscheck">PDF speichern</string>
+	<string name="accessibility_revocation_settings_page_announce">Einstellungen zur Behördenfunktion wurden geöffnet</string>
 
 	<!-- SECTION: country list names -->
 	<string name="IT">Italien</string>

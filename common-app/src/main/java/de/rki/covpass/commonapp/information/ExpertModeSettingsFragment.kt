@@ -22,7 +22,7 @@ public class ExpertModeSettingsFragment : BaseFragment() {
 
     private val binding by viewBinding(ExpertModeSettingsBinding::inflate)
 
-    override val announcementAccessibilityRes: Int = R.string.accessibility_revocation_detail_page_announce
+    override val announcementAccessibilityRes: Int = R.string.accessibility_revocation_settings_page_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
