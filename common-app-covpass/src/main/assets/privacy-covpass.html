@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 200px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Last amended: 15 February 2022, app version 1.18</p>
+<body><p>Last amended: 15 March 2022, app version 1.21</p>
 <h1 id="covpass-app-privacy-notice">CovPass app privacy notice</h1>
 <p>This privacy notice explains how your data is processed and what data protection rights you have when using the
     CovPass app to manage certain certificates – digital COVID Certificates proving coronavirus vaccinations, negative
@@ -193,6 +193,31 @@
     RKI cannot tell which certificates you have selected and had verified or which trips or events you have booked.</p>
 <p>The RKI is not responsible for the data processing performed by the provider and the verification partner. Please
     read their privacy notices so that you know what your data is used for and how it is used.</p>
+<h3>g. Update feature</h3>
+<p>It may happen that the app offers you to update a valid certificate. If, for
+    example, the EU Member States decide to change the content or structure
+    of the certificate data (see Section 5 a.), then it may be necessary to apply
+    that formal or technical change to your certificates so that you can continue
+    to use them without any problems.</p>
+<p>The app uses the data contained in the certificates to check whether it is
+    possible to update a certificate via the app. If this is the case, you will then
+    be advised of a possible update. For the update, with your consent, the
+    certificate required for the update will be transmitted from the app to the
+    app’s server system in encrypted form. If the certificate to be updated is a
+    vaccination certificate proving a booster vaccination, then the certificates
+    proving the basic immunisation or recovery prior to the booster vaccination
+    will also be transmitted to the app’s server system in the process. The
+    validity of the transmitted certificates will then be checked there (see
+    Section 4 c.). A new version of the certificate for the booster vaccination will
+    be generated using the data from the transmitted certificates. During the
+    update, the contents of the transmitted certificates will be processed for a
+    short time. The updated certificate will then be sent back to your app.</p>
+<p>In order to be able to prevent users from using the update feature several
+    times, which is not permitted, the signatures of the updated and new
+    certificates are temporarily stored by means of special one-way encryption
+    (what are known as hash values). The hash values cannot be used to infer
+    the certificate data or other information about you. The hash values will be
+    deleted again 365 days after the update.</p>
 <h2 id="what-data-is-processed">5. What data is processed?</h2>
 <h3 id="a.-certificate-data">a. Certificate data</h3>
 <p>The certificates contain health data and are stored in a secure area on your smartphone. The certificates contain the
@@ -211,6 +236,9 @@
 <p>This data will be stored in the app as soon as you scan the QR code on the printed certificate. This data was
     collected previously by the entity that issued the certificate, and transmitted to the RKI so that the certificate
     could be signed.</p>
+<p>When a certificate is updated, the hash values of the signature of the
+    updated and new certificates are temporarily stored on the app’s server
+    system by means of special one-way encryption (see Section 4 e.).</p>
 <h3 id="b.-access-data">b. Access data</h3>
 <p>In order to download the RKI’s public key for authenticating the electronic signature, the revocation lists and
     current rules of the Member States on the validity of certificates, and the rules on booster vaccination
@@ -268,10 +296,17 @@
     on your consent. The legal basis is Art. 6 (1) lit. a, Art. 9 (2) lit. a DSGVO.</p>
 <p>The legal basis for the processing of the access data mentioned above in Section 5 b. is Sect. 3 of the German
     Federal Data Protection Act (BDSG) and Art. 6(1) Sentence 1(e) GDPR.</p>
+<p>When updating certificates (see Section 4 e.), the data of the certificates
+    that have been submitted for updating is processed on the basis of your
+    consent. The legal basis is Art. 6(1) Sentence 1(a), Art. 9(2)(a) GDPR.
+    Temporary storage of the hash value of the signature of the updated
+    certificate is carried out on the basis of Sect. 22(1)(c) BDSG and Art. 9(2)(i)
+    GDPR.</p>
 <h2 id="what-permissions-does-the-app-require">7. What permissions does the app require?</h2>
 <p>The CovPass app requires access to your smartphone camera when you scan the QR code to add a certificate in the app.
-    The app also requires an internet connection in order to download the latest key information from the RKI server
-    system. For information about other permissions the app may request, please refer to the FAQ section in the app.</p>
+    The app also requires an internet connection in order to download up-to-date information from the
+    RKI’s server system (e.g. the latest key information, revocation lists).
+    For information about other permissions the app may request, please refer to the FAQ section in the app.</p>
 <h2 id="when-will-your-data-be-deleted">8. When will your data be deleted?</h2>
 <p>The certificates will only be stored in the app on your smartphone. The certificates are not automatically deleted in
     your app. If you wish to delete a certificate, you can remove a certificate from the app yourself at any time or
@@ -279,9 +314,13 @@
     certificate.</p>
 <p>The booking information required for the verification of certificates for ticket bookings will be deleted after the
     verification.</p>
-<p>The RKI does not permanently store any personal data relating to the certificates on the server system. Immediately
-    after the signed certificate has been provided to the issuing entity, the data is permanently deleted at the
-    RKI.</p>
+<p>When a certificate has been created, the data is permanently deleted at the
+    RKI immediately after the signed certificate has been provided to the issuing
+    entity.</p>
+<p>In the case of updating a certificate, the data will be deleted again at the
+    RKI after the updated certificate has been sent to your app. Only the hash
+    values of the updated and new certificates will be stored on the RKI’s server
+    system for 365 days</p>
 <h2 id="who-will-receive-your-personal-data">9. Who will receive your personal data?</h2>
 <p>The RKI has commissioned the company KDO Service GmbH (KDO) to operate and maintain the server system. KDO processes
     the personal data on behalf and at the instruction of the RKI (meaning it is what’s known as a processor under data
@@ -291,7 +330,7 @@
     certificate.</p>
 <p>You can prevent this by showing the QR code in the app, so that it can be scanned using a verification
     app. Then, the data contained in the QR code will be read. Here the verification app will only show whether the
-    certificate shown is valid, together with an explanation of the result and, if applicable, whether
+    certificate shown is valid, an explanation of the result and, if applicable, whether
     another certificate needs to be scanned (“2G+”). In the case of a valid certificate, the name
     and date of birth of the certificate holder are displayed additionally in the verification app, so that the person
     performing the check can compare this information with an ID document (e.g. passport or ID card). In addition, it is
@@ -317,8 +356,10 @@
 </ul>
 <p>Please note that the RKI can only fulfil the rights mentioned above if data to which the asserted claims relate is
     processed on an ongoing basis. This would only be possible if personal data were stored after being transmitted to
-    the RKI server. This is not necessary for the purposes of the app. For this reason, the aforementioned data
-    protection rights under Art. 15, 16, 17, 18 and 21 GDPR are largely redundant.</p>
+    the RKI server. This is not generally necessary for the purposes of the app. For this reason, the aforementioned data
+    protection rights under Art. 15, 16, 17, 18 and 21 GDPR are largely redundant. If the hash value of the
+    signature is temporarily stored when a certificate is updated, this does not
+    enable the RKI to determine the identity of certificate holders (see Section 4 e.).</p>
 <h2 id="data-protection-officer-and-contact">11. Data protection officer and contact</h2>
 <p>If you have any questions or concerns regarding data protection in connection with the CovPass app, you are welcome
     to send them to the RKI’s official data protection officer by post to: Robert Koch-Institut, FAO the data protection
