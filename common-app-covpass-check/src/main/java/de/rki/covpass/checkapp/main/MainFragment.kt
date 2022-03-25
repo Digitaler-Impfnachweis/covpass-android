@@ -28,9 +28,9 @@ import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BackgroundUpdateViewModel.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
-import de.rki.covpass.commonapp.truetime.TimeValidationState
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -137,7 +137,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                         iconRes = R.drawable.info_warning,
                     )
                 }
-                TimeValidationState.NotInitialized, TimeValidationState.Success -> {
+                TimeValidationState.Success -> {
                     binding.mainClockOutOfSync.isVisible = false
                 }
             }.let { }

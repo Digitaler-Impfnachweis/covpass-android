@@ -24,7 +24,11 @@ public class App : CommonApplication() {
             override val errorHandler = ErrorHandler()
         }
         start()
-        initializeTrueTime()
+        initializeKronosClock()
+    }
+
+    private fun initializeKronosClock() {
+        commonDeps.kronosClock.syncInBackground()
     }
 
     override fun getAppVariantAndVersion(): String = "CovPassCheckApp/$appVersion"

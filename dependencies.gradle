@@ -210,7 +210,7 @@ dependencies {
         }
 
         clockSync = {
-            api "com.github.instacart.truetime-android:library:3.5"
+            api "com.lyft.kronos:kronos-android:0.0.1-alpha11"
         }
 
         worker = {

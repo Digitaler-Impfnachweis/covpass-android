@@ -16,9 +16,6 @@ import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.navigation.android.*
 import com.ibm.health.common.securityprovider.initSecurityProvider
-import com.instacart.library.truetime.TrueTime
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.truetime.CustomCache
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
 import de.rki.covpass.logging.Lumber
@@ -26,7 +23,6 @@ import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.RulesUpdateRepository.Companion.CURRENT_LOCAL_DATABASE_VERSION
-import de.rki.covpass.sdk.utils.retry
 import kotlinx.coroutines.runBlocking
 
 /** Common base application with some common functionality like setting up logging. */
@@ -85,25 +81,6 @@ public abstract class CommonApplication : Application() {
         }
     }
 
-    public fun initializeTrueTime() {
-        Thread {
-            runBlocking {
-                retry {
-                    // TODO temporary fix
-                    TrueTime.clearCachedInfo()
-
-                    TrueTime
-                        .build()
-                        .withNtpHost(DE_NTP_HOST)
-                        .withConnectionTimeout(10000)
-                        .withCustomizedCache(CustomCache())
-                        .initialize()
-                }
-                commonDeps.timeValidationRepository.validate()
-            }
-        }.start()
-    }
-
     private fun prepopulateDb() {
         runBlocking {
             if (sdkDeps.rulesUpdateRepository.localDatabaseVersion.value != CURRENT_LOCAL_DATABASE_VERSION) {
@@ -140,9 +117,5 @@ public abstract class CommonApplication : Application() {
                 )
             }
         }
-    }
-
-    private companion object {
-        private const val DE_NTP_HOST = "1.de.pool.ntp.org"
     }
 }
