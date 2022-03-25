@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 200px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Stand 15.02.2022, zuletzt aktualisiert mit der App-Version 1.18</p>
+<body><p>Stand 15.03.2022, zuletzt aktualisiert mit der App-Version 1.21</p>
 <h1 id="datenschutzerklärung-covpass-app">Daten­schutz­erklärung CovPass-App</h1>
 <p>In dieser Datenschutzerklärung erfahren Sie, wie Ihre Daten verarbeitet werden und welche Datenschutzrechte Sie
     haben, wenn Sie die CovPass-App zur Verwaltung der Nachweise in Form der digitalen COVID-Zertifikate zu
@@ -198,6 +198,34 @@
     Veranstaltungen Sie gebucht haben.</p>
 <p>Für die Datenverarbeitung durch den Anbieter und den Prüfpartner ist das RKI nicht verantwortlich. Lesen Sie bitte
     deren Datenschutzhinweise, damit Sie wissen, wozu und wie Ihre Daten verwendet werden.</p>
+<h3>e. Aktualisierungsfunktion</h3>
+<p>Es kann vorkommen, dass die App Ihnen die Aktualisierung eines gültigen
+    Zertifikats anbietet. Beschließen die EU-Mitgliedstaaten beispielsweise eine
+    Änderung des Inhalts oder der Datenstruktur der Zertifikatsdaten (siehe
+    Abschnitt 5 a.), kann es für die reibungslose weitere Zertifikatsnutzung
+    erforderlich sein, die jeweilige inhaltliche oder technische Änderung auf Ihre
+    Zertifikate anzuwenden.</p>
+<p>Die App überprüft anhand der in den Zertifikaten enthaltenen Daten, ob eine
+    Aktualisierung eines Zertifikats über die App möglich ist. Sie werden dann auf
+    eine mögliche Aktualisierung hingewiesen. Für die Aktualisierung wird mit
+    Ihrem Einverständnis das für die Aktualisierung benötigte Zertifikat von der
+    App verschlüsselt an das Serversystem der App übermittelt. Wenn es sich bei
+    dem zu aktualisierenden Zertifikat um ein Impfzertifikat zum Nachweis einer
+    Auffrischungsimpfung handelt, werden dabei auch die Zertifikate zum
+    Nachweis der der Auffrischungsimpfung vorausgegangenen
+    Grundimmunisierung bzw. Genesung an das Serversystem der App
+    übermittelt. Dort wird dann die Gültigkeit der übermittelten Zertifikate
+    geprüft (siehe Abschnitt 4 c.). Anhand der Daten aus den übermittelten
+    Zertifikaten wird eine neue Version des Zertifikats für die
+    Auffrischungsimpfung generiert. Bei der Aktualisierung werden die Inhalte
+    der übermittelten Zertifikate kurzzeitig verarbeitet. Das aktualisierte
+    Zertifikat wird sodann an Ihre App zurückübermittelt.</p>
+<p>Um eine missbräuchliche mehrfache Verwendung der Aktualisierungsfunktion
+    verhindern zu können, werden die Signaturen des aktualisierten und des
+    neuen Zertifikats in Form spezieller Einwegverschlüsselungen (sog. Hash-
+    Werte) vorübergehend gespeichert. Aus den Hash-Werten kann nicht auf die
+    Zertifikatsdaten oder andere Angaben zu Ihrer Person geschlossen werden.
+    365 Tage nach der Aktualisierung werden die Hash-Werte wieder gelöscht.</p>
 <h2 id="welche-daten-werden-verarbeitet">5. Welche Daten werden verarbeitet?</h2>
 <h3 id="a.-zertifikatsdaten">a. Zertifikatsdaten</h3>
 <p>Die Zertifikate enthalten Gesundheitsdaten und werden in einem gesicherten Bereich auf Ihrem Smartphone gespeichert.
@@ -211,12 +239,16 @@
     <li>einen QR-Code, der die zuvor genannten Daten in kodierter Form enthält.</li>
 </ul>
 <p>Welche konkreten Informationen in einem Zertifikat enthalten sind, können
-    Sie vollständig den Angaben auf dem jeweiligen Zertifikat (in deutscher und
+    Sie den Angaben auf dem jeweiligen Zertifikat (in deutscher und
     englischer Sprache) entnehmen. Weitere Informationen als die auf dem
     jeweiligen Zertifikat angegebenen Daten werden nicht gespeichert.</p>
 <p>Diese Daten werden in der App gespeichert, sobald Sie den QR-Code auf dem ausgedruckten Zertifikat scannen. Diese
     Daten wurden zuvor von der Stelle, die das Zertifikat ausgegeben hat, erhoben und zur Signierung des Zertifikats an
     das RKI übermittelt.</p>
+<p>Anlässlich der Aktualisierung eines Zertifikats werden die Hash-Werte der
+    Signaturen des aktualisierten und des neuen Zertifikats in Form einer
+    speziellen Einwegverschlüsselung vorübergehend auf dem Serversystem der
+    App gespeichert (siehe Abschnitt 4 e.).</p>
 <h3 id="b.-zugriffsdaten">b. Zugriffsdaten</h3>
 <p>Um den öffentlichen Schlüssel des RKI für die Echtheitsprüfung der elektronischen Signatur, die aktuellen
     Widerrufslisten und Regeln der Mitgliedstaaten für die Gültigkeit der Zertifikate und die Regeln für die
@@ -280,11 +312,19 @@
     Grundlage Ihres Einverständnisses verarbeitet. Die Rechtsgrundlage ist Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a
     DSGVO. </p>
 <p>Die Rechtsgrundlage für die Verarbeitung der oben unter Abschnitt 5 b. genannten Zugriffsdaten ist § 3
-    Bundesdatenschutzgesetz und Art. 6 Abs. 1 lit. e DSGVO.</p>
+    Bundesdatenschutzgesetz (BDSG) und Art. 6 Abs. 1 lit. e DSGVO.</p>
+<p>Bei der Aktualisierung von Zertifikaten (siehe Abschnitt 4 e.) werden die
+    Zertifikatsdaten der für die Aktualisierung übermittelten Zertifikate auf
+    Grundlage Ihres Einverständnisses verarbeitet. Die Rechtsgrundlage ist Art. 6
+    Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO. Die vorübergehende Speicherung der
+    Hash-Werte der Signaturen des aktualisierten und des neuen Zertifikats
+    erfolgt auf Grundlage von § 22 Abs. 1 lit. c BDSG und Art. 9 Abs. 2 lit. i
+    DSGVO.</p>
 <h2 id="welche-berechtigungen-benötigt-die-app">7. Welche Berechtigungen benötigt die App?</h2>
 <p>Die CovPass-App benötigt Zugriff auf die Kamera Ihres Smartphones, wenn Sie den QR-Code scannen, um einen
     Impfnachweis in der App hinzuzufügen. Außerdem benötigt die App eine Internetverbindung, um von dem Serversystem des
-    RKI das aktuelle Schlüsselmaterial herunterladen zu können. Informationen zu weiteren Berechtigungen, die die App
+    RKI das aktuelle Informationen herunterladen zu können (z.B.
+    das aktuelle Schlüsselmaterial, Widerrufslisten). Informationen zu weiteren Berechtigungen, die die App
     eventuell einholt, finden Sie im Bereich „Häufige Fragen”.</p>
 <h2 id="wann-werden-ihre-daten-gelöscht">8. Wann werden Ihre Daten gelöscht?</h2>
 <p>Die Zertifikate werden nur in der App auf Ihrem Smartphone gespeichert. In Ihrer App werden die Zertifikate nicht
@@ -293,9 +333,14 @@
     ausgedruckten Zertifikats erneut scannen.</p>
 <p>Die für die Zertifikatsprüfung bei Ticketbuchungen erforderlichen Buchungsdaten werden nach der Prüfung wieder
     gelöscht.</p>
-<p>Das RKI speichert keine personenbezogenen Daten zu den Zertifikaten dauerhaft auf dem Serversystem. Unmittelbar nach
-    der Bereitstellung des signierten Zertifikats an die ausgebende Einrichtung werden die Daten beim RKI unwiderruflich
+<p>Bei der Zertifikatserstellung werden die Daten beim RKI unmittelbar nach
+    der Bereitstellung des signierten Zertifikats an die ausgebende Einrichtung unwiderruflich
     gelöscht.</p>
+<p>Im Falle der Aktualisierung eines Zertifikats werden die Daten nach der
+    Übermittlung des aktualisierten Zertifikats an Ihre App beim RKI wieder
+    gelöscht. Lediglich die Hash-Werte der Signaturen des aktualisierten und des
+    neuen Zertifikats werden für 365 Tage auf dem Serversystem des RKI
+    gespeichert.</p>
 <h2 id="an-wen-werden-ihre-personenbezogenen-daten-weitergegeben">9. An wen werden Ihre personenbezogenen Daten
     weitergegeben?</h2>
 <p>Mit dem Betrieb und der Wartung des Serversystems hat das RKI die KDO Service GmbH (KDO) beauftragt. KDO verarbeitet
@@ -334,10 +379,13 @@
 </ul>
 <p>Bitte beachten Sie, dass die vorgenannten Datenschutzrechte durch das RKI nur erfüllt werden können, wenn Daten, auf
     die sich die geltend gemachten Ansprüche beziehen, dauerhaft verarbeitet werden. Dies wäre nur möglich, wenn die an
-    den RKI-Server übermittelten Daten zu Ihrer Person gespeichert würden. Dies ist für die Zwecke der App nicht
-    erforderlich. Deshalb werden die vorgenannten Datenschutzrechte aus den Artikeln 15, 16, 17, 18 und 21 DSGVO in der
-    Regel ins Leere laufen.</p>
-<h2 id="datenschutzbeauftragter-und-kontakt">11. Datenschutz­beauftragter und Kontakt</h2>
+    den RKI-Server übermittelten Daten zu Ihrer Person gespeichert würden. Dies ist für die Zwecke der App grundsätzlich
+    nicht erforderlich. Deshalb werden die vorgenannten Datenschutzrechte aus den Artikeln 15, 16, 17, 18 und 21 DSGVO
+    in der Regel ins Leere laufen. Sofern anlässlich der
+    Aktualisierung eines Zertifikats die Hash-Werte der Signaturen
+    vorübergehend gespeichert werden, ermöglichen es diese dem RKI nicht, die
+    Identität von Zertifikatsinhabern zu ermitteln (siehe Abschnitt 4 e.).</p>
+<h2 id="datenschutzbeauftragter-und-kontakt">11. Datenschutz­beauftragte und Kontakt</h2>
 <p>Fragen und Anliegen zum Datenschutz im Zusammenhang mit der CovPass-App können Sie an die behördliche
     Datenschutzbeauftragte des RKI senden: Robert Koch-Institut, z. H. der Datenschutzbeauftragten, Nordufer 20, 13353
     Berlin oder per E-Mail an: <a href="mailto:datenschutz@rki.de" class="email">datenschutz@rki.de</a>.</p></body>
