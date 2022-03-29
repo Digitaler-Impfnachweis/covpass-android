@@ -20,14 +20,13 @@ dependencies {
                 // While kotlin-stdlib and kotlin-stdlib-common are automatically set by the gradle plugin,
                 // a few older dependencies still want kotlin-stdlib-jdk7 or kotlin-reflect based on a different Kotlin
                 // version. Make everything consistent and prevent compilation warnings.
-                def kotlinVersion = "1.5.31"
-                api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-                api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-                api "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+                api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+                api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+                api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
                 api "org.conscrypt:conscrypt-android:2.5.2"
 
-                def bouncyCastleVersion = "1.69"
+                def bouncyCastleVersion = "1.70"
                 api "org.bouncycastle:bcprov-jdk15to18:$bouncyCastleVersion"
                 api "org.bouncycastle:bcprov-jdk15on:$bouncyCastleVersion"
                 api "org.bouncycastle:bcmail-jdk15to18:$bouncyCastleVersion"
@@ -203,7 +202,7 @@ dependencies {
         }
 
         room = {
-            def roomVersion = "2.3.0"
+            def roomVersion = "2.4.2"
             api "androidx.room:room-ktx:$roomVersion"
             api "androidx.room:room-runtime:$roomVersion"
             kapt "androidx.room:room-compiler:$roomVersion"

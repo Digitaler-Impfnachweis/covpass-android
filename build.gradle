@@ -3,10 +3,14 @@
  * (C) Copyright IBM Corp. 2021
  */
 
+buildscript {
+    ext.kotlin_version = '1.6.10'
+}
+
 plugins {
     id 'com.android.application' version '7.0.4' apply false
-    id 'org.jetbrains.kotlin.android' version '1.5.31' apply false
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.31' apply false
+    id 'org.jetbrains.kotlin.android' version "$kotlin_version" apply false
+    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlin_version" apply false
     id 'io.gitlab.arturbosch.detekt' version '1.18.1' apply false
     id 'com.jaredsburrows.license' version '0.8.90' apply false
     id 'pl.allegro.tech.build.axion-release' version '1.13.3'
