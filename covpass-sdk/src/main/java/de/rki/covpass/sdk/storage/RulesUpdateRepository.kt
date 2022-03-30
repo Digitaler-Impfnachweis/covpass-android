@@ -51,6 +51,6 @@ public class RulesUpdateRepository(
     }
 
     public companion object {
-        public const val CURRENT_LOCAL_DATABASE_VERSION: Int = 3
+        public const val CURRENT_LOCAL_DATABASE_VERSION: Int = 4
     }
 }
