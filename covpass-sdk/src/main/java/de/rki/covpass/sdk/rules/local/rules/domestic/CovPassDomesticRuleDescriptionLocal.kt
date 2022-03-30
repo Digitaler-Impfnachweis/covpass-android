@@ -8,13 +8,12 @@ package de.rki.covpass.sdk.rules.local.rules.domestic
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleLocal
 
 @Entity(
     tableName = "domestic_rules_descriptions",
     foreignKeys = [
         ForeignKey(
-            entity = CovPassEuRuleLocal::class,
+            entity = CovPassDomesticRuleLocal::class,
             parentColumns = arrayOf("ruleId"),
             childColumns = arrayOf("ruleContainerId"),
             onDelete = ForeignKey.CASCADE
