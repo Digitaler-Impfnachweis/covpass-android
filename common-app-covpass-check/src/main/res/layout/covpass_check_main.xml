@@ -261,10 +261,22 @@
           android:layout_marginEnd="@dimen/grid_two_half"
           android:layout_marginBottom="@dimen/grid_three"
           android:text="@string/validation_start_screen_offline_modus_note_latest_version"
-          app:layout_constraintBottom_toTopOf="@id/main_availability_last_update_textview"
+          app:layout_constraintBottom_toTopOf="@id/main_availability_last_update_title"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/main_availability_status_imageview"
           app:layout_constraintTop_toBottomOf="@id/main_availability_info_textview" />
+
+        <TextView
+          android:id="@+id/main_availability_last_update_title"
+          style="@style/DefaultText.OnBackground70.Bold"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/grid_two_half"
+          android:layout_marginTop="@dimen/grid_two"
+          android:text="@string/validation_start_screen_offline_modus_note_update"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/main_availability_status_textview" />
 
         <TextView
           android:id="@+id/main_availability_last_update_textview"
@@ -273,10 +285,9 @@
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/grid_two_half"
           android:layout_marginBottom="@dimen/grid_two_half"
-          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/main_availability_status_textview"
+          app:layout_constraintTop_toBottomOf="@id/main_availability_last_update_title"
           tools:text="Zertifikate: 19.03.2021, 09:19" />
 
         <TextView

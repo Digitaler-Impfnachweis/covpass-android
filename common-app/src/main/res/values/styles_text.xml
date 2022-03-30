@@ -29,6 +29,10 @@
     <item name="android:textSize">@dimen/textsize_header_standard</item>
   </style>
 
+  <style name="DefaultText.OnBackground70.Bold">
+    <item name="android:fontFamily">@font/opensans_bold</item>
+  </style>
+
   <style name="DefaultText.OnInfo">
     <item name="android:textColor">@color/onInfo</item>
   </style>
