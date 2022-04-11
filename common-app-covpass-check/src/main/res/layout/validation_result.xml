@@ -5,214 +5,228 @@
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:paddingBottom="@dimen/grid_thirteen">
-
-  <ImageView
-    android:id="@+id/result_image"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_three"
-    android:scaleType="center"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:ignore="ContentDescription"
-    tools:src="@drawable/result_success_image" />
-
-  <TextView
-    android:id="@+id/result_title"
-    style="@style/Header.OnBackground.Big"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_five"
-    app:layout_constraintTop_toBottomOf="@+id/result_image"
-    tools:text="@tools:sample/lorem[3]" />
-
-  <TextView
-    android:id="@+id/result_text"
-    style="@style/DefaultText.OnBackground"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_two"
-    app:layout_constraintTop_toBottomOf="@+id/result_title"
-    tools:text="@tools:sample/lorem[3]" />
-
-  <ImageView
-    android:id="@+id/result_info_image_1"
-    android:layout_width="@dimen/icon_size_result"
-    android:layout_height="@dimen/icon_size_result"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_half"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/result_info_layout_1"
-    tools:ignore="ContentDescription"
-    tools:src="@drawable/result_search" />
-
-  <LinearLayout
-    android:id="@+id/result_info_layout_1"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_one_half"
-    android:layout_marginTop="@dimen/grid_three"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/result_info_image_1"
-    app:layout_constraintTop_toBottomOf="@+id/result_text">
-
-    <TextView
-      android:id="@+id/result_info_title_1"
-      style="@style/Header.OnBackground.Small"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]" />
-
-    <TextView
-      android:id="@+id/result_info_subtitle_1"
-      style="@style/DefaultText.OnBackground70"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      tools:text="@tools:sample/lorem[3]"
-      tools:visibility="visible" />
-
-    <TextView
-      android:id="@+id/result_info_text_1"
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]" />
-
-  </LinearLayout>
-
-  <ImageView
-    android:id="@+id/result_info_image_2"
-    android:layout_width="@dimen/icon_size_result"
-    android:layout_height="@dimen/icon_size_result"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_half"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/result_info_layout_2"
-    tools:ignore="ContentDescription"
-    tools:src="@drawable/result_invalid_technical_signature" />
-
-  <LinearLayout
-    android:id="@+id/result_info_layout_2"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_one_half"
-    android:layout_marginTop="@dimen/grid_three"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/result_info_image_2"
-    app:layout_constraintTop_toBottomOf="@+id/result_info_layout_1">
-
-    <TextView
-      android:id="@+id/result_info_title_2"
-      style="@style/Header.OnBackground.Small"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]" />
-
-    <TextView
-      android:id="@+id/result_info_text_2"
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]" />
-
-  </LinearLayout>
-
-  <ImageView
-    android:id="@+id/result_info_image_3"
-    android:layout_width="@dimen/icon_size_result"
-    android:layout_height="@dimen/icon_size_result"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_half"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/result_info_layout_3"
-    tools:ignore="ContentDescription"
-    tools:src="@drawable/result_invalid_technical_signature" />
-
-  <LinearLayout
-    android:id="@+id/result_info_layout_3"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_one_half"
-    android:layout_marginTop="@dimen/grid_three"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/result_info_image_3"
-    app:layout_constraintTop_toBottomOf="@+id/result_info_layout_2">
-
-    <TextView
-      android:id="@+id/result_info_title_3"
-      style="@style/Header.OnBackground.Small"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]" />
-
-    <TextView
-      android:id="@+id/result_info_text_3"
-      style="@style/DefaultText.OnBackground"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:text="@tools:sample/lorem[3]" />
-
-  </LinearLayout>
-
-  <TextView
-    android:id="@+id/result_info_footer"
-    style="@style/DefaultText.OnBackground70"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/grid_three"
-    android:paddingTop="@dimen/grid_three"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/result_info_layout_3"
-    tools:text="@tools:sample/lorem[3]" />
-
-  <LinearLayout
-    android:id="@+id/result_expert_mode_layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_one"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/result_info_footer">
-
-    <TextView
-      android:id="@+id/result_expert_mode_textview"
-      style="@style/Header.Info.Small"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingVertical="@dimen/grid_one"
-      android:text="@string/validation_check_popup_revoked_certificate_link_text" />
+    android:paddingBottom="@dimen/grid_thirteen">
 
     <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:layout_marginStart="@dimen/grid_one"
-      android:layout_marginTop="@dimen/grid_eighth"
-      android:importantForAccessibility="no"
-      android:src="@drawable/arrow_right_blue"
-      tools:ignore="ContentDescription" />
+        android:id="@+id/result_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_success_image" />
 
-  </LinearLayout>
+    <TextView
+        android:id="@+id/result_title"
+        style="@style/Header.OnBackground.Big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_five"
+        app:layout_constraintTop_toBottomOf="@+id/result_image"
+        tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+        android:id="@+id/result_text"
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_two"
+        app:layout_constraintTop_toBottomOf="@+id/result_title"
+        tools:text="@tools:sample/lorem[3]" />
+
+    <ImageView
+        android:id="@+id/result_info_image_1"
+        android:layout_width="@dimen/icon_size_result"
+        android:layout_height="@dimen/icon_size_result"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout_1"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_search" />
+
+    <LinearLayout
+        android:id="@+id/result_info_layout_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image_1"
+        app:layout_constraintTop_toBottomOf="@+id/result_text">
+
+        <TextView
+            android:id="@+id/result_info_title_1"
+            style="@style/Header.OnBackground.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+            android:id="@+id/result_info_subtitle_1"
+            style="@style/DefaultText.OnBackground70"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="@tools:sample/lorem[3]"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/result_info_text_1"
+            style="@style/DefaultText.OnBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[3]" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/result_info_image_2"
+        android:layout_width="@dimen/icon_size_result"
+        android:layout_height="@dimen/icon_size_result"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout_2"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_invalid_technical_signature" />
+
+    <LinearLayout
+        android:id="@+id/result_info_layout_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image_2"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_layout_1">
+
+        <TextView
+            android:id="@+id/result_info_title_2"
+            style="@style/Header.OnBackground.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+            android:id="@+id/result_info_text_2"
+            style="@style/DefaultText.OnBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[3]" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/result_info_image_3"
+        android:layout_width="@dimen/icon_size_result"
+        android:layout_height="@dimen/icon_size_result"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout_3"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_invalid_technical_signature" />
+
+    <LinearLayout
+        android:id="@+id/result_info_layout_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image_3"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_layout_2">
+
+        <TextView
+            android:id="@+id/result_info_title_3"
+            style="@style/Header.OnBackground.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+            android:id="@+id/result_info_text_3"
+            style="@style/DefaultText.OnBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[3]" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/result_info_footer"
+        style="@style/DefaultText.OnBackground70"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/grid_three"
+        android:paddingTop="@dimen/grid_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_layout_3"
+        tools:text="@tools:sample/lorem[3]" />
+
+    <de.rki.covpass.commonapp.uielements.InfoElement
+        android:id="@+id/revocation_legal_notification"
+        style="@style/InfoElement.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_footer"
+        tools:description="@string/validation_check_popup_revoked_certificate_box_text"
+        tools:icon="@drawable/info_icon"
+        tools:title="@string/revocation_headline"
+        tools:visibility="visible" />
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/result_expert_mode_layout"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/grid_three"-->
+    <!--        android:layout_marginTop="@dimen/grid_one"-->
+    <!--        android:background="?attr/selectableItemBackground"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        android:theme="@style/CovPassAppTheme.DarkControlHighlight"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/result_info_footer">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/result_expert_mode_textview"-->
+    <!--            style="@style/Header.Info.Small"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:paddingVertical="@dimen/grid_one"-->
+    <!--            android:text="@string/validation_check_popup_revoked_certificate_link_text" />-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_marginStart="@dimen/grid_one"-->
+    <!--            android:layout_marginTop="@dimen/grid_eighth"-->
+    <!--            android:importantForAccessibility="no"-->
+    <!--            android:src="@drawable/arrow_right_blue"-->
+    <!--            tools:ignore="ContentDescription" />-->
+
+    <!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

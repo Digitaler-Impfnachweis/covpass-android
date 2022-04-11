@@ -127,13 +127,13 @@
 	<string name="validation_check_popup_unsuccessful_certificate_technical_problems_message">The signature is invalid or the QR code cannot be read.</string>
 	<string name="validation_check_popup_unsuccessful_certificate_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_unsuccessful_certificate_label_close">Close</string>
-	<string name="validation_check_popup_test_title">Negative rapid test from %d hours ago</string>
+	<string name="validation_check_popup_test_title">Negative rapid test from %d hour(s) ago</string>
 	<string name="validation_check_popup_test_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_test_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_test_date_of_issue">Time sample taken</string>
 	<string name="validation_check_popup_test_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_test_label_close">Close</string>
-	<string name="validation_check_popup_valid_pcr_test_title">Negative PCR test from %d hours ago</string>
+	<string name="validation_check_popup_valid_pcr_test_title">Negative PCR test from %d hour(s) ago</string>
 	<string name="validation_check_popup_valid_pcr_test_message">Check the following data against an ID document from the person you are checking:</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_pcr_test_date_of_issue">Time sample taken</string>
@@ -165,9 +165,9 @@
 	<string name="result_2G_2nd_rapidtest_valid">Negative rapid test</string>
 	<string name="result_2G_2nd_pcrtest_valid">Negative PCR test</string>
 	<string name="result_2G_2nd_empty">May be required for 2G+</string>
-	<string name="result_2G_2nd_timestamp_hours">%d hours ago</string>
-	<string name="result_2G_2nd_timestamp_days">%d days ago</string>
-	<string name="result_2G_2nd_timestamp_months">%d months ago</string>
+	<string name="result_2G_2nd_timestamp_hours">%d hour(s) ago</string>
+	<string name="result_2G_2nd_timestamp_days">%d day(s) ago</string>
+	<string name="result_2G_2nd_timestamp_months">%d month(s) ago</string>
 	<string name="result_2G_3rd_test_vacc_empty">Test or vaccination*</string>
 	<string name="result_2G_3rd_test_recov_empty">Test or recovery</string>
 	<string name="result_2G_3rd_vacc_recov_empty">Vaccination* or recovery</string>
@@ -257,9 +257,10 @@
 
 	<!-- SECTION: revocation -->
 	<string name="revocation_headline">Function for authorities</string>
-	<string name="revocation_copy">When this function is activated, information about the revocation of a certificate can be displayed. This is only relevant for authorities. Leave this function deactivated in normal use.</string>
-	<string name="revocation_toggle_text">Show revocation information</string>
+	<string name="revocation_copy">This function is intended exclusively for police authorities and enables them to retrieve the revocation identifier of a certificate in the course of investigations. In normal use, this function should remain deactivated. Attempting to revoke a certificate without authorization using this function is punishable by law and can have serious consequences.\n\nIf you suspect that you have a forged certificate or a certificate with incorrect content, please inform the local police authority.</string>
+	<string name="revocation_toggle_text">Activate function for authorities</string>
 	<string name="validation_check_popup_revoked_certificate_link_text">Show revocation information</string>
+	<string name="validation_check_popup_revoked_certificate_box_text">This function is intended exclusively for police authorities. Attempting to revoke a certificate without authorization is punishable by law and can have serious consequences.</string>
 	<string name="revocation_detail_page_title">Technical details of the certificate</string>
 	<string name="revocation_detail_page_button_text">Create PDF</string>
 	<string name="revocation_detail_page_transaction_number">Transaction number</string>

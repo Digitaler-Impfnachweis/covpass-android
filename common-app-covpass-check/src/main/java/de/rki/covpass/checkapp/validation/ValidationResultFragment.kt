@@ -21,6 +21,7 @@ import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -66,8 +67,9 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     open val textFooter: String? = null
 
     private val expertModeVisible: Boolean by lazy {
-        commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null
+        commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null && isGermanCertificate
     }
+    open val isGermanCertificate: Boolean = false
     open val expertModeData: ExpertModeData? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,16 +110,23 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             binding.resultInfoFooter.text = textFooter
         }
 
-        binding.resultExpertModeLayout.isVisible = expertModeVisible
-        binding.resultExpertModeLayout.setOnClickListener {
-            expertModeData?.let {
-                findNavigator().push(
-                    RevocationExportFragmentNav(
-                        revocationExportData = it
+        binding.revocationLegalNotification.isVisible = expertModeVisible
+        binding.revocationLegalNotification.showInfo(
+            title = getString(R.string.revocation_headline),
+            subtitle = getString(R.string.validation_check_popup_revoked_certificate_box_text),
+            iconRes = R.drawable.info_icon,
+            description = getString(R.string.validation_check_popup_revoked_certificate_link_text),
+            descriptionLink = {
+                expertModeData?.let {
+                    findNavigator().push(
+                        RevocationExportFragmentNav(
+                            revocationExportData = it
+                        )
                     )
-                )
-            }
-        }
+                }
+            },
+            descriptionStyle = R.style.Header_Info_Small
+        )
     }
 
     override fun onBackPressed(): Abortable {
@@ -140,6 +149,7 @@ internal class ValidationResultSuccessNav(
     val transliteratedName: String,
     val birthDate: String,
     val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
 ) : FragmentNav(ValidationResultSuccessFragment::class)
 
 /**
@@ -166,6 +176,7 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_valid_vaccination_recovery_note)
     }
 
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
@@ -178,6 +189,7 @@ internal class ValidPcrTestFragmentNav(
     val birthDate: String,
     val sampleCollection: ZonedDateTime?,
     val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
 ) : FragmentNav(ValidPcrTestResultFragment::class)
 
 /**
@@ -212,6 +224,7 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_valid_pcr_test_date_of_issue)
     }
 
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_button_title
@@ -224,6 +237,7 @@ internal class ValidAntigenTestFragmentNav(
     val birthDate: String,
     val sampleCollection: ZonedDateTime?,
     val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
 ) : FragmentNav(ValidAntigenTestResultFragment::class)
 
 /**
@@ -258,6 +272,7 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_test_date_of_issue)
     }
 
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.validation_check_popup_test_button_title
@@ -267,6 +282,7 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
 internal class ValidationResultFailureFragmentNav(
     val is2gOn: Boolean = false,
     val expertModeData: ExpertModeData? = null,
+    val isGermanCertificate: Boolean = false,
 ) : FragmentNav(ValidationResultFailureFragment::class)
 
 /**
@@ -306,6 +322,7 @@ internal open class ValidationResultFailureFragment : ValidationResultFragment()
         getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
     }
 
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes: Int? by lazy {
@@ -391,7 +408,8 @@ internal class ValidationResultTechnicalFailure2gFragmentNav :
  * Overrides close button and hides action button from [ValidationResultTechnicalFailureFragment] to display validation failure
  * in 2g+.
  */
-internal class ValidationResultTechnicalFailure2gFragment : ValidationResultTechnicalFailureFragment() {
+internal class ValidationResultTechnicalFailure2gFragment :
+    ValidationResultTechnicalFailureFragment() {
 
     override val buttonTextRes: Int? = null
 

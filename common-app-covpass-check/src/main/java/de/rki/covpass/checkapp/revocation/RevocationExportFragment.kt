@@ -53,10 +53,6 @@ internal class RevocationExportFragment : BaseExportPdfFragment() {
                 revocationExportData.kid
             ),
             RevocationExportDetailItem(
-                R.string.revocation_detail_page_r_value_signature,
-                revocationExportData.rValueSignature
-            ),
-            RevocationExportDetailItem(
                 R.string.revocation_detail_page_country,
                 revocationExportData.issuingCountry
             ),

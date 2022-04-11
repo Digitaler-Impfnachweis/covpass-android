@@ -12,7 +12,6 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.revocation.CovPassCheckCountryResolver
 import de.rki.covpass.checkapp.validation.*
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -46,7 +45,13 @@ internal class CovPassCheckQRScannerFragment :
     private val isTwoGOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGOn }
     private val isTwoGPlusBOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGPlusBOn }
     private val viewModel by reactiveState { CovPassCheckQRScannerViewModel(scope) }
-    private val dataViewModel by reactiveState { CovPassCheckQRScannerDataViewModel(scope, isTwoGOn, isTwoGPlusBOn) }
+    private val dataViewModel by reactiveState {
+        CovPassCheckQRScannerDataViewModel(
+            scope,
+            isTwoGOn,
+            isTwoGPlusBOn
+        )
+    }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
 
@@ -102,7 +107,10 @@ internal class CovPassCheckQRScannerFragment :
         dataViewModel.secondCertificateData2G = null
     }
 
-    override fun on2gData(firstCertData: ValidationResult2gData?, secondCertData: ValidationResult2gData?) {
+    override fun on2gData(
+        firstCertData: ValidationResult2gData?,
+        secondCertData: ValidationResult2gData?
+    ) {
         if (firstCertData == null) return
         if (secondCertData == null) {
             findNavigator().push(
@@ -151,12 +159,12 @@ internal class CovPassCheckQRScannerFragment :
     private fun CovCertificate.getExpertModeData(): ExpertModeData? {
         return if (kid.isNotEmpty() && rValue.isNotEmpty()) {
             ExpertModeData(
-                "$kid${rValue.toHex()}${System.currentTimeMillis() / 1000}".sha256().toHex().trim(),
-                kid,
-                rValue.toHex(),
-                CovPassCheckCountryResolver.getCountryLocalized(issuer),
-                validFrom.formatDateDeOrEmpty(),
-                validUntil.formatDateDeOrEmpty()
+                transactionNumber = "$kid${rValue.toHex()}${System.currentTimeMillis() / 1000}".sha256().toHex().trim(),
+                kid = kid,
+                rValueSignature = rValue.toHex(),
+                issuingCountry = issuer.uppercase(),
+                dateOfIssue = validFrom.toISO8601orEmpty(),
+                technicalExpiryDate = validUntil.toISO8601orEmpty()
             )
         } else {
             null
@@ -169,7 +177,8 @@ internal class CovPassCheckQRScannerFragment :
                 name = certificate.fullName,
                 transliteratedName = certificate.fullTransliteratedName,
                 birthDate = formatDateFromString(certificate.birthDateFormatted),
-                expertModeData = certificate.getExpertModeData()
+                expertModeData = certificate.getExpertModeData(),
+                isGermanCertificate = certificate.isGermanCertificate
             )
         )
     }
@@ -181,19 +190,24 @@ internal class CovPassCheckQRScannerFragment :
                 transliteratedName = certificate.fullTransliteratedName,
                 birthDate = formatDateFromString(certificate.birthDateFormatted),
                 sampleCollection = sampleCollection,
-                expertModeData = certificate.getExpertModeData()
+                expertModeData = certificate.getExpertModeData(),
+                isGermanCertificate = certificate.isGermanCertificate
             )
         )
     }
 
-    override fun on3gValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
+    override fun on3gValidAntigenTest(
+        certificate: CovCertificate,
+        sampleCollection: ZonedDateTime?
+    ) {
         findNavigator().push(
             ValidAntigenTestFragmentNav(
                 name = certificate.fullName,
                 transliteratedName = certificate.fullTransliteratedName,
                 birthDate = formatDateFromString(certificate.birthDateFormatted),
                 sampleCollection = sampleCollection,
-                expertModeData = certificate.getExpertModeData()
+                expertModeData = certificate.getExpertModeData(),
+                isGermanCertificate = certificate.isGermanCertificate
             )
         )
     }
@@ -205,8 +219,9 @@ internal class CovPassCheckQRScannerFragment :
     override fun on3gFailure(certificate: CovCertificate?, is2gOn: Boolean) {
         findNavigator().push(
             ValidationResultFailureFragmentNav(
-                is2gOn,
-                certificate?.getExpertModeData()
+                is2gOn = is2gOn,
+                expertModeData = certificate?.getExpertModeData(),
+                isGermanCertificate = certificate?.isGermanCertificate == true
             )
         )
     }

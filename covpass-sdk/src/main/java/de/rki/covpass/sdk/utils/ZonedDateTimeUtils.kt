@@ -92,6 +92,15 @@ public fun Instant?.formatTimeOrEmpty(): String {
     }
 }
 
+public fun Instant?.toISO8601orEmpty(): String {
+    val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.systemDefault()).format(formatter)
+    } else {
+        ""
+    }
+}
+
 public fun Instant?.toZonedDateTimeOrDefault(defaultEpochMilli: Long): ZonedDateTime =
     (this ?: Instant.ofEpochMilli(defaultEpochMilli)).atZone(ZoneOffset.UTC)
 
