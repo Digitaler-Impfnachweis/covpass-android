@@ -32,7 +32,7 @@ public class QRCoder(private val validator: CertValidator) {
         }
     }
 
-    internal fun decodeCose(qr: String): Sign1Message =
+    public fun decodeCose(qr: String): Sign1Message =
         Sign1Message.DecodeFromBytes(decodeRawCose(qr)) as? Sign1Message
             ?: throw CoseException("Not a cose-sign1 message")
 
@@ -46,10 +46,9 @@ public class QRCoder(private val validator: CertValidator) {
      */
     public fun decodeCovCert(
         qrContent: String,
-        isExpertMode: Boolean = false,
         allowExpiredCertificates: Boolean = false
     ): CovCertificate =
-        validator.decodeAndValidate(decodeCose(qrContent), isExpertMode, allowExpiredCertificates)
+        validator.decodeAndValidate(decodeCose(qrContent), allowExpiredCertificates)
 
     public fun validateTicketing(qrContent: String): TicketingDataInitialization {
         val ticketingData = defaultJson.decodeFromString<TicketingDataInitialization>(qrContent)

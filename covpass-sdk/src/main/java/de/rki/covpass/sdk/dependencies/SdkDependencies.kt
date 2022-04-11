@@ -23,6 +23,7 @@ import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
 import de.rki.covpass.sdk.reissuing.ReissuingApiService
 import de.rki.covpass.sdk.reissuing.ReissuingRepository
+import de.rki.covpass.sdk.revocation.RevocationListRepository
 import de.rki.covpass.sdk.rules.*
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import de.rki.covpass.sdk.rules.booster.CovPassBoosterRulesRepository
@@ -61,6 +62,7 @@ import dgca.verifier.app.engine.*
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.security.PublicKey
 import java.security.cert.X509Certificate
 
 /**
@@ -90,6 +92,13 @@ public abstract class SdkDependencies {
     public open val trustServiceHost: String by lazy {
         application.getString(R.string.trust_service_host).takeIf { it.isNotEmpty() }
             ?: throw IllegalStateException("You have to set @string/trust_service_host or override trustServiceHost")
+    }
+
+    public open val revocationListServiceHost: String by lazy {
+        application.getString(R.string.revocation_list_service_host).takeIf { it.isNotEmpty() }
+            ?: throw IllegalStateException(
+                "You have to set @string/revocation_list_service_host or override trustServiceHost"
+            )
     }
 
     private val httpClient by lazy { httpConfig.ktorClient() }
@@ -138,6 +147,20 @@ public abstract class SdkDependencies {
 
     public val rulesUpdateRepository: RulesUpdateRepository by lazy {
         RulesUpdateRepository(CborSharedPrefsStore("rules_update_prefs", cbor))
+    }
+
+    public val revocationListRepository: RevocationListRepository by lazy {
+        RevocationListRepository(
+            httpClient,
+            revocationListServiceHost,
+            CborSharedPrefsStore("revocation_list_prefs", cbor),
+            application.cacheDir,
+            revocationListPublicKey
+        )
+    }
+
+    public val revocationListPublicKey: PublicKey by lazy {
+        application.readPemKeyAsset("covpass-sdk/revocation-list-public-key.pem").first()
     }
 
     public val validator: CertValidator by lazy { CertValidator(dscList.toTrustedCerts(), cbor) }

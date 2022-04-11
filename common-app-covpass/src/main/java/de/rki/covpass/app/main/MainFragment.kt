@@ -87,6 +87,7 @@ internal class MainFragment :
             val certs = get(covpassDeps.certRepository.certs)
             updateCertificates(certs, viewModel.selectedCertId)
         }
+        viewModel.validateRevokedCertificates()
     }
 
     override fun onResume() {

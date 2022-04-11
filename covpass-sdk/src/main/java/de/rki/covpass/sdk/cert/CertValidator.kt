@@ -12,7 +12,6 @@ import android.util.Base64
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.crypto.KeyIdentifier
 import de.rki.covpass.sdk.dependencies.defaultCbor
-import de.rki.covpass.sdk.utils.toHex
 import de.rki.covpass.sdk.utils.trimAllStrings
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromByteArray
@@ -89,7 +88,6 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
      */
     public fun decodeAndValidate(
         cose: Sign1Message,
-        isExpertMode: Boolean = false,
         allowExpiredCertificates: Boolean = false
     ): CovCertificate {
         val cwt = CBORWebToken.decode(cose.GetContent())
@@ -101,7 +99,11 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             cose.protectedAttributes?.get(4)?.GetByteString()?.sliceArray(0..7)
                 ?: cose.unprotectedAttributes.get(4).GetByteString().sliceArray(0..7)
         )
-        val rValue = cose.EncodeToCBORObject().get(3).GetByteString().sliceArray(0..31)
+        val rValue = if (cose.protectedAttributes?.get(1)?.AsInt32() == SIGNATURE_ALGORITHM_ECDSA) {
+            cose.EncodeToCBORObject().get(3).GetByteString().sliceArray(0..31)
+        } else {
+            cose.EncodeToCBORObject().get(3).GetByteString()
+        }
         val certs = findByKid(kid).takeIf { it.isNotEmpty() }
             ?: state.trustedCerts.toList()
         for (cert in certs) {
@@ -110,7 +112,10 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
                 // Validate the COSE signature
                 if (cose.validate(OneKey(cert.certificate.publicKey, null))) {
                     val covCertificate = decodeAndValidate(cwt, cert.certificate)
-                    return addDataForExportMode(isExpertMode, covCertificate, cert.kid, rValue)
+                    return covCertificate.copy(
+                        kid = cert.kid,
+                        rValue = rValue
+                    )
                 }
             } catch (e: CoseException) {
                 continue
@@ -128,22 +133,6 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
             if (!allowExpiredCertificates) {
                 throw e
             }
-        }
-    }
-
-    private fun addDataForExportMode(
-        isExpertMode: Boolean,
-        covCertificate: CovCertificate,
-        kid: String,
-        rValue: ByteArray
-    ): CovCertificate {
-        return if (isExpertMode) {
-            covCertificate.copy(
-                kid = kid,
-                rValue = rValue.toHex().trim()
-            )
-        } else {
-            covCertificate
         }
     }
 
@@ -167,6 +156,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
     private companion object {
         private const val HEALTH_CERTIFICATE_CLAIM = -260
         private const val DIGITAL_GREEN_CERTIFICATE = 1
+        private const val SIGNATURE_ALGORITHM_ECDSA = -7
     }
 }
 

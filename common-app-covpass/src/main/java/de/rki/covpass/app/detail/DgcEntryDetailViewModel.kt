@@ -46,6 +46,7 @@ internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constru
     fun checkPdfExport(certId: String) {
         val combinedCovCertificate = certRepository.certs.value.getCombinedCertificate(certId) ?: return
         isPdfExportEnabled.value =
-            combinedCovCertificate.covCertificate.issuer.equals(deCountry.countryCode, ignoreCase = true)
+            combinedCovCertificate.covCertificate.issuer.equals(deCountry.countryCode, ignoreCase = true) &&
+            !combinedCovCertificate.isRevoked
     }
 }

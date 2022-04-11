@@ -41,4 +41,6 @@ public data class CombinedCovCertificateLocal(
     val alreadyReissued: Boolean = false,
     val hasSeenReissueNotification: Boolean = false,
     val hasSeenReissueDetailNotification: Boolean = false,
+
+    val isRevoked: Boolean = false,
 )

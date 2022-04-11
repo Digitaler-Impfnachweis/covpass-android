@@ -21,6 +21,7 @@ import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.hoursTillNow
@@ -64,7 +65,9 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
     open val textFooter: String? = null
 
-    open val expertModeVisible: Boolean = false
+    private val expertModeVisible: Boolean by lazy {
+        commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null
+    }
     open val expertModeData: ExpertModeData? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -163,7 +166,6 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_valid_vaccination_recovery_note)
     }
 
-    override val expertModeVisible: Boolean by lazy { args.expertModeData != null }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.validation_check_popup_valid_vaccination_button_title
@@ -210,7 +212,6 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_valid_pcr_test_date_of_issue)
     }
 
-    override val expertModeVisible: Boolean by lazy { args.expertModeData != null }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.validation_check_popup_valid_pcr_test_button_title
@@ -257,7 +258,6 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
         getString(R.string.validation_check_popup_test_date_of_issue)
     }
 
-    override val expertModeVisible: Boolean by lazy { args.expertModeData != null }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.validation_check_popup_test_button_title
@@ -306,7 +306,6 @@ internal open class ValidationResultFailureFragment : ValidationResultFragment()
         getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
     }
 
-    override val expertModeVisible: Boolean by lazy { expertModeData != null }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes: Int? by lazy {

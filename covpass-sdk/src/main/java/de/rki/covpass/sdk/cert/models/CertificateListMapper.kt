@@ -19,18 +19,13 @@ public class CertificateListMapper(
             val status = when (error) {
                 null ->
                     when {
+                        localCert.isRevoked -> CertValidationResult.Invalid
                         localCert.covCertificate.isExpired() -> CertValidationResult.Expired
                         localCert.covCertificate.isInExpiryPeriod() -> CertValidationResult.ExpiryPeriod
                         else -> CertValidationResult.Valid
                     }
                 is ExpiredCwtException -> {
-                    val blacklistedEntityError = runCatching {
-                        validateEntity(localCert.covCertificate.dgcEntry.idWithoutPrefix)
-                    }.exceptionOrNull()
-                    when (blacklistedEntityError) {
-                        null -> CertValidationResult.Expired
-                        else -> CertValidationResult.Invalid
-                    }
+                    certificateStatusInExpiredCwtException(localCert)
                 }
                 is BadCoseSignatureException,
                 is CoseException,
@@ -44,6 +39,19 @@ public class CertificateListMapper(
         groupedCertificatesList.favoriteCertId = covCertificateList.favoriteCertId
         return groupedCertificatesList
     }
+
+    private fun certificateStatusInExpiredCwtException(localCert: CombinedCovCertificateLocal): CertValidationResult =
+        if (localCert.isRevoked) {
+            CertValidationResult.Invalid
+        } else {
+            val blacklistedEntityError = runCatching {
+                validateEntity(localCert.covCertificate.dgcEntry.idWithoutPrefix)
+            }.exceptionOrNull()
+            when (blacklistedEntityError) {
+                null -> CertValidationResult.Expired
+                else -> CertValidationResult.Invalid
+            }
+        }
 
     /** Transforms a [GroupedCertificatesList] into a [CovCertificateList]. */
     public fun toCovCertificateList(groupedCertificatesList: GroupedCertificatesList): CovCertificateList {

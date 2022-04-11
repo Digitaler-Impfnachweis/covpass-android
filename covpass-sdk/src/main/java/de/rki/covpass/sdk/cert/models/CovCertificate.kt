@@ -46,7 +46,7 @@ public data class CovCertificate(
     val version: String = "",
 
     val kid: String = "",
-    val rValue: String = ""
+    val rValue: ByteArray = ByteArray(0)
 ) {
 
     init {

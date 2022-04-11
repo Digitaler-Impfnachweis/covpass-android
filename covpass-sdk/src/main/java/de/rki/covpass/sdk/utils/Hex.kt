@@ -6,4 +6,7 @@
 package de.rki.covpass.sdk.utils
 
 public fun ByteArray.toHex(): String =
-    joinToString("") { "%02x".format(it) }
+    joinToString("") { it.toHex() }
+
+public fun Byte.toHex(): String =
+    "%02x".format(this)

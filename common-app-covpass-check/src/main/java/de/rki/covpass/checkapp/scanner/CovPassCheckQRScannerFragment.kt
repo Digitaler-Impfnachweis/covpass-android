@@ -151,9 +151,9 @@ internal class CovPassCheckQRScannerFragment :
     private fun CovCertificate.getExpertModeData(): ExpertModeData? {
         return if (kid.isNotEmpty() && rValue.isNotEmpty()) {
             ExpertModeData(
-                "$kid$rValue${System.currentTimeMillis() / 1000}".sha256().toHex().trim(),
+                "$kid${rValue.toHex()}${System.currentTimeMillis() / 1000}".sha256().toHex().trim(),
                 kid,
-                rValue,
+                rValue.toHex(),
                 CovPassCheckCountryResolver.getCountryLocalized(issuer),
                 validFrom.formatDateDeOrEmpty(),
                 validUntil.formatDateDeOrEmpty()

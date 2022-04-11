@@ -18,6 +18,7 @@ import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.revocation.RevocationListRepository
 import kotlinx.coroutines.CoroutineScope
 import java.time.ZonedDateTime
 
@@ -39,19 +40,17 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
+    private val revocationListRepository: RevocationListRepository = sdkDeps.revocationListRepository,
     private val checkContextRepository: CheckContextRepository = commonDeps.checkContextRepository,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
-                val covCertificate = qrCoder.decodeCovCert(
-                    qrContent,
-                    checkContextRepository.isExpertModeOn.value
-                )
+                val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
                 validateEntity(dgcEntry.idWithoutPrefix)
-                when (validate(covCertificate, getRuleValidator())) {
+                when (validate(covCertificate, getRuleValidator(), revocationListRepository)) {
                     CovPassCheckValidationResult.Success -> {
                         when (dgcEntry) {
                             is Vaccination, is Recovery -> {

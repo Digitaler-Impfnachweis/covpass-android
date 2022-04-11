@@ -35,6 +35,7 @@ public object CovPassCertificateStorageHelper {
                     alreadyReissued = false,
                     hasSeenReissueNotification = false,
                     hasSeenReissueDetailNotification = false,
+                    isRevoked = false,
                 )
             )
         }

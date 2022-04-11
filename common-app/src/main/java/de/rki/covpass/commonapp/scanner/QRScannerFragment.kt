@@ -229,6 +229,15 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     protected abstract fun onBarcodeResult(qrCode: String)
 
+    override fun setLoading(isLoading: Boolean) {
+        binding.loadingLayout.isVisible = isLoading
+        if (isLoading) {
+            cameraProvider?.unbindAll()
+        } else {
+            checkPermission()
+        }
+    }
+
     private fun checkPermission() {
         if (isCameraPermissionGranted(requireContext())) {
             startScanning()
