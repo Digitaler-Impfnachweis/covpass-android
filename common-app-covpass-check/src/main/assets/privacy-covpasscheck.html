@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 200px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Last amended: 15 February 2022, app version 1.18</p>
+<body><p>Last amended: 12 April 2022, app version 1.22</p>
 <h1 id="covpasscheck-app-privacy-notice">CovPassCheck app privacy notice</h1>
 <p>This privacy notice explains how your data is processed and what data protection rights you have when you use the
     CovPassCheck app to verify digital COVID Certificates.</p>
@@ -47,17 +47,25 @@
     certificate, on the basis of the data about the certificate holder which is contained in the certificate. The
     signature is a special type of encryption that allows the RKI to confirm that the certificate is an official digital
     document created by the RKI.</p>
-<p>The RKI also provides the corresponding public keys from the RKI. These public keys can be used to check whether a
-    certificate’s electronic signature actually originates from the RKI and whether the certificate has been manipulated
-    since being signed electronically.</p>
-<p>The CovPassCheck app regularly downloads the RKI’s public keys in the background and stores them locally on your
+<p>The RKI also provides the corresponding public keys and revocation lists.
+    The public keys and revocation lists can be used to check whether a certificate’s electronic signature actually
+    originates from the RKI and whether the certificate has been revoked or manipulated since being signed
+    electronically.</p>
+<p>The CovPassCheck app regularly downloads the RKI’s public keys and
+    revocation lists in the background and stores them locally on your
     smartphone. This allows the app to regularly check the validity of the electronic signature and thus the
-    authenticity of the stored certificates. The public keys do not contain any personal data.</p>
+    authenticity of certificates that are checked. The public keys do not contain any personal data. The
+    revocation lists only contain a revocation identifier for a revoked certificate
+    in the form of special one-way encryption (what’s known as a hash value).
+    The revocation identifier cannot be used to infer the certificate data or other
+    information about a particular person.</p>
 <p>In order to be able to detect date manipulations in certificates, the date and time set in the smartphone is compared
     with the real-time information of a freely available time server.</p>
 <p>EU countries may adopt their own rules for the validity of certificates. For example, test certificates may be
-    valid for a longer period in some EU countries than in others. The EU countries exchange these rules via a common
-    exchange server. The CovPassCheck app regularly downloads the latest rules of all Member States from the app’s
+    valid for a longer period in some EU countries than in others. The EU countries exchange these rules and their
+    revocation lists via a common
+    exchange server. The CovPassCheck app regularly downloads the latest rules and revocation lists
+    of all Member States from the app’s
     server system.</p>
 <p>The verification takes place exclusively offline in the app and no data is passed on here to the RKI or other
     recipients (other health authorities in Germany or other countries and other third parties).</p>

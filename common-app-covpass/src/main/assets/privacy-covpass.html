@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 200px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Last amended: 15 March 2022, app version 1.21</p>
+<body><p>Last amended: 15 April 2022, app version 1.22</p>
 <h1 id="covpass-app-privacy-notice">CovPass app privacy notice</h1>
 <p>This privacy notice explains how your data is processed and what data protection rights you have when using the
     CovPass app to manage certain certificates – digital COVID Certificates proving coronavirus vaccinations, negative
@@ -81,7 +81,7 @@
 <h2 id="why-is-your-data-processed">4. Why is your data processed?</h2>
 <h3>a. Certificate creation</h3>
 <p>The RKI briefly processes the necessary personal data of certificate holders to technically create and sign the
-    requested certificate (Sect. 22(5)–(7) of the Infection Protection Act, IfSG). The personal data is deleted at the
+    requested certificate (Sect. 22a(5)–(7) of the Infection Protection Act, IfSG). The personal data is deleted at the
     RKI immediately once the technical creation of the certificate is complete. There is no centrally administered
     registry of vaccinations or certificates.</p>
 <h3>b. Using certificates as proof</h3>
@@ -126,27 +126,37 @@
 <p>To protect the health of certificate holders and the public, certain
     certificates may be revoked in special cases. This may be necessary, for
     example, if a competent entity (e.g. pharmacy, vaccination centre or
-    doctor’s surgery) has issued incorrect or fraudulent certificates. Revocation
-    will result in the certificate becoming invalid and no longer being accepted
-    when verified. It does not matter whether the certificate is presented in
-    electronic form on a smartphone or on paper during the verification. If you
-    have stored a revoked certificate in the app, it will show as “invalid”.</p>
+    doctor’s surgery) has issued an incorrect certificate. The competent hazard
+    prevention authorities will decide on whether to revoke a certificate, and the
+    revocation is then technically implemented by the RKI (Sect. 22a(8) IfSG).
+    Revocation will result in the certificate becoming invalid and no longer
+    being accepted when verified. It does not matter whether the certificate is
+    presented in electronic form on a smartphone or on paper during the
+    verification. If you have stored a revoked certificate in the app, it will show
+    as “invalid”.</p>
 <p>To be able to determine the validity of the electronic signature or whether
     stored certificates have been revoked, the app regularly downloads the
     RKI’s current public keys and revocation lists in the background and stores
-    them locally on your smartphone. This allows the app to regularly check the
-    electronic signature and thus the authenticity as well as the revocation
-    status of the stored certificates. The public keys and revocation lists do not
-    contain any personal data. The revocation lists only contain a small
-    subsection from the unique certificate identifier of the revoked certificates.
-    This subsection is identical for all certificates issued by the same competent
-    entity (e.g. a pharmacy). The CovPass app then compares this with the
+    them locally on your smartphone. The public keys do not contain any
+    personal data. The revocation lists only contain a revocation identifier for a
+    revoked certificate in the form of special one-way encryption (what’s known
+    as a hash value). The revocation identifier cannot be used to infer the
+    certificate data or other information about a particular person. The RKI
+    receives the revocation identifier of a certificate to be revoked from the
+    competent hazard prevention authority, which has read this identifier from
+    the incorrect certificate. If, in exceptional cases, it is necessary to revoke all
+    certificates issued by the same competent entity (e.g. a specific pharmacy),
+    only a small subsection from the unique certificate identifier of the issued
+    certificates will be transferred to the revocation list instead of the individual
+    revocation identifiers. This subsection is identical for all certificates issued
+    by the same competent entity. The CovPass app then compares this with the
     unique certificate identifier of the certificates stored on the smartphone. If
-    there is a match, the certificate in question will be shown as invalid in the
-    CovPass app. However, the revoked certificate itself is not changed. Both
-    the verification of the electronic signature and the comparison with the
-    revocation lists take place exclusively offline in the app and no data about
-    this process is passed on to the RKI.</p>
+    there is a match between the identifier of the stored certificates and the
+    certificates on the revocation list, the certificate in question will show as
+    “invalid” in the CovPass app. Both the verification of the electronic
+    signature and the comparison with the revocation lists take place exclusively
+    locally in the app and no data about this process is passed on to the RKI or
+    other agencies.</p>
 <p>You can use the “Check validity” feature to check for yourself whether the
     certificates stored in the app meet the official formal requirements of a
     particular EU country. EU countries may adopt their own
@@ -281,11 +291,11 @@
     signing the requested certificate. The legal basis for the processing in each case is Art. 6(1) Sentence 1(c), Art.
     9(2)(g) of the General Data Protection Regulation (<strong>GDPR</strong>) in conjunction with</p>
 <ul>
-    <li>Sect. 22(5) IfSG (vaccination certificate),</li>
-    <li>Sect. 22(6) IfSG (certificate of recovery) or</li>
-    <li>Sect. 22(7) IfSG (test certificate).</li>
+    <li>Sect. 22a(5) IfSG (vaccination certificate),</li>
+    <li>Sect. 22a(6) IfSG (certificate of recovery) or</li>
+    <li>Sect. 22a(7) IfSG (test certificate).</li>
 </ul>
-<p>According to Sect. 22(5)–(7) IfSG, the RKI is obliged to technically create and sign the requested certificate,
+<p>According to Sect. 22a(5)–(7) IfSG, the RKI is obliged to technically create and sign the requested certificate,
     provided that the vaccinated, recovered or tested person requests the issuance of such a certificate.</p>
 <p>Since 1 July 2021, there has also been a basis under European law for this processing. In this respect, the legal
     basis is Art. 6(1) Sentence 1(c), Art. 9(2)(g) GDPR in conjunction with Art. 10(2) of Regulation (EU) 2021/953 of
@@ -302,6 +312,8 @@
     Temporary storage of the hash value of the signature of the updated
     certificate is carried out on the basis of Sect. 22(1)(c) BDSG and Art. 9(2)(i)
     GDPR.</p>
+<p>The legal basis for data processing in connection with certificate revocations
+    is Sect. 22a(8) IfSG.</p>
 <h2 id="what-permissions-does-the-app-require">7. What permissions does the app require?</h2>
 <p>The CovPass app requires access to your smartphone camera when you scan the QR code to add a certificate in the app.
     The app also requires an internet connection in order to download up-to-date information from the
@@ -321,6 +333,9 @@
     RKI after the updated certificate has been sent to your app. Only the hash
     values of the updated and new certificates will be stored on the RKI’s server
     system for 365 days</p>
+<p>The revocation identifiers of revoked certificates on the revocation lists are
+    stored on the app’s server system until the technical expiration date of the
+    respective certificates.</p>
 <h2 id="who-will-receive-your-personal-data">9. Who will receive your personal data?</h2>
 <p>The RKI has commissioned the company KDO Service GmbH (KDO) to operate and maintain the server system. KDO processes
     the personal data on behalf and at the instruction of the RKI (meaning it is what’s known as a processor under data

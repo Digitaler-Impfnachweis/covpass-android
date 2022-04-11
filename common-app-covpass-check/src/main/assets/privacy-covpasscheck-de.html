@@ -13,7 +13,7 @@
          README.md convert.sh privacy-covpass-de.html privacy-covpass-de.md privacy-covpass-en.html privacy-covpass-en.md privacy-covpasscheck-de.html privacy-covpasscheck-de.md privacy-covpasscheck-en.html privacy-covpasscheck-en.md template.html { font-family: 'Open Sans', sans-serif; color: #1C2227; } body { padding: 0px 24px 200px 24px; } h1 { font-size: 24px; line-height: 36px; padding: 0px 0px 12px 0px; margin: 0px; } ol, ul { padding-left: 24px; } p, a, li { font-size: 14px; line-height: 21px; padding: 0px 0px 12px 0px; margin: 0px; }
     </style>
 </head>
-<body><p>Stand 15.02.2022, zuletzt aktualisiert mit der App-Version 1.18</p>
+<body><p>Stand 14.04.2022, zuletzt aktualisiert mit der App-Version 1.22</p>
 <h1 id="datenschutzerklärung-covpasscheck-app">Daten­schutz­erklärung CovPassCheck-App</h1>
 <p>In dieser Datenschutzerklärung erfahren Sie, wie Ihre Daten verarbeitet werden und welche Datenschutzrechte Sie
     haben, wenn Sie die CovPassCheck-App zur Prüfung von digitalen COVID-Zertifikaten nutzen.</p>
@@ -49,18 +49,25 @@
     Bei der Signatur handelt es sich um eine besondere Form der Verschlüsselung, die wie eine elektronische Unterschrift
     des RKI funktioniert und sicherstellt, dass es sich um ein offiziell vom RKI erstelltes digitales Dokument
     handelt.</p>
-<p>Das RKI stellt zudem die zugehörigen öffentlichen Schlüssel des RKI (sogenannte Public Keys) bereit. Mit diesen
-    öffentlichen Schlüsseln kann geprüft werden, ob die elektronische Signatur des Zertifikats tatsächlich vom RKI
-    stammt und ob das Zertifikat nach der elektronischen Signierung manipuliert worden ist.</p>
-<p>Die CovPassCheck-App lädt regelmäßig im Hintergrund die öffentlichen Schlüssel des RKI und speichert diese lokal auf
-    Ihrem Smartphone. So kann die App regelmäßig die Gültigkeit der elektronischen Signatur und damit die Echtheit der
-    gespeicherten Zertifikate überprüfen. Die öffentlichen Schlüssel enthalten keine personenbezogenen Daten.</p>
+<p>Das RKI stellt die zugehörigen öffentlichen Schlüssel des RKI (sogenannte Public Keys) sowie Listen mit
+    gesperrten Zertifikaten bereit. Mit diesen öffentlichen Schlüsseln und Zertifikatssperrlisten kann geprüft
+    werden, ob die elektronische Signatur des Zertifikats tatsächlich vom RKI
+    stammt und ob das Zertifikat nach der elektronischen Signierung manipuliert oder gesperrt worden ist.</p>
+<p>Die CovPassCheck-App lädt regelmäßig im Hintergrund die öffentlichen Schlüssel des RKI und Zertifikatssperrlisten
+    und speichert diese lokal auf Ihrem Smartphone. So kann die App regelmäßig die Gültigkeit der
+    geprüften Zertifikate überprüfen. Die öffentlichen Schlüssel enthalten keine personenbezogenen Daten.
+    Die Zertifikatssperrlisten enthalten zu einem
+    gesperrten Zertifikat lediglich eine Sperrkennung in Form einer speziellen
+    Einwegverschlüsselung (sog. Hash-Wert). Aus der Sperrkennung kann nicht
+    auf die Zertifikatsdaten oder andere Angaben zu einer bestimmten Person
+    geschlossen werden.</p>
 <p>Um Datums-Manipulationen bei zu prüfenden Zertifikaten erkennen zu können, wird die im Smartphone eingestellte Datum
     und die Uhrzeit mit der Angabe der Echtzeit eines frei verfügbaren Zeitservers abgeglichen.</p>
 <p>Die EU-Länder können eigene Regeln für die Gültigkeit der Zertifikate erlassen. Beispielsweise können
     Testzertifikate in einigen EU-Ländern längere Gültigkeit aufweisen als in anderen. Die EU-Länder tauschen diese
-    Regeln über einen gemeinsamen Austausch-Server aus. Die CovPassCheck-App lädt regelmäßig die jeweils aktuellen
-    Regeln aller Mitgliedstaaten vom Serversystem der App herunter.</p>
+    Regeln sowie ihre nationalen Zertifikatssperrlisten
+    über einen gemeinsamen Austausch-Server aus. Die CovPassCheck-App lädt regelmäßig die jeweils aktuellen
+    Regeln und Zertifikatssperrlisten aller Mitgliedstaaten vom Serversystem der App herunter.</p>
 <p>Die Überprüfung findet ausschließlich offline in der App statt und es werden dabei keine Daten an das RKI oder
     sonstige Empfänger (andere Gesundheitsbehörden in Deutschland oder anderen Ländern und sonstige Dritte)
     weitergegeben.</p>
