@@ -14,21 +14,42 @@ public object CertificateReissueUtils {
     public fun getBoosterAfterVaccinationAfterRecoveryIds(
         certificates: List<CombinedCovCertificate>
     ): List<String> {
-        val recoveryId = certificates.find {
+        val recovery = certificates.find {
             it.covCertificate.dgcEntry is Recovery
-        }?.covCertificate?.dgcEntry?.id
+        }?.covCertificate
 
-        val vaccinationId = certificates.find {
+        val singleDoseVaccination = certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Vaccination && dgcEntry.isCompleteSingleDose
-        }?.covCertificate?.dgcEntry?.id
+        }?.covCertificate
 
-        val boosterId = certificates.find {
+        val doubleDoseVaccination = certificates.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is Vaccination && dgcEntry.isCompleteDoubleDose
-        }?.covCertificate?.dgcEntry?.id
+        }?.covCertificate
 
-        if (vaccinationId == null || boosterId == null) return emptyList()
-        return listOf(recoveryId, vaccinationId, boosterId).mapNotNull { it }
+        if (singleDoseVaccination == null || doubleDoseVaccination == null) {
+            return emptyList()
+        }
+
+        if (recovery?.recovery?.firstResult?.isAfter(doubleDoseVaccination.vaccination?.occurrence) == true) {
+            return emptyList()
+        }
+
+        val isGermanCertificate = listOfNotNull(
+            recovery,
+            singleDoseVaccination,
+            doubleDoseVaccination
+        ).all { it.isGermanCertificate }
+
+        return if (isGermanCertificate) {
+            listOf(
+                recovery?.recovery?.id,
+                singleDoseVaccination.vaccination?.id,
+                doubleDoseVaccination.vaccination?.id
+            ).mapNotNull { it }
+        } else {
+            emptyList()
+        }
     }
 }
