@@ -133,4 +133,6 @@ public data class CovCertificate(
         } catch (e: DateTimeParseException) {
             birthDate
         }
+
+    public val isGermanCertificate: Boolean = issuer.equals("DE", ignoreCase = true)
 }
