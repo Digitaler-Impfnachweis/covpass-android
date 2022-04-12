@@ -5,6 +5,7 @@
 
 package de.rki.covpass.sdk.cert.models
 
+import android.util.Base64
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -46,7 +47,7 @@ public data class CovCertificate(
     val version: String = "",
 
     val kid: String = "",
-    val rValue: ByteArray = ByteArray(0)
+    val rValue: String = ""
 ) {
 
     init {
@@ -135,4 +136,8 @@ public data class CovCertificate(
         }
 
     public val isGermanCertificate: Boolean = issuer.equals("DE", ignoreCase = true)
+
+    public val getRValueByteArray: ByteArray by lazy {
+        Base64.decode(rValue, Base64.DEFAULT)
+    }
 }

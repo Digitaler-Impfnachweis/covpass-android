@@ -114,7 +114,7 @@ public class CertValidator(trusted: Iterable<TrustedCert>, private val cbor: Cbo
                     val covCertificate = decodeAndValidate(cwt, cert.certificate)
                     return covCertificate.copy(
                         kid = cert.kid,
-                        rValue = rValue
+                        rValue = Base64.encodeToString(rValue, Base64.DEFAULT)
                     )
                 }
             } catch (e: CoseException) {

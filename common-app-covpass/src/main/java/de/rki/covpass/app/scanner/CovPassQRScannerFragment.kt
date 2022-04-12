@@ -58,8 +58,12 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
                         )
                     )
                 }
-                else -> {}
+                else -> {
+                    checkPermission()
+                }
             }
+        } else {
+            checkPermission()
         }
     }
 

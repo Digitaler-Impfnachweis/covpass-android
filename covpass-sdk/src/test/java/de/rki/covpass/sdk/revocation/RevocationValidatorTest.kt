@@ -109,7 +109,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
         // covCertificate mockk
         coEvery { cert.dgcEntry.id } returns id
         coEvery { cert.kid } returns kid
-        coEvery { cert.rValue } returns rValue
+        coEvery { cert.getRValueByteArray } returns rValue
         coEvery { cert.issuer } returns issuer
 
         // revocationListRepository

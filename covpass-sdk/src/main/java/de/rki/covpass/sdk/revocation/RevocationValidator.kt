@@ -23,7 +23,7 @@ public suspend fun validateRevocation(
     for (hashVariant in hashVariants) {
         val hash = when (hashVariant.key) {
             HashVariant.SIGNATURE.byte -> {
-                covCertificate.rValue.sha256()
+                covCertificate.getRValueByteArray.sha256()
             }
             HashVariant.UCI.byte -> {
                 covCertificate.dgcEntry.id.sha256()
