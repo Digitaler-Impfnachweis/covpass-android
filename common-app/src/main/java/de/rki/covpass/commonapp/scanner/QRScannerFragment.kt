@@ -233,12 +233,10 @@ public abstract class QRScannerFragment : BaseFragment() {
         binding.loadingLayout.isVisible = isLoading
         if (isLoading) {
             cameraProvider?.unbindAll()
-        } else {
-            checkPermission()
         }
     }
 
-    private fun checkPermission() {
+    protected fun checkPermission() {
         if (isCameraPermissionGranted(requireContext())) {
             startScanning()
         } else {

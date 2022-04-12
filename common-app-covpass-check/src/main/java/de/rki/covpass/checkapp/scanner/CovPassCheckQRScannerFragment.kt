@@ -237,6 +237,13 @@ internal class CovPassCheckQRScannerFragment :
         showDialog(dialog, childFragmentManager)
     }
 
+    override fun setLoading(isLoading: Boolean) {
+        super.setLoading(isLoading)
+        if (!isLoading) {
+            checkPermission()
+        }
+    }
+
     override fun onBackPressed(): Abortable {
         if (
             dataViewModel.firstCertificateData2G != null ||
