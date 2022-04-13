@@ -72,7 +72,7 @@ public data class GroupedCertificates(
                 is Vaccination, is Recovery -> when (it.status) {
                     CertValidationResult.Expired, CertValidationResult.ExpiryPeriod, CertValidationResult.Invalid ->
                         !it.hasSeenExpiryNotification
-                    CertValidationResult.Valid -> false
+                    CertValidationResult.Valid, CertValidationResult.Revoked -> false
                 }
                 is TestCert -> false
             }
@@ -86,7 +86,8 @@ public data class GroupedCertificates(
                         CertValidationResult.Invalid -> {
                             it.copy(hasSeenExpiryNotification = value)
                         }
-                        CertValidationResult.Valid -> {
+                        CertValidationResult.Valid,
+                        CertValidationResult.Revoked -> {
                             it
                         }
                     }
@@ -117,6 +118,20 @@ public data class GroupedCertificates(
         set(value) {
             certificates = certificates.map {
                 if (it.isReadyForReissue) {
+                    it.copy(hasSeenReissueNotification = value)
+                } else {
+                    it
+                }
+            }.toMutableList()
+        }
+
+    var hasSeenRevokedNotification: Boolean
+        get() = certificates.any {
+            it.status == CertValidationResult.Revoked && it.hasSeenRevokedNotification
+        }
+        set(value) {
+            certificates = certificates.map {
+                if (it.status == CertValidationResult.Revoked && it.hasSeenRevokedNotification != value) {
                     it.copy(hasSeenReissueNotification = value)
                 } else {
                     it
@@ -244,6 +259,9 @@ public data class GroupedCertificates(
             }
         }.toMutableList()
     }
+
+    public fun showRevokedNotification(): Boolean =
+        certificates.any { !it.hasSeenRevokedNotification && it.status == CertValidationResult.Revoked }
 
     public fun isReadyForReissue(): Boolean =
         certificates.any { it.isReadyForReissue && !it.alreadyReissued } &&

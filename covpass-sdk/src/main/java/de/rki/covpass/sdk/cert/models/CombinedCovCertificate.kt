@@ -10,6 +10,7 @@ public sealed interface CertValidationResult {
     public object Invalid : CertValidationResult
     public object Expired : CertValidationResult
     public object ExpiryPeriod : CertValidationResult
+    public object Revoked : CertValidationResult
 }
 
 public data class CombinedCovCertificate(
@@ -25,6 +26,7 @@ public data class CombinedCovCertificate(
     val alreadyReissued: Boolean,
     val hasSeenReissueNotification: Boolean,
     val hasSeenReissueDetailNotification: Boolean,
+    val hasSeenRevokedNotification: Boolean,
     val isRevoked: Boolean,
 ) {
 

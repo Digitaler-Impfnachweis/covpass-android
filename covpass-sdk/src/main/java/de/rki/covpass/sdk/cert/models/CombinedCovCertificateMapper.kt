@@ -19,6 +19,7 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         alreadyReissued = alreadyReissued,
         hasSeenReissueNotification = hasSeenReissueNotification,
         hasSeenReissueDetailNotification = hasSeenReissueDetailNotification,
+        hasSeenRevokedNotification = hasSeenRevokedNotification,
         isRevoked = isRevoked
     )
 
@@ -35,6 +36,7 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         alreadyReissued = alreadyReissued,
         hasSeenReissueNotification = hasSeenReissueNotification,
         hasSeenReissueDetailNotification = hasSeenReissueDetailNotification,
+        hasSeenRevokedNotification = hasSeenRevokedNotification,
         isRevoked = isRevoked
     )
 

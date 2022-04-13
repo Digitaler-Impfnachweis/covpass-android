@@ -178,7 +178,8 @@ private class CertificateViewHolder(
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        CertValidationResult.Revoked -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -200,7 +201,8 @@ private class CertificateViewHolder(
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        CertValidationResult.Revoked -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -223,7 +225,8 @@ private class CertificateViewHolder(
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        CertValidationResult.Revoked -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -245,7 +248,8 @@ private class CertificateViewHolder(
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
                         }
                         CertValidationResult.Expired,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        CertValidationResult.Revoked -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -294,7 +298,8 @@ private class CertificateViewHolder(
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_expired_certificate_note)
                 }
-                CertValidationResult.Invalid -> {
+                CertValidationResult.Invalid,
+                CertValidationResult.Revoked -> {
                     binding.certificateExpiryInfo.isVisible = true
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_invalid_certificate_note)

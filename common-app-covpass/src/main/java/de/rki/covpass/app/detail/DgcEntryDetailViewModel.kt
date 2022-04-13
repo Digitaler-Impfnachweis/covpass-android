@@ -30,6 +30,7 @@ internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constru
 ) : BaseReactiveState<DgcEntryDetailEvents>(scope) {
 
     val isPdfExportEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isCertificateRevoked: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     fun onDelete(certId: String) {
         launch {
@@ -46,7 +47,7 @@ internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constru
     fun checkPdfExport(certId: String) {
         val combinedCovCertificate = certRepository.certs.value.getCombinedCertificate(certId) ?: return
         isPdfExportEnabled.value =
-            combinedCovCertificate.covCertificate.issuer.equals(deCountry.countryCode, ignoreCase = true) &&
-            !combinedCovCertificate.isRevoked
+            combinedCovCertificate.covCertificate.issuer.equals(deCountry.countryCode, ignoreCase = true)
+        isCertificateRevoked.value = combinedCovCertificate.isRevoked
     }
 }

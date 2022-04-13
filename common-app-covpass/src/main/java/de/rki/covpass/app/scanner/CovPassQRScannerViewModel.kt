@@ -54,7 +54,11 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                 val covCertificate = qrCoder.decodeCovCert(qrContent, allowExpiredCertificates = true)
                 validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
                 if (validateRevocation(covCertificate, revocationListRepository)) {
-                    throw RevokedCertificateException()
+                    if (covCertificate.isGermanCertificate) {
+                        throw RevokedCertificateGermanCertificateException()
+                    } else {
+                        throw RevokedCertificateNotGermanCertificateException()
+                    }
                 }
                 validateMisusePrevention(
                     certRepository.certs.value.certificates,
@@ -101,4 +105,6 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
 
 public class SavingBlockedException : IllegalStateException()
 
-public class RevokedCertificateException : IllegalStateException()
+public class RevokedCertificateGermanCertificateException : IllegalStateException()
+
+public class RevokedCertificateNotGermanCertificateException : IllegalStateException()

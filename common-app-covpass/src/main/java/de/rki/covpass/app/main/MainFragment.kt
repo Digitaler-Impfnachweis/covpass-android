@@ -56,6 +56,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showCheckerRemark()
     fun showBoosterNotification()
     fun showReissueNotification(listIds: List<String>)
+    fun showRevokedNotification()
 }
 
 /**
@@ -87,7 +88,6 @@ internal class MainFragment :
             val certs = get(covpassDeps.certRepository.certs)
             updateCertificates(certs, viewModel.selectedCertId)
         }
-        viewModel.validateRevokedCertificates()
     }
 
     override fun onResume() {
@@ -209,20 +209,28 @@ internal class MainFragment :
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == EXPIRED_DIALOG_TAG) {
-            launchWhenStarted {
-                covpassDeps.certRepository.certs.update { groupedCertificateList ->
-                    groupedCertificateList.certificates.forEach {
-                        it.hasSeenExpiryNotification = true
+        when (tag) {
+            EXPIRED_DIALOG_TAG -> {
+                launchWhenStarted {
+                    covpassDeps.certRepository.certs.update { groupedCertificateList ->
+                        groupedCertificateList.certificates.forEach {
+                            it.hasSeenExpiryNotification = true
+                        }
                     }
+                    viewModel.showingNotification.complete(Unit)
                 }
-                viewModel.showingNotification.complete(Unit)
+            }
+            REVOKED_DIALOG_TAG -> {
+                launchWhenStarted {
+                    covpassDeps.certRepository.certs.update { groupedCertificateList ->
+                        groupedCertificateList.certificates.forEach {
+                            it.hasSeenRevokedNotification = true
+                        }
+                    }
+                    viewModel.showingNotification.complete(Unit)
+                }
             }
         }
-    }
-
-    companion object {
-        private const val EXPIRED_DIALOG_TAG = "expired_dialog"
     }
 
     override fun showExpiryNotification() {
@@ -261,5 +269,20 @@ internal class MainFragment :
         } else {
             viewModel.showingNotification.complete(Unit)
         }
+    }
+
+    override fun showRevokedNotification() {
+        val dialogModel = DialogModel(
+            titleRes = R.string.certificate_check_invalidity_error_title,
+            messageString = getString(R.string.revocation_dialog_single),
+            positiveButtonTextRes = R.string.ok,
+            tag = REVOKED_DIALOG_TAG,
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
+
+    companion object {
+        private const val EXPIRED_DIALOG_TAG = "expired_dialog"
+        private const val REVOKED_DIALOG_TAG = "revoked_dialog"
     }
 }

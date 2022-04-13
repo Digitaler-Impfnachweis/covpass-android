@@ -98,6 +98,12 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+            validateRevokedCertificates() -> {
+                eventNotifier {
+                    showReissueNotification(getReissueIdsList())
+                }
+                true
+            }
             else -> false
         }
 
@@ -119,35 +125,34 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         selectedCertId = certRepository.certs.value.getSortedCertificates()[position].id
     }
 
-    fun validateRevokedCertificates() {
+    private suspend fun validateRevokedCertificates(): Boolean {
         if (!revocationListRepository.lastRevocationValidation.value.isBeforeUpdateInterval()) {
-            return
+            return false
         }
-        launch {
-            val listRevokedCertificates = mutableListOf<String>()
-            certRepository.certs.value.certificates.forEach { groupedCertificates ->
-                groupedCertificates.certificates.forEach {
-                    if (validateRevocation(it.covCertificate, revocationListRepository)) {
-                        listRevokedCertificates.add(it.covCertificate.dgcEntry.id)
+        val listRevokedCertificates = mutableListOf<String>()
+        certRepository.certs.value.certificates.forEach { groupedCertificates ->
+            groupedCertificates.certificates.forEach {
+                if (validateRevocation(it.covCertificate, revocationListRepository)) {
+                    listRevokedCertificates.add(it.covCertificate.dgcEntry.id)
+                }
+            }
+        }
+        certRepository.certs.update { groupedCertificatesList ->
+            groupedCertificatesList.certificates.forEach { groupedCertificates ->
+                groupedCertificates.certificates = groupedCertificates.certificates.map {
+                    if (listRevokedCertificates.contains(it.covCertificate.dgcEntry.id)) {
+                        it.copy(
+                            status = CertValidationResult.Invalid,
+                            isRevoked = true
+                        )
+                    } else {
+                        it
                     }
-                }
+                }.toMutableList()
             }
-            certRepository.certs.update { groupedCertificatesList ->
-                groupedCertificatesList.certificates.forEach { groupedCertificates ->
-                    groupedCertificates.certificates = groupedCertificates.certificates.map {
-                        if (listRevokedCertificates.contains(it.covCertificate.dgcEntry.id)) {
-                            it.copy(
-                                status = CertValidationResult.Invalid,
-                                isRevoked = true
-                            )
-                        } else {
-                            it
-                        }
-                    }.toMutableList()
-                }
-            }
-            revocationListRepository.updateLastRevocationValidation()
         }
+        revocationListRepository.updateLastRevocationValidation()
+        return certRepository.certs.value.certificates.any { it.showRevokedNotification() }
     }
 
     private fun runValidations() {

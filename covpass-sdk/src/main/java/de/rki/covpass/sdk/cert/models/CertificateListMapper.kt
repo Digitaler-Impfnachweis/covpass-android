@@ -19,7 +19,7 @@ public class CertificateListMapper(
             val status = when (error) {
                 null ->
                     when {
-                        localCert.isRevoked -> CertValidationResult.Invalid
+                        localCert.isRevoked -> CertValidationResult.Revoked
                         localCert.covCertificate.isExpired() -> CertValidationResult.Expired
                         localCert.covCertificate.isInExpiryPeriod() -> CertValidationResult.ExpiryPeriod
                         else -> CertValidationResult.Valid

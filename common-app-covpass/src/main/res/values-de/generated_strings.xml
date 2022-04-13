@@ -759,7 +759,18 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Später löschen</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Aktualisieren</string>
 	<string name="certificate_renewal_error_title">Neuausstellung fehlgeschlagen</string>
-	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuaustellung Ihres Zertifikates. Bitte überprüfen Sie Ihre Internetverbindung und beachten Sie, dass das selbe Zertifikat maximal drei Mal im Jahr neu ausgestellt werden kann. Sollte der Fehler wiederholt auftreten, finden Sie mit Hilfe des unten aufgeführten Fehlercodes weitere Informationen in den Häufigen Fragen.\n\nFehlercode: %s</string>
+	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuaustellung Ihres Zertifikates. Bitte überprüfen Sie Ihre Internetverbindung und beachten Sie, dass das selbe Zertifikat maximal drei Mal im Jahr neu ausgestellt werden kann. Sollte der Fehler wiederholt auftreten, finden Sie mit Hilfe des unten aufgeführten Fehlercodes weitere Informationen in den Häufigen Fragen.\n\nFehlercode: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
 	<string name="certificate_renewal_error_button_secondary">Mehr Informationen</string>
+
+	<!-- SECTION: DCC revocation -->
+	<string name="revocation_error_scan_title">Das Zertifikat kann nicht hinzugefügt werden</string>
+	<string name="revocation_error_scan_single_DE">Das von Ihnen gescannte Zertifikat wurde vom RKI aufgrund einer behördlichen Verfügung gesperrt.</string>
+	<string name="revocation_error_scan_single_notDE">Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
+	<string name="revocation_error_scan_locationID">Das von Ihnen gescannte Zertifikat wurde vom RKI aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="revocation_dialog_single">Die Gültigkeit eines Zertifikats hat sich geändert. Dieses Zertifikat kann nicht mehr zum Nachweis verwendet werden.</string>
+	<string name="revocation_dialog_locationID">Die Gültigkeit eines Zertifikats hat sich geändert. Dieses Zertifikat kann nicht mehr zum Nachweis verwendet werden. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="revocation_detail_single_DE">Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt.</string>
+	<string name="revocation_detail_single_notDE">Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
+	<string name="revocation_detail_locationID">Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 </resources>

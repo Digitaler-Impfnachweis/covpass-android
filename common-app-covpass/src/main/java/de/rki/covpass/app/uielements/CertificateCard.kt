@@ -90,7 +90,7 @@ public class CertificateCard @JvmOverloads constructor(
             CertValidationResult.ExpiryPeriod -> {
                 validOrExpiryPeriod(showBoosterNotification)
             }
-            CertValidationResult.Invalid ->
+            CertValidationResult.Invalid, CertValidationResult.Revoked ->
                 expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
             CertValidationResult.Expired ->
                 expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_expired_subtitle))

@@ -66,7 +66,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
         setHasOptionsMenu(true)
         launchWhenStarted { viewModel.checkPdfExport(certId) }
         autoRun { updateViews(get(covpassDeps.certRepository.certs)) }
-        autoRun { updatePdfButton(get(viewModel.isPdfExportEnabled)) }
+        autoRun { updatePdfButton(get(viewModel.isPdfExportEnabled), get(viewModel.isCertificateRevoked)) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -190,6 +190,19 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     iconRes = R.drawable.info_warning_icon
                 )
             }
+            CertValidationResult.Revoked -> {
+                binding.dgcDetailExpirationInfoElement.showWarning(
+                    title = getString(R.string.certificates_overview_invalid_title),
+                    description = getString(
+                        if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                            R.string.revocation_detail_single_DE
+                        } else {
+                            R.string.revocation_detail_single_notDE
+                        }
+                    ),
+                    iconRes = R.drawable.info_warning_icon
+                )
+            }
             CertValidationResult.Invalid -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
                     title = getString(R.string.certificate_invalid_detail_view_note_title),
@@ -201,9 +214,10 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
         }
     }
 
-    private fun updatePdfButton(isEnabled: Boolean) {
+    private fun updatePdfButton(isEnabled: Boolean, isRevoked: Boolean) {
         binding.dgcDetailExportPdfButton.isEnabled = isEnabled
         binding.dgcDetailExportPdfInfo.isGone = isEnabled
+        binding.dgcDetailButtonsContainer.isGone = isRevoked
     }
 
     private fun setupActionBar(cert: CovCertificate) {

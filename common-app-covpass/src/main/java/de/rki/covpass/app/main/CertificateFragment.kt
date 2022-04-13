@@ -62,7 +62,11 @@ internal class CertificateFragment : BaseFragment() {
         val isFavoriteButtonVisible = certificateList.certificates.size > 1
 
         launchWhenStarted {
-            binding.certificateCard.qrCodeImage = generateQRCode(mainCombinedCertificate.qrContent)
+            binding.certificateCard.qrCodeImage = if (mainCombinedCertificate.isRevoked) {
+                generateQRCode(REVOKED_QRCODE)
+            } else {
+                generateQRCode(mainCombinedCertificate.qrContent)
+            }
         }
 
         val showBoosterNotification = !groupedCertificate.hasSeenBoosterDetailNotification &&
@@ -96,5 +100,9 @@ internal class CertificateFragment : BaseFragment() {
                 mapOf(EncodeHintType.MARGIN to 0)
             )
         }
+    }
+
+    private companion object {
+        const val REVOKED_QRCODE = " "
     }
 }

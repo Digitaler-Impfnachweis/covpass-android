@@ -759,7 +759,18 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Delete later</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Update</string>
 	<string name="certificate_renewal_error_title">Reissue failed</string>
-	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your Internet connection and note that the same certificate can be reissued a maximum of three times a year. If the error persists, please refer to the Frequently Asked Questions for more information using the error code below.\n\nError code: %s</string>
+	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your Internet connection and note that the same certificate can be reissued a maximum of three times a year. If the error persists, please refer to the Frequently Asked Questions for more information using the error code below.\n\nError code: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
 	<string name="certificate_renewal_error_button_secondary">More information</string>
+
+	<!-- SECTION: DCC revocation -->
+	<string name="revocation_error_scan_title">The certificate cannot be added</string>
+	<string name="revocation_error_scan_single_DE">The certificate you scanned was revoked by the RKI due to an official decree.</string>
+	<string name="revocation_error_scan_single_notDE">The certificate was revoked by the certificate issuer due to an official decision.</string>
+	<string name="revocation_error_scan_locationID">The certificate you scanned was revoked by the RKI due to an official decree. Please make every effort to have a new digital certificate issued.</string>
+	<string name="revocation_dialog_single">The validity of a certificate has changed. This certificate can no longer be used for verification.</string>
+	<string name="revocation_dialog_locationID">The validity of a certificate has changed. This certificate can no longer be used for verification. Please make every effort to have a new digital certificate issued.</string>
+	<string name="revocation_detail_single_DE">The RKI has revoked the certificate due to an official decree.</string>
+	<string name="revocation_detail_single_notDE">The certificate was revoked by the certificate issuer due to an official decision.</string>
+	<string name="revocation_detail_locationID">The RKI has revoked the certificate due to an official decree. Please make every effort to have a new digital certificate issued.</string>
 </resources>

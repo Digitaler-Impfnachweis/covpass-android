@@ -7,6 +7,8 @@ package de.rki.covpass.app.errorhandling
 
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
+import de.rki.covpass.app.scanner.RevokedCertificateGermanCertificateException
+import de.rki.covpass.app.scanner.RevokedCertificateNotGermanCertificateException
 import de.rki.covpass.app.scanner.SavingBlockedException
 import de.rki.covpass.app.ticketing.AccessTokenDecodingException
 import de.rki.covpass.app.ticketing.InvalidValidationServiceProvider
@@ -144,6 +146,20 @@ internal class ErrorHandler : CommonErrorHandler() {
                 negativeButtonTextRes = R.string.certificate_renewal_error_button_secondary,
                 tag = TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
             )
+            is RevokedCertificateGermanCertificateException -> DialogModel(
+                titleRes = R.string.revocation_error_scan_title,
+                messageString =
+                getString(R.string.revocation_error_scan_single_DE),
+                positiveButtonTextRes = R.string.ok,
+                tag = TAG_ERROR_REVOKED_DE_CERTIFICATE
+            )
+            is RevokedCertificateNotGermanCertificateException -> DialogModel(
+                titleRes = R.string.revocation_error_scan_title,
+                messageString =
+                getString(R.string.revocation_error_scan_single_notDE),
+                positiveButtonTextRes = R.string.ok,
+                tag = TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE
+            )
             else -> null
         }
 
@@ -165,6 +181,8 @@ internal class ErrorHandler : CommonErrorHandler() {
         const val TAG_ERROR_SAVING_BLOCKED: String = "error_saving_blocked"
         const val TAG_ERROR_REISSUING_TOO_MANY_REQUESTS: String = "error_reissuing_too_many_requests"
         const val TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR: String = "error_reissuing_internal_server_error"
+        const val TAG_ERROR_REVOKED_DE_CERTIFICATE: String = "error_reissuing_revoked_de_certificate"
+        const val TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE: String = "error_reissuing_revoked_not_de_certificate"
 
         // Error codes
         const val ERROR_NO_VALIDATION_SERVICE_LISTED = 103
