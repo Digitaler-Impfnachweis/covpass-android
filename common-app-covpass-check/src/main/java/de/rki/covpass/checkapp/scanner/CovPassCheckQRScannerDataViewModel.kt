@@ -162,7 +162,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
             CovPassCheckValidationResult.ValidationError
         }
         if (isTwoGOn) {
-            if (certificate != null) {
+            if (certificate != null && !isTechnical) {
                 prepareData2g(certificate, validationResult)
             } else {
                 prepareData2gNullCert(isTechnical, validationResult)
