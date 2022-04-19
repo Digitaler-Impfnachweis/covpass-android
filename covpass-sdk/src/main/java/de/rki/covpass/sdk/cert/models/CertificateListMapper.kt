@@ -12,9 +12,12 @@ public class CertificateListMapper(
     public fun toGroupedCertificatesList(covCertificateList: CovCertificateList): GroupedCertificatesList {
         val groupedCertificatesList = GroupedCertificatesList()
         for (localCert in covCertificateList.certificates) {
+            var covCertificate: CovCertificate? = null
             val error = runCatching {
-                val covCertificate = qrCoder.decodeCovCert(localCert.qrContent, allowExpiredCertificates = true)
-                validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
+                covCertificate = qrCoder.decodeCovCert(localCert.qrContent, allowExpiredCertificates = true)
+                covCertificate?.let {
+                    validateEntity(it.dgcEntry.idWithoutPrefix)
+                }
             }.exceptionOrNull()
             val status = when (error) {
                 null ->
@@ -33,7 +36,21 @@ public class CertificateListMapper(
                 is BlacklistedEntityException -> CertValidationResult.Invalid
                 else -> CertValidationResult.Invalid
             }
-            groupedCertificatesList.addNewCertificate(localCert.toCombinedCovCertificate(status))
+            val combinedCovCertificate = covCertificate.let {
+                if (it != null &&
+                    (localCert.covCertificate.kid.isEmpty() || localCert.covCertificate.rValue.isEmpty())
+                ) {
+                    localCert.copy(
+                        covCertificate = localCert.covCertificate.copy(
+                            kid = it.kid,
+                            rValue = it.rValue
+                        )
+                    )
+                } else {
+                    localCert
+                }
+            }.toCombinedCovCertificate(status)
+            groupedCertificatesList.addNewCertificate(combinedCovCertificate)
         }
 
         groupedCertificatesList.favoriteCertId = covCertificateList.favoriteCertId
