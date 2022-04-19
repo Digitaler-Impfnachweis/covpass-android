@@ -114,6 +114,7 @@ public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, Dia
                         Uri.parse(getString(R.string.covpass_reissuing_faq_link))
                     )
                 )
+                onBackPressed()
             }
             DialogAction.POSITIVE -> {
                 findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
