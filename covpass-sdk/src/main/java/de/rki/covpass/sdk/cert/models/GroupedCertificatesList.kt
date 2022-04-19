@@ -138,8 +138,11 @@ public data class GroupedCertificatesList private constructor(
 
     private fun isReissueUpdateNeeded(matchingCombinedCert: CombinedCovCertificate?): Boolean {
         val dgcEntry = matchingCombinedCert?.covCertificate?.dgcEntry
-        return (matchingCombinedCert?.isReadyForReissue == true || matchingCombinedCert?.alreadyReissued == true) &&
-            (dgcEntry is Vaccination && (dgcEntry.isCompleteSingleDose || dgcEntry.isCompleteDoubleDose))
+        return (
+            (matchingCombinedCert?.isReadyForReissue == true || matchingCombinedCert?.alreadyReissued == true) &&
+                (dgcEntry is Vaccination && (dgcEntry.isCompleteSingleDose || dgcEntry.isCompleteDoubleDose))
+            ) ||
+            (dgcEntry is Vaccination && dgcEntry.doseNumber == 2 && dgcEntry.totalSerialDoses == 1)
     }
 
     /**
