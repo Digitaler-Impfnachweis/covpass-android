@@ -42,7 +42,7 @@ public object CertificateReissueUtils {
             emptyList()
         }
 
-        val isRecoveryLatest = sortedRecoveries.first().recovery?.firstResult?.isAfter(
+        val isRecoveryLatest = sortedRecoveries.firstOrNull()?.recovery?.firstResult?.isAfter(
             doubleDoseVaccination.vaccination?.occurrence
         ) == true
 
