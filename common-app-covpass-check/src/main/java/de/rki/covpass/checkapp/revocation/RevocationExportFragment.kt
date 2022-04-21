@@ -22,7 +22,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class RevocationExportFragmentNav(
-    val revocationExportData: ExpertModeData
+    val revocationExportData: ExpertModeData,
+    val isGermanCertificate: Boolean
 ) : FragmentNav(RevocationExportFragment::class)
 
 internal class RevocationExportFragment : BaseExportPdfFragment() {
@@ -39,6 +40,7 @@ internal class RevocationExportFragment : BaseExportPdfFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.revocation_detail_page_title)
+        bottomSheetBinding.bottomSheetActionButton.isEnabled = args.isGermanCertificate
         fillContent()
     }
 

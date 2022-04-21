@@ -21,8 +21,8 @@ import de.rki.covpass.checkapp.databinding.ValidationResultBinding
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
-import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.hoursTillNow
@@ -67,7 +67,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     open val textFooter: String? = null
 
     private val expertModeVisible: Boolean by lazy {
-        commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null && isGermanCertificate
+        commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null
     }
     open val isGermanCertificate: Boolean = false
     open val expertModeData: ExpertModeData? = null
@@ -120,7 +120,8 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
                 expertModeData?.let {
                     findNavigator().push(
                         RevocationExportFragmentNav(
-                            revocationExportData = it
+                            revocationExportData = it,
+                            isGermanCertificate = isGermanCertificate
                         )
                     )
                 }
