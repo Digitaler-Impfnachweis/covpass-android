@@ -109,7 +109,6 @@ public abstract class QRScannerFragment : BaseFragment() {
         cameraExecutor = Executors.newSingleThreadExecutor()
         windowManager = WindowManager(view.context)
 
-        checkPermission()
         view.post {
             binding.scannerImageView.setImageDrawable(
                 ScannerDrawable(
