@@ -552,7 +552,7 @@ internal class DetailFragment :
                                     title = getString(R.string.certificates_overview_test_certificate_title),
                                     subtitle = getString(R.string.certificates_overview_pcr_test_certificate_message),
                                     date = getString(
-                                        R.string.certificates_overview_pcr_test_certificate_date,
+                                        R.string.certificates_overview_test_certificate_date,
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
