@@ -260,12 +260,7 @@ private class CertificateViewHolder(
                 // .let{} to enforce exhaustiveness
             }.let {}
             binding.certificateTypeIcon.setTint(
-                if (cert.isActual &&
-                    (
-                        cert.certStatus == CertValidationResult.Expired ||
-                            cert.certStatus == CertValidationResult.Invalid
-                        )
-                ) {
+                if (cert.isActual && cert.isExpiredInvalidOrRevoked()) {
                     R.color.backgroundSecondary50
                 } else if (cert.isActual) {
                     when (cert.type) {
@@ -308,6 +303,11 @@ private class CertificateViewHolder(
         }
     }
 }
+
+private fun DetailItem.Certificate.isExpiredInvalidOrRevoked() =
+    certStatus == CertValidationResult.Expired ||
+        certStatus == CertValidationResult.Invalid ||
+        certStatus == CertValidationResult.Revoked
 
 private class ReissueNotificationViewHolder(
     val parent: ViewGroup,
