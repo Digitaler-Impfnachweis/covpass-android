@@ -49,7 +49,11 @@ public object CertificateReissueUtils {
         val recoveriesOrEmpty = if (isRecoveryLatest) {
             emptyList()
         } else {
-            sortedRecoveries
+            if (sortedRecoveries.firstOrNull()?.isGermanCertificate == true) {
+                sortedRecoveries
+            } else {
+                emptyList()
+            }
         }
 
         val isGermanCertificate = (
