@@ -253,11 +253,7 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(
-                                            R.string.vaccination_certificate_overview_incomplete_title,
-                                            dgcEntry.doseNumber,
-                                            dgcEntry.totalSerialDoses
-                                        )
+                                        getString(R.string.vaccination_certificate_overview_incomplete_title)
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,

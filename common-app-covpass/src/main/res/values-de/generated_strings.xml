@@ -338,7 +338,7 @@
 	<string name="accessibility_overview_certificates_label_favourites_button_not_active">Zertifikate dieser Person immer an erster Stelle anzeigen: nicht aktiv</string>
 	<string name="accessibility_overview_certificates_label_display_certificate">Zertifikat anzeigen</string>
 	<string name="booster_vaccination_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
-	<string name="vaccination_certificate_overview_incomplete_title">Unvollständiger Impfschutz: %1$d von %2$d</string>
+	<string name="vaccination_certificate_overview_incomplete_title">Unvollständiger Impfschutz</string>
 	<string name="vaccination_certificate_overview_incomplete_message">Ihr Impfschutz ist nicht vollständig. Um den QR-Code als Nachweis für einen kompletten Impfschutz vorzeigen zu können, fügen Sie bitte eine weitere Impfung hinzu.</string>
 	<string name="vaccination_certificate_detail_view_incomplete_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="vaccination_certificate_overview_complete_from_title">Vollständiger Impfschutz ab %s</string>

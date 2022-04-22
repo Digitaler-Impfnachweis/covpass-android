@@ -48,7 +48,7 @@ public data class Vaccination(
     override val id: String = "",
 ) : DGCEntry {
     public val isComplete: Boolean
-        get() = doseNumber >= totalSerialDoses
+        get() = (doseNumber >= totalSerialDoses) && !(isCompleteSingleDose && isJanssen)
 
     public val isCompleteSingleDose: Boolean
         get() = doseNumber == 1 && totalSerialDoses == 1
@@ -61,12 +61,15 @@ public data class Vaccination(
             doseNumber > totalSerialDoses
 
     public val hasFullProtectionAfterRecovery: Boolean
-        get() = (isCompleteSingleDose && ((product == BIONTECH) || (product == MODERNA) || (product == ASTRAZENECA)))
+        get() = (
+            isCompleteSingleDose &&
+                (!isJanssen || (product == BIONTECH) || (product == MODERNA) || (product == ASTRAZENECA))
+            )
 
     public val hasFullProtection: Boolean
         // Full protection is reached on day 15 after the complete vaccination
         // or if is a booster vaccination
-        // or 1/1 after Recovery
+        // or 1/1 (except Janssen) after Recovery
         get() =
             (isComplete && occurrence?.isOlderThan(days = 14) == true) || isBooster || hasFullProtectionAfterRecovery
 
