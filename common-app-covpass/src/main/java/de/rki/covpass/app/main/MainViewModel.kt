@@ -100,7 +100,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             }
             validateRevokedCertificates() -> {
                 eventNotifier {
-                    showReissueNotification(getReissueIdsList())
+                    showRevokedNotification()
                 }
                 true
             }
@@ -142,7 +142,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 groupedCertificates.certificates = groupedCertificates.certificates.map {
                     if (listRevokedCertificates.contains(it.covCertificate.dgcEntry.id)) {
                         it.copy(
-                            status = CertValidationResult.Invalid,
+                            status = CertValidationResult.Revoked,
                             isRevoked = true
                         )
                     } else {
