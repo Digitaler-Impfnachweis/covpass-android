@@ -238,8 +238,8 @@ internal class CovPassCheckQRScannerFragment :
         showDialog(dialog, childFragmentManager)
     }
 
-    override fun setLoading(isLoading: Boolean) {
-        super.setLoading(isLoading)
+    override fun showLoading(isLoading: Boolean) {
+        super.showLoading(isLoading)
         if (!isLoading) {
             checkPermission()
         }

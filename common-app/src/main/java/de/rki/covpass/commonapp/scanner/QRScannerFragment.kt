@@ -80,6 +80,7 @@ public abstract class QRScannerFragment : BaseFragment() {
         autoRun {
             updateTorchView(get(isTorchOn))
         }
+        autoRun { showLoading(get(loading) > 0) }
 
         launchWhenStarted {
             scannerViewModel.scanResults.collect { result ->
@@ -228,7 +229,7 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     protected abstract fun onBarcodeResult(qrCode: String)
 
-    override fun setLoading(isLoading: Boolean) {
+    protected open fun showLoading(isLoading: Boolean) {
         binding.loadingLayout.isVisible = isLoading
         if (isLoading) {
             cameraProvider?.unbindAll()
