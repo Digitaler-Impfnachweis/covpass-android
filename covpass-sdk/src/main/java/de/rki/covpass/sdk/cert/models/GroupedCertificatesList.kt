@@ -5,6 +5,8 @@
 
 package de.rki.covpass.sdk.cert.models
 
+import de.rki.covpass.sdk.utils.DataComparison
+import de.rki.covpass.sdk.utils.DccNameMatchingUtils.compareHolder
 import de.rki.covpass.sdk.utils.DccNameMatchingUtils.isHolderSame
 
 /**
@@ -22,7 +24,9 @@ public data class GroupedCertificatesList private constructor(
      * Returns a [GroupedCertificates] if the id of the cert matches the given [certId].
      */
     public fun getGroupedCertificates(certId: GroupedCertificatesId): GroupedCertificates? =
-        certificates.firstOrNull { it.id == certId }
+        certificates.firstOrNull {
+            compareHolder(it.id.name, certId.name, it.id.birthDate, certId.birthDate) == DataComparison.Equal
+        }
 
     /**
      * Returns a list for [GroupedCertificates] except certificates with [CertValidationResult.Invalid]
