@@ -29,7 +29,7 @@ public suspend fun validateRevocation(
                 covCertificate.dgcEntry.id.sha256()
             }
             HashVariant.COUNTRY_UCI.byte -> {
-                (covCertificate.dgcEntry.id + covCertificate.issuer).sha256()
+                (covCertificate.issuer + covCertificate.dgcEntry.id).sha256()
             }
             else -> {
                 continue
