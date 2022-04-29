@@ -124,7 +124,7 @@ internal class CovPassCheckQRScannerFragment :
 
         findNavigator().push(
             when (dataViewModel.compareData(firstCertData, secondCertData)) {
-                DataComparison.Equal, DataComparison.HasNullData -> {
+                DataComparison.Equal, DataComparison.HasNullData, DataComparison.HasInvalidData -> {
                     ValidationResult2gFragmentNav(
                         firstCertData,
                         secondCertData

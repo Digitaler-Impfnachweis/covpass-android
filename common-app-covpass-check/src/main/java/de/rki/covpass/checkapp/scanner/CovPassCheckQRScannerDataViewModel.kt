@@ -173,6 +173,10 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     }
 
     fun compareData(certData: ValidationResult2gData?, testData: ValidationResult2gData?): DataComparison {
+        if (certData?.isInvalid() == true || testData?.isInvalid() == true) {
+            return DataComparison.HasInvalidData
+        }
+
         val name1 = certData?.validationName?.toName()
         val name2 = testData?.validationName?.toName()
         val dob1 = certData?.certificateBirthDate

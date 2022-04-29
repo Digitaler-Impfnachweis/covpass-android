@@ -70,5 +70,5 @@ public object DccNameMatchingUtils {
 }
 
 public enum class DataComparison {
-    Equal, NameDifferent, DateOfBirthDifferent, HasNullData
+    Equal, NameDifferent, DateOfBirthDifferent, HasNullData, HasInvalidData
 }
