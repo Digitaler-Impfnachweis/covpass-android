@@ -6,14 +6,14 @@
 package de.rki.covpass.commonapp.information
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.appVersion
 import com.ibm.health.common.android.utils.attachToolbar
-import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
@@ -21,7 +21,6 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
-import de.rki.covpass.commonapp.utils.stripUnderlines
 import java.util.*
 
 /**
@@ -45,23 +44,21 @@ public abstract class InformationFragment : BaseFragment() {
         )
         if (Locale.getDefault().language == Locale.GERMAN.language) {
             binding.informationFieldEasyLanguage.apply {
-                text = getSpanned(
-                    R.string.app_information_title_company_easy_language_linked,
-                    getString(getEasyLanguageLinkRes())
-                )
-                movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlines()
+                setText(R.string.app_information_title_company_easy_language)
+                setOnClickListener {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(getEasyLanguageLinkRes())))
+                    startActivity(browserIntent)
+                }
             }
             binding.informationFieldEasyLanguage.isVisible = true
             binding.dividerEasyLanguage.isVisible = true
         }
         binding.informationFieldFaq.apply {
-            text = getSpanned(
-                R.string.app_information_title_faq_linked,
-                getString(getFAQLinkRes())
-            )
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            setText(R.string.app_information_title_faq)
+            setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(getFAQLinkRes())))
+                startActivity(browserIntent)
+            }
         }
         binding.informationFieldDataSecurityPolicy.apply {
             text = getString(R.string.app_information_title_datenschutz)
@@ -70,12 +67,11 @@ public abstract class InformationFragment : BaseFragment() {
             }
         }
         binding.informationFieldImprint.apply {
-            text = getSpanned(
-                R.string.app_information_title_company_details_linked,
-                getString(getImprintLinkRes())
-            )
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            setText(R.string.app_information_title_company_details)
+            setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(getImprintLinkRes())))
+                startActivity(browserIntent)
+            }
         }
 
         binding.informationFieldOpenSourceLicenses.apply {
@@ -100,12 +96,14 @@ public abstract class InformationFragment : BaseFragment() {
         }
 
         binding.informationFieldAccessibilityStatement.apply {
-            text = getSpanned(
-                R.string.app_information_title_accessibility_statement_linked,
-                getString(R.string.information_accessibility_statement)
-            )
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            setText(R.string.app_information_title_accessibility_statement)
+            setOnClickListener {
+                val browserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.information_accessibility_statement))
+                )
+                startActivity(browserIntent)
+            }
         }
 
         if (isCovpassCheck()) {
