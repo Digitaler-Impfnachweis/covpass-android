@@ -74,13 +74,23 @@ public class RevocationListRepository(
         return cborObject?.toIndexResponse() ?: emptyMap()
     }
 
-    public suspend fun getByteOneChunk(kid: ByteArray, hashType: Byte, byte1: Byte): List<ByteArray> {
+    public suspend fun getByteOneChunk(
+        kid: ByteArray,
+        hashType: Byte,
+        byte1: Byte
+    ): List<ByteArray> {
         val cborObject = getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/chunk.lst")
         return cborObject?.toListOfByteArrays() ?: emptyList()
     }
 
-    public suspend fun getByteTwoChunk(kid: ByteArray, hashType: Byte, byte1: Byte, byte2: Byte): List<ByteArray> {
-        val cborObject = getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/${byte2.toHex()}/chunk.lst")
+    public suspend fun getByteTwoChunk(
+        kid: ByteArray,
+        hashType: Byte,
+        byte1: Byte,
+        byte2: Byte
+    ): List<ByteArray> {
+        val cborObject =
+            getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/${byte2.toHex()}/chunk.lst")
         return cborObject?.toListOfByteArrays() ?: emptyList()
     }
 
@@ -90,6 +100,8 @@ public class RevocationListRepository(
             val sign1Message = Sign1Message.DecodeFromBytes(list) as Sign1Message
             validateSignature(sign1Message)
             CBORObject.DecodeFromBytes(sign1Message.GetContent())
+        } catch (e: RevocationListSignatureValidationFailedException) {
+            null
         } catch (e: Throwable) {
             if (isNetworkError(e)) {
                 null
