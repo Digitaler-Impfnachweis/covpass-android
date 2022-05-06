@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getString
@@ -43,12 +44,6 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateStatusImageview.setImageDrawable(newValue)
     }
 
-    private var cardFadeout: Drawable? by Delegates.observable(null) { _, _, newValue ->
-        if (newValue != null) {
-            binding.cardBottomFadeout.background = newValue
-        }
-    }
-
     public var qrCodeImage: Bitmap? by Delegates.observable(null) { _, _, newValue ->
         binding.certificateQrImageview.background = BitmapDrawable(resources, newValue)
     }
@@ -80,15 +75,19 @@ public class CertificateCard @JvmOverloads constructor(
         fullName: String,
         isFavorite: Boolean,
         certStatus: CertValidationResult,
-        showBoosterNotification: Boolean
+        header: String,
+        subtitle: String,
+        @DrawableRes imageRes: Int
     ) {
         binding.certificateNameTextview.text = fullName
+        binding.certificateHeaderTextview.text = header
+        binding.certificateStatusTextview.text = subtitle
         validateFavoriteFlag(isFavorite)
 
         when (certStatus) {
             CertValidationResult.Valid,
             CertValidationResult.ExpiryPeriod -> {
-                validOrExpiryPeriod(showBoosterNotification)
+                validOrExpiryPeriod(imageRes)
             }
             CertValidationResult.Invalid, CertValidationResult.Revoked ->
                 expiredOrInvalid(getString(R.string.certificates_start_screen_qrcode_certificate_invalid_subtitle))
@@ -109,21 +108,9 @@ public class CertificateCard @JvmOverloads constructor(
         }
     }
 
-    private fun validOrExpiryPeriod(showBoosterNotification: Boolean) {
-        status =
-            if (showBoosterNotification) {
-                getString(R.string.vaccination_start_screen_qrcode_booster_vaccination_note_subtitle)
-            } else {
-                null
-            }
+    private fun validOrExpiryPeriod(@DrawableRes imageRes: Int) {
         cardBackground = ContextCompat.getColor(context, R.color.info70)
-        statusImage = ContextCompat.getDrawable(
-            context,
-            if (showBoosterNotification) R.drawable.booster_notification_icon_white
-            else R.drawable.main_cert_status_complete_white
-        )
-        cardFadeout =
-            ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_blue)
+        statusImage = ContextCompat.getDrawable(context, imageRes)
         binding.certificateQrImageview.foreground = null
         binding.certificateQrImageview.backgroundTintList = null
         binding.certificateQrImageview.backgroundTintMode = null
@@ -132,9 +119,7 @@ public class CertificateCard @JvmOverloads constructor(
     private fun expiredOrInvalid(statusText: String) {
         status = statusText
         cardBackground = ContextCompat.getColor(context, R.color.onBrandBase60)
-        statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired_white)
-        cardFadeout =
-            ContextCompat.getDrawable(context, R.drawable.common_gradient_card_fadeout_gray)
+        statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired)
         binding.certificateQrImageview.foreground =
             ContextCompat.getDrawable(context, R.drawable.expired_overlay_icon_foreground)
         binding.certificateQrImageview.backgroundTintList =

@@ -42,6 +42,7 @@
 	<string name="dialog_start_screen_message">Möchten Sie jetzt die CovPassCheck-App aktualisieren?</string>
 	<string name="dialog_start_screen_button_later">Nicht jetzt</string>
 	<string name="dialog_start_screen_button_update">Aktualisieren</string>
+	<string name="dialog_update_info_notification_action_button">OK</string>
 	<string name="accessibility_update_info_announce">Die Ansicht \"Neue Funktionen\" wurde geöffnet</string>
 	<string name="accessibility_check_context_onboarding_announce_open">Die Ansicht “Wann nutzen Sie die CovPassCheck-App?” wurde geöffnet.</string>
 	<string name="accessibility_check_context_onboarding_announce_close">Die Ansicht “Wann nutzen Sie die CovPassCheck-App?” wurde geschlossen.</string>
@@ -188,6 +189,9 @@
 	<string name="error_2G_unexpected_type_title">Falscher Zertifikatstyp</string>
 	<string name="error_2G_unexpected_type_copy">Das gescannte Zertifikat entspricht nicht dem erwarteten Zertifikatstyp. Für 2G+ müssen Sie einen 2G-Nachweis (Genesenen- oder Impfzertifikat) und ein Testzertifikat scannen.</string>
 	<string name="error_2G_unexpected_type_button">OK</string>
+	<string name="error_2G_unexpected_type_old_recovery_title">Falscher Zertifikatstyp</string>
+	<string name="error_2G_unexpected_type_old_recovery_copy">Um 2G+ mit einem Genesenenzertifikat, das älter als 90 Tage ist, zu erfüllen, müssen Sie als zweiten Nachweis eine Grundimmunisierung scannen.</string>
+	<string name="error_2G_unexpected_type_old_recovery_button">OK</string>
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>

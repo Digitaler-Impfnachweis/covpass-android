@@ -76,6 +76,14 @@
 	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">Download the CovPassCheck app (External Link)</string>
 	<string name="certificates_start_screen_pop_up_app_reference_hyperlink_linked">#Download the CovPassCheck app (External Link)::$0#</string>
 	<string name="certificates_start_screen_pop_up_app_reference_button">OK</string>
+	<string name="certificate_type_recovery">Recovery</string>
+	<string name="certificate_type_basic_immunisation">Basic immunisation</string>
+	<string name="certificate_type_booster">Booster vaccination</string>
+	<string name="certificate_type_rapidtest">antigen rapid test</string>
+	<string name="certificate_type_pcrtest">PCR test</string>
+	<string name="certificate_timestamp_hours">%d hour(s) ago</string>
+	<string name="certificate_timestamp_days">%d day(s) ago</string>
+	<string name="certificate_timestamp_months">%d month(s) ago</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Close Pop-up</string>
 	<string name="accessibility_certificate_popup_checkapp_announce">The view \"Please scan!\" has been opened</string>
 
@@ -759,7 +767,7 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Delete later</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Update</string>
 	<string name="certificate_renewal_error_title">Reissue failed</string>
-	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your Internet connection and note that the same certificate can be reissued a maximum of three times a year. If the error persists, please refer to the Frequently Asked Questions for more information using the error code below.\n\nError code: %s</string>
+	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your internet connection. Note that the certificate can be reissued a maximum of three times a year. For more information on the error code below please contact our hotline at 0800–4747–001 or support\@covpass-app.de.\n\nError code: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
 	<string name="certificate_renewal_error_button_secondary">More information</string>
 

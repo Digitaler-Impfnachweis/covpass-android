@@ -76,6 +76,14 @@
 	<string name="certificates_start_screen_pop_up_app_reference_hyperlink">Zur CovPassCheck-App (Externer Link)</string>
 	<string name="certificates_start_screen_pop_up_app_reference_hyperlink_linked">#Zur CovPassCheck-App (Externer Link)::$0#</string>
 	<string name="certificates_start_screen_pop_up_app_reference_button">OK</string>
+	<string name="certificate_type_recovery">Genesung</string>
+	<string name="certificate_type_basic_immunisation">Grundimmunisierung</string>
+	<string name="certificate_type_booster">Auffrischungsimpfung</string>
+	<string name="certificate_type_rapidtest">Antigen-Schnelltest</string>
+	<string name="certificate_type_pcrtest">PCR-Test</string>
+	<string name="certificate_timestamp_hours">Vor %d Stunde(n)</string>
+	<string name="certificate_timestamp_days">Vor %d Tage(n)</string>
+	<string name="certificate_timestamp_months">Vor %d Monat(en)</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Pop-up schließen</string>
 	<string name="accessibility_certificate_popup_checkapp_announce">Die Ansicht \"Scannen bitte!\" wurde geöffnet</string>
 
@@ -759,7 +767,7 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Später löschen</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Aktualisieren</string>
 	<string name="certificate_renewal_error_title">Neuausstellung fehlgeschlagen</string>
-	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuaustellung Ihres Zertifikates. Bitte überprüfen Sie Ihre Internetverbindung und beachten Sie, dass das selbe Zertifikat maximal drei Mal im Jahr neu ausgestellt werden kann. Sollte der Fehler wiederholt auftreten, finden Sie mit Hilfe des unten aufgeführten Fehlercodes weitere Informationen in den Häufigen Fragen.\n\nFehlercode: %s</string>
+	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuausstellung Ihres Zertifikats. Bitte überprüfen Sie Ihre Internetverbindung. Beachten Sie, dass Sie das Zertifikat maximal drei Mal im Jahr neu ausstellen lassen können. Für Informationen zum unten aufgeführten Fehlercode kontaktieren Sie bitte unsere Hotline unter 0800–4747–001 oder support\@covpass-app.de.\n\nFehlercode: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
 	<string name="certificate_renewal_error_button_secondary">Mehr Informationen</string>
 

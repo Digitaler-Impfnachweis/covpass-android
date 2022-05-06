@@ -42,6 +42,7 @@
 	<string name="dialog_start_screen_message">Would you like to update the CovPassCheck app now?</string>
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
+	<string name="dialog_update_info_notification_action_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
 	<string name="accessibility_check_context_onboarding_announce_open">The view \"When do you use the CovPassCheck app?\" has been opened.</string>
 	<string name="accessibility_check_context_onboarding_announce_close">The view \"When do you use the CovPassCheck app?\" has been closed.</string>
@@ -188,6 +189,9 @@
 	<string name="error_2G_unexpected_type_title">Wrong certificate type</string>
 	<string name="error_2G_unexpected_type_copy">The scanned certificate does not match the expected certificate type. For 2G+, you must scan a 2G proof (recovery or vaccination certificate) and a test certificate.</string>
 	<string name="error_2G_unexpected_type_button">OK</string>
+	<string name="error_2G_unexpected_type_old_recovery_title">Wrong certificate type</string>
+	<string name="error_2G_unexpected_type_old_recovery_copy">To meet the 2G+ requirements with a recovery older than 90 days, you need to scan a basic immunisation as a second proof.</string>
+	<string name="error_2G_unexpected_type_old_recovery_button">OK</string>
 
 	<!-- SECTION: app information -->
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
