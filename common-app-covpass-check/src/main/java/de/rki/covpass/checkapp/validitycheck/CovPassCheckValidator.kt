@@ -21,6 +21,7 @@ public suspend fun validate(
     covCertificate: CovCertificate,
     covPassRulesValidator: CovPassRulesValidator,
     revocationListRepository: RevocationListRepository,
+    recoveryOlder90DaysValid: Boolean = false
 ): CovPassCheckValidationResult {
     val validationResults = covPassRulesValidator.validate(covCertificate)
     if (validationResults.isEmpty()) {
@@ -28,7 +29,9 @@ public suspend fun validate(
     }
     validationResults.forEach {
         if (it.result != Result.PASSED) {
-            return CovPassCheckValidationResult.ValidationError
+            if (!(recoveryOlder90DaysValid && it.rule.identifier == "RR-DE-0002")) {
+                return CovPassCheckValidationResult.ValidationError
+            }
         }
     }
     if (validateRevocation(covCertificate, revocationListRepository)) {

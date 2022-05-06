@@ -8,6 +8,7 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
+import com.ensody.reactivestate.MutableValueFlow
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.checkapp.validitycheck.validate
 import de.rki.covpass.commonapp.dependencies.commonDeps
@@ -44,13 +45,22 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private val checkContextRepository: CheckContextRepository = commonDeps.checkContextRepository,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
+    val recoveryOlder90DaysValid: MutableValueFlow<Boolean> = MutableValueFlow(true)
+
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
                 validateEntity(dgcEntry.idWithoutPrefix)
-                when (validate(covCertificate, getRuleValidator(), revocationListRepository)) {
+                when (
+                    validate(
+                        covCertificate,
+                        getRuleValidator(),
+                        revocationListRepository,
+                        recoveryOlder90DaysValid.value
+                    )
+                ) {
                     CovPassCheckValidationResult.Success -> {
                         when (dgcEntry) {
                             is Vaccination, is Recovery -> {

@@ -5,6 +5,8 @@
 
 package de.rki.covpass.checkapp.scanner
 
+import android.os.Bundle
+import android.view.View
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
@@ -27,7 +29,7 @@ import java.time.ZonedDateTime
 
 @Parcelize
 internal class CovPassCheckQRScannerFragmentNav(
-    val isTwoGOn: Boolean,
+    val isTwoGPlusOn: Boolean,
     val isTwoGPlusBOn: Boolean,
 ) : FragmentNav(CovPassCheckQRScannerFragment::class)
 
@@ -42,15 +44,20 @@ internal class CovPassCheckQRScannerFragment :
     ValidationResult2GListener,
     CovPassCheckQRScannerDataEvents {
 
-    private val isTwoGOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGOn }
+    private val isTwoGPlusOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGPlusOn }
     private val isTwoGPlusBOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGPlusBOn }
     private val viewModel by reactiveState { CovPassCheckQRScannerViewModel(scope) }
     private val dataViewModel by reactiveState {
         CovPassCheckQRScannerDataViewModel(
             scope,
-            isTwoGOn,
+            isTwoGPlusOn,
             isTwoGPlusBOn
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        verifyRecoveryOlder90DaysIsValid()
     }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
@@ -96,6 +103,7 @@ internal class CovPassCheckQRScannerFragment :
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
         dataViewModel.firstCertificateData2G = null
         dataViewModel.secondCertificateData2G = null
+        verifyRecoveryOlder90DaysIsValid()
     }
 
     override fun onValidatingFirstCertificate(
@@ -105,6 +113,7 @@ internal class CovPassCheckQRScannerFragment :
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
         dataViewModel.firstCertificateData2G = firstCertificateData
         dataViewModel.secondCertificateData2G = null
+        verifyRecoveryOlder90DaysIsValid()
     }
 
     override fun on2gData(
@@ -238,6 +247,16 @@ internal class CovPassCheckQRScannerFragment :
         showDialog(dialog, childFragmentManager)
     }
 
+    override fun showWarning2gRecoveryOlder90DaysUnexpectedType() {
+        val dialog = DialogModel(
+            titleRes = R.string.error_2G_unexpected_type_old_recovery_title,
+            messageString = getString(R.string.error_2G_unexpected_type_old_recovery_copy),
+            positiveButtonTextRes = R.string.error_2G_unexpected_type_old_recovery_button,
+            tag = TAG_ERROR_2G_RECOVERY_OLDER_90_DAYS_UNEXPECTED_TYPE
+        )
+        showDialog(dialog, childFragmentManager)
+    }
+
     override fun showLoading(isLoading: Boolean) {
         super.showLoading(isLoading)
         if (!isLoading) {
@@ -265,7 +284,19 @@ internal class CovPassCheckQRScannerFragment :
         return Abort
     }
 
+    private fun verifyRecoveryOlder90DaysIsValid() {
+        viewModel.recoveryOlder90DaysValid.value = isTwoGPlusOn &&
+            dataViewModel.secondCertificateData2G == null &&
+            (
+                dataViewModel.firstCertificateData2G == null ||
+                    dataViewModel.firstCertificateData2G?.isVaccination() == true ||
+                    dataViewModel.firstCertificateData2G?.isBooster() == true
+                )
+    }
+
     private companion object {
         const val TAG_ERROR_2G_UNEXPECTED_TYPE = "tag_error_2g_unexpected_type"
+        const val TAG_ERROR_2G_RECOVERY_OLDER_90_DAYS_UNEXPECTED_TYPE =
+            "tag_error_2g_recovery_older_90_days_unexpected_type"
     }
 }

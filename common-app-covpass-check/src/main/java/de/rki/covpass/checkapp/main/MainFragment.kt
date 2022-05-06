@@ -64,18 +64,18 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         binding.mainCheckCertButton.setOnClickListener {
             if (isCameraPermissionGranted(requireContext())) {
                 findNavigator().push(
-                    CovPassCheckQRScannerFragmentNav(viewModel.isTwoGOn.value, viewModel.isTwoGPlusBOn.value)
+                    CovPassCheckQRScannerFragmentNav(viewModel.isTwoGPlusOn.value, viewModel.isTwoGPlusBOn.value)
                 )
             } else {
                 findNavigator().push(
-                    CovPassCheckCameraDisclosureFragmentNav(viewModel.isTwoGOn.value, viewModel.isTwoGPlusBOn.value)
+                    CovPassCheckCameraDisclosureFragmentNav(viewModel.isTwoGPlusOn.value, viewModel.isTwoGPlusBOn.value)
                 )
             }
         }
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.isTwoGOn.value = tab?.position == 1
+                    viewModel.isTwoGPlusOn.value = tab?.position == 1
                     binding.mainCheckCert2gBLayout.isVisible = tab?.position == 1
                     if (tab?.position == 0) {
                         viewModel.isTwoGPlusBOn.value = false
@@ -143,7 +143,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             }.let { }
         }
         autoRun {
-            updateScannerCard(get(viewModel.isTwoGOn))
+            updateScannerCard(get(viewModel.isTwoGPlusOn))
         }
         autoRun {
             showActivatedRules(get(commonDeps.checkContextRepository.isDomesticRulesOn))
@@ -153,7 +153,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
     override fun onResume() {
         super.onResume()
-        if (viewModel.isTwoGOn.value) {
+        if (viewModel.isTwoGPlusOn.value) {
             binding.mainCheckCertTabLayout.getTabAt(1)?.select()
         } else {
             binding.mainCheckCertTabLayout.getTabAt(0)?.select()

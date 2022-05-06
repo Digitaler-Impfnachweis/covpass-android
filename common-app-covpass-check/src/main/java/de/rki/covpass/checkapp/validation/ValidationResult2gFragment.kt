@@ -60,11 +60,15 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
     private fun prepareView() {
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.result_2G_title)
 
-        fillCertificateElements(binding.validationResultCertificate, firstCertificateData)
+        fillCertificateElements(binding.validationResultCertificate, firstCertificateData, secondCertificateData)
 
         if (secondCertificateData != null) {
             secondCertificateData?.let { secondCertificateData ->
-                fillCertificateElements(binding.validationResultSecondCertificate, secondCertificateData)
+                fillCertificateElements(
+                    binding.validationResultSecondCertificate,
+                    secondCertificateData,
+                    firstCertificateData
+                )
             }
         } else {
             fillEmptyElement()
@@ -93,6 +97,7 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
     private fun fillCertificateElements(
         validationResultCertificate: ValidationResult2gCertificateElement,
         certificateData: ValidationResult2gData,
+        secondaryCertificateData: ValidationResult2gData?,
     ) {
         when (certificateData.certificateResult) {
             CovPassCheckValidationResult.TechnicalError -> {
@@ -113,10 +118,20 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
             }
             CovPassCheckValidationResult.Success -> {
                 validationResultCertificate.showValidCertificate(
-                    if (certificateData.isTest()) {
-                        R.drawable.validation_result_2g_valid_test
-                    } else {
-                        R.drawable.validation_result_2g_valid_certificate
+                    when {
+                        certificateData.isRecoveryOlder90Days && secondaryCertificateData == null -> {
+                            R.drawable.validation_result_2g_recovery_older_90
+                        }
+                        certificateData.isRecoveryOlder90Days && secondaryCertificateData != null &&
+                            secondaryCertificateData.isInvalid() -> {
+                            R.drawable.validation_result_2g_recovery_older_90
+                        }
+                        certificateData.isTest() -> {
+                            R.drawable.validation_result_2g_valid_test
+                        }
+                        else -> {
+                            R.drawable.validation_result_2g_valid_certificate
+                        }
                     },
                     getString(
                         when {
@@ -170,6 +185,13 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 binding.validationResultSecondCertificate.showEmptyCertificate(
                     R.drawable.validation_result_2g_empty_certificate,
                     R.string.result_2G_3rd_test_recov_empty,
+                    R.string.result_2G_2nd_empty,
+                )
+            }
+            firstCertificateData.isRecovery() && firstCertificateData.isRecoveryOlder90Days -> {
+                binding.validationResultSecondCertificate.showEmptyCertificate(
+                    R.drawable.validation_result_2g_empty_certificate,
+                    R.string.result_2G_2nd_basic_valid,
                     R.string.result_2G_2nd_empty,
                 )
             }

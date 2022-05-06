@@ -14,6 +14,6 @@ internal class MainViewModel constructor(
     scope: CoroutineScope,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
-    var isTwoGOn = MutableValueFlow(false)
+    var isTwoGPlusOn = MutableValueFlow(false)
     var isTwoGPlusBOn = MutableValueFlow(false)
 }

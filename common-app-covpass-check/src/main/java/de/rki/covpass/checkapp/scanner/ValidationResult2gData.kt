@@ -22,7 +22,8 @@ public data class ValidationResult2gData(
     public val certificateId: String?,
     public val type: ValidationResult2gCertificateType,
     public val validFrom: Instant? = null,
-    public val validationName: ValidationResult2gName?
+    public val validationName: ValidationResult2gName?,
+    public val isRecoveryOlder90Days: Boolean = false
 ) : Parcelable {
     public fun isBooster(): Boolean =
         type == ValidationResult2gCertificateType.Booster

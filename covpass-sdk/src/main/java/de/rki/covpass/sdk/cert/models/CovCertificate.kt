@@ -6,6 +6,7 @@
 package de.rki.covpass.sdk.cert.models
 
 import android.util.Base64
+import de.rki.covpass.sdk.utils.isOlderThan
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -140,4 +141,8 @@ public data class CovCertificate(
     public val getRValueByteArray: ByteArray by lazy {
         Base64.decode(rValue, Base64.DEFAULT)
     }
+
+    public val isRecoveryOlder90Days: Boolean
+        get() = dgcEntry.type == RecoveryCertType.RECOVERY &&
+            recovery?.firstResult?.isOlderThan(90) == true
 }

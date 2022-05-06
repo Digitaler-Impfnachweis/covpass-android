@@ -29,6 +29,7 @@ internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
     fun on3gTechnicalFailure(is2gOn: Boolean = false)
     fun on3gFailure(certificate: CovCertificate? = null, is2gOn: Boolean = false)
     fun showWarning2gUnexpectedType()
+    fun showWarning2gRecoveryOlder90DaysUnexpectedType()
 }
 
 /**
@@ -36,7 +37,7 @@ internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
  */
 internal class CovPassCheckQRScannerDataViewModel constructor(
     scope: CoroutineScope,
-    private val isTwoGOn: Boolean,
+    private val isTwoGPlusOn: Boolean,
     private val isTwoGPlusBOn: Boolean,
 ) : BaseReactiveState<CovPassCheckQRScannerDataEvents>(scope) {
 
@@ -44,7 +45,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     var secondCertificateData2G: ValidationResult2gData? = null
 
     fun prepareDataOnSuccess(certificate: CovCertificate) {
-        if (isTwoGOn) {
+        if (isTwoGPlusOn) {
             when {
                 isTwoGPlusBOn && certificate.dgcEntry is Vaccination &&
                     (certificate.dgcEntry as Vaccination).isBooster -> {
@@ -58,7 +59,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         verify2gCertificateType(certificate),
                         (certificate.dgcEntry as Vaccination)
                             .occurrence?.atStartOfDay(ZoneId.systemDefault())?.toInstant(),
-                        validationName = certificate.name.toValidationResult2gName()
+                        validationName = certificate.name.toValidationResult2gName(),
+                        isRecoveryOlder90Days = certificate.isRecoveryOlder90Days
                     )
                     secondCertificateData2G = null
                     eventNotifier {
@@ -66,6 +68,9 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             on2gPlusBData(it)
                         }
                     }
+                }
+                validateRecoveryOlder90DaysError(certificate) -> {
+                    show2gRecoveryOlder90DaysError()
                 }
                 isNewCertificateValid(certificate) -> {
                     onDataPreparationFinish(
@@ -90,7 +95,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                                         .occurrence?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
                                 }
                             } as Instant?,
-                            validationName = certificate.name.toValidationResult2gName()
+                            validationName = certificate.name.toValidationResult2gName(),
+                            isRecoveryOlder90Days = certificate.isRecoveryOlder90Days
                         )
                     )
                 }
@@ -106,7 +112,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     }
 
     fun prepareDataOnValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
-        if (isTwoGOn) {
+        if (isTwoGPlusOn) {
             if (isNewCertificateValid(certificate)) {
                 onDataPreparationFinish(
                     ValidationResult2gData(
@@ -131,7 +137,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     }
 
     fun prepareDataOnValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
-        if (isTwoGOn) {
+        if (isTwoGPlusOn) {
             if (isNewCertificateValid(certificate)) {
                 onDataPreparationFinish(
                     ValidationResult2gData(
@@ -161,7 +167,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         } else {
             CovPassCheckValidationResult.ValidationError
         }
-        if (isTwoGOn) {
+        if (isTwoGPlusOn) {
             if (certificate != null && !isTechnical) {
                 prepareData2g(certificate, validationResult)
             } else {
@@ -311,6 +317,22 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
             showWarning2gUnexpectedType()
         }
     }
+
+    private fun show2gRecoveryOlder90DaysError() {
+        eventNotifier {
+            showWarning2gRecoveryOlder90DaysUnexpectedType()
+        }
+    }
+
+    private fun validateRecoveryOlder90DaysError(certificate: CovCertificate) =
+        firstCertificateData2G != null &&
+            (
+                (firstCertificateData2G?.isRecoveryOlder90Days == true && certificate.dgcEntry !is Vaccination) ||
+                    (
+                        certificate.isRecoveryOlder90Days &&
+                            (firstCertificateData2G?.isRecovery() == true || firstCertificateData2G?.isTest() == true)
+                        )
+                )
 
     private fun isNewCertificateValid(certificate: CovCertificate) =
         firstCertificateData2G == null ||
