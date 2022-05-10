@@ -113,21 +113,27 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     fun prepareDataOnValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         if (isTwoGPlusOn) {
-            if (isNewCertificateValid(certificate)) {
-                onDataPreparationFinish(
-                    ValidationResult2gData(
-                        certificate.fullName,
-                        certificate.fullTransliteratedName,
-                        formatDateFromString(certificate.birthDateFormatted),
-                        sampleCollection,
-                        CovPassCheckValidationResult.Success,
-                        certificate.dgcEntry.id,
-                        ValidationResult2gCertificateType.PcrTest,
-                        validationName = certificate.name.toValidationResult2gName()
+            when {
+                validateRecoveryOlder90DaysError(certificate) -> {
+                    show2gRecoveryOlder90DaysError()
+                }
+                isNewCertificateValid(certificate) -> {
+                    onDataPreparationFinish(
+                        ValidationResult2gData(
+                            certificate.fullName,
+                            certificate.fullTransliteratedName,
+                            formatDateFromString(certificate.birthDateFormatted),
+                            sampleCollection,
+                            CovPassCheckValidationResult.Success,
+                            certificate.dgcEntry.id,
+                            ValidationResult2gCertificateType.PcrTest,
+                            validationName = certificate.name.toValidationResult2gName()
+                        )
                     )
-                )
-            } else {
-                show2GError()
+                }
+                else -> {
+                    show2GError()
+                }
             }
         } else {
             eventNotifier {
@@ -138,21 +144,27 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     fun prepareDataOnValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?) {
         if (isTwoGPlusOn) {
-            if (isNewCertificateValid(certificate)) {
-                onDataPreparationFinish(
-                    ValidationResult2gData(
-                        certificate.fullName,
-                        certificate.fullTransliteratedName,
-                        formatDateFromString(certificate.birthDateFormatted),
-                        sampleCollection,
-                        CovPassCheckValidationResult.Success,
-                        certificate.dgcEntry.id,
-                        ValidationResult2gCertificateType.AntigenTest,
-                        validationName = certificate.name.toValidationResult2gName()
+            when {
+                validateRecoveryOlder90DaysError(certificate) -> {
+                    show2gRecoveryOlder90DaysError()
+                }
+                isNewCertificateValid(certificate) -> {
+                    onDataPreparationFinish(
+                        ValidationResult2gData(
+                            certificate.fullName,
+                            certificate.fullTransliteratedName,
+                            formatDateFromString(certificate.birthDateFormatted),
+                            sampleCollection,
+                            CovPassCheckValidationResult.Success,
+                            certificate.dgcEntry.id,
+                            ValidationResult2gCertificateType.AntigenTest,
+                            validationName = certificate.name.toValidationResult2gName()
+                        )
                     )
-                )
-            } else {
-                show2GError()
+                }
+                else -> {
+                    show2GError()
+                }
             }
         } else {
             eventNotifier {
