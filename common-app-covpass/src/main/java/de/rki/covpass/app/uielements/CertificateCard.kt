@@ -111,6 +111,12 @@ public class CertificateCard @JvmOverloads constructor(
     private fun validOrExpiryPeriod(@DrawableRes imageRes: Int) {
         cardBackground = ContextCompat.getColor(context, R.color.info70)
         statusImage = ContextCompat.getDrawable(context, imageRes)
+        binding.certificateHeaderTextview.setTextColor(
+            ContextCompat.getColor(context, R.color.info70)
+        )
+        binding.certificateStatusTextview.setTextColor(
+            ContextCompat.getColor(context, R.color.info40)
+        )
         binding.certificateQrImageview.foreground = null
         binding.certificateQrImageview.backgroundTintList = null
         binding.certificateQrImageview.backgroundTintMode = null
@@ -120,6 +126,12 @@ public class CertificateCard @JvmOverloads constructor(
         status = statusText
         cardBackground = ContextCompat.getColor(context, R.color.onBrandBase60)
         statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired)
+        binding.certificateHeaderTextview.setTextColor(
+            ContextCompat.getColor(context, R.color.onBrandBase60)
+        )
+        binding.certificateStatusTextview.setTextColor(
+            ContextCompat.getColor(context, R.color.onBrandBase40)
+        )
         binding.certificateQrImageview.foreground =
             ContextCompat.getDrawable(context, R.drawable.expired_overlay_icon_foreground)
         binding.certificateQrImageview.backgroundTintList =
