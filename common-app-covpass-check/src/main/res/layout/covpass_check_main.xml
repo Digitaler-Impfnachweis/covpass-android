@@ -38,7 +38,7 @@
       android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="@string/accessibility_validation_start_screen_label_information"
       android:padding="@dimen/grid_one"
-      android:src="@drawable/questionmark_black"
+      android:src="@drawable/settings_icon"
       android:theme="@style/CovPassAppTheme.DarkControlHighlight"
       app:layout_constraintBottom_toBottomOf="@id/main_header_textview"
       app:layout_constraintEnd_toEndOf="parent"
