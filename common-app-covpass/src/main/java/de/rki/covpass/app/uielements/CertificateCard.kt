@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
@@ -123,6 +124,8 @@ public class CertificateCard @JvmOverloads constructor(
     }
 
     private fun expiredOrInvalid(statusText: String) {
+        binding.certificateHeaderTextview.text = getString(R.string.startscreen_card_title)
+        binding.certificateCovpassCheckTextview.isInvisible = true
         status = statusText
         cardBackground = ContextCompat.getColor(context, R.color.onBrandBase60)
         statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired)
