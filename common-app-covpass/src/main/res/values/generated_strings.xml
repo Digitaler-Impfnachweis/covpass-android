@@ -69,6 +69,10 @@
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Check status</string>
 	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be reliably verified with the CovPassCheck app.</string>
 
+	<!-- SECTION: modal_view -->
+	<string name="modal_subline">%d certificate(s) currently in use</string>
+	<string name="modal_button">Manage certificates</string>
+
 	<!-- SECTION: popup: Remark within the app towards the CovPassCheck app -->
 	<string name="certificates_start_screen_pop_up_app_reference_title">Please scan!</string>
 	<string name="certificate_start_screen_pop_up_app_reference_text">Please insist to have your certificate scanned with the CovPassCheck app. Only by scanning your QR code and showing your proof of identity the validity of your vaccination protection can be checked reliably while protecting your data.</string>
@@ -770,6 +774,17 @@
 	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your internet connection. Note that the certificate can be reissued a maximum of three times a year. For more information on the error code below please contact our hotline at 0800–4747–001 or support\@covpass-app.de.\n\nError code: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
 	<string name="certificate_renewal_error_button_secondary">More information</string>
+
+	<!-- SECTION: DCC renewal when expiring -->
+	<string name="renewal_expiry_notification_title">Renewal needed</string>
+	<string name="renewal_expiry_notification_copy_vaccination">The technical expiry date of your vaccination certificate is coming up. Renew the certificate to continue using it.</string>
+	<string name="renewal_expiry_notification_button_vaccination">Renew vaccination certificate</string>
+	<string name="renewal_expiry_notification_copy_recovery">The technical expiry date of your recovery certificate is coming up. Renew the certificate to continue using it.</string>
+	<string name="renewal_expiry_notification_button_recovery">Renew recovery certificate</string>
+	<string name="renewal_expiry_consent_list_item_1">The renewal of certificates is voluntary and free of charge.</string>
+	<string name="renewal_expiry_consent_list_item_2">To ensure that certificates can only be renewed once, the RKI documents the identifier of the old and the renewed certificate. The other data on your certificates will be deleted by the RKI immediately after renewal.</string>
+	<string name="renewal_expiry_consent_list_item_3">When renewing family certificates, please ensure that the respective family member agrees.</string>
+	<string name="renewal_expiry_consent_list_item_4">In certain cases, additional certificates are sent in addition to the certificate to be renewed. This is necessary in order to be able to include the previous sequence of vaccinations and recoveries in the new certificate.</string>
 
 	<!-- SECTION: DCC revocation -->
 	<string name="revocation_error_scan_title">The certificate cannot be added</string>

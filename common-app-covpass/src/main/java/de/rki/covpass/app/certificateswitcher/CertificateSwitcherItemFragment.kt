@@ -3,27 +3,23 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.app.main
+package de.rki.covpass.app.certificateswitcher
 
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import com.ensody.reactivestate.android.autoRun
-import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.dispatchers
 import com.ensody.reactivestate.get
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
-import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
-import de.rki.covpass.app.certificateswitcher.CertificateSwitcherFragmentNav
-import de.rki.covpass.app.databinding.CertificateBinding
+import de.rki.covpass.app.databinding.CertificateSwitcherItemBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.daysTillNow
@@ -34,17 +30,13 @@ import kotlinx.parcelize.Parcelize
 import java.time.ZoneId
 
 @Parcelize
-internal class CertificateFragmentNav(val certId: GroupedCertificatesId) :
-    FragmentNav(CertificateFragment::class)
+internal class CertificateSwitcherItemFragmentNav(val certId: GroupedCertificatesId, val id: String) :
+    FragmentNav(CertificateSwitcherItemFragment::class)
 
-/**
- * Fragment which shows a [CovCertificate]
- */
-internal class CertificateFragment : BaseFragment() {
+internal class CertificateSwitcherItemFragment : BaseFragment() {
 
-    internal val args: CertificateFragmentNav by lazy { getArgs() }
-    private val viewModel by reactiveState { CertificateViewModel(scope) }
-    private val binding by viewBinding(CertificateBinding::inflate)
+    internal val args: CertificateSwitcherItemFragmentNav by lazy { getArgs() }
+    private val binding by viewBinding(CertificateSwitcherItemBinding::inflate)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,40 +50,29 @@ internal class CertificateFragment : BaseFragment() {
     private fun updateViews(certificateList: GroupedCertificatesList) {
         val certId = args.certId
         val groupedCertificate = certificateList.getGroupedCertificates(certId) ?: return
-        val mainCombinedCertificate = groupedCertificate.getMainCertificate()
-        val mainCertificate = mainCombinedCertificate.covCertificate
-        val isMarkedAsFavorite = certificateList.isMarkedAsFavorite(certId)
-
-        val certStatus = mainCombinedCertificate.status
-        val isFavoriteButtonVisible = certificateList.certificates.size > 1
+        val combinedCovCertificate = groupedCertificate.certificates.find {
+            it.covCertificate.dgcEntry.id == args.id
+        } ?: return
+        val covCertificate = combinedCovCertificate.covCertificate
+        val certStatus = combinedCovCertificate.status
 
         launchWhenStarted {
-            binding.certificateCard.qrCodeImage = if (mainCombinedCertificate.isRevoked) {
-                generateQRCode(REVOKED_QRCODE)
-            } else {
-                generateQRCode(mainCombinedCertificate.qrContent)
-            }
+            binding.certificateCard.qrCodeImage = generateQRCode(combinedCovCertificate.qrContent)
         }
 
-        val showBoosterNotification = !groupedCertificate.hasSeenBoosterDetailNotification &&
-            groupedCertificate.boosterNotification.result == BoosterResult.Passed
-
-        when (val dgcEntry = mainCertificate.dgcEntry) {
+        when (val dgcEntry = covCertificate.dgcEntry) {
             is Vaccination -> {
                 when (dgcEntry.type) {
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
-                        val vaccination = mainCertificate.dgcEntry as Vaccination
-                        val isJanssenFullProtection = vaccination.isJanssen && vaccination.doseNumber == 2
-                        binding.certificateCard.createCertificateCardView(
-                            mainCertificate.fullName,
-                            isMarkedAsFavorite,
+                        val vaccination = covCertificate.dgcEntry as Vaccination
+                        binding.certificateCard.createCertificateSwitcherItemView(
                             certStatus,
-                            if (vaccination.isBooster && !isJanssenFullProtection) {
+                            if (vaccination.isBooster) {
                                 getString(R.string.certificate_type_booster)
                             } else {
                                 getString(R.string.certificate_type_basic_immunisation)
                             },
-                            if (vaccination.isBooster && !isJanssenFullProtection) {
+                            if (vaccination.isBooster) {
                                 getString(
                                     R.string.certificate_timestamp_days,
                                     vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
@@ -104,18 +85,12 @@ internal class CertificateFragment : BaseFragment() {
                                         ?.toInstant()?.monthTillNow()
                                 )
                             },
-                            if (showBoosterNotification) {
-                                R.drawable.booster_notification_icon
-                            } else {
-                                R.drawable.main_cert_status_complete
-                            }
+                            R.drawable.main_cert_status_complete
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
-                        val vaccination = mainCertificate.dgcEntry as Vaccination
-                        binding.certificateCard.createCertificateCardView(
-                            mainCertificate.fullName,
-                            isMarkedAsFavorite,
+                        val vaccination = covCertificate.dgcEntry as Vaccination
+                        binding.certificateCard.createCertificateSwitcherItemView(
                             certStatus,
                             getString(
                                 R.string.certificates_overview_vaccination_certificate_message,
@@ -131,10 +106,8 @@ internal class CertificateFragment : BaseFragment() {
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
-                        val vaccination = mainCertificate.dgcEntry as Vaccination
-                        binding.certificateCard.createCertificateCardView(
-                            mainCertificate.fullName,
-                            isMarkedAsFavorite,
+                        val vaccination = covCertificate.dgcEntry as Vaccination
+                        binding.certificateCard.createCertificateSwitcherItemView(
                             certStatus,
                             getString(
                                 R.string.certificates_overview_vaccination_certificate_message,
@@ -152,10 +125,8 @@ internal class CertificateFragment : BaseFragment() {
                 }
             }
             is TestCert -> {
-                val test = mainCertificate.dgcEntry as TestCert
-                binding.certificateCard.createCertificateCardView(
-                    mainCertificate.fullName,
-                    isMarkedAsFavorite,
+                val test = covCertificate.dgcEntry as TestCert
+                binding.certificateCard.createCertificateSwitcherItemView(
                     certStatus,
                     if (test.testType == TestCert.PCR_TEST) {
                         getString(R.string.certificate_type_pcrtest)
@@ -170,10 +141,8 @@ internal class CertificateFragment : BaseFragment() {
                 )
             }
             is Recovery -> {
-                val recovery = mainCertificate.dgcEntry as Recovery
-                binding.certificateCard.createCertificateCardView(
-                    mainCertificate.fullName,
-                    isMarkedAsFavorite,
+                val recovery = covCertificate.dgcEntry as Recovery
+                binding.certificateCard.createCertificateSwitcherItemView(
                     certStatus,
                     getString(R.string.certificate_type_recovery),
                     getString(
@@ -186,27 +155,6 @@ internal class CertificateFragment : BaseFragment() {
             }
             // .let{} to enforce exhaustiveness
         }.let {}
-
-        binding.certificateCard.isFavoriteButtonVisible = isFavoriteButtonVisible
-        binding.certificateCard.setOnFavoriteClickListener {
-            viewModel.onFavoriteClick(args.certId)
-        }
-        binding.certificateCard.setOnCardClickListener {
-            cardClick(groupedCertificate)
-        }
-        binding.certificateCard.setOnCertificateStatusClickListener {
-            cardClick(groupedCertificate)
-        }
-    }
-
-    private fun cardClick(groupedCertificate: GroupedCertificates) {
-        findNavigator().push(
-            if (groupedCertificate.getListOfImportantCerts().isNotEmpty()) {
-                CertificateSwitcherFragmentNav(args.certId)
-            } else {
-                DetailFragmentNav(args.certId)
-            }
-        )
     }
 
     private suspend fun generateQRCode(qrContent: String): Bitmap {
@@ -219,9 +167,5 @@ internal class CertificateFragment : BaseFragment() {
                 mapOf(EncodeHintType.MARGIN to 0)
             )
         }
-    }
-
-    private companion object {
-        const val REVOKED_QRCODE = " "
     }
 }

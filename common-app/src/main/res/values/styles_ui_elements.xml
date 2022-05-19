@@ -124,6 +124,10 @@
     <item name="cardElevation">@dimen/elevation</item>
   </style>
 
+  <style name="CovPassCardView.Elevated.SmallCorner">
+    <item name="cardCornerRadius">@dimen/card_view_corner_small_radius</item>
+  </style>
+
   <style name="CovPassCardView.Level">
     <item name="cardElevation">0dp</item>
   </style>

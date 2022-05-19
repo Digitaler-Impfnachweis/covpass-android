@@ -242,6 +242,17 @@ public data class GroupedCertificates(
         }.firstOrNull()
     }
 
+    /**
+     * @return The latest [CombinedCovCertificate] that is a [TestCert]
+     */
+    public fun getLatestTest(): CombinedCovCertificate? {
+        return certificates.filter { it.covCertificate.dgcEntry is TestCert }.sortedWith { cert1, cert2 ->
+            (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
+                (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
+            ) ?: 0
+        }.firstOrNull()
+    }
+
     public fun validateReissue() {
         val boosterAndVaccinationAndRecoveryIds =
             getBoosterAfterVaccinationAfterRecoveryIds(certificates)
@@ -303,6 +314,30 @@ public data class GroupedCertificates(
                 }
                 .map { it.covCertificate.dgcEntry.id }
         )
+        return list
+    }
+
+    public fun getListOfImportantCerts(): List<String> {
+        val list = mutableListOf<String>()
+        val latestVaccination = getLatestVaccination()
+        val latestRecovery = getLatestRecovery()
+        val latestTestCert = getLatestTest()
+
+        if (latestVaccination?.status == CertValidationResult.Valid ||
+            latestVaccination?.status == CertValidationResult.ExpiryPeriod
+        ) {
+            list.add(latestVaccination.covCertificate.dgcEntry.id)
+        }
+        if (latestRecovery?.status == CertValidationResult.Valid ||
+            latestRecovery?.status == CertValidationResult.ExpiryPeriod
+        ) {
+            list.add(latestRecovery.covCertificate.dgcEntry.id)
+        }
+        if (latestTestCert?.status == CertValidationResult.Valid ||
+            latestTestCert?.status == CertValidationResult.ExpiryPeriod
+        ) {
+            list.add(latestTestCert.covCertificate.dgcEntry.id)
+        }
         return list
     }
 }

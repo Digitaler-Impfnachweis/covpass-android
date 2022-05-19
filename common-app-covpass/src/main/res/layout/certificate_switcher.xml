@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/info70">
+
+  <TextView
+    android:id="@+id/certificate_name_textview"
+    style="@style/Header.OnInfo.Standard"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three"
+    app:layout_constraintEnd_toStartOf="@+id/close_button"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/certificate_note_textview"
+    style="@style/DefaultText.OnInfo"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_one"
+    app:layout_constraintEnd_toEndOf="@+id/certificate_name_textview"
+    app:layout_constraintStart_toStartOf="@+id/certificate_name_textview"
+    app:layout_constraintTop_toBottomOf="@+id/certificate_name_textview" />
+
+  <ImageView
+    android:id="@+id/close_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_margin="@dimen/grid_two"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@string/accessibility_popup_label_close"
+    android:padding="@dimen/grid_one"
+    android:src="@drawable/close_bottom_sheet"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/main_view_pager"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_one"
+    app:layout_constraintBottom_toTopOf="@id/action_button"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/certificate_note_textview"
+    app:layout_constraintVertical_bias="0.4" />
+
+  <com.google.android.material.tabs.TabLayout
+    android:id="@+id/main_tab_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_five"
+    android:background="@color/info70"
+    android:visibility="visible"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/main_view_pager"
+    app:tabBackground="@drawable/view_pager_certificate_switcher_dot_selector"
+    app:tabIndicator="@drawable/view_pager_dot_selected"
+    app:tabIndicatorColor="@android:color/white"
+    app:tabIndicatorGravity="center"
+    app:tabMaxWidth="@dimen/dots_tab_max_width"
+    app:tabRippleColor="@null" />
+
+  <LinearLayout
+    android:id="@+id/action_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/grid_three"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <ImageView
+      android:id="@+id/action_button_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="@dimen/grid_eighth"
+      android:layout_marginEnd="@dimen/grid_one"
+      android:importantForAccessibility="no"
+      android:src="@drawable/certificate_switcher_manage_certificates"
+      app:tint="@android:color/white"
+      tools:ignore="ContentDescription" />
+
+    <TextView
+      android:id="@+id/action_button_text"
+      style="@style/Header.OnInfo.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingVertical="@dimen/grid_one"
+      android:text="@string/certificate_action_button_check_validity" />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

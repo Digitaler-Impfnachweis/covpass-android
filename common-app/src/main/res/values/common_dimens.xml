@@ -65,6 +65,7 @@
 
   <dimen name="certificate_item_status_layout_width">49dp</dimen>
   <dimen name="qr_code_image_radius">10dp</dimen>
+  <dimen name="card_view_corner_small_radius">10dp</dimen>
   <dimen name="card_view_corner_radius">26dp</dimen>
 
 </resources>
