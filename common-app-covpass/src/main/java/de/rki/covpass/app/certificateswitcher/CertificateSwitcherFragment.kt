@@ -5,9 +5,11 @@
 
 package de.rki.covpass.app.certificateswitcher
 
+import android.content.Context
 import android.gesture.GestureOverlayView.ORIENTATION_HORIZONTAL
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
@@ -40,6 +42,8 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private val args: CertificateSwitcherFragmentNav by lazy { getArgs() }
     private var fragmentStateAdapter: CertificateSwitcherFragmentStateAdapter by validUntil(::onDestroyView)
     private val binding by viewBinding(CertificateSwitcherBinding::inflate)
+    private var navigationBarColor: Int? = null
+    private var statusBarColor: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,6 +54,35 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         autoRun {
             updateCertificates(get(covpassDeps.certRepository.certs).getGroupedCertificates(args.certId))
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        changeTopAndBottomBarColor()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        changeTopAndBottomBarColor()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        revertTopAndBottomBarColor()
+    }
+
+    private fun changeTopAndBottomBarColor() {
+        if (navigationBarColor == null) navigationBarColor = requireActivity().window.navigationBarColor
+        if (statusBarColor == null) statusBarColor = requireActivity().window.statusBarColor
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.info70)
+        requireActivity().window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.info70)
+    }
+
+    private fun revertTopAndBottomBarColor() {
+        navigationBarColor?.let { requireActivity().window.navigationBarColor = it }
+        statusBarColor?.let { requireActivity().window.statusBarColor = it }
+        navigationBarColor = null
+        statusBarColor = null
     }
 
     private fun setupButtons() {
