@@ -374,10 +374,10 @@
 	<string name="recovery_certificate_overview_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="recovery_certificate_overview_action_button_title">Display current QR Code</string>
 	<string name="certificates_overview_expired_title">Certificate expired</string>
-	<string name="certificates_overview_expired_message">The expiry date of your certificates has passed. Please make every effort to have a new digital certificate issued.</string>
+	<string name="certificates_overview_expired_message">You can easily renew your most important certificates in the CovPass app. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate. If you have a more recent vaccination certificate, you do not need to renew the previous vaccination certificates.</string>
 	<string name="certificates_overview_expired_action_button_title">Add new certificate</string>
 	<string name="certificates_overview_soon_expiring_title">Current certificate expires on %1$s at %2$s</string>
-	<string name="certificates_overview_soon_expiring_subtitle">Please make every effort to have a new digital certificate issued.</string>
+	<string name="certificates_overview_soon_expiring_subtitle">You can easily replace the certificate in the CovPass app by using the renewal function in the overview of your certificates or by scanning a newly issued certificate.</string>
 	<string name="certificates_overview_invalid_title">Certificate invalid</string>
 	<string name="certificates_overview_invalid_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificates_overview_invalid_action_button_title">Add new certificate</string>
@@ -452,7 +452,7 @@
 	<string name="vaccination_certificate_detail_view_data_expiry_date">Technical expiry date / Technical expiry date</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_expiry_date">Technical expiry date</string>
 	<string name="vaccination_certificate_detail_view_data_expiry_date_message">Valid until %s</string>
-	<string name="vaccination_certificate_detail_view_data_expiry_date_note">Please make every effort to have a new digital certificate issued in good time.</string>
+	<string name="vaccination_certificate_detail_view_data_expiry_date_note">You will be notified in the app if you can renew the certificate.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
@@ -494,7 +494,7 @@
 	<string name="test_certificate_detail_view_data_expiry_date">Technical expiry date / Technical expiry date</string>
 	<string name="accessibility_test_certificate_detail_view_data_expiry_date">Technical expiry date</string>
 	<string name="test_certificate_detail_view_data_expiry_date_message">Valid until %s</string>
-	<string name="test_certificate_detail_view_data_expiry_date_note">Please make every effort to have a new digital certificate issued in good time.</string>
+	<string name="test_certificate_detail_view_data_expiry_date_note">You will be notified in the app if you can renew the certificate.</string>
 	<string name="test_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="test_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="test_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
@@ -528,7 +528,7 @@
 	<string name="recovery_certificate_detail_view_data_expiry_date">Technical expiry date / Technical expiry date</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_expiry_date">Technical expiry date</string>
 	<string name="recovery_certificate_detail_view_data_expiry_date_message">Valid until %s</string>
-	<string name="recovery_certificate_detail_view_data_expiry_date_note">Please make every effort to have a new digital certificate issued in good time.</string>
+	<string name="recovery_certificate_detail_view_data_expiry_date_note">You will be notified in the app if you can renew the certificate.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
@@ -539,11 +539,11 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Close</string>
 	<string name="certificate_expires_detail_view_note_title">Certificate expires on %1$s at %2$s</string>
-	<string name="certificate_expires_detail_view_note_message">Please make every effort to have a new digital certificate issued in good time.</string>
+	<string name="certificate_expires_detail_view_note_message">You can easily renew the certificate in the CovPass app. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate.</string>
 	<string name="certificate_invalid_detail_view_note_title">Certificate invalid</string>
 	<string name="certificate_invalid_detail_view_note_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificate_expired_detail_view_note_title">Certificate expired</string>
-	<string name="certificate_expired_detail_view_note_message">The expiry date has been exceeded. Please make every effort to have a new digital certificate issued.</string>
+	<string name="certificate_expired_detail_view_note_message">You can easily renew your most important certificates in the CovPass app. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate. If you have a more recent vaccination certificate, you do not need to renew the previous vaccination certificates.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">The view \"Create EU printout\" has been opened</string>
@@ -582,7 +582,7 @@
 	<string name="error_scan_qrcode_without_seal_message">This certificate might have been issued by an unauthorised organisation or the app might not have been updated. For the latter, please connect to the internet and try again later.</string>
 	<string name="error_scan_qrcode_without_seal_button_title">OK</string>
 	<string name="error_validity_check_certificates_title">Check the validity of your certificates</string>
-	<string name="error_validity_check_certificates_message">The validity of your certificates is about to expire or has already expired. Please make every effort to have a new digital certificate issued.</string>
+	<string name="error_validity_check_certificates_message">If you can renew this certificate in the app, you will receive a notification. You can find more information about replacing expired certificates in our FAQs.</string>
 	<string name="error_validity_check_certificates_button_title">OK</string>
 
 	<!-- SECTION: dialog: duplicate certificate -->
@@ -781,10 +781,14 @@
 	<string name="renewal_expiry_notification_button_vaccination">Renew vaccination certificate</string>
 	<string name="renewal_expiry_notification_copy_recovery">The technical expiry date of your recovery certificate is coming up. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_recovery">Renew recovery certificate</string>
+	<string name="renewal_expiry_consent_box_item_1">The app transmits the aforementioned certificates to the RKI for verification.</string>
+	<string name="renewal_expiry_consent_box_item_2">The RKI checks the certificates, issues a renewed certificate and transmits it to your app.</string>
 	<string name="renewal_expiry_consent_list_item_1">The renewal of certificates is voluntary and free of charge.</string>
 	<string name="renewal_expiry_consent_list_item_2">To ensure that certificates can only be renewed once, the RKI documents the identifier of the old and the renewed certificate. The other data on your certificates will be deleted by the RKI immediately after renewal.</string>
-	<string name="renewal_expiry_consent_list_item_3">When renewing family certificates, please ensure that the respective family member agrees.</string>
+	<string name="renewal_expiry_consent_list_item_3">When renewing certificates of family members, please ensure that the person concerned agrees.</string>
 	<string name="renewal_expiry_consent_list_item_4">In certain cases, additional certificates are sent in addition to the certificate to be renewed. This is necessary in order to be able to include the previous sequence of vaccinations and recoveries in the new certificate.</string>
+	<string name="renewal_expiry_success_copy">You can now continue to use your certificate as usual.</string>
+	<string name="renewal_expiry_success_button">OK</string>
 
 	<!-- SECTION: DCC revocation -->
 	<string name="revocation_error_scan_title">The certificate cannot be added</string>

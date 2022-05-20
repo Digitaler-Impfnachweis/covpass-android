@@ -13,6 +13,7 @@ import de.rki.covpass.app.scanner.CovPassCertificateStorageHelper
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.reissuing.ReissuingRepository
 import de.rki.covpass.sdk.storage.CertRepository
@@ -25,7 +26,8 @@ internal interface ReissueResultEvents : BaseEvents {
 
 internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    listCertIds: List<String>,
+    private val listCertIds: List<String>,
+    private val reissueType: ReissueType,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val reissuingRepository: ReissuingRepository = sdkDeps.reissuingRepository
@@ -55,7 +57,11 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
                 reissuedCertificate
             )?.let { groupedCertificateId ->
                 certRepository.certs.update { groupedCertificateList ->
-                    groupedCertificateList.certificates.find { it.id == groupedCertificateId }?.finishedReissued()
+                    if (reissueType == ReissueType.Booster) {
+                        groupedCertificateList.certificates.find { it.id == groupedCertificateId }?.finishedReissued(
+                            listCertIds.first()
+                        )
+                    }
                 }
                 eventNotifier {
                     onReissueFinish(covCertificate, groupedCertificateId)

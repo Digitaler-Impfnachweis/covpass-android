@@ -13,6 +13,16 @@ public sealed interface CertValidationResult {
     public object Revoked : CertValidationResult
 }
 
+public sealed interface ReissueState {
+    public object Completed : ReissueState
+    public object Ready : ReissueState
+    public object None : ReissueState
+}
+
+public enum class ReissueType {
+    Booster, Vaccination, Recovery, None
+}
+
 public data class CombinedCovCertificate(
     val covCertificate: CovCertificate,
     val qrContent: String,
@@ -22,12 +32,13 @@ public data class CombinedCovCertificate(
     val hasSeenBoosterDetailNotification: Boolean,
     val hasSeenExpiryNotification: Boolean,
     val boosterNotificationRuleIds: List<String>,
-    val isReadyForReissue: Boolean,
-    val alreadyReissued: Boolean,
     val hasSeenReissueNotification: Boolean,
+    val hasSeenExpiredReissueNotification: Boolean,
     val hasSeenReissueDetailNotification: Boolean,
     val hasSeenRevokedNotification: Boolean,
     val isRevoked: Boolean,
+    val reissueState: ReissueState,
+    val reissueType: ReissueType
 ) {
 
     /**

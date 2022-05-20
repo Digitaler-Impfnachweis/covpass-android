@@ -318,7 +318,7 @@ private class ReissueNotificationViewHolder(
         (item as DetailItem.ReissueNotification).let {
             binding.reissueNotificationTitle.text = getString(it.titleRes)
             binding.reissueNotificationText.text = getString(it.textRes)
-            binding.reissueNotificationIcon.text = getString(it.iconTextRes)
+            binding.reissueNotificationIcon.text = it.iconTextRes?.let { text -> getString(text) }
             binding.reissueNotificationIcon.background =
                 it.iconBackgroundRes?.let { res -> getDrawable(parent.context, res) }
             binding.reissueNotificationButton.setText(it.buttonRes)

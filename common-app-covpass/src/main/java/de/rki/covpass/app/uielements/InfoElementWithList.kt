@@ -31,7 +31,8 @@ public class InfoElementWithList @JvmOverloads constructor(
     attrs,
     defStyleAttr
 ) {
-    private val binding: InfoElementWithListBinding = InfoElementWithListBinding.inflate(LayoutInflater.from(context))
+    private val binding: InfoElementWithListBinding =
+        InfoElementWithListBinding.inflate(LayoutInflater.from(context))
 
     public var title: String? by Delegates.observable(null) { _, _, newValue ->
         binding.infoTitle.text = newValue
@@ -77,29 +78,32 @@ public class InfoElementWithList @JvmOverloads constructor(
             }
         }
     }
+}
 
-    private inner class InfoElementListAdapter(
-        private val items: List<String> = emptyList(),
-        parent: Fragment,
-    ) : BaseRecyclerViewAdapter<InfoElementListAdapter.InfoElementViewHolder>(parent) {
+public class InfoElementListAdapter(
+    private val items: List<String> = emptyList(),
+    parent: Fragment,
+) : BaseRecyclerViewAdapter<InfoElementListAdapter.InfoElementViewHolder>(parent) {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = InfoElementViewHolder(parent)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): InfoElementViewHolder = InfoElementViewHolder(parent)
 
-        override fun onBindViewHolder(holder: InfoElementViewHolder, position: Int) {
-            holder.onBind(items[position])
-        }
+    override fun onBindViewHolder(holder: InfoElementViewHolder, position: Int) {
+        holder.onBind(items[position])
+    }
 
-        override fun getItemCount() = items.size
+    override fun getItemCount(): Int = items.size
 
-        inner class InfoElementViewHolder(parent: ViewGroup) :
-            BindingViewHolder<InfoElementListItemBinding>(
-                parent,
-                InfoElementListItemBinding::inflate
-            ) {
+    public class InfoElementViewHolder(parent: ViewGroup) :
+        BindingViewHolder<InfoElementListItemBinding>(
+            parent,
+            InfoElementListItemBinding::inflate
+        ) {
 
-            fun onBind(text: String) {
-                binding.consentInitializationNoteValue.text = text
-            }
+        public fun onBind(text: String) {
+            binding.consentInitializationNoteValue.text = text
         }
     }
 }

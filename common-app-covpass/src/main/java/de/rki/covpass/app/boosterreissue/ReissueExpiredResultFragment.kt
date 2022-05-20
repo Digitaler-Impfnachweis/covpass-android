@@ -19,8 +19,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
-import de.rki.covpass.app.databinding.ReissueResultPopupContentBinding
-import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.databinding.ReissueExpiredResultPopupContentBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -29,27 +28,25 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.ReissueType
 import kotlinx.parcelize.Parcelize
 
-public interface ReissueCallback {
-    public fun onReissueCancel()
-    public fun onReissueFinish(certificatesId: GroupedCertificatesId?)
-}
-
 @Parcelize
-public class ReissueResultFragmentNav(
+public class ReissueExpiredResultFragmentNav(
     public val listCertIds: List<String>,
     public val reissueType: ReissueType
-) : FragmentNav(ReissueResultFragment::class)
+) : FragmentNav(ReissueExpiredResultFragment::class)
 
-public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, DialogListener {
+public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEvents, DialogListener {
 
-    private val args: ReissueResultFragmentNav by lazy { getArgs() }
-    private val viewModel by reactiveState { ReissueResultViewModel(scope, args.listCertIds, args.reissueType) }
-    private val binding by viewBinding(ReissueResultPopupContentBinding::inflate)
-    private val oldCombinedCovCertificate by lazy {
-        covpassDeps.certRepository.certs.value.getCombinedCertificate(args.listCertIds[0])
+    private val args: ReissueExpiredResultFragmentNav by lazy { getArgs() }
+    private val viewModel by reactiveState {
+        ReissueResultViewModel(
+            scope,
+            args.listCertIds,
+            args.reissueType
+        )
     }
+    private val binding by viewBinding(ReissueExpiredResultPopupContentBinding::inflate)
     private var groupedCertificatesId: GroupedCertificatesId? = null
-    override val buttonTextRes: Int = R.string.certificate_renewal_confirmation_page_certificate_delete_button
+    override val buttonTextRes: Int = R.string.renewal_expiry_success_button
     override val heightLayoutParams: Int = ViewGroup.LayoutParams.MATCH_PARENT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,22 +58,8 @@ public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, Dia
         bottomSheetBinding.bottomSheetClose.isVisible = false
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = false
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = false
-        bottomSheetBinding.bottomSheetTextButton.apply {
-            setText(R.string.certificate_renewal_confirmation_page_certificate_secondary_button)
-            isVisible = true
-            setOnClickListener {
-                findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
-            }
-        }
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_renewal_confirmation_page_headline)
-        binding.reissueResultInfo.setText(R.string.certificate_renewal_confirmation_page_copy)
-        binding.reissueResultTitleDataElementNew
-            .setText(R.string.certificate_renewal_confirmation_page_certificate_list_new)
-        binding.reissueResultTitleDataElementOld
-            .setText(R.string.certificate_renewal_confirmation_page_certificate_list_old)
-        oldCombinedCovCertificate?.covCertificate?.let {
-            binding.reissueResultDataElementOld.showCertificate(it, true)
-        }
+        binding.reissueResultInfo.setText(R.string.renewal_expiry_success_copy)
     }
 
     override fun onActionButtonClicked() {
@@ -90,7 +73,6 @@ public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, Dia
 
         this.groupedCertificatesId = groupedCertificatesId
 
-        binding.reissueResultDataElementNew.showCertificate(cert, false)
         binding.loadingLayout.isVisible = false
         binding.reissueResultLayout.isVisible = true
         bottomSheetBinding.bottomSheetTitle.isVisible = true
@@ -103,7 +85,7 @@ public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, Dia
     }
 
     override fun onBackPressed(): Abortable {
-        findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
+        onActionButtonClicked()
         return Abort
     }
 

@@ -8,6 +8,8 @@ package de.rki.covpass.sdk.cert.models
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.utils.CertificateReissueUtils.getBoosterAfterVaccinationAfterRecoveryIds
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredGermanRecoveryIds
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredGermanVaccinationId
 import de.rki.covpass.sdk.utils.DescriptionLanguage
 import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import de.rki.covpass.sdk.utils.isOlderThan
@@ -99,11 +101,11 @@ public data class GroupedCertificates(
 
     var hasSeenReissueDetailNotification: Boolean
         get() = certificates.any {
-            it.isReadyForReissue && it.hasSeenReissueDetailNotification
+            it.reissueState == ReissueState.Ready && it.hasSeenReissueDetailNotification
         }
         set(value) {
             certificates = certificates.map {
-                if (it.isReadyForReissue) {
+                if (it.reissueState == ReissueState.Ready) {
                     it.copy(hasSeenReissueDetailNotification = value)
                 } else {
                     it
@@ -113,12 +115,26 @@ public data class GroupedCertificates(
 
     var hasSeenReissueNotification: Boolean
         get() = certificates.any {
-            it.isReadyForReissue && it.hasSeenReissueNotification
+            it.reissueState == ReissueState.Ready && it.hasSeenReissueNotification
         }
         set(value) {
             certificates = certificates.map {
-                if (it.isReadyForReissue) {
+                if (it.reissueState == ReissueState.Ready) {
                     it.copy(hasSeenReissueNotification = value)
+                } else {
+                    it
+                }
+            }.toMutableList()
+        }
+
+    var hasSeenExpiredReissueNotification: Boolean
+        get() = certificates.any {
+            it.reissueState == ReissueState.Ready && it.hasSeenExpiredReissueNotification
+        }
+        set(value) {
+            certificates = certificates.map {
+                if (it.reissueState == ReissueState.Ready) {
+                    it.copy(hasSeenExpiredReissueNotification = value)
                 } else {
                     it
                 }
@@ -144,7 +160,8 @@ public data class GroupedCertificates(
      */
     val id: GroupedCertificatesId
         get() = GroupedCertificatesId(
-            certificates.first().covCertificate.name.trimmedName, certificates.first().covCertificate.birthDate
+            certificates.first().covCertificate.name.trimmedName,
+            certificates.first().covCertificate.birthDate
         )
 
     /**
@@ -169,23 +186,26 @@ public data class GroupedCertificates(
      */
     public fun getMainCertificate(): CombinedCovCertificate {
         val certificateSortedList =
-            certificates.filter { it.covCertificate.dgcEntry is Vaccination }.sortedWith { cert1, cert2 ->
-                (cert1.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses?.compareTo(
-                    (cert2.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses ?: 0
-                ) ?: 0
-            }.sortedWith { cert1, cert2 ->
-                (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
-                ) ?: 0
-            } + certificates.filter { it.covCertificate.dgcEntry is Recovery }.sortedWith { cert1, cert2 ->
-                (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
-                ) ?: 0
-            } + certificates.filter { it.covCertificate.dgcEntry is TestCert }.sortedWith { cert1, cert2 ->
-                (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
-                ) ?: 0
-            }
+            certificates.filter { it.covCertificate.dgcEntry is Vaccination }
+                .sortedWith { cert1, cert2 ->
+                    (cert1.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses?.compareTo(
+                        (cert2.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses ?: 0
+                    ) ?: 0
+                }.sortedWith { cert1, cert2 ->
+                    (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
+                        (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    ) ?: 0
+                } + certificates.filter { it.covCertificate.dgcEntry is Recovery }
+                .sortedWith { cert1, cert2 ->
+                    (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
+                        (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+                    ) ?: 0
+                } + certificates.filter { it.covCertificate.dgcEntry is TestCert }
+                .sortedWith { cert1, cert2 ->
+                    (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
+                        (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
+                    ) ?: 0
+                }
         return certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is TestCert && dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST &&
@@ -224,36 +244,39 @@ public data class GroupedCertificates(
      * @return The latest [CombinedCovCertificate] that is a [Vaccination]
      */
     public fun getLatestVaccination(): CombinedCovCertificate? {
-        return certificates.filter { it.covCertificate.dgcEntry is Vaccination }.sortedWith { cert1, cert2 ->
-            (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
-                (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
-            ) ?: 0
-        }.firstOrNull()
+        return certificates.filter { it.covCertificate.dgcEntry is Vaccination }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                ) ?: 0
+            }.firstOrNull()
     }
 
     /**
      * @return The latest [CombinedCovCertificate] that is a [Recovery]
      */
     public fun getLatestRecovery(): CombinedCovCertificate? {
-        return certificates.filter { it.covCertificate.dgcEntry is Recovery }.sortedWith { cert1, cert2 ->
-            (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
-                (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
-            ) ?: 0
-        }.firstOrNull()
+        return certificates.filter { it.covCertificate.dgcEntry is Recovery }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+                ) ?: 0
+            }.firstOrNull()
     }
 
     /**
      * @return The latest [CombinedCovCertificate] that is a [TestCert]
      */
     public fun getLatestTest(): CombinedCovCertificate? {
-        return certificates.filter { it.covCertificate.dgcEntry is TestCert }.sortedWith { cert1, cert2 ->
-            (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
-                (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
-            ) ?: 0
-        }.firstOrNull()
+        return certificates.filter { it.covCertificate.dgcEntry is TestCert }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
+                ) ?: 0
+            }.firstOrNull()
     }
 
-    public fun validateReissue() {
+    public fun validateBoosterReissue() {
         val boosterAndVaccinationAndRecoveryIds =
             getBoosterAfterVaccinationAfterRecoveryIds(certificates)
 
@@ -264,7 +287,41 @@ public data class GroupedCertificates(
 
         certificates = certificates.map {
             if (listIds.contains(it.covCertificate.dgcEntry.id)) {
-                it.copy(isReadyForReissue = true)
+                it.copy(
+                    reissueState = ReissueState.Ready,
+                    reissueType = ReissueType.Booster
+                )
+            } else {
+                it
+            }
+        }.toMutableList()
+    }
+
+    public fun validateExpiredReissue() {
+        val expiredGermanVaccinationId = getExpiredGermanVaccinationId(getLatestVaccination())
+        val expiredGermanRecoveryIds = getExpiredGermanRecoveryIds(certificates)
+
+        if (expiredGermanVaccinationId == null && expiredGermanRecoveryIds.isEmpty()) {
+            return
+        }
+
+        certificates = certificates.map {
+            if (expiredGermanRecoveryIds.contains(it.covCertificate.dgcEntry.id)) {
+                it.copy(
+                    reissueState = ReissueState.Ready,
+                    reissueType = ReissueType.Recovery
+                )
+            } else {
+                it
+            }
+        }.toMutableList()
+
+        certificates = certificates.map {
+            if (expiredGermanVaccinationId == it.covCertificate.dgcEntry.id) {
+                it.copy(
+                    reissueState = ReissueState.Ready,
+                    reissueType = ReissueType.Vaccination
+                )
             } else {
                 it
             }
@@ -274,22 +331,80 @@ public data class GroupedCertificates(
     public fun showRevokedNotification(): Boolean =
         certificates.any { !it.hasSeenRevokedNotification && it.status == CertValidationResult.Revoked }
 
-    public fun isReadyForReissue(): Boolean =
-        certificates.any { it.isReadyForReissue && !it.alreadyReissued } &&
+    public fun isBoosterReadyForReissue(): Boolean =
+        certificates.any {
+            it.reissueState == ReissueState.Ready && it.reissueType == ReissueType.Booster
+        } &&
             !certificates.any {
                 it.covCertificate.dgcEntry is Vaccination &&
                     (it.covCertificate.dgcEntry as Vaccination).doseNumber == 2 &&
                     (it.covCertificate.dgcEntry as Vaccination).totalSerialDoses == 1
             }
 
-    public fun finishedReissued() {
+    public fun isExpiredReadyForReissue(): Boolean =
+        certificates.any {
+            it.reissueState == ReissueState.Ready &&
+                (it.reissueType == ReissueType.Vaccination || it.reissueType == ReissueType.Recovery)
+        }
+
+    public fun finishedReissued(certId: String) {
         certificates = certificates.map {
-            if (it.isReadyForReissue && !it.alreadyReissued) {
-                it.copy(alreadyReissued = true)
+            if (it.reissueState == ReissueState.Ready && it.covCertificate.dgcEntry.id == certId) {
+                it.copy(reissueState = ReissueState.Completed)
             } else {
                 it
             }
         }.toMutableList()
+    }
+
+    public fun getListOfVaccinationIdsReadyForReissue(): List<String> {
+        val list = mutableListOf<String>()
+        val latestVaccination = getLatestVaccination() ?: return emptyList()
+
+        if (latestVaccination.reissueState == ReissueState.Ready) {
+            list.add(latestVaccination.covCertificate.dgcEntry.id)
+        } else {
+            return emptyList()
+        }
+
+        list.addAll(getHistoricalDataForDcc(latestVaccination.covCertificate.dgcEntry.id))
+        return list
+    }
+
+    public fun getHistoricalDataForDcc(id: String): List<String> {
+        val covCertificate = certificates.find {
+            it.covCertificate.dgcEntry.id == id
+        }?.covCertificate
+
+        return certificates.asSequence()
+            .filterNot {
+                it.covCertificate.dgcEntry.id == id
+            }.filterNot {
+                it.covCertificate.dgcEntry is TestCert
+            }.filter {
+                val date1 = (it.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    ?: (it.covCertificate.dgcEntry as? Recovery)?.firstResult
+                val date2 = (covCertificate?.dgcEntry as? Vaccination)?.occurrence
+                    ?: (covCertificate?.dgcEntry as? Recovery)?.firstResult
+                date1?.isBefore(date2) ?: false
+            }.sortedWith { cert1, cert2 ->
+                val date1 = (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    ?: (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+                val date2 = (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    ?: (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult
+                date1?.compareTo(date2) ?: 0
+            }.take(5).map {
+                it.covCertificate.dgcEntry.id
+            }.toList()
+    }
+
+    public fun getListOfRecoveryIdsReadyForReissue(): List<String> {
+        return certificates
+            .filter {
+                it.reissueState == ReissueState.Ready &&
+                    it.covCertificate.dgcEntry is Recovery
+            }
+            .map { it.covCertificate.dgcEntry.id }
     }
 
     public fun getListOfIdsReadyForReissue(): List<String> {
@@ -297,8 +412,7 @@ public data class GroupedCertificates(
         list.addAll(
             certificates
                 .filter {
-                    it.isReadyForReissue &&
-                        !it.alreadyReissued &&
+                    it.reissueState == ReissueState.Ready &&
                         it.covCertificate.dgcEntry is Vaccination &&
                         (it.covCertificate.dgcEntry as Vaccination).doseNumber == 2
                 }
@@ -308,8 +422,7 @@ public data class GroupedCertificates(
         list.addAll(
             certificates
                 .filter {
-                    it.isReadyForReissue &&
-                        !it.alreadyReissued &&
+                    it.reissueState == ReissueState.Ready &&
                         !list.contains(it.covCertificate.dgcEntry.id)
                 }
                 .map { it.covCertificate.dgcEntry.id }

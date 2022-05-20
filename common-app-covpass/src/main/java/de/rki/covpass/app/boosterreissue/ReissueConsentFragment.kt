@@ -17,6 +17,7 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueConsentPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.uielements.InfoElementListAdapter
 import de.rki.covpass.app.uielements.setValues
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dialog.DialogAction
@@ -25,11 +26,13 @@ import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.ReissueType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 public class ReissueConsentFragmentNav(
-    public val listCertIds: List<String>
+    public val listCertIds: List<String>,
+    public val reissueType: ReissueType
 ) : FragmentNav(ReissueConsentFragment::class)
 
 public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
@@ -71,17 +74,49 @@ public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
             getString(R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy),
             iconRes = R.drawable.info_icon,
             backgroundRes = R.drawable.info_background,
-            list = listOf(
-                getString(R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1),
-                getString(R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2),
-                getString(R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3)
-            ),
+            list = if (args.reissueType == ReissueType.Booster) {
+                listOf(
+                    getString(
+                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1
+                    ),
+                    getString(
+                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2
+                    ),
+                    getString(
+                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3
+                    )
+                )
+            } else {
+                listOf(
+                    getString(R.string.renewal_expiry_consent_box_item_1),
+                    getString(R.string.renewal_expiry_consent_box_item_2)
+                )
+            },
             parent = this
         )
-        binding.reissueConsentUpdateTitle.setText(R.string.certificate_renewal_consent_page_transfer_certificates_copy)
-        binding.reissueConsentUpdateSubtitle.setText(
-            R.string.certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy
-        )
+        if (args.reissueType == ReissueType.Booster) {
+            binding.reissueConsentInfoElementList.isVisible = false
+            binding.reissueConsentUpdateTitle.setText(
+                R.string.certificate_renewal_consent_page_transfer_certificates_copy
+            )
+            binding.reissueConsentUpdateSubtitle.setText(
+                R.string.certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy
+            )
+        } else {
+            binding.reissueConsentUpdateTitle.isVisible = false
+            binding.reissueConsentUpdateSubtitle.isVisible = false
+            binding.reissueConsentInfoElementList.isVisible = true
+            InfoElementListAdapter(
+                listOf(
+                    getString(R.string.renewal_expiry_consent_list_item_1),
+                    getString(R.string.renewal_expiry_consent_list_item_2),
+                    getString(R.string.renewal_expiry_consent_list_item_3),
+                    getString(R.string.renewal_expiry_consent_list_item_4)
+                ),
+                this
+            ).attachTo(binding.reissueConsentInfoElementList)
+        }
+
         binding.reissueConsentUpdateFieldDataPrivacy.apply {
             text = getString(R.string.app_information_title_datenschutz)
             setOnClickListener {
@@ -93,7 +128,21 @@ public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
     override fun onClickOutside() {}
 
     override fun onActionButtonClicked() {
-        findNavigator().push(ReissueResultFragmentNav(args.listCertIds))
+        if (args.reissueType == ReissueType.Booster) {
+            findNavigator().push(
+                ReissueResultFragmentNav(
+                    args.listCertIds,
+                    args.reissueType
+                )
+            )
+        } else {
+            findNavigator().push(
+                ReissueExpiredResultFragmentNav(
+                    args.listCertIds,
+                    args.reissueType
+                )
+            )
+        }
     }
 
     override fun onBackPressed(): Abortable {

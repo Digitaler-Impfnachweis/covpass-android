@@ -68,8 +68,13 @@ internal class DetailFragmentNav(
  * Fragment which shows the [GroupedCertificates] details
  * Further actions (Show QR Code, Add cov certificate)
  */
+@Suppress("LargeClass")
 internal class DetailFragment :
-    BaseFragment(), DgcEntryDetailCallback, DetailClickListener, DetailEvents<DetailBoosterAction>, ReissueCallback {
+    BaseFragment(),
+    DgcEntryDetailCallback,
+    DetailClickListener,
+    DetailEvents<DetailBoosterAction>,
+    ReissueCallback {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState { DetailViewModel<DetailBoosterAction>(scope) }
@@ -307,7 +312,8 @@ internal class DetailFragment :
                                     CertValidationResult.Valid ->
                                         getString(
                                             R.string.pcr_test_certificate_overview_title,
-                                            dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                            dgcEntry.sampleCollection?.toDeviceTimeZone()
+                                                ?.formatDateTime()
                                         )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
@@ -358,7 +364,8 @@ internal class DetailFragment :
                                     CertValidationResult.Valid ->
                                         getString(
                                             R.string.test_certificate_overview_title,
-                                            dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                            dgcEntry.sampleCollection?.toDeviceTimeZone()
+                                                ?.formatDateTime()
                                         )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
@@ -458,7 +465,7 @@ internal class DetailFragment :
                 },
             )
 
-            if (groupedCertificate.isReadyForReissue()) {
+            if (groupedCertificate.isBoosterReadyForReissue()) {
                 personalDataList.add(
                     DetailItem.ReissueNotification(
                         R.string.certificate_renewal_startpage_headline,
@@ -470,10 +477,61 @@ internal class DetailFragment :
                         R.string.certificate_renewal_detail_view_notification_box_secondary_button
                     ) {
                         findNavigator().push(
-                            ReissueNotificationFragmentNav(groupedCertificate.getListOfIdsReadyForReissue())
+                            ReissueNotificationFragmentNav(
+                                ReissueType.Booster,
+                                groupedCertificate.getListOfIdsReadyForReissue()
+                            )
                         )
                     }
                 )
+            }
+
+            if (groupedCertificate.isExpiredReadyForReissue()) {
+                if (groupedCertificate.getListOfVaccinationIdsReadyForReissue().isNotEmpty()) {
+                    DetailItem.ReissueNotification(
+                        R.string.renewal_expiry_notification_title,
+                        R.string.renewal_expiry_notification_copy_vaccination,
+                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                            R.drawable.background_new_warning
+                        } else null,
+                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                            R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
+                        } else null,
+                        R.string.renewal_expiry_notification_button_vaccination
+                    ) {
+                        findNavigator().push(
+                            ReissueNotificationFragmentNav(
+                                ReissueType.Vaccination,
+                                groupedCertificate.getListOfVaccinationIdsReadyForReissue()
+                            )
+                        )
+                    }
+                }
+
+                groupedCertificate.getListOfRecoveryIdsReadyForReissue().forEach { recoveryId ->
+                    DetailItem.ReissueNotification(
+                        R.string.renewal_expiry_notification_title,
+                        R.string.renewal_expiry_notification_copy_recovery,
+                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                            R.drawable.background_new_warning
+                        } else null,
+                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                            R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
+                        } else null,
+                        R.string.renewal_expiry_notification_button_recovery
+                    ) {
+                        findNavigator().push(
+                            ReissueNotificationFragmentNav(
+                                ReissueType.Recovery,
+                                listOf(
+                                    recoveryId + groupedCertificate.getHistoricalDataForDcc(
+                                        recoveryId
+                                    )
+                                )
+                            )
+                        )
+                    }
+                }
             }
 
             if (groupedCertificate.boosterNotification.result == BoosterResult.Passed) {
@@ -553,7 +611,8 @@ internal class DetailFragment :
                                     subtitle = getString(R.string.certificates_overview_pcr_test_certificate_message),
                                     date = getString(
                                         R.string.certificates_overview_test_certificate_date,
-                                        groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                        groupedDgcEntry.sampleCollection?.toDeviceTimeZone()
+                                            ?.formatDateTime()
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
                                     certStatus = it.status
@@ -567,7 +626,8 @@ internal class DetailFragment :
                                     subtitle = getString(R.string.certificates_overview_test_certificate_message),
                                     date = getString(
                                         R.string.certificates_overview_test_certificate_date,
-                                        groupedDgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime()
+                                        groupedDgcEntry.sampleCollection?.toDeviceTimeZone()
+                                            ?.formatDateTime()
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
                                     certStatus = it.status
@@ -673,7 +733,8 @@ internal class DetailFragment :
     }
 
     private fun sendLocalAccessibilityAnnouncementEvent(accessibilityString: String) {
-        val manager = context?.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val manager =
+            context?.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
         if (manager.isEnabled) {
             val accessibilityEvent = AccessibilityEvent.obtain()
             accessibilityEvent.eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT

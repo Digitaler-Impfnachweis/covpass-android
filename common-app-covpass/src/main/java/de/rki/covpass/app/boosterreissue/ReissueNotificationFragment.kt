@@ -24,10 +24,12 @@ import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.uielements.showInfo
+import de.rki.covpass.sdk.cert.models.ReissueType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 public class ReissueNotificationFragmentNav(
+    public val reissueType: ReissueType,
     public val listCertIds: List<String>
 ) : FragmentNav(ReissueNotificationFragment::class)
 
@@ -50,7 +52,9 @@ public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, Re
             setText(R.string.certificate_renewal_startpage_secondary_button)
             isVisible = true
             setOnClickListener {
-                viewModel.updateHasSeenReissueNotification(false)
+                if (args.reissueType == ReissueType.Booster) {
+                    viewModel.updateHasSeenReissueNotification(false)
+                }
             }
         }
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
@@ -92,7 +96,7 @@ public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, Re
 
     override fun onUpdateHasSeenReissueNotificationFinish(continueReissue: Boolean) {
         if (continueReissue) {
-            findNavigator().push(ReissueConsentFragmentNav(args.listCertIds))
+            findNavigator().push(ReissueConsentFragmentNav(args.listCertIds, args.reissueType))
         } else {
             findNavigator().popUntil<ReissueCallback>()?.onReissueCancel()
         }

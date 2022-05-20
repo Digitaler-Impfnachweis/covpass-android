@@ -64,7 +64,7 @@ public sealed class DetailItem {
         public val titleRes: Int,
         public val textRes: Int,
         public val iconBackgroundRes: Int?,
-        public val iconTextRes: Int,
+        public val iconTextRes: Int?,
         public val buttonRes: Int,
         public val buttonClickListener: View.OnClickListener?
     ) : DetailItem()

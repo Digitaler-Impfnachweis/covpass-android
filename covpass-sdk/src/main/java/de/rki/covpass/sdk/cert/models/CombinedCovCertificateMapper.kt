@@ -15,12 +15,13 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
         hasSeenExpiryNotification = hasSeenExpiryNotification,
         boosterNotificationRuleIds = boosterNotificationRuleIds,
-        isReadyForReissue = isReadyForReissue,
-        alreadyReissued = alreadyReissued,
         hasSeenReissueNotification = hasSeenReissueNotification,
+        hasSeenExpiredReissueNotification = hasSeenExpiredReissueNotification,
         hasSeenReissueDetailNotification = hasSeenReissueDetailNotification,
         hasSeenRevokedNotification = hasSeenRevokedNotification,
-        isRevoked = isRevoked
+        isRevoked = isRevoked,
+        reissueState = reissueState,
+        reissueType = reissueType
     )
 
 public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCertificateLocal =
@@ -32,12 +33,13 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         hasSeenBoosterDetailNotification = hasSeenBoosterDetailNotification,
         hasSeenExpiryNotification = hasSeenExpiryNotification,
         boosterNotificationRuleIds = boosterNotificationRuleIds,
-        isReadyForReissue = isReadyForReissue,
-        alreadyReissued = alreadyReissued,
         hasSeenReissueNotification = hasSeenReissueNotification,
+        hasSeenExpiredReissueNotification = hasSeenExpiredReissueNotification,
         hasSeenReissueDetailNotification = hasSeenReissueDetailNotification,
         hasSeenRevokedNotification = hasSeenRevokedNotification,
-        isRevoked = isRevoked
+        isRevoked = isRevoked,
+        reissueState = reissueState,
+        reissueType = reissueType
     )
 
 public fun CovCertificate.isInExpiryPeriod(): Boolean =

@@ -38,7 +38,7 @@ internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
                     if (it.boosterNotification.result == BoosterResult.Passed) {
                         it.hasSeenBoosterDetailNotification = true
                     }
-                    if (it.isReadyForReissue()) {
+                    if (it.isBoosterReadyForReissue() || it.isExpiredReadyForReissue()) {
                         it.hasSeenReissueDetailNotification = true
                     }
                 }

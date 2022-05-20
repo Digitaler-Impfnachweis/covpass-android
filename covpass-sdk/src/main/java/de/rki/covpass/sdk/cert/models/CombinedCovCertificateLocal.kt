@@ -37,12 +37,13 @@ public data class CombinedCovCertificateLocal(
 
     val boosterNotificationRuleIds: List<String> = mutableListOf(),
 
-    val isReadyForReissue: Boolean = false,
-    val alreadyReissued: Boolean = false,
     val hasSeenReissueNotification: Boolean = false,
+    val hasSeenExpiredReissueNotification: Boolean = false,
     val hasSeenReissueDetailNotification: Boolean = false,
 
     val hasSeenRevokedNotification: Boolean = false,
 
     val isRevoked: Boolean = false,
+    val reissueState: ReissueState = ReissueState.None,
+    val reissueType: ReissueType = ReissueType.None
 )

@@ -5,6 +5,7 @@
 
 package de.rki.covpass.sdk.utils
 
+import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -76,4 +77,37 @@ public object CertificateReissueUtils {
             emptyList()
         }
     }
+
+    public fun getExpiredGermanVaccinationId(
+        vaccination: CombinedCovCertificate?
+    ): String? {
+        if (vaccination == null) return null
+        val isExpiredGermanVaccinationCertificate = vaccination.isExpiredOrExpiryPeriod &&
+            vaccination.covCertificate.isGermanCertificate
+        return if (isExpiredGermanVaccinationCertificate) {
+            vaccination.covCertificate.dgcEntry.id
+        } else {
+            null
+        }
+    }
+
+    public fun getExpiredGermanRecoveryIds(
+        certificates: List<CombinedCovCertificate>
+    ): List<String> {
+        val expiredGermanRecoveries = certificates.filter {
+            it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod
+        }.map { it.covCertificate }
+
+        val isGermanCertificate = expiredGermanRecoveries.all { it.isGermanCertificate }
+
+        return if (isGermanCertificate) {
+            expiredGermanRecoveries.map { it.dgcEntry.id }
+        } else {
+            emptyList()
+        }
+    }
+
+    private val CombinedCovCertificate.isExpiredOrExpiryPeriod: Boolean
+        get() =
+            status == CertValidationResult.Expired || status == CertValidationResult.ExpiryPeriod
 }

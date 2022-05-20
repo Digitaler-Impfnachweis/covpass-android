@@ -43,6 +43,7 @@ import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.ReissueType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -50,12 +51,13 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
 
 internal interface NotificationEvents : BaseEvents {
     fun showExpiryNotification()
+    fun showExpiredReissueNotification()
     fun showNewUpdateInfo()
     fun showNewDataPrivacy()
     fun showDomesticRulesNotification()
     fun showCheckerRemark()
     fun showBoosterNotification()
-    fun showReissueNotification(listIds: List<String>)
+    fun showBoosterReissueNotification(listIds: List<String>)
     fun showRevokedNotification()
 }
 
@@ -76,10 +78,15 @@ internal class MainFragment :
     NotificationEvents {
 
     private val viewModel by reactiveState { MainViewModel(scope) }
-    private val covPassBackgroundUpdateViewModel by reactiveState { CovPassBackgroundUpdateViewModel(scope) }
+    private val covPassBackgroundUpdateViewModel by reactiveState {
+        CovPassBackgroundUpdateViewModel(
+            scope
+        )
+    }
     private val binding by viewBinding(CovpassMainBinding::inflate)
     private var fragmentStateAdapter: CertificateFragmentStateAdapter by validUntil(::onDestroyView)
-    override val announcementAccessibilityRes: Int = R.string.accessibility_start_screen_info_announce
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_start_screen_info_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -99,7 +106,10 @@ internal class MainFragment :
         ViewCompat.setAccessibilityDelegate(
             binding.mainEmptyHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(
+                    host: View?,
+                    info: AccessibilityNodeInfoCompat
+                ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
@@ -129,15 +139,19 @@ internal class MainFragment :
     }
 
     private fun setupPageChangeCallback() {
-        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                viewModel.onPageSelected(position)
-            }
-        })
+        binding.mainViewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    viewModel.onPageSelected(position)
+                }
+            })
     }
 
-    private fun updateCertificates(certificateList: GroupedCertificatesList, selectedCertId: GroupedCertificatesId?) {
+    private fun updateCertificates(
+        certificateList: GroupedCertificatesList,
+        selectedCertId: GroupedCertificatesId?
+    ) {
         if (certificateList.certificates.isEmpty()) {
             binding.mainEmptyCardview.isVisible = true
             binding.mainViewPager.isVisible = false
@@ -146,7 +160,10 @@ internal class MainFragment :
             binding.mainEmptyCardview.isVisible = false
             binding.mainViewPager.isVisible = true
             selectedCertId?.let {
-                binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(it), isResumed)
+                binding.mainViewPager.setCurrentItem(
+                    fragmentStateAdapter.getItemPosition(it),
+                    isResumed
+                )
             }
         }
         binding.mainTabLayout.isVisible = certificateList.certificates.size > 1
@@ -173,7 +190,10 @@ internal class MainFragment :
 
     override fun displayCert(certId: GroupedCertificatesId) {
         viewModel.selectedCertId = certId
-        binding.mainViewPager.setCurrentItem(fragmentStateAdapter.getItemPosition(certId), isResumed)
+        binding.mainViewPager.setCurrentItem(
+            fragmentStateAdapter.getItemPosition(certId),
+            isResumed
+        )
     }
 
     private fun showAddCovCertificatePopup() {
@@ -220,6 +240,16 @@ internal class MainFragment :
                     viewModel.showingNotification.complete(Unit)
                 }
             }
+            EXPIRED_REISSUE_DIALOG_TAG -> {
+                launchWhenStarted {
+                    covpassDeps.certRepository.certs.update { groupedCertificateList ->
+                        groupedCertificateList.certificates.forEach {
+                            it.hasSeenExpiredReissueNotification = true
+                        }
+                    }
+                    viewModel.showingNotification.complete(Unit)
+                }
+            }
             REVOKED_DIALOG_TAG -> {
                 launchWhenStarted {
                     covpassDeps.certRepository.certs.update { groupedCertificateList ->
@@ -231,16 +261,6 @@ internal class MainFragment :
                 }
             }
         }
-    }
-
-    override fun showExpiryNotification() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.error_validity_check_certificates_title,
-            messageString = getString(R.string.error_validity_check_certificates_message),
-            positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
-            tag = EXPIRED_DIALOG_TAG,
-        )
-        showDialog(dialogModel, childFragmentManager)
     }
 
     override fun showNewUpdateInfo() {
@@ -263,12 +283,32 @@ internal class MainFragment :
         findNavigator().push(BoosterNotificationFragmentNav())
     }
 
-    override fun showReissueNotification(listIds: List<String>) {
+    override fun showBoosterReissueNotification(listIds: List<String>) {
         if (listIds.isNotEmpty()) {
-            findNavigator().push(ReissueNotificationFragmentNav(listIds))
+            findNavigator().push(ReissueNotificationFragmentNav(ReissueType.Booster, listIds))
         } else {
             viewModel.showingNotification.complete(Unit)
         }
+    }
+
+    override fun showExpiryNotification() {
+        val dialogModel = DialogModel(
+            titleRes = R.string.error_validity_check_certificates_title,
+            messageString = getString(R.string.error_validity_check_certificates_message),
+            positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
+            tag = EXPIRED_DIALOG_TAG,
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
+
+    override fun showExpiredReissueNotification() {
+        val dialogModel = DialogModel(
+            titleRes = R.string.error_validity_check_certificates_title,
+            messageString = getString(R.string.error_validity_check_certificates_message),
+            positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
+            tag = EXPIRED_REISSUE_DIALOG_TAG,
+        )
+        showDialog(dialogModel, childFragmentManager)
     }
 
     override fun showRevokedNotification() {
@@ -283,6 +323,7 @@ internal class MainFragment :
 
     companion object {
         private const val EXPIRED_DIALOG_TAG = "expired_dialog"
+        private const val EXPIRED_REISSUE_DIALOG_TAG = "expired_reissue_dialog"
         private const val REVOKED_DIALOG_TAG = "revoked_dialog"
     }
 }

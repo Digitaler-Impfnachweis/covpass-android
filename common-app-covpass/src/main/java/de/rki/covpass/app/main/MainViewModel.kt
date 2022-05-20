@@ -79,6 +79,12 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+            certRepository.certs.value.certificates.any { it.hasSeenExpiredReissueNotification } -> {
+                eventNotifier {
+                    showExpiredReissueNotification()
+                }
+                true
+            }
             covpassDependencies.checkerRemarkRepository.checkerRemarkShown.value
                 != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION -> {
                 eventNotifier {
@@ -92,10 +98,14 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
-            checkReissueNotification() -> {
+            checkBoosterReissueNotification() -> {
                 eventNotifier {
-                    showReissueNotification(getReissueIdsList())
+                    showBoosterReissueNotification(getBoosterReissueIdsList())
                 }
+                true
+            }
+            checkExpiredReissueNotification() -> {
+                showingNotification.complete(Unit)
                 true
             }
             validateRevokedCertificates() -> {
@@ -107,19 +117,29 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             else -> false
         }
 
-    private fun checkReissueNotification(): Boolean {
-        certRepository.certs.value.certificates.forEach { it.validateReissue() }
-        return checkReadyForReissue()
+    private fun checkBoosterReissueNotification(): Boolean {
+        certRepository.certs.value.certificates.forEach { it.validateBoosterReissue() }
+        return checkBoosterReadyForReissue()
     }
 
-    private fun checkReadyForReissue() =
-        certRepository.certs.value.certificates.any { it.isReadyForReissue() && !it.hasSeenReissueNotification }
+    private fun checkBoosterReadyForReissue() =
+        certRepository.certs.value.certificates.any { it.isBoosterReadyForReissue() && !it.hasSeenReissueNotification }
 
-    private fun getReissueIdsList(): List<String> {
+    private fun getBoosterReissueIdsList(): List<String> {
         return certRepository.certs.value.certificates.first {
-            it.isReadyForReissue() && !it.hasSeenReissueNotification
+            it.isBoosterReadyForReissue() && !it.hasSeenReissueNotification
         }.getListOfIdsReadyForReissue()
     }
+
+    private fun checkExpiredReissueNotification(): Boolean {
+        certRepository.certs.value.certificates.forEach { it.validateExpiredReissue() }
+        return checkExpiredReadyForReissue()
+    }
+
+    private fun checkExpiredReadyForReissue() =
+        certRepository.certs.value.certificates.any {
+            it.isExpiredReadyForReissue() && !it.hasSeenExpiredReissueNotification
+        }
 
     fun onPageSelected(position: Int) {
         selectedCertId = certRepository.certs.value.getSortedCertificates()[position].id
@@ -187,12 +207,13 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 else -> emptyList()
             }
 
-            boosterNotifications.find { it.ruleId !in groupedCert.boosterNotificationRuleIds }?.let {
-                groupedCert.boosterNotification = it
-                groupedCert.boosterNotificationRuleIds += it.ruleId
-                groupedCert.hasSeenBoosterNotification = false
-                groupedCert.hasSeenBoosterDetailNotification = false
-            }
+            boosterNotifications.find { it.ruleId !in groupedCert.boosterNotificationRuleIds }
+                ?.let {
+                    groupedCert.boosterNotification = it
+                    groupedCert.boosterNotificationRuleIds += it.ruleId
+                    groupedCert.hasSeenBoosterNotification = false
+                    groupedCert.hasSeenBoosterDetailNotification = false
+                }
 
             if (boosterNotifications.isNotEmpty()) {
                 groupedCert.boosterNotification = boosterNotifications.find {

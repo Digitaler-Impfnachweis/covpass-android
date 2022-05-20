@@ -374,10 +374,10 @@
 	<string name="recovery_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="recovery_certificate_overview_action_button_title">Aktuellen QR-Code anzeigen</string>
 	<string name="certificates_overview_expired_title">Zertifikat abgelaufen</string>
-	<string name="certificates_overview_expired_message">Das Ablaufdatum Ihrer Zertifikate wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="certificates_overview_expired_message">Sie können Ihre wichtigsten Zertifikate bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein. Sofern ein aktuelleres Impfzertifikat vorliegt, brauchen Sie die vorherigen Impfzertifikate nicht erneuern.</string>
 	<string name="certificates_overview_expired_action_button_title">Neues Zertifikat hinzufügen</string>
 	<string name="certificates_overview_soon_expiring_title">Aktuelles Zertifikat läuft am %1$s um %2$s ab</string>
-	<string name="certificates_overview_soon_expiring_subtitle">Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="certificates_overview_soon_expiring_subtitle">Sie können das Zertifikat bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
 	<string name="certificates_overview_invalid_title">Zertifikat ungültig</string>
 	<string name="certificates_overview_invalid_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificates_overview_invalid_action_button_title">Neues Zertifikat hinzufügen</string>
@@ -452,7 +452,7 @@
 	<string name="vaccination_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum / Technical expiry date</string>
 	<string name="accessibility_vaccination_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum</string>
 	<string name="vaccination_certificate_detail_view_data_expiry_date_message">Gültig bis %s</string>
-	<string name="vaccination_certificate_detail_view_data_expiry_date_note">Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="vaccination_certificate_detail_view_data_expiry_date_note">Sie werden in der App benachrichtigt, falls Sie das Zertifikat erneuern können.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">QR-Code anzeigen</string>
@@ -494,7 +494,7 @@
 	<string name="test_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum / Technical expiry date</string>
 	<string name="accessibility_test_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum</string>
 	<string name="test_certificate_detail_view_data_expiry_date_message">Gültig bis %s</string>
-	<string name="test_certificate_detail_view_data_expiry_date_note">Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="test_certificate_detail_view_data_expiry_date_note">Sie werden in der App benachrichtigt, falls Sie das Zertifikat erneuern können.</string>
 	<string name="test_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="test_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="test_certificate_detail_view_qrcode_action_button_title">QR-Code anzeigen</string>
@@ -528,7 +528,7 @@
 	<string name="recovery_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum / Technical expiry date</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum</string>
 	<string name="recovery_certificate_detail_view_data_expiry_date_message">Gültig bis %s</string>
-	<string name="recovery_certificate_detail_view_data_expiry_date_note">Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="recovery_certificate_detail_view_data_expiry_date_note">Sie werden in der App benachrichtigt, falls Sie das Zertifikat erneuern können.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_qrcode_action_button_title">QR-Code anzeigen</string>
@@ -539,11 +539,11 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="certificate_expires_detail_view_note_title">Zertifikat läuft am %1$s um %2$s ab</string>
-	<string name="certificate_expires_detail_view_note_message">Bitte bemühen Sie sich rechtzeitig darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="certificate_expires_detail_view_note_message">Sie können das Zertifikat bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
 	<string name="certificate_invalid_detail_view_note_title">Zertifikat ungültig</string>
 	<string name="certificate_invalid_detail_view_note_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificate_expired_detail_view_note_title">Zertifikat abgelaufen</string>
-	<string name="certificate_expired_detail_view_note_message">Das Ablaufdatum wurde überschritten. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="certificate_expired_detail_view_note_message">Sie können Ihre wichtigsten Zertifikate bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein. Sofern ein aktuelleres Impfzertifikat vorliegt, brauchen Sie die vorherigen Impfzertifikate nicht erneuern.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">Die Ansicht für \"EU-Ausdruck erstellen\" wurde geöffnet</string>
@@ -582,7 +582,7 @@
 	<string name="error_scan_qrcode_without_seal_message">Möglicherweise wurde das Zertifikat von einer nicht autorisierten Einrichtung erstellt oder die App ist nicht auf dem aktuellen Stand. Im zuletzt genannten Fall stellen Sie eine Verbindung mit dem Internet her und versuchen Sie es später erneut.</string>
 	<string name="error_scan_qrcode_without_seal_button_title">OK</string>
 	<string name="error_validity_check_certificates_title">Überprüfen Sie die Gültigkeit Ihrer Zertifikate</string>
-	<string name="error_validity_check_certificates_message">Die Gültigkeit Ihrer Zertifikate läuft bald ab oder ist bereits abgelaufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+	<string name="error_validity_check_certificates_message">Wenn Sie dieses Zertifikat in der App erneuern können, erhalten Sie eine Benachrichtigung.Mehr Informationen zum Austausch von abgelaufenen Zertifikaten finden Sie in unseren FAQs.</string>
 	<string name="error_validity_check_certificates_button_title">OK</string>
 
 	<!-- SECTION: dialog: duplicate certificate -->
@@ -781,10 +781,14 @@
 	<string name="renewal_expiry_notification_button_vaccination">Impfzertifikat erneuern</string>
 	<string name="renewal_expiry_notification_copy_recovery">Die technische Laufzeit Ihres Genesenenzertifikats läuft bald aus. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_recovery">Genesenenzertifikat erneuern</string>
+	<string name="renewal_expiry_consent_box_item_1">Die App übermittelt die genannten Zertifikate zur Überprüfung an das RKI.</string>
+	<string name="renewal_expiry_consent_box_item_2">Das RKI überprüft die Zertifikate, stellt ein erneuertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
 	<string name="renewal_expiry_consent_list_item_1">Die Erneuerung der Zertifikate ist freiwillig und kostenlos.</string>
 	<string name="renewal_expiry_consent_list_item_2">Um sicherzustellen, dass Zertifikate nur einmalig erneuert werden können, werden jeweils die Kennung des alten und des erneuerten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.</string>
-	<string name="renewal_expiry_consent_list_item_3">Stellen Sie bitte bei der Erneuerung von Familienzertifikaten sicher, dass das betreffende Familienmitglied einverstanden ist.</string>
+	<string name="renewal_expiry_consent_list_item_3">Stellen Sie bitte bei der Erneuerung von Zertifikaten von Familienmitgliedern sicher, dass die betreffende Person einverstanden ist.</string>
 	<string name="renewal_expiry_consent_list_item_4">In bestimmten Fällen werden zusätzlich zu dem zu erneuernden Zertifikat weitere Zertifikate übermittelt. Dies ist erforderlich, um die bisherige Abfolge der Impfungen und Genesungen im neuen Zertifikat aufnehmen zu können.</string>
+	<string name="renewal_expiry_success_copy">Sie können Ihr Zertifikat nun weiterhin wie gewohnt nutzen.</string>
+	<string name="renewal_expiry_success_button">OK</string>
 
 	<!-- SECTION: DCC revocation -->
 	<string name="revocation_error_scan_title">Das Zertifikat kann nicht hinzugefügt werden</string>

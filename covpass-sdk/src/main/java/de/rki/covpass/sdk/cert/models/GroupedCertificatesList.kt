@@ -25,7 +25,12 @@ public data class GroupedCertificatesList private constructor(
      */
     public fun getGroupedCertificates(certId: GroupedCertificatesId): GroupedCertificates? =
         certificates.firstOrNull {
-            compareHolder(it.id.name, certId.name, it.id.birthDate, certId.birthDate) == DataComparison.Equal
+            compareHolder(
+                it.id.name,
+                certId.name,
+                it.id.birthDate,
+                certId.birthDate
+            ) == DataComparison.Equal
         }
 
     /**
@@ -124,8 +129,7 @@ public data class GroupedCertificatesList private constructor(
                 if (groupedCertificates == matchingGroupedCert) {
                     groupedCertificates.certificates = groupedCertificates.certificates.map {
                         it.copy(
-                            isReadyForReissue = false,
-                            alreadyReissued = false,
+                            reissueState = ReissueState.None,
                             hasSeenReissueNotification = false
                         )
                     }.toMutableList()
@@ -143,7 +147,10 @@ public data class GroupedCertificatesList private constructor(
     private fun isReissueUpdateNeeded(matchingCombinedCert: CombinedCovCertificate?): Boolean {
         val dgcEntry = matchingCombinedCert?.covCertificate?.dgcEntry
         return (
-            (matchingCombinedCert?.isReadyForReissue == true || matchingCombinedCert?.alreadyReissued == true) &&
+            (
+                matchingCombinedCert?.reissueState == ReissueState.Ready ||
+                    matchingCombinedCert?.reissueState == ReissueState.Completed
+                ) &&
                 (dgcEntry is Vaccination && (dgcEntry.isCompleteSingleDose || dgcEntry.isCompleteDoubleDose))
             ) ||
             (dgcEntry is Vaccination && dgcEntry.doseNumber == 2 && dgcEntry.totalSerialDoses == 1)

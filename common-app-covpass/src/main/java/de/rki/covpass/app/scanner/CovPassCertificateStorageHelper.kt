@@ -31,12 +31,13 @@ public object CovPassCertificateStorageHelper {
                     hasSeenBoosterDetailNotification = false,
                     hasSeenExpiryNotification = false,
                     boosterNotificationRuleIds = mutableListOf(),
-                    isReadyForReissue = false,
-                    alreadyReissued = false,
                     hasSeenReissueNotification = false,
+                    hasSeenExpiredReissueNotification = false,
                     hasSeenReissueDetailNotification = false,
                     isRevoked = false,
-                    hasSeenRevokedNotification = false
+                    hasSeenRevokedNotification = false,
+                    reissueState = ReissueState.None,
+                    reissueType = ReissueType.None
                 )
             )
         }
