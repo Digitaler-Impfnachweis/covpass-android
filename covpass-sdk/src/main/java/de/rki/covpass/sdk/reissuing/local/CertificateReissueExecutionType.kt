@@ -7,5 +7,6 @@ package de.rki.covpass.sdk.reissuing.local
 
 public enum class CertificateReissueExecutionType {
     RENEW,
+    EXTEND,
     COMBINE
 }

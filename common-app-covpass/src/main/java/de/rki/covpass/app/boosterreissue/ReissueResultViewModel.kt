@@ -16,6 +16,7 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.reissuing.ReissuingRepository
+import de.rki.covpass.sdk.reissuing.local.CertificateReissueExecutionType
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
 
@@ -45,8 +46,14 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
 
     private fun reissueCertificate(qrContents: List<String>) {
         launch {
+            val action = if (reissueType == ReissueType.Booster) {
+                CertificateReissueExecutionType.RENEW
+            } else {
+                CertificateReissueExecutionType.EXTEND
+            }
             val reissuedCertificate = reissuingRepository.reissueCertificate(
-                qrContents
+                certificates = qrContents,
+                action = action
             ).certificate
 
             val covCertificate = qrCoder.decodeCovCert(qrContent = reissuedCertificate, allowExpiredCertificates = true)
