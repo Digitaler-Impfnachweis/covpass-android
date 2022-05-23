@@ -13,10 +13,8 @@ public sealed interface CertValidationResult {
     public object Revoked : CertValidationResult
 }
 
-public sealed interface ReissueState {
-    public object Completed : ReissueState
-    public object Ready : ReissueState
-    public object None : ReissueState
+public enum class ReissueState {
+    Completed, Ready, None
 }
 
 public enum class ReissueType {

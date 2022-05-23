@@ -52,9 +52,7 @@ public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, Re
             setText(R.string.certificate_renewal_startpage_secondary_button)
             isVisible = true
             setOnClickListener {
-                if (args.reissueType == ReissueType.Booster) {
-                    viewModel.updateHasSeenReissueNotification(false)
-                }
+                viewModel.updateHasSeenReissueNotification(args.reissueType, false)
             }
         }
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
@@ -74,7 +72,7 @@ public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, Re
     override fun onClickOutside() {}
 
     override fun onActionButtonClicked() {
-        viewModel.updateHasSeenReissueNotification(true)
+        viewModel.updateHasSeenReissueNotification(args.reissueType, true)
     }
 
     override fun onBackPressed(): Abortable {
@@ -90,7 +88,7 @@ public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, Re
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == REISSUE_NOTIFICATION_END_PROCESS && action == DialogAction.POSITIVE) {
-            viewModel.updateHasSeenReissueNotification(false)
+            viewModel.updateHasSeenReissueNotification(args.reissueType, false)
         }
     }
 
@@ -103,6 +101,7 @@ public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, Re
     }
 
     public companion object {
-        public const val REISSUE_NOTIFICATION_END_PROCESS: String = "reissue_notification_end_process"
+        public const val REISSUE_NOTIFICATION_END_PROCESS: String =
+            "reissue_notification_end_process"
     }
 }

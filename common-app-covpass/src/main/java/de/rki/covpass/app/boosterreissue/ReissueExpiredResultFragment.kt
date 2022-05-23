@@ -20,6 +20,8 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueExpiredResultPopupContentBinding
+import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
+import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -58,7 +60,6 @@ public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEven
         bottomSheetBinding.bottomSheetClose.isVisible = false
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = false
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = false
-        bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_renewal_confirmation_page_headline)
         binding.reissueResultInfo.setText(R.string.renewal_expiry_success_copy)
     }
 
@@ -75,7 +76,6 @@ public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEven
 
         binding.loadingLayout.isVisible = false
         binding.reissueResultLayout.isVisible = true
-        bottomSheetBinding.bottomSheetTitle.isVisible = true
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = true
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
     }
@@ -85,26 +85,30 @@ public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEven
     }
 
     override fun onBackPressed(): Abortable {
-        onActionButtonClicked()
+        if (bottomSheetBinding.bottomSheetActionButton.isVisible) {
+            onActionButtonClicked()
+        } else {
+            findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
+        }
         return Abort
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        when (action) {
-            DialogAction.NEGATIVE -> {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.covpass_reissuing_faq_link))
-                    )
+        if (
+            action == DialogAction.NEGATIVE &&
+            (
+                tag == TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR ||
+                    tag == TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
                 )
-                onBackPressed()
-            }
-            DialogAction.POSITIVE -> {
-                findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
-            }
-            else -> {}
+        ) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.covpass_reissuing_faq_link))
+                )
+            )
         }
+        findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
     }
 
     override fun onClickOutside() {}

@@ -9,6 +9,7 @@ import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
 
@@ -22,7 +23,7 @@ internal class ReissueNotificationViewModel @OptIn(DependencyAccessor::class) co
     private val certRepository: CertRepository = covpassDeps.certRepository,
 ) : BaseReactiveState<ReissueNotificationEvents>(scope) {
 
-    fun updateHasSeenReissueNotification(continueReissue: Boolean) {
+    fun updateHasSeenReissueNotification(reissueType: ReissueType, continueReissue: Boolean) {
         launch {
             certRepository.certs.update {
                 it.certificates.forEach { groupedCertificates ->
@@ -31,7 +32,11 @@ internal class ReissueNotificationViewModel @OptIn(DependencyAccessor::class) co
                             listCertIds.contains(combinedCovCertificate.covCertificate.dgcEntry.id)
                         }
                     ) {
-                        groupedCertificates.hasSeenReissueNotification = true
+                        if (reissueType == ReissueType.Booster) {
+                            groupedCertificates.hasSeenReissueNotification = true
+                        } else {
+                            groupedCertificates.hasSeenExpiredReissueNotification = true
+                        }
                     }
                 }
             }

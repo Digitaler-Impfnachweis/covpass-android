@@ -488,49 +488,51 @@ internal class DetailFragment :
 
             if (groupedCertificate.isExpiredReadyForReissue()) {
                 if (groupedCertificate.getListOfVaccinationIdsReadyForReissue().isNotEmpty()) {
-                    DetailItem.ReissueNotification(
-                        R.string.renewal_expiry_notification_title,
-                        R.string.renewal_expiry_notification_copy_vaccination,
-                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                            R.drawable.background_new_warning
-                        } else null,
-                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                            R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
-                        } else null,
-                        R.string.renewal_expiry_notification_button_vaccination
-                    ) {
-                        findNavigator().push(
-                            ReissueNotificationFragmentNav(
-                                ReissueType.Vaccination,
-                                groupedCertificate.getListOfVaccinationIdsReadyForReissue()
+                    personalDataList.add(
+                        DetailItem.ReissueNotification(
+                            R.string.renewal_expiry_notification_title,
+                            R.string.renewal_expiry_notification_copy_vaccination,
+                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                                R.drawable.background_new_warning
+                            } else null,
+                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                                R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
+                            } else null,
+                            R.string.renewal_expiry_notification_button_vaccination
+                        ) {
+                            findNavigator().push(
+                                ReissueNotificationFragmentNav(
+                                    ReissueType.Vaccination,
+                                    groupedCertificate.getListOfVaccinationIdsReadyForReissue()
+                                )
                             )
-                        )
-                    }
+                        }
+                    )
                 }
 
                 groupedCertificate.getListOfRecoveryIdsReadyForReissue().forEach { recoveryId ->
-                    DetailItem.ReissueNotification(
-                        R.string.renewal_expiry_notification_title,
-                        R.string.renewal_expiry_notification_copy_recovery,
-                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                            R.drawable.background_new_warning
-                        } else null,
-                        if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                            R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
-                        } else null,
-                        R.string.renewal_expiry_notification_button_recovery
-                    ) {
-                        findNavigator().push(
-                            ReissueNotificationFragmentNav(
-                                ReissueType.Recovery,
-                                listOf(
-                                    recoveryId + groupedCertificate.getHistoricalDataForDcc(
+                    personalDataList.add(
+                        DetailItem.ReissueNotification(
+                            R.string.renewal_expiry_notification_title,
+                            R.string.renewal_expiry_notification_copy_recovery,
+                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                                R.drawable.background_new_warning
+                            } else null,
+                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
+                                R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
+                            } else null,
+                            R.string.renewal_expiry_notification_button_recovery
+                        ) {
+                            findNavigator().push(
+                                ReissueNotificationFragmentNav(
+                                    ReissueType.Recovery,
+                                    listOf(recoveryId) + groupedCertificate.getHistoricalDataForDcc(
                                         recoveryId
                                     )
                                 )
                             )
-                        )
-                    }
+                        }
+                    )
                 }
             }
 

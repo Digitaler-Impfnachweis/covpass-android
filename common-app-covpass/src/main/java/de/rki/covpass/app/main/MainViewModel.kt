@@ -79,12 +79,6 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
-            certRepository.certs.value.certificates.any { it.hasSeenExpiredReissueNotification } -> {
-                eventNotifier {
-                    showExpiredReissueNotification()
-                }
-                true
-            }
             covpassDependencies.checkerRemarkRepository.checkerRemarkShown.value
                 != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION -> {
                 eventNotifier {
@@ -105,7 +99,9 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 true
             }
             checkExpiredReissueNotification() -> {
-                showingNotification.complete(Unit)
+                eventNotifier {
+                    showExpiredReissueNotification()
+                }
                 true
             }
             validateRevokedCertificates() -> {

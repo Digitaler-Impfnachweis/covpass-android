@@ -96,15 +96,11 @@ public object CertificateReissueUtils {
     ): List<String> {
         val expiredGermanRecoveries = certificates.filter {
             it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod
-        }.map { it.covCertificate }
-
-        val isGermanCertificate = expiredGermanRecoveries.all { it.isGermanCertificate }
-
-        return if (isGermanCertificate) {
-            expiredGermanRecoveries.map { it.dgcEntry.id }
-        } else {
-            emptyList()
+        }.map { it.covCertificate }.filter {
+            it.isGermanCertificate
         }
+
+        return expiredGermanRecoveries.map { it.dgcEntry.id }
     }
 
     private val CombinedCovCertificate.isExpiredOrExpiryPeriod: Boolean
