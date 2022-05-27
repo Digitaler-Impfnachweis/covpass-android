@@ -432,10 +432,31 @@ public data class GroupedCertificates(
 
     public fun getListOfImportantCerts(): List<String> {
         val list = mutableListOf<String>()
-        val latestVaccination = getLatestVaccination()
-        val latestRecovery = getLatestRecovery()
-        val latestTestCert = getLatestTest()
+        val mainCertificate = getMainCertificate()
+        val latestVaccination =
+            if (mainCertificate.covCertificate.dgcEntry is Vaccination) {
+                mainCertificate
+            } else {
+                getLatestVaccination()
+            }
+        val latestRecovery =
+            if (mainCertificate.covCertificate.dgcEntry is Recovery) {
+                mainCertificate
+            } else {
+                getLatestRecovery()
+            }
+        val latestTestCert =
+            if (mainCertificate.covCertificate.dgcEntry is TestCert) {
+                mainCertificate
+            } else {
+                getLatestTest()
+            }
 
+        if (latestTestCert?.status == CertValidationResult.Valid ||
+            latestTestCert?.status == CertValidationResult.ExpiryPeriod
+        ) {
+            list.add(latestTestCert.covCertificate.dgcEntry.id)
+        }
         if (latestVaccination?.status == CertValidationResult.Valid ||
             latestVaccination?.status == CertValidationResult.ExpiryPeriod
         ) {
@@ -445,11 +466,6 @@ public data class GroupedCertificates(
             latestRecovery?.status == CertValidationResult.ExpiryPeriod
         ) {
             list.add(latestRecovery.covCertificate.dgcEntry.id)
-        }
-        if (latestTestCert?.status == CertValidationResult.Valid ||
-            latestTestCert?.status == CertValidationResult.ExpiryPeriod
-        ) {
-            list.add(latestTestCert.covCertificate.dgcEntry.id)
         }
         return list
     }

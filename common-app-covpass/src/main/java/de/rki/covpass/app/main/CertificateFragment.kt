@@ -81,7 +81,8 @@ internal class CertificateFragment : BaseFragment() {
                 when (dgcEntry.type) {
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         val vaccination = mainCertificate.dgcEntry as Vaccination
-                        val isJanssenFullProtection = vaccination.isJanssen && vaccination.doseNumber == 2
+                        val isJanssenFullProtection =
+                            vaccination.isJanssen && vaccination.doseNumber == 2
                         binding.certificateCard.createCertificateCardView(
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
@@ -201,7 +202,7 @@ internal class CertificateFragment : BaseFragment() {
 
     private fun cardClick(groupedCertificate: GroupedCertificates) {
         findNavigator().push(
-            if (groupedCertificate.getListOfImportantCerts().isNotEmpty()) {
+            if (groupedCertificate.getListOfImportantCerts().size > 1) {
                 CertificateSwitcherFragmentNav(args.certId)
             } else {
                 DetailFragmentNav(args.certId)
