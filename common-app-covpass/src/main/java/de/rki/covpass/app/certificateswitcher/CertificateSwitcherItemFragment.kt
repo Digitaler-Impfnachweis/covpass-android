@@ -20,6 +20,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateSwitcherItemBinding
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.utils.daysTillNow
@@ -30,8 +31,10 @@ import kotlinx.parcelize.Parcelize
 import java.time.ZoneId
 
 @Parcelize
-internal class CertificateSwitcherItemFragmentNav(val certId: GroupedCertificatesId, val id: String) :
-    FragmentNav(CertificateSwitcherItemFragment::class)
+internal class CertificateSwitcherItemFragmentNav(
+    val certId: GroupedCertificatesId,
+    val id: String
+) : FragmentNav(CertificateSwitcherItemFragment::class)
 
 internal class CertificateSwitcherItemFragment : BaseFragment() {
 
@@ -155,6 +158,10 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
             }
             // .let{} to enforce exhaustiveness
         }.let {}
+
+        binding.certificateCard.setOnCardClickListener {
+            DetailFragmentNav(args.certId)
+        }
     }
 
     private suspend fun generateQRCode(qrContent: String): Bitmap {

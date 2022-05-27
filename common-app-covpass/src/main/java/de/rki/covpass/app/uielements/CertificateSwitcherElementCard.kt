@@ -44,6 +44,10 @@ internal class CertificateSwitcherElementCard @JvmOverloads constructor(
         binding.certificateStatusImageview.setImageDrawable(newValue)
     }
 
+    fun setOnCardClickListener(onClickListener: OnClickListener) {
+        binding.certificateCardview.setOnClickListener(onClickListener)
+    }
+
     var qrCodeImage: Bitmap? by Delegates.observable(null) { _, _, newValue ->
         binding.certificateQrImageview.background = BitmapDrawable(resources, newValue)
     }
