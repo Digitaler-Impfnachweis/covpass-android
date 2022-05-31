@@ -15,6 +15,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
+import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.app.R
@@ -160,7 +161,9 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
         }.let {}
 
         binding.certificateCard.setOnCardClickListener {
-            DetailFragmentNav(args.certId)
+            findNavigator().push(
+                DetailFragmentNav(args.certId)
+            )
         }
     }
 
