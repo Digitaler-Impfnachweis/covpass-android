@@ -202,7 +202,7 @@ internal class CertificateFragment : BaseFragment() {
 
     private fun cardClick(groupedCertificate: GroupedCertificates) {
         findNavigator().push(
-            if (groupedCertificate.getListOfImportantCerts().size > 1) {
+            if (groupedCertificate.getListOfImportantCerts().isNotEmpty()) {
                 CertificateSwitcherFragmentNav(args.certId)
             } else {
                 DetailFragmentNav(args.certId)
