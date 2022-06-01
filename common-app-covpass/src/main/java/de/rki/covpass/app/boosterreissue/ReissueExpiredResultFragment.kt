@@ -20,9 +20,9 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueExpiredResultPopupContentBinding
-import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
-import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
-import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.app.errorhandling.ReissueErrorHandler.Companion.TAG_ERROR_REISSUING_INTERNAL_ERROR
+import de.rki.covpass.app.errorhandling.ReissueErrorHandler.Companion.TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
+import de.rki.covpass.app.errorhandling.ReissueErrorHandler.Companion.TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.sdk.cert.models.CovCertificate
@@ -36,7 +36,7 @@ public class ReissueExpiredResultFragmentNav(
     public val reissueType: ReissueType
 ) : FragmentNav(ReissueExpiredResultFragment::class)
 
-public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEvents, DialogListener {
+public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResultEvents, DialogListener {
 
     private val args: ReissueExpiredResultFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState {
@@ -95,11 +95,7 @@ public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEven
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (
-            action == DialogAction.NEGATIVE &&
-            (
-                tag == TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR ||
-                    tag == TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
-                )
+            action == DialogAction.NEGATIVE && isReissueErrorTag(tag)
         ) {
             startActivity(
                 Intent(
@@ -110,6 +106,11 @@ public class ReissueExpiredResultFragment : BaseBottomSheet(), ReissueResultEven
         }
         findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
     }
+
+    private fun isReissueErrorTag(tag: String): Boolean =
+        tag == TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR ||
+            tag == TAG_ERROR_REISSUING_TOO_MANY_REQUESTS ||
+            tag == TAG_ERROR_REISSUING_INTERNAL_ERROR
 
     override fun onClickOutside() {}
 }

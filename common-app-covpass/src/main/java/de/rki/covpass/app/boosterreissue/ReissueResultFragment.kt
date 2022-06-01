@@ -21,7 +21,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueResultPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.sdk.cert.models.CovCertificate
@@ -40,7 +39,7 @@ public class ReissueResultFragmentNav(
     public val reissueType: ReissueType
 ) : FragmentNav(ReissueResultFragment::class)
 
-public class ReissueResultFragment : BaseBottomSheet(), ReissueResultEvents, DialogListener {
+public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents, DialogListener {
 
     private val args: ReissueResultFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState { ReissueResultViewModel(scope, args.listCertIds, args.reissueType) }

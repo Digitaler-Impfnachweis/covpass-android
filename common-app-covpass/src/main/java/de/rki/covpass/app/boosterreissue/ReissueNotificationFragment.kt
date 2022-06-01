@@ -18,7 +18,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueNotificationPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
@@ -33,7 +32,7 @@ public class ReissueNotificationFragmentNav(
     public val listCertIds: List<String>
 ) : FragmentNav(ReissueNotificationFragment::class)
 
-public class ReissueNotificationFragment : BaseBottomSheet(), DialogListener, ReissueNotificationEvents {
+public class ReissueNotificationFragment : ReissueBaseFragment(), DialogListener, ReissueNotificationEvents {
 
     private val binding by viewBinding(ReissueNotificationPopupContentBinding::inflate)
     private val viewModel by reactiveState { ReissueNotificationViewModel(scope, args.listCertIds) }

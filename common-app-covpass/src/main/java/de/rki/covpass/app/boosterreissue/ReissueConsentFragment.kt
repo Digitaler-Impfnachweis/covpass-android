@@ -19,7 +19,6 @@ import de.rki.covpass.app.databinding.ReissueConsentPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.uielements.InfoElementListAdapter
 import de.rki.covpass.app.uielements.setValues
-import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
@@ -35,7 +34,7 @@ public class ReissueConsentFragmentNav(
     public val reissueType: ReissueType
 ) : FragmentNav(ReissueConsentFragment::class)
 
-public class ReissueConsentFragment : BaseBottomSheet(), DialogListener {
+public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
 
     private val binding by viewBinding(ReissueConsentPopupContentBinding::inflate)
     private val args: ReissueConsentFragmentNav by lazy { getArgs() }

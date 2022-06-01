@@ -19,8 +19,6 @@ import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
 import de.rki.covpass.sdk.cert.models.CertAlreadyExistsException
 import de.rki.covpass.sdk.cert.models.CertTestPositiveException
-import de.rki.covpass.sdk.reissuing.ReissuingInternalServerError
-import de.rki.covpass.sdk.reissuing.ReissuingTooManyRequests
 import de.rki.covpass.sdk.ticketing.*
 
 /**
@@ -130,22 +128,6 @@ internal class ErrorHandler : CommonErrorHandler() {
                 neutralButtonTextRes = R.string.certificate_add_error_maximum_button_2,
                 tag = TAG_ERROR_SAVING_BLOCKED
             )
-            is ReissuingTooManyRequests -> DialogModel(
-                titleRes = R.string.certificate_renewal_error_title,
-                messageString =
-                getString(R.string.certificate_renewal_error_copy, ERROR_TOO_MANY_REQUESTS),
-                positiveButtonTextRes = R.string.certificate_renewal_error_button_primary,
-                negativeButtonTextRes = R.string.certificate_renewal_error_button_secondary,
-                tag = TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
-            )
-            is ReissuingInternalServerError -> DialogModel(
-                titleRes = R.string.certificate_renewal_error_title,
-                messageString =
-                getString(R.string.certificate_renewal_error_copy, ERROR_INTERNAL_SERVER_ERROR),
-                positiveButtonTextRes = R.string.certificate_renewal_error_button_primary,
-                negativeButtonTextRes = R.string.certificate_renewal_error_button_secondary,
-                tag = TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
-            )
             is RevokedCertificateGermanCertificateException -> DialogModel(
                 titleRes = R.string.revocation_error_scan_title,
                 messageString =
@@ -179,8 +161,6 @@ internal class ErrorHandler : CommonErrorHandler() {
         const val TAG_ERROR_INVALID_VALIDATION_SERVICE_PROVIDER: String = "error_invalid_validation_service_provider"
         const val TAG_ERROR_NO_VALIDATION_SERVICE_LISTED: String = "error_no_validation_service_listed"
         const val TAG_ERROR_SAVING_BLOCKED: String = "error_saving_blocked"
-        const val TAG_ERROR_REISSUING_TOO_MANY_REQUESTS: String = "error_reissuing_too_many_requests"
-        const val TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR: String = "error_reissuing_internal_server_error"
         const val TAG_ERROR_REVOKED_DE_CERTIFICATE: String = "error_reissuing_revoked_de_certificate"
         const val TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE: String = "error_reissuing_revoked_not_de_certificate"
 
@@ -191,7 +171,5 @@ internal class ErrorHandler : CommonErrorHandler() {
         const val ERROR_CODE_CERTIFICATE_POSITIVE_RESULT: Int = 421
         const val ERROR_CODE_ILLEGAL_KEY_USAGE: Int =
             413 // Entity created a certificate which they are not allowed to create
-        const val ERROR_TOO_MANY_REQUESTS: String = "R429"
-        const val ERROR_INTERNAL_SERVER_ERROR: String = "R500"
     }
 }

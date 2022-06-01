@@ -10,6 +10,7 @@ import com.ibm.health.common.android.utils.appVersion
 import de.rki.covpass.app.dependencies.CovpassDependencies
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.errorhandling.ErrorHandler
+import de.rki.covpass.app.errorhandling.ReissueErrorHandler
 import de.rki.covpass.commonapp.CommonApplication
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
 import de.rki.covpass.commonapp.dependencies.commonDeps
@@ -22,7 +23,9 @@ internal class App : CommonApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        covpassDeps = object : CovpassDependencies() {}
+        covpassDeps = object : CovpassDependencies() {
+            override val reissueErrorHandler = ReissueErrorHandler()
+        }
         commonDeps = object : CommonDependencies() {
             override val errorHandler = ErrorHandler()
         }

@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.app.checkerremark.CheckerRemarkRepository
 import de.rki.covpass.app.common.ToggleFavoriteUseCase
+import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.storage.CertRepository
@@ -28,6 +29,8 @@ internal val LifecycleOwner.covpassDeps: CovpassDependencies get() = de.rki.covp
  */
 @OptIn(DependencyAccessor::class)
 internal abstract class CovpassDependencies {
+
+    abstract val reissueErrorHandler: CommonErrorHandler
 
     private val cbor: Cbor get() = sdkDeps.cbor
 
