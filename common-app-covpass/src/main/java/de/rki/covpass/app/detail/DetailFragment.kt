@@ -209,10 +209,7 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(
-                                            R.string.vaccination_certificate_overview_complete_from_title,
-                                            mainCertificate.covCertificate.validDate.formatDateOrEmpty()
-                                        )
+                                        getString(R.string.vaccination_certificate_overview_complete_from_title)
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
@@ -310,11 +307,7 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(
-                                            R.string.pcr_test_certificate_overview_title,
-                                            dgcEntry.sampleCollection?.toDeviceTimeZone()
-                                                ?.formatDateTime()
-                                        )
+                                        getString(R.string.pcr_test_certificate_overview_title)
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
@@ -362,11 +355,7 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(
-                                            R.string.test_certificate_overview_title,
-                                            dgcEntry.sampleCollection?.toDeviceTimeZone()
-                                                ?.formatDateTime()
-                                        )
+                                        getString(R.string.test_certificate_overview_title)
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
@@ -419,10 +408,7 @@ internal class DetailFragment :
                                         dgcEntry.validFrom?.formatDateOrEmpty()
                                     )
                                 } else {
-                                    getString(
-                                        R.string.recovery_certificate_overview_valid_until_title,
-                                        dgcEntry.validUntil?.formatDateOrEmpty()
-                                    )
+                                    getString(R.string.recovery_certificate_overview_valid_until_title)
                                 }
                             CertValidationResult.ExpiryPeriod ->
                                 getString(
@@ -675,10 +661,7 @@ internal class DetailFragment :
         }
 
     override fun onShowCertificateClicked() {
-        val certList = covpassDeps.certRepository.certs.value
-        val groupedCertificate = certList.getGroupedCertificates(args.certId) ?: return
-        val mainCertificate = groupedCertificate.getMainCertificate()
-        findNavigator().push(DisplayQrCodeFragmentNav(mainCertificate.covCertificate.dgcEntry.id))
+        findNavigator().pop()
     }
 
     override fun onNewCertificateScanClicked() {
