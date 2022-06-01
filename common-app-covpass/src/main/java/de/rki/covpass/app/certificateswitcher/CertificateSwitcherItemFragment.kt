@@ -69,14 +69,16 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                 when (dgcEntry.type) {
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         val vaccination = covCertificate.dgcEntry as Vaccination
+                        val isJanssenFullProtection =
+                            vaccination.isJanssen && vaccination.doseNumber == 2
                         binding.certificateCard.createCertificateSwitcherItemView(
                             certStatus,
-                            if (vaccination.isBooster) {
+                            if (vaccination.isBooster && !isJanssenFullProtection) {
                                 getString(R.string.certificate_type_booster)
                             } else {
                                 getString(R.string.certificate_type_basic_immunisation)
                             },
-                            if (vaccination.isBooster) {
+                            if (vaccination.isBooster && !isJanssenFullProtection) {
                                 getString(
                                     R.string.certificate_timestamp_days,
                                     vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
