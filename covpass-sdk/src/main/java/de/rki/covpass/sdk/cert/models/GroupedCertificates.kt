@@ -376,26 +376,86 @@ public data class GroupedCertificates(
             it.covCertificate.dgcEntry.id == id
         }?.covCertificate
 
-        return certificates.asSequence()
-            .filterNot {
-                it.covCertificate.dgcEntry.id == id
-            }.filterNot {
-                it.covCertificate.dgcEntry is TestCert
-            }.filter {
-                val date1 = (it.covCertificate.dgcEntry as? Vaccination)?.occurrence
-                    ?: (it.covCertificate.dgcEntry as? Recovery)?.firstResult
-                val date2 = (covCertificate?.dgcEntry as? Vaccination)?.occurrence
-                    ?: (covCertificate?.dgcEntry as? Recovery)?.firstResult
-                date1?.isBefore(date2) ?: false
-            }.sortedWith { cert1, cert2 ->
-                val date1 = (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
-                    ?: (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
-                val date2 = (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence
-                    ?: (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult
-                date1?.compareTo(date2) ?: 0
-            }.take(5).map {
-                it.covCertificate.dgcEntry.id
-            }.toList()
+        val filteredCertificates = getFilteredForHistoricalData(covCertificate, id)
+        val vaccinationList = getFilteredVaccinationForHistoricalData(filteredCertificates)
+        val recoveryList = getFilteredRecoveryForHistoricalData(filteredCertificates, vaccinationList)
+
+        return (vaccinationList + recoveryList).sortedWith { cert1, cert2 ->
+            val date1 = (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                ?: (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+            val date2 = (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                ?: (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult
+            date1?.compareTo(date2) ?: 0
+        }.take(5).map {
+            it.covCertificate.dgcEntry.id
+        }.toList()
+    }
+
+    private fun getFilteredForHistoricalData(covCertificate: CovCertificate?, id: String) =
+        certificates.filterNot {
+            it.covCertificate.dgcEntry.id == id
+        }.filterNot {
+            it.covCertificate.dgcEntry is TestCert
+        }.filter {
+            val date1 = (it.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                ?: (it.covCertificate.dgcEntry as? Recovery)?.firstResult
+            val date2 = (covCertificate?.dgcEntry as? Vaccination)?.occurrence
+                ?: (covCertificate?.dgcEntry as? Recovery)?.firstResult
+            date1?.isBefore(date2) ?: false
+        }
+
+    private fun getFilteredVaccinationForHistoricalData(
+        filteredCertificates: List<CombinedCovCertificate>
+    ): List<CombinedCovCertificate> {
+        val vaccinationDateList = filteredCertificates.filter {
+            it.covCertificate.dgcEntry is Vaccination
+        }.distinctBy {
+            (it.covCertificate.dgcEntry as Vaccination).occurrence
+        }.map {
+            (it.covCertificate.dgcEntry as Vaccination).occurrence
+        }
+        val vaccinationList: MutableList<CombinedCovCertificate> = mutableListOf()
+        vaccinationDateList.forEach { date ->
+            vaccinationList.add(
+                filteredCertificates.filter {
+                    it.covCertificate.dgcEntry is Vaccination &&
+                        (it.covCertificate.dgcEntry as Vaccination).occurrence == date
+                }.asSequence().sortedByDescending {
+                    it.covCertificate.validFrom
+                }.first()
+            )
+        }
+        return vaccinationList
+    }
+
+    private fun getFilteredRecoveryForHistoricalData(
+        filteredCertificates: List<CombinedCovCertificate>,
+        vaccinationList: List<CombinedCovCertificate>
+    ): List<CombinedCovCertificate> {
+        val recoveryDateList = filteredCertificates.filter {
+            it.covCertificate.dgcEntry is Recovery
+        }.distinctBy {
+            (it.covCertificate.dgcEntry as Recovery).firstResult
+        }.map {
+            (it.covCertificate.dgcEntry as Recovery).firstResult
+        }
+        val recoveryList: MutableList<CombinedCovCertificate> = mutableListOf()
+        recoveryDateList.forEach { date ->
+            recoveryList.add(
+                filteredCertificates.filter {
+                    it.covCertificate.dgcEntry is Recovery &&
+                        (it.covCertificate.dgcEntry as Recovery).firstResult == date
+                }.asSequence().sortedByDescending {
+                    it.covCertificate.validFrom
+                }.first()
+            )
+        }
+        return recoveryList.filterNot { recovery ->
+            vaccinationList.any { vaccination ->
+                (vaccination.covCertificate.dgcEntry as? Vaccination)?.occurrence ==
+                    (recovery.covCertificate.dgcEntry as? Recovery)?.firstResult
+            }
+        }
     }
 
     public fun getListOfRecoveryIdsReadyForReissue(): List<String> {
