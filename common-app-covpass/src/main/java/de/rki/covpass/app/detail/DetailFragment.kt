@@ -209,7 +209,10 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(R.string.vaccination_certificate_overview_complete_from_title)
+                                        getString(
+                                            R.string.vaccination_certificate_overview_complete_from_title,
+                                            mainCertificate.covCertificate.validDate.formatDateOrEmpty()
+                                        )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
@@ -307,7 +310,11 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(R.string.pcr_test_certificate_overview_title)
+                                        getString(
+                                            R.string.pcr_test_certificate_overview_title,
+                                            dgcEntry.sampleCollection?.toDeviceTimeZone()
+                                                ?.formatDateTime()
+                                        )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
@@ -355,7 +362,11 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(R.string.test_certificate_overview_title)
+                                        getString(
+                                            R.string.test_certificate_overview_title,
+                                            dgcEntry.sampleCollection?.toDeviceTimeZone()
+                                                ?.formatDateTime()
+                                        )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
@@ -408,7 +419,10 @@ internal class DetailFragment :
                                         dgcEntry.validFrom?.formatDateOrEmpty()
                                     )
                                 } else {
-                                    getString(R.string.recovery_certificate_overview_valid_until_title)
+                                    getString(
+                                        R.string.recovery_certificate_overview_valid_until_title,
+                                        dgcEntry.validUntil?.formatDateOrEmpty()
+                                    )
                                 }
                             CertValidationResult.ExpiryPeriod ->
                                 getString(
