@@ -58,7 +58,7 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             }
         }
         bottomSheetBinding.bottomSheetTitle.setText(
-            R.string.certificate_renewal_consent_page_transfer_certificates_headline
+            R.string.share_certificate_consent_title
         )
 
         binding.reissueConsentCertificateListTitle.setText(
