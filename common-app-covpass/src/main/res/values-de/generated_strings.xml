@@ -86,7 +86,7 @@
 	<string name="certificate_type_rapidtest">Antigen-Schnelltest</string>
 	<string name="certificate_type_pcrtest">PCR-Test</string>
 	<string name="certificate_timestamp_hours">Vor %d Stunde(n)</string>
-	<string name="certificate_timestamp_days">Vor %d Tage(n)</string>
+	<string name="certificate_timestamp_days">Vor %d Tag(en)</string>
 	<string name="certificate_timestamp_months">Vor %d Monat(en)</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Pop-up schließen</string>
 	<string name="accessibility_certificate_popup_checkapp_announce">Die Ansicht \"Scannen bitte!\" wurde geöffnet</string>
