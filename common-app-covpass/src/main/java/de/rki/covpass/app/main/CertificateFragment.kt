@@ -87,12 +87,20 @@ internal class CertificateFragment : BaseFragment() {
                             mainCertificate.fullName,
                             isMarkedAsFavorite,
                             certStatus,
-                            if (vaccination.isBooster && !isJanssenFullProtection) {
+                            if (
+                                vaccination.isBooster &&
+                                !isJanssenFullProtection &&
+                                !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(mainCertificate)
+                            ) {
                                 getString(R.string.certificate_type_booster)
                             } else {
                                 getString(R.string.certificate_type_basic_immunisation)
                             },
-                            if (vaccination.isBooster && !isJanssenFullProtection) {
+                            if (
+                                vaccination.isBooster &&
+                                !isJanssenFullProtection &&
+                                !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(mainCertificate)
+                            ) {
                                 getString(
                                     R.string.certificate_timestamp_days,
                                     vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())

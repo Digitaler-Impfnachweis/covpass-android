@@ -529,4 +529,27 @@ public data class GroupedCertificates(
         }
         return list
     }
+
+    public fun isCertVaccinationNotBoosterAfterJanssen(covCertificate: CovCertificate): Boolean {
+        val dgcEntry = covCertificate.dgcEntry
+        if (dgcEntry is Vaccination && !dgcEntry.isJanssen && dgcEntry.doseNumber == 2) {
+            val vaccinationJanssenBeforeCovCertificate = certificates.find {
+                it.covCertificate.dgcEntry is Vaccination &&
+                    (it.covCertificate.dgcEntry as Vaccination).isJanssen &&
+                    (it.covCertificate.dgcEntry as? Vaccination)?.occurrence?.isBefore(
+                        (covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    ) ?: false
+            } ?: return false
+
+            certificates.find {
+                it.covCertificate.dgcEntry is Recovery &&
+                    (it.covCertificate.dgcEntry as? Recovery)?.firstResult?.isBefore(
+                        (vaccinationJanssenBeforeCovCertificate.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    ) ?: false
+            } ?: return true
+
+            return false
+        }
+        return false
+    }
 }
