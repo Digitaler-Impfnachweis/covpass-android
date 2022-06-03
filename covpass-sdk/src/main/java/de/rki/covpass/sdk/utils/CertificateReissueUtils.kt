@@ -94,11 +94,15 @@ public object CertificateReissueUtils {
     public fun getExpiredGermanRecoveryIds(
         certificates: List<CombinedCovCertificate>
     ): List<String> {
-        val expiredGermanRecoveries = certificates.filter {
+        val expiredGermanRecoveries = certificates.asSequence().filter {
             it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod
+        }.sortedByDescending {
+            it.covCertificate.validFrom
+        }.distinctBy {
+            (it.covCertificate.dgcEntry as Recovery).firstResult
         }.map { it.covCertificate }.filter {
             it.isGermanCertificate
-        }
+        }.toList()
 
         return expiredGermanRecoveries.map { it.dgcEntry.id }
     }
