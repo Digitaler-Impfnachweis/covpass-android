@@ -73,12 +73,20 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                             vaccination.isJanssen && vaccination.doseNumber == 2
                         binding.certificateCard.createCertificateSwitcherItemView(
                             certStatus,
-                            if (vaccination.isBooster && !isJanssenFullProtection) {
+                            if (
+                                vaccination.isBooster &&
+                                !isJanssenFullProtection &&
+                                !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(covCertificate)
+                            ) {
                                 getString(R.string.certificate_type_booster)
                             } else {
                                 getString(R.string.certificate_type_basic_immunisation)
                             },
-                            if (vaccination.isBooster && !isJanssenFullProtection) {
+                            if (
+                                vaccination.isBooster &&
+                                !isJanssenFullProtection &&
+                                !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(covCertificate)
+                            ) {
                                 getString(
                                     R.string.certificate_timestamp_days,
                                     vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
