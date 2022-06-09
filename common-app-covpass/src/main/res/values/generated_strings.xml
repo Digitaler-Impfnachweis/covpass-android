@@ -41,7 +41,7 @@
 	<string name="dialog_start_screen_message">Would you like to update the CovPass app now?</string>
 	<string name="dialog_start_screen_button_later">Not now</string>
 	<string name="dialog_start_screen_button_update">Update</string>
-	<string name="dialog_booster_vaccination_notification_title">There are news about your certificates</string>
+	<string name="dialog_booster_vaccination_notification_title">There is news about your certificates</string>
 	<string name="dialog_booster_vaccination_notification_message">Please check the status of your EU Digital COVID Certificates.</string>
 	<string name="dialog_booster_vaccination_notification_button">OK</string>
 	<string name="accessibility_update_info_announce">The view \"New features\" has been opened</string>
@@ -136,17 +136,31 @@
 	<string name="error_test_certificate_not_valid_message">The Covid-19 test certificate that you have scanned does not show a negative test result. The current version of the CovPass app can only save negative Covid-19 test results.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 
-	<!-- SECTION: popup: import qr code from photo library -->
+	<!-- SECTION: file import -->
 	<string name="accessibility_scan_camera_select_file">Select file</string>
-	<string name="error_scan_code_not_recognized_title">QR code was not recognized</string>
-	<string name="error_scan_code_not_recognized_message">No QR code was found in the selected file. Please select a file or photo with a QR code.</string>
-	<string name="error_scan_code_not_recognized_action_button">OK</string>
-	<string name="error_scan_file_could_not_be_read_title">The file could not be read</string>
-	<string name="error_scan_file_could_not_be_read_message">The selected file may be corrupted, or password protected. Please select another file.</string>
-	<string name="error_scan_file_could_not_be_read_action_button">OK</string>
-	<string name="error_scan_code_not_suitable_title">QR code is not suitable</string>
-	<string name="error_scan_code_not_suitable_message">The QR code cannot be transferred to the CovPass app because it is, for example, it does not have a valid signature. The QR code may also not be readable because there are multiple QR codes in the file. Please select a file with a valid QR code.</string>
-	<string name="error_scan_code_not_suitable_action_button">OK</string>
+	<string name="file_import_menu_title">Open file</string>
+	<string name="file_import_menu_photo">Select photo</string>
+	<string name="file_import_menu_document">Select document</string>
+	<string name="file_import_menu_cancel">Cancel</string>
+	<string name="file_import_prominent_disclosure_title">Access to photos required</string>
+	<string name="file_import_prominent_disclosure_copy">The CovPass app must be able to access your photo gallery temporarily in order for you to import a photo.\n\nAccess to your photos is only granted during the import process and only with your permission. You have the option to change the permission at any time in the settings of your smartphone.</string>
+	<string name="file_import_prominent_disclosure_button">Allow access</string>
+	<string name="file_import_result_null_title">No valid certificate was found</string>
+	<string name="file_import_result_null_button">OK</string>
+	<string name="file_import_result_info_title">If a certificate is missing:</string>
+	<string name="file_import_result_info_bullet1">Check whether there is a QR code in the selected file.</string>
+	<string name="file_import_result_info_bullet2">Note that no expired or revoked certificates can be imported.</string>
+	<string name="file_import_result_info_bullet3">Take a screenshot of the QR code in question and import it again as a photo.</string>
+	<string name="file_import_result_title">Select certificates</string>
+	<string name="file_import_result_bulge_select">%1$d of %2$d certificate(s) selected</string>
+	<string name="file_import_result_bulge_select_accessibility_hint">Click to select or deselect all certificates.</string>
+	<string name="file_import_result_button">Import %d certificate(s)</string>
+	<string name="file_import_error_maximum_title">Maximum number of certificates exceeded</string>
+	<string name="file_import_error_maximum_copy">The selected file either has too many pages or contains certificates for more than 20 different people. Try to reduce the number of pages.</string>
+	<string name="file_import_error_maximum_button">OK</string>
+	<string name="file_import_error_access_title">The file could not be read</string>
+	<string name="file_import_error_access_copy">The selected file may be corrupted, or password protected. Please select another file.</string>
+	<string name="file_import_error_access_button">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Always display this person\'s certificates in first place: active</string>
@@ -375,10 +389,10 @@
 	<string name="recovery_certificate_overview_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="recovery_certificate_overview_action_button_title">Show certificates</string>
 	<string name="certificates_overview_expired_title">Certificate expired</string>
-	<string name="certificates_overview_expired_message">You can easily renew your most important certificates in the CovPass app. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate. If you have a more recent vaccination certificate, you do not need to renew the previous vaccination certificates.</string>
+	<string name="certificates_overview_expired_message">The expiry date of your latest certificate has passed. You can conveniently renew this certificate in the CovPass app. Previous certificates will not be renewed. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate.</string>
 	<string name="certificates_overview_expired_action_button_title">Add new certificate</string>
 	<string name="certificates_overview_soon_expiring_title">Current certificate expires on %1$s at %2$s</string>
-	<string name="certificates_overview_soon_expiring_subtitle">You can easily replace the certificate in the CovPass app by using the renewal function in the overview of your certificates or by scanning a newly issued certificate.</string>
+	<string name="certificates_overview_soon_expiring_subtitle">You can easily renew your latest certificate in the CovPass app. Previous certificates will not be renewed. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate.</string>
 	<string name="certificates_overview_invalid_title">Certificate invalid</string>
 	<string name="certificates_overview_invalid_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificates_overview_invalid_action_button_title">Add new certificate</string>
@@ -540,11 +554,11 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Close</string>
 	<string name="certificate_expires_detail_view_note_title">Certificate expires on %1$s at %2$s</string>
-	<string name="certificate_expires_detail_view_note_message">You can easily renew the certificate in the CovPass app. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate.</string>
+	<string name="certificate_expires_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. Otherwise, you don\'t have to do anything because your latest certificate contains all the necessary information for a check.</string>
 	<string name="certificate_invalid_detail_view_note_title">Certificate invalid</string>
 	<string name="certificate_invalid_detail_view_note_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificate_expired_detail_view_note_title">Certificate expired</string>
-	<string name="certificate_expired_detail_view_note_message">You can easily renew your most important certificates in the CovPass app. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate. If you have a more recent vaccination certificate, you do not need to renew the previous vaccination certificates.</string>
+	<string name="certificate_expired_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. Otherwise, you don\'t have to do anything because your latest certificate contains all the necessary information for a check.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">The view \"Create EU printout\" has been opened</string>
@@ -778,9 +792,9 @@
 
 	<!-- SECTION: DCC renewal when expiring -->
 	<string name="renewal_expiry_notification_title">Renewal needed</string>
-	<string name="renewal_expiry_notification_copy_vaccination">The technical expiry date of your vaccination certificate is coming up. Renew the certificate to continue using it.</string>
+	<string name="renewal_expiry_notification_copy_vaccination">The technical validity of your vaccination certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_vaccination">Renew vaccination certificate</string>
-	<string name="renewal_expiry_notification_copy_recovery">The technical expiry date of your recovery certificate is coming up. Renew the certificate to continue using it.</string>
+	<string name="renewal_expiry_notification_copy_recovery">The technical validity of your recovery certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_recovery">Renew recovery certificate</string>
 	<string name="renewal_expiry_consent_box_item_1">The app transmits the aforementioned certificates to the RKI for verification.</string>
 	<string name="renewal_expiry_consent_box_item_2">The RKI checks the certificates, issues a renewed certificate and transmits it to your app.</string>

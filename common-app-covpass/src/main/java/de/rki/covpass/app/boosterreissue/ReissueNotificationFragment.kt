@@ -37,7 +37,9 @@ public class ReissueNotificationFragment : ReissueBaseFragment(), DialogListener
     private val binding by viewBinding(ReissueNotificationPopupContentBinding::inflate)
     private val viewModel by reactiveState { ReissueNotificationViewModel(scope, args.listCertIds) }
     private val args: ReissueNotificationFragmentNav by lazy { getArgs() }
-    override val buttonTextRes: Int = R.string.certificate_renewal_startpage_main_button
+    override val buttonTextRes: Int by lazy {
+        getButtonText()
+    }
 
     private val combinedCovCertificate by lazy {
         covpassDeps.certRepository.certs.value.getCombinedCertificate(args.listCertIds[0])
@@ -55,17 +57,37 @@ public class ReissueNotificationFragment : ReissueBaseFragment(), DialogListener
             }
         }
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
-        bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_renewal_startpage_headline)
+        bottomSheetBinding.bottomSheetTitle.setText(
+            if (args.reissueType == ReissueType.Booster) {
+                R.string.certificate_renewal_startpage_headline
+            } else {
+                R.string.renewal_expiry_notification_title
+            }
+        )
 
         combinedCovCertificate?.covCertificate?.let {
             binding.reissueNotificationCertificateDataElement.showCertificate(it)
         }
-        binding.reissueNotificationNote.setText(R.string.certificate_renewal_startpage_copy)
+        binding.reissueNotificationNote.setText(
+            when (args.reissueType) {
+                ReissueType.Booster -> R.string.certificate_renewal_startpage_copy
+                ReissueType.Recovery -> R.string.renewal_expiry_notification_copy_recovery
+                ReissueType.Vaccination -> R.string.renewal_expiry_notification_copy_vaccination
+                ReissueType.None -> R.string.certificate_renewal_startpage_copy
+            }
+        )
         binding.reissueNotificationInfoElement.showInfo(
             getString(R.string.certificate_renewal_startpage_copy_box),
             titleStyle = R.style.DefaultText_OnBackground,
             iconRes = R.drawable.info_icon
         )
+    }
+
+    private fun getButtonText() = when (args.reissueType) {
+        ReissueType.Booster -> R.string.certificate_renewal_startpage_main_button
+        ReissueType.Vaccination -> R.string.renewal_expiry_notification_button_vaccination
+        ReissueType.Recovery -> R.string.renewal_expiry_notification_button_recovery
+        ReissueType.None -> R.string.certificate_renewal_startpage_main_button
     }
 
     override fun onClickOutside() {}

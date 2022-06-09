@@ -136,17 +136,31 @@
 	<string name="error_test_certificate_not_valid_message">Der von Ihnen gescannte Nachweis für einen Corona-Test weist kein negatives Testergebnis nach. Die aktuelle Version der CovPass-App kann nur negative Corona-Testergebnisse speichern.</string>
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 
-	<!-- SECTION: popup: import qr code from photo library -->
+	<!-- SECTION: file import -->
 	<string name="accessibility_scan_camera_select_file">Datei auswählen</string>
-	<string name="error_scan_code_not_recognized_title">QR-Code wurde nicht erkannt</string>
-	<string name="error_scan_code_not_recognized_message">In der ausgewählten Datei wurde kein QR-Code gefunden. Bitte wählen Sie eine Datei oder ein Foto mit einem QR-Code aus.</string>
-	<string name="error_scan_code_not_recognized_action_button">OK</string>
-	<string name="error_scan_file_could_not_be_read_title">Die Datei konnte nicht gelesen werden</string>
-	<string name="error_scan_file_could_not_be_read_message">Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt. Bitte wählen Sie eine andere Datei aus.</string>
-	<string name="error_scan_file_could_not_be_read_action_button">OK</string>
-	<string name="error_scan_code_not_suitable_title">QR-Code ist nicht geeignet</string>
-	<string name="error_scan_code_not_suitable_message">Der QR-Code kann nicht in die CovPass-App übertragen werden, da dieser z. B. keine gültige Signatur besitzt. Möglicherweise ist der QR-Code auch nicht lesbar, weil mehrere QR-Codes in der Datei vorhanden sind. Bitte wählen Sie eine Datei mit einem zulässigen QR-Code aus.</string>
-	<string name="error_scan_code_not_suitable_action_button">OK</string>
+	<string name="file_import_menu_title">Datei öffnen</string>
+	<string name="file_import_menu_photo">Foto auswählen</string>
+	<string name="file_import_menu_document">Dokument auswählen</string>
+	<string name="file_import_menu_cancel">Abbrechen</string>
+	<string name="file_import_prominent_disclosure_title">Zugriff auf Fotos benötigt</string>
+	<string name="file_import_prominent_disclosure_copy">Die CovPass-App muss für kurze Zeit auf Ihre Foto-Galerie zugreifen können, damit Sie ein Foto importieren können.\n\nDer Zugriff auf Ihre Fotos erfolgt nur während des Imports und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
+	<string name="file_import_prominent_disclosure_button">Zugriff erlauben</string>
+	<string name="file_import_result_null_title">Es wurde kein gültiges Zertifikat erkannt</string>
+	<string name="file_import_result_null_button">OK</string>
+	<string name="file_import_result_info_title">Wenn ein Zertifikat fehlt:</string>
+	<string name="file_import_result_info_bullet1">Prüfen Sie, ob in der ausgewählten Datei ein QR-Code vorhanden ist.</string>
+	<string name="file_import_result_info_bullet2">Beachten Sie, dass keine abgelaufenen oder gesperrten Zertifikate importiert werden können.</string>
+	<string name="file_import_result_info_bullet3">Erstellen Sie einen Screenshot des betreffenden QR-Codes und importieren Sie ihn als Foto erneut.</string>
+	<string name="file_import_result_title">Zertifikate auswählen</string>
+	<string name="file_import_result_bulge_select">%1$d von %2$d Zertifikat(e) ausgewählt</string>
+	<string name="file_import_result_bulge_select_accessibility_hint">Klicken, um alle Zertifikate an- oder abzuwählen.</string>
+	<string name="file_import_result_button">%d Zertifikat(e) importieren</string>
+	<string name="file_import_error_maximum_title">Maximale Anzahl an Zertifikaten überschritten</string>
+	<string name="file_import_error_maximum_copy">Die gewählte Datei hat entweder zu viele Seiten oder beinhaltet Zertifikate für mehr als 20 unterschiedliche Personen. Versuchen Sie die Seitenzahl zu reduzieren.</string>
+	<string name="file_import_error_maximum_button">OK</string>
+	<string name="file_import_error_access_title">Die Datei konnte nicht gelesen werden</string>
+	<string name="file_import_error_access_copy">Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt. Bitte wählen Sie eine andere Datei aus.</string>
+	<string name="file_import_error_access_button">OK</string>
 
 	<!-- SECTION: start Screen: favorite immunization certificate -->
 	<string name="accessibility_certificate_favorite_button_label_active">Zertifikate dieser Person immer an erster Stelle anzeigen: aktiv</string>
@@ -375,10 +389,10 @@
 	<string name="recovery_certificate_overview_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="recovery_certificate_overview_action_button_title">Nachweise anzeigen</string>
 	<string name="certificates_overview_expired_title">Zertifikat abgelaufen</string>
-	<string name="certificates_overview_expired_message">Sie können Ihre wichtigsten Zertifikate bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein. Sofern ein aktuelleres Impfzertifikat vorliegt, brauchen Sie die vorherigen Impfzertifikate nicht erneuern.</string>
+	<string name="certificates_overview_expired_message">Das Ablaufdatum Ihres neuesten Zertifikats wurde überschritten. Sie können dieses Zertifikat bequem in der CovPass-App austauschen. Vorherige Zertifikate werden nicht erneuert. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
 	<string name="certificates_overview_expired_action_button_title">Neues Zertifikat hinzufügen</string>
 	<string name="certificates_overview_soon_expiring_title">Aktuelles Zertifikat läuft am %1$s um %2$s ab</string>
-	<string name="certificates_overview_soon_expiring_subtitle">Sie können das Zertifikat bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
+	<string name="certificates_overview_soon_expiring_subtitle">Sie können Ihr neuestes Zertifikat bequem in der CovPass-App austauschen. Vorherige Zertifikate werden nicht erneuert. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
 	<string name="certificates_overview_invalid_title">Zertifikat ungültig</string>
 	<string name="certificates_overview_invalid_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificates_overview_invalid_action_button_title">Neues Zertifikat hinzufügen</string>
@@ -540,11 +554,11 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="certificate_expires_detail_view_note_title">Zertifikat läuft am %1$s um %2$s ab</string>
-	<string name="certificate_expires_detail_view_note_message">Sie können das Zertifikat bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
+	<string name="certificate_expires_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Andernfalls müssen Sie nichts tun, da in Ihrem neuesten Zertifikat alle notwendigen Informationen für eine Prüfung enthalten sind.</string>
 	<string name="certificate_invalid_detail_view_note_title">Zertifikat ungültig</string>
 	<string name="certificate_invalid_detail_view_note_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificate_expired_detail_view_note_title">Zertifikat abgelaufen</string>
-	<string name="certificate_expired_detail_view_note_message">Sie können Ihre wichtigsten Zertifikate bequem in der CovPass-App austauschen. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein. Sofern ein aktuelleres Impfzertifikat vorliegt, brauchen Sie die vorherigen Impfzertifikate nicht erneuern.</string>
+	<string name="certificate_expired_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Andernfalls müssen Sie nichts tun, da in Ihrem neuesten Zertifikat alle notwendigen Informationen für eine Prüfung enthalten sind.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">Die Ansicht für \"EU-Ausdruck erstellen\" wurde geöffnet</string>
@@ -778,9 +792,9 @@
 
 	<!-- SECTION: DCC renewal when expiring -->
 	<string name="renewal_expiry_notification_title">Erneuerung notwendig</string>
-	<string name="renewal_expiry_notification_copy_vaccination">Die technische Laufzeit Ihres Impfzertifikats läuft bald aus. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
+	<string name="renewal_expiry_notification_copy_vaccination">Die technische Laufzeit Ihres Impfzertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_vaccination">Impfzertifikat erneuern</string>
-	<string name="renewal_expiry_notification_copy_recovery">Die technische Laufzeit Ihres Genesenenzertifikats läuft bald aus. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
+	<string name="renewal_expiry_notification_copy_recovery">Die technische Laufzeit Ihres Genesenenzertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_recovery">Genesenenzertifikat erneuern</string>
 	<string name="renewal_expiry_consent_box_item_1">Die App übermittelt die genannten Zertifikate zur Überprüfung an das RKI.</string>
 	<string name="renewal_expiry_consent_box_item_2">Das RKI überprüft die Zertifikate, stellt ein erneuertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
