@@ -469,24 +469,17 @@ public data class GroupedCertificates(
 
     public fun getListOfIdsReadyForReissue(): List<String> {
         val list = mutableListOf<String>()
-        list.addAll(
-            certificates
-                .filter {
-                    it.reissueState == ReissueState.Ready &&
-                        it.covCertificate.dgcEntry is Vaccination &&
-                        (it.covCertificate.dgcEntry as Vaccination).doseNumber == 2
-                }
-                .map { it.covCertificate.dgcEntry.id }
-        )
+        val vaccinationIdToReissue = certificates
+            .filter {
+                it.reissueState == ReissueState.Ready &&
+                    it.covCertificate.dgcEntry is Vaccination &&
+                    (it.covCertificate.dgcEntry as Vaccination).doseNumber == 2
+            }
+            .map { it.covCertificate.dgcEntry.id }
 
-        list.addAll(
-            certificates
-                .filter {
-                    it.reissueState == ReissueState.Ready &&
-                        !list.contains(it.covCertificate.dgcEntry.id)
-                }
-                .map { it.covCertificate.dgcEntry.id }
-        )
+        list.addAll(vaccinationIdToReissue)
+        list.addAll(getHistoricalDataForDcc(vaccinationIdToReissue.first()))
+
         return list
     }
 
