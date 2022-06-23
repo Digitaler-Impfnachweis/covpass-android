@@ -554,7 +554,7 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="certificate_expires_detail_view_note_title">Zertifikat läuft am %1$s um %2$s ab</string>
-	<string name="certificate_expires_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Andernfalls müssen Sie nichts tun, da in Ihrem neuesten Zertifikat alle notwendigen Informationen für eine Prüfung enthalten sind.</string>
+	<string name="certificate_expires_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Sie können frühere Zertifikate nicht erneuern. In Ihrem neuesten Zertifikat sind alle notwendigen Informationen für eine Prüfung enthalten.</string>
 	<string name="certificate_invalid_detail_view_note_title">Zertifikat ungültig</string>
 	<string name="certificate_invalid_detail_view_note_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificate_expired_detail_view_note_title">Zertifikat abgelaufen</string>
@@ -763,7 +763,7 @@
 	<!-- SECTION: dcc renewal -->
 	<string name="certificate_renewal_startpage_headline">Änderungen bei Ihren Zertifikaten</string>
 	<string name="certificate_renewal_startpage_copy">Die Spezifikationen der EU für bestimmte Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht der aktuellen Nummerierung. Es ist weiterhin gültig. Falls es sich jedoch um ein Zertifikat für eine Auffrischungsimpfung handelt, wird diese bei einer Prüfung nicht erkannt.\n\nWir empfehlen Ihnen daher, ein neues Impfzertifikat mit der Nummer 2/1 direkt kostenlos über die App anzufordern. Hierfür ist Ihr Einverständnis erforderlich.</string>
-	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Detailansicht Ihrer Zertifikate anstoßen.</string>
+	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Übersicht Ihrer Zertifikate anstoßen.</string>
 	<string name="certificate_renewal_startpage_main_button">Jetzt erneuern</string>
 	<string name="certificate_renewal_startpage_secondary_button">Später nachholen</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_headline">Einwilligung zur Übermittlung Ihrer Zertifikate an das RKI</string>

@@ -554,7 +554,7 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Close</string>
 	<string name="certificate_expires_detail_view_note_title">Certificate expires on %1$s at %2$s</string>
-	<string name="certificate_expires_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. Otherwise, you don\'t have to do anything because your latest certificate contains all the necessary information for a check.</string>
+	<string name="certificate_expires_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. You cannot renew previous certificates. Your latest certificate contains all the necessary information for a check.</string>
 	<string name="certificate_invalid_detail_view_note_title">Certificate invalid</string>
 	<string name="certificate_invalid_detail_view_note_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificate_expired_detail_view_note_title">Certificate expired</string>
@@ -763,7 +763,7 @@
 	<!-- SECTION: dcc renewal -->
 	<string name="certificate_renewal_startpage_headline">Changes to your certificates</string>
 	<string name="certificate_renewal_startpage_copy">The EU specifications for certain vaccination certificates have been changed. This certificate does not correspond to the current numbering. It is still valid. However, if it is a certificate for a booster vaccination, it will not be recognized as such when checked.\n\nTherefore we recommend requesting a new certificate with the number 2/1 directly free of charge via the app.</string>
-	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later in the detail view of your certificates.</string>
+	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later on the overview of your certificates.</string>
 	<string name="certificate_renewal_startpage_main_button">Renew now</string>
 	<string name="certificate_renewal_startpage_secondary_button">Renew later</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_headline">Consent to transmitting your certificates to the RKI</string>
