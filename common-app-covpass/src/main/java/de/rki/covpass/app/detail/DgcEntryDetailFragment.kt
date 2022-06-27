@@ -117,8 +117,6 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
 
     public abstract fun getHeaderAccessibleText(): String
 
-    public open fun isHeaderTitleVisible(cert: CovCertificate): Boolean = false
-
     public abstract fun getDataRows(cert: CovCertificate): List<DataRow>
 
     private fun startRecyclerView(cert: CovCertificate) {
@@ -138,7 +136,6 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
         setupActionBar(covCertificate)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
         binding.dgcDetailHeaderTextview.contentDescription = getHeaderAccessibleText()
-        binding.dgcDetailHeaderTitleTextview.isGone = !isHeaderTitleVisible(covCertificate)
         showExpirationInfoElement(combinedCovCertificate)
 
         startRecyclerView(covCertificate)

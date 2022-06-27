@@ -47,17 +47,6 @@
         android:hyphenationFrequency="full"
         tools:text="@string/vaccination_certificate_detail_view_vaccination_headline" />
 
-      <TextView
-        android:id="@+id/dgc_detail_header_title_textview"
-        style="@style/DefaultText.OnBackground70"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginBottom="@dimen/grid_two"
-        android:text="@string/vaccination_certificate_detail_view_vaccination_note"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
       <de.rki.covpass.commonapp.uielements.InfoElement
         android:id="@+id/dgc_detail_expiration_info_element"
         style="@style/InfoElement.Info"

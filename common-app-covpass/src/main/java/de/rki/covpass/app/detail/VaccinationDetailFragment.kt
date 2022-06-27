@@ -42,11 +42,6 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
     override fun getHeaderAccessibleText(): String =
         getString(R.string.accessibility_vaccination_certificate_detail_view_booster_vaccination_headline)
 
-    override fun isHeaderTitleVisible(cert: CovCertificate): Boolean {
-        val vaccination = cert.dgcEntry as? Vaccination ?: return false
-        return vaccination.isCompleteSingleDose
-    }
-
     override fun getDataRows(cert: CovCertificate): List<DataRow> {
         val vaccination = cert.dgcEntry as? Vaccination ?: return emptyList()
         return listOf(
