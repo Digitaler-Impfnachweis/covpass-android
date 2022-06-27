@@ -149,12 +149,15 @@
 	<string name="file_import_result_null_button">OK</string>
 	<string name="file_import_result_info_title">Wenn ein Zertifikat fehlt:</string>
 	<string name="file_import_result_info_bullet1">Prüfen Sie, ob in der ausgewählten Datei ein QR-Code vorhanden ist.</string>
-	<string name="file_import_result_info_bullet2">Beachten Sie, dass keine abgelaufenen oder gesperrten Zertifikate importiert werden können.</string>
+	<string name="file_import_result_info_bullet2">Beachten Sie, dass keine gesperrten Zertifikate importiert werden können.</string>
 	<string name="file_import_result_info_bullet3">Erstellen Sie einen Screenshot des betreffenden QR-Codes und importieren Sie ihn als Foto erneut.</string>
 	<string name="file_import_result_title">Zertifikate auswählen</string>
 	<string name="file_import_result_bulge_select">%1$d von %2$d Zertifikat(e) ausgewählt</string>
 	<string name="file_import_result_bulge_select_accessibility_hint">Klicken, um alle Zertifikate an- oder abzuwählen.</string>
 	<string name="file_import_result_button">%d Zertifikat(e) importieren</string>
+	<string name="file_import_success_title">Import erfolgreich</string>
+	<string name="file_import_success_copy">Sie können Ihr(e) Zertifikat(e) nun weiterhin wie gewohnt nutzen.</string>
+	<string name="file_import_success_button">OK</string>
 	<string name="file_import_error_maximum_title">Maximale Anzahl an Zertifikaten überschritten</string>
 	<string name="file_import_error_maximum_copy">Die gewählte Datei hat entweder zu viele Seiten oder beinhaltet Zertifikate für mehr als 20 unterschiedliche Personen. Versuchen Sie die Seitenzahl zu reduzieren.</string>
 	<string name="file_import_error_maximum_button">OK</string>
@@ -772,7 +775,7 @@
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy">Durch Antippen von „Einverstanden“ willigen Sie in die folgenden Schritte ein:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1">Die App übermittelt das Impfzertifikat zur Überprüfung an das RKI.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2">Das RKI überprüft das Impfzertifikat, stellt ein aktualisiertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
-	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">Um sicherzustellen, dass Zertifikate nur einmalig aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">Um sicherzustellen, dass Zertifikate nur in begrenztem Umfang aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_copy">Die Aktualisierung des Zertifikats ist freiwillig und kostenlos.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy">Ausführliche Hinweise zur Datenverarbeitung finden Sie in der Datenschutzerklärung:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_button_link">Datenschutzerklärung</string>
@@ -799,7 +802,7 @@
 	<string name="renewal_expiry_consent_box_item_1">Die App übermittelt die genannten Zertifikate zur Überprüfung an das RKI.</string>
 	<string name="renewal_expiry_consent_box_item_2">Das RKI überprüft die Zertifikate, stellt ein erneuertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
 	<string name="renewal_expiry_consent_list_item_1">Die Erneuerung der Zertifikate ist freiwillig und kostenlos.</string>
-	<string name="renewal_expiry_consent_list_item_2">Um sicherzustellen, dass Zertifikate nur einmalig erneuert werden können, werden jeweils die Kennung des alten und des erneuerten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.</string>
+	<string name="renewal_expiry_consent_list_item_2">Um sicherzustellen, dass Zertifikate nur in begrenztem Umfang aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.</string>
 	<string name="renewal_expiry_consent_list_item_3">Stellen Sie bitte bei der Erneuerung von Zertifikaten von Familienmitgliedern sicher, dass die betreffende Person einverstanden ist.</string>
 	<string name="renewal_expiry_consent_list_item_4">In bestimmten Fällen werden zusätzlich zu dem zu erneuernden Zertifikat weitere Zertifikate übermittelt. Dies ist erforderlich, um die bisherige Abfolge der Impfungen und Genesungen im neuen Zertifikat aufnehmen zu können.</string>
 	<string name="renewal_expiry_success_copy">Sie können Ihr Zertifikat nun weiterhin wie gewohnt nutzen.</string>

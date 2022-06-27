@@ -149,12 +149,15 @@
 	<string name="file_import_result_null_button">OK</string>
 	<string name="file_import_result_info_title">If a certificate is missing:</string>
 	<string name="file_import_result_info_bullet1">Check whether there is a QR code in the selected file.</string>
-	<string name="file_import_result_info_bullet2">Note that no expired or revoked certificates can be imported.</string>
+	<string name="file_import_result_info_bullet2">Note that no revoked certificates can be imported.</string>
 	<string name="file_import_result_info_bullet3">Take a screenshot of the QR code in question and import it again as a photo.</string>
 	<string name="file_import_result_title">Select certificates</string>
 	<string name="file_import_result_bulge_select">%1$d of %2$d certificate(s) selected</string>
 	<string name="file_import_result_bulge_select_accessibility_hint">Click to select or deselect all certificates.</string>
 	<string name="file_import_result_button">Import %d certificate(s)</string>
+	<string name="file_import_success_title">Import successful</string>
+	<string name="file_import_success_copy">You can now continue to use your certificate(s) as usual.</string>
+	<string name="file_import_success_button">OK</string>
 	<string name="file_import_error_maximum_title">Maximum number of certificates exceeded</string>
 	<string name="file_import_error_maximum_copy">The selected file either has too many pages or contains certificates for more than 20 different people. Try to reduce the number of pages.</string>
 	<string name="file_import_error_maximum_button">OK</string>
@@ -772,7 +775,7 @@
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy">By clicking \"Agree\" you agree to the following steps:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1">The app transmits the vaccination certificate to the RKI.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2">The RKI checks/verifies the certificate, issues an updated certificate and transmits it to the app.</string>
-	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">To ensure that certificates can only be updated once, the identifier of the old certificate is documented by the RKI.</string>
+	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3">To ensure that certificates can only be updated to a limited extent, the identifier of the old certificate is documented by the RKI.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_copy">The renewal of the certificate is voluntary and free of charge.</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy">Detailed information on data processing can be found in the privacy policy:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_button_link">Privacy policy</string>
@@ -799,7 +802,7 @@
 	<string name="renewal_expiry_consent_box_item_1">The app transmits the aforementioned certificates to the RKI for verification.</string>
 	<string name="renewal_expiry_consent_box_item_2">The RKI checks the certificates, issues a renewed certificate and transmits it to your app.</string>
 	<string name="renewal_expiry_consent_list_item_1">The renewal of certificates is voluntary and free of charge.</string>
-	<string name="renewal_expiry_consent_list_item_2">To ensure that certificates can only be renewed once, the RKI documents the identifier of the old and the renewed certificate. The other data on your certificates will be deleted by the RKI immediately after renewal.</string>
+	<string name="renewal_expiry_consent_list_item_2">To ensure that certificates can only be updated to a limited extent, the identifier of the old certificate is documented by the RKI. The other data on your certificates will be deleted by the RKI immediately after renewal.</string>
 	<string name="renewal_expiry_consent_list_item_3">When renewing certificates of family members, please ensure that the person concerned agrees.</string>
 	<string name="renewal_expiry_consent_list_item_4">In certain cases, additional certificates are sent in addition to the certificate to be renewed. This is necessary in order to be able to include the previous sequence of vaccinations and recoveries in the new certificate.</string>
 	<string name="renewal_expiry_success_copy">You can now continue to use your certificate as usual.</string>
