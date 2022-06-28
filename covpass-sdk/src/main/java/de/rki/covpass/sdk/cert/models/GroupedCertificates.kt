@@ -77,7 +77,7 @@ public data class GroupedCertificates(
                     CertValidationResult.Valid, CertValidationResult.Revoked -> false
                 }
                 is TestCert -> false
-            }
+            } && !it.covCertificate.isGermanCertificate
         }
         set(value) {
             certificates = certificates.map {

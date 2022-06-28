@@ -51,7 +51,6 @@ internal class MainFragmentNav : FragmentNav(MainFragment::class)
 
 internal interface NotificationEvents : BaseEvents {
     fun showExpiryNotification()
-    fun showExpiredReissueNotification()
     fun showNewUpdateInfo()
     fun showNewDataPrivacy()
     fun showDomesticRulesNotification()
@@ -235,15 +234,6 @@ internal class MainFragment :
                     covpassDeps.certRepository.certs.update { groupedCertificateList ->
                         groupedCertificateList.certificates.forEach {
                             it.hasSeenExpiryNotification = true
-                        }
-                    }
-                    viewModel.showingNotification.complete(Unit)
-                }
-            }
-            EXPIRED_REISSUE_DIALOG_TAG -> {
-                launchWhenStarted {
-                    covpassDeps.certRepository.certs.update { groupedCertificateList ->
-                        groupedCertificateList.certificates.forEach {
                             it.hasSeenExpiredReissueNotification = true
                         }
                     }
@@ -301,16 +291,6 @@ internal class MainFragment :
         showDialog(dialogModel, childFragmentManager)
     }
 
-    override fun showExpiredReissueNotification() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.error_validity_check_certificates_title,
-            messageString = getString(R.string.error_validity_check_certificates_message),
-            positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
-            tag = EXPIRED_REISSUE_DIALOG_TAG,
-        )
-        showDialog(dialogModel, childFragmentManager)
-    }
-
     override fun showRevokedNotification() {
         val dialogModel = DialogModel(
             titleRes = R.string.certificate_check_invalidity_error_title,
@@ -323,7 +303,6 @@ internal class MainFragment :
 
     companion object {
         private const val EXPIRED_DIALOG_TAG = "expired_dialog"
-        private const val EXPIRED_REISSUE_DIALOG_TAG = "expired_reissue_dialog"
         private const val REVOKED_DIALOG_TAG = "revoked_dialog"
     }
 }

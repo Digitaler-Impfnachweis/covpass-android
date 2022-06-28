@@ -73,7 +73,8 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
-            certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } -> {
+            certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } ||
+                checkExpiredReissueNotification() -> {
                 eventNotifier {
                     showExpiryNotification()
                 }
@@ -95,12 +96,6 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             checkBoosterReissueNotification() -> {
                 eventNotifier {
                     showBoosterReissueNotification(getBoosterReissueIdsList())
-                }
-                true
-            }
-            checkExpiredReissueNotification() -> {
-                eventNotifier {
-                    showExpiredReissueNotification()
                 }
                 true
             }
