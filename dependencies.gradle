@@ -193,7 +193,7 @@ dependencies {
         }
 
         certLogic = {
-            api "eu.ehn.dcc.certlogic:certlogic-kotlin:v0.9.0-kotlin"
+            api "eu.ehn.dcc.certlogic:certlogic-kotlin:v0.11.2-kotlin"
             api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0"
         }
 
