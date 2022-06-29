@@ -14,8 +14,6 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
@@ -26,7 +24,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.*
 import de.rki.covpass.app.detail.DetailClickListener
 import de.rki.covpass.commonapp.utils.stripUnderlines
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.DGCEntryType
 
 /**
  * Adapter which holds the data for Detail screen.
@@ -153,165 +151,12 @@ private class InfoboxViewHolder(
     }
 }
 
-private class CertificateViewHolder(
-    parent: ViewGroup,
-    private val listener: DetailClickListener,
-) : BaseViewHolder<CertificateItemBinding>(parent, CertificateItemBinding::inflate) {
-
-    override fun onItemBind(item: DetailItem) {
-        (item as DetailItem.Certificate).let { cert ->
-            when (cert.type) {
-                VaccinationCertType.VACCINATION_COMPLETE,
-                VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
-                    binding.certificateStatusLayout.setLayoutBackgroundColor(
-                        if (cert.isActual) {
-                            R.color.info
-                        } else {
-                            R.color.backgroundSecondary20
-                        }
-                    )
-                    when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_complete)
-                        }
-                        CertValidationResult.ExpiryPeriod -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
-                        }
-                        CertValidationResult.Expired,
-                        CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
-                            binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
-                        }
-                    }
-                }
-                VaccinationCertType.VACCINATION_INCOMPLETE -> {
-                    binding.certificateStatusLayout.setLayoutBackgroundColor(
-                        if (cert.isActual) {
-                            R.color.info20
-                        } else {
-                            R.color.backgroundSecondary20
-                        }
-                    )
-                    when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_incomplete)
-                        }
-                        CertValidationResult.ExpiryPeriod -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
-                        }
-                        CertValidationResult.Expired,
-                        CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
-                            binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
-                        }
-                    }
-                }
-                TestCertType.NEGATIVE_PCR_TEST,
-                TestCertType.NEGATIVE_ANTIGEN_TEST -> {
-                    binding.certificateStatusLayout.setLayoutBackgroundColor(
-                        if (cert.isActual) {
-                            R.color.test_certificate_background
-                        } else {
-                            R.color.backgroundSecondary20
-                        }
-                    )
-                    when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_test)
-                        }
-                        CertValidationResult.ExpiryPeriod -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
-                        }
-                        CertValidationResult.Expired,
-                        CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
-                            binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
-                        }
-                    }
-                }
-                RecoveryCertType.RECOVERY -> {
-                    binding.certificateStatusLayout.setLayoutBackgroundColor(
-                        if (cert.isActual) {
-                            R.color.infoDark
-                        } else {
-                            R.color.backgroundSecondary20
-                        }
-                    )
-                    when (cert.certStatus) {
-                        CertValidationResult.Valid -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_recovery)
-                        }
-                        CertValidationResult.ExpiryPeriod -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expiry_period)
-                        }
-                        CertValidationResult.Expired,
-                        CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
-                            binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
-                            binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
-                        }
-                    }
-                }
-                TestCertType.POSITIVE_PCR_TEST,
-                TestCertType.POSITIVE_ANTIGEN_TEST -> return
-                // .let{} to enforce exhaustiveness
-            }.let {}
-            binding.certificateTypeIcon.setTint(
-                if (cert.isActual && cert.isExpiredInvalidOrRevoked()) {
-                    R.color.backgroundSecondary50
-                } else if (cert.isActual) {
-                    when (cert.type) {
-                        VaccinationCertType.VACCINATION_INCOMPLETE -> R.color.info
-                        else -> R.color.backgroundSecondary
-                    }
-                } else {
-                    R.color.backgroundSecondary50
-                }
-            )
-            binding.certificateItemActualTitle.isVisible = cert.isActual
-            binding.certificateItemTitle.text = cert.title
-            binding.certificateItemSubtitle.text = cert.subtitle
-            binding.certificateItemDate.text = cert.date
-            binding.root.setOnClickListener {
-                listener.onCovCertificateClicked(cert.id, cert.type)
-            }
-
-            when (cert.certStatus) {
-                CertValidationResult.Valid -> {
-                    binding.certificateExpiryInfo.isGone = true
-                }
-                CertValidationResult.ExpiryPeriod -> {
-                    binding.certificateExpiryInfo.isVisible = true
-                    binding.certificateExpiryInfo.text =
-                        getString(R.string.certificates_overview_expires_soon_certificate_note)
-                }
-                CertValidationResult.Expired -> {
-                    binding.certificateExpiryInfo.isVisible = true
-                    binding.certificateExpiryInfo.text =
-                        getString(R.string.certificates_overview_expired_certificate_note)
-                }
-                CertValidationResult.Invalid,
-                CertValidationResult.Revoked -> {
-                    binding.certificateExpiryInfo.isVisible = true
-                    binding.certificateExpiryInfo.text =
-                        getString(R.string.certificates_overview_invalid_certificate_note)
-                }
-            }
-        }
-    }
-}
-
-private fun DetailItem.Certificate.isExpiredInvalidOrRevoked() =
-    certStatus == CertValidationResult.Expired ||
-        certStatus == CertValidationResult.Invalid ||
-        certStatus == CertValidationResult.Revoked
-
 private class ReissueNotificationViewHolder(
     val parent: ViewGroup,
-) : BaseViewHolder<DetailReissueNotificationItemBinding>(parent, DetailReissueNotificationItemBinding::inflate) {
+) : BaseViewHolder<DetailReissueNotificationItemBinding>(
+    parent,
+    DetailReissueNotificationItemBinding::inflate
+) {
 
     override fun onItemBind(item: DetailItem) {
 
@@ -329,7 +174,10 @@ private class ReissueNotificationViewHolder(
 
 private class BoosterNotificationViewHolder(
     val parent: ViewGroup,
-) : BaseViewHolder<DetailBoosterNotificationItemBinding>(parent, DetailBoosterNotificationItemBinding::inflate) {
+) : BaseViewHolder<DetailBoosterNotificationItemBinding>(
+    parent,
+    DetailBoosterNotificationItemBinding::inflate
+) {
 
     override fun onItemBind(item: DetailItem) {
 
@@ -353,12 +201,12 @@ private class BoosterNotificationViewHolder(
     }
 }
 
-internal abstract class BaseViewHolder<B : ViewBinding>(
+public abstract class BaseViewHolder<B : ViewBinding>(
     parent: ViewGroup,
     inflater: (LayoutInflater, ViewGroup, Boolean) -> B,
 ) : BindingViewHolder<B>(parent, inflater) {
 
-    abstract fun onItemBind(item: DetailItem)
+    public abstract fun onItemBind(item: DetailItem)
 }
 
 internal fun ImageView.setTint(@ColorRes color: Int) {
@@ -370,7 +218,7 @@ internal fun ImageView.setTint(@ColorRes color: Int) {
     )
 }
 
-private fun View.setLayoutBackgroundColor(@ColorRes color: Int) {
+public fun View.setLayoutBackgroundColor(@ColorRes color: Int) {
     setBackgroundColor(
         ContextCompat.getColor(context, color)
     )

@@ -65,7 +65,7 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             R.string.certificate_renewal_consent_page_transfer_certificates_subline
         )
         ReissueContentAdapter(this).apply {
-            updateList(certificateList)
+            updateList(certificateList.mapNotNull { it.toDetailItemCertificate() })
             attachTo(binding.reissueConsentCertificateList)
         }
         binding.reissueConsentInfoElement.setValues(
