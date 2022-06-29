@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:ignore="MissingDefaultResource">
+
+  <View style="@style/Divider" />
+
+  <TextView
+    android:id="@+id/import_button_gallery"
+    style="@style/NavigationField"
+    android:background="@color/onBrandBase" />
+
+  <View style="@style/Divider" />
+
+  <TextView
+    android:id="@+id/import_button_documents"
+    style="@style/NavigationField"
+    android:layout_marginBottom="@dimen/grid_one"
+    android:background="@color/onBrandBase" />
+
+</LinearLayout>

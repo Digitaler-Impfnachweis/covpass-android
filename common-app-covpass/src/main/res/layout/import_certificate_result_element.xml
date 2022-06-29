@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/cert_layout"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/backgroundSecondary"
+  android:clickable="true"
+  android:focusable="true"
+  android:foreground="?attr/selectableItemBackground"
+  tools:ignore="Overdraw">
+
+  <de.rki.covpass.app.uielements.CertificateDataElementWithCheckBox
+    android:id="@+id/element_certificate_data_with_checkbox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+</LinearLayout>

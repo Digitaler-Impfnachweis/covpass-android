@@ -52,6 +52,7 @@ public abstract class QRScannerFragment : BaseFragment() {
     private val scannerViewModel: QRScannerViewModel by reactiveState { QRScannerViewModel(scope) }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
+    public open val isCovpass: Boolean = true
 
     private var displayId: Int = -1
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
@@ -76,6 +77,7 @@ public abstract class QRScannerFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.scannerCloseButton.setOnClickListener { requireActivity().onBackPressed() }
+        binding.scannerCloseButtonCovpass.setOnClickListener { requireActivity().onBackPressed() }
 
         autoRun {
             updateTorchView(get(isTorchOn))
@@ -103,8 +105,18 @@ public abstract class QRScannerFragment : BaseFragment() {
             }
         }
 
-        binding.scannerFlashlightButton.setOnClickListener {
-            setTorch(!isTorchOn.value)
+        with(binding) {
+            scannerFlashlightButton.setOnClickListener {
+                setTorch(!isTorchOn.value)
+            }
+            scannerFlashlightButtonCovpass.setOnClickListener {
+                setTorch(!isTorchOn.value)
+            }
+            scannerImportButton.setOnClickListener {
+                setupImportButton()
+            }
+            scannerCloseLayout.isVisible = !isCovpass
+            scannerCloseLayoutCovpass.isVisible = isCovpass
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -228,6 +240,8 @@ public abstract class QRScannerFragment : BaseFragment() {
     }
 
     protected abstract fun onBarcodeResult(qrCode: String)
+
+    protected open fun setupImportButton() {}
 
     protected open fun showLoading(isLoading: Boolean) {
         binding.loadingLayout.isVisible = isLoading

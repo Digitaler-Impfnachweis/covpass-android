@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -26,7 +25,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="@color/backgroundPrimary">
+    android:background="@color/backgroundPrimary"
+    android:visibility="gone">
 
     <de.rki.covpass.commonapp.uielements.RoundImageButton
       android:id="@+id/scanner_close_button"
@@ -35,9 +35,9 @@
       android:layout_gravity="center"
       android:layout_marginTop="@dimen/grid_three"
       android:layout_marginBottom="@dimen/grid_three_half"
+      android:contentDescription="@string/accessibility_popup_label_close"
       app:round_button_background="@drawable/button_round_disabled"
-      app:round_button_icon="@drawable/common_ic_close"
-      android:contentDescription="@string/accessibility_popup_label_close"/>
+      app:round_button_icon="@drawable/common_ic_close" />
 
     <ToggleButton
       android:id="@+id/scanner_flashlight_button"
@@ -53,15 +53,68 @@
 
   </FrameLayout>
 
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/scanner_close_layout_covpass"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/backgroundPrimary">
+
+    <ToggleButton
+      android:id="@+id/scanner_import_button"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_marginStart="@dimen/grid_four"
+      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginBottom="@dimen/grid_three_half"
+      android:background="@drawable/button_import_file"
+      android:textOff=""
+      android:textOn=""
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/scanner_flashlight_button_covpass"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+      android:id="@+id/scanner_flashlight_button_covpass"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_gravity="center"
+      android:layout_marginStart="@dimen/grid_four"
+      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginBottom="@dimen/grid_three_half"
+      android:background="@drawable/button_flashlight_selector"
+      android:textOff=""
+      android:textOn=""
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/scanner_import_button"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <de.rki.covpass.commonapp.uielements.RoundImageButton
+      android:id="@+id/scanner_close_button_covpass"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginRight="@dimen/grid_three_half"
+      android:layout_marginBottom="@dimen/grid_three_half"
+      android:contentDescription="@string/accessibility_popup_label_close"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:round_button_background="@drawable/button_round_disabled"
+      app:round_button_icon="@drawable/common_ic_close" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
   <LinearLayout
     android:id="@+id/loading_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#99000000"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="gone"
-    app:layout_constraintTop_toTopOf="parent"
-    android:background="#99000000">
+    app:layout_constraintTop_toTopOf="parent">
 
     <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_animation"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/cert_layout"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/backgroundSecondary"
+  android:foreground="?attr/selectableItemBackground"
+  tools:ignore="Overdraw">
+
+  <androidx.appcompat.widget.AppCompatCheckBox
+    android:id="@+id/check_context_checkbox_element_checkbox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:button="@drawable/checkbox_bg"
+    android:clickable="false"
+    android:focusable="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/grid_three"
+    android:layout_marginVertical="@dimen/grid_one_half"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/check_context_checkbox_element_checkbox"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/certificate_data_element_name"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[1]" />
+
+    <TextView
+      android:id="@+id/certificate_data_element_type"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[0]" />
+
+    <TextView
+      android:id="@+id/certificate_data_element_info"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[2]" />
+
+    <TextView
+      android:id="@+id/certificate_data_element_date"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[3]" />
+
+  </LinearLayout>
+
+  <View
+    android:id="@+id/divider"
+    style="@style/Divider"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

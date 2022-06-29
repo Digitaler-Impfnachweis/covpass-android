@@ -61,6 +61,7 @@ internal class CovPassCheckQRScannerFragment :
     }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
+    override val isCovpass = false
 
     override fun onBarcodeResult(qrCode: String) {
         viewModel.onQrContentReceived(qrCode)

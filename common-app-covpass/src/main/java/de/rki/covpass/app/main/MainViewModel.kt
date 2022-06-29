@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.main
 
+import android.net.Uri
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.dispatchers
@@ -33,12 +34,16 @@ import kotlinx.coroutines.delay
  */
 internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
+    private val uri: Uri?,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator,
     private val covpassDependencies: CovpassDependencies = covpassDeps,
     private val commonDependencies: CommonDependencies = commonDeps,
     private val revocationListRepository: RevocationListRepository = sdkDeps.revocationListRepository
 ) : BaseReactiveState<NotificationEvents>(scope) {
+
+    // prevent the import to be done more than one time
+    private var importFromShareOption: Boolean = true
 
     init {
         runValidations()
@@ -102,6 +107,13 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             validateRevokedCertificates() -> {
                 eventNotifier {
                     showRevokedNotification()
+                }
+                true
+            }
+            importFromShareOption && uri != null -> {
+                importFromShareOption = false
+                eventNotifier {
+                    importCertificateFromShareOption(uri)
                 }
                 true
             }

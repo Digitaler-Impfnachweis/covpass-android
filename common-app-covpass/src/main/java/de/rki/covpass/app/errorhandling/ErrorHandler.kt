@@ -7,6 +7,8 @@ package de.rki.covpass.app.errorhandling
 
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
+import de.rki.covpass.app.importcertificate.FailedToOpenFileException
+import de.rki.covpass.app.importcertificate.MaxNumberOfHolderExceededException
 import de.rki.covpass.app.scanner.RevokedCertificateGermanCertificateException
 import de.rki.covpass.app.scanner.RevokedCertificateNotGermanCertificateException
 import de.rki.covpass.app.scanner.SavingBlockedException
@@ -142,6 +144,18 @@ internal class ErrorHandler : CommonErrorHandler() {
                 positiveButtonTextRes = R.string.ok,
                 tag = TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE
             )
+            is FailedToOpenFileException -> DialogModel(
+                titleRes = R.string.file_import_error_access_title,
+                messageString = getString(R.string.file_import_error_access_copy),
+                positiveButtonTextRes = R.string.file_import_error_access_button,
+                tag = TAG_ERROR_FAILED_TO_OPEN_FILE
+            )
+            is MaxNumberOfHolderExceededException -> DialogModel(
+                titleRes = R.string.file_import_error_maximum_title,
+                messageString = getString(R.string.file_import_error_maximum_copy),
+                positiveButtonTextRes = R.string.file_import_error_maximum_button,
+                tag = TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED
+            )
             else -> null
         }
 
@@ -163,6 +177,8 @@ internal class ErrorHandler : CommonErrorHandler() {
         const val TAG_ERROR_SAVING_BLOCKED: String = "error_saving_blocked"
         const val TAG_ERROR_REVOKED_DE_CERTIFICATE: String = "error_reissuing_revoked_de_certificate"
         const val TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE: String = "error_reissuing_revoked_not_de_certificate"
+        const val TAG_ERROR_FAILED_TO_OPEN_FILE: String = "error_failed_to_open_file"
+        const val TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED: String = "error_max_number_of_holders_exceeded"
 
         // Error codes
         const val ERROR_NO_VALIDATION_SERVICE_LISTED = 103

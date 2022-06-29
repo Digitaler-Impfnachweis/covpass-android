@@ -5,12 +5,14 @@
 
 package de.rki.covpass.app.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import de.rki.covpass.app.onboarding.WelcomeFragmentNav
 import de.rki.covpass.commonapp.BaseActivity
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.FIRST_DATA_PRIVACY_VERSION
+import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository.Companion.CURRENT_UPDATE_VERSION
 
 /**
  * The only Activity in the app, hosts all fragments.
@@ -25,12 +27,20 @@ internal class MainActivity : BaseActivity() {
                 commonDeps.updateInfoRepository.updateInfoVersionShown.set(CURRENT_UPDATE_VERSION)
             }
         }
+        val uri = onSharedIntent()
         if (navigator.isEmpty() && savedInstanceState == null) {
             if (commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value != FIRST_DATA_PRIVACY_VERSION) {
-                navigator.push(MainFragmentNav())
+                navigator.push(MainFragmentNav(uri))
             } else {
-                navigator.push(WelcomeFragmentNav())
+                navigator.push(WelcomeFragmentNav(uri))
             }
         }
     }
+
+    private fun onSharedIntent(): Uri? =
+        if (intent.action == Intent.ACTION_SEND) {
+            intent.clipData?.getItemAt(0)?.uri
+        } else {
+            null
+        }
 }

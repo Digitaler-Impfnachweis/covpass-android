@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:ignore="MissingDefaultResource">
+
+  <LinearLayout
+    android:id="@+id/layout_all_certificate_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/validityBackgroundNote"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <de.rki.covpass.app.uielements.TripleStateCheckBox
+      android:id="@+id/checkbox_all_certificates"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="@dimen/grid_one"
+      android:layout_marginStart="@dimen/grid_three"
+      android:clickable="false"
+      android:focusable="false" />
+
+    <TextView
+      android:id="@+id/info_all_certificates"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical" />
+
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_view_certificate_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:overScrollMode="never"
+    android:visibility="gone"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@+id/layout_all_certificate_info" />
+
+  <de.rki.covpass.app.uielements.InfoElementWithList
+    android:id="@+id/info_element_with_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_fourteen"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/recycler_view_certificate_list" />
+
+  <LinearLayout
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:lottie_autoPlay="true"
+      app:lottie_colorFilter="@color/brandAccent70"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_animation" />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

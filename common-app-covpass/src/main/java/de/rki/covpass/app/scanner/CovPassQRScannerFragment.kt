@@ -15,6 +15,8 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_SAVING_BLOCKED
+import de.rki.covpass.app.importcertificate.ImportCertificateCallback
+import de.rki.covpass.app.importcertificate.ImportCertificatesFragmentNav
 import de.rki.covpass.app.misuseprevention.MisusePreventionFragmentNav
 import de.rki.covpass.app.ticketing.ConsentInitializationTicketingFragmentNav
 import de.rki.covpass.commonapp.dialog.DialogAction
@@ -30,7 +32,11 @@ internal class CovPassQRScannerFragmentNav : FragmentNav(CovPassQRScannerFragmen
 /**
  * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
  */
-internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, CovPassQRScannerEvents {
+internal class CovPassQRScannerFragment :
+    QRScannerFragment(),
+    DialogListener,
+    CovPassQRScannerEvents,
+    ImportCertificateCallback {
 
     private val viewModel by reactiveState { CovPassQRScannerViewModel(scope) }
 
@@ -41,6 +47,11 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
 
     override fun onBarcodeResult(qrCode: String) {
         viewModel.onQrContentReceived(qrCode)
+    }
+
+    override fun setupImportButton() {
+        showLoading(true)
+        findNavigator().push(ImportCertificatesFragmentNav())
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
@@ -87,5 +98,10 @@ internal class CovPassQRScannerFragment : QRScannerFragment(), DialogListener, C
     override fun onLimitationWarning(qrContent: String) {
         findNavigator().popAll()
         findNavigator().push(MisusePreventionFragmentNav(qrContent))
+    }
+
+    override fun finishedImport() {
+        checkPermission()
+        showLoading(false)
     }
 }
