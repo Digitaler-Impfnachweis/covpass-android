@@ -393,6 +393,7 @@
 	<string name="recovery_certificate_overview_action_button_title">Nachweise anzeigen</string>
 	<string name="certificates_overview_expired_title">Zertifikat abgelaufen</string>
 	<string name="certificates_overview_expired_message">Das Ablaufdatum Ihres neuesten Zertifikats wurde überschritten. Sie können dieses Zertifikat bequem in der CovPass-App austauschen. Vorherige Zertifikate werden nicht erneuert. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
+	<string name="certificates_overview_expired_or_soon_expiring_nonDE">Ihr neuestes Zertifikat wurde nicht in Deutschland ausgestellt und kann daher nicht in der App erneuert werden. Bitte wenden Sie sich an den Aussteller des Zertifikats.</string>
 	<string name="certificates_overview_expired_action_button_title">Neues Zertifikat hinzufügen</string>
 	<string name="certificates_overview_soon_expiring_title">Aktuelles Zertifikat läuft am %1$s um %2$s ab</string>
 	<string name="certificates_overview_soon_expiring_subtitle">Sie können Ihr neuestes Zertifikat bequem in der CovPass-App austauschen. Vorherige Zertifikate werden nicht erneuert. Nutzen Sie dafür die Erneuerungsfunktion in der Übersicht Ihrer Zertifikate oder scannen Sie ein neu ausgestelltes Zertifikat ein.</string>
@@ -558,6 +559,7 @@
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="certificate_expires_detail_view_note_title">Zertifikat läuft am %1$s um %2$s ab</string>
 	<string name="certificate_expires_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Sie können frühere Zertifikate nicht erneuern. In Ihrem neuesten Zertifikat sind alle notwendigen Informationen für eine Prüfung enthalten.</string>
+	<string name="certificate_expires_detail_view_note_nonDE">Dieses Zertifikat wurde nicht in Deutschland ausgestellt und kann daher nicht in der App erneuert werden. Bitte wenden Sie sich an den Aussteller des Zertifikats.</string>
 	<string name="certificate_invalid_detail_view_note_title">Zertifikat ungültig</string>
 	<string name="certificate_invalid_detail_view_note_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificate_expired_detail_view_note_title">Zertifikat abgelaufen</string>

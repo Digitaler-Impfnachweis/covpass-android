@@ -174,13 +174,13 @@ internal class DetailFragment :
                                 }
                                 val message = getString(
                                     when (certStatus) {
-                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_message
+                                        CertValidationResult.Expired -> messageExpiredCert(cert.isGermanCertificate)
                                         CertValidationResult.Invalid -> R.string.certificates_overview_invalid_message
                                         CertValidationResult.Revoked -> messageRevokedCert(cert.isGermanCertificate)
                                         CertValidationResult.Valid ->
                                             R.string.vaccination_certificate_overview_complete_message
                                         CertValidationResult.ExpiryPeriod ->
-                                            R.string.certificates_overview_soon_expiring_subtitle
+                                            messageSoonExpiredCert(cert.isGermanCertificate)
                                     }
                                 )
                                 val buttonText = if (isExpiredOrInvalid) {
@@ -219,7 +219,7 @@ internal class DetailFragment :
                                 }
                                 val message = when (certStatus) {
                                     CertValidationResult.Expired ->
-                                        getString(R.string.certificates_overview_expired_message)
+                                        getString(messageExpiredCert(cert.isGermanCertificate))
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
                                     CertValidationResult.Revoked ->
@@ -227,7 +227,7 @@ internal class DetailFragment :
                                     CertValidationResult.Valid ->
                                         getString(R.string.vaccination_certificate_overview_complete_from_message)
                                     CertValidationResult.ExpiryPeriod ->
-                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
+                                        getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -265,7 +265,7 @@ internal class DetailFragment :
                                 }
                                 val message = when (certStatus) {
                                     CertValidationResult.Expired ->
-                                        getString(R.string.certificates_overview_expired_message)
+                                        getString(messageExpiredCert(cert.isGermanCertificate))
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
                                     CertValidationResult.Revoked ->
@@ -273,7 +273,7 @@ internal class DetailFragment :
                                     CertValidationResult.Valid ->
                                         getString(R.string.vaccination_certificate_overview_incomplete_message)
                                     CertValidationResult.ExpiryPeriod ->
-                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
+                                        getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -317,7 +317,7 @@ internal class DetailFragment :
                                 }
                                 val message = when (certStatus) {
                                     CertValidationResult.Expired ->
-                                        getString(R.string.certificates_overview_expired_message)
+                                        getString(messageExpiredCert(cert.isGermanCertificate))
                                     CertValidationResult.Invalid ->
                                         getString(R.string.certificates_overview_invalid_message)
                                     CertValidationResult.Revoked ->
@@ -325,7 +325,7 @@ internal class DetailFragment :
                                     CertValidationResult.Valid ->
                                         getString(R.string.pcr_test_certificate_overview_message)
                                     CertValidationResult.ExpiryPeriod ->
-                                        getString(R.string.certificates_overview_soon_expiring_subtitle)
+                                        getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -365,12 +365,12 @@ internal class DetailFragment :
                                 }
                                 val message = getString(
                                     when (certStatus) {
-                                        CertValidationResult.Expired -> R.string.certificates_overview_expired_message
+                                        CertValidationResult.Expired -> messageExpiredCert(cert.isGermanCertificate)
                                         CertValidationResult.Invalid -> R.string.certificates_overview_invalid_message
                                         CertValidationResult.Revoked -> messageRevokedCert(cert.isGermanCertificate)
                                         CertValidationResult.Valid -> R.string.test_certificate_overview_message
                                         CertValidationResult.ExpiryPeriod ->
-                                            R.string.certificates_overview_soon_expiring_subtitle
+                                            messageSoonExpiredCert(cert.isGermanCertificate)
                                     }
                                 )
                                 val buttonText = if (isExpiredOrInvalid) {
@@ -419,7 +419,7 @@ internal class DetailFragment :
                         }
                         val message = when (certStatus) {
                             CertValidationResult.Expired ->
-                                getString(R.string.certificates_overview_expired_message)
+                                getString(messageExpiredCert(cert.isGermanCertificate))
                             CertValidationResult.Invalid ->
                                 getString(R.string.certificates_overview_invalid_message)
                             CertValidationResult.Revoked ->
@@ -427,7 +427,7 @@ internal class DetailFragment :
                             CertValidationResult.Valid ->
                                 getString(R.string.recovery_certificate_overview_message)
                             CertValidationResult.ExpiryPeriod ->
-                                getString(R.string.certificates_overview_soon_expiring_subtitle)
+                                getString(messageSoonExpiredCert(cert.isGermanCertificate))
                         }
                         val buttonText = if (isExpiredOrInvalid) {
                             getString(R.string.certificates_overview_expired_action_button_title)
@@ -658,6 +658,20 @@ internal class DetailFragment :
             R.string.revocation_detail_single_DE
         } else {
             R.string.revocation_detail_single_notDE
+        }
+
+    private fun messageExpiredCert(isGermanCertificate: Boolean) =
+        if (isGermanCertificate) {
+            R.string.certificates_overview_expired_message
+        } else {
+            R.string.certificates_overview_expired_or_soon_expiring_nonDE
+        }
+
+    private fun messageSoonExpiredCert(isGermanCertificate: Boolean) =
+        if (isGermanCertificate) {
+            R.string.certificates_overview_soon_expiring_subtitle
+        } else {
+            R.string.certificates_overview_expired_or_soon_expiring_nonDE
         }
 
     override fun onShowCertificateClicked() {

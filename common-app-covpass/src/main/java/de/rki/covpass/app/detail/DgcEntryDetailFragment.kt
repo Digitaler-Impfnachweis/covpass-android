@@ -176,14 +176,26 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                         combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                         combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                     ),
-                    description = getString(R.string.certificate_expires_detail_view_note_message),
+                    description = getString(
+                        if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                            R.string.certificate_expires_detail_view_note_message
+                        } else {
+                            R.string.certificate_expires_detail_view_note_nonDE
+                        }
+                    ),
                     iconRes = R.drawable.main_cert_expiry_period
                 )
             }
             CertValidationResult.Expired -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
                     title = getString(R.string.certificate_expired_detail_view_note_title),
-                    description = getString(R.string.certificate_expired_detail_view_note_message),
+                    description = getString(
+                        if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                            R.string.certificate_expired_detail_view_note_message
+                        } else {
+                            R.string.certificate_expires_detail_view_note_nonDE
+                        }
+                    ),
                     iconRes = R.drawable.info_warning_icon
                 )
             }

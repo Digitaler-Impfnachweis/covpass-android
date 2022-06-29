@@ -393,6 +393,7 @@
 	<string name="recovery_certificate_overview_action_button_title">Show certificates</string>
 	<string name="certificates_overview_expired_title">Certificate expired</string>
 	<string name="certificates_overview_expired_message">The expiry date of your latest certificate has passed. You can conveniently renew this certificate in the CovPass app. Previous certificates will not be renewed. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate.</string>
+	<string name="certificates_overview_expired_or_soon_expiring_nonDE">Your latest certificate was not issued in Germany and therefore cannot be renewed in the app. Please contact the issuer of the certificate.</string>
 	<string name="certificates_overview_expired_action_button_title">Add new certificate</string>
 	<string name="certificates_overview_soon_expiring_title">Current certificate expires on %1$s at %2$s</string>
 	<string name="certificates_overview_soon_expiring_subtitle">You can easily renew your latest certificate in the CovPass app. Previous certificates will not be renewed. To do so, use the renewal function in the overview of your certificates or scan a newly issued certificate.</string>
@@ -558,6 +559,7 @@
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Close</string>
 	<string name="certificate_expires_detail_view_note_title">Certificate expires on %1$s at %2$s</string>
 	<string name="certificate_expires_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. You cannot renew previous certificates. Your latest certificate contains all the necessary information for a check.</string>
+	<string name="certificate_expires_detail_view_note_nonDE">This certificate was not issued in Germany and therefore cannot be renewed in the app. Please contact the issuer of the certificate.</string>
 	<string name="certificate_invalid_detail_view_note_title">Certificate invalid</string>
 	<string name="certificate_invalid_detail_view_note_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificate_expired_detail_view_note_title">Certificate expired</string>
