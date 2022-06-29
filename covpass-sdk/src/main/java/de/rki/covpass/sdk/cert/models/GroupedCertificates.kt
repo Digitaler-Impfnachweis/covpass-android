@@ -300,13 +300,12 @@ public data class GroupedCertificates(
     public fun validateExpiredReissue() {
         val expiredGermanVaccinationId = getExpiredGermanVaccinationId(getLatestVaccination())
         val expiredGermanRecoveryIds = getExpiredGermanRecoveryIds(certificates)
-
         if (expiredGermanVaccinationId == null && expiredGermanRecoveryIds.isEmpty()) {
             return
         }
 
         certificates = certificates.map {
-            if (expiredGermanRecoveryIds.contains(it.covCertificate.dgcEntry.id)) {
+            if (it.isRecoveryValidForReissue(expiredGermanRecoveryIds)) {
                 it.copy(
                     reissueState = ReissueState.Ready,
                     reissueType = ReissueType.Recovery
@@ -327,6 +326,16 @@ public data class GroupedCertificates(
             }
         }.toMutableList()
     }
+
+    private fun CombinedCovCertificate.isRecoveryValidForReissue(
+        expiredGermanRecoveryIds: List<String>
+    ) =
+        expiredGermanRecoveryIds.contains(covCertificate.dgcEntry.id) &&
+            !certificates.any {
+                it.covCertificate.dgcEntry is Vaccination &&
+                    (it.covCertificate.dgcEntry as Vaccination).occurrence ==
+                    (covCertificate.dgcEntry as Recovery).firstResult
+            }
 
     public fun showRevokedNotification(): Boolean =
         certificates.any { !it.hasSeenRevokedNotification && it.status == CertValidationResult.Revoked }
