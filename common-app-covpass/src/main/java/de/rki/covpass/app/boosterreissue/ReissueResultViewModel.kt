@@ -56,7 +56,10 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
                 action = action
             ).certificate
 
-            val covCertificate = qrCoder.decodeCovCert(qrContent = reissuedCertificate, allowExpiredCertificates = true)
+            val covCertificate = qrCoder.decodeCovCert(
+                qrContent = reissuedCertificate,
+                allowExpiredCertificates = true
+            )
 
             CovPassCertificateStorageHelper.addNewCertificate(
                 certRepository.certs,
@@ -65,9 +68,10 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
             )?.let { groupedCertificateId ->
                 certRepository.certs.update { groupedCertificateList ->
                     if (reissueType == ReissueType.Booster) {
-                        groupedCertificateList.certificates.find { it.id == groupedCertificateId }?.finishedReissued(
-                            listCertIds.first()
-                        )
+                        groupedCertificateList.certificates.find { it.id == groupedCertificateId }
+                            ?.finishedReissued(
+                                listCertIds.first()
+                            )
                     }
                 }
                 eventNotifier {
@@ -78,9 +82,12 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
     }
 
     fun deleteOldCertificate(certId: String) {
-        certRepository.certs.value.deleteCovCertificate(certId).let {
-            eventNotifier {
-                onDeleteOldCertificateFinish()
+        launch {
+            certRepository.certs.update {
+                it.deleteCovCertificate(certId)
+                eventNotifier {
+                    onDeleteOldCertificateFinish()
+                }
             }
         }
     }
