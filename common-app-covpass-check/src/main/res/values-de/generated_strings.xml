@@ -63,7 +63,7 @@
 	<string name="validation_start_screen_scan_title_2G">2G+ prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie einen G-Nachweis nach den 3G-Regeln. Welche Regelung gilt, ist abhängig vom Bundesland in dem Sie sich befinden.</string>
 	<string name="validation_start_screen_scan_message_2G">Scannen Sie nacheinander die notwendigen Nachweise für 2G+.</string>
-	<string name="validation_start_screen_scan_message_2G_toggle">Bei Auffrischungsimpfungen ist kein Test nötig</string>
+	<string name="validation_start_screen_scan_message_2G_toggle">Bei Auffrischimpfungen ist kein Test nötig</string>
 	<string name="validation_start_screen_scan_sync_message_title">Datum und Uhrzeit prüfen</string>
 	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Smartphones. \n\n Soll: %s</string>
 	<string name="accessibility_scan_result_announce">Überprüfungsergebnis wird angezeigt</string>
@@ -146,14 +146,14 @@
 	<string name="accessibility_scan_result_closing_announce_2G">Die Ansicht Überprüfungsergebnis für 2G+ wurde geschlossen</string>
 	<string name="result_2G_title">Prüfung 2G+</string>
 	<string name="result_2G_close">Schließen</string>
-	<string name="result_2G_footnote">* Grundimmunisierung, Auffrischungsimpfung oder Genesung</string>
+	<string name="result_2G_footnote">* Grundimmunisierung, Auffrischimpfung oder Genesung</string>
 	<string name="result_2G_button_scan_test">Testzertifikat scannen</string>
 	<string name="result_2G_button_scan_gproof">2G-Nachweis scannen</string>
 	<string name="result_2G_button_retry">Nochmal versuchen</string>
 	<string name="result_2G_button_startover">Neue Prüfung</string>
 	<string name="result_2G_gproof_empty">2G-Nachweis*</string>
 	<string name="result_2G_gproof_valid">2G-Nachweis gültig*</string>
-	<string name="result_2G_booster_valid">Auffrischungsimpfung gültig</string>
+	<string name="result_2G_booster_valid">Auffrischimpfung gültig</string>
 	<string name="result_2G_gproof_invalid">2G-Nachweis ungültig*</string>
 	<string name="result_2G_test_empty">Testzertifikat</string>
 	<string name="result_2G_test_invalid">Testzertifikat ungültig</string>
@@ -162,7 +162,7 @@
 	<string name="result_2G_empty_subtitle">Noch nicht geprüft</string>
 	<string name="result_2G_2nd_recovery_valid">Genesung</string>
 	<string name="result_2G_2nd_basic_valid">Grundimmunisierung</string>
-	<string name="result_2G_2nd_booster_valid">Auffrischungsimpfung</string>
+	<string name="result_2G_2nd_booster_valid">Auffrischimpfung</string>
 	<string name="result_2G_2nd_rapidtest_valid">Negativer Schnelltest</string>
 	<string name="result_2G_2nd_pcrtest_valid">Negativer PCR-Test</string>
 	<string name="result_2G_2nd_empty">Kann für 2G+ notwendig sein</string>
@@ -172,7 +172,7 @@
 	<string name="result_2G_3rd_test_vacc_empty">Test oder Impfung*</string>
 	<string name="result_2G_3rd_test_recov_empty">Test oder Genesung</string>
 	<string name="result_2G_3rd_vacc_recov_empty">Impfung* oder Genesung</string>
-	<string name="result_2G__3rd_footnote">* Erwartet Grundimmunisierung oder Auffrischungsimpfung</string>
+	<string name="result_2G__3rd_footnote">* Erwartet Grundimmunisierung oder Auffrischimpfung</string>
 	<string name="result_2G__3rd_button">Zweites Zertifikat scannen</string>
 	<string name="accessibility_warning_2G_names_announce_open">Fehlermeldung \"Abweichende Daten\" wurde geöffnet</string>
 	<string name="accessibility_warning_2G_names_announce_close">Fehlermeldung \"Abweichende Daten\" wurde geschlossen</string>
