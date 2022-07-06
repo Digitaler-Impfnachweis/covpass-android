@@ -188,6 +188,8 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
                 }
             } catch (e: IllegalStateException) {
                 continue
+            } catch (e: IllegalArgumentException) {
+                continue
             }
         }
         return list
