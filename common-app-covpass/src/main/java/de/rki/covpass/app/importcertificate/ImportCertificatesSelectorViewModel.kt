@@ -7,6 +7,7 @@ package de.rki.covpass.app.importcertificate
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.os.ParcelFileDescriptor
 import android.util.DisplayMetrics
@@ -110,6 +111,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
                         displayMetrics.densityDpi * page.height / DEFAULT_PDF_RESOLUTION,
                         Bitmap.Config.ARGB_8888
                     )
+                    bitmap.eraseColor(Color.WHITE)
 
                     page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
 
