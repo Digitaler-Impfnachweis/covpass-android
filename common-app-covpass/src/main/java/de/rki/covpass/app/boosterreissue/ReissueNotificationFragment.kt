@@ -32,7 +32,10 @@ public class ReissueNotificationFragmentNav(
     public val listCertIds: List<String>
 ) : FragmentNav(ReissueNotificationFragment::class)
 
-public class ReissueNotificationFragment : ReissueBaseFragment(), DialogListener, ReissueNotificationEvents {
+public class ReissueNotificationFragment :
+    ReissueBaseFragment(),
+    DialogListener,
+    ReissueNotificationEvents {
 
     private val binding by viewBinding(ReissueNotificationPopupContentBinding::inflate)
     private val viewModel by reactiveState { ReissueNotificationViewModel(scope, args.listCertIds) }
@@ -65,8 +68,13 @@ public class ReissueNotificationFragment : ReissueBaseFragment(), DialogListener
             }
         )
 
-        combinedCovCertificate?.covCertificate?.let {
-            binding.reissueNotificationCertificateDataElement.showCertificate(it)
+        ReissueContentAdapter(this).apply {
+            combinedCovCertificate?.let {
+                it.toDetailItemCertificate()?.let { certificate ->
+                    updateList(listOf(certificate))
+                }
+            }
+            attachTo(binding.reissueNotificationCertificateList)
         }
         binding.reissueNotificationNote.setText(
             when (args.reissueType) {
