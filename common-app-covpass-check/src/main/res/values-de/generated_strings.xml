@@ -193,7 +193,7 @@
 	<string name="error_2G_unexpected_type_old_recovery_copy">Um 2G+ mit einem Genesenenzertifikat, das älter als 90 Tage ist, zu erfüllen, müssen Sie als zweiten Nachweis eine Grundimmunisierung scannen.</string>
 	<string name="error_2G_unexpected_type_old_recovery_button">OK</string>
 
-	<!-- SECTION: app information -->
+	<!-- SECTION: Settings -->
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPassCheck-App.</string>
@@ -223,16 +223,21 @@
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
-	<string name="app_information_message_update">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="app_information_message_update">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln. Diese Listen aktualisieren sich im Online-Modus täglich automatisch.</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
 	<string name="app_information_message_update_certificates">Liste der Zertifikatsaussteller: %s</string>
 	<string name="app_information_message_update_rules">Prüfregeln: %s</string>
 	<string name="app_information_message_update_button">Aktualisieren</string>
 	<string name="accessibility_app_information_update_back">Zurück</string>
+	<string name="accessibility_app_information_checking_rules_open">Die Ansicht \"Prüfregeln\" wurde geöffnet</string>
+	<string name="accessibility_app_information_checking_rules_close">Die Ansicht \"Prüfregeln\" wurde geschlossen</string>
+	<string name="app_information_title_checkrules">Prüfregeln</string>
+	<string name="app_information_offline_revocation_title">Gesperrte Zertifikate offline prüfen</string>
+	<string name="app_information_offline_revocation_copy"> Aktivieren Sie diese Einstellung, wenn Sie auch im Offline-Modus von den Behörden gesperrte Zertifikate erkennen möchten. Andernfalls werden gesperrte Zertifikate nur im Online-Modus erkannt. Diese Funktion verbraucht mehr Datenvolumen.</string>
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_local_rules">Die Ansicht \"Prüfsituation\" wurde geöffnet</string>
-	<string name="app_information_title_local_rules">Prüfsituation</string>
+	<string name="app_information_title_local_rules">Regelwerk</string>
 	<string name="app_information_title_local_rules_button">Übernehmen</string>
 	<string name="app_information_title_local_rules_status_DE">Innerhalb DE</string>
 	<string name="app_information_title_local_rules_status_EU">Einreise</string>

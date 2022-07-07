@@ -113,13 +113,13 @@
 	<string name="certificate_add_error_maximum_button_3">OK</string>
 	<string name="accessibility_scan_success_announce">Zertifikat von %s wurde erfolgreich hinzugefügt</string>
 	<string name="accessibility_certificate_add_popup_image">Bild: Person hält das Smartphone über drei unterschiedliche Zertifikate mit QR-Code</string>
-	<string name="certificate_add_popup_title">QR-Code scannen</string>
+	<string name="certificate_add_popup_title">Zertifikat hinzufügen</string>
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
 	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, einen Code zum Entsperren Ihres Smartphones einzurichten.</string>
-	<string name="certificate_add_popup_message">Scannen Sie den QR-Code von einem digitalen COVID-Zertifikat der EU. Der Nachweis wird direkt in die CovPass-App übertragen.\n\nZu Buchungszwecken (z. B. Flug und Hotel) können Sie Ihr hinzugefügtes COVID-Zertifikat online an den Anbieter übermitteln. Scannen Sie dazu den QR-Code, der bei der Buchung angezeigt wird.</string>
+	<string name="certificate_add_popup_message">Scannen Sie im folgenden Schritt den QR-Code von einem digitalen COVID-Zertifikat der EU oder laden Sie dieses als Foto oder PDF-Datei hoch. Der Nachweis wird dann direkt in die CovPass-App übertragen.</string>
 	<string name="certificate_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
 	<string name="certificate_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
-	<string name="certificate_add_popup_scan_button_title">QR-Code scannen</string>
+	<string name="certificate_add_popup_scan_button_title">Zertifikat hinzufügen</string>
 	<string name="certificate_add_dialog_camera_access_title">Kamerazugriff benötigt</string>
 	<string name="certificate_add_dialog_camera_access_message">Die CovPass-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
 	<string name="certificate_add_dialog_camera_access_action_button">Zugriff erlauben</string>
