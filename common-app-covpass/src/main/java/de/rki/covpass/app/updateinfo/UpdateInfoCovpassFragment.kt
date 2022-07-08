@@ -22,7 +22,7 @@ public class UpdateInfoCovpassFragmentNav : FragmentNav(UpdateInfoCovpassFragmen
 
 public class UpdateInfoCovpassFragment : UpdateInfoFragment() {
     override val updateInfoPath: Int = R.string.update_info_path
-    override val updateInfoButton: Int = R.string.vaccination_fourth_onboarding_page_button_title
+    override val updateInfoButton: Int = R.string.dialog_update_info_notification_action_button
 
     override fun onActionButtonClicked() {
         launchWhenStarted {
