@@ -158,13 +158,25 @@ internal class DetailFragment :
                     is Vaccination -> {
                         when (dgcEntry.type) {
                             VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                                val isJanssenFullProtection =
+                                    dgcEntry.isJanssen && dgcEntry.doseNumber == 2
                                 val title = when (certStatus) {
                                     CertValidationResult.Expired ->
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(R.string.vaccination_certificate_overview_complete_title)
+                                        if (
+                                            dgcEntry.isBooster &&
+                                            !isJanssenFullProtection &&
+                                            !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(
+                                                mainCertificate.covCertificate
+                                            )
+                                        ) {
+                                            getString(R.string.certificate_type_booster)
+                                        } else {
+                                            getString(R.string.vaccination_certificate_overview_complete_title)
+                                        }
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
