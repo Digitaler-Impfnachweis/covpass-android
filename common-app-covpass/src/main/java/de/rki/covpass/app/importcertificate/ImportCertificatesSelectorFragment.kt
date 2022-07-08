@@ -16,6 +16,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ImportCertificateSelectorPopupContentBinding
+import de.rki.covpass.app.errorhandling.ErrorHandler.Companion.TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED
 import de.rki.covpass.app.uielements.TripleStateCheckBox.Companion.CHECKED
 import de.rki.covpass.app.uielements.TripleStateCheckBox.Companion.INDETERMINATE
 import de.rki.covpass.app.uielements.TripleStateCheckBox.Companion.UNCHECKED
@@ -170,7 +171,9 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        findNavigator().pop()
+        if (tag != TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED) {
+            findNavigator().pop()
+        }
     }
 
     private fun fillInfoElement() {
