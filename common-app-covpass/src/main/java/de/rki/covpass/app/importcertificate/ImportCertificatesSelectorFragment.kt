@@ -87,6 +87,8 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
             findNavigator().popAll()
         } else {
             adapter?.getSelectedItems()?.let {
+                binding.recyclerViewCertificateList.isVisible = false
+                binding.layoutAllCertificateInfo.isVisible = false
                 viewModel.addCertificates(it)
             }
         }
