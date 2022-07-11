@@ -602,7 +602,7 @@
 	<string name="error_scan_qrcode_without_seal_message">Möglicherweise wurde das Zertifikat von einer nicht autorisierten Einrichtung erstellt oder die App ist nicht auf dem aktuellen Stand. Im zuletzt genannten Fall stellen Sie eine Verbindung mit dem Internet her und versuchen Sie es später erneut.</string>
 	<string name="error_scan_qrcode_without_seal_button_title">OK</string>
 	<string name="error_validity_check_certificates_title">Überprüfen Sie die Gültigkeit Ihrer Zertifikate</string>
-	<string name="error_validity_check_certificates_message">Wenn Sie dieses Zertifikat in der App erneuern können, erhalten Sie eine Benachrichtigung.Mehr Informationen zum Austausch von abgelaufenen Zertifikaten finden Sie in unseren FAQs.</string>
+	<string name="error_validity_check_certificates_message">Wenn Sie dieses Zertifikat in der App erneuern können, erhalten Sie eine Benachrichtigung. Mehr Informationen zum Austausch von abgelaufenen Zertifikaten finden Sie in unseren FAQs.</string>
 	<string name="error_validity_check_certificates_button_title">OK</string>
 
 	<!-- SECTION: dialog: duplicate certificate -->
