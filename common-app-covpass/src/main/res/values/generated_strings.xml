@@ -158,8 +158,8 @@
 	<string name="file_import_success_title">Import successful</string>
 	<string name="file_import_success_copy">You can now continue to use your certificate(s) as usual.</string>
 	<string name="file_import_success_button">OK</string>
-	<string name="file_import_error_maximum_title">Maximum number of certificates exceeded</string>
-	<string name="file_import_error_maximum_copy">The selected file either has too many pages or contains certificates for more than 20 different people. Try to reduce the number of pages.</string>
+	<string name="file_import_error_maximum_title">Too many people</string>
+	<string name="file_import_error_maximum_copy">You can store certificates of up to 20 people in the app. The import exceeds this maximum number of people. Please adjust the selected file or delete certificates already imported into the app that are no longer needed.</string>
 	<string name="file_import_error_maximum_button">OK</string>
 	<string name="file_import_error_access_title">The file could not be read</string>
 	<string name="file_import_error_access_copy">The selected file may be corrupted, or password protected. Please select another file.</string>
