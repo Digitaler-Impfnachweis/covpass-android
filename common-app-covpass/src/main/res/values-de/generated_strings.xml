@@ -158,8 +158,8 @@
 	<string name="file_import_success_title">Import erfolgreich</string>
 	<string name="file_import_success_copy">Sie können Ihr(e) Zertifikat(e) nun weiterhin wie gewohnt nutzen.</string>
 	<string name="file_import_success_button">OK</string>
-	<string name="file_import_error_maximum_title">Maximale Anzahl an Zertifikaten überschritten</string>
-	<string name="file_import_error_maximum_copy">Die gewählte Datei hat entweder zu viele Seiten oder beinhaltet Zertifikate für mehr als 20 unterschiedliche Personen. Versuchen Sie die Seitenzahl zu reduzieren.</string>
+	<string name="file_import_error_maximum_title">Zu viele Personen</string>
+	<string name="file_import_error_maximum_copy">Sie können in der App Zertifikate von bis zu 20 Personen speichern. Der Import übersteigt diese maximale Personenzahl. Bitte passen Sie die ausgewählte Datei an oder löschen Sie bereits in die App importierte Zertifikate, die nicht mehr benötigt werden.</string>
 	<string name="file_import_error_maximum_button">OK</string>
 	<string name="file_import_error_access_title">Die Datei konnte nicht gelesen werden</string>
 	<string name="file_import_error_access_copy">Die gewählte Datei ist möglicherweise beschädigt oder passwortgeschützt. Bitte wählen Sie eine andere Datei aus.</string>
