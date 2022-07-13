@@ -173,8 +173,14 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag != TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED) {
-            findNavigator().pop()
+        when (tag) {
+            TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED -> {
+                binding.recyclerViewCertificateList.isVisible = true
+                binding.layoutAllCertificateInfo.isVisible = true
+            }
+            else -> {
+                findNavigator().pop()
+            }
         }
     }
 
