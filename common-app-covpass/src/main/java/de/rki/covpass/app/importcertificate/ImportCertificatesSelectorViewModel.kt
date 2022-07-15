@@ -70,9 +70,11 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
                     it.getMainCertificate().covCertificate
                 }.toMutableList()
 
-            list.filter { newCert ->
-                !newCert.isCertificateHolderInList(listOfCertificatesDistinctHolders)
-            }.map { it.covCertificate }.let { listOfCertificatesDistinctHolders.addAll(it) }
+            list.forEach { newCert ->
+                if (!newCert.isCertificateHolderInList(listOfCertificatesDistinctHolders)) {
+                    listOfCertificatesDistinctHolders.add(newCert.covCertificate)
+                }
+            }
 
             if (listOfCertificatesDistinctHolders.size > MAX_NUMBER_OF_HOLDERS) {
                 throw MaxNumberOfHolderExceededException()
@@ -122,7 +124,12 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
                         groupedCertificatesList.certificates.flatMap { it.certificates }
                             .map { it.covCertificate.dgcEntry.id }
                     val filteredNewCovCertificates =
-                        newCovCertificates.filter { !listOfIdInTheApp.contains(it.covCertificate.dgcEntry.id) }
+                        newCovCertificates.filter { importCovCertificate ->
+                            !listOfIdInTheApp.contains(importCovCertificate.covCertificate.dgcEntry.id) &&
+                                qrContentList.none {
+                                    it.covCertificate.dgcEntry.id == importCovCertificate.covCertificate.dgcEntry.id
+                                }
+                        }
                     qrContentList.addAll(filteredNewCovCertificates)
                     page.close()
                     if (qrContentList.size >= MAX_SIZE_QR_CONTENT_LIST) {
