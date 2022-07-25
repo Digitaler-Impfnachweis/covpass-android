@@ -192,6 +192,7 @@
 	<string name="error_2G_unexpected_type_old_recovery_title">Wrong certificate type</string>
 	<string name="error_2G_unexpected_type_old_recovery_copy">To meet the 2G+ requirements with a recovery older than 90 days, you need to scan a basic immunisation as a second proof.</string>
 	<string name="error_2G_unexpected_type_old_recovery_button">OK</string>
+	<string name="result_countdown">This view closes in %d seconds.</string>
 
 	<!-- SECTION: Settings -->
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>

@@ -192,6 +192,7 @@
 	<string name="error_2G_unexpected_type_old_recovery_title">Falscher Zertifikatstyp</string>
 	<string name="error_2G_unexpected_type_old_recovery_copy">Um 2G+ mit einem Genesenenzertifikat, das älter als 90 Tage ist, zu erfüllen, müssen Sie als zweiten Nachweis eine Grundimmunisierung scannen.</string>
 	<string name="error_2G_unexpected_type_old_recovery_button">OK</string>
+	<string name="result_countdown">Diese Ansicht schließt sich in %d Sekunden.</string>
 
 	<!-- SECTION: Settings -->
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>

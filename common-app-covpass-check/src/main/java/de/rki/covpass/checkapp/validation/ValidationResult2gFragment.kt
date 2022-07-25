@@ -55,6 +55,8 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
         super.onViewCreated(view, savedInstanceState)
 
         prepareView()
+
+        startTimer()
     }
 
     private fun prepareView() {

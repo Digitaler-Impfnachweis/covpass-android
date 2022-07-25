@@ -40,6 +40,8 @@ public class ValidationResult2gPlusBBoosterFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         prepareView()
+
+        startTimer()
     }
 
     private fun prepareView() {

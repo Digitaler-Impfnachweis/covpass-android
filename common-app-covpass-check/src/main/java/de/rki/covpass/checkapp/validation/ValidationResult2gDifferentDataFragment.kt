@@ -84,6 +84,8 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
         binding.validationResultDifferentDataValidDifferenceTitle.isVisible = !args.dateDifferent
         binding.validationResultDifferentDataValidDifferenceText.isVisible = !args.dateDifferent
         binding.validationResultDifferentDataValidDifferenceButton.isVisible = !args.dateDifferent
+
+        startTimer()
     }
 
     private fun tryAgainAndBackEvent() {

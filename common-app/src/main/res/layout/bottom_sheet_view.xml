@@ -85,6 +85,7 @@
       android:background="@drawable/common_gradient_fadeout"
       android:paddingStart="@dimen/grid_two"
       android:paddingEnd="@dimen/grid_two"
+      android:paddingBottom="@dimen/grid_two"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent">
@@ -93,10 +94,9 @@
         android:id="@+id/bottom_sheet_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/grid_two"
         app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_extra_button_layout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginBottom="@dimen/grid_four">
+        app:layout_goneMarginBottom="@dimen/grid_two">
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/bottom_sheet_action_button"
@@ -129,11 +129,10 @@
         android:id="@+id/bottom_sheet_extra_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/grid_three"
+        android:layout_marginBottom="@dimen/grid_two"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_bottom_layout"
-        app:layout_goneMarginBottom="@dimen/grid_four">
+        app:layout_constraintBottom_toTopOf="@+id/bottom_sheet_countdown"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_bottom_layout">
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/bottom_sheet_second_white_button_with_border"
@@ -160,6 +159,19 @@
           tools:visibility="visible" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <TextView
+        android:id="@+id/bottom_sheet_countdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_extra_button_layout"
+        tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

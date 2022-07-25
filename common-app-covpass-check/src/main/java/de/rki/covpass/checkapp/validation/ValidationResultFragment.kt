@@ -128,6 +128,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             },
             descriptionStyle = R.style.Header_Info_Small
         )
+        startTimer()
     }
 
     override fun onBackPressed(): Abortable {

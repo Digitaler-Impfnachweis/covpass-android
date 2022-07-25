@@ -96,4 +96,6 @@
 
   <string name="accessibility_image_alternative_text"/>
 
+  <string name="result_countdown"/>
+
 </resources>
