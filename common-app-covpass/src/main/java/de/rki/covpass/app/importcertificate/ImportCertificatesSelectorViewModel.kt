@@ -22,7 +22,7 @@ import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.revocation.RevocationListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.validateRevocation
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.utils.DataComparison
@@ -43,7 +43,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
     scope: CoroutineScope,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val certRepository: CertRepository = covpassDeps.certRepository,
-    private val revocationListRepository: RevocationListRepository = sdkDeps.revocationListRepository,
+    private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
 ) : BaseReactiveState<ImportCertificatesEvents>(scope) {
 
     fun getQrCodes(fileDescriptor: ParcelFileDescriptor?, isPDF: Boolean, displayMetrics: DisplayMetrics) {
@@ -187,7 +187,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent, allowExpiredCertificates = true)
                 validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
-                if (!validateRevocation(covCertificate, revocationListRepository)) {
+                if (!validateRevocation(covCertificate, revocationRemoteListRepository)) {
                     list.add(ImportCovCertificate(covCertificate, qrContent))
                 }
                 if (list.size >= maxQrContent) {

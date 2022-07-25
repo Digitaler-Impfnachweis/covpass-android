@@ -7,7 +7,7 @@ package de.rki.covpass.checkapp.validitycheck
 
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.models.CovCertificate
-import de.rki.covpass.sdk.revocation.RevocationListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.validateRevocation
 import dgca.verifier.app.engine.Result
 
@@ -20,7 +20,7 @@ public enum class CovPassCheckValidationResult {
 public suspend fun validate(
     covCertificate: CovCertificate,
     covPassRulesValidator: CovPassRulesValidator,
-    revocationListRepository: RevocationListRepository,
+    revocationRemoteListRepository: RevocationRemoteListRepository,
     recoveryOlder90DaysValid: Boolean = false
 ): CovPassCheckValidationResult {
     val validationResults = covPassRulesValidator.validate(covCertificate)
@@ -34,7 +34,7 @@ public suspend fun validate(
             }
         }
     }
-    if (validateRevocation(covCertificate, revocationListRepository)) {
+    if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
         return CovPassCheckValidationResult.TechnicalError
     }
     return CovPassCheckValidationResult.Success

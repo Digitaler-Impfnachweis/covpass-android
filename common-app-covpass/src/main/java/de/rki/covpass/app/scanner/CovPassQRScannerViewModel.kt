@@ -17,7 +17,7 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.revocation.RevocationListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.validateRevocation
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
@@ -40,7 +40,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
     scope: CoroutineScope,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val certRepository: CertRepository = covpassDeps.certRepository,
-    private val revocationListRepository: RevocationListRepository = sdkDeps.revocationListRepository,
+    private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
 ) : BaseReactiveState<CovPassQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
@@ -53,7 +53,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
             } catch (e: SerializationException) {
                 val covCertificate = qrCoder.decodeCovCert(qrContent, allowExpiredCertificates = true)
                 validateEntity(covCertificate.dgcEntry.idWithoutPrefix)
-                if (validateRevocation(covCertificate, revocationListRepository)) {
+                if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
                     if (covCertificate.isGermanCertificate) {
                         throw RevokedCertificateGermanCertificateException()
                     } else {

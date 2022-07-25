@@ -101,6 +101,18 @@ public fun Instant?.toISO8601orEmpty(): String {
     }
 }
 
+/**
+ * Format used in "If-Modified-Since" header
+ */
+public fun Instant?.toRFC1123OrEmpty(): String {
+    val formatter = DateTimeFormatter.RFC_1123_DATE_TIME
+    return if (this != null) {
+        ZonedDateTime.ofInstant(this, ZoneId.of("UTC")).format(formatter)
+    } else {
+        ""
+    }
+}
+
 public fun Instant?.toZonedDateTimeOrDefault(defaultEpochMilli: Long): ZonedDateTime =
     (this ?: Instant.ofEpochMilli(defaultEpochMilli)).atZone(ZoneOffset.UTC)
 

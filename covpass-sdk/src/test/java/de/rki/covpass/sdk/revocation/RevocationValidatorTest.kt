@@ -20,7 +20,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     private val id = "URN:UVCI:V1:DE:MNI5SHBAVDC5JWF0WI63I5IQ68"
     private val issuer = "DE"
     private val cert: CovCertificate = mockk()
-    private val revocationListRepository: RevocationListRepository = mockk()
+    private val revocationRemoteListRepository: RevocationRemoteListRepository = mockk()
     private val kidList = listOf(
         RevocationKidEntry(
             "ea3ab2264f346d45".decodeHexToByteArray(),
@@ -113,60 +113,60 @@ internal class RevocationValidatorTest : CoroutineTest() {
         coEvery { cert.issuer } returns issuer
 
         // revocationListRepository
-        coEvery { revocationListRepository.getKidList() } returns kidList
-        coEvery { revocationListRepository.getIndex(any(), any()) } returns indexList
-        coEvery { revocationListRepository.getByteOneChunk(any(), any(), any()) } returns chunkListByte1
-        coEvery { revocationListRepository.getByteTwoChunk(any(), any(), any(), any()) } returns chunkListByte2
+        coEvery { revocationRemoteListRepository.getKidList() } returns kidList
+        coEvery { revocationRemoteListRepository.getIndex(any(), any()) } returns indexList
+        coEvery { revocationRemoteListRepository.getByteOneChunk(any(), any(), any()) } returns chunkListByte1
+        coEvery { revocationRemoteListRepository.getByteTwoChunk(any(), any(), any(), any()) } returns chunkListByte2
     }
 
     @Test
     fun `test empty kid list revocation`() = runBlockingTest {
 
         coEvery {
-            revocationListRepository.getKidList()
+            revocationRemoteListRepository.getKidList()
         } returns emptyList()
-        assertFalse(validateRevocation(cert, revocationListRepository))
+        assertFalse(validateRevocation(cert, revocationRemoteListRepository))
     }
 
     @Test
     fun `test empty index list revocation`() = runBlockingTest {
 
         coEvery {
-            revocationListRepository.getIndex(any(), any())
+            revocationRemoteListRepository.getIndex(any(), any())
         } returns emptyMap()
-        assertFalse(validateRevocation(cert, revocationListRepository))
+        assertFalse(validateRevocation(cert, revocationRemoteListRepository))
     }
 
     @Test
     fun `test empty chunk one and two list revocation`() = runBlockingTest {
         coEvery {
-            revocationListRepository.getByteOneChunk(any(), any(), any())
+            revocationRemoteListRepository.getByteOneChunk(any(), any(), any())
         } returns emptyList()
         coEvery {
-            revocationListRepository.getByteTwoChunk(any(), any(), any(), any())
+            revocationRemoteListRepository.getByteTwoChunk(any(), any(), any(), any())
         } returns emptyList()
-        assertFalse(validateRevocation(cert, revocationListRepository))
+        assertFalse(validateRevocation(cert, revocationRemoteListRepository))
     }
 
     @Test
     fun `test empty chunk one list revocation`() = runBlockingTest {
         coEvery {
-            revocationListRepository.getByteOneChunk(any(), any(), any())
+            revocationRemoteListRepository.getByteOneChunk(any(), any(), any())
         } returns emptyList()
-        assertTrue(validateRevocation(cert, revocationListRepository))
+        assertTrue(validateRevocation(cert, revocationRemoteListRepository))
     }
 
     @Test
     fun `test empty chunk two list revocation`() = runBlockingTest {
         coEvery {
-            revocationListRepository.getByteTwoChunk(any(), any(), any(), any())
+            revocationRemoteListRepository.getByteTwoChunk(any(), any(), any(), any())
         } returns emptyList()
-        assertTrue(validateRevocation(cert, revocationListRepository))
+        assertTrue(validateRevocation(cert, revocationRemoteListRepository))
     }
 
     @Test
     fun `test full revocation`() = runBlockingTest {
-        assertTrue(validateRevocation(cert, revocationListRepository))
+        assertTrue(validateRevocation(cert, revocationRemoteListRepository))
     }
 
     private fun String.decodeHexToByteArray(): ByteArray {

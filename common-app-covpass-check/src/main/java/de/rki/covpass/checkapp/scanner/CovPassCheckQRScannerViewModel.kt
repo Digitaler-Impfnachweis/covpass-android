@@ -19,7 +19,7 @@ import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.revocation.RevocationListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import kotlinx.coroutines.CoroutineScope
 import java.time.ZonedDateTime
 
@@ -41,7 +41,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
-    private val revocationListRepository: RevocationListRepository = sdkDeps.revocationListRepository,
+    private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
     private val checkContextRepository: CheckContextRepository = commonDeps.checkContextRepository,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
@@ -57,7 +57,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     validate(
                         covCertificate,
                         getRuleValidator(),
-                        revocationListRepository,
+                        revocationRemoteListRepository,
                         recoveryOlder90DaysValid.value
                     )
                 ) {

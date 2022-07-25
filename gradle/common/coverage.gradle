@@ -71,7 +71,9 @@ ext.trackCoverage = { args = [:] ->
             '**/*Database.*',
             '**/*Dao.*',
             '**/*Dao_Impl.*',
-            '**/*Database_Impl.*'
+            '**/*Database_Impl.*',
+            // ignore sdkDependencies
+            '**/SdkDependencies.*'
         ]
         if (!config.trackUI) {
             fileFilter.addAll([

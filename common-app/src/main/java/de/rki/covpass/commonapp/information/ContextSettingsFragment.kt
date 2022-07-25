@@ -3,6 +3,7 @@ package de.rki.covpass.commonapp.information
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.attachToolbar
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -10,6 +11,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.CheckContextSettingsBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -22,11 +24,16 @@ public class ContextSettingsFragment : BaseFragment() {
 
     private val binding by viewBinding(CheckContextSettingsBinding::inflate)
 
+    private val revocationListUpdateViewModel by reactiveState {
+        RevocationListUpdateViewModel(scope)
+    }
+
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_local_rules
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
+        setupOfflineMode()
         val isDomesticRulesOn = commonDeps.checkContextRepository.isDomesticRulesOn.value
         binding.checkContextSettingsNote.setText(R.string.check_context_onboarding_footnote)
         binding.checkContextSettingsEuCheckbox.apply {
@@ -73,6 +80,16 @@ public class ContextSettingsFragment : BaseFragment() {
                 setHomeActionContentDescription(R.string.accessibility_app_information_contact_label_back)
             }
             binding.informationToolbar.setTitle(R.string.app_information_title_local_rules)
+        }
+    }
+
+    private fun setupOfflineMode() {
+        binding.checkContextOfflineModeTitle.setText(R.string.app_information_offline_revocation_title)
+        binding.checkContextOfflineModeNote.setText(R.string.app_information_offline_revocation_copy)
+        binding.checkContextOfflineModeSwitchTitle.setText(R.string.app_information_offline_revocation_title)
+        binding.checkContextOfflineModeSwitch.isChecked = revocationListUpdateViewModel.offlineModeState
+        binding.checkContextOfflineModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            revocationListUpdateViewModel.offlineModeState = isChecked
         }
     }
 }

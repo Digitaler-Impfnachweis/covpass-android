@@ -21,7 +21,7 @@ import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.cert.BoosterRulesValidator
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.revocation.RevocationListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.validateRevocation
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.utils.DescriptionLanguage
@@ -39,7 +39,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator,
     private val covpassDependencies: CovpassDependencies = covpassDeps,
     private val commonDependencies: CommonDependencies = commonDeps,
-    private val revocationListRepository: RevocationListRepository = sdkDeps.revocationListRepository
+    private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository
 ) : BaseReactiveState<NotificationEvents>(scope) {
 
     // prevent the import to be done more than one time
@@ -149,13 +149,13 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     }
 
     private suspend fun validateRevokedCertificates(): Boolean {
-        if (!revocationListRepository.lastRevocationValidation.value.isBeforeUpdateInterval()) {
+        if (!revocationRemoteListRepository.lastRevocationValidation.value.isBeforeUpdateInterval()) {
             return false
         }
         val listRevokedCertificates = mutableListOf<String>()
         certRepository.certs.value.certificates.forEach { groupedCertificates ->
             groupedCertificates.certificates.forEach {
-                if (validateRevocation(it.covCertificate, revocationListRepository)) {
+                if (validateRevocation(it.covCertificate, revocationRemoteListRepository)) {
                     listRevokedCertificates.add(it.covCertificate.dgcEntry.id)
                 }
             }
@@ -174,7 +174,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }.toMutableList()
             }
         }
-        revocationListRepository.updateLastRevocationValidation()
+        revocationRemoteListRepository.updateLastRevocationValidation()
         return certRepository.certs.value.certificates.any { it.showRevokedNotification() }
     }
 

@@ -78,6 +78,11 @@
   <string name="revocation_headline"/>
   <string name="revocation_toggle_text"/>
   <string name="accessibility_revocation_settings_page_announce"/>
+  <string name="app_information_offline_revocation_title"/>
+  <string name="app_information_offline_revocation_copy"/>
+  <string name="validation_start_screen_offline_modus_note_update"/>
+  <string name="validation_start_screen_offline_modus_certificates"/>
+  <string name="validation_start_screen_offline_modus_rules"/>
 
   <string name="dialog_start_screen_title"/>
   <string name="dialog_start_screen_message"/>

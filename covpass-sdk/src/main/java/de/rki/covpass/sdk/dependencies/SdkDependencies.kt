@@ -23,7 +23,9 @@ import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
 import de.rki.covpass.sdk.reissuing.ReissuingApiService
 import de.rki.covpass.sdk.reissuing.ReissuingRepository
-import de.rki.covpass.sdk.revocation.RevocationListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
+import de.rki.covpass.sdk.revocation.RevocationLocalListRepository
+import de.rki.covpass.sdk.revocation.database.RevocationDatabase
 import de.rki.covpass.sdk.rules.*
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import de.rki.covpass.sdk.rules.booster.CovPassBoosterRulesRepository
@@ -149,15 +151,28 @@ public abstract class SdkDependencies {
         RulesUpdateRepository(CborSharedPrefsStore("rules_update_prefs", cbor))
     }
 
-    public val revocationListRepository: RevocationListRepository by lazy {
-        RevocationListRepository(
+    public val revocationRemoteListRepository: RevocationRemoteListRepository by lazy {
+        RevocationRemoteListRepository(
             httpClient,
             revocationListServiceHost,
             CborSharedPrefsStore("revocation_list_prefs", cbor),
             application.cacheDir,
+            revocationListPublicKey,
+            revocationLocalListRepository
+        )
+    }
+
+    public val revocationLocalListRepository: RevocationLocalListRepository by lazy {
+        RevocationLocalListRepository(
+            httpClient,
+            revocationListServiceHost,
+            CborSharedPrefsStore("revocation_list_prefs", cbor),
+            revocationDatabase,
             revocationListPublicKey
         )
     }
+
+    public val revocationDatabase: RevocationDatabase by lazy { createDb("revocation-database") }
 
     public val revocationListPublicKey: PublicKey by lazy {
         application.readPemKeyAsset("covpass-sdk/revocation-list-public-key.pem").first()

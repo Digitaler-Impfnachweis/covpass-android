@@ -11,10 +11,10 @@ import de.rki.covpass.sdk.utils.sha256
 
 public suspend fun validateRevocation(
     covCertificate: CovCertificate,
-    revocationListRepository: RevocationListRepository,
+    revocationRemoteListRepository: RevocationRemoteListRepository,
 ): Boolean {
     val kid = Base64.decode(covCertificate.kid, Base64.DEFAULT)
-    val kidList: List<RevocationKidEntry> = revocationListRepository.getKidList()
+    val kidList: List<RevocationKidEntry> = revocationRemoteListRepository.getKidList()
     if (kidList.isEmpty() || !validateKid(kid, kidList)) {
         return false
     }
@@ -38,7 +38,7 @@ public suspend fun validateRevocation(
 
         val byte1 = hash[0]
         val byte2 = hash[1]
-        val indexRequest = revocationListRepository.getIndex(kid, hashVariant.key)
+        val indexRequest = revocationRemoteListRepository.getIndex(kid, hashVariant.key)
         if (indexRequest.isEmpty() || !indexRequest.containsKey(byte1) ||
             indexRequest[byte1]?.byte2?.containsKey(byte2) == false
         ) {
@@ -46,9 +46,9 @@ public suspend fun validateRevocation(
         }
 
         val chunkListByte1: List<ByteArray> =
-            revocationListRepository.getByteOneChunk(kid, hashVariant.key, byte1)
+            revocationRemoteListRepository.getByteOneChunk(kid, hashVariant.key, byte1)
         val chunkListByte2: List<ByteArray> =
-            revocationListRepository.getByteTwoChunk(kid, hashVariant.key, byte1, byte2)
+            revocationRemoteListRepository.getByteTwoChunk(kid, hashVariant.key, byte1, byte2)
         chunkListByte2.forEach { chunk ->
             if (hash.contentEquals(chunk)) {
                 return true

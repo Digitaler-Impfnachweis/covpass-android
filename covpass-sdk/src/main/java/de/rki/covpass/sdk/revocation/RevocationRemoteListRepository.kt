@@ -7,7 +7,6 @@ package de.rki.covpass.sdk.revocation
 
 import COSE.OneKey
 import COSE.Sign1Message
-import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.upokecenter.cbor.CBORObject
 import de.rki.covpass.sdk.dependencies.defaultJson
@@ -21,21 +20,22 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
+import kotlinx.serialization.Serializable
 import okhttp3.Cache
 import java.io.File
 import java.security.PublicKey
 import java.time.Instant
 
-public class RevocationListRepository(
+public class RevocationRemoteListRepository(
     httpClient: HttpClient,
     host: String,
     store: CborSharedPrefsStore,
     cacheDir: File,
-    private val revocationListPublicKey: PublicKey
+    private val revocationListPublicKey: PublicKey,
+    private val revocationLocalListRepository: RevocationLocalListRepository
 ) {
 
     @Suppress("UNCHECKED_CAST")
-    @OptIn(DependencyAccessor::class)
     private val client = httpClient.config {
         (this as? HttpClientConfig<OkHttpConfig>)?.engine {
             preconfigured = preconfigured?.newBuilder()
@@ -65,13 +65,21 @@ public class RevocationListRepository(
     }
 
     public suspend fun getKidList(): List<RevocationKidEntry> {
-        val cborObject = getSigned("kid.lst")
-        return cborObject?.toKidList() ?: emptyList()
+        return if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
+            revocationLocalListRepository.getSavedKidList().toListOfRevocationKidEntry()
+        } else {
+            val cborObject = getSigned("kid.lst")
+            cborObject?.toKidList() ?: emptyList()
+        }
     }
 
     public suspend fun getIndex(kid: ByteArray, hashType: Byte): Map<Byte, RevocationIndexEntry> {
-        val cborObject = getSigned("${kid.toHex()}${hashType.toHex()}/index.lst")
-        return cborObject?.toIndexResponse() ?: emptyMap()
+        return if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
+            revocationLocalListRepository.getSavedIndex(kid, hashType)
+        } else {
+            val cborObject = getSigned("${kid.toHex()}${hashType.toHex()}/index.lst")
+            cborObject?.toIndexResponse() ?: emptyMap()
+        }
     }
 
     public suspend fun getByteOneChunk(
@@ -79,8 +87,12 @@ public class RevocationListRepository(
         hashType: Byte,
         byte1: Byte
     ): List<ByteArray> {
-        val cborObject = getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/chunk.lst")
-        return cborObject?.toListOfByteArrays() ?: emptyList()
+        return if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
+            revocationLocalListRepository.getSavedByteOneChunk(kid, hashType, byte1)
+        } else {
+            val cborObject = getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/chunk.lst")
+            cborObject?.toListOfByteArrays() ?: emptyList()
+        }
     }
 
     public suspend fun getByteTwoChunk(
@@ -89,16 +101,20 @@ public class RevocationListRepository(
         byte1: Byte,
         byte2: Byte
     ): List<ByteArray> {
-        val cborObject =
-            getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/${byte2.toHex()}/chunk.lst")
-        return cborObject?.toListOfByteArrays() ?: emptyList()
+        return if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
+            revocationLocalListRepository.getSavedByteTwoChunk(kid, hashType, byte1, byte2)
+        } else {
+            val cborObject =
+                getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/${byte2.toHex()}/chunk.lst")
+            cborObject?.toListOfByteArrays() ?: emptyList()
+        }
     }
 
     private suspend fun getSigned(url: String): CBORObject? {
         return try {
             val list: ByteArray = client.get(url)
             val sign1Message = Sign1Message.DecodeFromBytes(list) as Sign1Message
-            validateSignature(sign1Message)
+            validateRevocationSignature(sign1Message)
             CBORObject.DecodeFromBytes(sign1Message.GetContent())
         } catch (e: RevocationListSignatureValidationFailedException) {
             null
@@ -111,45 +127,9 @@ public class RevocationListRepository(
         }
     }
 
-    private fun validateSignature(sign1Message: Sign1Message) {
+    private fun validateRevocationSignature(sign1Message: Sign1Message) {
         if (!sign1Message.validate(OneKey(revocationListPublicKey, null))) {
             throw RevocationListSignatureValidationFailedException()
-        }
-    }
-
-    private fun CBORObject.toListOfByteArrays(): List<ByteArray> {
-        return values.map {
-            it.GetByteString()
-        }
-    }
-
-    private fun CBORObject.toKidList(): List<RevocationKidEntry> {
-        val list = mutableListOf<RevocationKidEntry>()
-        entries.forEach { (key, value) ->
-            list.add(
-                RevocationKidEntry(
-                    key.GetByteString(),
-                    value.entries.associate { (key, value) ->
-                        key.GetByteString().first() to value.AsInt32()
-                    }
-                )
-            )
-        }
-        return list
-    }
-
-    private fun CBORObject.toIndexResponse(): Map<Byte, RevocationIndexEntry> {
-        return entries.associate { (key, value) ->
-            key.GetByteString().first() to RevocationIndexEntry(
-                value[0].AsInt64Value(),
-                value[1].AsInt32(),
-                value[2].entries.associate { (key2, value2) ->
-                    key2.GetByteString().first() to RevocationIndexByte2Entry(
-                        value2[0].AsInt64Value(),
-                        value2[1].AsInt32(),
-                    )
-                },
-            )
         }
     }
 
@@ -178,13 +158,17 @@ public data class RevocationKidEntry(
     }
 }
 
+@Serializable
 public data class RevocationIndexEntry(
     val timestamp: Long?,
     val num: Int?,
     val byte2: Map<Byte, RevocationIndexByte2Entry>?,
 )
 
+@Serializable
 public data class RevocationIndexByte2Entry(
     val timestamp: Long?,
     val num: Int?,
 )
+
+public class NetworkErrorOnOfflineMode : IllegalStateException()
