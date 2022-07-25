@@ -209,30 +209,42 @@ public data class GroupedCertificates(
         return certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is TestCert && dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST &&
-                dgcEntry.sampleCollection?.isOlderThan(PCR_TEST_EXPIRY_TIME_HOURS) == false
+                dgcEntry.sampleCollection?.isOlderThan(PCR_TEST_EXPIRY_TIME_HOURS) == false &&
+                !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
             dgcEntry is TestCert && dgcEntry.type == TestCertType.NEGATIVE_ANTIGEN_TEST &&
-                dgcEntry.sampleCollection?.isOlderThan(ANTIGEN_TEST_EXPIRY_TIME_HOURS) == false
+                dgcEntry.sampleCollection?.isOlderThan(ANTIGEN_TEST_EXPIRY_TIME_HOURS) == false &&
+                !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Vaccination && dgcEntry.isBooster
+            dgcEntry is Vaccination && dgcEntry.isBooster && !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION
+            dgcEntry.type == VaccinationCertType.VACCINATION_FULL_PROTECTION && !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry is Recovery && dgcEntry.validUntil?.isBefore(LocalDate.now()) == false
+            dgcEntry is Recovery && dgcEntry.validUntil?.isBefore(LocalDate.now()) == false &&
+                !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry.type == VaccinationCertType.VACCINATION_COMPLETE
+            dgcEntry.type == VaccinationCertType.VACCINATION_COMPLETE && !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
             val dgcEntry = it.covCertificate.dgcEntry
-            dgcEntry.type == VaccinationCertType.VACCINATION_INCOMPLETE
+            dgcEntry.type == VaccinationCertType.VACCINATION_INCOMPLETE && !it.isExpiredOrRevoked()
         } ?: certificateSortedList.find {
-            it.covCertificate.dgcEntry is Recovery
+            it.covCertificate.dgcEntry is Recovery && !it.isExpiredOrRevoked()
+        } ?: certificateSortedList.find {
+            it.covCertificate.dgcEntry is TestCert && !it.isExpiredOrRevoked()
+        } ?: certificateSortedList.find {
+            it.covCertificate.isExpired()
+        } ?: certificateSortedList.find {
+            it.isRevoked
         } ?: certificateSortedList.first()
     }
+
+    private fun CombinedCovCertificate.isExpiredOrRevoked() =
+        covCertificate.isExpired() || isRevoked || status == CertValidationResult.Invalid
 
     /**
      * @return The [certificates] sorted by the date of adding them. Most recently added one first.
