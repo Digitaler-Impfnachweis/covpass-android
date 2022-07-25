@@ -29,7 +29,6 @@ internal interface CovPassCheckQRScannerDataEvents : BaseEvents {
     fun on3gTechnicalFailure(is2gOn: Boolean = false)
     fun on3gFailure(certificate: CovCertificate? = null, is2gOn: Boolean = false)
     fun showWarning2gUnexpectedType()
-    fun showWarning2gRecoveryOlder90DaysUnexpectedType()
 }
 
 /**
@@ -70,7 +69,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                     }
                 }
                 validateRecoveryOlder90DaysError(certificate) -> {
-                    show2gRecoveryOlder90DaysError()
+                    show2GError()
                 }
                 isNewCertificateValid(certificate) -> {
                     onDataPreparationFinish(
@@ -115,7 +114,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         if (isTwoGPlusOn) {
             when {
                 validateRecoveryOlder90DaysError(certificate) -> {
-                    show2gRecoveryOlder90DaysError()
+                    show2GError()
                 }
                 isNewCertificateValid(certificate) -> {
                     onDataPreparationFinish(
@@ -146,7 +145,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         if (isTwoGPlusOn) {
             when {
                 validateRecoveryOlder90DaysError(certificate) -> {
-                    show2gRecoveryOlder90DaysError()
+                    show2GError()
                 }
                 isNewCertificateValid(certificate) -> {
                     onDataPreparationFinish(
@@ -327,12 +326,6 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
     private fun show2GError() {
         eventNotifier {
             showWarning2gUnexpectedType()
-        }
-    }
-
-    private fun show2gRecoveryOlder90DaysError() {
-        eventNotifier {
-            showWarning2gRecoveryOlder90DaysUnexpectedType()
         }
     }
 

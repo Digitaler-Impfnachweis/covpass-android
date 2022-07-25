@@ -68,7 +68,24 @@ internal class CovPassCheckQRScannerFragment :
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
-        scanEnabled.value = true
+        if (
+            tag == TAG_ERROR_2G_UNEXPECTED_TYPE &&
+            (
+                dataViewModel.firstCertificateData2G != null ||
+                    dataViewModel.secondCertificateData2G != null
+                )
+        ) {
+            dataViewModel.firstCertificateData2G?.let { firstCertificateData2G ->
+                findNavigator().push(
+                    ValidationResult2gFragmentNav(
+                        firstCertificateData2G,
+                        dataViewModel.secondCertificateData2G
+                    )
+                )
+            }
+        } else {
+            scanEnabled.value = true
+        }
     }
 
     override fun onValidationSuccess(certificate: CovCertificate) {
@@ -248,16 +265,6 @@ internal class CovPassCheckQRScannerFragment :
         showDialog(dialog, childFragmentManager)
     }
 
-    override fun showWarning2gRecoveryOlder90DaysUnexpectedType() {
-        val dialog = DialogModel(
-            titleRes = R.string.error_2G_unexpected_type_old_recovery_title,
-            messageString = getString(R.string.error_2G_unexpected_type_old_recovery_copy),
-            positiveButtonTextRes = R.string.error_2G_unexpected_type_old_recovery_button,
-            tag = TAG_ERROR_2G_RECOVERY_OLDER_90_DAYS_UNEXPECTED_TYPE
-        )
-        showDialog(dialog, childFragmentManager)
-    }
-
     override fun showLoading(isLoading: Boolean) {
         super.showLoading(isLoading)
         if (!isLoading) {
@@ -297,7 +304,5 @@ internal class CovPassCheckQRScannerFragment :
 
     private companion object {
         const val TAG_ERROR_2G_UNEXPECTED_TYPE = "tag_error_2g_unexpected_type"
-        const val TAG_ERROR_2G_RECOVERY_OLDER_90_DAYS_UNEXPECTED_TYPE =
-            "tag_error_2g_recovery_older_90_days_unexpected_type"
     }
 }
