@@ -9,6 +9,8 @@ import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.Vaccination
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 public object CertificateReissueUtils {
 
@@ -83,7 +85,8 @@ public object CertificateReissueUtils {
     ): String? {
         if (vaccination == null) return null
         val isExpiredGermanVaccinationCertificate = vaccination.isExpiredOrExpiryPeriod &&
-            vaccination.covCertificate.isGermanCertificate
+            vaccination.covCertificate.isGermanCertificate &&
+            vaccination.covCertificate.validUntil?.plus(90, ChronoUnit.DAYS)?.isAfter(Instant.now()) == true
         return if (isExpiredGermanVaccinationCertificate) {
             vaccination.covCertificate.dgcEntry.id
         } else {
@@ -95,7 +98,8 @@ public object CertificateReissueUtils {
         certificates: List<CombinedCovCertificate>
     ): List<String> {
         val expiredGermanRecoveries = certificates.asSequence().filter {
-            it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod
+            it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod &&
+                it.covCertificate.validUntil?.plus(90, ChronoUnit.DAYS)?.isAfter(Instant.now()) == true
         }.sortedByDescending {
             it.covCertificate.validFrom
         }.distinctBy {
