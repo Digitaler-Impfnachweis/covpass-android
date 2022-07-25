@@ -2,36 +2,78 @@ opt_out_usage
 default_platform(:android)
 
 platform :android do
-  lane :get_latest_version do |options|
-    versions = [0]
-    ['internal', 'alpha', 'beta', 'production'].each do |t|
-      versions += google_play_track_version_codes(package_name: options[:appid], track: t)
+    lane :get_latest_version do |options|
+        versions = [0]
+        ['internal', 'alpha', 'beta', 'production'].each do |t|
+          versions += google_play_track_version_codes(package_name: options[:appid], track: t)
+        end
+        puts versions.max
+        versions.max
     end
-    puts versions.max
-    versions.max
-  end
 
-  lane :bump_version do |options|
-    appid = options[:appid]
-    version = [options[:min].to_i - 1, get_latest_version(appid: appid)].max + 1
-    File.open('../generated.properties', 'w') do |f|
-      f.write("versionCode=#{version}\n")
+    lane :bump_version do |options|
+        appid = options[:appid]
+        version = [options[:min].to_i - 1, get_latest_version(appid: appid)].max + 1
+        File.open('../generated.properties', 'w') do |f|
+          f.write("versionCode=#{version}\n")
+        end
     end
-  end
 
-  lane :deploy do |options|
-    path = options[:path]
-    mapping = options[:mapping]
-    skip_metadata = options[:skip_metadata] == true
-    upload_to_play_store(apk_paths: [path],
-                         package_name: options[:appid],
-                         track: 'internal',
-                         release_status: options[:release_status],
-                         validate_only: false,
-                         mapping: mapping,
-                         skip_upload_screenshots: skip_metadata,
-                         skip_upload_images: skip_metadata,
-                         skip_upload_metadata: skip_metadata,
-                         skip_upload_changelogs: skip_metadata)
-  end
+    lane :deploy do |options|
+        path = options[:path]
+        mapping = options[:mapping]
+        skip_metadata = options[:skip_metadata] == true
+        upload_to_play_store(apk_paths: [path],
+             package_name: options[:appid],
+             track: 'internal',
+             release_status: options[:release_status],
+             validate_only: false,
+             mapping: mapping,
+             skip_upload_screenshots: skip_metadata,
+             skip_upload_images: skip_metadata,
+             skip_upload_metadata: skip_metadata,
+             skip_upload_changelogs: skip_metadata)
+    end
+
+    lane :deploy_to_firebase do |options|
+        firebase_app_distribution(
+            app: required_env("FIREBASE_COVPASS_ID"),
+            groups: "internal",
+            firebase_cli_token: required_env("FIREBASE_CLI_TOKEN"),
+            android_artifact_type: "APK",
+            android_artifact_path: get_file_path("covpassdemo-*-release.apk"),
+            release_notes: ''
+        )
+
+        firebase_app_distribution(
+            app: required_env("FIREBASE_COVPASS_CHECK_ID"),
+            groups: "internal",
+            firebase_cli_token: required_env("FIREBASE_CLI_TOKEN"),
+            android_artifact_type: "APK",
+            android_artifact_path: get_file_path("covpasscheckdemo-*-release.apk"),
+            release_notes: ''
+        )
+    end
+
+    def required_env(var)
+        if not ENV.include? var
+            message = "Missing ENV variable `#{var}`."
+            if is_ci
+                FastlaneCore::UI.user_error!(message)
+            else
+                FastlaneCore::UI.important(message)
+            end
+        end
+        ENV[var]
+    end
+
+    def get_file_path(file_regex)
+        path = ''
+        Dir["../**/#{file_regex}"].each do |file|
+            path = File.expand_path(file)
+            break
+        end
+        path
+    end
 end
+

@@ -5,11 +5,20 @@
  * (C) Copyright IBM Corp. 2021
  */
 
+SECRETS = [
+    [path: 'secret/eGA/tools/firebase', secretValues: [[vaultKey: 'token', envVar: 'FIREBASE_CLI_TOKEN']]],
+    [path: 'secret/eGA/tools/firebase', secretValues: [[vaultKey: 'FIREBASE_COVPASS_ID', envVar: 'FIREBASE_COVPASS_ID']]],
+    [path: 'secret/eGA/tools/firebase', secretValues: [[vaultKey: 'FIREBASE_COVPASS_CHECK_ID', envVar: 'FIREBASE_COVPASS_CHECK_ID']]],
+]
+
 pipeline {
     agent {
         node {
             label 'Android'
         }
+    }
+    parameters {
+        choice(name: 'Firebase', choices: ['false','true'], description: 'Release on firebase')
     }
     tools {
         jdk 'jdk_11_hotspot'
@@ -245,6 +254,21 @@ pipeline {
                         ]) {
                             sh "./run-in-docker.sh ./deploy.sh app-covpass-check-demo"
                         }
+                    }
+                }
+            }
+        }
+        stage("Firebase") {
+            when {
+                expression { params.Firebase == 'true' }
+            }
+            steps {
+                withVault(SECRETS) {
+                    script {
+                        sh 'bundle install --path ".gems"'
+                        sh("""
+                            bundle exec fastlane deploy_to_firebase
+                        """)
                     }
                 }
             }
