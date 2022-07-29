@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+  <solid android:color="@color/success"/>
+  <padding
+    android:bottom="@dimen/grid_half"
+    android:top="@dimen/grid_half"
+    android:end="@dimen/grid_two"
+    android:start="@dimen/grid_two" />
+  <corners
+    android:bottomLeftRadius="@dimen/grid_two"
+    android:bottomRightRadius="@dimen/grid_two"
+    android:topLeftRadius="@dimen/grid_two"
+    android:topRightRadius="@dimen/grid_two" />
+</shape>

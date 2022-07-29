@@ -53,6 +53,9 @@ public abstract class RevocationByteOneDao {
         insertAll(add)
     }
 
+    @Query("DELETE FROM revocation_byte_one_list")
+    public abstract suspend fun deleteAll()
+
     @Query("DELETE FROM revocation_byte_one_list WHERE :kid = kid AND :hashVariant = hashVariant")
     public abstract suspend fun deleteAllFromKidAndHashVariant(kid: ByteArray, hashVariant: Byte)
 

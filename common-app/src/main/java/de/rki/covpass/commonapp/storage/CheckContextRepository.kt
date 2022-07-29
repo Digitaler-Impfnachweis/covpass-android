@@ -21,6 +21,9 @@ public class CheckContextRepository(store: CborSharedPrefsStore) {
     public val isExpertModeOn: SuspendMutableValueFlow<Boolean> =
         store.getData("is_expert_mode_on", false)
 
+    public val isOfflineRevocationOn: SuspendMutableValueFlow<Boolean> =
+        store.getData("is_offline_revocation_on", false)
+
     public companion object {
         public const val CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION: Int = 1
     }

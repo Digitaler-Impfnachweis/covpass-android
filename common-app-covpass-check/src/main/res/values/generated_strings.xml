@@ -82,6 +82,13 @@
 	<string name="validation_start_screen_offline_modus_information_title">Update rule set</string>
 	<string name="validation_start_screen_offline_modus_information">To verify scanned certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Corona rules in Germany.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
 	<string name="validation_start_screen_offline_modus_button">Update</string>
+	<string name="start_offline_title">Check offline</string>
+	<string name="start_offline_status_available">Available</string>
+	<string name="start_offline_status_unavailable">Update required</string>
+	<string name="start_offline_copy">To be able to check reliably without an internet connection, the checking rules should have been updated less than 24 hours ago.</string>
+	<string name="start_offline_link_title">Update checking rules</string>
+	<string name="start_offline_link_subtitle_available">Last updated less than 24 hours ago</string>
+	<string name="start_offline_subtitle_unavailable">Last update older than 24 hours</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Camera access needed</string>
@@ -223,8 +230,21 @@
 	<string name="accessibility_app_information_version_number_delimiter">point</string>
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
-	<string name="app_information_title_update">Update rule set</string>
+	<string name="app_information_title_update">Checking rules</string>
+	<string name="settings_rules_list_title">Checking rules</string>
+	<string name="settings_rules_list_status_updated">Updated</string>
+	<string name="settings_rules_list_status_outofdate">Update required</string>
+	<string name="settings_rules_list_entry">Entry rules</string>
+	<string name="settings_rules_list_domestic">Domestic rules</string>
+	<string name="settings_rules_list_features">Rule features</string>
+	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_countries">Country lists</string>
+	<string name="settings_rules_list_authorities">List of authorities</string>
+	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
+	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
+	<string name="settings_rules_list_loading_cancel">Cancel</string>
 	<string name="app_information_message_update">To verify scanned certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Corona rules in Germany. These lists update automatically every day in online mode.</string>
+	<string name="app_information_rules_list_title">Rules</string>
 	<string name="app_information_message_update_note">Most recent update</string>
 	<string name="app_information_message_update_pattern">Most recent update: %s</string>
 	<string name="app_information_message_update_certificates">List of certificate issuers: %s</string>

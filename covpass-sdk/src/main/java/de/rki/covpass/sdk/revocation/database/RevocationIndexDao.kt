@@ -36,6 +36,9 @@ public abstract class RevocationIndexDao {
         insertAll(add)
     }
 
+    @Query("DELETE FROM revocation_index_list")
+    public abstract suspend fun deleteAll()
+
     @Query("DELETE FROM revocation_index_list WHERE :kid = kid")
     public abstract suspend fun deleteAllFromKid(kid: ByteArray)
 

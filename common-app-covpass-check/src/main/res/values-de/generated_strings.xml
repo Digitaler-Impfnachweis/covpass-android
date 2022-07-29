@@ -82,6 +82,13 @@
 	<string name="validation_start_screen_offline_modus_information_title">Prüfregeln aktualisieren</string>
 	<string name="validation_start_screen_offline_modus_information">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
 	<string name="validation_start_screen_offline_modus_button">Aktualisieren</string>
+	<string name="start_offline_title">Offline prüfen</string>
+	<string name="start_offline_status_available">Verfügbar</string>
+	<string name="start_offline_status_unavailable">Aktualisierung notwendig</string>
+	<string name="start_offline_copy"> Um ohne Internetverbindung zuverlässig prüfen zu können, sollten die Prüfregeln vor weniger als 24 Stunden aktualisiert worden sein.</string>
+	<string name="start_offline_link_title">Prüfregeln aktualisieren</string>
+	<string name="start_offline_link_subtitle_available"> Letzte Aktualisierung vor weniger als 24 Stunden</string>
+	<string name="start_offline_subtitle_unavailable"> Letzte Aktualisierung älter als 24 Stunden</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
@@ -223,8 +230,21 @@
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
-	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
+	<string name="app_information_title_update">Prüfregeln</string>
+	<string name="settings_rules_list_title">Prüfregeln</string>
+	<string name="settings_rules_list_status_updated">Aktualisiert</string>
+	<string name="settings_rules_list_status_outofdate">Aktualisierung notwendig</string>
+	<string name="settings_rules_list_entry">Einreiseregeln</string>
+	<string name="settings_rules_list_domestic">Inlandsregeln</string>
+	<string name="settings_rules_list_features">Regelmerkmale</string>
+	<string name="settings_rules_list_issuer">Zertifikatsaussteller</string>
+	<string name="settings_rules_list_countries">Länderlisten</string>
+	<string name="settings_rules_list_authorities">Behördenlisten</string>
+	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
+	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
+	<string name="settings_rules_list_loading_cancel">Abbrechen</string>
 	<string name="app_information_message_update">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln. Diese Listen aktualisieren sich im Online-Modus täglich automatisch.</string>
+	<string name="app_information_rules_list_title">Regelwerk</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
 	<string name="app_information_message_update_certificates">Liste der Zertifikatsaussteller: %s</string>

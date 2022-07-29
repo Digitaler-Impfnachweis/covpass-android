@@ -84,7 +84,7 @@
 	<string name="certificate_type_recovery">Recovery</string>
 	<string name="certificate_type_basic_immunisation">Basic immunisation</string>
 	<string name="certificate_type_booster">Booster vaccination</string>
-	<string name="certificate_type_rapidtest">antigen rapid test</string>
+	<string name="certificate_type_rapidtest">Antigen rapid test</string>
 	<string name="certificate_type_pcrtest">PCR test</string>
 	<string name="certificate_timestamp_hours">%d hour(s) ago</string>
 	<string name="certificate_timestamp_days">%d day(s) ago</string>
@@ -611,8 +611,8 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
-	<string name="accessibility_app_information_title_update">The view \"Update rules of entry\" has been opened</string>
-	<string name="accessibility_app_information_title_update_closing_announce">The view \"Update travel rules\" has been closed</string>
+	<string name="accessibility_app_information_title_update">The view \"Update checking rules\" has been opened</string>
+	<string name="accessibility_app_information_title_update_closing_announce">The view \"Update checking rules\" has been closed</string>
 	<string name="accessibility_app_information_datenschutz_announce">Privacy notice has been opened</string>
 	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy notice has been closed</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
@@ -641,8 +641,19 @@
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
 	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
-	<string name="app_information_title_update">Update rules of entry</string>
+	<string name="app_information_title_update">Update checking rules</string>
 	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Covid-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
+	<string name="settings_rules_list_title">Checking rules</string>
+	<string name="settings_rules_list_status_updated">Updated</string>
+	<string name="settings_rules_list_status_outofdate">Update required</string>
+	<string name="settings_rules_list_entry">Entry rules</string>
+	<string name="settings_rules_list_domestic">Domestic rules</string>
+	<string name="settings_rules_list_features">Rule features</string>
+	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_countries">Country lists</string>
+	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
+	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
+	<string name="settings_rules_list_loading_cancel">Cancel</string>
 	<string name="app_information_message_update_note">Most recent update</string>
 	<string name="app_information_message_update_pattern">Most recent update: %s</string>
 	<string name="app_information_message_update_certificates">List of certificate issuers: %s</string>

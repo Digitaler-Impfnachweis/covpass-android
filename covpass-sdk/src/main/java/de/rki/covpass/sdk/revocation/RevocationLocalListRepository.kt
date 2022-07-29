@@ -7,13 +7,16 @@ package de.rki.covpass.sdk.revocation
 
 import COSE.OneKey
 import COSE.Sign1Message
+import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.SuspendMutableValueFlow
 import com.upokecenter.cbor.CBORObject
 import de.rki.covpass.sdk.dependencies.defaultJson
+import de.rki.covpass.sdk.revocation.RevocationLocalListRepository.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.sdk.revocation.database.*
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.storage.DscRepository.Companion.NO_UPDATE_YET
 import de.rki.covpass.sdk.utils.isNetworkError
+import de.rki.covpass.sdk.utils.parallelMap
 import de.rki.covpass.sdk.utils.toHex
 import de.rki.covpass.sdk.utils.toRFC1123OrEmpty
 import io.ktor.client.*
@@ -26,6 +29,7 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import java.security.PublicKey
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 public class RevocationLocalListRepository(
     httpClient: HttpClient,
@@ -49,25 +53,40 @@ public class RevocationLocalListRepository(
     public val lastRevocationUpdateFinish: SuspendMutableValueFlow<Instant> =
         store.getData("last_revocation_update", NO_UPDATE_YET)
 
-    public val lastRevocationUpdateStart: SuspendMutableValueFlow<Instant> =
+    private val lastRevocationUpdateStart: SuspendMutableValueFlow<Instant> =
         store.getData("last_revocation_update_start", NO_UPDATE_YET)
 
-    public val lastRevocationUpdatedTable: SuspendMutableValueFlow<RevocationListUpdateTable> =
+    private val lastRevocationUpdatedTable: SuspendMutableValueFlow<RevocationListUpdateTable> =
         store.getData("last_revocation_update_TABLE", RevocationListUpdateTable.COMPLETED)
 
-    public suspend fun getSavedKidList(): List<RevocationKidLocal> = database.revocationKidDao().getAll()
+    public val revocationListUpdateCanceled: MutableValueFlow<Boolean> =
+        MutableValueFlow(false)
 
-    public suspend fun getSavedIndexList(): List<RevocationIndexLocal> = database.revocationIndexDao().getAll()
+    public suspend fun getSavedKidList(): List<RevocationKidLocal> =
+        database.revocationKidDao().getAll()
 
-    public suspend fun getSavedIndex(kid: ByteArray, hashType: Byte): Map<Byte, RevocationIndexEntry> =
+    private suspend fun getSavedIndexList(): List<RevocationIndexLocal> =
+        database.revocationIndexDao().getAll()
+
+    public suspend fun getSavedIndex(
+        kid: ByteArray,
+        hashType: Byte
+    ): Map<Byte, RevocationIndexEntry> =
         database.revocationIndexDao().getIndex(kid, hashType).index
 
-    public suspend fun getSavedByteOneList(): List<RevocationByteOneLocal> = database.revocationByteOneDao().getAll()
+    private suspend fun getSavedByteOneList(): List<RevocationByteOneLocal> =
+        database.revocationByteOneDao().getAll()
 
-    public suspend fun getSavedByteOneChunk(kid: ByteArray, hashType: Byte, byte1: Byte): List<ByteArray> =
-        database.revocationByteOneDao().getByteOneChunks(kid, hashType, byte1)?.chunks ?: emptyList()
+    public suspend fun getSavedByteOneChunk(
+        kid: ByteArray,
+        hashType: Byte,
+        byte1: Byte
+    ): List<ByteArray> =
+        database.revocationByteOneDao().getByteOneChunks(kid, hashType, byte1)?.chunks
+            ?: emptyList()
 
-    public suspend fun getSavedByteTwoList(): List<RevocationByteTwoLocal> = database.revocationByteTwoDao().getAll()
+    private suspend fun getSavedByteTwoList(): List<RevocationByteTwoLocal> =
+        database.revocationByteTwoDao().getAll()
 
     public suspend fun getSavedByteTwoChunk(
         kid: ByteArray,
@@ -75,23 +94,147 @@ public class RevocationLocalListRepository(
         byte1: Byte,
         byte2: Byte
     ): List<ByteArray> =
-        database.revocationByteTwoDao().getByteTwoChunks(kid, hashType, byte1, byte2)?.chunks ?: emptyList()
+        database.revocationByteTwoDao().getByteTwoChunks(kid, hashType, byte1, byte2)?.chunks
+            ?: emptyList()
+
+    public suspend fun update() {
+        if (!revocationListUpdateIsOn.value) return
+        if (lastRevocationUpdateFinish.value.isBeforeUpdateInterval()) {
+            updateRevocationList()
+        }
+    }
+
+    public suspend fun deleteAll() {
+        database.revocationKidDao().deleteAll()
+        database.revocationIndexDao().deleteAll()
+        database.revocationByteOneDao().deleteAll()
+        database.revocationByteTwoDao().deleteAll()
+        resetUpdateFinish()
+    }
+
+    private suspend fun resetUpdateFinish() {
+        lastRevocationUpdateFinish.set(NO_UPDATE_YET)
+    }
+
+    private suspend fun updateRevocationList() {
+        if (isUpdateResetNeeded()) {
+            lastRevocationUpdatedTable.set(RevocationListUpdateTable.COMPLETED)
+        }
+        updateLastStartRevocationValidation(Instant.now())
+
+        do {
+            if (revocationListUpdateCanceled.value) {
+                break
+            }
+            when (lastRevocationUpdatedTable.value) {
+                RevocationListUpdateTable.COMPLETED -> {
+                    // Update kidlist
+                    updateKidList()
+                    lastRevocationUpdatedTable.set(
+                        RevocationListUpdateTable.KID_LIST
+                    )
+                }
+                RevocationListUpdateTable.KID_LIST -> {
+                    // update index
+                    updateIndex()
+                    lastRevocationUpdatedTable.set(
+                        RevocationListUpdateTable.INDEX
+                    )
+                }
+                RevocationListUpdateTable.INDEX -> {
+                    // update byte one
+                    updateByteOne()
+                    if (!revocationListUpdateCanceled.value) {
+                        lastRevocationUpdatedTable.set(
+                            RevocationListUpdateTable.BYTE_ONE
+                        )
+                    }
+                }
+                RevocationListUpdateTable.BYTE_ONE -> {
+                    // update byte two
+                    updateByteTwo()
+                    if (!revocationListUpdateCanceled.value) {
+                        lastRevocationUpdatedTable.set(
+                            RevocationListUpdateTable.BYTE_TWO
+                        )
+                    }
+                }
+                RevocationListUpdateTable.BYTE_TWO -> {
+                    updateLastRevocationValidation(
+                        lastRevocationUpdateStart.value
+                    )
+                    lastRevocationUpdatedTable.set(
+                        RevocationListUpdateTable.COMPLETED
+                    )
+                }
+            }
+        } while (lastRevocationUpdatedTable.value != RevocationListUpdateTable.COMPLETED)
+    }
+
+    private fun isUpdateResetNeeded(): Boolean =
+        lastRevocationUpdateStart.value.isAfter(
+            lastRevocationUpdateFinish.value
+        ) && lastRevocationUpdateStart.value.isBeforeUpdateInterval()
+
+    private suspend fun updateByteOne() {
+        val oldByteOneList = getSavedByteOneList()
+        val indexList = getSavedIndexList()
+
+        indexList.forEach {
+            val filteredOldByteOneList = oldByteOneList.filter { byteOneLocal ->
+                byteOneLocal.kid.contentEquals(it.kid) && byteOneLocal.hashVariant == it.hashVariant
+            }
+            deleteOldByteOneList(filteredOldByteOneList, it)
+
+            it.index.toList().parallelMap { (byteOne, revocationIndexEntry) ->
+                updateByteOne(revocationIndexEntry, it, byteOne)
+            }
+            if (revocationListUpdateCanceled.value) {
+                return
+            }
+        }
+    }
+
+    private suspend fun updateByteTwo() {
+        val oldByteTwoList = getSavedByteTwoList()
+        val indexList = getSavedIndexList()
+
+        indexList.forEach {
+            val filteredOldByteTwoList = oldByteTwoList.filter { byteTwoLocal ->
+                byteTwoLocal.kid.contentEquals(it.kid) && byteTwoLocal.hashVariant == it.hashVariant
+            }
+            deleteOldByteTwoList(filteredOldByteTwoList, it)
+
+            it.index.toList().parallelMap { (byteOne, revocationIndexEntry) ->
+                revocationIndexEntry.byte2?.forEach { byte2Entry ->
+                    updateByteTwoLogic(
+                        byte2Entry,
+                        it,
+                        byteOne
+                    )
+                }
+            }
+            if (revocationListUpdateCanceled.value) {
+                return
+            }
+        }
+    }
 
     /**
      * Update the [lastRevocationUpdateFinish].
      */
-    public suspend fun updateLastRevocationValidation(instant: Instant) {
+    private suspend fun updateLastRevocationValidation(instant: Instant) {
         lastRevocationUpdateFinish.set(instant)
     }
 
     /**
      * Update the [lastRevocationUpdateStart].
      */
-    public suspend fun updateLastStartRevocationValidation(instant: Instant) {
+    private suspend fun updateLastStartRevocationValidation(instant: Instant) {
         lastRevocationUpdateStart.set(instant)
     }
 
-    public suspend fun updateKidList() {
+    private suspend fun updateKidList() {
         val newKidListObject = getKidList(
             lastRevocationUpdateFinish.value
         )
@@ -117,20 +260,24 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public suspend fun updateIndex() {
+    private suspend fun updateIndex() {
         val oldIndexList = database.revocationIndexDao().getAll()
         val kidList = database.revocationKidDao().getAll()
         kidList.forEach { revocationKidLocal ->
-            val filteredOldIndexList = oldIndexList.filter { it.kid.contentEquals(revocationKidLocal.kid) }
+            val filteredOldIndexList =
+                oldIndexList.filter { it.kid.contentEquals(revocationKidLocal.kid) }
             filteredOldIndexList.forEach {
                 if (revocationKidLocal.hashVariants[it.hashVariant] == null) {
                     database.revocationIndexDao().deleteElement(it.kid, it.hashVariant)
-                    database.revocationByteOneDao().deleteAllFromKidAndHashVariant(it.kid, it.hashVariant)
-                    database.revocationByteTwoDao().deleteAllFromKidAndHashVariant(it.kid, it.hashVariant)
+                    database.revocationByteOneDao()
+                        .deleteAllFromKidAndHashVariant(it.kid, it.hashVariant)
+                    database.revocationByteTwoDao()
+                        .deleteAllFromKidAndHashVariant(it.kid, it.hashVariant)
                 }
             }
             revocationKidLocal.hashVariants.forEach { (hashType, _) ->
-                val index = getIndex(revocationKidLocal.kid, hashType, lastRevocationUpdateFinish.value)
+                val index =
+                    getIndex(revocationKidLocal.kid, hashType, lastRevocationUpdateFinish.value)
                 if (index.wasModifiedSince) {
                     database.revocationIndexDao().insertIndex(
                         RevocationIndexLocal(
@@ -144,7 +291,7 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public suspend fun updateByteOne(
+    private suspend fun updateByteOne(
         revocationIndexEntry: RevocationIndexEntry,
         revocationIndexLocal: RevocationIndexLocal,
         byteOne: Byte
@@ -179,7 +326,7 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public suspend fun updateByteTwoLogic(
+    private suspend fun updateByteTwoLogic(
         byte2Entry: Map.Entry<Byte, RevocationIndexByte2Entry>,
         indexEntry: RevocationIndexLocal,
         byteOne: Byte
@@ -217,7 +364,7 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public suspend fun deleteOldByteOneList(
+    private suspend fun deleteOldByteOneList(
         filteredOldByteOneList: List<RevocationByteOneLocal>,
         revocationIndexLocal: RevocationIndexLocal
     ) {
@@ -237,7 +384,7 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public suspend fun deleteOldByteTwoList(
+    private suspend fun deleteOldByteTwoList(
         filteredOldByteTwoList: List<RevocationByteTwoLocal>,
         revocationIndexLocal: RevocationIndexLocal
     ) {
@@ -253,7 +400,7 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public suspend fun getKidList(lastUpdate: Instant): KidListObject {
+    private suspend fun getKidList(lastUpdate: Instant): KidListObject {
         val signedObject = getSigned("kid.lst", lastUpdate)
         return KidListObject(
             signedObject?.wasModifiedSince ?: false,
@@ -261,7 +408,11 @@ public class RevocationLocalListRepository(
         )
     }
 
-    public suspend fun getIndex(kid: ByteArray, hashType: Byte, lastUpdate: Instant): IndexListObject {
+    private suspend fun getIndex(
+        kid: ByteArray,
+        hashType: Byte,
+        lastUpdate: Instant
+    ): IndexListObject {
         val signedObject = getSigned("${kid.toHex()}${hashType.toHex()}/index.lst", lastUpdate)
         return IndexListObject(
             signedObject?.wasModifiedSince ?: false,
@@ -269,20 +420,21 @@ public class RevocationLocalListRepository(
         )
     }
 
-    public suspend fun getByteOneChunk(
+    private suspend fun getByteOneChunk(
         kid: ByteArray,
         hashType: Byte,
         byte1: Byte,
         lastUpdate: Instant
     ): ChunkListObject {
-        val signedObject = getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/chunk.lst", lastUpdate)
+        val signedObject =
+            getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/chunk.lst", lastUpdate)
         return ChunkListObject(
             wasModifiedSince = signedObject?.wasModifiedSince ?: false,
             chunkList = signedObject?.cborObject?.toListOfByteArrays() ?: emptyList()
         )
     }
 
-    public suspend fun getByteTwoChunk(
+    private suspend fun getByteTwoChunk(
         kid: ByteArray,
         hashType: Byte,
         byte1: Byte,
@@ -290,7 +442,10 @@ public class RevocationLocalListRepository(
         lastUpdate: Instant
     ): ChunkListObject {
         val signedObject =
-            getSigned("${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/${byte2.toHex()}/chunk.lst", lastUpdate)
+            getSigned(
+                "${kid.toHex()}${hashType.toHex()}/${byte1.toHex()}/${byte2.toHex()}/chunk.lst",
+                lastUpdate
+            )
         return ChunkListObject(
             wasModifiedSince = signedObject?.wasModifiedSince ?: false,
             chunkList = signedObject?.cborObject?.toListOfByteArrays() ?: emptyList()
@@ -320,7 +475,7 @@ public class RevocationLocalListRepository(
         }
     }
 
-    public fun validateRevocationSignature(sign1Message: Sign1Message) {
+    private fun validateRevocationSignature(sign1Message: Sign1Message) {
         if (!sign1Message.validate(OneKey(revocationListPublicKey, null))) {
             throw RevocationRemoteListRepository.RevocationListSignatureValidationFailedException()
         }
@@ -331,19 +486,29 @@ public class RevocationLocalListRepository(
         val cborObject: CBORObject?
     )
 
-    public data class ChunkListObject(
+    private data class ChunkListObject(
         val wasModifiedSince: Boolean = false,
         val chunkList: List<ByteArray>
     )
 
-    public data class IndexListObject(
+    private data class IndexListObject(
         val wasModifiedSince: Boolean = false,
         val indexList: Map<Byte, RevocationIndexEntry>
     )
 
-    public data class KidListObject(
+    private data class KidListObject(
         val wasModifiedSince: Boolean = false,
         val kidList: List<RevocationKidEntry>
+    )
+
+    public companion object {
+        public const val UPDATE_INTERVAL_HOURS: Long = 24
+    }
+}
+
+public fun Instant.isBeforeUpdateInterval(): Boolean {
+    return isBefore(
+        Instant.now().minus(UPDATE_INTERVAL_HOURS, ChronoUnit.HOURS)
     )
 }
 

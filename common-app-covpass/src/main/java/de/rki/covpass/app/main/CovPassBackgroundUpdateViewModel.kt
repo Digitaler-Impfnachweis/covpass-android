@@ -7,9 +7,9 @@ package de.rki.covpass.app.main
 
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.commonapp.BackgroundUpdateViewModel
-import de.rki.covpass.commonapp.isBeforeUpdateInterval
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
 import kotlinx.coroutines.CoroutineScope
 
 public class CovPassBackgroundUpdateViewModel @OptIn(DependencyAccessor::class) constructor(

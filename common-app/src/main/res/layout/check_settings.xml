@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundPrimary"
+    android:orientation="vertical"
+    tools:ignore="Overdraw">
+
+    <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+        android:id="@+id/settings_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundPrimary"
+        android:elevation="@dimen/elevation"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/grid_seven"
+        android:paddingStart="@dimen/grid_one"
+        android:paddingEnd="@dimen/grid_one"
+        android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+        app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/DefaultText.OnBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/grid_three"
+                android:layout_marginTop="@dimen/grid_one"
+                android:text="@string/app_information_message_update"
+                tools:text="@tools:sample/lorem[7]" />
+
+            <LinearLayout
+                android:id="@+id/settings_rules_picker_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_five">
+
+                <TextView
+                    style="@style/Header.OnBackground.MediumBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/grid_three"
+                    android:paddingBottom="@dimen/grid_two"
+                    android:text="@string/app_information_rules_list_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Checking rules" />
+
+                <de.rki.covpass.commonapp.uielements.CheckContextCheckboxElement
+                    android:id="@+id/check_context_settings_eu_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <de.rki.covpass.commonapp.uielements.CheckContextCheckboxElement
+                    android:id="@+id/check_context_settings_local_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/offline_revocation_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_five">
+
+                <TextView
+                    android:id="@+id/offline_revocation_section_title"
+                    style="@style/Header.OnBackground.MediumBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/grid_three"
+                    android:paddingBottom="@dimen/grid_two"
+                    android:text="@string/app_information_offline_revocation_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Checking rules" />
+
+                <TextView
+                    android:id="@+id/offline_revocation_note"
+                    style="@style/DefaultText.OnBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/grid_three"
+                    android:text="@string/app_information_offline_revocation_copy"
+                    tools:text="@tools:sample/lorem[7]" />
+
+                <de.rki.covpass.commonapp.uielements.ExpertModeToggleElement
+                    android:id="@+id/offline_revocation_toggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_one" />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/grid_five"
+                android:paddingBottom="@dimen/grid_two">
+
+                <TextView
+                    android:id="@+id/settings_rules_section_title"
+                    style="@style/Header.OnBackground.MediumBig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/grid_three"
+                    android:text="@string/settings_rules_list_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Checking rules" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/settings_rules_section_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/settings_rules_section_title">
+
+                    <TextView
+                        android:id="@+id/settings_success_badge"
+                        style="@style/DefaultText.OnBackground.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/grid_three"
+                        android:background="@drawable/background_success_badge"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:text="@string/settings_rules_list_status_updated"
+                        android:textAlignment="center"
+                        android:textColor="@color/backgroundPrimary"
+                        android:textSize="11sp"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/checkmark_white"
+                        tools:text="Update OK" />
+
+                    <TextView
+                        android:id="@+id/settings_warning_badge"
+                        style="@style/DefaultText.OnBackground.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/grid_three"
+                        android:background="@drawable/background_warning_badge"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:text="@string/settings_rules_list_status_outofdate"
+                        android:textAlignment="center"
+                        android:textSize="11sp"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/warning_sign_black"
+                        tools:text="Update NOK" />
+
+                </FrameLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/settings_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="6"
+                tools:listitem="@layout/setting_item" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_button"
+                style="@style/PrimaryButton.Dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/grid_five"
+                android:text="@string/app_information_message_update_button" />
+
+            <LinearLayout
+                android:id="@+id/settings_loading_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/grid_five"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/Header.OnBackground.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/grid_three"
+                    android:text="@string/settings_rules_list_loading_title"
+                    tools:text="Loading..." />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/settings_loading_animation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/grid_three"
+                    app:lottie_autoPlay="true"
+                    app:lottie_colorFilter="@color/brandAccent70"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading_animation" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancel_button"
+                    style="@style/PrimaryButton.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="@dimen/grid_three"
+                    android:layout_marginBottom="@dimen/grid_five"
+                    android:text="@string/cancel"
+                    android:textColor="@color/brandAccent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

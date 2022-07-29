@@ -11,10 +11,9 @@ import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.dependencies.SdkDependencies
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import java.time.Instant
-import java.time.temporal.ChronoUnit
 
 @SuppressWarnings("UnusedPrivateMember")
 public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
@@ -51,12 +50,4 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
             }
         }
     }
-
-    public companion object {
-        public const val UPDATE_INTERVAL_HOURS: Long = 24
-    }
-}
-
-public fun Instant.isBeforeUpdateInterval(): Boolean {
-    return isBefore(Instant.now().minus(BackgroundUpdateViewModel.UPDATE_INTERVAL_HOURS, ChronoUnit.HOURS))
 }

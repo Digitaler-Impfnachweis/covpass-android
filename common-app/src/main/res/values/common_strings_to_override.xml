@@ -59,6 +59,9 @@
   <string name="app_information_message_update_certificates"/>
   <string name="app_information_message_update_rules"/>
   <string name="app_information_message_update_button"/>
+  <string name="settings_rules_list_status_updated"/>
+  <string name="settings_rules_list_status_outofdate"/>
+  <string name="settings_rules_list_title"/>
   <string name="accessibility_app_information_title_update"/>
 
   <string name="app_information_title_local_rules"/>
@@ -80,6 +83,7 @@
   <string name="accessibility_revocation_settings_page_announce"/>
   <string name="app_information_offline_revocation_title"/>
   <string name="app_information_offline_revocation_copy"/>
+  <string name="app_information_rules_list_title"/>
   <string name="validation_start_screen_offline_modus_note_update"/>
   <string name="validation_start_screen_offline_modus_certificates"/>
   <string name="validation_start_screen_offline_modus_rules"/>
@@ -102,5 +106,15 @@
   <string name="accessibility_image_alternative_text"/>
 
   <string name="result_countdown"/>
+
+  <string name="settings_rules_list_entry"/>
+  <string name="settings_rules_list_domestic"/>
+  <string name="settings_rules_list_features"/>
+  <string name="settings_rules_list_issuer"/>
+  <string name="settings_rules_list_countries"/>
+  <string name="settings_rules_list_authorities"/>
+  <string name="settings_rules_list_loading_title"/>
+  <string name="cancel"/>
+  <string name="validation_start_screen_offline_modus_button"/>
 
 </resources>

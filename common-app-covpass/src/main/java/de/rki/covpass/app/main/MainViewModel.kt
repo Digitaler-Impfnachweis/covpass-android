@@ -14,7 +14,6 @@ import de.rki.covpass.app.dependencies.CovpassDependencies
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.isBeforeUpdateInterval
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
@@ -22,6 +21,7 @@ import de.rki.covpass.sdk.cert.BoosterRulesValidator
 import de.rki.covpass.sdk.cert.models.*
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
+import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
 import de.rki.covpass.sdk.revocation.validateRevocation
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.utils.DescriptionLanguage

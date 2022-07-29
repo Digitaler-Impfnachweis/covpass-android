@@ -33,11 +33,11 @@ import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.errorhandling.isNoInternetError
-import de.rki.covpass.commonapp.isBeforeUpdateInterval
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import kotlinx.parcelize.Parcelize

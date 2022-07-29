@@ -89,6 +89,9 @@ public abstract class RevocationByteTwoDao {
         byteTwo: Byte,
     )
 
+    @Query("DELETE FROM revocation_byte_two_list")
+    public abstract suspend fun deleteAll()
+
     @Query("DELETE FROM revocation_byte_two_list WHERE :kid = kid AND :hashVariant = hashVariant ")
     public abstract suspend fun deleteAllFromKidAndHashVariant(kid: ByteArray, hashVariant: Byte)
 

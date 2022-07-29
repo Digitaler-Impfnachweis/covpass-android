@@ -91,7 +91,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldAppRulesUpdate.apply {
             setText(R.string.app_information_title_update)
             setOnClickListener {
-                findNavigator().push(AppRulesUpdateFragment())
+                findNavigator().push(SettingsFragmentNav(isCovpassCheck()))
             }
         }
 
@@ -108,24 +108,11 @@ public abstract class InformationFragment : BaseFragment() {
 
         if (isCovpassCheck()) {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
-            binding.informationFieldContextSettingsLayout.setOnClickListener {
-                findNavigator().push(ContextSettingsFragmentNav())
-            }
             binding.informationFieldExpertModeLayout.setOnClickListener {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
             }
-            binding.informationFieldContextSettingsTitle.setText(
-                R.string.app_information_title_local_rules
-            )
             binding.informationFieldExpertModeTitle.setText(
                 R.string.app_information_authorities_function_title
-            )
-            binding.informationFieldContextSettingsStatus.setText(
-                if (commonDeps.checkContextRepository.isDomesticRulesOn.value) {
-                    R.string.app_information_title_local_rules_status_DE
-                } else {
-                    R.string.app_information_title_local_rules_status_EU
-                }
             )
             binding.informationFieldExpertModeStatus.setText(
                 if (commonDeps.checkContextRepository.isExpertModeOn.value) {

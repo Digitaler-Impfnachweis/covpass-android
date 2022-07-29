@@ -25,20 +25,18 @@ import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
-import de.rki.covpass.commonapp.BackgroundUpdateViewModel.Companion.UPDATE_INTERVAL_HOURS
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.information.SettingsFragmentNav
+import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
-import de.rki.covpass.sdk.dependencies.sdkDeps
-import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -51,16 +49,16 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
-    private val covpassCheckBackgroundViewModel by reactiveState { CovpassCheckBackgroundViewModel(scope) }
     private val revocationListUpdateViewModel by reactiveState {
-        RevocationListUpdateViewModel(
-            scope
-        )
+        RevocationListUpdateViewModel(scope)
+    }
+    private val covpassCheckBackgroundViewModel by reactiveState {
+        CovpassCheckBackgroundViewModel(scope)
+    }
+    private val settingsUpdateViewModel by reactiveState {
+        SettingsUpdateViewModel(scope, true)
     }
     private val viewModel by reactiveState { MainViewModel(scope) }
-
-    private val dscRepository get() = sdkDeps.dscRepository
-    private val rulesUpdateRepository get() = sdkDeps.rulesUpdateRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,13 +68,24 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         binding.mainCheckCertButton.setOnClickListener {
             if (isCameraPermissionGranted(requireContext())) {
                 findNavigator().push(
-                    CovPassCheckQRScannerFragmentNav(viewModel.isTwoGPlusOn.value, viewModel.isTwoGPlusBOn.value)
+                    CovPassCheckQRScannerFragmentNav(
+                        viewModel.isTwoGPlusOn.value,
+                        viewModel.isTwoGPlusBOn.value
+                    )
                 )
             } else {
                 findNavigator().push(
-                    CovPassCheckCameraDisclosureFragmentNav(viewModel.isTwoGPlusOn.value, viewModel.isTwoGPlusBOn.value)
+                    CovPassCheckCameraDisclosureFragmentNav(
+                        viewModel.isTwoGPlusOn.value,
+                        viewModel.isTwoGPlusBOn.value
+                    )
                 )
             }
+        }
+        binding.mainAvailabilityUpdateRulesLayout.setOnClickListener {
+            findNavigator().push(
+                SettingsFragmentNav(true)
+            )
         }
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
@@ -99,7 +108,10 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         ViewCompat.setAccessibilityDelegate(
             binding.mainHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(
+                    host: View?,
+                    info: AccessibilityNodeInfoCompat
+                ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
@@ -108,7 +120,10 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         ViewCompat.setAccessibilityDelegate(
             binding.mainCheckCertHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(
+                    host: View?,
+                    info: AccessibilityNodeInfoCompat
+                ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
@@ -117,7 +132,10 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         ViewCompat.setAccessibilityDelegate(
             binding.mainAvailabilityHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(
+                    host: View?,
+                    info: AccessibilityNodeInfoCompat
+                ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
@@ -125,10 +143,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         )
 
         autoRun {
-            updateAvailabilityCard(
-                get(dscRepository.lastUpdate),
-                get(rulesUpdateRepository.lastEuRulesUpdate)
-            )
+            updateAvailabilityCard(get(settingsUpdateViewModel.allUpToDate))
         }
         autoRun {
             when (val state = get(commonDeps.timeValidationRepository.state)) {
@@ -138,7 +153,8 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                         title = getString(R.string.validation_start_screen_scan_sync_message_title),
                         subtitle = getString(
                             R.string.validation_start_screen_scan_sync_message_text,
-                            LocalDateTime.ofInstant(state.realTime, ZoneId.systemDefault()).formatDateTime()
+                            LocalDateTime.ofInstant(state.realTime, ZoneId.systemDefault())
+                                .formatDateTime()
                         ),
                         iconRes = R.drawable.info_warning,
                     )
@@ -166,7 +182,9 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         }
         commonDeps.timeValidationRepository.validate()
         covpassCheckBackgroundViewModel.update()
-        revocationListUpdateViewModel.update()
+        launchWhenStarted {
+            revocationListUpdateViewModel.update()
+        }
     }
 
     override fun onDataProtectionFinish() {
@@ -211,42 +229,15 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         }
     }
 
-    private fun isDscListUpToDate(lastUpdate: Instant): Boolean {
-        val dscUpdateIntervalSeconds = UPDATE_INTERVAL_HOURS * 60 * 60
-        return lastUpdate.isAfter(Instant.now().minusSeconds(dscUpdateIntervalSeconds))
-    }
-
-    private fun updateAvailabilityCard(lastUpdate: Instant, lastRulesUpdate: Instant) {
-        val upToDate = isDscListUpToDate(lastUpdate)
-
-        val availabilityStatusIconId = if (upToDate) {
-            R.drawable.availability_success
-        } else {
-            R.drawable.availability_warning
-        }
-        binding.mainAvailabilityStatusImageview.setImageResource(availabilityStatusIconId)
-
-        val availabilityStatusString = if (upToDate) {
-            getString(R.string.validation_start_screen_offline_modus_note_latest_version)
-        } else {
-            getString(R.string.validation_start_screen_offline_modus_note_old_version)
-        }
-        binding.mainAvailabilityStatusTextview.text = availabilityStatusString
-
-        if (lastUpdate == DscRepository.NO_UPDATE_YET || lastRulesUpdate == DscRepository.NO_UPDATE_YET) {
-            binding.mainAvailabilityLastUpdateTextview.isGone = true
-            binding.mainRulesAvailabilityLastUpdateTextview.isGone = true
-        } else {
-            binding.mainAvailabilityLastUpdateTextview.isGone = false
-            binding.mainAvailabilityLastUpdateTextview.text = getString(
-                R.string.validation_start_screen_offline_modus_certificates,
-                LocalDateTime.ofInstant(lastUpdate, ZoneId.systemDefault()).formatDateTime()
-            )
-            binding.mainRulesAvailabilityLastUpdateTextview.isGone = false
-            binding.mainRulesAvailabilityLastUpdateTextview.text = getString(
-                R.string.validation_start_screen_offline_modus_rules,
-                LocalDateTime.ofInstant(lastRulesUpdate, ZoneId.systemDefault()).formatDateTime()
-            )
-        }
+    private fun updateAvailabilityCard(isAllUpToDate: Boolean) {
+        binding.settingsSuccessBadge.isVisible = isAllUpToDate
+        binding.settingsWarningBadge.isGone = isAllUpToDate
+        binding.mainAvailabilityUpdateRulesDesc.setText(
+            if (isAllUpToDate) {
+                R.string.start_offline_link_subtitle_available
+            } else {
+                R.string.start_offline_subtitle_unavailable
+            }
+        )
     }
 }

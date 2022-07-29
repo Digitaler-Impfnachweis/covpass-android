@@ -611,8 +611,8 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
-	<string name="accessibility_app_information_title_update">Die Ansicht \"Einreiseregeln aktualisieren\" wurde geöffnet</string>
-	<string name="accessibility_app_information_title_update_closing_announce">Die Ansicht \"Einreiseregeln aktualisieren\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_update_closing_announce">Die Ansicht \"Prüfregeln aktualisieren\" wurde geschlossen</string>
 	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung-Ansicht wurde geöffnet</string>
 	<string name="accessibility_app_information_datenschutz_closing_announce">Die Datenschutzerklärung wurde geschlossen</string>
 	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
@@ -641,8 +641,19 @@
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
-	<string name="app_information_title_update">Einreiseregeln aktualisieren</string>
+	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
 	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan geltenden Corona-Einreiseregeln in den entsprechenden Ländern.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="settings_rules_list_title">Prüfregeln</string>
+	<string name="settings_rules_list_status_updated">Aktualisiert</string>
+	<string name="settings_rules_list_status_outofdate">Aktualisierung notwendig</string>
+	<string name="settings_rules_list_entry">Einreiseregeln</string>
+	<string name="settings_rules_list_domestic">Inlandsregeln</string>
+	<string name="settings_rules_list_features">Regelmerkmale</string>
+	<string name="settings_rules_list_issuer">Zertifikatsaussteller</string>
+	<string name="settings_rules_list_countries">Länderlisten</string>
+	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
+	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
+	<string name="settings_rules_list_loading_cancel">Abbrechen</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
 	<string name="app_information_message_update_certificates">Liste der Zertifikatsaussteller: %s</string>

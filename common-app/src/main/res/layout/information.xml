@@ -5,180 +5,153 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@color/backgroundPrimary"
-  android:orientation="vertical"
-  tools:ignore="Overdraw">
-
-  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
-    android:id="@+id/information_toolbar"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/backgroundPrimary"
-    android:elevation="@dimen/elevation"
-    android:gravity="center_vertical"
-    android:minHeight="@dimen/grid_seven"
-    android:paddingStart="@dimen/grid_one"
-    android:paddingEnd="@dimen/grid_one"
-    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
-    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
+    android:orientation="vertical"
+    tools:ignore="Overdraw">
 
-  <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-
-      <TextView
-        style="@style/DefaultText.OnBackground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/grid_three"
-        android:text="@string/app_information_message" />
-
-      <TextView
-        android:id="@+id/information_field_easy_language"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-      <View
-        android:id="@+id/divider_easy_language"
-        style="@style/Divider"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-      <TextView
-        android:id="@+id/information_field_contacts"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_faq"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_data_security_policy"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_imprint"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_open_source_licenses"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_accessibility_statement"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <TextView
-        android:id="@+id/information_field_app_rules_update"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
-
-      <View style="@style/Divider" />
-
-      <LinearLayout
-        android:id="@+id/information_field_covpass_check_settings_container"
+    <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+        android:id="@+id/information_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:background="@color/backgroundPrimary"
+        android:elevation="@dimen/elevation"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/grid_seven"
+        android:paddingStart="@dimen/grid_one"
+        android:paddingEnd="@dimen/grid_one"
+        android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+        app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/information_field_context_settings_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:clickable="true"
-          android:focusable="true">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-          <TextView
-            android:id="@+id/information_field_context_settings_title"
-            style="@style/NavigationField"
-            android:background="@color/onBrandBase"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-          <TextView
-            android:id="@+id/information_field_context_settings_status"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/grid_seven"
-            app:layout_constraintBottom_toBottomOf="@+id/information_field_context_settings_title"
-            app:layout_constraintEnd_toEndOf="@+id/information_field_context_settings_title"
-            app:layout_constraintTop_toTopOf="@+id/information_field_context_settings_title" />
+            android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                style="@style/DefaultText.OnBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/grid_three"
+                android:text="@string/app_information_message" />
 
-        <View style="@style/Divider" />
+            <TextView
+                android:id="@+id/information_field_easy_language"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/information_field_expert_mode_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:clickable="true"
-          android:focusable="true">
+            <View
+                android:id="@+id/divider_easy_language"
+                style="@style/Divider"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-          <TextView
-            android:id="@+id/information_field_expert_mode_title"
-            style="@style/NavigationField"
-            android:background="@color/onBrandBase"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/information_field_contacts"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
 
-          <TextView
-            android:id="@+id/information_field_expert_mode_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/grid_seven"
-            app:layout_constraintBottom_toBottomOf="@+id/information_field_expert_mode_title"
-            app:layout_constraintEnd_toEndOf="@+id/information_field_expert_mode_title"
-            app:layout_constraintTop_toTopOf="@+id/information_field_expert_mode_title" />
+            <View style="@style/Divider" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/information_field_faq"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
 
-        <View style="@style/Divider" />
+            <View style="@style/Divider" />
 
-      </LinearLayout>
+            <TextView
+                android:id="@+id/information_field_data_security_policy"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
 
-      <TextView
-        android:id="@+id/information_app_version_label"
-        style="DefaultText.OnBackground70"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:padding="@dimen/grid_one_half" />
+            <View style="@style/Divider" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/information_field_imprint"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
 
-  </ScrollView>
+            <View style="@style/Divider" />
+
+            <TextView
+                android:id="@+id/information_field_open_source_licenses"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
+
+            <View style="@style/Divider" />
+
+            <TextView
+                android:id="@+id/information_field_accessibility_statement"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
+
+            <View style="@style/Divider" />
+
+            <TextView
+                android:id="@+id/information_field_app_rules_update"
+                style="@style/NavigationField"
+                android:background="@color/onBrandBase" />
+
+            <View style="@style/Divider" />
+
+            <LinearLayout
+                android:id="@+id/information_field_covpass_check_settings_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/information_field_expert_mode_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:id="@+id/information_field_expert_mode_title"
+                        style="@style/NavigationField"
+                        android:background="@color/onBrandBase"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/information_field_expert_mode_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/grid_seven"
+                        app:layout_constraintBottom_toBottomOf="@+id/information_field_expert_mode_title"
+                        app:layout_constraintEnd_toEndOf="@+id/information_field_expert_mode_title"
+                        app:layout_constraintTop_toTopOf="@+id/information_field_expert_mode_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View style="@style/Divider" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/information_app_version_label"
+                style="DefaultText.OnBackground70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="@dimen/grid_one_half" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
