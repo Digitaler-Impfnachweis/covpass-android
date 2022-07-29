@@ -57,7 +57,8 @@ public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certific
                     R.string.certificates_overview_vaccination_certificate_date,
                     groupedDgcEntry.occurrence?.formatDate() ?: ""
                 ),
-                certStatus = status
+                certStatus = status,
+                isActual = true
             )
         }
         is Recovery -> {
@@ -78,7 +79,8 @@ public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certific
                 title = getString(R.string.certificates_overview_recovery_certificate_title),
                 subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                 date = date,
-                certStatus = status
+                certStatus = status,
+                isActual = true
             )
         }
         is TestCert -> null
