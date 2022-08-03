@@ -140,7 +140,6 @@ public class SettingsFragment : BaseFragment() {
                 settingsUpdateViewModel.update()
             } else {
                 settingsUpdateViewModel.deleteRevocationLocalList()
-                settingsUpdateViewModel.checkAllUpToDate()
             }
         }
     }

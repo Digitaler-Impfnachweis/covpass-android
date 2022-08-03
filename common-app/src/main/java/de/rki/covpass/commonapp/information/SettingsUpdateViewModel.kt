@@ -5,9 +5,7 @@
 
 package de.rki.covpass.commonapp.information
 
-import com.ensody.reactivestate.BaseReactiveState
-import com.ensody.reactivestate.DependencyAccessor
-import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.*
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -21,6 +19,7 @@ import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.DscListUpdater
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.StateFlow
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -40,12 +39,18 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     public val settingItems: MutableValueFlow<List<SettingItem>> = MutableValueFlow(buildList())
-    public val allUpToDate: MutableValueFlow<Boolean> = MutableValueFlow(true)
-    private val canceled: MutableValueFlow<Boolean> = MutableValueFlow(false)
-
-    init {
-        checkAllUpToDate()
+    public val allUpToDate: StateFlow<Boolean> = derived {
+        isUpToDate(get(rulesUpdateRepository.lastEuRulesUpdate)) &&
+            isUpToDate(get(rulesUpdateRepository.lastDomesticRulesUpdate)) &&
+            isUpToDate(get(rulesUpdateRepository.lastValueSetsUpdate)) &&
+            isUpToDate(get(dscRepository.lastUpdate)) &&
+            isUpToDate(get(rulesUpdateRepository.lastCountryListUpdate)) &&
+            isOfflineRevocationActiveAndUpdated(
+                get(revocationLocalListRepository.revocationListUpdateIsOn),
+                get(revocationLocalListRepository.lastRevocationUpdateFinish)
+            )
     }
+    private val canceled: MutableValueFlow<Boolean> = MutableValueFlow(false)
 
     public fun update() {
         launch {
@@ -70,7 +75,6 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
                 revocationLocalListRepository.revocationListUpdateCanceled.value = false
             }
             settingItems.value = buildList()
-            checkAllUpToDate()
         }
     }
 
@@ -85,20 +89,13 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
         revocationLocalListRepository.revocationListUpdateCanceled.value = true
     }
 
-    public fun checkAllUpToDate() {
-        allUpToDate.value =
-            isUpToDate(rulesUpdateRepository.lastEuRulesUpdate.value) &&
-            isUpToDate(rulesUpdateRepository.lastDomesticRulesUpdate.value) &&
-            isUpToDate(rulesUpdateRepository.lastValueSetsUpdate.value) &&
-            isUpToDate(dscRepository.lastUpdate.value) &&
-            isUpToDate(rulesUpdateRepository.lastCountryListUpdate.value) &&
-            isOfflineRevocationActiveAndUpdated()
-    }
-
-    private fun isOfflineRevocationActiveAndUpdated(): Boolean {
+    private fun isOfflineRevocationActiveAndUpdated(
+        revocationListUpdateIsOn: Boolean,
+        lastRevocationUpdateFinish: Instant
+    ): Boolean {
         return if (isCovPassCheck) {
-            if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
-                isUpToDate(revocationLocalListRepository.lastRevocationUpdateFinish.value)
+            if (revocationListUpdateIsOn) {
+                isUpToDate(lastRevocationUpdateFinish)
             } else {
                 true
             }
