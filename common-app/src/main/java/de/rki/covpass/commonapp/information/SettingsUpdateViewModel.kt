@@ -17,12 +17,9 @@ import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.DscListUpdater
-import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 
 @SuppressWarnings("UnusedPrivateMember")
 public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
@@ -105,28 +102,30 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
     }
 
     private fun buildList(): List<SettingItem> {
-        return listOf(
-            SettingItem(
-                R.string.settings_rules_list_entry,
-                getDate(rulesUpdateRepository.lastEuRulesUpdate.value)
-            ),
-            SettingItem(
-                R.string.settings_rules_list_domestic,
-                getDate(rulesUpdateRepository.lastDomesticRulesUpdate.value)
-            ),
-            SettingItem(
-                R.string.settings_rules_list_features,
-                getDate(rulesUpdateRepository.lastValueSetsUpdate.value)
-            ),
-            SettingItem(
-                R.string.settings_rules_list_issuer,
-                getDate(dscRepository.lastUpdate.value)
-            ),
-            SettingItem(
-                R.string.settings_rules_list_countries,
-                getDate(rulesUpdateRepository.lastCountryListUpdate.value)
-            ),
-        ) + getOfflineRevocationItem()
+        return (
+            listOf(
+                SettingItem(
+                    R.string.settings_rules_list_entry,
+                    rulesUpdateRepository.lastEuRulesUpdate.value
+                ),
+                SettingItem(
+                    R.string.settings_rules_list_domestic,
+                    rulesUpdateRepository.lastDomesticRulesUpdate.value
+                ),
+                SettingItem(
+                    R.string.settings_rules_list_features,
+                    rulesUpdateRepository.lastValueSetsUpdate.value
+                ),
+                SettingItem(
+                    R.string.settings_rules_list_issuer,
+                    dscRepository.lastUpdate.value
+                ),
+                SettingItem(
+                    R.string.settings_rules_list_countries,
+                    rulesUpdateRepository.lastCountryListUpdate.value
+                ),
+            ) + getOfflineRevocationItem()
+            ).filterNot { it.date == DscRepository.NO_UPDATE_YET }
     }
 
     private fun getOfflineRevocationItem(): List<SettingItem> {
@@ -134,19 +133,12 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
             listOf(
                 SettingItem(
                     R.string.settings_rules_list_authorities,
-                    getDate(revocationLocalListRepository.lastRevocationUpdateFinish.value)
+                    revocationLocalListRepository.lastRevocationUpdateFinish.value
                 )
             )
         } else {
             emptyList()
         }
-    }
-
-    private fun getDate(date: Instant): String {
-        if (date == DscRepository.NO_UPDATE_YET) {
-            return ""
-        }
-        return LocalDateTime.ofInstant(date, ZoneId.systemDefault()).formatDateTime()
     }
 
     private fun isUpToDate(lastUpdate: Instant): Boolean {
