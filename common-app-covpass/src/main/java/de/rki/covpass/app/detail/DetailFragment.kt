@@ -414,14 +414,7 @@ internal class DetailFragment :
                             CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                 getString(R.string.certificates_overview_invalid_title)
                             CertValidationResult.Valid ->
-                                if (dgcEntry.validFrom.isInFuture()) {
-                                    getString(
-                                        R.string.recovery_certificate_overview_valid_from_title,
-                                        dgcEntry.validFrom?.formatDateOrEmpty()
-                                    )
-                                } else {
-                                    getString(R.string.recovery_certificate_overview_valid_until_title)
-                                }
+                                getString(R.string.recovery_certificate_overview_valid_until_title)
                             CertValidationResult.ExpiryPeriod ->
                                 getString(
                                     R.string.certificates_overview_soon_expiring_title,
