@@ -26,8 +26,8 @@ public fun CBORObject.toKidList(): List<RevocationKidEntry> {
                 key.GetByteString(),
                 value.entries.associate { (key, value) ->
                     key.GetByteString().first() to value.AsInt32()
-                }
-            )
+                },
+            ),
         )
     }
     return list
@@ -52,7 +52,7 @@ public fun List<RevocationKidLocal>.toListOfRevocationKidEntry(): List<Revocatio
     return this.map {
         RevocationKidEntry(
             it.kid,
-            it.hashVariants
+            it.hashVariants,
         )
     }
 }

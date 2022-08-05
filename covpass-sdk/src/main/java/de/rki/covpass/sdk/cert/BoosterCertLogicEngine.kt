@@ -15,7 +15,7 @@ import dgca.verifier.app.engine.JsonLogicValidator
 import dgca.verifier.app.engine.data.ExternalParameter
 
 public class BoosterCertLogicEngine(
-    private val jsonLogicValidator: JsonLogicValidator
+    private val jsonLogicValidator: JsonLogicValidator,
 ) {
     private val objectMapper = ObjectMapper()
 
@@ -32,15 +32,15 @@ public class BoosterCertLogicEngine(
 
     private fun prepareData(
         externalParameter: ExternalParameter,
-        payload: String
+        payload: String,
     ): ObjectNode = objectMapper.createObjectNode().apply {
         this.set<JsonNode>(
             EXTERNAL_KEY,
-            objectMapper.readValue(objectMapper.writeValueAsString(externalParameter))
+            objectMapper.readValue(objectMapper.writeValueAsString(externalParameter)),
         )
         this.set<JsonNode>(
             PAYLOAD_KEY,
-            objectMapper.readValue<JsonNode>(payload)
+            objectMapper.readValue<JsonNode>(payload),
         )
     }
 
@@ -48,7 +48,7 @@ public class BoosterCertLogicEngine(
         hcertVersionString: String,
         rules: List<BoosterRule>,
         externalParameter: ExternalParameter,
-        payload: String
+        payload: String,
     ): List<BoosterValidationResult> {
         if (rules.isEmpty()) return emptyList()
 
@@ -59,7 +59,7 @@ public class BoosterCertLogicEngine(
             checkRule(
                 rule = it,
                 dataJsonNode = dataJsonNode,
-                hcertVersion = hcertVersion
+                hcertVersion = hcertVersion,
             )
         }
     }
@@ -99,7 +99,7 @@ public class BoosterCertLogicEngine(
         return BoosterValidationResult(
             rule,
             res,
-            if (validationErrors.isEmpty()) null else validationErrors
+            if (validationErrors.isEmpty()) null else validationErrors,
         )
     }
 

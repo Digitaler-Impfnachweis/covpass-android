@@ -45,5 +45,5 @@ public data class CombinedCovCertificateLocal(
 
     val isRevoked: Boolean = false,
     val reissueState: ReissueState = ReissueState.None,
-    val reissueType: ReissueType = ReissueType.None
+    val reissueType: ReissueType = ReissueType.None,
 )

@@ -19,5 +19,5 @@ public data class TicketingDataInitialization(
     val token: String,
     val consent: String,
     val subject: String,
-    val serviceProvider: String
+    val serviceProvider: String,
 ) : Parcelable

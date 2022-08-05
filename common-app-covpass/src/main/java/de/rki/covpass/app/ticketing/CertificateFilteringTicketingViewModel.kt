@@ -17,14 +17,22 @@ import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
-import de.rki.covpass.sdk.ticketing.*
+import de.rki.covpass.sdk.ticketing.AccessTokenRepository
+import de.rki.covpass.sdk.ticketing.BookingPortalEncryptionData
+import de.rki.covpass.sdk.ticketing.CancellationRepository
+import de.rki.covpass.sdk.ticketing.IdentityDocumentRepository
+import de.rki.covpass.sdk.ticketing.TicketingDataInitialization
+import de.rki.covpass.sdk.ticketing.TicketingType
 import de.rki.covpass.sdk.ticketing.TicketingType.Companion.valueOfOrNull
+import de.rki.covpass.sdk.ticketing.ValidationServiceIdentityRepository
 import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenRequest
 import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenResponse
 import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenResponseContainer
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingIdentityDocument
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingServiceRemote
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
+import de.rki.covpass.sdk.ticketing.filterCertificates
+import de.rki.covpass.sdk.ticketing.parseJwtToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.parcelize.Parcelize
@@ -77,7 +85,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
         sdkDeps.cancellationRepository,
     private val certRepository: CertRepository =
         covpassDeps.certRepository,
-    private val hostPatternWhitelist: HostPatternWhitelist = sdkDeps.hostPatternWhitelist
+    private val hostPatternWhitelist: HostPatternWhitelist = sdkDeps.hostPatternWhitelist,
 ) : BaseReactiveState<CertificateFilteringEvents>(scope) {
 
     private val state: MutableStateFlow<State> = MutableStateFlow(State.Initial)
@@ -94,26 +102,26 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
 
             val ticketingIdentityDocument = fetchIdentityDocument(ticketingDataInitialization)
             val validationService = getTrustedValidationService(
-                ticketingIdentityDocument.validationServices
+                ticketingIdentityDocument.validationServices,
             )
             state.value = State.Fetched(
-                ticketingIdentityDocument.cancellationService.serviceEndpoint
+                ticketingIdentityDocument.cancellationService.serviceEndpoint,
             )
             val ticketingValidationServiceIdentity = fetchValidationServiceIdentity(
-                validationService
+                validationService,
             )
             val ticketingAccessTokenResponseContainer = fetchAccessToken(
                 keyPair,
                 ticketingDataInitialization,
                 ticketingIdentityDocument.accessTokenService,
-                validationService
+                validationService,
             )
             val bookingPortalEncryptionData = BookingPortalEncryptionData(
                 keyPair,
                 ticketingAccessTokenResponseContainer,
                 ticketingValidationServiceIdentity,
                 validationService.id,
-                getCancellationUrl()
+                getCancellationUrl(),
             )
 
             filterCertificates(bookingPortalEncryptionData)
@@ -134,7 +142,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
             certificateData.greenCertificateTypesTrimmed.mapNotNull { valueOfOrNull(it) },
             certificateData.standardizedGivenNameTrimmed,
             certificateData.standardizedFamilyNameTrimmed,
-            certificateData.dateOfBirthTrimmed
+            certificateData.dateOfBirthTrimmed,
         )
 
         eventNotifier {
@@ -142,7 +150,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
                 certificateData.standardizedGivenNameTrimmed,
                 certificateData.standardizedFamilyNameTrimmed,
                 certificateData.dateOfBirthTrimmed,
-                certificateData.greenCertificateTypesTrimmed.mapNotNull { valueOfOrNull(it) }
+                certificateData.greenCertificateTypesTrimmed.mapNotNull { valueOfOrNull(it) },
             )
 
             if (filteredCerts.isEmpty()) onEmptyList()
@@ -163,13 +171,13 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
     ): TicketingAccessTokenResponseContainer {
         val accessTokenRequest = TicketingAccessTokenRequest(
             validationService.id,
-            Base64.encodeToString(keyPair.public.encoded, Base64.NO_WRAP)
+            Base64.encodeToString(keyPair.public.encoded, Base64.NO_WRAP),
         )
 
         val ticketingAccessTokenData = accessTokenRepository.fetchAccessToken(
             accessTokenService.serviceEndpoint,
             ticketingDataInitialization.token,
-            accessTokenRequest
+            accessTokenRequest,
         )
         val ticketingAccessTokenResponse: TicketingAccessTokenResponse =
             ticketingAccessTokenData.jwtToken.parseJwtToken().let {
@@ -181,7 +189,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
             }
         return TicketingAccessTokenResponseContainer(
             ticketingAccessTokenResponse,
-            ticketingAccessTokenData
+            ticketingAccessTokenData,
         )
     }
 
@@ -189,7 +197,7 @@ public class CertificateFilteringTicketingViewModel @OptIn(DependencyAccessor::c
         validationService: TicketingServiceRemote,
     ): TicketingValidationServiceIdentityResponse =
         validationServiceIdentityRepository.fetchValidationServiceIdentity(
-            validationService.serviceEndpoint
+            validationService.serviceEndpoint,
         )
 
     public fun cancel(token: String, popOnce: Boolean = false) {

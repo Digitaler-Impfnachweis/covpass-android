@@ -13,7 +13,7 @@ public object MisusePreventionHelper {
 
     public fun getMisusePreventionStatus(
         groupedCertificates: List<GroupedCertificates>,
-        covCertificate: CovCertificate
+        covCertificate: CovCertificate,
     ): MisusePreventionStatus = when {
         groupedCertificates.size == FIRST_LIMITATION_COUNT && !isMatching(groupedCertificates, covCertificate) -> {
             MisusePreventionStatus.FIRST_LIMITATION_WARNING
@@ -29,7 +29,7 @@ public object MisusePreventionHelper {
 
     private fun isMatching(
         groupedCertificates: List<GroupedCertificates>,
-        covCertificate: CovCertificate
+        covCertificate: CovCertificate,
     ): Boolean = groupedCertificates.firstOrNull {
         isHolderSame(it.certificates.first().covCertificate, covCertificate)
     } != null

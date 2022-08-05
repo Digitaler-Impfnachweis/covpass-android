@@ -45,7 +45,7 @@ public class OpenSourceLicenseAdapter(parent: Fragment) :
     public class OpenSourceLicenceViewHolder(parent: ViewGroup) :
         BindingViewHolder<OpenSourceItemBinding>(
             parent,
-            OpenSourceItemBinding::inflate
+            OpenSourceItemBinding::inflate,
         ) {
         @SuppressLint("SetTextI18n")
         public fun bind(item: OpenSourceItem) {

@@ -7,7 +7,14 @@ package de.rki.covpass.sdk.rules.local
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import de.rki.covpass.sdk.rules.CovPassRule
-import de.rki.covpass.sdk.rules.local.rules.eu.*
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleDescriptionLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRuleWithDescriptionsLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.toCovPassDescriptionsLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.toCovPassRuleLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.toCovPassRuleWithDescriptionLocal
+import de.rki.covpass.sdk.rules.local.rules.eu.toDescriptions
+import de.rki.covpass.sdk.rules.local.rules.eu.toRule
 import dgca.verifier.app.engine.UTC_ZONE_ID
 import dgca.verifier.app.engine.data.Rule
 import dgca.verifier.app.engine.data.RuleCertificateType
@@ -37,13 +44,13 @@ public class CovPassEuRuleLocalMapperTest {
             countryCode = "countryCode",
             region = "region",
             hash = "hash",
-            descriptions = mapOf(Pair("description", "value"))
+            descriptions = mapOf(Pair("description", "value")),
         )
     }
     private val covPassRuleWithDescription by lazy {
         CovPassEuRuleWithDescriptionsLocal(
             covPassRuleLocal,
-            descriptions = listOf(CovPassEuRuleDescriptionLocal(lang = "description", desc = "value"))
+            descriptions = listOf(CovPassEuRuleDescriptionLocal(lang = "description", desc = "value")),
         )
     }
     private val covPassRuleLocal by lazy {
@@ -61,7 +68,7 @@ public class CovPassEuRuleLocalMapperTest {
             logic = "{\"value\": 1}",
             countryCode = "countryCode",
             region = "region",
-            hash = "hash"
+            hash = "hash",
         )
     }
     private val rule by lazy {
@@ -79,7 +86,7 @@ public class CovPassEuRuleLocalMapperTest {
             logic = jacksonObjectMapper().readTree("{\"value\": 1}"),
             countryCode = "countryCode",
             descriptions = mapOf(Pair("description", "value")),
-            region = "region"
+            region = "region",
         )
     }
 
@@ -93,7 +100,7 @@ public class CovPassEuRuleLocalMapperTest {
     public fun `test toCovPassDescriptionsLocal() and toDescriptions()`() {
         val map = mapOf(Pair("description", "value"))
         val covPassRuleDescriptionLocalList = listOf(
-            CovPassEuRuleDescriptionLocal(lang = "description", desc = "value")
+            CovPassEuRuleDescriptionLocal(lang = "description", desc = "value"),
         )
 
         val convertedCovPassRuleDescriptionLocalList = map.toCovPassDescriptionsLocal()

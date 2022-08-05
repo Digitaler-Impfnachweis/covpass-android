@@ -52,11 +52,11 @@ internal class TicketingResultScreenFragment : BaseBottomSheet() {
                 binding.ticketingResultTitle.setText(R.string.share_certificate_detail_view_requirements_met_title)
                 binding.ticketingResultSubtitle.text = getString(
                     R.string.share_certificate_detail_view_requirements_met_subline,
-                    args.validationServiceId
+                    args.validationServiceId,
                 )
                 binding.ticketingResultDescription.text = getString(
                     R.string.share_certificate_detail_view_requirements_met_message,
-                    args.ticketingDataInitialization.serviceProvider
+                    args.ticketingDataInitialization.serviceProvider,
                 )
             }
             BookingPortalValidationResponseResult.NOK -> {
@@ -64,11 +64,11 @@ internal class TicketingResultScreenFragment : BaseBottomSheet() {
                 binding.ticketingResultTitle.setText(R.string.share_certificate_detail_view_requirements_not_met_title)
                 binding.ticketingResultSubtitle.text = getString(
                     R.string.share_certificate_detail_view_requirements_not_met_subline,
-                    args.validationServiceId
+                    args.validationServiceId,
                 )
                 binding.ticketingResultDescription.text = getString(
                     R.string.share_certificate_detail_view_requirements_not_met_message,
-                    args.ticketingDataInitialization.serviceProvider
+                    args.ticketingDataInitialization.serviceProvider,
                 )
                 binding.ticketingResultRecyclerview.isVisible = true
                 TicketingResultScreenAdapter(this).attachTo(binding.ticketingResultRecyclerview)
@@ -83,11 +83,11 @@ internal class TicketingResultScreenFragment : BaseBottomSheet() {
                     .setText(R.string.share_certificate_detail_view_requirements_not_verifiable_title)
                 binding.ticketingResultSubtitle.text = getString(
                     R.string.share_certificate_detail_view_requirements_not_verifiable_subline,
-                    args.validationServiceId
+                    args.validationServiceId,
                 )
                 binding.ticketingResultDescription.text = getString(
                     R.string.share_certificate_detail_view_requirements_not_verifiable_message,
-                    args.ticketingDataInitialization.serviceProvider
+                    args.ticketingDataInitialization.serviceProvider,
                 )
                 binding.ticketingResultRecyclerview.isVisible = true
                 TicketingResultScreenAdapter(this).apply {

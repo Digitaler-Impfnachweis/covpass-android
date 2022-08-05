@@ -76,5 +76,5 @@ public interface FixedOrientation {
 
 /** The possible fixed orientations for [FixedOrientation]. */
 public enum class Orientation {
-    PORTRAIT, LANDSCAPE, SENSOR,
+    PORTRAIT, LANDSCAPE, SENSOR, USER
 }

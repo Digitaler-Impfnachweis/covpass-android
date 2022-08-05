@@ -11,5 +11,5 @@ public fun CovPassValueSetRemote.toCovPassValueSet(hash: String): CovPassValueSe
     valueSetId = valueSetId,
     valueSetDate = valueSetDate,
     valueSetValues = valueSetValues.toString(),
-    hash = hash
+    hash = hash,
 )

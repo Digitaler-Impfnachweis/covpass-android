@@ -13,9 +13,9 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CheckContextNotificationBinding
-import de.rki.covpass.commonapp.storage.CheckContextRepository.Companion.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.CheckContextRepository.Companion.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -39,7 +39,7 @@ public class CheckContextNotificationFragment : BaseBottomSheet() {
         binding.checkContextNotificationEuCheckbox.apply {
             updateValues(
                 R.string.check_context_onboarding_option1_title,
-                R.string.check_context_onboarding_option1_subtitle
+                R.string.check_context_onboarding_option1_subtitle,
             )
             updateCheckbox(false)
             setOnClickListener {
@@ -50,7 +50,7 @@ public class CheckContextNotificationFragment : BaseBottomSheet() {
         binding.checkContextNotificationLocalCheckbox.apply {
             updateValues(
                 R.string.check_context_onboarding_option2_title,
-                R.string.check_context_onboarding_option2_subtitle
+                R.string.check_context_onboarding_option2_subtitle,
             )
             updateCheckbox(true)
             setOnClickListener {
@@ -64,10 +64,10 @@ public class CheckContextNotificationFragment : BaseBottomSheet() {
     override fun onActionButtonClicked() {
         launchWhenStarted {
             commonDeps.checkContextRepository.isDomesticRulesOn.set(
-                binding.checkContextNotificationLocalCheckbox.isChecked()
+                binding.checkContextNotificationLocalCheckbox.isChecked(),
             )
             commonDeps.checkContextRepository.checkContextNotificationVersionShown.set(
-                CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
+                CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION,
             )
             findNavigator().pop()
         }

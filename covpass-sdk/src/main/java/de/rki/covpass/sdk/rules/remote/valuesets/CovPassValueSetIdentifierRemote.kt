@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class CovPassValueSetIdentifierRemote(
     val id: String,
-    val hash: String
+    val hash: String,
 )

@@ -26,7 +26,7 @@ internal interface DataProtectionCallback {
 
 @Parcelize
 internal class DataProtectionFragmentNav(
-    val isButtonVisible: Boolean = true
+    val isButtonVisible: Boolean = true,
 ) : FragmentNav(DataProtectionFragment::class)
 
 /**

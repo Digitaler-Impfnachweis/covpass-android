@@ -51,14 +51,14 @@ internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback 
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_selection_country_title)
         bottomSheetBinding.bottomSheetActionButton.setText(
-            R.string.certificate_check_validity_selection_country_action_button
+            R.string.certificate_check_validity_selection_country_action_button,
         )
 
         val adapter = ChangeCountryAdapter(this, args.countryCode, this)
         adapter.attachTo(binding.countryList)
         autoRun {
             adapter.updateList(
-                get(countryListViewModel.countries)
+                get(countryListViewModel.countries),
             )
         }
     }

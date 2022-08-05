@@ -5,7 +5,13 @@
 
 package de.rki.covpass.sdk.utils
 
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificateLocal
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.Name
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.toCombinedCovCertificate
 import de.rki.covpass.sdk.utils.CertificateReissueUtils.getBoosterAfterVaccinationAfterRecoveryIds
 import java.time.Instant
 import kotlin.test.Test
@@ -31,21 +37,21 @@ internal class CertificateReissueUtilsTest {
         birthDate = date,
         vaccinations = vaccinationCompleteSingleDose,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val certComplete = CovCertificate(
         name = Name(familyNameTransliterated = familyName, givenNameTransliterated = givenName),
         birthDate = date,
         vaccinations = vaccinationComplete,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val certRecovery1 = CovCertificate(
         name = Name(familyNameTransliterated = familyName, givenNameTransliterated = givenName),
         birthDate = date,
         recoveries = recovery,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val combinedCovCertComplete1 = certComplete.toCombinedCertLocal()
         .toCombinedCovCertificate(CertValidationResult.Valid)
@@ -57,12 +63,12 @@ internal class CertificateReissueUtilsTest {
     @Test
     fun `test getBoosterAfterVaccinationAfterRecoveryIds`() {
         val result = getBoosterAfterVaccinationAfterRecoveryIds(
-            listOf(combinedCovCertComplete1, combinedCovCertCompleteSingleDose1)
+            listOf(combinedCovCertComplete1, combinedCovCertCompleteSingleDose1),
         )
         assertEquals(listOf(idCompleteSingleDose, idComplete), result)
 
         val result2 = getBoosterAfterVaccinationAfterRecoveryIds(
-            listOf(combinedCovCertComplete1, combinedCovCertCompleteSingleDose1, combinedCovCertRecovery1)
+            listOf(combinedCovCertComplete1, combinedCovCertCompleteSingleDose1, combinedCovCertRecovery1),
         )
         assertEquals(listOf(idRecovery, idCompleteSingleDose, idComplete), result2)
     }

@@ -21,7 +21,7 @@ import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.androidDeps
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import io.ktor.util.*
+import io.ktor.util.encodeBase64
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.ByteArrayOutputStream
@@ -73,7 +73,7 @@ public abstract class BaseExportPdfViewModel @OptIn(DependencyAccessor::class) c
             BarcodeFormat.QR_CODE,
             619,
             619,
-            mapOf(EncodeHintType.MARGIN to 0)
+            mapOf(EncodeHintType.MARGIN to 0),
         ).convertToPngAndEncodeBase64()
     }
 

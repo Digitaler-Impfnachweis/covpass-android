@@ -58,8 +58,8 @@ public class ValidationResult2gPlusBBoosterFragment : BaseBottomSheet() {
             getString(R.string.result_2G_2nd_booster_valid),
             getString(
                 R.string.result_2G_2nd_timestamp_days,
-                args.certificateData?.validFrom?.daysTillNow()
-            )
+                args.certificateData?.validFrom?.daysTillNow(),
+            ),
         )
     }
 
@@ -72,7 +72,7 @@ public class ValidationResult2gPlusBBoosterFragment : BaseBottomSheet() {
             getString(
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
                 args.certificateData?.certificateBirthDate,
-            )
+            ),
         )
     }
 

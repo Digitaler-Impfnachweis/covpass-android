@@ -9,7 +9,7 @@ import androidx.room.Entity
 
 @Entity(
     tableName = "revocation_byte_two_list",
-    primaryKeys = ["kid", "hashVariant", "byteOne", "byteTwo"]
+    primaryKeys = ["kid", "hashVariant", "byteOne", "byteTwo"],
 )
 public data class RevocationByteTwoLocal(
     val kid: ByteArray,
@@ -17,7 +17,7 @@ public data class RevocationByteTwoLocal(
     val byteOne: Byte,
     val byteTwo: Byte,
     val chunks: List<ByteArray>,
-    val timestamp: Long
+    val timestamp: Long,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

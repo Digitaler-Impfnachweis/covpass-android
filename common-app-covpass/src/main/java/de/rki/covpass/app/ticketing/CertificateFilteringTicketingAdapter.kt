@@ -54,7 +54,7 @@ public class CertificateFilteringTicketingAdapter(
     public inner class CertificateFilteringViewHolder(parent: ViewGroup) :
         BindingViewHolder<CertificateDataElementBinding>(
             parent,
-            CertificateDataElementBinding::inflate
+            CertificateDataElementBinding::inflate,
         ) {
         public fun bind(item: CombinedCovCertificate) {
             with(binding) {
@@ -62,7 +62,7 @@ public class CertificateFilteringTicketingAdapter(
                     listener.onCovCertificateClicked(
                         item.covCertificate.dgcEntry.id,
                         item.qrContent,
-                        encryptionData
+                        encryptionData,
                     )
                 }
 
@@ -72,23 +72,23 @@ public class CertificateFilteringTicketingAdapter(
                         if (dgcEntry.isComplete) {
                             certificateDataElementLayout.setBackgroundResource(R.color.info)
                             certificateDataElementTypeIcon.setImageResource(
-                                R.drawable.main_cert_status_complete_white
+                                R.drawable.main_cert_status_complete_white,
                             )
                         } else {
                             certificateDataElementLayout.setBackgroundResource(R.color.info20)
                             certificateDataElementTypeIcon.setImageResource(
-                                R.drawable.main_cert_status_incomplete
+                                R.drawable.main_cert_status_incomplete,
                             )
                         }
                         certificateDataElementType.setText(R.string.certificate_check_validity_vaccination)
                         certificateDataElementInfo.text = getString(
                             R.string.certificates_overview_vaccination_certificate_message,
                             dgcEntry.doseNumber,
-                            dgcEntry.totalSerialDoses
+                            dgcEntry.totalSerialDoses,
                         )
                         certificateDataElementDate.text = getString(
                             R.string.certificates_overview_vaccination_certificate_date,
-                            dgcEntry.occurrence.formatDateOrEmpty()
+                            dgcEntry.occurrence.formatDateOrEmpty(),
                         )
                     }
                     is TestCert -> {
@@ -102,7 +102,7 @@ public class CertificateFilteringTicketingAdapter(
                         }
                         certificateDataElementDate.text = getString(
                             R.string.certificates_overview_test_certificate_date,
-                            dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: ""
+                            dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: "",
                         )
                     }
                     is Recovery -> {
@@ -112,7 +112,7 @@ public class CertificateFilteringTicketingAdapter(
                         certificateDataElementInfo.setText(R.string.recovery_certificate_detail_view_title)
                         certificateDataElementDate.text = getString(
                             R.string.certificates_overview_recovery_certificate_valid_until_date,
-                            item.covCertificate.validUntil?.formatDateOrEmpty() ?: ""
+                            item.covCertificate.validUntil?.formatDateOrEmpty() ?: "",
                         )
                     }
                 }

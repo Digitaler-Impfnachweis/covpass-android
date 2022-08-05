@@ -6,7 +6,13 @@
 package de.rki.covpass.sdk.ticketing
 
 import android.util.Base64
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.DGCEntry
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.TestCertType
+import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.ticketing.encoding.JwtObject
 import java.io.ByteArrayInputStream
 import java.security.cert.CertificateFactory

@@ -1,12 +1,16 @@
 package de.rki.covpass.sdk.cert.models
 
 import COSE.CoseException
-import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.sdk.cert.BadCoseSignatureException
+import de.rki.covpass.sdk.cert.BlacklistedEntityException
+import de.rki.covpass.sdk.cert.ExpiredCwtException
+import de.rki.covpass.sdk.cert.QRCoder
+import de.rki.covpass.sdk.cert.validateEntity
 import java.security.GeneralSecurityException
 
 /** Maps between [CovCertificateList] and [GroupedCertificatesList]. */
 public class CertificateListMapper(
-    private val qrCoder: QRCoder
+    private val qrCoder: QRCoder,
 ) {
     /** Transforms a [CovCertificateList] into a [GroupedCertificatesList]. */
     public fun toGroupedCertificatesList(covCertificateList: CovCertificateList): GroupedCertificatesList {
@@ -33,7 +37,7 @@ public class CertificateListMapper(
                 is BadCoseSignatureException,
                 is CoseException,
                 is GeneralSecurityException,
-                is BlacklistedEntityException -> CertValidationResult.Invalid
+                is BlacklistedEntityException, -> CertValidationResult.Invalid
                 else -> CertValidationResult.Invalid
             }
             val combinedCovCertificate = covCertificate.let {
@@ -43,8 +47,8 @@ public class CertificateListMapper(
                     localCert.copy(
                         covCertificate = localCert.covCertificate.copy(
                             kid = it.kid,
-                            rValue = it.rValue
-                        )
+                            rValue = it.rValue,
+                        ),
                     )
                 } else {
                     localCert

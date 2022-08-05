@@ -21,7 +21,7 @@ public suspend fun validate(
     covCertificate: CovCertificate,
     covPassRulesValidator: CovPassRulesValidator,
     revocationRemoteListRepository: RevocationRemoteListRepository,
-    recoveryOlder90DaysValid: Boolean = false
+    recoveryOlder90DaysValid: Boolean = false,
 ): CovPassCheckValidationResult {
     val validationResults = covPassRulesValidator.validate(covCertificate)
     if (validationResults.isEmpty()) {

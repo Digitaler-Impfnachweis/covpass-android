@@ -8,19 +8,19 @@ configurations {
 }
 
 dependencies {
-    ktlint "com.pinterest:ktlint:0.42.1"
+    ktlint "com.pinterest:ktlint:0.46.1"
 }
 
 task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style"
     classpath = configurations.ktlint
     mainClass = "com.pinterest.ktlint.Main"
-    args "src/**/*.kt", "--android", "--verbose", "--relative", "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
+    args "src/**/*.kt", "--android", "--verbose", "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
 }
 
 task ktlintFormat(type: JavaExec, group: "formatting") {
     description = "Fix Kotlin code style deviations."
     classpath = configurations.ktlint
     mainClass = "com.pinterest.ktlint.Main"
-    args "-F", "src/**/*.kt", "--android", "--relative"
+    args "-F", "src/**/*.kt", "--android"
 }

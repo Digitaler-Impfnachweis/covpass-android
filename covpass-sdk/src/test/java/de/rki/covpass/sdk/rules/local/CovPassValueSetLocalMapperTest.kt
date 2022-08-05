@@ -7,7 +7,11 @@ package de.rki.covpass.sdk.rules.local
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import de.rki.covpass.sdk.rules.CovPassValueSet
-import de.rki.covpass.sdk.rules.local.valuesets.*
+import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetLocal
+import de.rki.covpass.sdk.rules.local.valuesets.toCovPassValueSetLocal
+import de.rki.covpass.sdk.rules.local.valuesets.toCovPassValueSetsLocal
+import de.rki.covpass.sdk.rules.local.valuesets.toValueSet
+import de.rki.covpass.sdk.rules.local.valuesets.toValueSets
 import dgca.verifier.app.engine.data.ValueSet
 import java.time.LocalDate
 import kotlin.test.Test
@@ -27,11 +31,11 @@ public class CovPassValueSetLocalMapperTest {
     public fun `test toCovPassValueSetsLocal()`() {
         val valueSets = listOf(
             CovPassValueSet("id1", LocalDate.parse("2021-05-18"), "values1", "hash1"),
-            CovPassValueSet("id2", LocalDate.parse("2021-05-18"), "values2", "hash2")
+            CovPassValueSet("id2", LocalDate.parse("2021-05-18"), "values2", "hash2"),
         )
         val valueSetsLocal = listOf(
             CovPassValueSetLocal(0, "id1", LocalDate.parse("2021-05-18"), "values1", "hash1"),
-            CovPassValueSetLocal(0, "id2", LocalDate.parse("2021-05-18"), "values2", "hash2")
+            CovPassValueSetLocal(0, "id2", LocalDate.parse("2021-05-18"), "values2", "hash2"),
         )
         val convertedValueSetLocal: List<CovPassValueSetLocal> = valueSets.toCovPassValueSetsLocal()
         assertEquals(convertedValueSetLocal, valueSetsLocal)
@@ -50,11 +54,11 @@ public class CovPassValueSetLocalMapperTest {
     public fun `test List toValueSet()`() {
         val valueSetsLocal = listOf(
             CovPassValueSetLocal(0, "id1", LocalDate.parse("2021-05-18"), "{\"value\": 1}", "hash1"),
-            CovPassValueSetLocal(0, "id2", LocalDate.parse("2021-05-18"), "{\"value\": 2}", "hash2")
+            CovPassValueSetLocal(0, "id2", LocalDate.parse("2021-05-18"), "{\"value\": 2}", "hash2"),
         )
         val valueSets = listOf(
             ValueSet("id1", LocalDate.parse("2021-05-18"), jacksonObjectMapper().readTree("{\"value\": 1}")),
-            ValueSet("id2", LocalDate.parse("2021-05-18"), jacksonObjectMapper().readTree("{\"value\": 2}"))
+            ValueSet("id2", LocalDate.parse("2021-05-18"), jacksonObjectMapper().readTree("{\"value\": 2}")),
         )
         val convertedValueSetLocal: List<ValueSet> = valueSetsLocal.toValueSets()
         assertEquals(convertedValueSetLocal, valueSets)

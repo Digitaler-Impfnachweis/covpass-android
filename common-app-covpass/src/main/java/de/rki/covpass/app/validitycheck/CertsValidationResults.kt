@@ -10,5 +10,5 @@ import dgca.verifier.app.engine.ValidationResult
 
 public data class CertsValidationResults(
     val cert: CovCertificate,
-    val results: List<ValidationResult>
+    val results: List<ValidationResult>,
 )

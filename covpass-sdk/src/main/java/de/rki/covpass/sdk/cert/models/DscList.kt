@@ -27,5 +27,5 @@ public data class DscListEntry(
     val rawData: String,
     val signature: String,
     val thumbprint: String,
-    val timestamp: String
+    val timestamp: String,
 )

@@ -12,5 +12,5 @@ public data class CovPassRuleIdentifierRemote(
     val identifier: String,
     val version: String,
     val country: String,
-    val hash: String
+    val hash: String,
 )

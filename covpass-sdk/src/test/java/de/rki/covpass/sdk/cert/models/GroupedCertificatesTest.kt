@@ -23,8 +23,8 @@ internal class GroupedCertificatesTest {
         listOf(
             Recovery(
                 id = idRecovery,
-                firstResult = LocalDate.of(2021, 6, 10)
-            )
+                firstResult = LocalDate.of(2021, 6, 10),
+            ),
         )
     private val vaccinationCompleteSingleDose =
         listOf(
@@ -33,8 +33,8 @@ internal class GroupedCertificatesTest {
                 totalSerialDoses = 1,
                 id = idCompleteSingleDose,
                 product = "",
-                occurrence = LocalDate.of(2021, 6, 11)
-            )
+                occurrence = LocalDate.of(2021, 6, 11),
+            ),
         )
     private val vaccinationCompleteSingleDoseJansen =
         listOf(
@@ -43,8 +43,8 @@ internal class GroupedCertificatesTest {
                 totalSerialDoses = 1,
                 id = idCompleteSingleDoseJansen,
                 product = "EU/1/20/1525",
-                occurrence = LocalDate.of(2021, 6, 12)
-            )
+                occurrence = LocalDate.of(2021, 6, 12),
+            ),
         )
     private val vaccinationComplete =
         listOf(
@@ -52,8 +52,8 @@ internal class GroupedCertificatesTest {
                 doseNumber = 2,
                 totalSerialDoses = 2,
                 id = idComplete,
-                occurrence = LocalDate.of(2021, 6, 13)
-            )
+                occurrence = LocalDate.of(2021, 6, 13),
+            ),
         )
 
     private val certCompleteSingleDose = CovCertificate(
@@ -61,28 +61,28 @@ internal class GroupedCertificatesTest {
         birthDate = date,
         vaccinations = vaccinationCompleteSingleDose,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val certCompleteSingleDoseJansen = CovCertificate(
         name = Name(familyNameTransliterated = familyName, givenNameTransliterated = givenName),
         birthDate = date,
         vaccinations = vaccinationCompleteSingleDoseJansen,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val certComplete = CovCertificate(
         name = Name(familyNameTransliterated = familyName, givenNameTransliterated = givenName),
         birthDate = date,
         vaccinations = vaccinationComplete,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val certRecovery = CovCertificate(
         name = Name(familyNameTransliterated = familyName, givenNameTransliterated = givenName),
         birthDate = date,
         recoveries = recovery,
         validUntil = Instant.now(),
-        issuer = "DE"
+        issuer = "DE",
     )
     private val combinedCovCertComplete = certComplete.toCombinedCertLocal()
         .toCombinedCovCertificate(CertValidationResult.Valid)
@@ -99,59 +99,58 @@ internal class GroupedCertificatesTest {
             certificates = mutableListOf(
                 combinedCovCertComplete,
                 combinedCovCertCompleteSingleDose,
-                combinedCovCertRecovery
-            )
+                combinedCovCertRecovery,
+            ),
         )
         assertEquals(
             false,
             groupedCertificates.isCertVaccinationNotBoosterAfterJanssen(
-                certComplete
-            )
+                certComplete,
+            ),
         )
 
         val groupedCertificates2 = GroupedCertificates(
             certificates = mutableListOf(
                 combinedCovCertComplete,
                 combinedCovCertCompleteSingleDoseJansen,
-            )
+            ),
         )
         assertEquals(
             true,
             groupedCertificates2.isCertVaccinationNotBoosterAfterJanssen(
-                certComplete
-            )
+                certComplete,
+            ),
         )
 
         val groupedCertificates3 = GroupedCertificates(
             certificates = mutableListOf(
                 combinedCovCertComplete,
                 combinedCovCertCompleteSingleDoseJansen,
-                combinedCovCertRecovery
-            )
+                combinedCovCertRecovery,
+            ),
         )
         assertEquals(
             false,
             groupedCertificates3.isCertVaccinationNotBoosterAfterJanssen(
-                certComplete
-            )
+                certComplete,
+            ),
         )
     }
 
     @Test
     fun `test getHistoricalDataForDcc`() {
-
         val groupedCertificates = GroupedCertificates(
             certificates = mutableListOf(
                 combinedCovCertComplete,
                 combinedCovCertCompleteSingleDoseJansen,
-                combinedCovCertRecovery
-            )
+                combinedCovCertRecovery,
+            ),
         )
         assertEquals(
             listOf(idRecovery, idCompleteSingleDoseJansen),
             groupedCertificates.getHistoricalDataForDcc(
-                idComplete
-            )
+                idComplete,
+            ),
         )
     }
 
@@ -161,12 +160,12 @@ internal class GroupedCertificatesTest {
             certificates = mutableListOf(
                 combinedCovCertComplete,
                 combinedCovCertCompleteSingleDoseJansen,
-                combinedCovCertRecovery
-            )
+                combinedCovCertRecovery,
+            ),
         )
         assertEquals(
             listOf(idComplete, idRecovery),
-            groupedCertificates.getListOfImportantCerts()
+            groupedCertificates.getListOfImportantCerts(),
         )
     }
 

@@ -14,12 +14,14 @@ import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.storage.DscRepository.Companion.NO_UPDATE_YET
 import de.rki.covpass.sdk.utils.isNetworkError
 import de.rki.covpass.sdk.utils.toHex
-import io.ktor.client.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
+import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
+import io.ktor.client.engine.okhttp.OkHttpConfig
+import io.ktor.client.features.defaultRequest
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.get
+import io.ktor.client.request.host
 import kotlinx.serialization.Serializable
 import okhttp3.Cache
 import java.io.File
@@ -32,7 +34,7 @@ public class RevocationRemoteListRepository(
     store: CborSharedPrefsStore,
     cacheDir: File,
     private val revocationListPublicKey: PublicKey,
-    private val revocationLocalListRepository: RevocationLocalListRepository
+    private val revocationLocalListRepository: RevocationLocalListRepository,
 ) {
 
     @Suppress("UNCHECKED_CAST")
@@ -42,8 +44,8 @@ public class RevocationRemoteListRepository(
                 ?.cache(
                     Cache(
                         directory = File(cacheDir, "http_cache"),
-                        maxSize = 50L * 1024L * 1024L // 50 MiB
-                    )
+                        maxSize = 50L * 1024L * 1024L, // 50 MiB
+                    ),
                 )?.build()
         }
         defaultRequest {
@@ -85,7 +87,7 @@ public class RevocationRemoteListRepository(
     public suspend fun getByteOneChunk(
         kid: ByteArray,
         hashType: Byte,
-        byte1: Byte
+        byte1: Byte,
     ): List<ByteArray> {
         return if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
             revocationLocalListRepository.getSavedByteOneChunk(kid, hashType, byte1)
@@ -99,7 +101,7 @@ public class RevocationRemoteListRepository(
         kid: ByteArray,
         hashType: Byte,
         byte1: Byte,
-        byte2: Byte
+        byte2: Byte,
     ): List<ByteArray> {
         return if (revocationLocalListRepository.revocationListUpdateIsOn.value) {
             revocationLocalListRepository.getSavedByteTwoChunk(kid, hashType, byte1, byte2)
@@ -138,7 +140,7 @@ public class RevocationRemoteListRepository(
 
 public data class RevocationKidEntry(
     val kid: ByteArray,
-    val hashVariants: Map<Byte, Int>
+    val hashVariants: Map<Byte, Int>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (javaClass != other?.javaClass) return false

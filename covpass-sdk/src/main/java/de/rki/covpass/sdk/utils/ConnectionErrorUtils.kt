@@ -5,7 +5,8 @@
 
 package de.rki.covpass.sdk.utils
 
-import io.ktor.client.features.*
+import io.ktor.client.features.HttpRequestTimeoutException
+import io.ktor.client.features.ResponseException
 import okhttp3.internal.http2.StreamResetException
 import java.net.ProtocolException
 import java.net.SocketTimeoutException
@@ -20,7 +21,7 @@ public fun isNetworkError(error: Throwable): Boolean =
         is HttpRequestTimeoutException,
         is TimeoutException,
         is ProtocolException,
-        is ResponseException -> {
+        is ResponseException, -> {
             true
         }
         else ->

@@ -21,7 +21,7 @@ import java.time.Instant
 
 internal class RevocationExportViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    private val revocationCodeEncryptor: RevocationCodeEncryptor = sdkDeps.revocationCodeEncryptor
+    private val revocationCodeEncryptor: RevocationCodeEncryptor = sdkDeps.revocationCodeEncryptor,
 ) : BaseExportPdfViewModel(scope) {
 
     private val fileName: MutableStateFlow<String> = MutableStateFlow("")
@@ -37,7 +37,7 @@ internal class RevocationExportViewModel @OptIn(DependencyAccessor::class) const
                 applicationContext,
                 data,
                 base64EncodedData,
-                base64EncodedData.toBase64EncodedString()
+                base64EncodedData.toBase64EncodedString(),
             )
         }
     }

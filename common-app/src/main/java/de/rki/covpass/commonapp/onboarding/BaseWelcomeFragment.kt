@@ -33,7 +33,7 @@ public abstract class BaseWelcomeFragment : BaseFragment() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
 
         ViewCompat.setAccessibilityDelegate(
@@ -43,7 +43,7 @@ public abstract class BaseWelcomeFragment : BaseFragment() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         binding.welcomeHeaderTextview.setText(getHeaderTextRes())
         binding.welcomeSubheaderTextview.setText(getSubheaderTextRes())

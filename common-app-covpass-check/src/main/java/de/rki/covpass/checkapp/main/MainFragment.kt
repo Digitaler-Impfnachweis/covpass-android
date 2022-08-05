@@ -70,21 +70,21 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                 findNavigator().push(
                     CovPassCheckQRScannerFragmentNav(
                         viewModel.isTwoGPlusOn.value,
-                        viewModel.isTwoGPlusBOn.value
-                    )
+                        viewModel.isTwoGPlusBOn.value,
+                    ),
                 )
             } else {
                 findNavigator().push(
                     CovPassCheckCameraDisclosureFragmentNav(
                         viewModel.isTwoGPlusOn.value,
-                        viewModel.isTwoGPlusBOn.value
-                    )
+                        viewModel.isTwoGPlusBOn.value,
+                    ),
                 )
             }
         }
         binding.mainAvailabilityUpdateRulesLayout.setOnClickListener {
             findNavigator().push(
-                SettingsFragmentNav(true)
+                SettingsFragmentNav(true),
             )
         }
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
@@ -100,7 +100,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
                 override fun onTabReselected(tab: TabLayout.Tab?) {}
-            }
+            },
         )
         binding.mainCheckCert2gBSwitch.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isTwoGPlusBOn.value = isChecked
@@ -110,36 +110,36 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
-                    info: AccessibilityNodeInfoCompat
+                    info: AccessibilityNodeInfoCompat,
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         ViewCompat.setAccessibilityDelegate(
             binding.mainCheckCertHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
-                    info: AccessibilityNodeInfoCompat
+                    info: AccessibilityNodeInfoCompat,
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         ViewCompat.setAccessibilityDelegate(
             binding.mainAvailabilityHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
-                    info: AccessibilityNodeInfoCompat
+                    info: AccessibilityNodeInfoCompat,
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
 
         autoRun {
@@ -154,7 +154,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                         subtitle = getString(
                             R.string.validation_start_screen_scan_sync_message_text,
                             LocalDateTime.ofInstant(state.realTime, ZoneId.systemDefault())
-                                .formatDateTime()
+                                .formatDateTime(),
                         ),
                         iconRes = R.drawable.info_warning,
                     )
@@ -237,7 +237,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                 R.string.start_offline_link_subtitle_available
             } else {
                 R.string.start_offline_subtitle_unavailable
-            }
+            },
         )
     }
 }

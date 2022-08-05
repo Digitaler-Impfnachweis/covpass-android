@@ -24,7 +24,7 @@ public fun validateSignature(key: PublicKey, data: ByteArray, signature: ByteArr
             arrayOf(
                 ASN1Integer(BigInteger(1, r)),
                 ASN1Integer(BigInteger(1, s)),
-            )
+            ),
         ).encoded
     } else {
         signature

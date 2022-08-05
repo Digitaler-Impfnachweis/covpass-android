@@ -10,12 +10,12 @@ import de.rki.covpass.sdk.revocation.RevocationIndexEntry
 
 @Entity(
     tableName = "revocation_index_list",
-    primaryKeys = ["kid", "hashVariant"]
+    primaryKeys = ["kid", "hashVariant"],
 )
 public data class RevocationIndexLocal(
     val kid: ByteArray,
     val hashVariant: Byte,
-    val index: Map<Byte, RevocationIndexEntry>
+    val index: Map<Byte, RevocationIndexEntry>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

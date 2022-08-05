@@ -13,7 +13,7 @@ import kotlin.test.assertEquals
 internal class BirthDateFormatterTest {
 
     private val cert: CovCertificate = CovCertificate(
-        vaccinations = listOf(Vaccination(doseNumber = 1, totalSerialDoses = 2, id = ""))
+        vaccinations = listOf(Vaccination(doseNumber = 1, totalSerialDoses = 2, id = "")),
     )
 
     @Test

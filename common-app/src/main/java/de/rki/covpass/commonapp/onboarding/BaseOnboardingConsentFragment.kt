@@ -52,7 +52,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingImageview.setImageResource(imageRes)
@@ -81,7 +81,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
                 termsOfUseLink?.let { it -> getString(it) },
                 termsOfUseIcon,
                 termsOfUseLinkEvent,
-                R.style.Header_Info_Small
+                R.style.Header_Info_Small,
             )
         }
     }
@@ -91,7 +91,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
             val paragraphItem = layoutInflater.inflate(
                 R.layout.onboarding_consent_paragraph_item,
                 binding.consentInfoItemsContainer,
-                false
+                false,
             ).apply { findViewById<TextView>(R.id.content).text = getString(it) }
             binding.consentInfoItemsContainer.addView(paragraphItem)
         }

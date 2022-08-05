@@ -20,7 +20,7 @@ public data class Name(
     @SerialName("gnt")
     val givenNameTransliterated: String? = null,
     @SerialName("fnt")
-    val familyNameTransliterated: String = ""
+    val familyNameTransliterated: String = "",
 ) : java.io.Serializable {
 
     val trimmedName: Name
@@ -28,6 +28,6 @@ public data class Name(
             givenName?.trim(),
             familyName?.trim(),
             givenNameTransliterated?.trim(),
-            familyNameTransliterated.trim()
+            familyNameTransliterated.trim(),
         )
 }

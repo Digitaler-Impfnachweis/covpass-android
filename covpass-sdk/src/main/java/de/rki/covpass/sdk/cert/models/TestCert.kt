@@ -45,7 +45,7 @@ public data class TestCert(
     @SerialName("is")
     val certificateIssuer: String = "",
     @SerialName("ci")
-    override val id: String = ""
+    override val id: String = "",
 ) : DGCEntry {
 
     public override val type: TestCertType

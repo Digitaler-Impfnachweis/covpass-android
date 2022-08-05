@@ -28,7 +28,7 @@ public sealed class DetailItem {
 
     public class Header(
         public val title: String,
-        public val titleAccessibleDescription: String
+        public val titleAccessibleDescription: String,
     ) : DetailItem()
 
     public class Personal(
@@ -39,7 +39,7 @@ public sealed class DetailItem {
 
     public class Infobox(
         public val title: String,
-        public val description: String
+        public val description: String,
     ) : DetailItem()
 
     public class Certificate(
@@ -66,6 +66,6 @@ public sealed class DetailItem {
         public val iconBackgroundRes: Int?,
         public val iconTextRes: Int?,
         public val buttonRes: Int,
-        public val buttonClickListener: View.OnClickListener?
+        public val buttonClickListener: View.OnClickListener?,
     ) : DetailItem()
 }

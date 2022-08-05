@@ -5,7 +5,7 @@
 
 package de.rki.covpass.sdk.utils
 
-import java.util.*
+import java.util.Locale
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

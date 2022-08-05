@@ -41,7 +41,7 @@ public abstract class CommonErrorHandler {
                 messageString = "${getString(R.string.error_scan_qrcode_cannot_be_parsed_message)} (Error " +
                     "${getDecodingExceptionType(error)})",
                 positiveButtonTextRes = R.string.error_scan_qrcode_cannot_be_parsed_button_title,
-                tag = TAG_ERROR_UNREADABLE_CERTIFICATE
+                tag = TAG_ERROR_UNREADABLE_CERTIFICATE,
             )
             else -> if (isConnectionError(error)) {
                 DialogModel(

@@ -21,13 +21,14 @@ public class CertificateViewHolder(
         (item as DetailItem.Certificate).let { cert ->
             when (cert.type) {
                 VaccinationCertType.VACCINATION_COMPLETE,
-                VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+                VaccinationCertType.VACCINATION_FULL_PROTECTION,
+                -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
                             R.color.info
                         } else {
                             R.color.backgroundSecondary20
-                        }
+                        },
                     )
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
@@ -38,7 +39,8 @@ public class CertificateViewHolder(
                         }
                         CertValidationResult.Expired,
                         CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
+                        CertValidationResult.Revoked,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -50,7 +52,7 @@ public class CertificateViewHolder(
                             R.color.info20
                         } else {
                             R.color.backgroundSecondary20
-                        }
+                        },
                     )
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
@@ -61,20 +63,22 @@ public class CertificateViewHolder(
                         }
                         CertValidationResult.Expired,
                         CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
+                        CertValidationResult.Revoked,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
                     }
                 }
                 TestCertType.NEGATIVE_PCR_TEST,
-                TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+                TestCertType.NEGATIVE_ANTIGEN_TEST,
+                -> {
                     binding.certificateStatusLayout.setLayoutBackgroundColor(
                         if (cert.isActual) {
                             R.color.test_certificate_background
                         } else {
                             R.color.backgroundSecondary20
-                        }
+                        },
                     )
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
@@ -85,7 +89,8 @@ public class CertificateViewHolder(
                         }
                         CertValidationResult.Expired,
                         CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
+                        CertValidationResult.Revoked,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
@@ -97,7 +102,7 @@ public class CertificateViewHolder(
                             R.color.infoDark
                         } else {
                             R.color.backgroundSecondary20
-                        }
+                        },
                     )
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
@@ -108,14 +113,16 @@ public class CertificateViewHolder(
                         }
                         CertValidationResult.Expired,
                         CertValidationResult.Invalid,
-                        CertValidationResult.Revoked -> {
+                        CertValidationResult.Revoked,
+                        -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_expired)
                             binding.certificateStatusLayout.setLayoutBackgroundColor(R.color.backgroundSecondary20)
                         }
                     }
                 }
                 TestCertType.POSITIVE_PCR_TEST,
-                TestCertType.POSITIVE_ANTIGEN_TEST -> return
+                TestCertType.POSITIVE_ANTIGEN_TEST,
+                -> return
                 // .let{} to enforce exhaustiveness
             }.let {}
             binding.certificateTypeIcon.setTint(
@@ -128,7 +135,7 @@ public class CertificateViewHolder(
                     }
                 } else {
                     R.color.backgroundSecondary50
-                }
+                },
             )
             binding.certificateItemActualTitle.isVisible = cert.isActual
             binding.certificateItemTitle.text = cert.title
@@ -154,7 +161,8 @@ public class CertificateViewHolder(
                         getString(R.string.certificates_overview_expired_certificate_note)
                 }
                 CertValidationResult.Invalid,
-                CertValidationResult.Revoked -> {
+                CertValidationResult.Revoked,
+                -> {
                     binding.certificateExpiryInfo.isVisible = true
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_invalid_certificate_note)

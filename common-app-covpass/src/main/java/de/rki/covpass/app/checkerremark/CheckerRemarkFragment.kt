@@ -42,7 +42,7 @@ internal class CheckerRemarkFragment : BaseBottomSheet() {
         binding.checkerRemarkFaq.apply {
             text = getSpanned(
                 R.string.certificates_start_screen_pop_up_app_reference_hyperlink_linked,
-                getString(R.string.covpass_check_store_link)
+                getString(R.string.covpass_check_store_link),
             )
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
@@ -62,7 +62,7 @@ internal class CheckerRemarkFragment : BaseBottomSheet() {
     private fun triggerUpdate() {
         launchWhenStarted {
             covpassDeps.checkerRemarkRepository.checkerRemarkShown.set(
-                CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION
+                CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION,
             )
             findNavigator().popUntil<CheckRemarkCallback>()?.onCheckRemarkFinish()
         }

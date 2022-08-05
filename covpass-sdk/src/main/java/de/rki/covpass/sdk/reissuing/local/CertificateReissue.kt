@@ -7,9 +7,9 @@ package de.rki.covpass.sdk.reissuing.local
 
 public data class CertificateReissue(
     val certificate: String,
-    val relations: List<Relation>
+    val relations: List<Relation>,
 )
 
 public data class Relation(
-    val action: CertificateReissueRelationType
+    val action: CertificateReissueRelationType,
 )

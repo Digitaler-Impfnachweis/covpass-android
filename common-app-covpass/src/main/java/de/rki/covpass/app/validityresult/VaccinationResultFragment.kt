@@ -54,41 +54,41 @@ internal class VaccinationResultFragment : ResultFragment() {
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_name),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_name),
-                cert.fullNameReverse
+                cert.fullNameReverse,
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_name_standard),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_name_standard),
-                cert.fullTransliteratedNameReverse
+                cert.fullTransliteratedNameReverse,
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_date_of_birth),
-                cert.birthDateFormatted
+                cert.birthDateFormatted,
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_disease),
                 valueSetsRepository.getDiseaseAgentName(vaccination.targetDisease),
-                args.derivedValidationResults.getResultsBy("tg")
+                args.derivedValidationResults.getResultsBy("tg"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine),
                 valueSetsRepository.getProductName(vaccination.product),
-                args.derivedValidationResults.getResultsBy("mp")
+                args.derivedValidationResults.getResultsBy("mp"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_type),
                 valueSetsRepository.getProphylaxisName(vaccination.vaccineCode),
-                args.derivedValidationResults.getResultsBy("vp")
+                args.derivedValidationResults.getResultsBy("vp"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_manufacturer),
                 valueSetsRepository.getManufacturerName(vaccination.manufacturer),
-                args.derivedValidationResults.getResultsBy("ma")
+                args.derivedValidationResults.getResultsBy("ma"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
@@ -102,45 +102,45 @@ internal class VaccinationResultFragment : ResultFragment() {
                 valueAccessibleDescription = getString(
                     R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number_readable_text,
                     vaccination.doseNumber,
-                    vaccination.totalSerialDoses
-                )
+                    vaccination.totalSerialDoses,
+                ),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_date_),
                 vaccination.occurrence?.formatDateInternational() ?: "",
-                args.derivedValidationResults.getResultsBy("dt")
+                args.derivedValidationResults.getResultsBy("dt"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_country),
                 CountryResolver.getCountryLocalized(vaccination.country),
-                args.derivedValidationResults.getResultsBy("co")
+                args.derivedValidationResults.getResultsBy("co"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_issuer),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_issuer),
                 vaccination.certificateIssuer,
-                args.derivedValidationResults.getResultsBy("is")
+                args.derivedValidationResults.getResultsBy("is"),
             ),
             ResultRowData(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_identifier),
-                vaccination.idWithoutPrefix
+                vaccination.idWithoutPrefix,
             ),
             ResultRowData(
                 title = getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_expiry_date),
                 value = getString(
                     R.string.vaccination_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime(),
                 ),
                 description = getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note),
                 valueAccessibleDescription = getString(
                     R.string.vaccination_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility(),
                 ),
-            )
+            ),
         )
     }
 }

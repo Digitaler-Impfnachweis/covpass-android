@@ -39,7 +39,7 @@ internal class MisusePreventionViewModel @OptIn(DependencyAccessor::class) const
             CovPassCertificateStorageHelper.addNewCertificate(
                 certRepository.certs,
                 covCertificate,
-                qrContent
+                qrContent,
             )?.let {
                 eventNotifier {
                     onSaveSuccess(it)

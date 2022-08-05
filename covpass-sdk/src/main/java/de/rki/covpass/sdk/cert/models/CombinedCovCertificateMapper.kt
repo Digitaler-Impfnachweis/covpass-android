@@ -21,7 +21,7 @@ public fun CombinedCovCertificateLocal.toCombinedCovCertificate(
         hasSeenRevokedNotification = hasSeenRevokedNotification,
         isRevoked = isRevoked,
         reissueState = reissueState,
-        reissueType = reissueType
+        reissueType = reissueType,
     )
 
 public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCertificateLocal =
@@ -39,17 +39,17 @@ public fun CombinedCovCertificate.toCombinedCovCertificateLocal(): CombinedCovCe
         hasSeenRevokedNotification = hasSeenRevokedNotification,
         isRevoked = isRevoked,
         reissueState = reissueState,
-        reissueType = reissueType
+        reissueType = reissueType,
     )
 
 public fun CovCertificate.isInExpiryPeriod(): Boolean =
     ZonedDateTime.ofInstant(
         validUntil,
-        ZoneId.systemDefault()
+        ZoneId.systemDefault(),
     ).minusDays(28).isBefore(ZonedDateTime.now())
 
 public fun CovCertificate.isExpired(): Boolean =
     ZonedDateTime.ofInstant(
         validUntil,
-        ZoneId.systemDefault()
+        ZoneId.systemDefault(),
     ).isBefore(ZonedDateTime.now())

@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class CovPassDescriptionRemote(
     val lang: String,
-    val desc: String
+    val desc: String,
 )

@@ -40,7 +40,7 @@ internal class DetailExportPdfFragment : BaseExportPdfFragment() {
         listOf(
             R.string.certificate_create_pdf_first_list_item,
             R.string.certificate_create_pdf_second_list_item,
-            R.string.certificate_create_pdf_third_list_item
+            R.string.certificate_create_pdf_third_list_item,
         )
     }
 
@@ -55,7 +55,7 @@ internal class DetailExportPdfFragment : BaseExportPdfFragment() {
             val paragraphItem = layoutInflater.inflate(
                 R.layout.onboarding_consent_paragraph_item,
                 binding.exportPdfInfoItemsContainer,
-                false
+                false,
             ).apply { findViewById<TextView>(R.id.content).text = getString(it) }
             binding.exportPdfInfoItemsContainer.addView(paragraphItem)
         }

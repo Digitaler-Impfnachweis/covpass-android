@@ -36,8 +36,25 @@ import de.rki.covpass.app.detail.adapter.DetailItem
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.sdk.cert.models.*
-import de.rki.covpass.sdk.utils.*
+import de.rki.covpass.sdk.cert.models.BoosterResult
+import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.DGCEntryType
+import de.rki.covpass.sdk.cert.models.GroupedCertificates
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.RecoveryCertType
+import de.rki.covpass.sdk.cert.models.ReissueType
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.TestCertType
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.VaccinationCertType
+import de.rki.covpass.sdk.utils.formatDate
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatDateTime
+import de.rki.covpass.sdk.utils.formatTimeOrEmpty
+import de.rki.covpass.sdk.utils.isInFuture
+import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -92,8 +109,9 @@ internal class DetailFragment :
             Menu.NONE,
             FAVORITE_ITEM_ID,
             Menu.NONE,
-            if (isFavorite) R.string.accessibility_overview_certificates_label_favourites_button_active else
+            if (isFavorite) R.string.accessibility_overview_certificates_label_favourites_button_active else {
                 R.string.accessibility_overview_certificates_label_favourites_button_not_active
+            },
         )
         val favoriteIcon = if (isFavorite) R.drawable.star_black_fill else R.drawable.star_black
         favoriteItem.setIcon(favoriteIcon)
@@ -143,7 +161,7 @@ internal class DetailFragment :
 
             if (firstAdded) {
                 sendLocalAccessibilityAnnouncementEvent(
-                    getString(R.string.accessibility_scan_success_announce, cert.fullName)
+                    getString(R.string.accessibility_scan_success_announce, cert.fullName),
                 )
             }
 
@@ -170,7 +188,7 @@ internal class DetailFragment :
                                             dgcEntry.isBooster &&
                                             !isJanssenFullProtection &&
                                             !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(
-                                                mainCertificate.covCertificate
+                                                mainCertificate.covCertificate,
                                             )
                                         ) {
                                             getString(R.string.certificate_type_booster)
@@ -193,7 +211,7 @@ internal class DetailFragment :
                                             R.string.vaccination_certificate_overview_complete_message
                                         CertValidationResult.ExpiryPeriod ->
                                             messageSoonExpiredCert(cert.isGermanCertificate)
-                                    }
+                                    },
                                 )
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -202,16 +220,10 @@ internal class DetailFragment :
                                 }
                                 DetailItem.Widget(
                                     title = title,
-                                    statusIcon = when (certStatus) {
-                                        CertValidationResult.Expired,
-                                        CertValidationResult.Invalid,
-                                        CertValidationResult.Revoked -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid -> R.drawable.detail_cert_status_complete
-                                        CertValidationResult.ExpiryPeriod -> R.drawable.detail_cert_status_expiring
-                                    },
+                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
                                     message = message,
                                     buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid
+                                    isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
                             VaccinationCertType.VACCINATION_COMPLETE -> {
@@ -248,16 +260,10 @@ internal class DetailFragment :
                                 }
                                 DetailItem.Widget(
                                     title = title,
-                                    statusIcon = when (certStatus) {
-                                        CertValidationResult.Expired,
-                                        CertValidationResult.Invalid,
-                                        CertValidationResult.Revoked -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid -> R.drawable.detail_cert_status_complete
-                                        CertValidationResult.ExpiryPeriod -> R.drawable.detail_cert_status_expiring
-                                    },
+                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
                                     message = message,
                                     buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid
+                                    isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
                             VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -291,21 +297,15 @@ internal class DetailFragment :
                                     getString(R.string.certificates_overview_expired_action_button_title)
                                 } else {
                                     getString(
-                                        R.string.vaccination_certificate_detail_view_incomplete_action_button_title
+                                        R.string.vaccination_certificate_detail_view_incomplete_action_button_title,
                                     )
                                 }
                                 DetailItem.Widget(
                                     title = title,
-                                    statusIcon = when (certStatus) {
-                                        CertValidationResult.Expired,
-                                        CertValidationResult.Invalid,
-                                        CertValidationResult.Revoked -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid -> R.drawable.detail_cert_status_incomplete
-                                        CertValidationResult.ExpiryPeriod -> R.drawable.detail_cert_status_expiring
-                                    },
+                                    statusIcon = certStatus.getIncompleteVaccinationStatusIconRes(),
                                     message = message,
                                     buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid
+                                    isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
                         }
@@ -343,21 +343,15 @@ internal class DetailFragment :
                                     getString(R.string.certificates_overview_expired_action_button_title)
                                 } else {
                                     getString(
-                                        R.string.pcr_test_certificate_overview_action_button_title
+                                        R.string.pcr_test_certificate_overview_action_button_title,
                                     )
                                 }
                                 DetailItem.Widget(
                                     title = title,
-                                    statusIcon = when (certStatus) {
-                                        CertValidationResult.Expired,
-                                        CertValidationResult.Invalid,
-                                        CertValidationResult.Revoked -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid -> R.drawable.detail_cert_status_complete
-                                        CertValidationResult.ExpiryPeriod -> R.drawable.detail_cert_status_expiring
-                                    },
+                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
                                     message = message,
                                     buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid
+                                    isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
@@ -383,7 +377,7 @@ internal class DetailFragment :
                                         CertValidationResult.Valid -> R.string.test_certificate_overview_message
                                         CertValidationResult.ExpiryPeriod ->
                                             messageSoonExpiredCert(cert.isGermanCertificate)
-                                    }
+                                    },
                                 )
                                 val buttonText = if (isExpiredOrInvalid) {
                                     getString(R.string.certificates_overview_expired_action_button_title)
@@ -392,16 +386,10 @@ internal class DetailFragment :
                                 }
                                 DetailItem.Widget(
                                     title = title,
-                                    statusIcon = when (certStatus) {
-                                        CertValidationResult.Expired,
-                                        CertValidationResult.Invalid,
-                                        CertValidationResult.Revoked -> R.drawable.detail_cert_status_expired
-                                        CertValidationResult.Valid -> R.drawable.detail_cert_status_complete
-                                        CertValidationResult.ExpiryPeriod -> R.drawable.detail_cert_status_expiring
-                                    },
+                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
                                     message = message,
                                     buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid
+                                    isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
                             TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> return
@@ -441,16 +429,10 @@ internal class DetailFragment :
                         }
                         DetailItem.Widget(
                             title = title,
-                            statusIcon = when (certStatus) {
-                                CertValidationResult.Expired,
-                                CertValidationResult.Invalid,
-                                CertValidationResult.Revoked -> R.drawable.detail_cert_status_expired
-                                CertValidationResult.Valid -> R.drawable.detail_cert_status_complete
-                                CertValidationResult.ExpiryPeriod -> R.drawable.detail_cert_status_expiring
-                            },
+                            statusIcon = certStatus.getVaccinationStatusIconRes(),
                             message = message,
                             buttonText = buttonText,
-                            isExpiredOrInvalid = isExpiredOrInvalid
+                            isExpiredOrInvalid = isExpiredOrInvalid,
                         )
                     }
                 },
@@ -465,15 +447,15 @@ internal class DetailFragment :
                             R.drawable.background_new_warning
                         } else null,
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new,
-                        R.string.certificate_renewal_detail_view_notification_box_secondary_button
+                        R.string.certificate_renewal_detail_view_notification_box_secondary_button,
                     ) {
                         findNavigator().push(
                             ReissueNotificationFragmentNav(
                                 ReissueType.Booster,
-                                groupedCertificate.getListOfIdsReadyForReissue()
-                            )
+                                groupedCertificate.getListOfIdsReadyForReissue(),
+                            ),
                         )
-                    }
+                    },
                 )
             }
 
@@ -489,15 +471,15 @@ internal class DetailFragment :
                             if (!groupedCertificate.hasSeenReissueDetailNotification) {
                                 R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
                             } else null,
-                            R.string.renewal_expiry_notification_button_vaccination
+                            R.string.renewal_expiry_notification_button_vaccination,
                         ) {
                             findNavigator().push(
                                 ReissueNotificationFragmentNav(
                                     ReissueType.Vaccination,
-                                    groupedCertificate.getListOfVaccinationIdsReadyForReissue()
-                                )
+                                    groupedCertificate.getListOfVaccinationIdsReadyForReissue(),
+                                ),
                             )
-                        }
+                        },
                     )
                 }
 
@@ -512,17 +494,17 @@ internal class DetailFragment :
                             if (!groupedCertificate.hasSeenReissueDetailNotification) {
                                 R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
                             } else null,
-                            R.string.renewal_expiry_notification_button_recovery
+                            R.string.renewal_expiry_notification_button_recovery,
                         ) {
                             findNavigator().push(
                                 ReissueNotificationFragmentNav(
                                     ReissueType.Recovery,
                                     listOf(recoveryId) + groupedCertificate.getHistoricalDataForDcc(
-                                        recoveryId
-                                    )
-                                )
+                                        recoveryId,
+                                    ),
+                                ),
                             )
-                        }
+                        },
                     )
                 }
             }
@@ -538,8 +520,8 @@ internal class DetailFragment :
                         } else null,
                         if (!groupedCertificate.hasSeenBoosterDetailNotification) {
                             R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
-                        } else null
-                    )
+                        } else null,
+                    ),
                 )
             }
 
@@ -547,32 +529,32 @@ internal class DetailFragment :
                 listOf(
                     DetailItem.Header(
                         getString(R.string.certificates_overview_personal_data_title),
-                        getString(R.string.certificates_overview_personal_data_title)
+                        getString(R.string.certificates_overview_personal_data_title),
                     ),
                     DetailItem.Personal(
                         getString(R.string.certificates_overview_personal_data_name),
                         getString(R.string.accessibility_certificates_overview_personal_data_name),
-                        cert.fullNameReverse
+                        cert.fullNameReverse,
                     ),
                     DetailItem.Personal(
                         getString(R.string.certificates_overview_personal_data_standardized_name),
                         getString(R.string.accessibility_certificates_overview_personal_data_standardized_name),
-                        cert.fullTransliteratedNameReverse
+                        cert.fullTransliteratedNameReverse,
                     ),
                     DetailItem.Personal(
                         getString(R.string.certificates_overview_personal_data_date_of_birth),
                         getString(R.string.accessibility_certificates_overview_personal_data_date_of_birth),
-                        cert.birthDateFormatted
+                        cert.birthDateFormatted,
                     ),
                     DetailItem.Header(
                         getString(R.string.certificates_overview_all_certificates_title),
-                        getString(R.string.accessibility_certificates_overview_all_certificates_title)
+                        getString(R.string.accessibility_certificates_overview_all_certificates_title),
                     ),
                     DetailItem.Infobox(
                         getString(R.string.certificates_overview_all_certificates_app_reference_title),
-                        getString(R.string.certificates_overview_all_certificates_app_reference_text)
-                    )
-                )
+                        getString(R.string.certificates_overview_all_certificates_app_reference_text),
+                    ),
+                ),
             )
 
             val sortedCertificatesList = groupedCertificate.getSortedCertificates().mapNotNull {
@@ -584,14 +566,15 @@ internal class DetailFragment :
                             title = getString(R.string.certificates_overview_vaccination_certificate_title),
                             subtitle = getString(
                                 R.string.certificates_overview_vaccination_certificate_message,
-                                groupedDgcEntry.doseNumber, groupedDgcEntry.totalSerialDoses
+                                groupedDgcEntry.doseNumber,
+                                groupedDgcEntry.totalSerialDoses,
                             ),
                             date = getString(
                                 R.string.certificates_overview_vaccination_certificate_date,
-                                groupedDgcEntry.occurrence?.formatDate()
+                                groupedDgcEntry.occurrence?.formatDate(),
                             ),
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            certStatus = it.status
+                            certStatus = it.status,
                         )
                     }
                     is TestCert -> {
@@ -605,10 +588,10 @@ internal class DetailFragment :
                                     date = getString(
                                         R.string.certificates_overview_test_certificate_date,
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()
-                                            ?.formatDateTime()
+                                            ?.formatDateTime(),
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                                    certStatus = it.status
+                                    certStatus = it.status,
                                 )
                             }
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
@@ -620,10 +603,10 @@ internal class DetailFragment :
                                     date = getString(
                                         R.string.certificates_overview_test_certificate_date,
                                         groupedDgcEntry.sampleCollection?.toDeviceTimeZone()
-                                            ?.formatDateTime()
+                                            ?.formatDateTime(),
                                     ),
                                     isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                                    certStatus = it.status
+                                    certStatus = it.status,
                                 )
                             }
                             TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> null
@@ -633,12 +616,12 @@ internal class DetailFragment :
                         val date = if (groupedDgcEntry.validFrom.isInFuture()) {
                             getString(
                                 R.string.certificates_overview_recovery_certificate_valid_from_date,
-                                groupedDgcEntry.validFrom?.formatDateOrEmpty()
+                                groupedDgcEntry.validFrom?.formatDateOrEmpty(),
                             )
                         } else {
                             getString(
                                 R.string.certificates_overview_recovery_certificate_valid_until_date,
-                                groupedDgcEntry.validUntil?.formatDateOrEmpty()
+                                groupedDgcEntry.validUntil?.formatDateOrEmpty(),
                             )
                         }
                         DetailItem.Certificate(
@@ -648,7 +631,7 @@ internal class DetailFragment :
                             subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                             date = date,
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            certStatus = it.status
+                            certStatus = it.status,
                         )
                     }
                 }
@@ -691,18 +674,21 @@ internal class DetailFragment :
         when (dgcEntryType) {
             VaccinationCertType.VACCINATION_INCOMPLETE,
             VaccinationCertType.VACCINATION_COMPLETE,
-            VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
+            VaccinationCertType.VACCINATION_FULL_PROTECTION,
+            -> {
                 findNavigator().push(VaccinationDetailFragmentNav(id))
             }
             TestCertType.NEGATIVE_PCR_TEST,
-            TestCertType.NEGATIVE_ANTIGEN_TEST -> {
+            TestCertType.NEGATIVE_ANTIGEN_TEST,
+            -> {
                 findNavigator().push(TestDetailFragmentNav(id))
             }
             RecoveryCertType.RECOVERY -> {
                 findNavigator().push(RecoveryDetailFragmentNav(id))
             }
             TestCertType.POSITIVE_PCR_TEST,
-            TestCertType.POSITIVE_ANTIGEN_TEST -> return
+            TestCertType.POSITIVE_ANTIGEN_TEST,
+            -> return
             // .let{} to enforce exhaustiveness
         }.let {}
     }
@@ -753,5 +739,25 @@ internal class DetailFragment :
 
     override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
         updateViews(covpassDeps.certRepository.certs.value)
+    }
+
+    private fun CertValidationResult.getVaccinationStatusIconRes(): Int {
+        return if (this == CertValidationResult.Valid) {
+            R.drawable.detail_cert_status_complete
+        } else if (this == CertValidationResult.ExpiryPeriod) {
+            R.drawable.detail_cert_status_expiring
+        } else {
+            R.drawable.detail_cert_status_expired
+        }
+    }
+
+    private fun CertValidationResult.getIncompleteVaccinationStatusIconRes(): Int {
+        return if (this == CertValidationResult.Valid) {
+            R.drawable.detail_cert_status_incomplete
+        } else if (this == CertValidationResult.ExpiryPeriod) {
+            R.drawable.detail_cert_status_expiring
+        } else {
+            R.drawable.detail_cert_status_expired
+        }
     }
 }

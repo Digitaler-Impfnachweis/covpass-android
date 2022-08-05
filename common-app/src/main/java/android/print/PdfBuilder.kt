@@ -35,11 +35,11 @@ public class PdfBuilder(private val attributes: PrintAttributes) {
                                         continuation.resume(Unit)
                                     }
                                 }
-                            }
+                            },
                         )
                     }
                 },
-                null
+                null,
             )
         }
     }

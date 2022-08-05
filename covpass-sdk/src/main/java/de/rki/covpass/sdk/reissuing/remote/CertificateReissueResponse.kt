@@ -10,11 +10,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class CertificateReissueResponse(
     val certificate: String,
-    val relations: List<CertificateReissueRelation>
+    val relations: List<CertificateReissueRelation>,
 )
 
 @Serializable
 public data class CertificateReissueRelation(
     val index: Int,
-    val action: String
+    val action: String,
 )

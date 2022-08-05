@@ -21,7 +21,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
-import java.util.*
+import java.util.Locale
 
 /**
  * Common base fragment to display the faq, imprint etc. Both apps use the same fragment, only the different links are
@@ -40,7 +40,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationAppVersionLabel.text = getString(R.string.app_information_version_label, appVersion)
         binding.informationAppVersionLabel.contentDescription = getString(
             R.string.app_information_version_label,
-            appVersion.replace(".", getString(R.string.accessibility_app_information_version_number_delimiter))
+            appVersion.replace(".", getString(R.string.accessibility_app_information_version_number_delimiter)),
         )
         if (Locale.getDefault().language == Locale.GERMAN.language) {
             binding.informationFieldEasyLanguage.apply {
@@ -100,7 +100,7 @@ public abstract class InformationFragment : BaseFragment() {
             setOnClickListener {
                 val browserIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(getString(R.string.information_accessibility_statement))
+                    Uri.parse(getString(R.string.information_accessibility_statement)),
                 )
                 startActivity(browserIntent)
             }
@@ -112,14 +112,14 @@ public abstract class InformationFragment : BaseFragment() {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
             }
             binding.informationFieldExpertModeTitle.setText(
-                R.string.app_information_authorities_function_title
+                R.string.app_information_authorities_function_title,
             )
             binding.informationFieldExpertModeStatus.setText(
                 if (commonDeps.checkContextRepository.isExpertModeOn.value) {
                     R.string.app_information_authorities_function_state_on
                 } else {
                     R.string.app_information_authorities_function_state_off
-                }
+                },
             )
         } else {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false

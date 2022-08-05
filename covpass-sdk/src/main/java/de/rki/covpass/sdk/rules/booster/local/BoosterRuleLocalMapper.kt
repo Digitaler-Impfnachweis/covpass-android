@@ -29,7 +29,7 @@ public fun BoosterRule.toBoosterRuleLocal(): BoosterRuleLocal = BoosterRuleLocal
     logic = logic,
     countryCode = countryCode,
     region = region,
-    hash = hash
+    hash = hash,
 )
 
 public fun Map<String, String>.toBoosterDescriptionsLocal(): List<BoosterDescriptionLocal> =
@@ -56,7 +56,7 @@ public fun BoosterRuleWithDescriptionsLocal.toBoosterRule(): BoosterRule = Boost
     countryCode = rule.countryCode,
     descriptions = descriptions.toBoosterDescriptions(),
     region = rule.region,
-    hash = rule.hash
+    hash = rule.hash,
 )
 
 public fun Collection<BoosterRuleWithDescriptionsLocal>.toBoosterRules(): List<BoosterRule> =

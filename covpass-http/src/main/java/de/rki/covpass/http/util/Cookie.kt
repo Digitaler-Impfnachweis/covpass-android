@@ -5,8 +5,10 @@
 
 package de.rki.covpass.http.util
 
-import io.ktor.client.features.cookies.*
-import io.ktor.http.*
+import io.ktor.client.features.cookies.AcceptAllCookiesStorage
+import io.ktor.http.Cookie
+import io.ktor.http.CookieEncoding
+import io.ktor.http.Url
 
 public data class CookieEntry(val url: Url, val cookie: Cookie)
 

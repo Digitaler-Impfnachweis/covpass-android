@@ -14,7 +14,7 @@ import de.rki.covpass.checkapp.databinding.RevocationExportDetailItemBinding
 
 @SuppressLint("NotifyDataSetChanged")
 public class RevocationExportDetailAdapter(
-    parent: Fragment
+    parent: Fragment,
 ) : BaseRecyclerViewAdapter<RevocationExportDetailAdapter.RevocationExportDetailViewHolder>(parent) {
 
     private lateinit var items: List<RevocationExportDetailItem>
@@ -39,7 +39,7 @@ public class RevocationExportDetailAdapter(
     public inner class RevocationExportDetailViewHolder(parent: ViewGroup) :
         BindingViewHolder<RevocationExportDetailItemBinding>(
             parent,
-            RevocationExportDetailItemBinding::inflate
+            RevocationExportDetailItemBinding::inflate,
         ) {
         public fun bind(item: RevocationExportDetailItem) {
             binding.revocationExportDetailHeaderTextview.setText(item.title)
@@ -50,5 +50,5 @@ public class RevocationExportDetailAdapter(
 
 public data class RevocationExportDetailItem(
     val title: Int,
-    val value: String
+    val value: String,
 )

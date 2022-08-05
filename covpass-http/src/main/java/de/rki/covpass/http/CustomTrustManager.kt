@@ -19,7 +19,7 @@ internal class CustomTrustManager(private val delegate: X509TrustManager) : X509
             "checkServerTrusted",
             Array<X509Certificate>::class.java,
             String::class.java,
-            String::class.java
+            String::class.java,
         )
     } catch (e: NoSuchMethodException) {
         null
@@ -42,7 +42,7 @@ internal class CustomTrustManager(private val delegate: X509TrustManager) : X509
     fun checkServerTrusted(
         chain: Array<out X509Certificate>,
         authType: String?,
-        host: String?
+        host: String?,
     ): List<X509Certificate>? {
         val result: List<X509Certificate>? = if (delegateCheckServerTrusted != null) {
             @Suppress("UNCHECKED_CAST")

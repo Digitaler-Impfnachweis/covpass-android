@@ -23,7 +23,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 internal class RevocationExportFragmentNav(
     val revocationExportData: ExpertModeData,
-    val isGermanCertificate: Boolean
+    val isGermanCertificate: Boolean,
 ) : FragmentNav(RevocationExportFragment::class)
 
 internal class RevocationExportFragment : BaseExportPdfFragment() {
@@ -48,24 +48,24 @@ internal class RevocationExportFragment : BaseExportPdfFragment() {
         val list = mutableListOf(
             RevocationExportDetailItem(
                 R.string.revocation_detail_page_transaction_number,
-                revocationExportData.transactionNumber
+                revocationExportData.transactionNumber,
             ),
             RevocationExportDetailItem(
                 R.string.revocation_detail_page_key_reference,
-                revocationExportData.kid
+                revocationExportData.kid,
             ),
             RevocationExportDetailItem(
                 R.string.revocation_detail_page_country,
-                revocationExportData.issuingCountry
+                revocationExportData.issuingCountry,
             ),
             RevocationExportDetailItem(
                 R.string.revocation_detail_page_technical_expiry_date,
-                revocationExportData.technicalExpiryDate
+                revocationExportData.technicalExpiryDate,
             ),
             RevocationExportDetailItem(
                 R.string.revocation_detail_page_date_of_issuance,
-                revocationExportData.dateOfIssue
-            )
+                revocationExportData.dateOfIssue,
+            ),
         )
         RevocationExportDetailAdapter(this).apply {
             updateList(list)

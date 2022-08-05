@@ -7,6 +7,7 @@ package com.ibm.health.common.android.utils
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.MenuItem
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.withErrorReporting
+import com.ibm.health.common.annotations.Abort
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 /** All onNewIntent calls get routed here. */
@@ -69,6 +72,17 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
             else -> super.onOptionsItemSelected(item)
         }
 
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val keyEventListeners = supportFragmentManager.findFragments { it as? KeyEventListener }
+        for (keyEventListener in keyEventListeners) {
+            if (keyEventListener.dispatchKeyEvent(event) == Abort) {
+                return true
+            }
+        }
+
+        return super.dispatchKeyEvent(event)
+    }
+
     public open fun launchWhenStarted(block: suspend CoroutineScope.() -> Unit) {
         lifecycleScope.launchWhenStarted {
             withErrorReporting(::onError) {
@@ -76,6 +90,13 @@ public abstract class BaseHookedActivity(@LayoutRes contentLayoutId: Int = 0) :
             }
         }
     }
+
+    public open fun launchWhenResumed(block: suspend CoroutineScope.() -> Unit): Job =
+        lifecycleScope.launchWhenResumed {
+            withErrorReporting(::onError) {
+                block()
+            }
+        }
 
     public open fun withErrorReporting(block: () -> Unit) {
         withErrorReporting(::onError) {

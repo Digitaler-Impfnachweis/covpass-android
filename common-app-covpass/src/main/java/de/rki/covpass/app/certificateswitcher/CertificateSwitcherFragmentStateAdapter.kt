@@ -36,12 +36,12 @@ internal class CertificateSwitcherFragmentStateAdapter(parent: Fragment) : BaseF
 
     fun createFragments(
         groupedCertificatesId: GroupedCertificatesId,
-        certificateList: List<String>
+        certificateList: List<String>,
     ) {
         fragments = certificateList.map { id ->
             CertificateSwitcherItemFragmentNav(
                 groupedCertificatesId,
-                id
+                id,
             ).build() as CertificateSwitcherItemFragment
         }.toMutableList()
 

@@ -15,7 +15,7 @@ import de.rki.covpass.app.databinding.ImportCertificateResultElementBinding
 @SuppressLint("NotifyDataSetChanged")
 public class ImportCertificateSelectorAdapter(
     parent: Fragment,
-    private val event: () -> Unit = {}
+    private val event: () -> Unit = {},
 ) : BaseRecyclerViewAdapter<ImportCertificateSelectorAdapter.ImportCertificateResultViewHolder>(parent) {
 
     private var items: List<ImportCovCertificate> = emptyList()
@@ -55,7 +55,7 @@ public class ImportCertificateSelectorAdapter(
     public inner class ImportCertificateResultViewHolder(parent: ViewGroup) :
         BindingViewHolder<ImportCertificateResultElementBinding>(
             parent,
-            ImportCertificateResultElementBinding::inflate
+            ImportCertificateResultElementBinding::inflate,
         ) {
         public fun bind(item: ImportCovCertificate) {
             with(binding) {

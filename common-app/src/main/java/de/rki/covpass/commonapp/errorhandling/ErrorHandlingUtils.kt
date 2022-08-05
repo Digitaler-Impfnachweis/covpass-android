@@ -5,7 +5,9 @@
 
 package de.rki.covpass.commonapp.errorhandling
 
-import io.ktor.client.features.*
+import io.ktor.client.features.ClientRequestException
+import io.ktor.client.features.HttpRequestTimeoutException
+import io.ktor.client.features.ResponseException
 import okhttp3.internal.http2.StreamResetException
 import java.net.ProtocolException
 import java.net.SocketTimeoutException

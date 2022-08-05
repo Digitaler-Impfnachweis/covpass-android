@@ -9,7 +9,11 @@ import de.rki.covpass.sdk.cert.CovPassValueSetsRemoteDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
 import de.rki.covpass.sdk.rules.remote.valuesets.CovPassValueSetRemote
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.just
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
@@ -29,7 +33,9 @@ internal class CovPassValueSetsRepositoryTest {
         coEvery { rulesUpdateRepository.markValueSetsUpdated() } just Runs
 
         val repository = CovPassValueSetsRepository(
-            remoteDataSource, localDataSource, rulesUpdateRepository
+            remoteDataSource,
+            localDataSource,
+            rulesUpdateRepository,
         )
         runTest {
             repository.loadValueSets()

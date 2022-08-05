@@ -25,7 +25,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class MisusePreventionFragmentNav(
-    val qrContent: String
+    val qrContent: String,
 ) : FragmentNav(MisusePreventionFragment::class)
 
 internal class MisusePreventionFragment : BaseBottomSheet(), MisusePreventionEvents {

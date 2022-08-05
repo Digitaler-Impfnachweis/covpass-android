@@ -6,7 +6,11 @@
 package de.rki.covpass.sdk.utils
 
 import de.rki.covpass.logging.Lumber
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.supervisorScope
 import kotlin.math.min
 
 /** Runs the given [block] and if any exception happens it re-executes the [block] with an exponential delay. */

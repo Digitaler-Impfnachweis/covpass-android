@@ -14,7 +14,6 @@ import de.rki.covpass.sdk.utils.parallelMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 
 public class QRScannerViewModel(scope: CoroutineScope) : BaseReactiveState<BaseEvents>(scope) {
     private val incomingImages: MutableSharedFlow<ImageProxy> = MutableSharedFlow(extraBufferCapacity = 1)

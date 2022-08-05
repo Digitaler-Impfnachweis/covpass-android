@@ -6,7 +6,8 @@
 package de.rki.covpass.http.util
 
 import android.net.Uri
-import io.ktor.http.*
+import io.ktor.http.Url
+import io.ktor.http.toURI
 import java.net.MalformedURLException
 import java.net.URI
 import java.net.URL

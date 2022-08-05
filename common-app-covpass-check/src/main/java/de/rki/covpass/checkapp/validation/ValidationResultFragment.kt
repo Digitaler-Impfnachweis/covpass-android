@@ -121,12 +121,12 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
                     findNavigator().push(
                         RevocationExportFragmentNav(
                             revocationExportData = it,
-                            isGermanCertificate = isGermanCertificate
-                        )
+                            isGermanCertificate = isGermanCertificate,
+                        ),
                     )
                 }
             },
-            descriptionStyle = R.style.Header_Info_Small
+            descriptionStyle = R.style.Header_Info_Small,
         )
         startTimer()
     }
@@ -203,7 +203,7 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
     override val title by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_title,
-            args.sampleCollection?.hoursTillNow() ?: 0
+            args.sampleCollection?.hoursTillNow() ?: 0,
         )
     }
     override val text by lazy {
@@ -215,7 +215,7 @@ internal class ValidPcrTestResultFragment : ValidationResultFragment() {
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_valid_pcr_test_date_of_birth,
-            args.birthDate
+            args.birthDate,
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
@@ -251,7 +251,7 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
     override val title by lazy {
         getString(
             R.string.validation_check_popup_test_title,
-            args.sampleCollection?.hoursTillNow() ?: 0
+            args.sampleCollection?.hoursTillNow() ?: 0,
         )
     }
     override val text by lazy {
@@ -263,7 +263,7 @@ internal class ValidAntigenTestResultFragment : ValidationResultFragment() {
     override val textInfo1 by lazy {
         getString(
             R.string.validation_check_popup_test_date_of_birth,
-            args.birthDate
+            args.birthDate,
         )
     }
     override val imageInfo2Res = R.drawable.result_calendar
@@ -362,7 +362,7 @@ internal class ValidationResultFailure2gFragment : ValidationResultFailureFragme
 
 @Parcelize
 internal class ValidationResultTechnicalFailureFragmentNav(
-    val is2gOn: Boolean = false
+    val is2gOn: Boolean = false,
 ) : FragmentNav(ValidationResultTechnicalFailureFragment::class)
 
 /**

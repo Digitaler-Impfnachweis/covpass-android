@@ -36,7 +36,7 @@ public data class CombinedCovCertificate(
     val hasSeenRevokedNotification: Boolean,
     val isRevoked: Boolean,
     val reissueState: ReissueState,
-    val reissueType: ReissueType
+    val reissueType: ReissueType,
 ) {
 
     /**

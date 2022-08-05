@@ -41,7 +41,7 @@ public abstract class BaseExportPdfFragment : BaseBottomSheet(), SharePdfEvents 
                 super.onPageFinished(view, url)
                 view?.let {
                     viewModel.onShareStart(
-                        it.createPrintDocumentAdapter("Certificate PDF")
+                        it.createPrintDocumentAdapter("Certificate PDF"),
                     )
                 }
                 viewModel.pdfString.value = ""
@@ -69,7 +69,7 @@ public abstract class BaseExportPdfFragment : BaseBottomSheet(), SharePdfEvents 
                 pdfString,
                 "text/html",
                 "UTF-8",
-                null
+                null,
             )
         }
     }

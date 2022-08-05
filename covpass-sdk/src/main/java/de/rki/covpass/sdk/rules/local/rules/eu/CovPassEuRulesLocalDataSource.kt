@@ -14,14 +14,14 @@ import java.time.ZonedDateTime
 
 @Suppress("SpreadOperator")
 public class CovPassEuRulesLocalDataSource(
-    private val covPassEuRulesDao: CovPassEuRulesDao
+    private val covPassEuRulesDao: CovPassEuRulesDao,
 ) {
 
     public suspend fun replaceRules(keep: Collection<String>, add: List<CovPassRule>) {
         dispatchers.io {
             covPassEuRulesDao.replaceAll(
                 keep = keep,
-                add = add.toCovPassRulesWithDescriptionLocal()
+                add = add.toCovPassRulesWithDescriptionLocal(),
             )
         }
     }
@@ -35,14 +35,14 @@ public class CovPassEuRulesLocalDataSource(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        ruleCertificateType: RuleCertificateType
+        ruleCertificateType: RuleCertificateType,
     ): List<CovPassRule> = dispatchers.io {
         covPassEuRulesDao.getRulesWithDescriptionsBy(
             countryIsoCode,
             validationClock,
             type,
             ruleCertificateType,
-            RuleCertificateType.GENERAL
+            RuleCertificateType.GENERAL,
         ).toCovPassRules()
     }
 

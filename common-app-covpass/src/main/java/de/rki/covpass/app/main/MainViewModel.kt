@@ -18,7 +18,12 @@ import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.cert.BoosterRulesValidator
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.BoosterNotification
+import de.rki.covpass.sdk.cert.models.BoosterResult
+import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
@@ -39,7 +44,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator,
     private val covpassDependencies: CovpassDependencies = covpassDeps,
     private val commonDependencies: CommonDependencies = commonDeps,
-    private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository
+    private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
 ) : BaseReactiveState<NotificationEvents>(scope) {
 
     // prevent the import to be done more than one time
@@ -166,7 +171,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                     if (listRevokedCertificates.contains(it.covCertificate.dgcEntry.id)) {
                         it.copy(
                             status = CertValidationResult.Revoked,
-                            isRevoked = true
+                            isRevoked = true,
                         )
                     } else {
                         it
@@ -200,7 +205,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             val boosterNotifications = when {
                 latestVaccination != null && recovery != null -> {
                     val mergedCertificate = latestVaccination.copy(
-                        recoveries = listOf(recovery)
+                        recoveries = listOf(recovery),
                     )
                     validateBoosterRules(boosterRulesValidator, mergedCertificate)
                 }
@@ -251,7 +256,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 BoosterResult.Passed,
                 it.rule.getDescriptionFor(DescriptionLanguage.ENGLISH.languageCode),
                 it.rule.getDescriptionFor(DescriptionLanguage.GERMAN.languageCode),
-                it.rule.identifier
+                it.rule.identifier,
             )
         }
     }

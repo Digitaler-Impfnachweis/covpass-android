@@ -16,14 +16,14 @@ import androidx.room.PrimaryKey
             entity = CovPassDomesticRuleLocal::class,
             parentColumns = arrayOf("ruleId"),
             childColumns = arrayOf("ruleContainerId"),
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
 )
 public data class CovPassDomesticRuleDescriptionLocal(
     @PrimaryKey(autoGenerate = true)
     val descriptionId: Long = 0,
     val ruleContainerId: Long = 0,
     val lang: String,
-    val desc: String
+    val desc: String,
 )

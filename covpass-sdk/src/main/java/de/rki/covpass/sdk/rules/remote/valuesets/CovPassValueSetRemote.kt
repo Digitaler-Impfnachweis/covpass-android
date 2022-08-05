@@ -15,5 +15,5 @@ public data class CovPassValueSetRemote(
     val valueSetId: String,
     @Contextual
     val valueSetDate: LocalDate,
-    val valueSetValues: JsonElement
+    val valueSetValues: JsonElement,
 )

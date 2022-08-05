@@ -48,7 +48,7 @@ public data class CovCertificate(
     val version: String = "",
 
     val kid: String = "",
-    val rValue: String = ""
+    val rValue: String = "",
 ) {
 
     init {
@@ -87,14 +87,14 @@ public data class CovCertificate(
     public val fullName: String by lazy {
         listOfNotNull(
             name.trimmedName.givenName ?: name.trimmedName.givenNameTransliterated,
-            name.trimmedName.familyName ?: name.trimmedName.familyNameTransliterated
+            name.trimmedName.familyName ?: name.trimmedName.familyNameTransliterated,
         ).joinToString(" ")
     }
 
     public val fullNameReverse: String by lazy {
         listOfNotNull(
             name.trimmedName.familyName ?: name.trimmedName.familyNameTransliterated,
-            name.trimmedName.givenName ?: name.trimmedName.givenNameTransliterated
+            name.trimmedName.givenName ?: name.trimmedName.givenNameTransliterated,
         ).joinToString(", ")
     }
 
@@ -102,7 +102,7 @@ public data class CovCertificate(
         if (!name.trimmedName.givenNameTransliterated.isNullOrEmpty()) {
             listOfNotNull(
                 name.trimmedName.givenNameTransliterated,
-                name.trimmedName.familyNameTransliterated
+                name.trimmedName.familyNameTransliterated,
             ).joinToString(" ")
         } else {
             name.trimmedName.familyNameTransliterated
@@ -113,7 +113,7 @@ public data class CovCertificate(
         if (!name.trimmedName.givenNameTransliterated.isNullOrEmpty()) {
             listOfNotNull(
                 name.trimmedName.familyNameTransliterated,
-                name.trimmedName.givenNameTransliterated
+                name.trimmedName.givenNameTransliterated,
             ).joinToString(", ")
         } else {
             name.trimmedName.familyNameTransliterated

@@ -45,14 +45,14 @@ public class CovPassEuRulesRepository(
         val newRules = (added + changed).values.parallelMapNotNull { identifier ->
             remoteDataSource.getRule(
                 identifier.country.lowercase(),
-                identifier.hash
+                identifier.hash,
             ).toCovPassRule(identifier.hash)
         }
 
         // Do a transactional update of the DB (as far as that's possible).
         localDataSourceEu.replaceRules(
             keep = (localRules - changed.keys - removed.keys).keys,
-            add = newRules
+            add = newRules,
         )
         rulesUpdateRepository.markEuRulesUpdated()
     }
@@ -61,9 +61,12 @@ public class CovPassEuRulesRepository(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        ruleCertificateType: RuleCertificateType
+        ruleCertificateType: RuleCertificateType,
     ): List<CovPassRule> = localDataSourceEu.getRulesBy(
-        countryIsoCode, validationClock, type, ruleCertificateType
+        countryIsoCode,
+        validationClock,
+        type,
+        ruleCertificateType,
     )
 
     public suspend fun deleteAll() {

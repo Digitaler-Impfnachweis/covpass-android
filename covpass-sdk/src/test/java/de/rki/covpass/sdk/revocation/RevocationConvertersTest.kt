@@ -59,9 +59,9 @@ internal class RevocationConvertersTest {
                     1,
                     mapOf(
                         Pair(0x0a, RevocationIndexByte2Entry(10032498L, 1)),
-                        Pair(0x0b, RevocationIndexByte2Entry(10032498L, 2))
-                    )
-                )
+                        Pair(0x0b, RevocationIndexByte2Entry(10032498L, 2)),
+                    ),
+                ),
             ),
             Pair(
                 0x0b,
@@ -70,10 +70,10 @@ internal class RevocationConvertersTest {
                     1,
                     mapOf(
                         Pair(0x0a, RevocationIndexByte2Entry(10032498L, 1)),
-                        Pair(0x0b, RevocationIndexByte2Entry(10032498L, 2))
-                    )
-                )
-            )
+                        Pair(0x0b, RevocationIndexByte2Entry(10032498L, 2)),
+                    ),
+                ),
+            ),
         )
         val expectedString = "{\"10\":{\"timestamp\":10032498,\"num\":1,\"byte2\":{\"10\":{\"timestamp\":10032498," +
             "\"num\":1},\"11\":{\"timestamp\":10032498,\"num\":2}}},\"11\":{\"timestamp\":10032498,\"num\":1," +

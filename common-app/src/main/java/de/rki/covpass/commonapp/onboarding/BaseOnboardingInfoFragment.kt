@@ -36,7 +36,7 @@ public abstract class BaseOnboardingInfoFragment : BaseFragment() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingInfoTextview.setText(textRes)

@@ -20,7 +20,7 @@ public abstract class CovPassValueSetsDao {
     @Transaction
     public open suspend fun replace(
         keep: Collection<String>,
-        add: Collection<CovPassValueSetLocal>
+        add: Collection<CovPassValueSetLocal>,
     ) {
         deleteAll(keep = keep)
         insertAll(*add.toTypedArray())

@@ -44,13 +44,13 @@ public class ValidateTicketingViewModel @OptIn(DependencyAccessor::class) constr
                     publicKeyJwk.kid,
                     publicKey,
                     validationTicketingTestObject.iv,
-                    validationTicketingTestObject.keyPair.private
+                    validationTicketingTestObject.keyPair.private,
                 )
 
             val response = ticketingValidationRepository.fetchValidationResult(
                 validationTicketingTestObject.accessTokenValidationUrl,
                 validationTicketingTestObject.jwtToken,
-                validationRequest
+                validationRequest,
             )
 
             eventNotifier { onValidationComplete(response) }

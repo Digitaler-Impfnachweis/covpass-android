@@ -30,7 +30,7 @@ public fun CovPassRule.toCovPassRuleLocal(): CovPassEuRuleLocal = CovPassEuRuleL
     logic = logic,
     countryCode = countryCode,
     region = region,
-    hash = hash
+    hash = hash,
 )
 
 public fun Map<String, String>.toCovPassDescriptionsLocal(): List<CovPassEuRuleDescriptionLocal> =
@@ -54,7 +54,7 @@ public fun CovPassEuRuleWithDescriptionsLocal.toCovPassRule(): CovPassRule = Cov
     countryCode = rule.countryCode,
     descriptions = descriptions.toDescriptions(),
     region = rule.region,
-    hash = rule.hash
+    hash = rule.hash,
 )
 
 public fun Collection<CovPassEuRuleWithDescriptionsLocal>.toCovPassRules(): List<CovPassRule> =
@@ -75,7 +75,7 @@ public fun CovPassRule.toRule(): Rule =
         logic = jacksonObjectMapper().readTree(logic),
         countryCode = countryCode,
         descriptions = descriptions,
-        region = region
+        region = region,
     )
 
 public fun Collection<CovPassRule>.toRules(): List<Rule> =

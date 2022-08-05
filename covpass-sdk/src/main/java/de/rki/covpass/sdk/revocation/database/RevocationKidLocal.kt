@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
 public data class RevocationKidLocal(
     @PrimaryKey
     val kid: ByteArray,
-    val hashVariants: Map<Byte, Int>
+    val hashVariants: Map<Byte, Int>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

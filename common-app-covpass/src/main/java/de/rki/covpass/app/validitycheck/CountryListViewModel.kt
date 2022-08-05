@@ -29,7 +29,7 @@ internal class CountryListViewModel @OptIn(DependencyAccessor::class) constructo
     private fun getSortedCountries() {
         launch {
             countries.value = CountryResolver.getSortedCountryList(
-                countriesRepository.getAllCovPassCountries()
+                countriesRepository.getAllCovPassCountries(),
             )
         }
     }

@@ -36,7 +36,7 @@ public interface ReissueCallback {
 @Parcelize
 public class ReissueResultFragmentNav(
     public val listCertIds: List<String>,
-    public val reissueType: ReissueType
+    public val reissueType: ReissueType,
 ) : FragmentNav(ReissueResultFragment::class)
 
 public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents, DialogListener {
@@ -84,9 +84,8 @@ public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents,
 
     override fun onReissueFinish(
         cert: CovCertificate,
-        groupedCertificatesId: GroupedCertificatesId
+        groupedCertificatesId: GroupedCertificatesId,
     ) {
-
         this.groupedCertificatesId = groupedCertificatesId
 
         binding.reissueResultDataElementNew.showCertificate(cert, false)
@@ -112,8 +111,8 @@ public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents,
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(getString(R.string.covpass_reissuing_faq_link))
-                    )
+                        Uri.parse(getString(R.string.covpass_reissuing_faq_link)),
+                    ),
                 )
                 onBackPressed()
             }

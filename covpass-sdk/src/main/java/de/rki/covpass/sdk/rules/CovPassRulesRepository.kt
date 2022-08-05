@@ -14,6 +14,6 @@ public interface CovPassRulesRepository {
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        ruleCertificateType: RuleCertificateType
+        ruleCertificateType: RuleCertificateType,
     ): List<CovPassRule>
 }

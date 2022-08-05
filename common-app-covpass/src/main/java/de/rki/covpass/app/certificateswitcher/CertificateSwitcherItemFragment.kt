@@ -23,7 +23,12 @@ import de.rki.covpass.app.databinding.CertificateSwitcherItemBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.VaccinationCertType
 import de.rki.covpass.sdk.utils.daysTillNow
 import de.rki.covpass.sdk.utils.hoursTillNow
 import de.rki.covpass.sdk.utils.monthTillNow
@@ -34,7 +39,7 @@ import java.time.ZoneId
 @Parcelize
 internal class CertificateSwitcherItemFragmentNav(
     val certId: GroupedCertificatesId,
-    val id: String
+    val id: String,
 ) : FragmentNav(CertificateSwitcherItemFragment::class)
 
 internal class CertificateSwitcherItemFragment : BaseFragment() {
@@ -90,16 +95,16 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                 getString(
                                     R.string.certificate_timestamp_days,
                                     vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
-                                        ?.toInstant()?.daysTillNow()
+                                        ?.toInstant()?.daysTillNow(),
                                 )
                             } else {
                                 getString(
                                     R.string.certificate_timestamp_months,
                                     vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
-                                        ?.toInstant()?.monthTillNow()
+                                        ?.toInstant()?.monthTillNow(),
                                 )
                             },
-                            R.drawable.main_cert_status_complete
+                            R.drawable.main_cert_status_complete,
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
@@ -109,14 +114,14 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                             getString(
                                 R.string.certificates_overview_vaccination_certificate_message,
                                 vaccination.doseNumber,
-                                vaccination.totalSerialDoses
+                                vaccination.totalSerialDoses,
                             ),
                             getString(
                                 R.string.certificate_timestamp_months,
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
-                                    ?.toInstant()?.monthTillNow()
+                                    ?.toInstant()?.monthTillNow(),
                             ),
-                            R.drawable.main_cert_status_incomplete
+                            R.drawable.main_cert_status_incomplete,
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -126,14 +131,14 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                             getString(
                                 R.string.certificates_overview_vaccination_certificate_message,
                                 vaccination.doseNumber,
-                                vaccination.totalSerialDoses
+                                vaccination.totalSerialDoses,
                             ),
                             getString(
                                 R.string.certificate_timestamp_months,
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
-                                    ?.toInstant()?.monthTillNow()
+                                    ?.toInstant()?.monthTillNow(),
                             ),
-                            R.drawable.main_cert_status_incomplete
+                            R.drawable.main_cert_status_incomplete,
                         )
                     }
                 }
@@ -149,9 +154,9 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                     },
                     getString(
                         R.string.certificate_timestamp_hours,
-                        test.sampleCollection?.hoursTillNow()
+                        test.sampleCollection?.hoursTillNow(),
                     ),
-                    R.drawable.main_cert_test_blue
+                    R.drawable.main_cert_test_blue,
                 )
             }
             is Recovery -> {
@@ -162,9 +167,9 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                     getString(
                         R.string.certificate_timestamp_months,
                         recovery.firstResult?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
-                            ?.monthTillNow()
+                            ?.monthTillNow(),
                     ),
-                    R.drawable.main_cert_status_complete
+                    R.drawable.main_cert_status_complete,
                 )
             }
             // .let{} to enforce exhaustiveness
@@ -172,7 +177,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
 
         binding.certificateCard.setOnCardClickListener {
             findNavigator().push(
-                DetailFragmentNav(args.certId)
+                DetailFragmentNav(args.certId),
             )
         }
     }
@@ -184,7 +189,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                 BarcodeFormat.QR_CODE,
                 resources.displayMetrics.widthPixels,
                 resources.displayMetrics.widthPixels,
-                mapOf(EncodeHintType.MARGIN to 0)
+                mapOf(EncodeHintType.MARGIN to 0),
             )
         }
     }

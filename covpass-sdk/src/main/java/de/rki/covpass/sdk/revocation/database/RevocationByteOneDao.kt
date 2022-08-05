@@ -5,7 +5,11 @@
 
 package de.rki.covpass.sdk.revocation.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 
 @Suppress("SpreadOperator")
 @Dao
@@ -19,18 +23,18 @@ public abstract class RevocationByteOneDao {
             "FROM revocation_byte_one_list " +
             "WHERE :kid = kid " +
             "AND :hashVariant = hashVariant " +
-            "AND :byteOne = byteOne"
+            "AND :byteOne = byteOne",
     )
     public abstract suspend fun getByteOneChunks(
         kid: ByteArray,
         hashVariant: Byte,
-        byteOne: Byte
+        byteOne: Byte,
     ): RevocationByteOneLocal?
 
     @Query("SELECT * FROM revocation_byte_one_list WHERE :kid = kid AND :hashVariant = hashVariant")
     public abstract suspend fun getAllFromKidAndHashVariant(
         kid: ByteArray,
-        hashVariant: Byte
+        hashVariant: Byte,
     ): List<RevocationByteOneLocal>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -47,7 +51,7 @@ public abstract class RevocationByteOneDao {
     public open suspend fun replaceAllFromKidAndHashVariant(
         kid: ByteArray,
         hashVariant: Byte,
-        add: List<RevocationByteOneLocal>
+        add: List<RevocationByteOneLocal>,
     ) {
         deleteAllFromKidAndHashVariant(kid, hashVariant)
         insertAll(add)
@@ -66,7 +70,7 @@ public abstract class RevocationByteOneDao {
         "DELETE FROM revocation_byte_one_list " +
             "WHERE :kid = kid " +
             "AND :hashVariant = hashVariant " +
-            "AND byteOne == :byteOne"
+            "AND byteOne == :byteOne",
     )
     public abstract suspend fun deleteElement(kid: ByteArray, hashVariant: Byte, byteOne: Byte)
 }

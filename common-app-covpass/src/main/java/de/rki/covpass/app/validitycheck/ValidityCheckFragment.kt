@@ -79,7 +79,7 @@ internal class ValidityCheckFragment :
                     subtitle = getString(R.string.certificate_check_validity_travel_rules_not_up_to_message),
                     subtitleStyle = R.style.DefaultText_OnBackground,
                     iconRes = R.drawable.info_warning,
-                    subtitleTopMarginDimenRes = R.dimen.grid_one
+                    subtitleTopMarginDimenRes = R.dimen.grid_one,
                 )
                 isVisible = get(sdkDeps.rulesUpdateRepository.lastEuRulesUpdate).isBeforeUpdateInterval() &&
                     get(this@ValidityCheckFragment.loading) == 0
@@ -87,7 +87,7 @@ internal class ValidityCheckFragment :
         }
         autoRun {
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateList(
-                get(validityCheckViewModel.validationResults)
+                get(validityCheckViewModel.validationResults),
             )
         }
         autoRun {
@@ -101,7 +101,7 @@ internal class ValidityCheckFragment :
                     showInfo(
                         getString(R.string.certificate_check_german_infobox),
                         titleStyle = R.style.DefaultText_OnBackground,
-                        iconRes = R.drawable.info_icon
+                        iconRes = R.drawable.info_icon,
                     )
                 }
             } else {
@@ -110,25 +110,29 @@ internal class ValidityCheckFragment :
             binding.countryValue.setOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }
-            binding.countryValue.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
-                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
-                    super.onInitializeAccessibilityNodeInfo(host, info)
-                    info.className = Button::class.java.name
-                    info.contentDescription = getString(
-                        R.string.accessibility_certificate_check_validity_selection_country,
-                        getString(country.nameRes)
-                    )
-                }
-            })
-            binding.layoutCountry.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
-                .setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+            binding.countryValue.setAccessibilityDelegate(
+                object : View.AccessibilityDelegate() {
                     override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
                         super.onInitializeAccessibilityNodeInfo(host, info)
                         info.className = Button::class.java.name
-                        info.contentDescription =
-                            getString(R.string.accessibility_certificate_check_validity_label_choose_country)
+                        info.contentDescription = getString(
+                            R.string.accessibility_certificate_check_validity_selection_country,
+                            getString(country.nameRes),
+                        )
                     }
-                })
+                },
+            )
+            binding.layoutCountry.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
+                .setAccessibilityDelegate(
+                    object : View.AccessibilityDelegate() {
+                        override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                            super.onInitializeAccessibilityNodeInfo(host, info)
+                            info.className = Button::class.java.name
+                            info.contentDescription =
+                                getString(R.string.accessibility_certificate_check_validity_label_choose_country)
+                        }
+                    },
+                )
 
             binding.layoutCountry.setEndIconOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
@@ -143,25 +147,29 @@ internal class ValidityCheckFragment :
             binding.dateValue.setOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
             }
-            binding.dateValue.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
-                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
-                    super.onInitializeAccessibilityNodeInfo(host, info)
-                    info.className = Button::class.java.name
-                    info.contentDescription = getString(
-                        R.string.accessibility_certificate_check_validity_selection_date,
-                        time.formatDateTimeAccessibility()
-                    )
-                }
-            })
-            binding.layoutDate.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
-                .setAccessibilityDelegate(object : View.AccessibilityDelegate() {
+            binding.dateValue.setAccessibilityDelegate(
+                object : View.AccessibilityDelegate() {
                     override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
                         super.onInitializeAccessibilityNodeInfo(host, info)
-                        info.className = ImageView::class.java.name
-                        info.contentDescription =
-                            getString(R.string.accessibility_certificate_check_validity_label_choose_date)
+                        info.className = Button::class.java.name
+                        info.contentDescription = getString(
+                            R.string.accessibility_certificate_check_validity_selection_date,
+                            time.formatDateTimeAccessibility(),
+                        )
                     }
-                })
+                },
+            )
+            binding.layoutDate.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
+                .setAccessibilityDelegate(
+                    object : View.AccessibilityDelegate() {
+                        override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                            super.onInitializeAccessibilityNodeInfo(host, info)
+                            info.className = ImageView::class.java.name
+                            info.contentDescription =
+                                getString(R.string.accessibility_certificate_check_validity_label_choose_date)
+                        }
+                    },
+                )
 
             binding.layoutDate.setEndIconOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
@@ -184,7 +192,7 @@ internal class ValidityCheckFragment :
                 subtitle = getString(R.string.certificate_check_validity_not_all_certs_checkable_message),
                 subtitleStyle = R.style.DefaultText_OnBackground,
                 iconRes = R.drawable.info_warning,
-                subtitleTopMarginDimenRes = R.dimen.grid_one
+                subtitleTopMarginDimenRes = R.dimen.grid_one,
             )
             isVisible = show
         }
@@ -215,7 +223,7 @@ internal class ValidityCheckFragment :
                 messageString = getString(R.string.error_check_validity_no_internet_message),
                 positiveButtonTextRes = R.string.error_check_validity_no_internet_button_try_again,
                 negativeButtonTextRes = R.string.error_check_validity_no_internet_button_cancel,
-                tag = NO_INTERNET_CONNECTION
+                tag = NO_INTERNET_CONNECTION,
             )
             showDialog(dialogModel, childFragmentManager)
         } else {

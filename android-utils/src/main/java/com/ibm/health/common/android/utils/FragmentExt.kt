@@ -32,7 +32,7 @@ public fun Fragment.attachViewPager(adapter: FragmentStateAdapter, viewPager: Vi
  */
 public fun Fragment.attachRecyclerView(
     adapter: RecyclerView.Adapter<*>,
-    recyclerView: RecyclerView
+    recyclerView: RecyclerView,
 ) {
     recyclerView.adapter = adapter
     onDestroyViewOnce {

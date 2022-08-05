@@ -16,17 +16,34 @@ import de.rki.covpass.http.pinPublicKey
 import de.rki.covpass.http.util.HostPatternWhitelist
 import de.rki.covpass.http.util.getDnsSubjectAlternativeNames
 import de.rki.covpass.sdk.R
-import de.rki.covpass.sdk.cert.*
+import de.rki.covpass.sdk.cert.BoosterCertLogicEngine
+import de.rki.covpass.sdk.cert.BoosterRulesRemoteDataSource
+import de.rki.covpass.sdk.cert.BoosterRulesValidator
+import de.rki.covpass.sdk.cert.CertValidator
+import de.rki.covpass.sdk.cert.CovPassCountriesRemoteDataSource
+import de.rki.covpass.sdk.cert.CovPassDomesticRulesRemoteDataSource
+import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
+import de.rki.covpass.sdk.cert.CovPassRulesValidator
+import de.rki.covpass.sdk.cert.CovPassValueSetsRemoteDataSource
+import de.rki.covpass.sdk.cert.DscListDecoder
+import de.rki.covpass.sdk.cert.DscListService
+import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CertificateListMapper
 import de.rki.covpass.sdk.cert.models.DscList
+import de.rki.covpass.sdk.cert.toTrustedCerts
 import de.rki.covpass.sdk.crypto.readPemAsset
 import de.rki.covpass.sdk.crypto.readPemKeyAsset
 import de.rki.covpass.sdk.reissuing.ReissuingApiService
 import de.rki.covpass.sdk.reissuing.ReissuingRepository
-import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.RevocationLocalListRepository
+import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.database.RevocationDatabase
-import de.rki.covpass.sdk.rules.*
+import de.rki.covpass.sdk.rules.CovPassCountriesRepository
+import de.rki.covpass.sdk.rules.CovPassDomesticRulesRepository
+import de.rki.covpass.sdk.rules.CovPassEuRulesRepository
+import de.rki.covpass.sdk.rules.CovPassRule
+import de.rki.covpass.sdk.rules.CovPassValueSet
+import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.rules.booster.BoosterRule
 import de.rki.covpass.sdk.rules.booster.CovPassBoosterRulesRepository
 import de.rki.covpass.sdk.rules.booster.local.BoosterRulesDao
@@ -53,14 +70,24 @@ import de.rki.covpass.sdk.rules.remote.valuesets.toCovPassValueSet
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
-import de.rki.covpass.sdk.ticketing.*
+import de.rki.covpass.sdk.ticketing.AccessTokenRepository
+import de.rki.covpass.sdk.ticketing.CancellationRepository
+import de.rki.covpass.sdk.ticketing.IdentityDocumentRepository
+import de.rki.covpass.sdk.ticketing.TicketingApiService
+import de.rki.covpass.sdk.ticketing.TicketingValidationRepository
+import de.rki.covpass.sdk.ticketing.ValidationServiceIdentityRepository
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcCryptor
 import de.rki.covpass.sdk.ticketing.encoding.TicketingDgcSigner
 import de.rki.covpass.sdk.ticketing.encoding.TicketingValidationRequestProvider
 import de.rki.covpass.sdk.utils.DscListUpdater
 import de.rki.covpass.sdk.utils.RevocationCodeEncryptor
 import de.rki.covpass.sdk.utils.readTextAsset
-import dgca.verifier.app.engine.*
+import dgca.verifier.app.engine.AffectedFieldsDataRetriever
+import dgca.verifier.app.engine.CertLogicEngine
+import dgca.verifier.app.engine.DefaultAffectedFieldsDataRetriever
+import dgca.verifier.app.engine.DefaultCertLogicEngine
+import dgca.verifier.app.engine.DefaultJsonLogicValidator
+import dgca.verifier.app.engine.JsonLogicValidator
 import kotlinx.serialization.cbor.Cbor
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -99,7 +126,7 @@ public abstract class SdkDependencies {
     public open val revocationListServiceHost: String by lazy {
         application.getString(R.string.revocation_list_service_host).takeIf { it.isNotEmpty() }
             ?: throw IllegalStateException(
-                "You have to set @string/revocation_list_service_host or override trustServiceHost"
+                "You have to set @string/revocation_list_service_host or override trustServiceHost",
             )
     }
 
@@ -116,8 +143,8 @@ public abstract class SdkDependencies {
     public val vaasIntermediateCa: Map<String, List<X509Certificate>> by lazy {
         mapOf(
             "**.dcc-validation.eu" to application.readPemAsset(
-                "covpass-sdk/vaas-tsi-ca.pem"
-            )
+                "covpass-sdk/vaas-tsi-ca.pem",
+            ),
         )
     }
 
@@ -131,7 +158,7 @@ public abstract class SdkDependencies {
 
     public val dscList: DscList by lazy {
         decoder.decodeDscList(
-            application.readTextAsset("covpass-sdk/dsc-list.json")
+            application.readTextAsset("covpass-sdk/dsc-list.json"),
         )
     }
 
@@ -158,7 +185,7 @@ public abstract class SdkDependencies {
             CborSharedPrefsStore("revocation_list_prefs", cbor),
             application.cacheDir,
             revocationListPublicKey,
-            revocationLocalListRepository
+            revocationLocalListRepository,
         )
     }
 
@@ -168,7 +195,7 @@ public abstract class SdkDependencies {
             revocationListServiceHost,
             CborSharedPrefsStore("revocation_list_prefs", cbor),
             revocationDatabase,
-            revocationListPublicKey
+            revocationListPublicKey,
         )
     }
 
@@ -221,7 +248,7 @@ public abstract class SdkDependencies {
     private val dccBoosterRulesHost: String by lazy {
         application.getString(R.string.dcc_booster_rules_host).takeIf { it.isNotEmpty() }
             ?: throw IllegalStateException(
-                "You have to set @string/dcc_booster_rules_host or override dccBoosterRulesHost"
+                "You have to set @string/dcc_booster_rules_host or override dccBoosterRulesHost",
             )
     }
 
@@ -287,13 +314,13 @@ public abstract class SdkDependencies {
     private val euRulePath: String by lazy { "covpass-sdk/eu-rules.json" }
     private val covPassEuRulesInitial: List<CovPassRuleInitial> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(euRulePath)
+            application.readTextAsset(euRulePath),
         )
     }
 
     private val covPassEuRulesRemote: List<CovPassRuleRemote> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(euRulePath)
+            application.readTextAsset(euRulePath),
         )
     }
 
@@ -306,13 +333,13 @@ public abstract class SdkDependencies {
     private val domesticRulePath: String by lazy { "covpass-sdk/domestic-rules.json" }
     private val covPassDomesticRulesInitial: List<CovPassRuleInitial> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(domesticRulePath)
+            application.readTextAsset(domesticRulePath),
         )
     }
 
     private val covPassDomesticRulesRemote: List<CovPassRuleRemote> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(domesticRulePath)
+            application.readTextAsset(domesticRulePath),
         )
     }
 
@@ -325,13 +352,13 @@ public abstract class SdkDependencies {
     private val euValueSetsPath: String by lazy { "covpass-sdk/eu-value-sets.json" }
     private val covPassValueSetsRemote: List<CovPassValueSetRemote> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(euValueSetsPath)
+            application.readTextAsset(euValueSetsPath),
         )
     }
 
     private val covPassValueSetsInitial: List<CovPassValueSetInitial> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(euValueSetsPath)
+            application.readTextAsset(euValueSetsPath),
         )
     }
 
@@ -344,13 +371,13 @@ public abstract class SdkDependencies {
     private val boosterRulesPath: String by lazy { "covpass-sdk/eu-booster-rules.json" }
     public val boosterRulesRemote: List<BoosterRuleRemote> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(boosterRulesPath)
+            application.readTextAsset(boosterRulesPath),
         )
     }
 
     public val boosterRulesInitial: List<BoosterRuleInitial> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset(boosterRulesPath)
+            application.readTextAsset(boosterRulesPath),
         )
     }
 
@@ -362,7 +389,7 @@ public abstract class SdkDependencies {
 
     public val bundledCountries: List<String> by lazy {
         defaultJson.decodeFromString(
-            application.readTextAsset("covpass-sdk/eu-countries.json")
+            application.readTextAsset("covpass-sdk/eu-countries.json"),
         )
     }
 
@@ -370,7 +397,7 @@ public abstract class SdkDependencies {
         CovPassEuRulesRepository(
             covPassEuRulesRemoteDataSource,
             covPassEuRulesLocalDataSource,
-            rulesUpdateRepository
+            rulesUpdateRepository,
         )
     }
 
@@ -378,7 +405,7 @@ public abstract class SdkDependencies {
         CovPassDomesticRulesRepository(
             covPassDomesticRulesRemoteDataSource,
             covPassDomesticRulesLocalDataSource,
-            rulesUpdateRepository
+            rulesUpdateRepository,
         )
     }
 
@@ -386,7 +413,7 @@ public abstract class SdkDependencies {
         CovPassValueSetsRepository(
             covPassValueSetsRemoteDataSource,
             covPassValueSetsLocalDataSource,
-            rulesUpdateRepository
+            rulesUpdateRepository,
         )
     }
 
@@ -394,7 +421,7 @@ public abstract class SdkDependencies {
         CovPassBoosterRulesRepository(
             boosterRulesRemoteDataSource,
             covPassBoosterRulesLocalDataSource,
-            rulesUpdateRepository
+            rulesUpdateRepository,
         )
     }
 
@@ -402,7 +429,7 @@ public abstract class SdkDependencies {
         CovPassCountriesRepository(
             countriesRemoteDataSource,
             covPassCountriesLocalDataSource,
-            rulesUpdateRepository
+            rulesUpdateRepository,
         )
     }
 
@@ -418,7 +445,7 @@ public abstract class SdkDependencies {
         CovPassRulesValidator(
             getEuRulesUseCase,
             certLogicDeps.certLogicEngine,
-            covPassValueSetsRepository
+            covPassValueSetsRepository,
         )
     }
 
@@ -426,7 +453,7 @@ public abstract class SdkDependencies {
         CovPassRulesValidator(
             getDomesticRulesUseCase,
             certLogicDeps.certLogicEngine,
-            covPassValueSetsRepository
+            covPassValueSetsRepository,
         )
     }
 
@@ -437,7 +464,7 @@ public abstract class SdkDependencies {
     public val boosterRulesValidator: BoosterRulesValidator by lazy {
         BoosterRulesValidator(
             boosterCertLogicEngine,
-            covPassBoosterRulesRepository
+            covPassBoosterRulesRepository,
         )
     }
 
@@ -472,7 +499,7 @@ public abstract class SdkDependencies {
     private val reissueServiceHost: String by lazy {
         application.getString(R.string.reissue_service_host).takeIf { it.isNotEmpty() }
             ?: throw IllegalStateException(
-                "You have to set @string/reissue_service_host or override reissueServiceHost"
+                "You have to set @string/reissue_service_host or override reissueServiceHost",
             )
     }
 

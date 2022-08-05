@@ -7,14 +7,22 @@ package com.ibm.health.common.navigation.android
 
 import android.content.Context
 import android.content.pm.ActivityInfo
+import android.provider.Settings
 import androidx.annotation.IdRes
-import androidx.fragment.app.*
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.DependencyAccessor
+import com.ensody.reactivestate.derived
+import com.ensody.reactivestate.get
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.annotations.Continue
+import de.rki.covpass.logging.Lumber
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.reflect.KClass
@@ -61,15 +69,33 @@ public class Navigator internal constructor(
     @IdRes private val containerId: Int,
 ) {
 
-    /**
-     * Return the number of entries currently in the back stack.
-     */
-    public val backStackEntryCount: StateFlow<Int> = MutableStateFlow(0).apply {
-        fragmentManager.addOnBackStackChangedListener {
-            value = fragmentManager.backStackEntryCount
-            update()
+    /** Tracks the back stack. */
+    public val backStack: StateFlow<List<FragmentManager.BackStackEntry>> =
+        MutableStateFlow(generateBackStackList()).apply {
+            // Fragment lifecycle events are needed on configuration changes
+            // since the backstackChangedListener gets not triggered and the backstack stays empty
+            fragmentManager.registerFragmentLifecycleCallbacks(
+                object : FragmentManager.FragmentLifecycleCallbacks() {
+                    override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
+                        super.onFragmentAttached(fm, f, context)
+                        value = generateBackStackList()
+                    }
+
+                    override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+                        super.onFragmentDetached(fm, f)
+                        value = generateBackStackList()
+                    }
+                },
+                false,
+            )
+
+            fragmentManager.addOnBackStackChangedListener {
+                value = generateBackStackList()
+            }
         }
-    }
+
+    /** The number of entries currently on the back stack. */
+    public val backStackEntryCount: StateFlow<Int> = derived { get(backStack).size }
 
     public val fragments: StateFlow<List<Fragment>> = MutableStateFlow(emptyList<Fragment>()).apply {
         fragmentManager.registerFragmentLifecycleCallbacks(
@@ -77,14 +103,16 @@ public class Navigator internal constructor(
                 override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
                     super.onFragmentAttached(fm, f, context)
                     value = fragmentManager.fragments.toList()
+                    (activity as NavigatorOwner).onOverlayHasBeenAdded(f)
                 }
 
                 override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
                     super.onFragmentDetached(fm, f)
                     value = fragmentManager.fragments.toList()
+                    (activity as NavigatorOwner).onOverlayHasBeenClosed(f)
                 }
             },
-            false
+            false,
         )
         fragmentManager.addOnBackStackChangedListener {
             value = fragmentManager.fragments.toList()
@@ -106,6 +134,19 @@ public class Navigator internal constructor(
     /** Checks if the `FragmentManager` is not empty and thus if we're doing a restore. See [isEmpty]. */
     public fun isNotEmpty(): Boolean =
         !isEmpty()
+
+    // TODO: Remove me once OpenDocumentFragment and DocumentDetailActivity have been refactored (EBH-33326)
+    public fun addToBackstack(fragment: Fragment, tagName: String) {
+        fragmentManager.beginTransaction().apply {
+            if (fragmentManager.fragments.isNotEmpty()) {
+                val backStackEntryName =
+                    "${BackStackPrefix}${fragmentManager.fragments.lastOrNull()?.getTagName()}|${fragment.getTagName()}"
+                addToBackStack(backStackEntryName)
+            }
+            add(containerId, fragment, tagName)
+            commit()
+        }
+    }
 
     /**
      * Pushes a fragment via [FragmentDestination].
@@ -129,7 +170,12 @@ public class Navigator internal constructor(
      */
     public fun push(fragment: Fragment, suppressAddToBackstack: Boolean = false) {
         fragmentManager.beginTransaction().apply {
-
+            // We inject one single modal overlay before the first OverlayNavigation fragment.
+            // All subsequent OverlayNavigations just reuse the existing modal overlay.
+            // This is done, so we don't have any flickering when navigating between multiple bottom sheets.
+            // The modal overlay has its own fade in/out animation and when you navigate from the first
+            // bottom sheet to the second one you don't want to repeat the modal animation anymore, but
+            // only animate the bottom sheets (or whatever kind of OverlayNavigation you want to add).
             val overlayFragment = (fragment as? OverlayNavigation)?.getModalOverlayFragment()
             if (overlayFragment != null &&
                 findFragment { if (it::class == overlayFragment::class) it else null } == null
@@ -149,7 +195,9 @@ public class Navigator internal constructor(
             if (!suppressAddToBackstack && (fragmentManager.fragments.isNotEmpty() || fragment is OverlayNavigation)) {
                 // TODO: Should StatelessNavigation ever be pushed on the back stack?
                 // This has to happen before DialogFragment.show() because show() commits the transaction.
-                addToBackStack(fragment.getTagName())
+                val backStackEntryName =
+                    "${BackStackPrefix}${fragmentManager.fragments.lastOrNull()?.getTagName()}|${fragment.getTagName()}"
+                addToBackStack(backStackEntryName)
             } else if (fragmentManager.fragments.isEmpty()) {
                 updateOrientation(fragment)
             }
@@ -204,13 +252,39 @@ public class Navigator internal constructor(
     }
 
     /**
-     * Pops the back stack until the given [tag] name is matched.
+     * Pops the back stack until the given back stack entry [name] is matched.
      *
-     * @param tag The tag name to pop up to.
+     * @param name The back stack entry name ([FragmentManager.BackStackEntry]) to pop up to.
      * @param includeMatch Whether to also pop the matching fragment. Defaults to `false`.
      */
-    public fun popUntil(tag: String, includeMatch: Boolean = false) {
-        fragmentManager.popBackStack(tag, if (includeMatch) FragmentManager.POP_BACK_STACK_INCLUSIVE else 0)
+    public fun popUntil(name: String, includeMatch: Boolean = false) {
+        val backStack = backStack.value
+        // Each back stack entry is encoded with BackStackPrefix, origin and target (N:OriginScreen|TargetScreen).
+        // The root screen can only be found via origin. The currently visible screen can only be found via target.
+        for (index in backStack.indices) {
+            val entryName = backStack[index].name
+            // Whether we match origin or target (if no match we continue the loop)
+            val matchesOrigin: Boolean = when {
+                entryName == name -> false
+                entryName?.startsWith(BackStackPrefix) == true ->
+                    entryName.removePrefix(BackStackPrefix).split("|").indexOf(name)
+                        .takeIf { it >= 0 }?.let { it == 0 } ?: continue
+                else -> continue
+            }
+            if (matchesOrigin) {
+                val target =
+                    if (includeMatch) (index - 1).takeIf { it >= 0 }?.let { backStack[it] }
+                    else backStack[index]
+                fragmentManager.popBackStack(target?.name, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            } else {
+                fragmentManager.popBackStack(
+                    backStack[index].name,
+                    if (includeMatch) FragmentManager.POP_BACK_STACK_INCLUSIVE else 0,
+                )
+            }
+            return
+        }
+        throw IllegalStateException("No back stack entry found: $name")
     }
 
     /**
@@ -320,9 +394,14 @@ public class Navigator internal constructor(
         if (index < 0) {
             return false
         }
-        fragmentManager.fragments.getOrNull(index + 1)?.getTagName()?.let {
-            popUntil(tag = it, includeMatch = true)
+        // The ModalPanelNavigation is not included in the backstack with its name,
+        // so jump one behind the ModalPaneNavigation and delete everything excluding the new position
+        fragmentManager.fragments.getOrNull(index - 1)?.getTagName()?.let {
+            popUntil(name = it, includeMatch = false)
             return true
+        } ?: run {
+            // If the ModalPaneNavigation is the only element left in the backstack, just pop
+            popAll()
         }
 
         return false
@@ -361,11 +440,40 @@ public class Navigator internal constructor(
     }
 
     /**
+     * Searches inside the fragments list for a matching [Fragment] with the given type [T].
+     *
+     * execute the passed lambda with the matching [Fragment].
+     */
+    public inline fun <reified T : Any> findFragmentsAndExecute(block: T.() -> Unit) {
+        findFragments<T> { it as? T }.forEach { it.block() }
+    }
+
+    /**
+     * Searches inside the fragments list for a matching [Fragment] with the given lambda.
+     *
+     * @return a sequence of the matching [Fragment]
+     */
+    public fun <T> findFragments(block: (Fragment) -> T?): Sequence<T> =
+        sequence {
+            for (fragment in fragmentManager.fragments) {
+                block(fragment)?.let {
+                    yield(it)
+                }
+            }
+        }
+
+    /**
      * Searches for a matching `Fragment` in the back stack with the given type [T].
      *
      * @return the matching [Fragment] or null if no matching fragment was found.
      */
     public inline fun <reified T> findFragment(): T? = findFragment { it as? T }
+
+    private fun generateBackStackList(): List<FragmentManager.BackStackEntry> = buildList {
+        for (i in 0 until fragmentManager.backStackEntryCount) {
+            add(i, fragmentManager.getBackStackEntryAt(i))
+        }
+    }
 
     private fun update() {
         updateOrientation()
@@ -373,21 +481,25 @@ public class Navigator internal constructor(
     }
 
     private fun updateOrientation(fragment: Fragment? = null) {
-        val fixedOrientation =
-            (fragment ?: findFragment<FixedOrientation>() ?: lifecycleOwner) as? FixedOrientation
-                ?: try {
-                    val navigator = (lifecycleOwner as? Fragment)?.findNavigator(skip = 1)
-                    if (navigator != null) {
-                        navigator.updateOrientation()
-                        return
+        // Do nothing, if the user has disabled orientation changes in the device setting.
+        // Otherwise we get weird intermediate rotations, when navigating to new screens.
+        if (isScreenRotationEnabledInSettings(activity)) {
+            val fixedOrientation =
+                (fragment ?: findFragment<FixedOrientation>() ?: lifecycleOwner) as? FixedOrientation
+                    ?: try {
+                        val navigator = (lifecycleOwner as? Fragment)?.findNavigator(skip = 1)
+                        if (navigator != null) {
+                            navigator.updateOrientation()
+                            return
+                        }
+                        null
+                    } catch (e: NoSuchElementInHierarchy) {
+                        null
                     }
-                    null
-                } catch (e: NoSuchElementInHierarchy) {
-                    null
-                }
-        val orientation = fixedOrientation?.orientation
-            ?: navigationDeps.defaultScreenOrientation
-        activity.requestedOrientation = orientation.androidScreenOrientation
+            val orientation = fixedOrientation?.orientation
+                ?: navigationDeps.defaultScreenOrientation
+            activity.requestedOrientation = orientation.androidScreenOrientation
+        }
     }
 
     private fun updateAnimations() {
@@ -400,7 +512,18 @@ public class Navigator internal constructor(
     private fun FragmentTransaction.animator(fragment: Fragment) {
         navigationDeps.animationConfig.defaultAnimation(this, fragment)
     }
+
+    private fun isScreenRotationEnabledInSettings(context: Context): Boolean {
+        return try {
+            Settings.System.getInt(context.contentResolver, Settings.System.ACCELEROMETER_ROTATION) == 1
+        } catch (e: Settings.SettingNotFoundException) {
+            Lumber.e(e)
+            false
+        }
+    }
 }
+
+private const val BackStackPrefix = "N:"
 
 /**
  * Returns the tag name to use for the fragment.
@@ -424,4 +547,5 @@ private val Orientation.androidScreenOrientation: Int
         Orientation.PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         Orientation.LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         Orientation.SENSOR -> ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+        Orientation.USER -> ActivityInfo.SCREEN_ORIENTATION_FULL_USER
     }

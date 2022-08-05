@@ -13,19 +13,24 @@ import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.detail.adapter.CertificateViewHolder
 import de.rki.covpass.app.detail.adapter.DetailItem
-import de.rki.covpass.sdk.cert.models.*
-import de.rki.covpass.sdk.utils.*
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.utils.formatDate
+import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.isInFuture
 
 @SuppressLint("NotifyDataSetChanged")
 public class ReissueContentAdapter(
-    parent: Fragment
+    parent: Fragment,
 ) : BaseRecyclerViewAdapter<CertificateViewHolder>(parent) {
 
     private lateinit var items: List<DetailItem>
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): CertificateViewHolder {
         return CertificateViewHolder(parent)
     }
@@ -51,26 +56,27 @@ public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certific
                 title = getString(R.string.certificates_overview_vaccination_certificate_title),
                 subtitle = getString(
                     R.string.certificates_overview_vaccination_certificate_message,
-                    groupedDgcEntry.doseNumber, groupedDgcEntry.totalSerialDoses
+                    groupedDgcEntry.doseNumber,
+                    groupedDgcEntry.totalSerialDoses,
                 ),
                 date = getString(
                     R.string.certificates_overview_vaccination_certificate_date,
-                    groupedDgcEntry.occurrence?.formatDate() ?: ""
+                    groupedDgcEntry.occurrence?.formatDate() ?: "",
                 ),
                 certStatus = status,
-                isActual = true
+                isActual = true,
             )
         }
         is Recovery -> {
             val date = if (groupedDgcEntry.validFrom.isInFuture()) {
                 getString(
                     R.string.certificates_overview_recovery_certificate_valid_from_date,
-                    groupedDgcEntry.validFrom?.formatDateOrEmpty() ?: ""
+                    groupedDgcEntry.validFrom?.formatDateOrEmpty() ?: "",
                 )
             } else {
                 getString(
                     R.string.certificates_overview_recovery_certificate_valid_until_date,
-                    groupedDgcEntry.validUntil?.formatDateOrEmpty() ?: ""
+                    groupedDgcEntry.validUntil?.formatDateOrEmpty() ?: "",
                 )
             }
             DetailItem.Certificate(
@@ -80,7 +86,7 @@ public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certific
                 subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                 date = date,
                 certStatus = status,
-                isActual = true
+                isActual = true,
             )
         }
         is TestCert -> null

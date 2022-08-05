@@ -29,7 +29,7 @@ public class InfoElementWithList @JvmOverloads constructor(
 ) : RelativeLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: InfoElementWithListBinding =
         InfoElementWithListBinding.inflate(LayoutInflater.from(context))
@@ -87,7 +87,7 @@ public class InfoElementListAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): InfoElementViewHolder = InfoElementViewHolder(parent)
 
     override fun onBindViewHolder(holder: InfoElementViewHolder, position: Int) {
@@ -99,7 +99,7 @@ public class InfoElementListAdapter(
     public class InfoElementViewHolder(parent: ViewGroup) :
         BindingViewHolder<InfoElementListItemBinding>(
             parent,
-            InfoElementListItemBinding::inflate
+            InfoElementListItemBinding::inflate,
         ) {
 
         public fun onBind(text: String) {

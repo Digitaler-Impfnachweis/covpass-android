@@ -31,7 +31,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 public class ReissueConsentFragmentNav(
     public val listCertIds: List<String>,
-    public val reissueType: ReissueType
+    public val reissueType: ReissueType,
 ) : FragmentNav(ReissueConsentFragment::class)
 
 public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
@@ -58,11 +58,11 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             }
         }
         bottomSheetBinding.bottomSheetTitle.setText(
-            R.string.share_certificate_consent_title
+            R.string.share_certificate_consent_title,
         )
 
         binding.reissueConsentCertificateListTitle.setText(
-            R.string.certificate_renewal_consent_page_transfer_certificates_subline
+            R.string.certificate_renewal_consent_page_transfer_certificates_subline,
         )
         ReissueContentAdapter(this).apply {
             updateList(certificateList.mapNotNull { it.toDetailItemCertificate() })
@@ -76,30 +76,30 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             list = if (args.reissueType == ReissueType.Booster) {
                 listOf(
                     getString(
-                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1
+                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_1,
                     ),
                     getString(
-                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2
+                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_2,
                     ),
                     getString(
-                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3
-                    )
+                        R.string.certificate_renewal_consent_page_transfer_certificates_consent_box_copy_list_item_3,
+                    ),
                 )
             } else {
                 listOf(
                     getString(R.string.renewal_expiry_consent_box_item_1),
-                    getString(R.string.renewal_expiry_consent_box_item_2)
+                    getString(R.string.renewal_expiry_consent_box_item_2),
                 )
             },
-            parent = this
+            parent = this,
         )
         if (args.reissueType == ReissueType.Booster) {
             binding.reissueConsentInfoElementList.isVisible = false
             binding.reissueConsentUpdateTitle.setText(
-                R.string.certificate_renewal_consent_page_transfer_certificates_copy
+                R.string.certificate_renewal_consent_page_transfer_certificates_copy,
             )
             binding.reissueConsentUpdateSubtitle.setText(
-                R.string.certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy
+                R.string.certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy,
             )
         } else {
             binding.reissueConsentUpdateTitle.isVisible = false
@@ -110,9 +110,9 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
                     getString(R.string.renewal_expiry_consent_list_item_1),
                     getString(R.string.renewal_expiry_consent_list_item_2),
                     getString(R.string.renewal_expiry_consent_list_item_3),
-                    getString(R.string.renewal_expiry_consent_list_item_4)
+                    getString(R.string.renewal_expiry_consent_list_item_4),
                 ),
-                this
+                this,
             ).attachTo(binding.reissueConsentInfoElementList)
         }
 
@@ -131,15 +131,15 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             findNavigator().push(
                 ReissueResultFragmentNav(
                     args.listCertIds,
-                    args.reissueType
-                )
+                    args.reissueType,
+                ),
             )
         } else {
             findNavigator().push(
                 ReissueExpiredResultFragmentNav(
                     args.listCertIds,
-                    args.reissueType
-                )
+                    args.reissueType,
+                ),
             )
         }
     }

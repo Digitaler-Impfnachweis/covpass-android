@@ -29,7 +29,7 @@ public class InfoElement @JvmOverloads constructor(
 ) : RelativeLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: InfoElementBinding = InfoElementBinding.inflate(LayoutInflater.from(context))
 

@@ -36,8 +36,8 @@ public abstract class CovPassDomesticRulesDao {
             descriptions.forEach { descriptionLocal ->
                 descriptionsToBeInserted.add(
                     descriptionLocal.copy(
-                        ruleContainerId = ruleId
-                    )
+                        ruleContainerId = ruleId,
+                    ),
                 )
             }
             insertDescriptions(*descriptionsToBeInserted.toTypedArray())
@@ -47,7 +47,7 @@ public abstract class CovPassDomesticRulesDao {
     @Transaction
     public open suspend fun replaceAll(
         keep: Collection<String>,
-        add: Collection<CovPassDomesticRuleWithDescriptionsLocal>
+        add: Collection<CovPassDomesticRuleWithDescriptionsLocal>,
     ) {
         deleteAll(keep = keep)
         insertAll(*add.toTypedArray())
@@ -59,7 +59,9 @@ public abstract class CovPassDomesticRulesDao {
     /* ktlint-disable max-line-length */
     @Suppress("MaxLineLength")
     @Transaction
-    @Query("SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo)")
+    @Query(
+        "SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo)",
+    )
     public abstract fun getRulesWithDescriptionsBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
@@ -69,19 +71,21 @@ public abstract class CovPassDomesticRulesDao {
     /* ktlint-disable max-line-length */
     @Suppress("MaxLineLength")
     @Transaction
-    @Query("SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo) AND :type = type AND (:ruleCertificateType = ruleCertificateType OR :generalRuleCertificateType = ruleCertificateType)")
+    @Query(
+        "SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo) AND :type = type AND (:ruleCertificateType = ruleCertificateType OR :generalRuleCertificateType = ruleCertificateType)",
+    )
     public abstract fun getRulesWithDescriptionsBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
         ruleCertificateType: RuleCertificateType,
-        generalRuleCertificateType: RuleCertificateType
+        generalRuleCertificateType: RuleCertificateType,
     ): List<CovPassDomesticRuleWithDescriptionsLocal>
     /* ktlint-enable max-line-length */
 
     @Transaction
     @Query("SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode")
     public abstract fun getRulesWithDescriptionsBy(
-        countryIsoCode: String
+        countryIsoCode: String,
     ): List<CovPassDomesticRuleWithDescriptionsLocal>
 }

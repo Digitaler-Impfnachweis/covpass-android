@@ -16,7 +16,7 @@ import de.rki.covpass.commonapp.uielements.showWarning
 
 @SuppressLint("NotifyDataSetChanged")
 public class InfoElementAdapter(
-    parent: Fragment
+    parent: Fragment,
 ) : BaseRecyclerViewAdapter<InfoElementAdapter.InfoElementViewHolder>(parent) {
 
     private var validationResults: List<DerivedValidationResult> = emptyList()
@@ -39,7 +39,7 @@ public class InfoElementAdapter(
     public inner class InfoElementViewHolder(parent: ViewGroup) :
         BindingViewHolder<ResultInfoElementBinding>(
             parent,
-            ResultInfoElementBinding::inflate
+            ResultInfoElementBinding::inflate,
         ) {
 
         public fun bind(item: DerivedValidationResult) {

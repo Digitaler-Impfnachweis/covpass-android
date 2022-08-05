@@ -30,7 +30,7 @@ public data class CBORWebToken(
                 // CBORNumber and then to Int.
                 validFrom = cbor[6]?.AsNumber()?.ToInt64Checked()?.let { Instant.ofEpochSecond(it) },
                 validUntil = Instant.ofEpochSecond(cbor[4].AsNumber().ToInt64Checked()),
-                rawCbor = cbor
+                rawCbor = cbor,
             )
         }
     }

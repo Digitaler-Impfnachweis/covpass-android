@@ -16,7 +16,7 @@ import de.rki.covpass.app.detail.DgcEntryDetailFragment
 
 @SuppressLint("NotifyDataSetChanged")
 public class DgcEntryDetailAdapter(
-    parent: Fragment
+    parent: Fragment,
 ) : BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
 
     private var detailItems: List<DgcEntryDetailFragment.DataRow> = emptyList()
@@ -38,7 +38,7 @@ public class DgcEntryDetailAdapter(
     public inner class DgcDetailViewHolder(parent: ViewGroup) :
         BindingViewHolder<DgcDetailDataRowBinding>(
             parent,
-            DgcDetailDataRowBinding::inflate
+            DgcDetailDataRowBinding::inflate,
         ) {
         public fun bind(item: DgcEntryDetailFragment.DataRow) {
             binding.dgcDetailDataHeaderTextview.text = item.header

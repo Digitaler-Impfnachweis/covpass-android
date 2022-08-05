@@ -19,9 +19,10 @@ public var HttpRequestBuilder.retry: Boolean?
     set(value) {
         value?.let {
             headers[RetryInterceptor.RETRY_ALLOWED_HEADER] =
-                if (value)
+                if (value) {
                     RetryInterceptor.RETRY_ALLOWED_VALUE
-                else
+                } else {
                     RetryInterceptor.RETRY_DISABLED_VALUE
+                }
         } ?: headers.remove(RetryInterceptor.RETRY_ALLOWED_HEADER)
     }

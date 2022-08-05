@@ -5,7 +5,7 @@
 
 package de.rki.covpass.sdk.ticketing
 
-import io.ktor.client.call.*
+import io.ktor.client.call.receive
 
 public class CancellationRepository(
     public val ticketingApiService: TicketingApiService,

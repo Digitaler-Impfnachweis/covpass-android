@@ -9,7 +9,7 @@ import com.ensody.reactivestate.dispatchers
 import kotlinx.coroutines.invoke
 
 public class CovPassCountriesLocalDataSource(
-    private val covPasCountriesDao: CountriesDao
+    private val covPasCountriesDao: CountriesDao,
 ) {
 
     public suspend fun insertAll(countries: Collection<String>) {

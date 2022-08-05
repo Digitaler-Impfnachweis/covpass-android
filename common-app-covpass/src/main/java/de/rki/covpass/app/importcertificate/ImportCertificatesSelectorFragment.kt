@@ -50,7 +50,7 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
         viewModel.getQrCodes(
             fileDescriptor,
             requireContext().contentResolver.getType(uri)?.contains("pdf") == true,
-            resources.displayMetrics
+            resources.displayMetrics,
         )
         binding.checkboxAllCertificates.setState(CHECKED)
         binding.layoutAllCertificateInfo.setOnClickListener {
@@ -77,7 +77,7 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
             bottomSheetBinding.bottomSheetActionButton.text =
                 getString(
                     R.string.file_import_result_button,
-                    adapter?.checkedList?.size
+                    adapter?.checkedList?.size,
                 )
         }
     }
@@ -108,7 +108,7 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
             getString(
                 R.string.file_import_result_bulge_select,
                 list.size,
-                list.size
+                list.size,
             )
         adapter = ImportCertificateSelectorAdapter(
             this,
@@ -134,15 +134,15 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
                 bottomSheetBinding.bottomSheetActionButton.text =
                     getString(
                         R.string.file_import_result_button,
-                        numCheckedCertificates
+                        numCheckedCertificates,
                     )
                 binding.infoAllCertificates.text =
                     getString(
                         R.string.file_import_result_bulge_select,
                         numCheckedCertificates,
-                        adapter.itemCount
+                        adapter.itemCount,
                     )
-            }
+            },
         ).apply {
             updateList(list)
             attachTo(binding.recyclerViewCertificateList)
@@ -195,7 +195,7 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
                 getString(R.string.file_import_result_info_bullet2),
                 getString(R.string.file_import_result_info_bullet3),
             ),
-            this
+            this,
         )
     }
 
@@ -203,7 +203,7 @@ public class ImportCertificatesSelectorFragment : BaseBottomSheet(), ImportCerti
         if (adapter != null) {
             bottomSheetBinding.bottomSheetActionButton.text = getString(
                 R.string.file_import_result_button,
-                adapter?.itemCount ?: 0
+                adapter?.itemCount ?: 0,
             )
         } else {
             bottomSheetBinding.bottomSheetActionButton.setText(R.string.file_import_result_null_button)
@@ -215,5 +215,5 @@ public class MaxNumberOfHolderExceededException : IllegalStateException()
 
 public data class ImportCovCertificate(
     val covCertificate: CovCertificate,
-    val qrContent: String
+    val qrContent: String,
 )

@@ -63,7 +63,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                 validateMisusePrevention(
                     certRepository.certs.value.certificates,
                     covCertificate,
-                    qrContent
+                    qrContent,
                 )
             }
         }
@@ -72,14 +72,15 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
     private fun validateMisusePrevention(
         groupedCertificates: List<GroupedCertificates>,
         covCertificate: CovCertificate,
-        qrContent: String
+        qrContent: String,
     ) {
         when (MisusePreventionHelper.getMisusePreventionStatus(groupedCertificates, covCertificate)) {
             MisusePreventionStatus.ALL_GOOD -> {
                 addNewCertificate(covCertificate, qrContent)
             }
             MisusePreventionStatus.FIRST_LIMITATION_WARNING,
-            MisusePreventionStatus.SECOND_LIMITATION_WARNING -> {
+            MisusePreventionStatus.SECOND_LIMITATION_WARNING,
+            -> {
                 eventNotifier { onLimitationWarning(qrContent) }
             }
             MisusePreventionStatus.SAVING_BLOCKED -> {
@@ -93,7 +94,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
             CovPassCertificateStorageHelper.addNewCertificate(
                 certRepository.certs,
                 covCertificate,
-                qrContent
+                qrContent,
             )?.let {
                 eventNotifier {
                     onScanSuccess(it)

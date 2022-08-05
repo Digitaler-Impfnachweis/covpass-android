@@ -10,6 +10,11 @@ import androidx.annotation.StringRes
 import androidx.core.text.HtmlCompat
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.logging.Lumber
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.TemporalAccessor
 
 /**
  * A regular expression which is used to replace every match of the following format:
@@ -20,7 +25,7 @@ import de.rki.covpass.logging.Lumber
  *
  * Action could be anything like: `link`, etc.
  */
-private val linkRegex = Regex("#(.*)::(.*)#")
+private val linkRegex = Regex("#(.*?)::(.*?)#")
 
 /**
  * A regular expression which is used to replace phone numbers with clickable links.
@@ -96,7 +101,7 @@ internal fun String.convertStyleTags(): String {
         .replace("[u]", "<u>", true)
         .replace("[/u]", "</u>", true)
         .replace(
-            colorRegex
+            colorRegex,
         ) {
             "<font color=\"#${it.groupValues[1]}\">${it.groupValues[2]}</font>"
         }
@@ -109,3 +114,15 @@ internal fun String.convertStyleTags(): String {
  * @return [Spanned] string.
  */
 public fun String.toSpanned(): Spanned = HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+private fun DateTimeFormatter.parseOrNull(input: String): TemporalAccessor? = try {
+    parse(input)
+} catch (dtpe: DateTimeParseException) {
+    null
+}
+
+public fun String.toLocalDateOrNull(formatter: DateTimeFormatter): LocalDate? =
+    formatter.parseOrNull(this)?.let(LocalDate::from)
+
+public fun String.toLocalTimeOrNull(formatter: DateTimeFormatter): LocalTime? =
+    formatter.parseOrNull(this)?.let(LocalTime::from)

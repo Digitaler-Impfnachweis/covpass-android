@@ -49,7 +49,7 @@ public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
         updateView(
             args.ticketingDataInitialization.serviceProvider,
             args.ticketingDataInitialization.subject,
-            args.ticketingDataInitialization.privacyUrl
+            args.ticketingDataInitialization.privacyUrl,
         )
     }
 
@@ -69,14 +69,14 @@ public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
         val list = mutableListOf(
             ConsentInitItem.TicketingData(
                 getString(R.string.share_certificate_transmission_details_provider),
-                provider
+                provider,
             ),
             ConsentInitItem.TicketingData(
                 getString(R.string.share_certificate_transmission_details_booking),
-                booking
+                booking,
             ),
             ConsentInitItem.Note(
-                getString(R.string.share_certificate_message)
+                getString(R.string.share_certificate_message),
             ),
             ConsentInitItem.Infobox(
                 getString(R.string.share_certificate_consent_title),
@@ -84,29 +84,29 @@ public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
                 listOf(
                     getString(R.string.share_certificate_consent_first_list_item, provider),
                     getString(R.string.share_certificate_consent_second_list_item),
-                )
+                ),
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_notes_first_list_item),
-                true
+                true,
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_notes_second_list_item),
-                true
+                true,
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_notes_third_list_item),
-                true
+                true,
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_notes_fourth_list_item),
-                true
+                true,
             ),
             ConsentInitItem.DataProtection(
                 getString(R.string.share_certificate_note_privacy_notice),
                 R.string.share_certificate_privacy_notice_linked,
-                privacyUrl
-            )
+                privacyUrl,
+            ),
         )
         ConsentTicketingAdapter(list, this).attachTo(binding.consentInitializationRecyclerView)
     }

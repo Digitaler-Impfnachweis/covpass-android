@@ -24,7 +24,8 @@ public class TicketingDgcCryptor {
         publicKey: PublicKey,
     ): TicketingEncryptedDgcData = dccCryptService.encryptData(
         dcc.toByteArray(),
-        publicKey, iv
+        publicKey,
+        iv,
     )
 }
 
@@ -45,7 +46,10 @@ private class RsaOaepWithSha256AesGcm {
 
         val keyCipher: Cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding")
         val oaepParameterSpec = OAEPParameterSpec(
-            "SHA-256", "MGF1", MGF1ParameterSpec.SHA256, PSource.PSpecified.DEFAULT
+            "SHA-256",
+            "MGF1",
+            MGF1ParameterSpec.SHA256,
+            PSource.PSpecified.DEFAULT,
         )
         keyCipher.init(Cipher.ENCRYPT_MODE, publicKey, oaepParameterSpec)
         val secretKeyBytes: ByteArray = secretKey.encoded

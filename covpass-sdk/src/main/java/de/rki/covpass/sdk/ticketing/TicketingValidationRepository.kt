@@ -8,8 +8,8 @@ package de.rki.covpass.sdk.ticketing
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.ticketing.data.validate.BookingValidationResponse
 import de.rki.covpass.sdk.ticketing.data.validate.TicketingValidationRequest
-import io.ktor.client.call.*
-import io.ktor.client.features.*
+import io.ktor.client.call.receive
+import io.ktor.client.features.ClientRequestException
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 

@@ -12,7 +12,7 @@ public data class BoosterRuleWithDescriptionsLocal(
     @Embedded val rule: BoosterRuleLocal,
     @Relation(
         parentColumn = "ruleId",
-        entityColumn = "ruleContainerId"
+        entityColumn = "ruleContainerId",
     )
-    val descriptions: List<BoosterDescriptionLocal>
+    val descriptions: List<BoosterDescriptionLocal>,
 )

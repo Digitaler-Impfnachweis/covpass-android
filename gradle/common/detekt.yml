@@ -11,6 +11,10 @@ complexity:
     active: false
   TooManyFunctions:
     active: false
+  ComplexCondition:
+    threshold: 7
+  NestedBlockDepth:
+    threshold: 6
 
 empty-blocks:
   EmptyFunctionBlock:
@@ -28,11 +32,6 @@ exceptions:
   ThrowingExceptionsWithoutMessageOrCause:
     active: false
 
-formatting:
-  # Already handled by ktlint
-  MaximumLineLength:
-    active: false
-
 naming:
   # ktlint already checks this
   MatchingDeclarationName:
@@ -42,6 +41,8 @@ naming:
   # Way too often we want to name functions like classes. Don't require lowercase initial character, anymore.
   FunctionNaming:
     functionPattern: "(_?[a-zA-Z0-9]+)|(`.*`)"
+  TopLevelPropertyNaming:
+    constantPattern: "[A-Za-z][_A-Za-z0-9]*"
 
 style:
   ForbiddenComment:

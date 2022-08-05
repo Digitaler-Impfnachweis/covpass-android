@@ -1,6 +1,6 @@
 package de.rki.covpass.sdk.utils
 
-import java.util.*
+import java.util.Locale
 
 public fun getDescriptionLanguage(): String = when (Locale.getDefault().language) {
     Locale.GERMAN.language -> DescriptionLanguage.GERMAN.languageCode

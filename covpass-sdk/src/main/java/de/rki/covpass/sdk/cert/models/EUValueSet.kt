@@ -8,5 +8,5 @@ package de.rki.covpass.sdk.cert.models
 public data class EUValueSet(
     val valueSetId: String,
     val valueSetDate: String,
-    val valueSetValues: Map<String, EUValueSetValue>
+    val valueSetValues: Map<String, EUValueSetValue>,
 )

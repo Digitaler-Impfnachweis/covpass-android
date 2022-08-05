@@ -29,7 +29,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 public class ReissueNotificationFragmentNav(
     public val reissueType: ReissueType,
-    public val listCertIds: List<String>
+    public val listCertIds: List<String>,
 ) : FragmentNav(ReissueNotificationFragment::class)
 
 public class ReissueNotificationFragment :
@@ -65,7 +65,7 @@ public class ReissueNotificationFragment :
                 R.string.certificate_renewal_startpage_headline
             } else {
                 R.string.renewal_expiry_notification_title
-            }
+            },
         )
 
         ReissueContentAdapter(this).apply {
@@ -82,12 +82,12 @@ public class ReissueNotificationFragment :
                 ReissueType.Recovery -> R.string.renewal_expiry_notification_copy_recovery
                 ReissueType.Vaccination -> R.string.renewal_expiry_notification_copy_vaccination
                 ReissueType.None -> R.string.certificate_renewal_startpage_copy
-            }
+            },
         )
         binding.reissueNotificationInfoElement.showInfo(
             getString(R.string.certificate_renewal_startpage_copy_box),
             titleStyle = R.style.DefaultText_OnBackground,
-            iconRes = R.drawable.info_icon
+            iconRes = R.drawable.info_icon,
         )
     }
 

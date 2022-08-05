@@ -11,5 +11,5 @@ import kotlinx.serialization.Serializable
 public data class BoosterRuleIdentifierRemote(
     val identifier: String,
     val version: String,
-    val hash: String
+    val hash: String,
 )

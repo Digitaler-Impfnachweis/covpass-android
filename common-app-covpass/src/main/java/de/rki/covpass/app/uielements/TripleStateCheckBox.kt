@@ -24,7 +24,7 @@ public class TripleStateCheckBox : AppCompatCheckBox {
     public constructor(
         context: Context,
         attrs: AttributeSet?,
-        defStyleAttr: Int
+        defStyleAttr: Int,
     ) : super(context, attrs, defStyleAttr) {
         init()
     }

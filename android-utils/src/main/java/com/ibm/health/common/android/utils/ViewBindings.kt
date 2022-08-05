@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.ensody.reactivestate.android.onDestroyView
+import de.rki.covpass.logging.Lumber
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -44,13 +46,20 @@ public inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
 public fun <T : ViewBinding> BaseHookedFragment.viewBinding(
     bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> T,
     invalidateOn: (invalidate: () -> Unit) -> Any? = ::onDestroyView,
+    cleanUp: (T) -> Unit = {},
 ): ReadOnlyProperty<BaseHookedFragment, T> =
-    ViewBindingInflaterProperty(fragment = this, bindingInflater = bindingInflater, invalidateOn = invalidateOn)
+    ViewBindingInflaterProperty(
+        fragment = this,
+        bindingInflater = bindingInflater,
+        invalidateOn = invalidateOn,
+        cleanUp = cleanUp,
+    )
 
 private class ViewBindingInflaterProperty<T : ViewBinding>(
     fragment: BaseHookedFragment,
     private val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> T,
     private val invalidateOn: (invalidate: () -> Unit) -> Any?,
+    private val cleanUp: (T) -> Unit,
 ) : ReadOnlyProperty<BaseHookedFragment, T> {
 
     private var binding: T? = null
@@ -59,6 +68,7 @@ private class ViewBindingInflaterProperty<T : ViewBinding>(
         fragment.inflaterHook = ::init
         fragment.lifecycleScope.launchWhenCreated {
             invalidateOn {
+                binding?.let { cleanUp(it) }
                 binding = null
             }
         }
@@ -122,7 +132,12 @@ private class ViewBindingProperty<T>(
 
     override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
         return binding ?: viewBinder(thisRef.requireView()).also {
-            binding = it
+            val currentState = thisRef.viewLifecycleOwner.lifecycle.currentState
+            if (currentState != Lifecycle.State.DESTROYED) {
+                binding = it
+            } else {
+                Lumber.w { "Accessing view binding in state '$currentState': View has already been destroyed." }
+            }
         }
     }
 }

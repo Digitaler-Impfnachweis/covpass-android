@@ -5,7 +5,7 @@
 
 package de.rki.covpass.http.util
 
-import io.ktor.http.*
+import io.ktor.http.Url
 
 /** Provides functionality to check if a url is whitelisted. */
 public interface UrlWhitelist {

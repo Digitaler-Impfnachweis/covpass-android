@@ -14,7 +14,11 @@ import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.AndroidDependencies
 import com.ibm.health.common.android.utils.androidDeps
 import com.ibm.health.common.android.utils.isDebuggable
-import com.ibm.health.common.navigation.android.*
+import com.ibm.health.common.navigation.android.ActivityNavigator
+import com.ibm.health.common.navigation.android.DefaultNavigationAnimationConfig
+import com.ibm.health.common.navigation.android.NavigationDependencies
+import com.ibm.health.common.navigation.android.Orientation
+import com.ibm.health.common.navigation.android.navigationDeps
 import com.ibm.health.common.securityprovider.initSecurityProvider
 import de.rki.covpass.http.HttpLogLevel
 import de.rki.covpass.http.httpConfig
@@ -42,7 +46,7 @@ public abstract class CommonApplication : Application() {
         }
         httpConfig.setUserAgent(
             "${getAppVariantAndVersion()} " +
-                "($packageName; Android ${Build.VERSION.SDK_INT})"
+                "($packageName; Android ${Build.VERSION.SDK_INT})",
         )
 
         navigationDeps = object : NavigationDependencies() {
@@ -93,27 +97,27 @@ public abstract class CommonApplication : Application() {
             }
             if (sdkDeps.covPassEuRulesRepository.getAllRules().isNullOrEmpty()) {
                 sdkDeps.covPassEuRulesRepository.prepopulate(
-                    sdkDeps.bundledEuRules
+                    sdkDeps.bundledEuRules,
                 )
             }
             if (sdkDeps.covPassDomesticRulesRepository.getAllRules().isNullOrEmpty()) {
                 sdkDeps.covPassDomesticRulesRepository.prepopulate(
-                    sdkDeps.bundledDomesticRules
+                    sdkDeps.bundledDomesticRules,
                 )
             }
             if (sdkDeps.covPassValueSetsRepository.getAllCovPassValueSets().isNullOrEmpty()) {
                 sdkDeps.covPassValueSetsRepository.prepopulate(
-                    sdkDeps.bundledValueSets
+                    sdkDeps.bundledValueSets,
                 )
             }
             if (sdkDeps.covPassBoosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
                 sdkDeps.covPassBoosterRulesRepository.prepopulate(
-                    sdkDeps.bundledBoosterRules
+                    sdkDeps.bundledBoosterRules,
                 )
             }
             if (sdkDeps.covPassCountriesRepository.getAllCovPassCountries().isNullOrEmpty()) {
                 sdkDeps.covPassCountriesRepository.prepopulate(
-                    sdkDeps.bundledCountries
+                    sdkDeps.bundledCountries,
                 )
             }
         }

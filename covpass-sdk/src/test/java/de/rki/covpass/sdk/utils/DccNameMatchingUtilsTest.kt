@@ -20,12 +20,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -35,12 +35,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1989-02-03"
+            birthDate = "1989-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -50,12 +50,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ANGELIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -65,12 +65,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "BEISPIELFRAU"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -80,12 +80,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA<MARIA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -95,12 +95,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN<GABLER"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -110,12 +110,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ANGELIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -125,12 +125,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA<MARIA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ANGELIKA<MARIA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -140,12 +140,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA<MARIA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ANGELIKA<MARIA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1989-02-03"
+            birthDate = "1989-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -155,12 +155,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "<ERIKA<", familyNameTransliterated = "<MUSTERMANN<"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -170,12 +170,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "<ANGELIKA<", familyNameTransliterated = "<MUSTERMANN<"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -185,12 +185,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = " ERIKA ", familyNameTransliterated = " MUSTERMANN "),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -200,12 +200,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = " ANGELIKA ", familyNameTransliterated = " MUSTERMANN "),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -215,12 +215,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "DR<MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -230,12 +230,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "DR<<MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -245,12 +245,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "DR<ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -260,12 +260,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "DR<<ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertTrue(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -275,12 +275,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "DR<<ERIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "DR<<ANGELIKA", familyNameTransliterated = "MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }
@@ -290,12 +290,12 @@ internal class DccNameMatchingUtilsTest {
         val covCertificate1 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "DR<<MUSTERMANN"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         val covCertificate2 = CovCertificate(
             vaccinations = listOf(Vaccination()),
             name = Name(givenNameTransliterated = "ERIKA", familyNameTransliterated = "DR<<BEISPIELFRAU"),
-            birthDate = "1980-02-03"
+            birthDate = "1980-02-03",
         )
         assertFalse(isHolderSame(covCertificate1, covCertificate2))
     }

@@ -33,7 +33,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 public class ReissueExpiredResultFragmentNav(
     public val listCertIds: List<String>,
-    public val reissueType: ReissueType
+    public val reissueType: ReissueType,
 ) : FragmentNav(ReissueExpiredResultFragment::class)
 
 public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResultEvents, DialogListener {
@@ -43,7 +43,7 @@ public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResult
         ReissueResultViewModel(
             scope,
             args.listCertIds,
-            args.reissueType
+            args.reissueType,
         )
     }
     private val binding by viewBinding(ReissueExpiredResultPopupContentBinding::inflate)
@@ -69,9 +69,8 @@ public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResult
 
     override fun onReissueFinish(
         cert: CovCertificate,
-        groupedCertificatesId: GroupedCertificatesId
+        groupedCertificatesId: GroupedCertificatesId,
     ) {
-
         this.groupedCertificatesId = groupedCertificatesId
 
         binding.loadingLayout.isVisible = false
@@ -100,8 +99,8 @@ public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResult
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse(getString(R.string.covpass_reissuing_faq_link))
-                )
+                    Uri.parse(getString(R.string.covpass_reissuing_faq_link)),
+                ),
             )
         }
         findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)

@@ -85,11 +85,13 @@ public data class GroupedCertificates(
                     when (it.status) {
                         CertValidationResult.Expired,
                         CertValidationResult.ExpiryPeriod,
-                        CertValidationResult.Invalid -> {
+                        CertValidationResult.Invalid,
+                        -> {
                             it.copy(hasSeenExpiryNotification = value)
                         }
                         CertValidationResult.Valid,
-                        CertValidationResult.Revoked -> {
+                        CertValidationResult.Revoked,
+                        -> {
                             it
                         }
                     }
@@ -161,7 +163,7 @@ public data class GroupedCertificates(
     val id: GroupedCertificatesId
         get() = GroupedCertificatesId(
             certificates.first().covCertificate.name.trimmedName,
-            certificates.first().covCertificate.birthDate
+            certificates.first().covCertificate.birthDate,
         )
 
     /**
@@ -189,21 +191,21 @@ public data class GroupedCertificates(
             certificates.filter { it.covCertificate.dgcEntry is Vaccination }
                 .sortedWith { cert1, cert2 ->
                     (cert1.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses?.compareTo(
-                        (cert2.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses ?: 0
+                        (cert2.covCertificate.dgcEntry as? Vaccination)?.totalSerialDoses ?: 0,
                     ) ?: 0
                 }.sortedWith { cert1, cert2 ->
                     (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
-                        (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                        (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence,
                     ) ?: 0
                 } + certificates.filter { it.covCertificate.dgcEntry is Recovery }
                 .sortedWith { cert1, cert2 ->
                     (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
-                        (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+                        (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult,
                     ) ?: 0
                 } + certificates.filter { it.covCertificate.dgcEntry is TestCert }
                 .sortedWith { cert1, cert2 ->
                     (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
-                        (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
+                        (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
                     ) ?: 0
                 }
         return certificateSortedList.find {
@@ -259,7 +261,7 @@ public data class GroupedCertificates(
         return certificates.filter { it.covCertificate.dgcEntry is Vaccination }
             .sortedWith { cert1, cert2 ->
                 (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence,
                 ) ?: 0
             }.firstOrNull()
     }
@@ -271,7 +273,7 @@ public data class GroupedCertificates(
         return certificates.filter { it.covCertificate.dgcEntry is Recovery }
             .sortedWith { cert1, cert2 ->
                 (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult
+                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult,
                 ) ?: 0
             }.firstOrNull()
     }
@@ -283,7 +285,7 @@ public data class GroupedCertificates(
         return certificates.filter { it.covCertificate.dgcEntry is TestCert }
             .sortedWith { cert1, cert2 ->
                 (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection
+                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
                 ) ?: 0
             }.firstOrNull()
     }
@@ -301,7 +303,7 @@ public data class GroupedCertificates(
             if (listIds.contains(it.covCertificate.dgcEntry.id)) {
                 it.copy(
                     reissueState = ReissueState.Ready,
-                    reissueType = ReissueType.Booster
+                    reissueType = ReissueType.Booster,
                 )
             } else {
                 it
@@ -320,7 +322,7 @@ public data class GroupedCertificates(
             if (it.isRecoveryValidForReissue(expiredGermanRecoveryIds)) {
                 it.copy(
                     reissueState = ReissueState.Ready,
-                    reissueType = ReissueType.Recovery
+                    reissueType = ReissueType.Recovery,
                 )
             } else {
                 it
@@ -331,7 +333,7 @@ public data class GroupedCertificates(
             if (expiredGermanVaccinationId == it.covCertificate.dgcEntry.id) {
                 it.copy(
                     reissueState = ReissueState.Ready,
-                    reissueType = ReissueType.Vaccination
+                    reissueType = ReissueType.Vaccination,
                 )
             } else {
                 it
@@ -340,7 +342,7 @@ public data class GroupedCertificates(
     }
 
     private fun CombinedCovCertificate.isRecoveryValidForReissue(
-        expiredGermanRecoveryIds: List<String>
+        expiredGermanRecoveryIds: List<String>,
     ) =
         expiredGermanRecoveryIds.contains(covCertificate.dgcEntry.id) &&
             !certificates.any {
@@ -426,7 +428,7 @@ public data class GroupedCertificates(
         }
 
     private fun getFilteredVaccinationForHistoricalData(
-        filteredCertificates: List<CombinedCovCertificate>
+        filteredCertificates: List<CombinedCovCertificate>,
     ): List<CombinedCovCertificate> {
         val vaccinationDateList = filteredCertificates.filter {
             it.covCertificate.dgcEntry is Vaccination
@@ -443,7 +445,7 @@ public data class GroupedCertificates(
                         (it.covCertificate.dgcEntry as Vaccination).occurrence == date
                 }.asSequence().sortedByDescending {
                     it.covCertificate.validFrom
-                }.first()
+                }.first(),
             )
         }
         return vaccinationList
@@ -451,7 +453,7 @@ public data class GroupedCertificates(
 
     private fun getFilteredRecoveryForHistoricalData(
         filteredCertificates: List<CombinedCovCertificate>,
-        vaccinationList: List<CombinedCovCertificate>
+        vaccinationList: List<CombinedCovCertificate>,
     ): List<CombinedCovCertificate> {
         val recoveryDateList = filteredCertificates.filter {
             it.covCertificate.dgcEntry is Recovery
@@ -468,7 +470,7 @@ public data class GroupedCertificates(
                         (it.covCertificate.dgcEntry as Recovery).firstResult == date
                 }.asSequence().sortedByDescending {
                     it.covCertificate.validFrom
-                }.first()
+                }.first(),
             )
         }
         return recoveryList.filterNot { recovery ->
@@ -551,14 +553,14 @@ public data class GroupedCertificates(
                 it.covCertificate.dgcEntry is Vaccination &&
                     (it.covCertificate.dgcEntry as Vaccination).isJanssen &&
                     (it.covCertificate.dgcEntry as? Vaccination)?.occurrence?.isBefore(
-                        (covCertificate.dgcEntry as? Vaccination)?.occurrence
+                        (covCertificate.dgcEntry as? Vaccination)?.occurrence,
                     ) ?: false
             } ?: return false
 
             certificates.find {
                 it.covCertificate.dgcEntry is Recovery &&
                     (it.covCertificate.dgcEntry as? Recovery)?.firstResult?.isBefore(
-                        (vaccinationJanssenBeforeCovCertificate.covCertificate.dgcEntry as? Vaccination)?.occurrence
+                        (vaccinationJanssenBeforeCovCertificate.covCertificate.dgcEntry as? Vaccination)?.occurrence,
                     ) ?: false
             } ?: return true
 

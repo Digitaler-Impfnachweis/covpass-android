@@ -16,7 +16,11 @@ import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.QRCoder
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.TestCertType
+import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
@@ -58,7 +62,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                         covCertificate,
                         getRuleValidator(),
                         revocationRemoteListRepository,
-                        recoveryOlder90DaysValid.value
+                        recoveryOlder90DaysValid.value,
                     )
                 ) {
                     CovPassCheckValidationResult.Success -> {
@@ -100,25 +104,25 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
         }
 
     private fun handleNegativePcrResult(
-        covCertificate: CovCertificate
+        covCertificate: CovCertificate,
     ) {
         val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
             onValidPcrTest(
                 covCertificate,
-                test.sampleCollection
+                test.sampleCollection,
             )
         }
     }
 
     private fun handleNegativeAntigenResult(
-        covCertificate: CovCertificate
+        covCertificate: CovCertificate,
     ) {
         val test = covCertificate.dgcEntry as TestCert
         eventNotifier {
             onValidAntigenTest(
                 covCertificate,
-                test.sampleCollection
+                test.sampleCollection,
             )
         }
     }

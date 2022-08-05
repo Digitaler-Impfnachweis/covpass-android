@@ -6,8 +6,8 @@
 package de.rki.covpass.sdk.ticketing
 
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
-import io.ktor.client.features.*
-import io.ktor.http.*
+import io.ktor.client.features.ClientRequestException
+import io.ktor.http.HttpStatusCode
 
 public class ValidationServiceIdentityRepository(
     public val ticketingApiService: TicketingApiService,

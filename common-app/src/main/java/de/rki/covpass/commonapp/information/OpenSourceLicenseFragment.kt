@@ -70,8 +70,8 @@ public class OpenSourceLicenseFragment : BaseFragment() {
                     null,
                     null,
                     null,
-                    null
-                )
+                    null,
+                ),
             )
         listObj.addAll(json.decodeFromString(text))
 

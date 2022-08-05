@@ -8,11 +8,12 @@ package de.rki.covpass.sdk.cert
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.rules.booster.remote.BoosterRuleIdentifierRemote
 import de.rki.covpass.sdk.rules.booster.remote.BoosterRuleRemote
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
+import io.ktor.client.HttpClient
+import io.ktor.client.features.defaultRequest
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.get
+import io.ktor.client.request.host
 
 public class BoosterRulesRemoteDataSource(httpClient: HttpClient, host: String) {
     private val client = httpClient.config {

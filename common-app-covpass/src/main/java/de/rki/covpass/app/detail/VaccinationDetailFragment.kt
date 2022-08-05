@@ -34,7 +34,7 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
         getString(
             R.string.vaccination_certificate_detail_view_vaccination_title,
             cert.vaccination?.doseNumber,
-            cert.vaccination?.totalSerialDoses
+            cert.vaccination?.totalSerialDoses,
         )
 
     override fun getHeaderText(): String = getString(R.string.vaccination_certificate_detail_view_vaccination_headline)
@@ -48,37 +48,37 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_name),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_name),
-                cert.fullNameReverse
+                cert.fullNameReverse,
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_name_standard),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_name_standard),
-                cert.fullTransliteratedNameReverse
+                cert.fullTransliteratedNameReverse,
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_date_of_birth),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_date_of_birth),
-                cert.birthDateFormatted
+                cert.birthDateFormatted,
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_disease),
-                valueSetsRepository.getDiseaseAgentName(vaccination.targetDisease)
+                valueSetsRepository.getDiseaseAgentName(vaccination.targetDisease),
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine),
-                valueSetsRepository.getProductName(vaccination.product)
+                valueSetsRepository.getProductName(vaccination.product),
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_type),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_type),
-                valueSetsRepository.getProphylaxisName(vaccination.vaccineCode)
+                valueSetsRepository.getProphylaxisName(vaccination.vaccineCode),
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_manufactur),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_manufacturer),
-                valueSetsRepository.getManufacturerName(vaccination.manufacturer)
+                valueSetsRepository.getManufacturerName(vaccination.manufacturer),
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_number),
@@ -87,8 +87,8 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
                 valueAccessibleDescription = getString(
                     R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_number_readable_text,
                     vaccination.doseNumber,
-                    vaccination.totalSerialDoses
-                )
+                    vaccination.totalSerialDoses,
+                ),
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_date_),
@@ -98,31 +98,31 @@ internal class VaccinationDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_country),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_country),
-                CountryResolver.getCountryLocalized(vaccination.country)
+                CountryResolver.getCountryLocalized(vaccination.country),
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_issuer),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_issuer),
-                vaccination.certificateIssuer
+                vaccination.certificateIssuer,
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_vaccine_identifier),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_vaccine_identifier),
-                vaccination.idWithoutPrefix
+                vaccination.idWithoutPrefix,
             ),
             DataRow(
                 getString(R.string.vaccination_certificate_detail_view_data_expiry_date),
                 getString(R.string.accessibility_vaccination_certificate_detail_view_data_expiry_date),
                 getString(
                     R.string.vaccination_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime(),
                 ),
                 getString(R.string.vaccination_certificate_detail_view_data_expiry_date_note),
                 valueAccessibleDescription = getString(
                     R.string.vaccination_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility(),
                 ),
-            )
+            ),
         )
     }
 }

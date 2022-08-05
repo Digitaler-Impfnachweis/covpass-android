@@ -150,7 +150,7 @@ internal class CertificateSwitcherFragment : BaseFragment() {
                 R.drawable.certificate_switcher_manage_certificates_notification
             } else {
                 R.drawable.certificate_switcher_manage_certificates
-            }
+            },
         )
 
         groupedCertificates?.getListOfImportantCerts()?.let { list ->

@@ -7,7 +7,7 @@ package de.rki.covpass.sdk.rules.booster
 
 import dgca.verifier.app.engine.data.RuleCertificateType
 import java.time.ZonedDateTime
-import java.util.*
+import java.util.Locale
 
 public enum class BoosterType {
     BOOSTERNOTIFICATION

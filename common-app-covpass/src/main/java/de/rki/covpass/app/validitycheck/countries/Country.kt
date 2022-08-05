@@ -14,5 +14,5 @@ import kotlinx.parcelize.Parcelize
 public data class Country(
     @StringRes val nameRes: Int,
     val countryCode: String,
-    @DrawableRes val flag: Int
+    @DrawableRes val flag: Int,
 ) : Parcelable

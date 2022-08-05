@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit
 public object CertificateReissueUtils {
 
     public fun getBoosterAfterVaccinationAfterRecoveryIds(
-        certificates: List<CombinedCovCertificate>
+        certificates: List<CombinedCovCertificate>,
     ): List<String> {
         val recoveries = certificates.filter {
             it.covCertificate.dgcEntry is Recovery
@@ -38,7 +38,7 @@ public object CertificateReissueUtils {
         val sortedRecoveries = if (recoveries.isNotEmpty()) {
             recoveries.sortedWith { cert1, cert2 ->
                 (cert2.dgcEntry as? Recovery)?.firstResult?.compareTo(
-                    (cert1.dgcEntry as? Recovery)?.firstResult
+                    (cert1.dgcEntry as? Recovery)?.firstResult,
                 ) ?: 0
             }
         } else {
@@ -46,7 +46,7 @@ public object CertificateReissueUtils {
         }
 
         val isRecoveryLatest = sortedRecoveries.firstOrNull()?.recovery?.firstResult?.isAfter(
-            doubleDoseVaccination.vaccination?.occurrence
+            doubleDoseVaccination.vaccination?.occurrence,
         ) == true
 
         val recoveriesOrEmpty = if (isRecoveryLatest) {
@@ -63,7 +63,7 @@ public object CertificateReissueUtils {
             recoveriesOrEmpty +
                 listOfNotNull(
                     singleDoseVaccination,
-                    doubleDoseVaccination
+                    doubleDoseVaccination,
                 )
             ).all { it.isGermanCertificate }
 
@@ -72,7 +72,7 @@ public object CertificateReissueUtils {
                 recoveriesOrEmpty.mapNotNull { it.recovery?.id } +
                     listOfNotNull(
                         singleDoseVaccination.vaccination?.id,
-                        doubleDoseVaccination.vaccination?.id
+                        doubleDoseVaccination.vaccination?.id,
                     )
                 ).map { it }
         } else {
@@ -81,7 +81,7 @@ public object CertificateReissueUtils {
     }
 
     public fun getExpiredGermanVaccinationId(
-        vaccination: CombinedCovCertificate?
+        vaccination: CombinedCovCertificate?,
     ): String? {
         if (vaccination == null) return null
         val isExpiredGermanVaccinationCertificate = vaccination.isExpiredOrExpiryPeriod &&
@@ -95,7 +95,7 @@ public object CertificateReissueUtils {
     }
 
     public fun getExpiredGermanRecoveryIds(
-        certificates: List<CombinedCovCertificate>
+        certificates: List<CombinedCovCertificate>,
     ): List<String> {
         val expiredGermanRecoveries = certificates.asSequence().filter {
             it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod &&

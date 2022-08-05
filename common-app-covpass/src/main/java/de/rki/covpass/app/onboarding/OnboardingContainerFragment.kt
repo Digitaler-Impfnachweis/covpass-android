@@ -18,7 +18,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class OnboardingContainerFragmentNav(
-    val uri: Uri?
+    val uri: Uri?,
 ) : FragmentNav(OnboardingContainerFragment::class)
 
 /**

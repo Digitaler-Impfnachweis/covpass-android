@@ -17,14 +17,14 @@ public fun CBORObject.trimAllStrings(): CBORObject =
             CBORObject.FromObject(
                 entries.map { (key, value) ->
                     key.trimAllStrings() to value.trimAllStrings()
-                }.toMap()
+                }.toMap(),
             )
         }
         CBORType.Array -> {
             CBORObject.FromObject(
                 values.map {
                     it.trimAllStrings()
-                }
+                },
             )
         }
         CBORType.TextString -> {

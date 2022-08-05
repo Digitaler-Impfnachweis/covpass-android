@@ -29,7 +29,7 @@ internal class BoosterRulesValidatorTest {
         name = Name(familyNameTransliterated = name1),
         birthDate = date1,
         vaccinations = vaccinationsIncomplete1,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
 
     @Test
@@ -42,13 +42,16 @@ internal class BoosterRulesValidatorTest {
         } returns emptyList()
         coEvery {
             boosterCertLogicEngine.validate(
-                any(), any(), any(), any()
+                any(),
+                any(),
+                any(),
+                any(),
             )
         } returns emptyList()
 
         val validator = BoosterRulesValidator(
             boosterCertLogicEngine,
-            boosterRulesRepository
+            boosterRulesRepository,
         )
 
         val results = validator.validate(covCertificate)

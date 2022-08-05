@@ -43,7 +43,7 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
         binding.addCovCertFaq.apply {
             text = getSpanned(
                 R.string.certificate_add_popup_action_title_linked,
-                getString(R.string.cert_add_popup_link)
+                getString(R.string.cert_add_popup_link),
             )
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
@@ -52,7 +52,7 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
             showWarning(
                 title = getString(R.string.certificate_add_popup_note_title),
                 description = getString(R.string.certificate_add_popup_note_message),
-                descriptionTopMarginDimenRes = R.dimen.grid_one
+                descriptionTopMarginDimenRes = R.dimen.grid_one,
             )
             binding.warningElement.isGone = requireContext().isDeviceSecure()
         }

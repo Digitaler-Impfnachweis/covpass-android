@@ -11,17 +11,17 @@ import kotlinx.coroutines.invoke
 
 @Suppress("SpreadOperator")
 public class CovPassValueSetsLocalDataSource(
-    private val covPassValueSetsDao: CovPassValueSetsDao
+    private val covPassValueSetsDao: CovPassValueSetsDao,
 ) {
 
     public suspend fun update(
         keep: Collection<String>,
-        add: List<CovPassValueSet>
+        add: List<CovPassValueSet>,
     ) {
         dispatchers.io {
             covPassValueSetsDao.replace(
                 keep = keep,
-                add = add.toCovPassValueSetsLocal()
+                add = add.toCovPassValueSetsLocal(),
             )
         }
     }

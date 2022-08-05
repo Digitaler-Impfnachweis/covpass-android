@@ -34,7 +34,7 @@ internal class DetailExportPdfViewModel constructor(
                         applicationContext,
                         combinedCovCertificate,
                         combinedCovCertificate.qrContent.toBase64EncodedString(),
-                        dgcEntry
+                        dgcEntry,
                     )
                 }
                 is Recovery -> {
@@ -42,7 +42,7 @@ internal class DetailExportPdfViewModel constructor(
                         applicationContext,
                         combinedCovCertificate,
                         combinedCovCertificate.qrContent.toBase64EncodedString(),
-                        dgcEntry
+                        dgcEntry,
                     )
                 }
                 is TestCert -> {
@@ -50,7 +50,7 @@ internal class DetailExportPdfViewModel constructor(
                         applicationContext,
                         combinedCovCertificate,
                         combinedCovCertificate.qrContent.toBase64EncodedString(),
-                        dgcEntry
+                        dgcEntry,
                     )
                 }
             }

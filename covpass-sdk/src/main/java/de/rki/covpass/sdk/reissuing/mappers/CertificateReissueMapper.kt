@@ -14,7 +14,7 @@ import de.rki.covpass.sdk.reissuing.remote.CertificateReissueResponse
 public fun CertificateReissueResponse.toCertificateReissue(): CertificateReissue =
     CertificateReissue(
         certificate = certificate,
-        relations = relations.map { it.toRelation() }
+        relations = relations.map { it.toRelation() },
     )
 
 public fun CertificateReissueRelation.toRelation(): Relation =

@@ -63,8 +63,8 @@ internal class CovPassQRScannerFragment :
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.covpass_check_store_link))
-                        )
+                            Uri.parse(getString(R.string.covpass_check_store_link)),
+                        ),
                     )
                 }
                 DialogAction.NEUTRAL -> {
@@ -72,8 +72,8 @@ internal class CovPassQRScannerFragment :
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.information_faq_link))
-                        )
+                            Uri.parse(getString(R.string.information_faq_link)),
+                        ),
                     )
                 }
                 else -> {

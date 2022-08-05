@@ -57,7 +57,7 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
             args.firstCertificateData.certificateTransliteratedName,
             getString(
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
-                args.firstCertificateData.certificateBirthDate
+                args.firstCertificateData.certificateBirthDate,
             ),
         )
 
@@ -69,15 +69,15 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
                 args.secondCertificateData.certificateBirthDate,
             ),
-            true
+            true,
         )
 
         binding.validationResultDifferentDataValidDifferenceButton.setOnClickListener {
             findNavigator().push(
                 ValidationResult2gFragmentNav(
                     args.firstCertificateData,
-                    args.secondCertificateData
-                )
+                    args.secondCertificateData,
+                ),
             )
         }
 

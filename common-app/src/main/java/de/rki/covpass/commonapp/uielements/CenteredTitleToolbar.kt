@@ -23,11 +23,11 @@ import de.rki.covpass.commonapp.R
 public class CenteredTitleToolbar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : Toolbar(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
 
     private val title: TextView = TextView(context)
@@ -41,7 +41,7 @@ public class CenteredTitleToolbar @JvmOverloads constructor(
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         addView(title)
     }

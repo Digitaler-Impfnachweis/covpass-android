@@ -11,7 +11,7 @@ import dgca.verifier.app.engine.UTC_ZONE_ID
 public fun CovPassRule.toCovPassDomesticRuleWithDescriptionLocal(): CovPassDomesticRuleWithDescriptionsLocal =
     CovPassDomesticRuleWithDescriptionsLocal(
         toCovPassDomesticRuleLocal(),
-        descriptions.toCovPassDomesticDescriptionsLocal()
+        descriptions.toCovPassDomesticDescriptionsLocal(),
     )
 
 public fun Collection<CovPassRule>.toCovPassDomesticRulesWithDescriptionLocal():
@@ -33,7 +33,7 @@ public fun CovPassRule.toCovPassDomesticRuleLocal(): CovPassDomesticRuleLocal =
         logic = logic,
         countryCode = countryCode,
         region = region,
-        hash = hash
+        hash = hash,
     )
 
 public fun Map<String, String>.toCovPassDomesticDescriptionsLocal():
@@ -58,7 +58,7 @@ public fun CovPassDomesticRuleWithDescriptionsLocal.toCovPassRule(): CovPassRule
     countryCode = rule.countryCode,
     descriptions = descriptions.toDescriptions(),
     region = rule.region,
-    hash = rule.hash
+    hash = rule.hash,
 )
 
 public fun Collection<CovPassDomesticRuleWithDescriptionsLocal>.toCovPassRules(): List<CovPassRule> =

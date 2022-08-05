@@ -27,31 +27,31 @@ internal class RevocationListUtilsTest {
             Pair(
                 byteArrayOf(0x0a, 0x0b),
                 mapOf(
-                    Pair(byteArrayOf(0x0a), 4)
-                )
+                    Pair(byteArrayOf(0x0a), 4),
+                ),
             ),
             Pair(
                 byteArrayOf(0x0b, 0x0c),
                 mapOf(
                     Pair(byteArrayOf(0x0a), 4),
-                    Pair(byteArrayOf(0x0b), 2)
-                )
-            )
+                    Pair(byteArrayOf(0x0b), 2),
+                ),
+            ),
         )
         val expectedResult = listOf(
             RevocationKidEntry(
                 byteArrayOf(0x0a, 0x0b),
                 mapOf(
-                    Pair(0x0a, 4)
-                )
+                    Pair(0x0a, 4),
+                ),
             ),
             RevocationKidEntry(
                 byteArrayOf(0x0b, 0x0c),
                 mapOf(
                     Pair(0x0a, 4),
-                    Pair(0x0b, 2)
-                )
-            )
+                    Pair(0x0b, 2),
+                ),
+            ),
         )
         val cbor = CBORObject.FromObject(map)
 
@@ -70,10 +70,10 @@ internal class RevocationListUtilsTest {
                     mapOf(
                         Pair(
                             byteArrayOf(0x0a),
-                            arrayOf(10839741L, 3)
-                        )
-                    )
-                )
+                            arrayOf(10839741L, 3),
+                        ),
+                    ),
+                ),
             ),
             Pair(
                 byteArrayOf(0x0b),
@@ -83,11 +83,11 @@ internal class RevocationListUtilsTest {
                     mapOf(
                         Pair(
                             byteArrayOf(0x0c),
-                            arrayOf(10839741L, 2)
-                        )
-                    )
-                )
-            )
+                            arrayOf(10839741L, 2),
+                        ),
+                    ),
+                ),
+            ),
         )
         val expectedResult = mapOf<Byte, RevocationIndexEntry>(
             Pair(
@@ -101,10 +101,10 @@ internal class RevocationListUtilsTest {
                             RevocationIndexByte2Entry(
                                 10839741L,
                                 3,
-                            )
-                        )
-                    )
-                )
+                            ),
+                        ),
+                    ),
+                ),
             ),
             Pair(
                 0x0b,
@@ -117,11 +117,11 @@ internal class RevocationListUtilsTest {
                             RevocationIndexByte2Entry(
                                 10839741L,
                                 2,
-                            )
-                        )
-                    )
-                )
-            )
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         )
 
         val cbor = CBORObject.FromObject(map)
@@ -137,32 +137,32 @@ internal class RevocationListUtilsTest {
                 byteArrayOf(0x0a, 0x0b),
                 mapOf(
                     Pair(0x0a, 5),
-                    Pair(0x0b, 7)
-                )
+                    Pair(0x0b, 7),
+                ),
             ),
             RevocationKidLocal(
                 byteArrayOf(0x0a, 0x0b),
                 mapOf(
                     Pair(0x0a, 3),
-                    Pair(0x0b, 2)
-                )
-            )
+                    Pair(0x0b, 2),
+                ),
+            ),
         )
         val expectedResult = listOf(
             RevocationKidEntry(
                 byteArrayOf(0x0a, 0x0b),
                 mapOf(
                     Pair(0x0a, 5),
-                    Pair(0x0b, 7)
-                )
+                    Pair(0x0b, 7),
+                ),
             ),
             RevocationKidEntry(
                 byteArrayOf(0x0a, 0x0b),
                 mapOf(
                     Pair(0x0a, 3),
-                    Pair(0x0b, 2)
-                )
-            )
+                    Pair(0x0b, 2),
+                ),
+            ),
         )
 
         val result = list.toListOfRevocationKidEntry()

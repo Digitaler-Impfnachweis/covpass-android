@@ -21,7 +21,12 @@ import de.rki.covpass.sdk.cert.BadCoseSignatureException
 import de.rki.covpass.sdk.cert.NoMatchingExtendedKeyUsageException
 import de.rki.covpass.sdk.cert.models.CertAlreadyExistsException
 import de.rki.covpass.sdk.cert.models.CertTestPositiveException
-import de.rki.covpass.sdk.ticketing.*
+import de.rki.covpass.sdk.ticketing.AccessCredentialServiceEndpointNotFoundException
+import de.rki.covpass.sdk.ticketing.AccessTokenRequestException
+import de.rki.covpass.sdk.ticketing.IdentityDocumentRequestException
+import de.rki.covpass.sdk.ticketing.IdentityDocumentValidationRequestException
+import de.rki.covpass.sdk.ticketing.TicketingCertificatePreparationException
+import de.rki.covpass.sdk.ticketing.TicketingSendingCertificateException
 
 /**
  * Covpass specific Error handling. Overrides the abstract functions from [CommonErrorHandler].
@@ -35,37 +40,37 @@ internal class ErrorHandler : CommonErrorHandler() {
                 messageString = getString(R.string.duplicate_certificate_dialog_message) +
                     " (Error $ERROR_CODE_QR_CODE_DUPLICATED)",
                 positiveButtonTextRes = R.string.duplicate_certificate_dialog_button_title,
-                tag = TAG_ERROR_DUPLICATE_CERTIFICATE
+                tag = TAG_ERROR_DUPLICATE_CERTIFICATE,
             )
             is CertTestPositiveException -> DialogModel(
                 titleRes = R.string.error_test_certificate_not_valid_title,
                 messageString = getString(R.string.error_test_certificate_not_valid_message) +
                     " (Error $ERROR_CODE_CERTIFICATE_POSITIVE_RESULT)",
                 positiveButtonTextRes = R.string.error_test_certificate_not_valid_button_title,
-                tag = TAG_ERROR_POSITIVE_CERTIFICATE
+                tag = TAG_ERROR_POSITIVE_CERTIFICATE,
             )
             is BadCoseSignatureException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_without_seal_title,
                 messageString = getString(R.string.error_scan_qrcode_without_seal_message) +
                     " (Error $ERROR_CODE_CERTIFICATE_BAD_SIGNATURE)",
                 positiveButtonTextRes = R.string.error_scan_qrcode_without_seal_button_title,
-                tag = TAG_ERROR_BAD_CERTIFICATE_SIGNATURE
+                tag = TAG_ERROR_BAD_CERTIFICATE_SIGNATURE,
             )
             is NoMatchingExtendedKeyUsageException -> DialogModel(
                 titleRes = R.string.error_scan_qrcode_cannot_be_parsed_title,
                 messageString = getString(R.string.error_scan_qrcode_cannot_be_parsed_message) +
                     " (Error $ERROR_CODE_ILLEGAL_KEY_USAGE)",
                 positiveButtonTextRes = R.string.error_scan_qrcode_cannot_be_parsed_button_title,
-                tag = TAG_CODE_ILLEGAL_KEY_USAGE
+                tag = TAG_CODE_ILLEGAL_KEY_USAGE,
             )
             is IdentityDocumentRequestException -> DialogModel(
                 titleRes = R.string.error_share_certificate_provider_not_verified_title,
                 messageString = getString(
                     R.string.error_share_certificate_provider_not_verified_message,
-                    error.identityProvider
+                    error.identityProvider,
                 ) + " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes = R.string.error_share_certificate_provider_not_verified_action_button,
-                tag = TAG_ERROR_IDENTITY_DOCUMENT_REQUEST_FAILED
+                tag = TAG_ERROR_IDENTITY_DOCUMENT_REQUEST_FAILED,
             )
             is AccessCredentialServiceEndpointNotFoundException,
             is NoValidationServiceListed,
@@ -74,44 +79,44 @@ internal class ErrorHandler : CommonErrorHandler() {
                 messageString = getString(R.string.error_share_certificate_validation_partner_not_verified_message2) +
                     " (Error $ERROR_NO_VALIDATION_SERVICE_LISTED)",
                 positiveButtonTextRes = R.string.error_share_certificate_validation_partner_not_verified_action_button2,
-                tag = TAG_ERROR_NO_VALIDATION_SERVICE_LISTED
+                tag = TAG_ERROR_NO_VALIDATION_SERVICE_LISTED,
             )
             is InvalidValidationServiceProvider -> DialogModel(
                 titleRes = R.string.error_share_certificate_validation_partner_not_verified_title,
                 messageString = getString(
                     R.string.error_share_certificate_validation_partner_not_verified_message,
-                    error.validationService
+                    error.validationService,
                 ) + " (Error $ERROR_INVALID_VALIDATION_SERVICE_PROVIDER)",
                 positiveButtonTextRes = R.string.error_share_certificate_validation_partner_not_verified_action_button,
-                tag = TAG_ERROR_INVALID_VALIDATION_SERVICE_PROVIDER
+                tag = TAG_ERROR_INVALID_VALIDATION_SERVICE_PROVIDER,
             )
             is IdentityDocumentValidationRequestException -> DialogModel(
                 titleRes = R.string.error_share_certificate_validation_partner_not_verified_title2,
                 messageString = getString(R.string.error_share_certificate_validation_partner_not_verified_message2) +
                     " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes = R.string.error_share_certificate_validation_partner_not_verified_action_button2,
-                tag = TAG_ERROR_IDENTITY_DOCUMENT_VALIDATION_REQUEST
+                tag = TAG_ERROR_IDENTITY_DOCUMENT_VALIDATION_REQUEST,
             )
             is AccessTokenRequestException -> DialogModel(
                 titleRes = R.string.error_share_certificate_access_token_not_retrieved_title,
                 messageString = getString(R.string.error_share_certificate_access_token_not_retrieved_message) +
                     " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes = R.string.error_share_certificate_validation_partner_not_verified_action_button2,
-                tag = TAG_ERROR_ACCESS_TOKEN_REQUEST
+                tag = TAG_ERROR_ACCESS_TOKEN_REQUEST,
             )
             is AccessTokenDecodingException -> DialogModel(
                 titleRes = R.string.error_share_certificate_access_token_not_processed_title,
                 messageString = getString(R.string.error_share_certificate_access_token_not_processed_message) +
                     " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes = R.string.error_share_certificate_access_token_not_processed_action_button,
-                tag = TAG_ERROR_ACCESS_TOKEN_DECODING
+                tag = TAG_ERROR_ACCESS_TOKEN_DECODING,
             )
             is TicketingCertificatePreparationException -> DialogModel(
                 titleRes = R.string.error_share_certificate_no_verification_possible_title,
                 messageString = getString(R.string.error_share_certificate_no_verification_possible_message) +
                     " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes = R.string.error_share_certificate_no_verification_possible_action_button,
-                tag = TAG_ERROR_TICKETING_CERTIFICATE_PREPARATION
+                tag = TAG_ERROR_TICKETING_CERTIFICATE_PREPARATION,
             )
             is TicketingSendingCertificateException -> DialogModel(
                 titleRes = R.string.error_share_certificate_no_verification_submission_possible_title,
@@ -120,7 +125,7 @@ internal class ErrorHandler : CommonErrorHandler() {
                     " (Error $ERROR_CODE_CONNECTION_ERROR)",
                 positiveButtonTextRes =
                 R.string.error_share_certificate_no_verification_submission_possible_action_button,
-                tag = TAG_ERROR_TICKETING_SENDING_CERTIFICATE
+                tag = TAG_ERROR_TICKETING_SENDING_CERTIFICATE,
             )
             is SavingBlockedException -> DialogModel(
                 titleRes = R.string.certificate_add_error_maximum_title,
@@ -128,33 +133,33 @@ internal class ErrorHandler : CommonErrorHandler() {
                 positiveButtonTextRes = R.string.certificate_add_error_maximum_button_3,
                 negativeButtonTextRes = R.string.certificate_add_error_maximum_button_1,
                 neutralButtonTextRes = R.string.certificate_add_error_maximum_button_2,
-                tag = TAG_ERROR_SAVING_BLOCKED
+                tag = TAG_ERROR_SAVING_BLOCKED,
             )
             is RevokedCertificateGermanCertificateException -> DialogModel(
                 titleRes = R.string.revocation_error_scan_title,
                 messageString =
                 getString(R.string.revocation_error_scan_single_DE),
                 positiveButtonTextRes = R.string.ok,
-                tag = TAG_ERROR_REVOKED_DE_CERTIFICATE
+                tag = TAG_ERROR_REVOKED_DE_CERTIFICATE,
             )
             is RevokedCertificateNotGermanCertificateException -> DialogModel(
                 titleRes = R.string.revocation_error_scan_title,
                 messageString =
                 getString(R.string.revocation_error_scan_single_notDE),
                 positiveButtonTextRes = R.string.ok,
-                tag = TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE
+                tag = TAG_ERROR_REVOKED_NOT_DE_CERTIFICATE,
             )
             is FailedToOpenFileException -> DialogModel(
                 titleRes = R.string.file_import_error_access_title,
                 messageString = getString(R.string.file_import_error_access_copy),
                 positiveButtonTextRes = R.string.file_import_error_access_button,
-                tag = TAG_ERROR_FAILED_TO_OPEN_FILE
+                tag = TAG_ERROR_FAILED_TO_OPEN_FILE,
             )
             is MaxNumberOfHolderExceededException -> DialogModel(
                 titleRes = R.string.file_import_error_maximum_title,
                 messageString = getString(R.string.file_import_error_maximum_copy),
                 positiveButtonTextRes = R.string.file_import_error_maximum_button,
-                tag = TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED
+                tag = TAG_ERROR_MAX_NUMBER_OF_HOLDERS_EXCEEDED,
             )
             else -> null
         }

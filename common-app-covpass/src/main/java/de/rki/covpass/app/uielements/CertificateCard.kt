@@ -23,11 +23,11 @@ import kotlin.properties.Delegates
 public class CertificateCard @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : FrameLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: CertificateCardBinding =
         CertificateCardBinding.inflate(LayoutInflater.from(context))
@@ -78,7 +78,7 @@ public class CertificateCard @JvmOverloads constructor(
         certStatus: CertValidationResult,
         header: String,
         subtitle: String,
-        @DrawableRes imageRes: Int
+        @DrawableRes imageRes: Int,
     ) {
         binding.certificateNameTextview.text = fullName
         binding.certificateHeaderTextview.text = header
@@ -87,7 +87,8 @@ public class CertificateCard @JvmOverloads constructor(
 
         when (certStatus) {
             CertValidationResult.Valid,
-            CertValidationResult.ExpiryPeriod -> {
+            CertValidationResult.ExpiryPeriod,
+            -> {
                 validOrExpiryPeriod(imageRes)
             }
             CertValidationResult.Invalid, CertValidationResult.Revoked ->
@@ -100,7 +101,7 @@ public class CertificateCard @JvmOverloads constructor(
     private fun validateFavoriteFlag(isFavorite: Boolean) {
         binding.certificateFavoriteButton.setImageResource(
             if (isFavorite) R.drawable.star_white_fill
-            else R.drawable.star_white
+            else R.drawable.star_white,
         )
         binding.certificateFavoriteButton.contentDescription = if (isFavorite) {
             getString(R.string.accessibility_certificate_favorite_button_label_active)
@@ -113,10 +114,10 @@ public class CertificateCard @JvmOverloads constructor(
         cardBackground = ContextCompat.getColor(context, R.color.info70)
         statusImage = ContextCompat.getDrawable(context, imageRes)
         binding.certificateHeaderTextview.setTextColor(
-            ContextCompat.getColor(context, R.color.info70)
+            ContextCompat.getColor(context, R.color.info70),
         )
         binding.certificateStatusTextview.setTextColor(
-            ContextCompat.getColor(context, R.color.info40)
+            ContextCompat.getColor(context, R.color.info40),
         )
         binding.certificateQrImageview.foreground = null
         binding.certificateQrImageview.backgroundTintList = null
@@ -130,10 +131,10 @@ public class CertificateCard @JvmOverloads constructor(
         cardBackground = ContextCompat.getColor(context, R.color.onBrandBase60)
         statusImage = ContextCompat.getDrawable(context, R.drawable.main_cert_expired)
         binding.certificateHeaderTextview.setTextColor(
-            ContextCompat.getColor(context, R.color.onBrandBase60)
+            ContextCompat.getColor(context, R.color.onBrandBase60),
         )
         binding.certificateStatusTextview.setTextColor(
-            ContextCompat.getColor(context, R.color.onBrandBase40)
+            ContextCompat.getColor(context, R.color.onBrandBase40),
         )
         binding.certificateQrImageview.foreground =
             ContextCompat.getDrawable(context, R.drawable.expired_overlay_icon_foreground)

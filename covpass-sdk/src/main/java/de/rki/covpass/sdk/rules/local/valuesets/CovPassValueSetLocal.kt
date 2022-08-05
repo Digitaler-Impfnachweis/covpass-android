@@ -27,5 +27,5 @@ public fun CovPassValueSetLocal.toEuValueSet(): EUValueSet =
     EUValueSet(
         valueSetId = valueSetId,
         valueSetDate = valueSetDate.formatDateInternational(),
-        valueSetValues = defaultJson.decodeFromString(valueSetValues)
+        valueSetValues = defaultJson.decodeFromString(valueSetValues),
     )

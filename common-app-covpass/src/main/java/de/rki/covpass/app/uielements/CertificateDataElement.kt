@@ -32,7 +32,7 @@ public class CertificateDataElement @JvmOverloads constructor(
 ) : ConstraintLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: CertificateDataElementBinding =
         CertificateDataElementBinding.inflate(LayoutInflater.from(context))
@@ -113,11 +113,11 @@ public class CertificateDataElement @JvmOverloads constructor(
                 info = getString(
                     R.string.certificates_overview_vaccination_certificate_message,
                     dgcEntry.doseNumber,
-                    dgcEntry.totalSerialDoses
+                    dgcEntry.totalSerialDoses,
                 )
                 date = getString(
                     R.string.certificates_overview_vaccination_certificate_date,
-                    dgcEntry.occurrence.formatDateOrEmpty()
+                    dgcEntry.occurrence.formatDateOrEmpty(),
                 )
             }
             is TestCert -> {
@@ -131,7 +131,7 @@ public class CertificateDataElement @JvmOverloads constructor(
                 }
                 date = getString(
                     R.string.certificates_overview_test_certificate_date,
-                    dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: ""
+                    dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: "",
                 )
             }
             is Recovery -> {
@@ -141,7 +141,7 @@ public class CertificateDataElement @JvmOverloads constructor(
                 info = getString(R.string.recovery_certificate_detail_view_title)
                 date = getString(
                     R.string.certificates_overview_recovery_certificate_valid_until_date,
-                    (covCertificate.dgcEntry as Recovery).validUntil?.formatDateOrEmpty() ?: ""
+                    (covCertificate.dgcEntry as Recovery).validUntil?.formatDateOrEmpty() ?: "",
                 )
             }
         }

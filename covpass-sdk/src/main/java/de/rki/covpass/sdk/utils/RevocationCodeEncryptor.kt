@@ -35,12 +35,12 @@ public class RevocationCodeEncryptor(private val publicKey: PublicKey) {
 
     private fun deriveAESKeyAndIV(
         sharedSecret: ByteArray,
-        senderPubBytes: ByteArray
+        senderPubBytes: ByteArray,
     ): Pair<SecretKey, ByteArray> {
         val aesKeyAndIV = (sharedSecret + byteArrayOf(0x0, 0x0, 0x0, 0x1) + senderPubBytes).sha256()
         return Pair(
             SecretKeySpec(aesKeyAndIV.sliceArray(0..15), "AES"),
-            aesKeyAndIV.sliceArray(16..31)
+            aesKeyAndIV.sliceArray(16..31),
         )
     }
 

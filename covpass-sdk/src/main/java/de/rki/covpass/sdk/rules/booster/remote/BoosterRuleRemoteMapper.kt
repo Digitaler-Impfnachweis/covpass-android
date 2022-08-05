@@ -24,7 +24,7 @@ public fun BoosterRuleRemote.toBoosterRule(hash: String): BoosterRule = BoosterR
     logic = logic.toString(),
     countryCode = countryCode.lowercase(),
     region = region,
-    hash = hash
+    hash = hash,
 )
 
 public fun Collection<BoosterDescriptionRemote>.toDescriptions(): Map<String, String> =

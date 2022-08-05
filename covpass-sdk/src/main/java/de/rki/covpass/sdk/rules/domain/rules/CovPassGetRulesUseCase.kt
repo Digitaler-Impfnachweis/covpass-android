@@ -12,7 +12,7 @@ import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
 public class CovPassGetRulesUseCase(
-    private val covPassRulesRepository: CovPassRulesRepository
+    private val covPassRulesRepository: CovPassRulesRepository,
 ) {
 
     public suspend fun invoke(
@@ -28,13 +28,13 @@ public class CovPassGetRulesUseCase(
             acceptanceCountryIsoCode,
             validationClock,
             Type.ACCEPTANCE,
-            certificateType.toRuleCertificateType()
+            certificateType.toRuleCertificateType(),
         )
         for (rule in acceptanceRules) {
             val ruleRegion: String = rule.region?.trim() ?: ""
             if (selectedRegion.equals(
                     ruleRegion,
-                    ignoreCase = true
+                    ignoreCase = true,
                 ) && (
                     filteredAcceptanceRules[rule.identifier]?.version?.toVersion()
                         ?: -1 < rule.version.toVersion() ?: 0
@@ -50,7 +50,7 @@ public class CovPassGetRulesUseCase(
                 issuanceCountryIsoCode,
                 validationClock,
                 Type.INVALIDATION,
-                certificateType.toRuleCertificateType()
+                certificateType.toRuleCertificateType(),
             )
             for (rule in invalidationRules) {
                 if (

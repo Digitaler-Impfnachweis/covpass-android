@@ -9,7 +9,12 @@ import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.ibm.health.common.annotations.Abortable
 
-/** Executes a back navigation action without triggering onBackPressed. */
+/**
+ * Executes a back navigation action without triggering onBackPressed.
+ *
+ * This is important because onBackPressed might show an "are you sure?" confirmation dialog, but we might want to
+ * navigate back without any confirmations. This function skips everything and really goes back. No questions asked.
+ */
 public fun Fragment.triggerBackNavigation(skip: Int = 0) {
     require(skip >= 0) { "Parameter must be >= 0" }
     for (skipNavigators in skip..Int.MAX_VALUE) {

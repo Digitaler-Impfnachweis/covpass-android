@@ -42,7 +42,7 @@ public class ExpertModeSettingsFragment : BaseFragment() {
     private fun updateRulesState() {
         launchWhenStarted {
             commonDeps.checkContextRepository.isExpertModeOn.set(
-                binding.expertModeSettingsToggle.isChecked()
+                binding.expertModeSettingsToggle.isChecked(),
             )
         }
     }

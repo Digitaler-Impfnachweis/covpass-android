@@ -5,7 +5,11 @@
 
 package de.rki.covpass.commonapp.information
 
-import com.ensody.reactivestate.*
+import com.ensody.reactivestate.BaseReactiveState
+import com.ensody.reactivestate.DependencyAccessor
+import com.ensody.reactivestate.MutableValueFlow
+import com.ensody.reactivestate.derived
+import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -32,7 +36,7 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
     private val countriesRepository: CovPassCountriesRepository = sdkDeps.covPassCountriesRepository,
     private val dscRepository: DscRepository = sdkDeps.dscRepository,
     private val rulesUpdateRepository: RulesUpdateRepository = sdkDeps.rulesUpdateRepository,
-    private val revocationLocalListRepository: RevocationLocalListRepository = sdkDeps.revocationLocalListRepository
+    private val revocationLocalListRepository: RevocationLocalListRepository = sdkDeps.revocationLocalListRepository,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     public val settingItems: MutableValueFlow<List<SettingItem>> = MutableValueFlow(buildList())
@@ -44,7 +48,7 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
             isUpToDate(get(rulesUpdateRepository.lastCountryListUpdate)) &&
             isOfflineRevocationActiveAndUpdated(
                 get(revocationLocalListRepository.revocationListUpdateIsOn),
-                get(revocationLocalListRepository.lastRevocationUpdateFinish)
+                get(revocationLocalListRepository.lastRevocationUpdateFinish),
             )
     }
     private val canceled: MutableValueFlow<Boolean> = MutableValueFlow(false)
@@ -88,7 +92,7 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
 
     private fun isOfflineRevocationActiveAndUpdated(
         revocationListUpdateIsOn: Boolean,
-        lastRevocationUpdateFinish: Instant
+        lastRevocationUpdateFinish: Instant,
     ): Boolean {
         return if (isCovPassCheck) {
             if (revocationListUpdateIsOn) {
@@ -106,23 +110,23 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
             listOf(
                 SettingItem(
                     R.string.settings_rules_list_entry,
-                    rulesUpdateRepository.lastEuRulesUpdate.value
+                    rulesUpdateRepository.lastEuRulesUpdate.value,
                 ),
                 SettingItem(
                     R.string.settings_rules_list_domestic,
-                    rulesUpdateRepository.lastDomesticRulesUpdate.value
+                    rulesUpdateRepository.lastDomesticRulesUpdate.value,
                 ),
                 SettingItem(
                     R.string.settings_rules_list_features,
-                    rulesUpdateRepository.lastValueSetsUpdate.value
+                    rulesUpdateRepository.lastValueSetsUpdate.value,
                 ),
                 SettingItem(
                     R.string.settings_rules_list_issuer,
-                    dscRepository.lastUpdate.value
+                    dscRepository.lastUpdate.value,
                 ),
                 SettingItem(
                     R.string.settings_rules_list_countries,
-                    rulesUpdateRepository.lastCountryListUpdate.value
+                    rulesUpdateRepository.lastCountryListUpdate.value,
                 ),
             ) + getOfflineRevocationItem()
             ).filterNot { it.date == DscRepository.NO_UPDATE_YET }
@@ -133,8 +137,8 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
             listOf(
                 SettingItem(
                     R.string.settings_rules_list_authorities,
-                    revocationLocalListRepository.lastRevocationUpdateFinish.value
-                )
+                    revocationLocalListRepository.lastRevocationUpdateFinish.value,
+                ),
             )
         } else {
             emptyList()

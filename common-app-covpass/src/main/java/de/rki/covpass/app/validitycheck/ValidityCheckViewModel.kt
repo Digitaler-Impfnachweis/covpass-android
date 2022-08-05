@@ -75,15 +75,15 @@ internal class ValidityCheckViewModel @OptIn(DependencyAccessor::class) construc
                 if (country.value.countryCode.equals(defaultDeDomesticCountry.countryCode, ignoreCase = true)) {
                     domesticRulesValidator.validate(
                         cert = covCertificate,
-                        validationClock = ZonedDateTime.of(date.value, ZoneId.systemDefault())
+                        validationClock = ZonedDateTime.of(date.value, ZoneId.systemDefault()),
                     )
                 } else {
                     euRulesValidator.validate(
                         covCertificate,
                         country.value.countryCode.lowercase(),
-                        ZonedDateTime.of(date.value, ZoneId.systemDefault())
+                        ZonedDateTime.of(date.value, ZoneId.systemDefault()),
                     )
-                }
+                },
             )
         }
     }

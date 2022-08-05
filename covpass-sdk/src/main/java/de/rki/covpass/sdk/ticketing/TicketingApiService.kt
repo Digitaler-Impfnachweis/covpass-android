@@ -10,12 +10,16 @@ import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenRequest
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingIdentityDocumentResponse
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
 import de.rki.covpass.sdk.ticketing.data.validate.TicketingValidationRequest
-import io.ktor.client.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.accept
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.post
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
 public class TicketingApiService(httpClient: HttpClient) {
     private val client = httpClient.config {
@@ -25,7 +29,7 @@ public class TicketingApiService(httpClient: HttpClient) {
     }
 
     public suspend fun getIdentity(
-        url: String
+        url: String,
     ): TicketingIdentityDocumentResponse = client.get(url)
 
     public suspend fun getAccessToken(
@@ -58,7 +62,7 @@ public class TicketingApiService(httpClient: HttpClient) {
 
     public suspend fun cancelValidation(
         url: String,
-        authHeader: String
+        authHeader: String,
     ): HttpResponse = client.get(url) {
         contentType(ContentType.Application.Json)
         accept(ContentType.Any)

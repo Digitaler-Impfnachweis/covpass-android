@@ -53,7 +53,7 @@ public class CovPassValueSetsRepository(
     public suspend fun prepopulate(valueSets: List<CovPassValueSet>) {
         localDataSource.update(
             keep = emptyList(),
-            add = valueSets
+            add = valueSets,
         )
     }
 
@@ -141,13 +141,13 @@ public class CovPassValueSetsRepository(
 
         val newValueSets = (added + changed).values.parallelMapNotNull { identifier ->
             remoteDataSource.getValueSet(
-                identifier.hash
+                identifier.hash,
             ).toCovPassValueSet(identifier.hash)
         }
 
         localDataSource.update(
             keep = (localValueSets - changed.keys - removed.keys).keys,
-            add = newValueSets
+            add = newValueSets,
         )
         rulesUpdateRepository.markValueSetsUpdated()
         allCovpassValueSets = getAllCovPassValueSets()

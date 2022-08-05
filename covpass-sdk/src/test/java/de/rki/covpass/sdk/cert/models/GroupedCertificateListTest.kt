@@ -11,7 +11,11 @@ import de.rki.covpass.sdk.cert.QRCoder
 import io.mockk.every
 import io.mockk.mockk
 import java.time.Instant
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 internal class GroupedCertificateListTest : CoroutineTest() {
 
@@ -49,37 +53,37 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         name = Name(familyNameTransliterated = familyName1, givenNameTransliterated = givenName1),
         birthDate = date1,
         vaccinations = vaccinationsIncomplete1,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certComplete1 = CovCertificate(
         name = Name(familyNameTransliterated = familyName1, givenNameTransliterated = givenName1),
         birthDate = date1,
         vaccinations = vaccinationsComplete1,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certIncomplete2 = CovCertificate(
         name = Name(familyNameTransliterated = familyName2, givenNameTransliterated = givenName2),
         birthDate = date2,
         vaccinations = vaccinationsIncomplete2,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certComplete2 = CovCertificate(
         name = Name(familyNameTransliterated = familyName2, givenNameTransliterated = givenName2),
         birthDate = date2,
         vaccinations = vaccinationsComplete2,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certIncomplete3 = CovCertificate(
         name = Name(familyNameTransliterated = familyName3, givenNameTransliterated = givenName3),
         birthDate = date3,
         vaccinations = vaccinationsIncomplete3,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certComplete3 = CovCertificate(
         name = Name(familyNameTransliterated = familyName3, givenNameTransliterated = givenName3),
         birthDate = date3,
         vaccinations = vaccinationsComplete3,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
 
     @Test
@@ -96,14 +100,13 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
     @Test
     fun `One element CovCertificateList transformed to GroupedCertificatesList and backwards`() = runTest {
-
         val originalList = CovCertificateList(mutableListOf(certComplete1.toCombinedCertLocal()))
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
         assertEquals(1, groupedCertificatesList.certificates.size)
         assertEquals(
             familyName1,
-            groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
+            groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated,
         )
         assertNull(groupedCertificatesList.favoriteCertId)
 
@@ -114,13 +117,12 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     @Test
     fun `Three single elements CovCertificateList transformed to GroupedCertificatesList and backwards`() =
         runTest {
-
             val originalList = CovCertificateList(
                 mutableListOf(
                     certComplete1.toCombinedCertLocal(),
                     certComplete2.toCombinedCertLocal(),
-                    certComplete3.toCombinedCertLocal()
-                )
+                    certComplete3.toCombinedCertLocal(),
+                ),
             )
 
             val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -128,17 +130,17 @@ internal class GroupedCertificateListTest : CoroutineTest() {
             assertEquals(
                 familyName1,
                 groupedCertificatesList.certificates[0]
-                    .getMainCertificate().covCertificate.name.familyNameTransliterated
+                    .getMainCertificate().covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName2,
                 groupedCertificatesList.certificates[1]
-                    .getMainCertificate().covCertificate.name.familyNameTransliterated
+                    .getMainCertificate().covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName3,
                 groupedCertificatesList.certificates[2]
-                    .getMainCertificate().covCertificate.name.familyNameTransliterated
+                    .getMainCertificate().covCertificate.name.familyNameTransliterated,
             )
             assertNull(groupedCertificatesList.favoriteCertId)
 
@@ -149,20 +151,19 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     @Test
     fun `Two matching element CovCertificateList transformed to GroupedCertificatesList and backwards`() =
         runTest {
-
             val originalList = CovCertificateList(
-                mutableListOf(certIncomplete1.toCombinedCertLocal(), certComplete1.toCombinedCertLocal())
+                mutableListOf(certIncomplete1.toCombinedCertLocal(), certComplete1.toCombinedCertLocal()),
             )
 
             val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
             assertEquals(1, groupedCertificatesList.certificates.size)
             assertEquals(
                 familyName1,
-                groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName1,
-                groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated,
             )
             assertNull(groupedCertificatesList.favoriteCertId)
 
@@ -173,7 +174,6 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     @Test
     fun `Six matching element CovCertificateList transformed to GroupedCertificatesList and backwards`() =
         runTest {
-
             val originalList = CovCertificateList(
                 mutableListOf(
                     certIncomplete1.toCombinedCertLocal(),
@@ -181,35 +181,35 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                     certIncomplete2.toCombinedCertLocal(),
                     certComplete2.toCombinedCertLocal(),
                     certIncomplete3.toCombinedCertLocal(),
-                    certComplete3.toCombinedCertLocal()
-                )
+                    certComplete3.toCombinedCertLocal(),
+                ),
             )
 
             val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
             assertEquals(3, groupedCertificatesList.certificates.size)
             assertEquals(
                 familyName1,
-                groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName1,
-                groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName2,
-                groupedCertificatesList.certificates[1].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[1].certificates[0].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName2,
-                groupedCertificatesList.certificates[1].certificates[1].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[1].certificates[1].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName3,
-                groupedCertificatesList.certificates[2].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[2].certificates[0].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName3,
-                groupedCertificatesList.certificates[2].certificates[1].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[2].certificates[1].covCertificate.name.familyNameTransliterated,
             )
             assertNull(groupedCertificatesList.favoriteCertId)
 
@@ -220,14 +220,13 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     @Test
     fun `Two matching and two single elements transformed to GroupedCertificatesList and backwards`() =
         runTest {
-
             val originalList = CovCertificateList(
                 mutableListOf(
                     certIncomplete1.toCombinedCertLocal(),
                     certIncomplete2.toCombinedCertLocal(),
                     certComplete2.toCombinedCertLocal(),
-                    certComplete3.toCombinedCertLocal()
-                )
+                    certComplete3.toCombinedCertLocal(),
+                ),
             )
 
             val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -236,23 +235,23 @@ internal class GroupedCertificateListTest : CoroutineTest() {
             assertEquals(1, groupedCertificatesList.certificates[0].certificates.size)
             assertEquals(
                 familyName1,
-                groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated,
             )
 
             assertEquals(2, groupedCertificatesList.certificates[1].certificates.size)
             assertEquals(
                 familyName2,
-                groupedCertificatesList.certificates[1].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[1].certificates[0].covCertificate.name.familyNameTransliterated,
             )
             assertEquals(
                 familyName2,
-                groupedCertificatesList.certificates[1].certificates[1].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[1].certificates[1].covCertificate.name.familyNameTransliterated,
             )
 
             assertEquals(1, groupedCertificatesList.certificates[2].certificates.size)
             assertEquals(
                 familyName3,
-                groupedCertificatesList.certificates[2].certificates[0].covCertificate.name.familyNameTransliterated
+                groupedCertificatesList.certificates[2].certificates[0].covCertificate.name.familyNameTransliterated,
             )
             assertNull(groupedCertificatesList.favoriteCertId)
 
@@ -267,20 +266,20 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
-                certComplete1.toCombinedCertLocal()
+                certComplete1.toCombinedCertLocal(),
             ),
-            testId
+            testId,
         )
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
         assertEquals(1, groupedCertificatesList.certificates.size)
         assertEquals(
             familyName1,
-            groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated
+            groupedCertificatesList.certificates[0].certificates[0].covCertificate.name.familyNameTransliterated,
         )
         assertEquals(
             familyName1,
-            groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated
+            groupedCertificatesList.certificates[0].certificates[1].covCertificate.name.familyNameTransliterated,
         )
         assertEquals(testId, groupedCertificatesList.favoriteCertId)
 
@@ -304,8 +303,8 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete2.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -313,32 +312,32 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         assertEquals(
             certIncomplete1.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idIncomplete1)
+            groupedCertificatesList.getCombinedCertificate(idIncomplete1),
         )
         assertEquals(
             certComplete1.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idComplete1)
+            groupedCertificatesList.getCombinedCertificate(idComplete1),
         )
         assertEquals(
             certIncomplete2.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idIncomplete2)
+            groupedCertificatesList.getCombinedCertificate(idIncomplete2),
         )
         assertEquals(
             certComplete2.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idComplete2)
+            groupedCertificatesList.getCombinedCertificate(idComplete2),
         )
         assertEquals(
             certIncomplete3.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idIncomplete3)
+            groupedCertificatesList.getCombinedCertificate(idIncomplete3),
         )
         assertEquals(
             certComplete3.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idComplete3)
+            groupedCertificatesList.getCombinedCertificate(idComplete3),
         )
     }
 
@@ -349,8 +348,8 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete1.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -358,24 +357,24 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         assertEquals(
             certIncomplete1.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idIncomplete1)
+            groupedCertificatesList.getCombinedCertificate(idIncomplete1),
         )
         assertNull(groupedCertificatesList.getCombinedCertificate(idComplete1))
         assertNull(groupedCertificatesList.getCombinedCertificate(idIncomplete2))
         assertEquals(
             certComplete2.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idComplete2)
+            groupedCertificatesList.getCombinedCertificate(idComplete2),
         )
         assertEquals(
             certIncomplete3.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idIncomplete3)
+            groupedCertificatesList.getCombinedCertificate(idIncomplete3),
         )
         assertEquals(
             certComplete3.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            groupedCertificatesList.getCombinedCertificate(idComplete3)
+            groupedCertificatesList.getCombinedCertificate(idComplete3),
         )
     }
 
@@ -392,8 +391,8 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete1.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -410,8 +409,8 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete2.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -434,8 +433,8 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete2.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -446,70 +445,70 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         assertEquals(2, groupedCertificatesList.certificates.size)
 
         val certificatesIncomplete1 = groupedCertificatesList.getGroupedCertificates(
-            GroupedCertificatesId(certIncomplete1.name, certIncomplete1.birthDate)
+            GroupedCertificatesId(certIncomplete1.name, certIncomplete1.birthDate),
         )
         val certificatesComplete1 = groupedCertificatesList.getGroupedCertificates(
-            GroupedCertificatesId(certComplete1.name, certComplete1.birthDate)
+            GroupedCertificatesId(certComplete1.name, certComplete1.birthDate),
         )
         assertEquals(certificatesComplete1, certificatesIncomplete1)
         assertEquals(1, certificatesComplete1?.certificates?.size)
         assertEquals(
             certComplete1.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            certificatesComplete1?.certificates?.get(0)
+            certificatesComplete1?.certificates?.get(0),
         )
 
         assertNull(
             groupedCertificatesList.getGroupedCertificates(
-                GroupedCertificatesId(certIncomplete2.name, certIncomplete2.birthDate)
-            )
+                GroupedCertificatesId(certIncomplete2.name, certIncomplete2.birthDate),
+            ),
         )
         assertNull(
             groupedCertificatesList.getGroupedCertificates(
-                GroupedCertificatesId(certComplete2.name, certComplete2.birthDate)
-            )
+                GroupedCertificatesId(certComplete2.name, certComplete2.birthDate),
+            ),
         )
 
         val certificatesIncomplete3 = groupedCertificatesList.getGroupedCertificates(
-            GroupedCertificatesId(certIncomplete3.name, certIncomplete3.birthDate)
+            GroupedCertificatesId(certIncomplete3.name, certIncomplete3.birthDate),
         )
         val certificatesComplete3 = groupedCertificatesList.getGroupedCertificates(
-            GroupedCertificatesId(certComplete3.name, certComplete3.birthDate)
+            GroupedCertificatesId(certComplete3.name, certComplete3.birthDate),
         )
         assertEquals(certificatesComplete3, certificatesIncomplete3)
         assertEquals(2, certificatesComplete3?.certificates?.size)
         assertEquals(
             certIncomplete3.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            certificatesComplete3?.certificates?.get(0)
+            certificatesComplete3?.certificates?.get(0),
         )
         assertEquals(
             certComplete3.toCombinedCertLocal()
                 .toCombinedCovCertificate(CertValidationResult.Expired),
-            certificatesComplete3?.certificates?.get(1)
+            certificatesComplete3?.certificates?.get(1),
         )
     }
 
     @Test
     fun `addNewCertificate to empty list and check favoriteCertId`() = runTest {
         val originalList = CovCertificateList(
-            mutableListOf()
+            mutableListOf(),
         )
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
         assertNull(groupedCertificatesList.favoriteCertId)
 
         groupedCertificatesList.addNewCertificate(
             certIncomplete1.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.Valid)
+                .toCombinedCovCertificate(CertValidationResult.Valid),
         )
         assertEquals(
             GroupedCertificatesId(certIncomplete1.name, certIncomplete1.birthDate),
-            groupedCertificatesList.favoriteCertId
+            groupedCertificatesList.favoriteCertId,
         )
 
         groupedCertificatesList.addNewCertificate(
             certIncomplete2.toCombinedCertLocal()
-                .toCombinedCovCertificate(CertValidationResult.Valid)
+                .toCombinedCovCertificate(CertValidationResult.Valid),
         )
         assertEquals(idIncomplete1, groupedCertificatesList.certificates[0].certificates[0].covCertificate.dgcEntry.id)
         assertEquals(idIncomplete2, groupedCertificatesList.certificates[1].certificates[0].covCertificate.dgcEntry.id)
@@ -524,14 +523,14 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete2.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
 
         assertEquals(
             groupedCertificatesList.certificates.size,
-            groupedCertificatesList.getValidCertificates().size
+            groupedCertificatesList.getValidCertificates().size,
         )
     }
 
@@ -544,15 +543,15 @@ internal class GroupedCertificateListTest : CoroutineTest() {
                 certIncomplete2.toCombinedCertLocal(),
                 certComplete2.toCombinedCertLocal(),
                 certIncomplete3.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
         every { qrCoder.decodeCovCert(any()) } throws BlacklistedEntityException()
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
 
         assertEquals(
             groupedCertificatesList.certificates.size,
-            groupedCertificatesList.getValidCertificates().size
+            groupedCertificatesList.getValidCertificates().size,
         )
     }
 
@@ -562,15 +561,15 @@ internal class GroupedCertificateListTest : CoroutineTest() {
             mutableListOf(
                 certComplete1.toCombinedCertLocal("certComplete1"),
                 certComplete2.toCombinedCertLocal(),
-                certComplete3.toCombinedCertLocal()
-            )
+                certComplete3.toCombinedCertLocal(),
+            ),
         )
         every { qrCoder.decodeCovCert("certComplete1") } throws BlacklistedEntityException()
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
 
         assertEquals(
             groupedCertificatesList.certificates.size,
-            groupedCertificatesList.getValidCertificates().size
+            groupedCertificatesList.getValidCertificates().size,
         )
     }
 

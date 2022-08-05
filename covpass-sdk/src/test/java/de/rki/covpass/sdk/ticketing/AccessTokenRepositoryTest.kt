@@ -8,9 +8,9 @@ package de.rki.covpass.sdk.ticketing
 import com.ensody.reactivestate.test.CoroutineTest
 import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenData
 import de.rki.covpass.sdk.ticketing.data.accesstoken.TicketingAccessTokenRequest
-import io.ktor.client.call.*
-import io.ktor.client.features.*
-import io.ktor.client.statement.*
+import io.ktor.client.call.receive
+import io.ktor.client.features.ClientRequestException
+import io.ktor.client.statement.HttpResponse
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlin.test.Test
@@ -29,7 +29,7 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
         } throws ClientRequestException(httpResponse, "")
 
         val repository = AccessTokenRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         assertFailsWith<AccessTokenRequestException> {
             repository.fetchAccessToken("", "", TicketingAccessTokenRequest("", ""))
@@ -38,9 +38,9 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
 
     @Test
     fun `test fetchAccessToken`() = runTest {
-
         val expectedTicketingAccessTokenData = TicketingAccessTokenData(
-            "jwtToken", "iv"
+            "jwtToken",
+            "iv",
         )
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)
@@ -53,7 +53,7 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
         coEvery { httpResponse.headers["x-nonce"] } returns "iv"
 
         val repository = AccessTokenRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         val ticketingAccessTokenData: TicketingAccessTokenData =
             repository.fetchAccessToken("", "", TicketingAccessTokenRequest("", ""))
@@ -62,7 +62,6 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
 
     @Test
     fun `test fetchAccessToken null headers x-nonce`() = runTest {
-
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)
 
@@ -74,7 +73,7 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
         coEvery { httpResponse.headers["x-nonce"] } returns null
 
         val repository = AccessTokenRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         assertFailsWith<IllegalStateException> {
             repository.fetchAccessToken("", "", TicketingAccessTokenRequest("", ""))

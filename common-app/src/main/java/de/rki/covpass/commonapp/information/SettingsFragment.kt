@@ -21,7 +21,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 public class SettingsFragmentNav(
-    public val isCovPassCheck: Boolean
+    public val isCovPassCheck: Boolean,
 ) : FragmentNav(SettingsFragment::class)
 
 public class SettingsFragment : BaseFragment() {
@@ -31,7 +31,7 @@ public class SettingsFragment : BaseFragment() {
     private val settingsUpdateViewModel by reactiveState {
         SettingsUpdateViewModel(
             scope,
-            args.isCovPassCheck
+            args.isCovPassCheck,
         )
     }
 
@@ -71,7 +71,7 @@ public class SettingsFragment : BaseFragment() {
         binding.checkContextSettingsEuCheckbox.apply {
             updateValues(
                 R.string.check_context_onboarding_option1_title,
-                R.string.check_context_onboarding_option1_subtitle
+                R.string.check_context_onboarding_option1_subtitle,
             )
             updateCheckbox(!isDomesticRulesOn)
             setOnClickListener {
@@ -83,7 +83,7 @@ public class SettingsFragment : BaseFragment() {
         binding.checkContextSettingsLocalCheckbox.apply {
             updateValues(
                 R.string.check_context_onboarding_option2_title,
-                R.string.check_context_onboarding_option2_subtitle
+                R.string.check_context_onboarding_option2_subtitle,
             )
             updateCheckbox(isDomesticRulesOn)
             setOnClickListener {
@@ -99,7 +99,7 @@ public class SettingsFragment : BaseFragment() {
         adapter.attachTo(binding.settingsRecyclerview)
         autoRun {
             adapter.updateList(
-                get(settingsUpdateViewModel.settingItems)
+                get(settingsUpdateViewModel.settingItems),
             )
         }
         autoRun { showLoading(get(loading) > 0) }
@@ -126,7 +126,7 @@ public class SettingsFragment : BaseFragment() {
     private fun updateRulesState() {
         launchWhenStarted {
             commonDeps.checkContextRepository.isDomesticRulesOn.set(
-                binding.checkContextSettingsLocalCheckbox.isChecked()
+                binding.checkContextSettingsLocalCheckbox.isChecked(),
             )
         }
     }
@@ -134,7 +134,7 @@ public class SettingsFragment : BaseFragment() {
     private fun updateOfflineRevocationState() {
         launchWhenStarted {
             sdkDeps.revocationLocalListRepository.revocationListUpdateIsOn.set(
-                binding.offlineRevocationToggle.isChecked()
+                binding.offlineRevocationToggle.isChecked(),
             )
             if (binding.offlineRevocationToggle.isChecked()) {
                 settingsUpdateViewModel.update()

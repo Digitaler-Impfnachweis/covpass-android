@@ -26,7 +26,7 @@ internal fun startLookingForUpdate(appUpdateManager: AppUpdateManager, navigator
                 messageString = getString(R.string.dialog_start_screen_message),
                 positiveButtonTextRes = R.string.dialog_start_screen_button_update,
                 negativeButtonTextRes = R.string.dialog_start_screen_button_later,
-                tag = UPDATE_AVAILABLE_TAG
+                tag = UPDATE_AVAILABLE_TAG,
             )
             showDialog(dialogModel, navigator.fragmentManager)
         }

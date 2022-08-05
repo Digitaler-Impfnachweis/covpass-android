@@ -6,15 +6,26 @@
 package de.rki.covpass.commonapp.scanner
 
 import android.Manifest
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PixelFormat
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.*
 import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.FocusMeteringAction
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
+import androidx.camera.core.SurfaceOrientedMeteringPointFactory
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -145,7 +156,7 @@ public abstract class QRScannerFragment : BaseFragment() {
                 }
                 bindCameraUseCases()
             },
-            ContextCompat.getMainExecutor(requireContext())
+            ContextCompat.getMainExecutor(requireContext()),
         )
     }
 
@@ -244,7 +255,7 @@ public abstract class QRScannerFragment : BaseFragment() {
             path.fillType = Path.FillType.EVEN_ODD
             path.addRect(
                 RectF(0f, 0f, bounds.width().toFloat(), bounds.height().toFloat()),
-                Path.Direction.CCW
+                Path.Direction.CCW,
             )
 
             val squareSize = min(bounds.width(), bounds.height()) - 2 * border

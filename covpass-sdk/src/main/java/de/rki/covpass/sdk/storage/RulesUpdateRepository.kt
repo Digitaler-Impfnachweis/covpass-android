@@ -10,7 +10,7 @@ import de.rki.covpass.sdk.storage.DscRepository.Companion.NO_UPDATE_YET
 import java.time.Instant
 
 public class RulesUpdateRepository(
-    store: CborSharedPrefsStore
+    store: CborSharedPrefsStore,
 ) {
 
     public val lastEuRulesUpdate: SuspendMutableValueFlow<Instant> =

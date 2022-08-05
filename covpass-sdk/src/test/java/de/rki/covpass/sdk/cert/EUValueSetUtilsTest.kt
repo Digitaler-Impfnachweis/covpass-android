@@ -36,7 +36,7 @@ internal class EUValueSetUtilsTest {
     private val euValueSetsPath: String by lazy { "covpass-sdk/eu-value-sets.json" }
     private val covPassValueSetsRemote: List<CovPassValueSetRemote> by lazy {
         defaultJson.decodeFromString(
-            readTextAssetFromTest(euValueSetsPath)
+            readTextAssetFromTest(euValueSetsPath),
         )
     }
 
@@ -68,7 +68,7 @@ internal class EUValueSetUtilsTest {
             },
             covPassValueSetsRepository.getVaccineManufacturer()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getManufacturerName(it.value.display)
-            }
+            },
         )
     }
 
@@ -90,7 +90,7 @@ internal class EUValueSetUtilsTest {
             euValueSets.find { it.valueSetId == "vaccines-covid-19-names" }?.valueSetValues?.map { it.value.display },
             covPassValueSetsRepository.getVaccineMedicalProduct()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getProductName(it.value.display)
-            }
+            },
         )
     }
 
@@ -112,7 +112,7 @@ internal class EUValueSetUtilsTest {
             euValueSets.find { it.valueSetId == "sct-vaccines-covid-19" }?.valueSetValues?.map { it.value.display },
             covPassValueSetsRepository.getVaccineProphylaxis()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getManufacturerName(it.value.display)
-            }
+            },
         )
     }
 
@@ -134,7 +134,7 @@ internal class EUValueSetUtilsTest {
             euValueSets.find { it.valueSetId == "covid-19-lab-test-type" }?.valueSetValues?.map { it.value.display },
             covPassValueSetsRepository.getTestType()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getTestTypeName(it.value.display)
-            }
+            },
         )
     }
 
@@ -156,7 +156,7 @@ internal class EUValueSetUtilsTest {
             euValueSets.find { it.valueSetId == "covid-19-lab-result" }?.valueSetValues?.map { it.value.display },
             covPassValueSetsRepository.getTestResult()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getTestResultName(it.value.display)
-            }
+            },
         )
     }
 
@@ -180,7 +180,7 @@ internal class EUValueSetUtilsTest {
             },
             covPassValueSetsRepository.getTestManufacturer()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getTestManufacturerName(it.value.display)
-            }
+            },
         )
     }
 
@@ -189,7 +189,7 @@ internal class EUValueSetUtilsTest {
         val rawTestManufacturerName = ""
         assertEquals(
             rawTestManufacturerName,
-            covPassValueSetsRepository.getTestManufacturerName(rawTestManufacturerName)
+            covPassValueSetsRepository.getTestManufacturerName(rawTestManufacturerName),
         )
     }
 
@@ -198,7 +198,7 @@ internal class EUValueSetUtilsTest {
         val rawTestManufacturerName = "1119349007XYZ"
         assertEquals(
             rawTestManufacturerName,
-            covPassValueSetsRepository.getTestManufacturerName(rawTestManufacturerName)
+            covPassValueSetsRepository.getTestManufacturerName(rawTestManufacturerName),
         )
     }
 
@@ -208,7 +208,7 @@ internal class EUValueSetUtilsTest {
             euValueSets.find { it.valueSetId == "disease-agent-targeted" }?.valueSetValues?.map { it.value.display },
             covPassValueSetsRepository.getDiseaseAgent()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getDiseaseAgentName(it.value.display)
-            }
+            },
         )
     }
 

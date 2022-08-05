@@ -63,19 +63,19 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
         updateView(
             args.ticketingDataInitialization.serviceProvider,
             args.validationTicketingTestObject.validationServiceId,
-            args.ticketingDataInitialization.privacyUrl
+            args.ticketingDataInitialization.privacyUrl,
         )
 
         updateCertificateView(
             certs.getCombinedCertificate(args.certId)
-                ?: throw DetailExportPdfFragment.NullCertificateException()
+                ?: throw DetailExportPdfFragment.NullCertificateException(),
         )
     }
 
     override fun onCancelTicketing(popOnce: Boolean) {
         viewModel.cancel(
             args.validationTicketingTestObject.accessTokenValidationUrl,
-            args.ticketingDataInitialization.token
+            args.ticketingDataInitialization.token,
         )
     }
 
@@ -95,20 +95,20 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
         val list = mutableListOf(
             ConsentInitItem.TicketingData(
                 getString(R.string.share_certificate_transmission_details_booking),
-                validationServiceId
+                validationServiceId,
             ),
             ConsentInitItem.TicketingData(
                 getString(R.string.share_certificate_transmission_details_provider),
-                provider
+                provider,
             ),
             ConsentInitItem.Note(
-                getString(R.string.share_certificate_transmission_message)
+                getString(R.string.share_certificate_transmission_message),
             ),
             ConsentInitItem.Infobox(
                 getString(R.string.share_certificate_transmission_consent_title),
                 getString(
                     R.string.share_certificate_transmission_consent_message,
-                    validationServiceId
+                    validationServiceId,
                 ),
                 listOf(
                     getString(R.string.share_certificate_transmission_consent_first_list_item),
@@ -117,29 +117,29 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                     getString(R.string.share_certificate_transmission_consent_second_list_item_second_subitem),
                     getString(R.string.share_certificate_transmission_consent_second_list_item_third_subitem),
                     getString(R.string.share_certificate_transmission_consent_second_list_item_fourth_subitem),
-                )
+                ),
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_transmission_notes_first_list_item),
-                true
+                true,
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_transmission_notes_second_list_item),
-                true
+                true,
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_transmission_notes_third_list_item),
-                true
+                true,
             ),
             ConsentInitItem.Note(
                 getString(R.string.share_certificate_transmission_notes_fourth_list_item),
-                true
+                true,
             ),
             ConsentInitItem.DataProtection(
                 getString(R.string.share_certificate_transmission_note_privacy_notice),
                 R.string.share_certificate_transmission_privacy_notice_linked,
-                privacyUrl
-            )
+                privacyUrl,
+            ),
         )
         ConsentTicketingAdapter(list, this).attachTo(binding.consentSendRecyclerView)
     }
@@ -153,23 +153,23 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                     if (dgcEntry.isComplete) {
                         certificateDataElementLayout.setBackgroundResource(R.color.info)
                         certificateDataElementTypeIcon.setImageResource(
-                            R.drawable.main_cert_status_complete_white
+                            R.drawable.main_cert_status_complete_white,
                         )
                     } else {
                         certificateDataElementLayout.setBackgroundResource(R.color.info20)
                         certificateDataElementTypeIcon.setImageResource(
-                            R.drawable.main_cert_status_incomplete
+                            R.drawable.main_cert_status_incomplete,
                         )
                     }
                     certificateDataElementType.setText(R.string.certificate_check_validity_vaccination)
                     certificateDataElementInfo.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_vaccination_certificate_message,
                         dgcEntry.doseNumber,
-                        dgcEntry.totalSerialDoses
+                        dgcEntry.totalSerialDoses,
                     )
                     certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_vaccination_certificate_date,
-                        dgcEntry.occurrence.formatDateOrEmpty()
+                        dgcEntry.occurrence.formatDateOrEmpty(),
                     )
                 }
                 is TestCert -> {
@@ -183,7 +183,7 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                     }
                     certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_test_certificate_date,
-                        dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: ""
+                        dgcEntry.sampleCollection?.toDeviceTimeZone()?.formatDateTime() ?: "",
                     )
                 }
                 is Recovery -> {
@@ -193,7 +193,7 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                     certificateDataElementInfo.setText(R.string.recovery_certificate_detail_view_title)
                     certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
                         R.string.certificates_overview_recovery_certificate_valid_until_date,
-                        combinedCovCertificate.covCertificate.validUntil?.formatDateOrEmpty() ?: ""
+                        combinedCovCertificate.covCertificate.validUntil?.formatDateOrEmpty() ?: "",
                     )
                 }
             }
@@ -210,8 +210,8 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                 args.certId,
                 args.ticketingDataInitialization,
                 bookingValidationResponse,
-                args.validationTicketingTestObject.validationServiceId
-            )
+                args.validationTicketingTestObject.validationServiceId,
+            ),
         )
     }
 }

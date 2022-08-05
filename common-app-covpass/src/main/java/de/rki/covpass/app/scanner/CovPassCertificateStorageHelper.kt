@@ -6,14 +6,22 @@
 package de.rki.covpass.app.scanner
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.ReissueState
+import de.rki.covpass.sdk.cert.models.ReissueType
+import de.rki.covpass.sdk.cert.models.isExpired
+import de.rki.covpass.sdk.cert.models.isInExpiryPeriod
 
 public object CovPassCertificateStorageHelper {
 
     public suspend fun addNewCertificate(
         groupedCertificatesList: SuspendMutableValueFlow<GroupedCertificatesList>,
         covCertificate: CovCertificate,
-        qrContent: String
+        qrContent: String,
     ): GroupedCertificatesId? {
         var certId: GroupedCertificatesId? = null
         groupedCertificatesList.update {
@@ -37,8 +45,8 @@ public object CovPassCertificateStorageHelper {
                     isRevoked = false,
                     hasSeenRevokedNotification = false,
                     reissueState = ReissueState.None,
-                    reissueType = ReissueType.None
-                )
+                    reissueType = ReissueType.None,
+                ),
             )
         }
         return certId

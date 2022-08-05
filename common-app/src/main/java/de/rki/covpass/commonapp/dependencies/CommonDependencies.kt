@@ -45,21 +45,21 @@ public abstract class CommonDependencies {
     public val fileProviderAuthority: String get() = androidDeps.application.packageName + ".covpass.provider"
 
     public val onboardingRepository: OnboardingRepository = OnboardingRepository(
-        CborSharedPrefsStore("onboarding_prefs", cbor)
+        CborSharedPrefsStore("onboarding_prefs", cbor),
     )
 
     public val updateInfoRepository: UpdateInfoRepository = UpdateInfoRepository(
-        CborSharedPrefsStore("update_info_prefs", cbor)
+        CborSharedPrefsStore("update_info_prefs", cbor),
     )
 
     public val checkContextRepository: CheckContextRepository = CheckContextRepository(
-        CborSharedPrefsStore("covpass_check_prefs", cbor)
+        CborSharedPrefsStore("covpass_check_prefs", cbor),
     )
 
     public val kronosClock: KronosClock by lazy {
         AndroidClockFactory.createKronosClock(
             context = sdkDeps.application.applicationContext,
-            ntpHosts = listOf(DE_NTP_HOST)
+            ntpHosts = listOf(DE_NTP_HOST),
         )
     }
 

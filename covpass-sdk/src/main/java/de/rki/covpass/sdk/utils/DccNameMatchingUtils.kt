@@ -12,7 +12,7 @@ public object DccNameMatchingUtils {
 
     public fun isHolderSame(
         covCertificate1: CovCertificate,
-        covCertificate2: CovCertificate
+        covCertificate2: CovCertificate,
     ): Boolean {
         val trimmedName1 = covCertificate1.name.trimmedName
         val trimmedName2 = covCertificate2.name.trimmedName
@@ -23,7 +23,7 @@ public object DccNameMatchingUtils {
             trimmedName1,
             trimmedName2,
             formattedBirthDate1,
-            formattedBirthDate2
+            formattedBirthDate2,
         ) == DataComparison.Equal
     }
 
@@ -31,7 +31,7 @@ public object DccNameMatchingUtils {
         trimmedName1: Name?,
         trimmedName2: Name?,
         birthDate1: String?,
-        birthDate2: String?
+        birthDate2: String?,
     ): DataComparison =
         when {
             trimmedName1 == null || trimmedName2 == null || birthDate1 == null || birthDate2 == null -> {
@@ -65,7 +65,7 @@ public object DccNameMatchingUtils {
 
     private val excludedTitles = setOf(
         "DR",
-        "PROF"
+        "PROF",
     )
 }
 

@@ -7,8 +7,8 @@ package de.rki.covpass.sdk.ticketing
 
 import de.rki.covpass.sdk.ticketing.data.identity.ServiceType
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingIdentityDocument
-import io.ktor.client.features.*
-import io.ktor.http.*
+import io.ktor.client.features.ClientRequestException
+import io.ktor.http.HttpStatusCode
 
 public class IdentityDocumentRepository(
     public val ticketingApiService: TicketingApiService,
@@ -33,16 +33,16 @@ public class IdentityDocumentRepository(
             return TicketingIdentityDocument(
                 accessTokenService,
                 validationServices,
-                cancellationService
+                cancellationService,
             )
         } catch (e: ClientRequestException) {
             throw IdentityDocumentRequestException(
                 ticketingDataInitialization.serviceProvider,
-                e.response.status
+                e.response.status,
             )
         } catch (e: IllegalArgumentException) {
             throw IdentityDocumentRequestException(
-                identityProvider = ticketingDataInitialization.serviceProvider
+                identityProvider = ticketingDataInitialization.serviceProvider,
             )
         }
     }

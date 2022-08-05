@@ -5,11 +5,14 @@
 
 package de.rki.covpass.http.util
 
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.HttpClientConfig
+import io.ktor.client.features.ClientRequestException
+import io.ktor.client.features.HttpResponseValidator
+import io.ktor.client.features.ResponseException
+import io.ktor.client.features.ServerResponseException
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.readText
+import io.ktor.http.Url
 
 /** Only throws exceptions on >= 400, but not on redirects. */
 public fun HttpClientConfig<*>.addErrorValidation() {

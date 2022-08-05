@@ -22,11 +22,11 @@ import kotlin.properties.Delegates
 internal class CertificateSwitcherElementCard @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
 ) : FrameLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: CertificateSwitcherElementCardBinding =
         CertificateSwitcherElementCardBinding.inflate(LayoutInflater.from(context))
@@ -62,14 +62,15 @@ internal class CertificateSwitcherElementCard @JvmOverloads constructor(
         certStatus: CertValidationResult,
         header: String,
         subtitle: String,
-        @DrawableRes imageRes: Int
+        @DrawableRes imageRes: Int,
     ) {
         binding.certificateHeaderTextview.text = header
         binding.certificateStatusTextview.text = subtitle
 
         when (certStatus) {
             CertValidationResult.Valid,
-            CertValidationResult.ExpiryPeriod -> {
+            CertValidationResult.ExpiryPeriod,
+            -> {
                 validOrExpiryPeriod(imageRes)
             }
             CertValidationResult.Invalid, CertValidationResult.Revoked ->

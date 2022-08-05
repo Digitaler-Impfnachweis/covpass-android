@@ -8,18 +8,23 @@ package de.rki.covpass.sdk.reissuing
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.reissuing.remote.CertificateReissueRequest
 import de.rki.covpass.sdk.reissuing.remote.CertificateReissueResponse
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.receive
+import io.ktor.client.features.ResponseException
+import io.ktor.client.features.defaultRequest
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.accept
+import io.ktor.client.request.host
+import io.ktor.client.request.post
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.contentType
 
 public class ReissuingApiService(
     httpClient: HttpClient,
-    host: String
+    host: String,
 ) {
     private val client = httpClient.config {
         defaultRequest {
@@ -32,7 +37,7 @@ public class ReissuingApiService(
 
     public suspend fun reissueCertificate(
         action: String,
-        certificates: List<String>
+        certificates: List<String>,
     ): List<CertificateReissueResponse> =
         try {
             val httpResponse: HttpResponse = client.post<HttpResponse>("/api/certify/v2/reissue") {

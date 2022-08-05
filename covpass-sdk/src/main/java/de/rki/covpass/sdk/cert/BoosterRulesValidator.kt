@@ -15,18 +15,18 @@ import java.time.ZonedDateTime
 
 public class BoosterRulesValidator(
     private val boosterCertLogicEngine: BoosterCertLogicEngine,
-    private val boosterRulesRepository: CovPassBoosterRulesRepository
+    private val boosterRulesRepository: CovPassBoosterRulesRepository,
 ) {
 
     public suspend fun validate(
         cert: CovCertificate,
         countryIsoCode: String = "de",
-        validationClock: ZonedDateTime = ZonedDateTime.now()
+        validationClock: ZonedDateTime = ZonedDateTime.now(),
     ): List<BoosterValidationResult> {
         val issuerCountryCode = cert.issuer.lowercase()
         val boosterRules = boosterRulesRepository.getCovPassBoosterRulesBy(
             countryIsoCode,
-            validationClock
+            validationClock,
         )
 
         val externalParameter = ExternalParameter(

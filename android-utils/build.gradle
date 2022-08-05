@@ -5,6 +5,7 @@
 
 dependencies {
     api project(':covpass-logging')
+    api project(':annotations')
     androidUI()
     coroutines()
     reactiveState()

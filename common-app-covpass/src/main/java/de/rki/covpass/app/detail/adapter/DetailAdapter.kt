@@ -21,7 +21,13 @@ import com.ibm.health.common.android.utils.BindingViewHolder
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
-import de.rki.covpass.app.databinding.*
+import de.rki.covpass.app.databinding.DetailBoosterNotificationItemBinding
+import de.rki.covpass.app.databinding.DetailDataRowBinding
+import de.rki.covpass.app.databinding.DetailFullnameItemBinding
+import de.rki.covpass.app.databinding.DetailHeaderItemBinding
+import de.rki.covpass.app.databinding.DetailInfoboxRowBinding
+import de.rki.covpass.app.databinding.DetailReissueNotificationItemBinding
+import de.rki.covpass.app.databinding.DetailWidgetItemBinding
 import de.rki.covpass.app.detail.DetailClickListener
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.DGCEntryType
@@ -155,11 +161,10 @@ private class ReissueNotificationViewHolder(
     val parent: ViewGroup,
 ) : BaseViewHolder<DetailReissueNotificationItemBinding>(
     parent,
-    DetailReissueNotificationItemBinding::inflate
+    DetailReissueNotificationItemBinding::inflate,
 ) {
 
     override fun onItemBind(item: DetailItem) {
-
         (item as DetailItem.ReissueNotification).let {
             binding.reissueNotificationTitle.text = getString(it.titleRes)
             binding.reissueNotificationText.text = getString(it.textRes)
@@ -176,17 +181,16 @@ private class BoosterNotificationViewHolder(
     val parent: ViewGroup,
 ) : BaseViewHolder<DetailBoosterNotificationItemBinding>(
     parent,
-    DetailBoosterNotificationItemBinding::inflate
+    DetailBoosterNotificationItemBinding::inflate,
 ) {
 
     override fun onItemBind(item: DetailItem) {
-
         (item as DetailItem.BoosterNotification).let {
             binding.notificationTitle.text = getString(it.titleRes)
             binding.notificationText.text = getString(
                 R.string.vaccination_certificate_overview_booster_vaccination_notification_message,
                 it.description,
-                it.ruleId
+                it.ruleId,
             )
             binding.notificationFaq.apply {
                 text = getSpanned(R.string.vaccination_certificate_overview_faqlink)
@@ -214,12 +218,12 @@ internal fun ImageView.setTint(@ColorRes color: Int) {
     val wrapDrawable = DrawableCompat.wrap(drawable).mutate()
     DrawableCompat.setTint(
         wrapDrawable,
-        ContextCompat.getColor(context, color)
+        ContextCompat.getColor(context, color),
     )
 }
 
 public fun View.setLayoutBackgroundColor(@ColorRes color: Int) {
     setBackgroundColor(
-        ContextCompat.getColor(context, color)
+        ContextCompat.getColor(context, color),
     )
 }

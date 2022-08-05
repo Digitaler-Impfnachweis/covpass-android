@@ -46,7 +46,7 @@ public class QRCoder(private val validator: CertValidator) {
      */
     public fun decodeCovCert(
         qrContent: String,
-        allowExpiredCertificates: Boolean = false
+        allowExpiredCertificates: Boolean = false,
     ): CovCertificate =
         validator.decodeAndValidate(decodeCose(qrContent), allowExpiredCertificates)
 

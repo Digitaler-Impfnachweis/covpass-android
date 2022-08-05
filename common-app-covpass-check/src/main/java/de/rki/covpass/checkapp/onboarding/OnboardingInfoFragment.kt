@@ -45,6 +45,6 @@ internal class OnboardingConsentFragment : BaseOnboardingConsentFragment() {
     override val contentItemsRes = listOf(
         R.string.validation_fourth_onboarding_first_list_item,
         R.string.validation_fourth_onboarding_second_list_item,
-        R.string.validation_fourth_onboarding_third_list_item
+        R.string.validation_fourth_onboarding_third_list_item,
     )
 }

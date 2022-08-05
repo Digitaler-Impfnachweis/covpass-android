@@ -25,13 +25,13 @@ import java.time.ZonedDateTime
 public class CovPassRulesValidator(
     private val rulesUseCase: CovPassGetRulesUseCase,
     private val certLogicEngine: CertLogicEngine,
-    private val valueSetsRepository: CovPassValueSetsRepository
+    private val valueSetsRepository: CovPassValueSetsRepository,
 ) {
 
     public suspend fun validate(
         cert: CovCertificate,
         countryIsoCode: String = "de",
-        validationClock: ZonedDateTime = ZonedDateTime.now()
+        validationClock: ZonedDateTime = ZonedDateTime.now(),
     ): List<ValidationResult> {
         val certificateType = cert.getCertificateType()
         val issuerCountryCode = cert.issuer.lowercase()
@@ -39,7 +39,7 @@ public class CovPassRulesValidator(
             countryIsoCode,
             issuerCountryCode,
             certificateType,
-            validationClock
+            validationClock,
         )
         val valueSetsMap = valueSetsRepository.getAllCovPassValueSets().toValueSets().map { valueSet ->
             valueSet.valueSetId to valueSet.valueSetValues.fieldNames().asSequence().toList()

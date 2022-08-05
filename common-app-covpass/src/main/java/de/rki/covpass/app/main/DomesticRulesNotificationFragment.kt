@@ -47,7 +47,7 @@ public class DomesticRulesNotificationFragment : BaseBottomSheet() {
     override fun onActionButtonClicked() {
         launchWhenStarted {
             commonDeps.checkContextRepository.checkContextNotificationVersionShown.set(
-                CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
+                CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION,
             )
             findNavigator().popUntil<DomesticRulesNotificationCallback>()?.onDomesticRulesNotificationFinish()
         }

@@ -22,11 +22,11 @@ public class RoundImageButton
 @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
-    defStyleAttributeSet: Int = 0
+    defStyleAttributeSet: Int = 0,
 ) : RelativeLayout(
     context,
     attributeSet,
-    defStyleAttributeSet
+    defStyleAttributeSet,
 ) {
 
     private val binding: ButtonRoundImageBinding = ButtonRoundImageBinding.inflate(LayoutInflater.from(context))
@@ -38,17 +38,17 @@ public class RoundImageButton
                 attributeSet,
                 R.styleable.RoundImageButton,
                 0,
-                0
+                0,
             )
         typedArray.getResourceId(
             R.styleable.RoundImageButton_round_button_icon,
-            R.drawable.plus
+            R.drawable.plus,
         ).let { icon ->
             setIcon(icon)
         }
         typedArray.getResourceId(
             R.styleable.RoundImageButton_round_button_background,
-            R.drawable.button_round_selector
+            R.drawable.button_round_selector,
         ).let { background ->
             setBackground(background)
         }

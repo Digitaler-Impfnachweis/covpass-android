@@ -36,7 +36,7 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
         if (!isDebuggable) {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE
+                WindowManager.LayoutParams.FLAG_SECURE,
             )
         }
         super.onCreate(savedInstanceState)
@@ -66,15 +66,15 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
                 this.startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$packageName")
-                    )
+                        Uri.parse("market://details?id=$packageName"),
+                    ),
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
-                    )
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName"),
+                    ),
                 )
             }
         }

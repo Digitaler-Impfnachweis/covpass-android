@@ -6,10 +6,19 @@
 package de.rki.covpass.sdk.ticketing
 
 import de.rki.covpass.sdk.cert.QRCoder
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.CertificateListMapper
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificateLocal
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.CovCertificateList
+import de.rki.covpass.sdk.cert.models.Name
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.NEGATIVE_RESULT
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST
+import de.rki.covpass.sdk.cert.models.Vaccination
+import de.rki.covpass.sdk.cert.models.toCombinedCovCertificate
 import io.mockk.mockk
 import java.time.Instant
 import kotlin.test.Test
@@ -47,31 +56,31 @@ internal class TicketingTest {
         name = Name(familyNameTransliterated = name1),
         birthDate = date1,
         vaccinations = vaccinationsIncomplete,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certVaccinationComplete = CovCertificate(
         name = Name(familyNameTransliterated = name3, givenNameTransliterated = givenName3),
         birthDate = date3,
         vaccinations = vaccinationsComplete,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certRecovery = CovCertificate(
         name = Name(familyNameTransliterated = name2),
         birthDate = date2,
         recoveries = recovery,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certTestPcr = CovCertificate(
         name = Name(familyNameTransliterated = name1),
         birthDate = date1,
         tests = testPcr,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
     private val certTestAntigen = CovCertificate(
         name = Name(familyNameTransliterated = name2),
         birthDate = date2,
         tests = testAntigen,
-        validUntil = Instant.now()
+        validUntil = Instant.now(),
     )
 
     private val originalList by lazy {
@@ -82,7 +91,7 @@ internal class TicketingTest {
                 certRecovery.toCombinedCertLocal(),
                 certTestPcr.toCombinedCertLocal(),
                 certTestAntigen.toCombinedCertLocal(),
-            )
+            ),
         )
     }
 
@@ -94,16 +103,16 @@ internal class TicketingTest {
     fun `filter generic test for name1 certs`() {
         val filteredCertificates = groupedCertificatesList.filterCertificates(
             types = listOf(
-                TicketingType.Test.Generic
+                TicketingType.Test.Generic,
             ),
             firstName = null,
             lastName = name1,
-            date1
+            date1,
         )
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
+            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired),
         )
     }
 
@@ -111,16 +120,16 @@ internal class TicketingTest {
     fun `filter PCR test for name1 certs`() {
         val filteredCertificates = groupedCertificatesList.filterCertificates(
             types = listOf(
-                TicketingType.Test.Pcr
+                TicketingType.Test.Pcr,
             ),
             firstName = null,
             lastName = name1,
-            date1
+            date1,
         )
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
+            certTestPcr.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired),
         )
     }
 
@@ -128,16 +137,16 @@ internal class TicketingTest {
     fun `filter vaccination for name1 certs`() {
         val filteredCertificates = groupedCertificatesList.filterCertificates(
             types = listOf(
-                TicketingType.Vaccination
+                TicketingType.Vaccination,
             ),
             firstName = null,
             lastName = name1,
-            date1
+            date1,
         )
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certVaccinationIncomplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
+            certVaccinationIncomplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired),
         )
     }
 
@@ -145,16 +154,16 @@ internal class TicketingTest {
     fun `filter recovery for name2 certs`() {
         val filteredCertificates = groupedCertificatesList.filterCertificates(
             types = listOf(
-                TicketingType.Recovery
+                TicketingType.Recovery,
             ),
             firstName = null,
             lastName = name2,
-            date2
+            date2,
         )
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certRecovery.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
+            certRecovery.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired),
         )
     }
 
@@ -162,11 +171,11 @@ internal class TicketingTest {
     fun `filter vaccination for name2 certs`() {
         val filteredCertificates = groupedCertificatesList.filterCertificates(
             types = listOf(
-                TicketingType.Vaccination
+                TicketingType.Vaccination,
             ),
             firstName = null,
             lastName = name2,
-            date2
+            date2,
         )
         assert(filteredCertificates.isEmpty())
     }
@@ -175,16 +184,16 @@ internal class TicketingTest {
     fun `filter vaccination for name3 and givenName3 certs`() {
         val filteredCertificates = groupedCertificatesList.filterCertificates(
             types = listOf(
-                TicketingType.Vaccination
+                TicketingType.Vaccination,
             ),
             firstName = givenName3,
             lastName = name3,
-            date3
+            date3,
         )
         assert(filteredCertificates.size == 1)
         assertEquals(
             filteredCertificates[0],
-            certVaccinationComplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired)
+            certVaccinationComplete.toCombinedCertLocal().toCombinedCovCertificate(CertValidationResult.Expired),
         )
     }
 

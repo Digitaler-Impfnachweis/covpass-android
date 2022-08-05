@@ -5,7 +5,11 @@
 
 package de.rki.covpass.base45
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 internal class Base45Test {
     /** Makes sure we have *some* kind of (reversible) encoding, but not necessarily the correct one. */

@@ -21,7 +21,7 @@ public class CheckContextCheckboxElement @JvmOverloads constructor(
 ) : FrameLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: CheckContextCheckboxBinding =
         CheckContextCheckboxBinding.inflate(LayoutInflater.from(context))

@@ -29,7 +29,7 @@ import kotlinx.parcelize.Parcelize
 internal interface ValidationResult2GListener {
     fun onValidationResetOrFinish()
     fun onValidatingFirstCertificate(
-        firstCertificateData: ValidationResult2gData?
+        firstCertificateData: ValidationResult2gData?,
     )
 }
 
@@ -69,7 +69,7 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 fillCertificateElements(
                     binding.validationResultSecondCertificate,
                     secondCertificateData,
-                    firstCertificateData
+                    firstCertificateData,
                 )
             }
         } else {
@@ -152,28 +152,28 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                             else -> {
                                 R.string.result_2G_2nd_rapidtest_valid
                             }
-                        }
+                        },
                     ),
                     when {
                         certificateData.isBooster() -> {
                             getString(
                                 R.string.result_2G_2nd_timestamp_days,
-                                certificateData.validFrom?.daysTillNow()
+                                certificateData.validFrom?.daysTillNow(),
                             )
                         }
                         certificateData.isTest() -> {
                             getString(
                                 R.string.result_2G_2nd_timestamp_hours,
-                                certificateData.sampleCollection?.hoursTillNow()
+                                certificateData.sampleCollection?.hoursTillNow(),
                             )
                         }
                         else -> {
                             getString(
                                 R.string.result_2G_2nd_timestamp_months,
-                                certificateData.validFrom?.monthTillNow()
+                                certificateData.validFrom?.monthTillNow(),
                             )
                         }
-                    }
+                    },
                 )
             }
         }
@@ -233,7 +233,7 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
                 getString(
                     R.string.validation_check_popup_valid_vaccination_date_of_birth,
                     firstCertificateData.certificateBirthDate ?: secondCertificateData?.certificateBirthDate,
-                )
+                ),
             )
         }
     }

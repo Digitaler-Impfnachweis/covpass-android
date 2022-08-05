@@ -70,7 +70,7 @@ public class ChangeCountryAdapter(
     public inner class HeaderChangeCountryViewHolder(parent: ViewGroup) :
         BindingViewHolder<ChangeCountryHeaderBinding>(
             parent,
-            ChangeCountryHeaderBinding::inflate
+            ChangeCountryHeaderBinding::inflate,
         ) {
 
         public fun bind() {
@@ -85,7 +85,7 @@ public class ChangeCountryAdapter(
     public inner class ChangeCountryViewHolder(parent: ViewGroup) :
         BindingViewHolder<ChangeCountryItemBinding>(
             parent,
-            ChangeCountryItemBinding::inflate
+            ChangeCountryItemBinding::inflate,
         ) {
 
         public fun bind(item: Country, position: Int) {
@@ -105,23 +105,25 @@ public class ChangeCountryAdapter(
                 notifyDataSetChanged()
                 accessibilityCallback.updateAccessibilityFocus()
             }
-            binding.root.setAccessibilityDelegate(object : View.AccessibilityDelegate() {
-                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
-                    super.onInitializeAccessibilityNodeInfo(host, info)
-                    info.className = CheckBox::class.java.name
-                    if (binding.checkbox.isChecked) {
-                        info.contentDescription = getString(
-                            R.string.accessibility_certificate_check_validity_selection_country_selected,
-                            getString(item.nameRes)
-                        )
-                    } else {
-                        info.contentDescription = getString(
-                            R.string.accessibility_certificate_check_validity_selection_country_unselected,
-                            getString(item.nameRes)
-                        )
+            binding.root.setAccessibilityDelegate(
+                object : View.AccessibilityDelegate() {
+                    override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+                        super.onInitializeAccessibilityNodeInfo(host, info)
+                        info.className = CheckBox::class.java.name
+                        if (binding.checkbox.isChecked) {
+                            info.contentDescription = getString(
+                                R.string.accessibility_certificate_check_validity_selection_country_selected,
+                                getString(item.nameRes),
+                            )
+                        } else {
+                            info.contentDescription = getString(
+                                R.string.accessibility_certificate_check_validity_selection_country_unselected,
+                                getString(item.nameRes),
+                            )
+                        }
                     }
-                }
-            })
+                },
+            )
         }
     }
 

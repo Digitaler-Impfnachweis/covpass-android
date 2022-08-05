@@ -61,7 +61,7 @@ public class UnknownProviderTicketingFragment : BaseTicketingFragment() {
     private fun updateView(provider: String) {
         val list = mutableListOf(
             ConsentInitItem.Note(
-                getString(R.string.warning_unknown_provider_copy, provider)
+                getString(R.string.warning_unknown_provider_copy, provider),
             ),
             ConsentInitItem.Infobox(
                 title = getString(R.string.warning_unknown_provider_box_title),
@@ -70,8 +70,8 @@ public class UnknownProviderTicketingFragment : BaseTicketingFragment() {
                     getString(R.string.warning_unknown_provider_box_item_2),
                     getString(R.string.warning_unknown_provider_box_item_3),
                     getString(R.string.warning_unknown_provider_box_item_4),
-                )
-            )
+                ),
+            ),
         )
         ConsentTicketingAdapter(list, this).attachTo(binding.unknownProviderRecyclerView)
     }

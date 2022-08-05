@@ -71,7 +71,7 @@ private class TicketingDataViewHolder(
     parent: ViewGroup,
 ) : BaseConsentInitializationViewHolder<ConsentInitializationTicketingDataItemBinding>(
     parent,
-    ConsentInitializationTicketingDataItemBinding::inflate
+    ConsentInitializationTicketingDataItemBinding::inflate,
 ) {
 
     override fun onItemBind(item: ConsentInitItem) {
@@ -86,12 +86,11 @@ private class NoteViewHolder(
     parent: ViewGroup,
 ) : BaseConsentInitializationViewHolder<ConsentInitializationNoteItemBinding>(
     parent,
-    ConsentInitializationNoteItemBinding::inflate
+    ConsentInitializationNoteItemBinding::inflate,
 ) {
 
     override fun onItemBind(item: ConsentInitItem) {
         (item as ConsentInitItem.Note).let {
-
             binding.consentInitializationNoteBulletPoint.isVisible = it.bulletPoint
             binding.consentInitializationNoteValue.text = it.text
         }
@@ -103,7 +102,7 @@ private class InfoBoxViewHolder(
     parent: ViewGroup,
 ) : BaseConsentInitializationViewHolder<ConsentInitializationInfoboxItemBinding>(
     parent,
-    ConsentInitializationInfoboxItemBinding::inflate
+    ConsentInitializationInfoboxItemBinding::inflate,
 ) {
 
     override fun onItemBind(item: ConsentInitItem) {
@@ -114,7 +113,7 @@ private class InfoBoxViewHolder(
                 iconRes = R.drawable.info_icon_update_app,
                 backgroundRes = R.drawable.info_background,
                 list = item.list,
-                parent = fragment
+                parent = fragment,
             )
         }
     }
@@ -124,7 +123,7 @@ private class DataProtectionViewHolder(
     parent: ViewGroup,
 ) : BaseConsentInitializationViewHolder<ConsentInitializationDataProtectionItemBinding>(
     parent,
-    ConsentInitializationDataProtectionItemBinding::inflate
+    ConsentInitializationDataProtectionItemBinding::inflate,
 ) {
 
     override fun onItemBind(item: ConsentInitItem) {

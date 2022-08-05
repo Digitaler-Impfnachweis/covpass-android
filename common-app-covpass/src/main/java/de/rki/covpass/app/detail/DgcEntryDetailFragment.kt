@@ -36,12 +36,18 @@ import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.stripUnderlines
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatTimeOrEmpty
-import java.util.*
+import java.util.Locale
 
 /**
  * Interface to communicate events from [DgcEntryDetailFragment] back to other fragments.
@@ -71,8 +77,10 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val deleteItem = menu.add(
-            Menu.NONE, DELETE_ITEM_ID, Menu.NONE,
-            getString(R.string.accessibility_certificate_detail_view_label_delete_button)
+            Menu.NONE,
+            DELETE_ITEM_ID,
+            Menu.NONE,
+            getString(R.string.accessibility_certificate_detail_view_label_delete_button),
         )
         deleteItem.setIcon(R.drawable.trash)
         deleteItem.setShowAsAction(SHOW_AS_ACTION_IF_ROOM)
@@ -124,7 +132,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             updateList(
                 getDataRows(cert).filterNot {
                     it.value.isNullOrEmpty()
-                }
+                },
             )
             attachTo(binding.dgcDetailRecyclerView)
         }
@@ -181,9 +189,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                             R.string.certificate_expires_detail_view_note_message
                         } else {
                             R.string.certificate_expires_detail_view_note_nonDE
-                        }
+                        },
                     ),
-                    iconRes = R.drawable.main_cert_expiry_period
+                    iconRes = R.drawable.main_cert_expiry_period,
                 )
             }
             CertValidationResult.Expired -> {
@@ -194,9 +202,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                             R.string.certificate_expired_detail_view_note_message
                         } else {
                             R.string.certificate_expires_detail_view_note_nonDE
-                        }
+                        },
                     ),
-                    iconRes = R.drawable.info_warning_icon
+                    iconRes = R.drawable.info_warning_icon,
                 )
             }
             CertValidationResult.Revoked -> {
@@ -207,16 +215,16 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                             R.string.revocation_detail_single_DE
                         } else {
                             R.string.revocation_detail_single_notDE
-                        }
+                        },
                     ),
-                    iconRes = R.drawable.info_warning_icon
+                    iconRes = R.drawable.info_warning_icon,
                 )
             }
             CertValidationResult.Invalid -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
                     title = getString(R.string.certificate_invalid_detail_view_note_title),
                     description = getString(R.string.certificate_invalid_detail_view_note_message),
-                    iconRes = R.drawable.info_warning_icon
+                    iconRes = R.drawable.info_warning_icon,
                 )
             }
             else -> binding.dgcDetailExpirationInfoElement.isGone = true

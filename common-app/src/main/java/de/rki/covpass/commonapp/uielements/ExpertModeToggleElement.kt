@@ -21,7 +21,7 @@ public class ExpertModeToggleElement @JvmOverloads constructor(
 ) : FrameLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: ExpertModeToggleBinding =
         ExpertModeToggleBinding.inflate(LayoutInflater.from(context))

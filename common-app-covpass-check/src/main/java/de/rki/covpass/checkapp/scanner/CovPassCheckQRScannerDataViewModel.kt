@@ -8,7 +8,11 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
-import de.rki.covpass.sdk.cert.models.*
+import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
+import de.rki.covpass.sdk.cert.models.TestCertType
+import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.DataComparison
 import de.rki.covpass.sdk.utils.DccNameMatchingUtils.compareHolder
 import de.rki.covpass.sdk.utils.formatDateFromString
@@ -59,7 +63,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         (certificate.dgcEntry as Vaccination)
                             .occurrence?.atStartOfDay(ZoneId.systemDefault())?.toInstant(),
                         validationName = certificate.name.toValidationResult2gName(),
-                        isRecoveryOlder90Days = certificate.isRecoveryOlder90Days
+                        isRecoveryOlder90Days = certificate.isRecoveryOlder90Days,
                     )
                     secondCertificateData2G = null
                     eventNotifier {
@@ -95,8 +99,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                                 }
                             } as Instant?,
                             validationName = certificate.name.toValidationResult2gName(),
-                            isRecoveryOlder90Days = certificate.isRecoveryOlder90Days
-                        )
+                            isRecoveryOlder90Days = certificate.isRecoveryOlder90Days,
+                        ),
                     )
                 }
                 else -> {
@@ -126,8 +130,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             CovPassCheckValidationResult.Success,
                             certificate.dgcEntry.id,
                             ValidationResult2gCertificateType.PcrTest,
-                            validationName = certificate.name.toValidationResult2gName()
-                        )
+                            validationName = certificate.name.toValidationResult2gName(),
+                        ),
                     )
                 }
                 else -> {
@@ -157,8 +161,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             CovPassCheckValidationResult.Success,
                             certificate.dgcEntry.id,
                             ValidationResult2gCertificateType.AntigenTest,
-                            validationName = certificate.name.toValidationResult2gName()
-                        )
+                            validationName = certificate.name.toValidationResult2gName(),
+                        ),
                     )
                 }
                 else -> {
@@ -214,7 +218,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
         eventNotifier {
             on2gData(
                 firstCertificateData2G,
-                secondCertificateData2G
+                secondCertificateData2G,
             )
         }
     }
@@ -234,8 +238,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             validationResult,
                             certificate.dgcEntry.id,
                             verify2gCertificateType(certificate),
-                            validationName = certificate.name.toValidationResult2gName()
-                        )
+                            validationName = certificate.name.toValidationResult2gName(),
+                        ),
                     )
                 } else {
                     show2GError()
@@ -252,8 +256,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                             validationResult,
                             certificate.dgcEntry.id,
                             verify2gCertificateType(certificate),
-                            validationName = certificate.name.toValidationResult2gName()
-                        )
+                            validationName = certificate.name.toValidationResult2gName(),
+                        ),
                     )
                 } else {
                     show2GError()
@@ -264,7 +268,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     private fun prepareData2gNullCert(
         isTechnical: Boolean,
-        validationResult: CovPassCheckValidationResult
+        validationResult: CovPassCheckValidationResult,
     ) {
         when {
             firstCertificateData2G == null && secondCertificateData2G == null && isTechnical -> {
@@ -287,8 +291,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         validationResult,
                         null,
                         ValidationResult2gCertificateType.NullCertificateOrUnknown,
-                        validationName = null
-                    )
+                        validationName = null,
+                    ),
                 )
             }
             secondCertificateData2G != null -> {
@@ -301,8 +305,8 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
                         validationResult,
                         null,
                         ValidationResult2gCertificateType.NullCertificateOrUnknown,
-                        validationName = null
-                    )
+                        validationName = null,
+                    ),
                 )
             }
         }
@@ -351,7 +355,7 @@ internal class CovPassCheckQRScannerDataViewModel constructor(
 
     private fun compareCertificateTypes(
         firstCertType: ValidationResult2gCertificateType,
-        secondCertType: ValidationResult2gCertificateType
+        secondCertType: ValidationResult2gCertificateType,
     ) = when {
         firstCertType == ValidationResult2gCertificateType.Vaccination &&
             secondCertType == ValidationResult2gCertificateType.Booster -> false

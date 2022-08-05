@@ -49,7 +49,7 @@ public class CovPassDomesticRulesRepository(
         // Do a transactional update of the DB (as far as that's possible).
         localDataSource.replaceRules(
             keep = (localRules - changed.keys - removed.keys).keys,
-            add = newRules
+            add = newRules,
         )
         rulesUpdateRepository.markDomesticRulesUpdated()
     }
@@ -58,9 +58,12 @@ public class CovPassDomesticRulesRepository(
         countryIsoCode: String,
         validationClock: ZonedDateTime,
         type: Type,
-        ruleCertificateType: RuleCertificateType
+        ruleCertificateType: RuleCertificateType,
     ): List<CovPassRule> = localDataSource.getRulesBy(
-        countryIsoCode, validationClock, type, ruleCertificateType
+        countryIsoCode,
+        validationClock,
+        type,
+        ruleCertificateType,
     )
 
     public suspend fun deleteAll() {

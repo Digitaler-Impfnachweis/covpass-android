@@ -52,7 +52,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class MainFragmentNav(
-    val uri: Uri?
+    val uri: Uri?,
 ) : FragmentNav(MainFragment::class)
 
 internal interface NotificationEvents : BaseEvents {
@@ -88,7 +88,7 @@ internal class MainFragment :
     private val viewModel by reactiveState { MainViewModel(scope, uri) }
     private val covPassBackgroundUpdateViewModel by reactiveState {
         CovPassBackgroundUpdateViewModel(
-            scope
+            scope,
         )
     }
     private val binding by viewBinding(CovpassMainBinding::inflate)
@@ -116,12 +116,12 @@ internal class MainFragment :
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
-                    info: AccessibilityNodeInfoCompat
+                    info: AccessibilityNodeInfoCompat,
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
         binding.mainValidityCheckLayout.setOnClickListener {
@@ -153,12 +153,13 @@ internal class MainFragment :
                     super.onPageSelected(position)
                     viewModel.onPageSelected(position)
                 }
-            })
+            },
+        )
     }
 
     private fun updateCertificates(
         certificateList: GroupedCertificatesList,
-        selectedCertId: GroupedCertificatesId?
+        selectedCertId: GroupedCertificatesId?,
     ) {
         if (certificateList.certificates.isEmpty()) {
             binding.mainEmptyCardview.isVisible = true
@@ -170,7 +171,7 @@ internal class MainFragment :
             selectedCertId?.let {
                 binding.mainViewPager.setCurrentItem(
                     fragmentStateAdapter.getItemPosition(it),
-                    isResumed
+                    isResumed,
                 )
             }
         }
@@ -200,7 +201,7 @@ internal class MainFragment :
         viewModel.selectedCertId = certId
         binding.mainViewPager.setCurrentItem(
             fragmentStateAdapter.getItemPosition(certId),
-            isResumed
+            isResumed,
         )
     }
 

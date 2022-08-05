@@ -89,14 +89,14 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
     }
 
     private fun ImportCovCertificate.isCertificateHolderInList(
-        listOfCertificatesDistinctHolders: List<CovCertificate>
+        listOfCertificatesDistinctHolders: List<CovCertificate>,
     ): Boolean {
         return listOfCertificatesDistinctHolders.any {
             compareHolder(
                 it.name,
                 covCertificate.name,
                 it.birthDate,
-                covCertificate.birthDate
+                covCertificate.birthDate,
             ) == DataComparison.Equal
         }
     }
@@ -111,7 +111,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
                     val bitmap = Bitmap.createBitmap(
                         displayMetrics.densityDpi * page.width / DEFAULT_PDF_RESOLUTION,
                         displayMetrics.densityDpi * page.height / DEFAULT_PDF_RESOLUTION,
-                        Bitmap.Config.ARGB_8888
+                        Bitmap.Config.ARGB_8888,
                     )
                     bitmap.eraseColor(Color.WHITE)
 

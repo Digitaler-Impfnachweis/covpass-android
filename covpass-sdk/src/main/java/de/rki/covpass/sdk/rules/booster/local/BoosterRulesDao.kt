@@ -34,8 +34,8 @@ public abstract class BoosterRulesDao {
             descriptions.forEach { descriptionLocal ->
                 descriptionsToBeInserted.add(
                     descriptionLocal.copy(
-                        ruleContainerId = ruleId
-                    )
+                        ruleContainerId = ruleId,
+                    ),
                 )
             }
             insertBoosterDescriptions(*descriptionsToBeInserted.toTypedArray())
@@ -54,7 +54,9 @@ public abstract class BoosterRulesDao {
     /* ktlint-disable max-line-length */
     @Suppress("MaxLineLength")
     @Transaction
-    @Query("SELECT * FROM booster_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo)")
+    @Query(
+        "SELECT * FROM booster_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo)",
+    )
     public abstract fun getBoosterRulesWithDescriptionsBy(
         countryIsoCode: String,
         validationClock: ZonedDateTime,

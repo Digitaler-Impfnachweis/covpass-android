@@ -6,12 +6,16 @@
 package de.rki.covpass.sdk.cert
 
 import de.rki.covpass.sdk.cert.models.DscList
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.features.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.receive
+import io.ktor.client.features.ResponseException
+import io.ktor.client.features.defaultRequest
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.host
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.etag
 
 /**
  * Service to fetch the Document Signer Certificates from backend.
@@ -40,7 +44,7 @@ public class DscListService(
                 }
             }
             dscListDecoder.decodeDscList(
-                httpResponse.receive()
+                httpResponse.receive(),
             ).copy(etag = httpResponse.etag() ?: "")
         } catch (e: ResponseException) {
             if (dscList == null || e.response.status != HttpStatusCode.NotModified) {

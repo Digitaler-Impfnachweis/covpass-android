@@ -8,6 +8,8 @@ package com.ibm.health.common.android.utils
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.PluralsRes
@@ -32,6 +34,12 @@ public interface ResourceProvider {
 
     /** @see [Resources.getInteger] */
     public fun getInteger(@IntegerRes resId: Int): Int
+
+    /** @see [Context.getColor] */
+    public fun getColor(@ColorRes resId: Int): Int
+
+    /** @see [Resources.getDimensionPixelSize] */
+    public fun getDimensionPixelSize(@DimenRes resId: Int): Int
 }
 
 public fun ResourceProvider(context: Context): ResourceProvider =
@@ -44,13 +52,23 @@ private class ResourceProviderImpl(private val context: Context) : ResourceProvi
 
     @Suppress("SpreadOperator")
     override fun getString(@StringRes resId: Int, vararg formatArgs: Any) =
-        context().getString(resId, *formatArgs)
+        if (formatArgs.isEmpty()) {
+            context().resources.getString(resId)
+        } else {
+            context().resources.getString(resId, *formatArgs)
+        }
 
     override fun getDrawable(@DrawableRes resId: Int) =
         ContextCompat.getDrawable(context(), resId)
 
     override fun getInteger(resId: Int) =
         context().resources.getInteger(resId)
+
+    override fun getColor(@ColorRes resId: Int): Int =
+        context().resources.getColor(resId, null)
+
+    override fun getDimensionPixelSize(@DimenRes resId: Int): Int =
+        context().resources.getDimensionPixelSize(resId)
 
     // We prefer activity context as configuration of baseContext may have changed at runtime
     @OptIn(DependencyAccessor::class)

@@ -14,7 +14,16 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.validation.*
+import de.rki.covpass.checkapp.validation.ValidAntigenTestFragmentNav
+import de.rki.covpass.checkapp.validation.ValidPcrTestFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResult2GListener
+import de.rki.covpass.checkapp.validation.ValidationResult2gDifferentDataFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResult2gFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResult2gPlusBBoosterFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResultFailureFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResultListener
+import de.rki.covpass.checkapp.validation.ValidationResultSuccessNav
+import de.rki.covpass.checkapp.validation.ValidationResultTechnicalFailureFragmentNav
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
@@ -23,7 +32,11 @@ import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler.Companion.ERROR
 import de.rki.covpass.commonapp.scanner.QRScannerFragment
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.ExpertModeData
-import de.rki.covpass.sdk.utils.*
+import de.rki.covpass.sdk.utils.DataComparison
+import de.rki.covpass.sdk.utils.formatDateFromString
+import de.rki.covpass.sdk.utils.sha256
+import de.rki.covpass.sdk.utils.toHex
+import de.rki.covpass.sdk.utils.toISO8601orEmpty
 import kotlinx.parcelize.Parcelize
 import java.time.ZonedDateTime
 
@@ -51,7 +64,7 @@ internal class CovPassCheckQRScannerFragment :
         CovPassCheckQRScannerDataViewModel(
             scope,
             isTwoGPlusOn,
-            isTwoGPlusBOn
+            isTwoGPlusBOn,
         )
     }
 
@@ -79,8 +92,8 @@ internal class CovPassCheckQRScannerFragment :
                 findNavigator().push(
                     ValidationResult2gFragmentNav(
                         firstCertificateData2G,
-                        dataViewModel.secondCertificateData2G
-                    )
+                        dataViewModel.secondCertificateData2G,
+                    ),
                 )
             }
         } else {
@@ -95,7 +108,7 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidPcrTest(
         certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?
+        sampleCollection: ZonedDateTime?,
     ) {
         scanEnabled.value = false
         dataViewModel.prepareDataOnValidPcrTest(certificate, sampleCollection)
@@ -136,15 +149,15 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun on2gData(
         firstCertData: ValidationResult2gData?,
-        secondCertData: ValidationResult2gData?
+        secondCertData: ValidationResult2gData?,
     ) {
         if (firstCertData == null) return
         if (secondCertData == null) {
             findNavigator().push(
                 ValidationResult2gFragmentNav(
                     firstCertData,
-                    secondCertData
-                )
+                    secondCertData,
+                ),
             )
             return
         }
@@ -154,32 +167,32 @@ internal class CovPassCheckQRScannerFragment :
                 DataComparison.Equal, DataComparison.HasNullData, DataComparison.HasInvalidData -> {
                     ValidationResult2gFragmentNav(
                         firstCertData,
-                        secondCertData
+                        secondCertData,
                     )
                 }
                 DataComparison.NameDifferent -> {
                     ValidationResult2gDifferentDataFragmentNav(
                         firstCertData,
                         secondCertData,
-                        false
+                        false,
                     )
                 }
                 DataComparison.DateOfBirthDifferent -> {
                     ValidationResult2gDifferentDataFragmentNav(
                         firstCertData,
                         secondCertData,
-                        true
+                        true,
                     )
                 }
-            }
+            },
         )
     }
 
     override fun on2gPlusBData(boosterCertData: ValidationResult2gData) {
         findNavigator().push(
             ValidationResult2gPlusBBoosterFragmentNav(
-                boosterCertData
-            )
+                boosterCertData,
+            ),
         )
     }
 
@@ -192,7 +205,7 @@ internal class CovPassCheckQRScannerFragment :
                 rValueSignature = getRValueByteArray.toHex(),
                 issuingCountry = issuer.uppercase(),
                 dateOfIssue = validFrom.toISO8601orEmpty(),
-                technicalExpiryDate = validUntil.toISO8601orEmpty()
+                technicalExpiryDate = validUntil.toISO8601orEmpty(),
             )
         } else {
             null
@@ -206,8 +219,8 @@ internal class CovPassCheckQRScannerFragment :
                 transliteratedName = certificate.fullTransliteratedName,
                 birthDate = formatDateFromString(certificate.birthDateFormatted),
                 expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate
-            )
+                isGermanCertificate = certificate.isGermanCertificate,
+            ),
         )
     }
 
@@ -219,14 +232,14 @@ internal class CovPassCheckQRScannerFragment :
                 birthDate = formatDateFromString(certificate.birthDateFormatted),
                 sampleCollection = sampleCollection,
                 expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate
-            )
+                isGermanCertificate = certificate.isGermanCertificate,
+            ),
         )
     }
 
     override fun on3gValidAntigenTest(
         certificate: CovCertificate,
-        sampleCollection: ZonedDateTime?
+        sampleCollection: ZonedDateTime?,
     ) {
         findNavigator().push(
             ValidAntigenTestFragmentNav(
@@ -235,8 +248,8 @@ internal class CovPassCheckQRScannerFragment :
                 birthDate = formatDateFromString(certificate.birthDateFormatted),
                 sampleCollection = sampleCollection,
                 expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate
-            )
+                isGermanCertificate = certificate.isGermanCertificate,
+            ),
         )
     }
 
@@ -249,8 +262,8 @@ internal class CovPassCheckQRScannerFragment :
             ValidationResultFailureFragmentNav(
                 is2gOn = is2gOn,
                 expertModeData = certificate?.getExpertModeData(),
-                isGermanCertificate = certificate?.isGermanCertificate == true
-            )
+                isGermanCertificate = certificate?.isGermanCertificate == true,
+            ),
         )
     }
 
@@ -260,7 +273,7 @@ internal class CovPassCheckQRScannerFragment :
             messageString = "${getString(R.string.error_2G_unexpected_type_copy)} (Error " +
                 "$ERROR_CODE_QR_CODE_DUPLICATED)",
             positiveButtonTextRes = R.string.error_scan_qrcode_cannot_be_parsed_button_title,
-            tag = TAG_ERROR_2G_UNEXPECTED_TYPE
+            tag = TAG_ERROR_2G_UNEXPECTED_TYPE,
         )
         showDialog(dialog, childFragmentManager)
     }
@@ -282,8 +295,8 @@ internal class CovPassCheckQRScannerFragment :
                 findNavigator().push(
                     ValidationResult2gFragmentNav(
                         firstCertificateData2G,
-                        dataViewModel.secondCertificateData2G
-                    )
+                        dataViewModel.secondCertificateData2G,
+                    ),
                 )
             }
         } else {

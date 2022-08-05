@@ -15,19 +15,19 @@ import java.time.ZoneId
 
 public data class SettingItem(
     @StringRes val title: Int,
-    val date: Instant
+    val date: Instant,
 )
 
 @SuppressLint("NotifyDataSetChanged")
 public class SettingsAdapter(
-    parent: Fragment
+    parent: Fragment,
 ) : BaseRecyclerViewAdapter<SettingsAdapter.SettingsViewHolder>(parent) {
 
     private lateinit var items: List<SettingItem>
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): SettingsViewHolder = SettingsViewHolder(parent)
 
     override fun onBindViewHolder(holder: SettingsViewHolder, position: Int) {

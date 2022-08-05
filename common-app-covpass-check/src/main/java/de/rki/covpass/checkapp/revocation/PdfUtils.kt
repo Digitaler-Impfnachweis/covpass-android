@@ -22,19 +22,19 @@ internal object PdfUtils {
         return context.readTextAsset("TechnicalDetailsTemplate.svg")
             .replace(
                 "\$code",
-                base64EncodedCode.svgSpan(55, 37, 21)
+                base64EncodedCode.svgSpan(55, 37, 21),
             )
             .replace(
                 "\$co",
-                revocationExportData.issuingCountry.sanitizeXMLString()
+                revocationExportData.issuingCountry.sanitizeXMLString(),
             )
             .replace(
                 "\$te",
-                revocationExportData.technicalExpiryDate
+                revocationExportData.technicalExpiryDate,
             )
             .replace(
                 "\$qr",
-                base64EncodedQrCode
+                base64EncodedQrCode,
             )
     }
 }

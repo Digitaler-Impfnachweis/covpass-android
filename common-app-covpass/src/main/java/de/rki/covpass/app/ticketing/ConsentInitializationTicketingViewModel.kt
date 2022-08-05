@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 
 public class ConsentInitializationTicketingViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    private val hostPatternWhitelist: HostPatternWhitelist = sdkDeps.hostPatternWhitelist
+    private val hostPatternWhitelist: HostPatternWhitelist = sdkDeps.hostPatternWhitelist,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     public fun isWhitelisted(url: String): Boolean =

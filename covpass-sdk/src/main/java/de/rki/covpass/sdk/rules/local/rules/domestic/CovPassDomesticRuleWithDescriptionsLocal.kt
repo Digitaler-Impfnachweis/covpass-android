@@ -12,7 +12,7 @@ public data class CovPassDomesticRuleWithDescriptionsLocal(
     @Embedded val rule: CovPassDomesticRuleLocal,
     @Relation(
         parentColumn = "ruleId",
-        entityColumn = "ruleContainerId"
+        entityColumn = "ruleContainerId",
     )
-    val descriptions: List<CovPassDomesticRuleDescriptionLocal>
+    val descriptions: List<CovPassDomesticRuleDescriptionLocal>,
 )

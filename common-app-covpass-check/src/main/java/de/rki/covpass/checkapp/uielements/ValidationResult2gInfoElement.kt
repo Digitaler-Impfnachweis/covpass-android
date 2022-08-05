@@ -22,7 +22,7 @@ public class ValidationResult2gInfoElement @JvmOverloads constructor(
 ) : FrameLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: ValidationResult2gInfoBinding =
         ValidationResult2gInfoBinding.inflate(LayoutInflater.from(context))
@@ -59,7 +59,7 @@ public class ValidationResult2gInfoElement @JvmOverloads constructor(
                 R.drawable.result_2g_info_element_warning_background
             } else {
                 R.drawable.result_2g_element_background
-            }
+            },
         )
     }
 

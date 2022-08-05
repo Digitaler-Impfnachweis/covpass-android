@@ -25,22 +25,22 @@ internal class RevocationValidatorTest : CoroutineTest() {
         RevocationKidEntry(
             "ea3ab2264f346d45".decodeHexToByteArray(),
             mapOf(
-                Pair(0x0a, 538)
-            )
+                Pair(0x0a, 538),
+            ),
         ),
         RevocationKidEntry(
             "f5c5970c3039d854".decodeHexToByteArray(),
             mapOf(
                 Pair(0x0a, 7),
                 Pair(0x0b, 1),
-                Pair(0x0c, 1)
-            )
+                Pair(0x0c, 1),
+            ),
         ),
         RevocationKidEntry(
             "f50159a32d84e89d".decodeHexToByteArray(),
             mapOf(
-                Pair(0x0b, 5)
-            )
+                Pair(0x0b, 5),
+            ),
         ),
     )
     private val indexList = mapOf(
@@ -52,11 +52,11 @@ internal class RevocationValidatorTest : CoroutineTest() {
                 mapOf(
                     Pair(
                         "b8".decodeHexToByteArray().first(),
-                        RevocationIndexByte2Entry(1646129242, 1)
-                    )
-                )
+                        RevocationIndexByte2Entry(1646129242, 1),
+                    ),
+                ),
 
-            )
+            ),
         ),
         Pair(
             "b4".decodeHexToByteArray().first(),
@@ -66,11 +66,11 @@ internal class RevocationValidatorTest : CoroutineTest() {
                 mapOf(
                     Pair(
                         "65".decodeHexToByteArray().first(),
-                        RevocationIndexByte2Entry(1646044012, 1)
-                    )
-                )
+                        RevocationIndexByte2Entry(1646044012, 1),
+                    ),
+                ),
 
-            )
+            ),
         ),
         Pair(
             "ec".decodeHexToByteArray().first(),
@@ -80,11 +80,11 @@ internal class RevocationValidatorTest : CoroutineTest() {
                 mapOf(
                     Pair(
                         "e1".decodeHexToByteArray().first(),
-                        RevocationIndexByte2Entry(1646129243, 1)
-                    )
-                )
+                        RevocationIndexByte2Entry(1646129243, 1),
+                    ),
+                ),
 
-            )
+            ),
         ),
         Pair(
             "ee".decodeHexToByteArray().first(),
@@ -94,11 +94,11 @@ internal class RevocationValidatorTest : CoroutineTest() {
                 mapOf(
                     Pair(
                         "36".decodeHexToByteArray().first(),
-                        RevocationIndexByte2Entry(1649087075, 1)
-                    )
-                )
+                        RevocationIndexByte2Entry(1649087075, 1),
+                    ),
+                ),
 
-            )
+            ),
         ),
     )
 
@@ -121,7 +121,6 @@ internal class RevocationValidatorTest : CoroutineTest() {
 
     @Test
     fun `test empty kid list revocation`() = runTest {
-
         coEvery {
             revocationRemoteListRepository.getKidList()
         } returns emptyList()
@@ -130,7 +129,6 @@ internal class RevocationValidatorTest : CoroutineTest() {
 
     @Test
     fun `test empty index list revocation`() = runTest {
-
         coEvery {
             revocationRemoteListRepository.getIndex(any(), any())
         } returns emptyMap()

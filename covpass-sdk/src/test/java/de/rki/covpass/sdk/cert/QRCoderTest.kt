@@ -73,7 +73,7 @@ internal class QRCoderTest : BaseSdkTest() {
                     "uyNL_KeY1Z0juz9WU9660BedgRzrZplxUZRjr09JIlZNtgZtqgAZ9Pma3kgPhUln9Gufw",
                 "I want to check your DCC to confirm your booking!:)",
                 "Booking Nr. ?",
-                "Service Provider.com"
+                "Service Provider.com",
             )
         assertEquals(ticketingDataInitialization, ticketingFromfile)
     }

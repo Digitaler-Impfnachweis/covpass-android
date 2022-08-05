@@ -31,7 +31,7 @@ internal class CovPassGetRulesUseCaseTest {
                 "de",
                 "",
                 CertificateType.VACCINATION,
-                ZonedDateTime.now()
+                ZonedDateTime.now(),
             )
         }
 
@@ -55,7 +55,7 @@ internal class CovPassGetRulesUseCaseTest {
                 "de",
                 "de",
                 CertificateType.VACCINATION,
-                ZonedDateTime.now()
+                ZonedDateTime.now(),
             )
         }
 

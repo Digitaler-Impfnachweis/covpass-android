@@ -53,7 +53,7 @@ public class InfoDialogFragment : DialogFragment() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
 
         @Suppress("SpreadOperator")
@@ -67,17 +67,18 @@ public class InfoDialogFragment : DialogFragment() {
                     ?.let { res ->
                         activity?.let {
                             ContextCompat.getDrawable(
-                                it, res
+                                it,
+                                res,
                             )
                         }
-                    }
+                    },
             )
             .setCustomTitle(titleBinding.titleTextview)
             .setMessage(dialogModel.messageString)
             .setPositiveButton(
                 dialogModel.positiveButtonTextRes?.let { positiveButtonTextResId ->
                     getString(positiveButtonTextResId)
-                }
+                },
             ) { _, _ ->
                 dismiss()
                 forwardDialogClickAction(dialogModel.tag, DialogAction.POSITIVE)
@@ -85,7 +86,7 @@ public class InfoDialogFragment : DialogFragment() {
             .setNegativeButton(
                 dialogModel.negativeButtonTextRes?.let { negativeButtonTextResId ->
                     getString(negativeButtonTextResId)
-                }
+                },
             ) { _, _ ->
                 dismiss()
                 forwardDialogClickAction(dialogModel.tag, DialogAction.NEGATIVE)
@@ -93,7 +94,7 @@ public class InfoDialogFragment : DialogFragment() {
             .setNeutralButton(
                 dialogModel.neutralButtonTextRes?.let { neutralResId ->
                     getString(neutralResId)
-                }
+                },
             ) { _, _ ->
                 dismiss()
                 forwardDialogClickAction(dialogModel.tag, DialogAction.NEUTRAL)
@@ -112,13 +113,13 @@ public class InfoDialogFragment : DialogFragment() {
     private fun AlertDialog.applyButtonColors(dialogModel: DialogModel) =
         this.setOnShowListener {
             getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(
-                ContextCompat.getColor(context, dialogModel.positiveActionColorRes)
+                ContextCompat.getColor(context, dialogModel.positiveActionColorRes),
             )
             getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(
-                ContextCompat.getColor(context, dialogModel.negativeActionColorRes)
+                ContextCompat.getColor(context, dialogModel.negativeActionColorRes),
             )
             getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(
-                ContextCompat.getColor(context, dialogModel.neutralActionColorRes)
+                ContextCompat.getColor(context, dialogModel.neutralActionColorRes),
             )
         }
 }

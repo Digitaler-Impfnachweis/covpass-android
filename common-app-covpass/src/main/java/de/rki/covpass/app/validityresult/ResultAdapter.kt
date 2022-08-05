@@ -25,13 +25,13 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Locale
 
 @SuppressLint("NotifyDataSetChanged")
 public class ResultAdapter(
     parent: Fragment,
     private val resultNoteEn: Int,
-    private val resultNoteDe: Int
+    private val resultNoteDe: Int,
 ) : BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
 
     private var resultItems: List<ResultFragment.ResultRowData> = emptyList()
@@ -50,7 +50,7 @@ public class ResultAdapter(
         resultType: LocalResult,
         countryName: Country,
         dateTime: LocalDateTime,
-        noRules: Int = 0
+        noRules: Int = 0,
     ) {
         this.resultType = resultType
         this.country = countryName
@@ -97,13 +97,13 @@ public class ResultAdapter(
     public class HeaderViewHolder(parent: ViewGroup) :
         BindingViewHolder<ResultHeaderBinding>(
             parent,
-            ResultHeaderBinding::inflate
+            ResultHeaderBinding::inflate,
         ) {
         public fun bind(
             resultType: LocalResult,
             country: Country,
             dateTime: LocalDateTime,
-            rulesCount: Int
+            rulesCount: Int,
         ) {
             when (resultType) {
                 LocalResult.FAIL -> {
@@ -112,14 +112,14 @@ public class ResultAdapter(
                         subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_not_valid_message,
                             getString(country.nameRes),
-                            dateTime.formatDateTime()
+                            dateTime.formatDateTime(),
                         ),
                         subtitleContentDescription = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                             getString(country.nameRes),
-                            dateTime.formatDateTimeAccessibility()
+                            dateTime.formatDateTimeAccessibility(),
                         ),
-                        iconRes = R.drawable.info_error_icon
+                        iconRes = R.drawable.info_error_icon,
                     )
                 }
                 LocalResult.OPEN -> {
@@ -128,17 +128,17 @@ public class ResultAdapter(
                         subtitle = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                             getString(country.nameRes),
-                            dateTime.formatDateTime()
+                            dateTime.formatDateTime(),
                         ),
                         subtitleContentDescription = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                             getString(country.nameRes),
-                            dateTime.formatDateTimeAccessibility()
+                            dateTime.formatDateTimeAccessibility(),
                         ),
                         description = getString(
-                            R.string.certificate_check_validity_detail_view_result_not_testable_second_message
+                            R.string.certificate_check_validity_detail_view_result_not_testable_second_message,
                         ),
-                        iconRes = R.drawable.info_warning_icon
+                        iconRes = R.drawable.info_warning_icon,
                     )
                 }
                 else -> {
@@ -148,17 +148,18 @@ public class ResultAdapter(
                             subtitle = getString(
                                 R.string.certificate_check_validity_detail_view_result_valid_message,
                                 getString(country.nameRes),
-                                dateTime.formatDateTime()
+                                dateTime.formatDateTime(),
                             ),
                             subtitleContentDescription = getString(
                                 R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                                 getString(country.nameRes),
-                                dateTime.formatDateTimeAccessibility()
+                                dateTime.formatDateTimeAccessibility(),
                             ),
                             description = getString(
-                                R.string.certificate_check_validity_detail_view_result_valid_info, rulesCount
+                                R.string.certificate_check_validity_detail_view_result_valid_info,
+                                rulesCount,
                             ),
-                            iconRes = R.drawable.info_success_icon
+                            iconRes = R.drawable.info_success_icon,
                         )
                     } else {
                         binding.resultWarningElement.showWarning(
@@ -166,17 +167,17 @@ public class ResultAdapter(
                             subtitle = getString(
                                 R.string.certificate_check_validity_detail_view_result_valid_message,
                                 getString(country.nameRes),
-                                dateTime.formatDateTime()
+                                dateTime.formatDateTime(),
                             ),
                             subtitleContentDescription = getString(
                                 R.string.certificate_check_validity_detail_view_result_not_testable_first_message,
                                 getString(country.nameRes),
-                                dateTime.formatDateTimeAccessibility()
+                                dateTime.formatDateTimeAccessibility(),
                             ),
                             description = getString(
-                                R.string.certificate_check_validity_detail_view_result_no_rules_message
+                                R.string.certificate_check_validity_detail_view_result_no_rules_message,
                             ),
-                            iconRes = R.drawable.info_warning_icon
+                            iconRes = R.drawable.info_warning_icon,
                         )
                     }
                 }
@@ -187,7 +188,7 @@ public class ResultAdapter(
     public inner class NormalViewHolder(parent: ViewGroup) :
         BindingViewHolder<ResultRowBinding>(
             parent,
-            ResultRowBinding::inflate
+            ResultRowBinding::inflate,
         ) {
         public fun bind(item: ResultFragment.ResultRowData) {
             binding.resultRowHeaderTextview.text = item.title
@@ -225,10 +226,10 @@ public class ResultAdapter(
     public class FooterViewHolder(
         parent: ViewGroup,
         private val resultNoteEn: Int,
-        private val resultNoteDe: Int
+        private val resultNoteDe: Int,
     ) : BindingViewHolder<ResultFooterBinding>(
         parent,
-        ResultFooterBinding::inflate
+        ResultFooterBinding::inflate,
     ) {
         public fun bind(parent: Fragment, certId: String) {
             binding.resultDisplayQrButton.setOnClickListener {

@@ -25,7 +25,7 @@ internal class ReissueErrorHandler : CommonErrorHandler() {
                 getString(R.string.certificate_renewal_error_copy, ERROR_TOO_MANY_REQUESTS),
                 positiveButtonTextRes = R.string.certificate_renewal_error_button_primary,
                 negativeButtonTextRes = R.string.certificate_renewal_error_button_secondary,
-                tag = TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
+                tag = TAG_ERROR_REISSUING_TOO_MANY_REQUESTS,
             )
             is ReissuingInternalServerError -> DialogModel(
                 titleRes = R.string.certificate_renewal_error_title,
@@ -33,7 +33,7 @@ internal class ReissueErrorHandler : CommonErrorHandler() {
                 getString(R.string.certificate_renewal_error_copy, ERROR_INTERNAL_SERVER_ERROR),
                 positiveButtonTextRes = R.string.certificate_renewal_error_button_primary,
                 negativeButtonTextRes = R.string.certificate_renewal_error_button_secondary,
-                tag = TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
+                tag = TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR,
             )
             else -> DialogModel(
                 titleRes = R.string.certificate_renewal_error_title,
@@ -41,7 +41,7 @@ internal class ReissueErrorHandler : CommonErrorHandler() {
                 getString(R.string.certificate_renewal_error_copy, ERROR_INTERNAL_ERROR),
                 positiveButtonTextRes = R.string.certificate_renewal_error_button_primary,
                 negativeButtonTextRes = R.string.certificate_renewal_error_button_secondary,
-                tag = TAG_ERROR_REISSUING_INTERNAL_ERROR
+                tag = TAG_ERROR_REISSUING_INTERNAL_ERROR,
             )
         }
 

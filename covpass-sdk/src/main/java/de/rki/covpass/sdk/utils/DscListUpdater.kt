@@ -13,7 +13,7 @@ import de.rki.covpass.sdk.storage.DscRepository
 public class DscListUpdater(
     public val dscListService: DscListService,
     public val dscRepository: DscRepository,
-    public val certValidator: CertValidator
+    public val certValidator: CertValidator,
 ) {
 
     public suspend fun update() {

@@ -9,9 +9,9 @@ import com.ensody.reactivestate.test.CoroutineTest
 import de.rki.covpass.sdk.ticketing.data.validate.BookingPortalValidationResponseResult
 import de.rki.covpass.sdk.ticketing.data.validate.BookingValidationResponse
 import de.rki.covpass.sdk.ticketing.data.validate.TicketingValidationRequest
-import io.ktor.client.call.*
-import io.ktor.client.features.*
-import io.ktor.client.statement.*
+import io.ktor.client.call.receive
+import io.ktor.client.features.ClientRequestException
+import io.ktor.client.statement.HttpResponse
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlin.test.Test
@@ -30,13 +30,13 @@ internal class TicketingValidationRepositoryTest : CoroutineTest() {
         } throws ClientRequestException(httpResponse, "")
 
         val repository = TicketingValidationRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         assertFailsWith<TicketingSendingCertificateException> {
             repository.fetchValidationResult(
                 "",
                 "",
-                TicketingValidationRequest("", "", "", "", "", "")
+                TicketingValidationRequest("", "", "", "", "", ""),
             )
         }
     }
@@ -51,7 +51,7 @@ internal class TicketingValidationRepositoryTest : CoroutineTest() {
             listOf(""),
             "",
             1,
-            listOf()
+            listOf(),
         )
         val encodedBookingValidationResponse = "eyJyZXN1bHQiOiJPSyIsInN1YiI6IiIsImlzcyI6IiIsImV4cCI6MSwiY2F0ZWdvcnkiO" +
             "lsiIl0sImNvbmZpcm1hdGlvbiI6IiIsImlhdCI6MSwicmVzdWx0cyI6W119"
@@ -66,12 +66,12 @@ internal class TicketingValidationRepositoryTest : CoroutineTest() {
         } returns "header.$encodedBookingValidationResponse"
 
         val repository = TicketingValidationRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         val bookingValidationResponse = repository.fetchValidationResult(
             "",
             "",
-            TicketingValidationRequest("", "", "", "", "", "")
+            TicketingValidationRequest("", "", "", "", "", ""),
         )
         assertEquals(bookingValidationResponse, expectedBookingValidationResponse)
     }

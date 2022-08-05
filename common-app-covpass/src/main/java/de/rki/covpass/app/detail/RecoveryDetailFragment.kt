@@ -44,66 +44,66 @@ internal class RecoveryDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_name),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_name),
-                cert.fullNameReverse
+                cert.fullNameReverse,
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_name_standard),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_name_standard),
-                cert.fullTransliteratedNameReverse
+                cert.fullTransliteratedNameReverse,
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_date_of_birth),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_date_of_birth),
-                cert.birthDateFormatted
+                cert.birthDateFormatted,
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_disease),
-                valueSetsRepository.getDiseaseAgentName(recovery.targetDisease)
+                valueSetsRepository.getDiseaseAgentName(recovery.targetDisease),
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_date_first_positive_result),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_date_first_positive_result),
-                recovery.firstResult?.formatDateInternational()
+                recovery.firstResult?.formatDateInternational(),
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_country),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_country),
-                CountryResolver.getCountryLocalized(recovery.country)
+                CountryResolver.getCountryLocalized(recovery.country),
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_issuer),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_issuer),
-                recovery.certificateIssuer
+                recovery.certificateIssuer,
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_valid_from),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_valid_from),
-                recovery.validFrom?.formatDateInternational()
+                recovery.validFrom?.formatDateInternational(),
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_valid_until),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_valid_until),
-                recovery.validUntil?.formatDateInternational()
+                recovery.validUntil?.formatDateInternational(),
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_identifier),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_identifier),
-                recovery.idWithoutPrefix
+                recovery.idWithoutPrefix,
             ),
             DataRow(
                 getString(R.string.recovery_certificate_detail_view_data_expiry_date),
                 getString(R.string.accessibility_recovery_certificate_detail_view_data_expiry_date),
                 getString(
                     R.string.recovery_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime(),
                 ),
                 getString(R.string.recovery_certificate_detail_view_data_expiry_date_note),
                 getString(
                     R.string.recovery_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility(),
                 ),
-            )
+            ),
         )
     }
 }

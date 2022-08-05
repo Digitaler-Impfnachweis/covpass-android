@@ -14,11 +14,10 @@ import androidx.room.TypeConverters
         RevocationKidLocal::class,
         RevocationIndexLocal::class,
         RevocationByteOneLocal::class,
-        RevocationByteTwoLocal::class
+        RevocationByteTwoLocal::class,
     ],
-    version = 1
+    version = 1,
 )
-
 @TypeConverters(RevocationConverters::class)
 public abstract class RevocationDatabase : RoomDatabase() {
 

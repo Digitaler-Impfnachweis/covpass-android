@@ -29,7 +29,7 @@ public data class GroupedCertificatesList private constructor(
                 it.id.name,
                 certId.name,
                 it.id.birthDate,
-                certId.birthDate
+                certId.birthDate,
             ) == DataComparison.Equal
         }
 
@@ -130,7 +130,7 @@ public data class GroupedCertificatesList private constructor(
                     groupedCertificates.certificates = groupedCertificates.certificates.map {
                         it.copy(
                             reissueState = ReissueState.None,
-                            hasSeenReissueNotification = false
+                            hasSeenReissueNotification = false,
                         )
                     }.toMutableList()
                 }

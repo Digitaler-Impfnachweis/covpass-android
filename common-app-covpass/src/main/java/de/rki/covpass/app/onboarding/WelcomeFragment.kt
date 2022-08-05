@@ -14,7 +14,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 internal class WelcomeFragmentNav(
-    val uri: Uri?
+    val uri: Uri?,
 ) : FragmentNav(WelcomeFragment::class)
 
 /**

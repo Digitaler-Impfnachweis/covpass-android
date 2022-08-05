@@ -6,8 +6,15 @@
 package com.ibm.health.common.android.utils
 
 import android.app.Application
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import com.ensody.reactivestate.DependencyAccessor
+
+/** The version of the application. */
+@OptIn(DependencyAccessor::class)
+public val packageName: String by lazy {
+    androidDeps.application.packageName
+}
 
 /** The version of the application. */
 @OptIn(DependencyAccessor::class)
@@ -26,7 +33,7 @@ public val isDebuggable: Boolean by lazy {
 }
 
 /** True, if the application is debuggable. */
-public val Application.isDebuggable: Boolean get() =
+public val Context.isDebuggable: Boolean get() =
     applicationInfo.flags.hasFlags(ApplicationInfo.FLAG_DEBUGGABLE)
 
 /** True, if the given bit [flags] are set. */

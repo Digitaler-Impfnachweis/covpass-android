@@ -14,7 +14,7 @@ public fun CovPassValueSet.toCovPassValueSetLocal(): CovPassValueSetLocal =
         valueSetId = valueSetId,
         valueSetDate = valueSetDate,
         valueSetValues = valueSetValues,
-        hash = hash
+        hash = hash,
     )
 
 public fun Collection<CovPassValueSet>.toCovPassValueSetsLocal(): List<CovPassValueSetLocal> =
@@ -24,7 +24,7 @@ public fun CovPassValueSetLocal.toValueSet(): ValueSet =
     ValueSet(
         valueSetId = valueSetId,
         valueSetDate = valueSetDate,
-        valueSetValues = jacksonObjectMapper().readTree(valueSetValues)
+        valueSetValues = jacksonObjectMapper().readTree(valueSetValues),
     )
 
 public fun Collection<CovPassValueSetLocal>.toValueSets(): List<ValueSet> =

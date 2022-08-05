@@ -9,7 +9,11 @@ import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
 import de.rki.covpass.sdk.rules.local.rules.eu.CovPassEuRulesLocalDataSource
 import de.rki.covpass.sdk.rules.remote.rules.eu.CovPassRuleRemote
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.just
+import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
@@ -30,7 +34,7 @@ internal class CovPassEuRulesRepositoryTest {
         val repository = CovPassEuRulesRepository(
             remoteDataSource,
             localDataSourceEu,
-            rulesUpdateRepository
+            rulesUpdateRepository,
         )
         runTest {
             repository.loadRules()

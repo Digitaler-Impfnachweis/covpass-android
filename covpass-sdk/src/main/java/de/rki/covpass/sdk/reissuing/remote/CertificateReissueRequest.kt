@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class CertificateReissueRequest(
     val action: String,
-    val certificates: List<String>
+    val certificates: List<String>,
 )

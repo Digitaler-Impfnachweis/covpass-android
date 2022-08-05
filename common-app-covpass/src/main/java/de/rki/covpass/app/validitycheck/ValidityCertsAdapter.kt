@@ -14,7 +14,11 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ValidityCertificateItemBinding
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.app.validityresult.*
+import de.rki.covpass.app.validityresult.DerivedValidationResult
+import de.rki.covpass.app.validityresult.LocalResult
+import de.rki.covpass.app.validityresult.RecoveryResultFragmentNav
+import de.rki.covpass.app.validityresult.TestResultFragmentNav
+import de.rki.covpass.app.validityresult.VaccinationResultFragmentNav
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -60,7 +64,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
     public inner class ValidityCertsViewHolder(parent: ViewGroup) :
         BindingViewHolder<ValidityCertificateItemBinding>(
             parent,
-            ValidityCertificateItemBinding::inflate
+            ValidityCertificateItemBinding::inflate,
         ) {
         public fun bind(item: CertsValidationResults) {
             with(binding) {
@@ -75,8 +79,8 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                         item.results.toTempClassList("v"),
                                         country,
                                         dateTime,
-                                        item.results.size
-                                    )
+                                        item.results.size,
+                                    ),
                                 )
                         }
                         is TestCert -> {
@@ -87,8 +91,8 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                         item.results.toTempClassList("t"),
                                         country,
                                         dateTime,
-                                        item.results.size
-                                    )
+                                        item.results.size,
+                                    ),
                                 )
                         }
                         is Recovery -> {
@@ -99,8 +103,8 @@ public class ValidityCertsAdapter(parent: Fragment) :
                                         item.results.toTempClassList("r"),
                                         country,
                                         dateTime,
-                                        item.results.size
-                                    )
+                                        item.results.size,
+                                    ),
                                 )
                         }
                     }
@@ -124,7 +128,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                         binding.certificateTypeIcon.setImageResource(R.drawable.validation_no_rules)
                         binding.certificateStatusLayout.setBackgroundResource(R.color.warning20)
                         binding.certificateItemValidity.setText(
-                            R.string.certificate_check_validity_result_not_testable
+                            R.string.certificate_check_validity_result_not_testable,
                         )
                     }
                     else -> {
@@ -165,7 +169,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                 DerivedValidationResult(
                     result = validationResult.result.toTempResult(),
                     description = validationResult.rule.getDescriptionFor(getDescriptionLanguage()),
-                    affectedString = validationResult.rule.affectedString.map { it.drop("$certType.0.".length) }
+                    affectedString = validationResult.rule.affectedString.map { it.drop("$certType.0.".length) },
                 )
             }
     }

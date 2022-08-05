@@ -5,7 +5,11 @@
 
 package de.rki.covpass.sdk.revocation.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 
 @Suppress("SpreadOperator")
 @Dao
@@ -20,13 +24,13 @@ public abstract class RevocationByteTwoDao {
             "WHERE :kid = kid " +
             "AND :hashVariant = hashVariant " +
             "AND :byteOne = byteOne " +
-            "AND :byteTwo = byteTwo"
+            "AND :byteTwo = byteTwo",
     )
     public abstract suspend fun getByteTwoChunks(
         kid: ByteArray,
         hashVariant: Byte,
         byteOne: Byte,
-        byteTwo: Byte
+        byteTwo: Byte,
     ): RevocationByteTwoLocal?
 
     @Query(
@@ -34,12 +38,12 @@ public abstract class RevocationByteTwoDao {
             "FROM revocation_byte_two_list " +
             "WHERE :kid = kid " +
             "AND :hashVariant = hashVariant " +
-            "AND :byteOne = byteOne"
+            "AND :byteOne = byteOne",
     )
     public abstract suspend fun getAllFromKidAndHashVariant(
         kid: ByteArray,
         hashVariant: Byte,
-        byteOne: Byte
+        byteOne: Byte,
     ): List<RevocationByteOneLocal>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -57,7 +61,7 @@ public abstract class RevocationByteTwoDao {
         kid: ByteArray,
         hashVariant: Byte,
         byteOne: Byte,
-        add: List<RevocationByteTwoLocal>
+        add: List<RevocationByteTwoLocal>,
     ) {
         deleteAllFromKidAndHashVariantAndByteOne(kid, hashVariant, byteOne)
         insertAll(add)
@@ -67,12 +71,12 @@ public abstract class RevocationByteTwoDao {
         "DELETE FROM revocation_byte_two_list " +
             "WHERE :kid = kid " +
             "AND :hashVariant = hashVariant " +
-            "AND :byteOne = byteOne"
+            "AND :byteOne = byteOne",
     )
     public abstract suspend fun deleteAllFromKidAndHashVariantAndByteOne(
         kid: ByteArray,
         hashVariant: Byte,
-        byteOne: Byte
+        byteOne: Byte,
     )
 
     @Query(
@@ -80,7 +84,7 @@ public abstract class RevocationByteTwoDao {
             "WHERE :kid = kid " +
             "AND :hashVariant = hashVariant " +
             "AND :byteOne = byteOne " +
-            "AND :byteTwo = byteTwo"
+            "AND :byteTwo = byteTwo",
     )
     public abstract suspend fun deleteAllFromKidAndHashVariantAndByteOneAndByteTwo(
         kid: ByteArray,

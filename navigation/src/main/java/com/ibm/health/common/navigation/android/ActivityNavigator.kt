@@ -15,7 +15,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.DependencyAccessor
+import com.ibm.health.common.android.utils.runBlockingOnMainThread
 import de.rki.covpass.logging.Lumber
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,23 +40,41 @@ public class ActivityNavigator {
      * Start a new activity from the [currentActivity] with given intent flags.
      */
     public fun startActivity(activityToStart: Class<out Activity>, intentFlags: List<Int>? = null) {
-        val intent = Intent(currentActivity, activityToStart)
-        intentFlags?.forEach { intent.addFlags(it) }
-        currentActivity.startActivity(intent)
+        // Starting activities when the app is in background can lead to unexpected behaviour in combination with
+        // process restoration. So we only start activities when the app is in foreground.
+        executeWhenProcessIsStarted {
+            runBlockingOnMainThread {
+                val intent = Intent(currentActivity, activityToStart)
+                intentFlags?.forEach { intent.addFlags(it) }
+                currentActivity.startActivity(intent)
+            }
+        }
     }
 
     /**
      * Start a new activity from the [currentActivity].
      */
     public fun startActivity(intentDestination: IntentDestination) {
-        currentActivity.startActivity(intentDestination)
+        // Starting activities when the app is in background can lead to unexpected behaviour in combination with
+        // process restoration. So we only start activities when the app is in foreground.
+        executeWhenProcessIsStarted {
+            runBlockingOnMainThread {
+                currentActivity.startActivity(intentDestination)
+            }
+        }
     }
 
     /**
      * Start a new activity from the [currentActivity].
      */
     public fun startActivity(intent: Intent) {
-        currentActivity.startActivity(intent)
+        // Starting activities when the app is in background can lead to unexpected behaviour in combination with
+        // process restoration. So we only start activities when the app is in foreground.
+        executeWhenProcessIsStarted {
+            runBlockingOnMainThread {
+                currentActivity.startActivity(intent)
+            }
+        }
     }
 
     /**
@@ -87,7 +109,20 @@ public class ActivityNavigator {
      *         not be found and this activity was simply finished normally.
      */
     public fun navigateUpTo(intentDestination: IntentDestination): Boolean =
-        currentActivity.navigateUpTo(intentDestination.toIntent(currentActivity))
+        runBlockingOnMainThread {
+            currentActivity.navigateUpTo(intentDestination.toIntent(currentActivity))
+        }
+
+    private fun executeWhenProcessIsStarted(action: () -> Unit) {
+        val owner = ProcessLifecycleOwner.get()
+        if (owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            action()
+        } else {
+            owner.lifecycleScope.launchWhenStarted {
+                action()
+            }
+        }
+    }
 }
 
 @OptIn(DependencyAccessor::class)
@@ -120,7 +155,7 @@ private object LifecycleTracker : Application.ActivityLifecycleCallbacks {
         (activity as? FragmentActivity)?.supportFragmentManager
             ?.registerFragmentLifecycleCallbacks(
                 fragmentCallbacks,
-                shouldLogFragmentLifecycleRecursive
+                shouldLogFragmentLifecycleRecursive,
             )
     }
 
@@ -166,7 +201,7 @@ private val fragmentCallbacks = object : FragmentManager.FragmentLifecycleCallba
         fm: FragmentManager,
         f: Fragment,
         v: View,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ) {
         super.onFragmentViewCreated(fm, f, v, savedInstanceState)
         logCallback("onFragmentViewCreated", f)
@@ -213,7 +248,7 @@ private val fragmentCallbacks = object : FragmentManager.FragmentLifecycleCallba
     }
 
     private fun logCallback(callback: String, fragment: Fragment) {
-        if (!blacklistFragmentsLifecycleLogging.any { it.isInstance(fragment) }) {
+        if (!blockListFragmentsLifecycleLogging.any { it.isInstance(fragment) }) {
             Lumber.d { "$callback, ${fragment::class.java.simpleName}" }
         }
     }
@@ -223,7 +258,7 @@ private val fragmentCallbacks = object : FragmentManager.FragmentLifecycleCallba
  * List of fragment class types of which lifecycle methods shouldn't be logged.
  * Can be overridden by assigning a new value.
  */
-public val blacklistFragmentsLifecycleLogging: MutableList<KClass<out Any>> = mutableListOf(
+public val blockListFragmentsLifecycleLogging: MutableList<KClass<out Any>> = mutableListOf(
     DialogFragment::class,
 )
 

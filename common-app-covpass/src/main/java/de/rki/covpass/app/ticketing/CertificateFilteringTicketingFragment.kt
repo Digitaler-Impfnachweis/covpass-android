@@ -53,7 +53,7 @@ public class CertificateFilteringTicketingFragment :
     private val viewModel by reactiveState {
         CertificateFilteringTicketingViewModel(
             scope = scope,
-            ticketingDataInitialization = args.ticketingDataInitialization
+            ticketingDataInitialization = args.ticketingDataInitialization,
         )
     }
     private lateinit var adapter: CertificateFilteringTicketingAdapter
@@ -139,14 +139,14 @@ public class CertificateFilteringTicketingFragment :
             encryptionData.accessTokenContainer.ticketingAccessTokenData.iv,
             encryptionData.accessTokenContainer.accessToken.validationUrl,
             encryptionData.validationServiceId,
-            encryptionData.cancellationServiceUrl
+            encryptionData.cancellationServiceUrl,
         )
         findNavigator().push(
             ConsentSendTicketingFragmentNav(
                 certId,
                 args.ticketingDataInitialization,
-                validationObject
-            )
+                validationObject,
+            ),
         )
     }
 }

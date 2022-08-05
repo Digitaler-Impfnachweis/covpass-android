@@ -37,7 +37,7 @@ public class TicketingResultScreenAdapter(
         parent: ViewGroup,
     ) : BindingViewHolder<TicketingResultScreenListItemBinding>(
         parent,
-        TicketingResultScreenListItemBinding::inflate
+        TicketingResultScreenListItemBinding::inflate,
     ) {
         public fun bind(item: BookingPortalValidationResponseResultItem) {
             binding.ticketingResultItemImage.setImageResource(
@@ -45,7 +45,7 @@ public class TicketingResultScreenAdapter(
                     R.drawable.ticketing_item_icon_fail
                 } else {
                     R.drawable.ticketing_item_icon_open
-                }
+                },
             )
             binding.ticketingResultItemText.text = item.details
         }

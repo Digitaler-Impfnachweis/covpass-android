@@ -18,7 +18,7 @@ import kotlinx.coroutines.CoroutineScope
  */
 internal class CertificateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    private val toggleFavoriteUseCase: ToggleFavoriteUseCase = covpassDeps.toggleFavoriteUseCase
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase = covpassDeps.toggleFavoriteUseCase,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     fun onFavoriteClick(certId: GroupedCertificatesId) {

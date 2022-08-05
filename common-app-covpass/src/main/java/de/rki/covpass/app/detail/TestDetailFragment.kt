@@ -49,82 +49,82 @@ internal class TestDetailFragment : DgcEntryDetailFragment() {
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_name),
                 getString(R.string.accessibility_test_certificate_detail_view_data_name),
-                cert.fullNameReverse
+                cert.fullNameReverse,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_name_standard),
                 getString(R.string.accessibility_test_certificate_detail_view_data_name_standard),
-                cert.fullTransliteratedNameReverse
+                cert.fullTransliteratedNameReverse,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_date_of_birth),
                 getString(R.string.accessibility_test_certificate_detail_view_data_date_of_birth),
-                cert.birthDateFormatted
+                cert.birthDateFormatted,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_disease),
                 getString(R.string.accessibility_test_certificate_detail_view_data_disease),
-                valueSetsRepository.getDiseaseAgentName(test.targetDisease)
+                valueSetsRepository.getDiseaseAgentName(test.targetDisease),
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_type),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_type),
-                valueSetsRepository.getTestTypeName(test.testType)
+                valueSetsRepository.getTestTypeName(test.testType),
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_name),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_name),
-                test.testName
+                test.testName,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_manufactur),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_manufacturer),
-                test.manufacturer?.let { valueSetsRepository.getTestManufacturerName(it) }
+                test.manufacturer?.let { valueSetsRepository.getTestManufacturerName(it) },
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_date_and_time),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_date_and_time),
                 test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeInternational(),
-                valueAccessibleDescription = test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeAccessibility()
+                valueAccessibleDescription = test.sampleCollection?.toDeviceTimeZone()?.formatDateTimeAccessibility(),
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_results),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_results),
-                valueSetsRepository.getTestResultName(test.testResult)
+                valueSetsRepository.getTestResultName(test.testResult),
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_centre),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_centre),
-                test.testingCenter
+                test.testingCenter,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_country),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_country),
-                CountryResolver.getCountryLocalized(test.country)
+                CountryResolver.getCountryLocalized(test.country),
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_issuer),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_issuer),
-                test.certificateIssuer
+                test.certificateIssuer,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_test_identifier),
                 getString(R.string.accessibility_test_certificate_detail_view_data_test_identifier),
-                test.idWithoutPrefix
+                test.idWithoutPrefix,
             ),
             DataRow(
                 getString(R.string.test_certificate_detail_view_data_expiry_date),
                 getString(R.string.accessibility_test_certificate_detail_view_data_expiry_date),
                 getString(
                     R.string.test_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime(),
                 ),
                 getString(R.string.test_certificate_detail_view_data_expiry_date_note),
                 valueAccessibleDescription = getString(
                     R.string.test_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility()
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility(),
                 ),
-            )
+            ),
         )
     }
 }

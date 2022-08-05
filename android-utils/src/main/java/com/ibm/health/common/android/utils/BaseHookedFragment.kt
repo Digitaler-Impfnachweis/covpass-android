@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.withErrorReporting
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 
 /** Base class that comes with hook support. */
 public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
@@ -63,6 +64,13 @@ public abstract class BaseHookedFragment(@LayoutRes contentLayoutId: Int = 0) :
             }
         }
     }
+
+    public open fun launchWhenResumed(block: suspend CoroutineScope.() -> Unit): Job =
+        lifecycleScope.launchWhenResumed {
+            withErrorReporting(::onError) {
+                block()
+            }
+        }
 
     public open fun withErrorReporting(block: () -> Unit) {
         withErrorReporting(::onError) {

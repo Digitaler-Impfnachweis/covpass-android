@@ -102,10 +102,10 @@ dependencies {
             api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
+            api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
             constraints {
                 api "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
                 api "androidx.lifecycle:lifecycle-service:$lifecycleVersion"
-                api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
             }
 
             api "androidx.constraintlayout:constraintlayout:2.1.4"

@@ -13,5 +13,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 public data class GroupedCertificatesId(
     val name: Name,
-    val birthDate: String
+    val birthDate: String,
 ) : java.io.Serializable

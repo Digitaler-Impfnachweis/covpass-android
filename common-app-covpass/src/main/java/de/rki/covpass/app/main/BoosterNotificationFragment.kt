@@ -45,7 +45,7 @@ internal class BoosterNotificationFragment : BaseBottomSheet() {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
 
         binding.notificationBoosterTitle.text = getString(R.string.dialog_booster_vaccination_notification_title)

@@ -22,7 +22,7 @@ public class ValidationResult2gCertificateElement @JvmOverloads constructor(
 ) : FrameLayout(
     context,
     attrs,
-    defStyleAttr
+    defStyleAttr,
 ) {
     private val binding: ValidationResult2gCertificateBinding =
         ValidationResult2gCertificateBinding.inflate(LayoutInflater.from(context))

@@ -13,5 +13,5 @@ public data class EUValueSetValue(
     val lang: String,
     val active: Boolean,
     val system: String,
-    val version: String
+    val version: String,
 )

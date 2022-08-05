@@ -24,7 +24,7 @@ public fun CovPassRuleRemote.toCovPassRule(hash: String): CovPassRule = CovPassR
     logic = logic.toString(),
     countryCode = countryCode.lowercase(),
     region = region,
-    hash = hash
+    hash = hash,
 )
 
 public fun Collection<CovPassDescriptionRemote>.toDescriptions(): Map<String, String> =

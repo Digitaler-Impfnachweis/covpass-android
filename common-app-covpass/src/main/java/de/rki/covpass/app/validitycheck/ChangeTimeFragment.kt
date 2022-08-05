@@ -49,7 +49,7 @@ internal class ChangeTimeFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_check_validity_selection_time_title)
         bottomSheetBinding.bottomSheetActionButton.setText(
-            R.string.certificate_check_validity_selection_time_action_button
+            R.string.certificate_check_validity_selection_time_action_button,
         )
 
         startPickers()

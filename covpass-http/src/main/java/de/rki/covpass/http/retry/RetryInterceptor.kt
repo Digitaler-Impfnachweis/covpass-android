@@ -65,7 +65,7 @@ internal class RetryInterceptor : Interceptor {
         httpMethod: String,
         statusCode: Int?,
         retries: Int,
-        retryEnabled: Boolean
+        retryEnabled: Boolean,
     ): Boolean {
         return retries < MAX_ATTEMPTS &&
             retryEnabled &&

@@ -55,7 +55,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
-            }
+            },
         )
 
         bottomSheetBinding.bottomSheet.layoutParams.height = heightLayoutParams
@@ -67,20 +67,22 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
         // Adds padding to the content view equal to bottomSheetBottomView.height
         bottomSheetBinding.bottomSheetBottomView.apply {
-            viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    val bottomViewHeight = height
-                    try {
-                        bottomSheetBinding
-                    } catch (e: IllegalStateException) {
-                        return
+            viewTreeObserver.addOnGlobalLayoutListener(
+                object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        val bottomViewHeight = height
+                        try {
+                            bottomSheetBinding
+                        } catch (e: IllegalStateException) {
+                            return
+                        }
+                        bottomSheetBinding.bottomSheetContent.getChildAt(0)?.run {
+                            setPadding(paddingLeft, paddingTop, paddingRight, bottomViewHeight)
+                        }
                     }
-                    bottomSheetBinding.bottomSheetContent.getChildAt(0)?.run {
-                        setPadding(paddingLeft, paddingTop, paddingRight, bottomViewHeight)
-                    }
-                }
-            })
+                },
+            )
         }
 
         return bottomSheetBinding.root
@@ -99,7 +101,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
 
     public fun startTimer(
         durationInMilliseconds: Long = DEFAULT_DURATION_IN_MILLISECONDS,
-        showTimerMillisecondsInFuture: Long = DEFAULT_SHOW_TIMER_MILLISECONDS_IN_FUTURE
+        showTimerMillisecondsInFuture: Long = DEFAULT_SHOW_TIMER_MILLISECONDS_IN_FUTURE,
     ) {
         timer = object : CountDownTimer(durationInMilliseconds, 1000L) {
             @SuppressLint("StringFormatInvalid")

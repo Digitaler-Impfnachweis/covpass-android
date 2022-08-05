@@ -78,7 +78,7 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
         valueAnimator?.removeAllUpdateListeners()
         context?.let {
             bottomSheetBinding.bottomSheetContainer.setBackgroundColor(
-                ContextCompat.getColor(it, android.R.color.transparent)
+                ContextCompat.getColor(it, android.R.color.transparent),
             )
         }
     }
@@ -87,7 +87,7 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
         val cert = certificateList.getCombinedCertificate(args.certId) ?: return
         launchWhenStarted {
             binding.displayQrImageview.setImageBitmap(
-                generateQRCode(cert.qrContent)
+                generateQRCode(cert.qrContent),
             )
         }
     }
@@ -103,7 +103,7 @@ internal class DisplayQrCodeFragment : BaseBottomSheet() {
                 BarcodeFormat.QR_CODE,
                 resources.displayMetrics.widthPixels,
                 resources.displayMetrics.widthPixels,
-                mapOf(EncodeHintType.MARGIN to 0)
+                mapOf(EncodeHintType.MARGIN to 0),
             )
         }
 }

@@ -7,8 +7,8 @@ package de.rki.covpass.sdk.ticketing
 
 import com.ensody.reactivestate.test.CoroutineTest
 import de.rki.covpass.sdk.ticketing.data.identity.TicketingValidationServiceIdentityResponse
-import io.ktor.client.features.*
-import io.ktor.client.statement.*
+import io.ktor.client.features.ClientRequestException
+import io.ktor.client.statement.HttpResponse
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlin.test.Test
@@ -19,10 +19,9 @@ internal class ValidationServiceIdentityRepositoryTest : CoroutineTest() {
 
     @Test
     fun `test fetchValidationServiceIdentity`() = runTest {
-
         val expectedTicketingAccessTokenData = TicketingValidationServiceIdentityResponse(
             "id",
-            emptyList()
+            emptyList(),
         )
         val ticketingApiService: TicketingApiService = mockk()
 
@@ -30,11 +29,11 @@ internal class ValidationServiceIdentityRepositoryTest : CoroutineTest() {
             ticketingApiService.getValidationServiceIdentity(any())
         } returns TicketingValidationServiceIdentityResponse(
             "id",
-            emptyList()
+            emptyList(),
         )
 
         val repository = ValidationServiceIdentityRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         val ticketingAccessTokenData = repository.fetchValidationServiceIdentity("")
         assertEquals(ticketingAccessTokenData, expectedTicketingAccessTokenData)
@@ -50,7 +49,7 @@ internal class ValidationServiceIdentityRepositoryTest : CoroutineTest() {
         } throws ClientRequestException(httpResponse, "")
 
         val repository = ValidationServiceIdentityRepository(
-            ticketingApiService
+            ticketingApiService,
         )
         assertFailsWith<IdentityDocumentValidationRequestException> {
             repository.fetchValidationServiceIdentity("")
