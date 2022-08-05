@@ -10,7 +10,7 @@ import dgca.verifier.app.engine.data.CertificateType
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import java.time.ZonedDateTime
 import kotlin.test.Test
 
@@ -26,7 +26,7 @@ internal class CovPassGetRulesUseCaseTest {
 
         val covPassGetRulesUseCase = CovPassGetRulesUseCase(repositoryEu)
 
-        runBlockingTest {
+        runTest {
             covPassGetRulesUseCase.invoke(
                 "de",
                 "",
@@ -50,7 +50,7 @@ internal class CovPassGetRulesUseCaseTest {
 
         val covPassGetRulesUseCase = CovPassGetRulesUseCase(repositoryEu)
 
-        runBlockingTest {
+        runTest {
             covPassGetRulesUseCase.invoke(
                 "de",
                 "de",

@@ -7,13 +7,13 @@ package de.rki.covpass.sdk.utils
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 
 internal class CoroutineUtilsTest {
 
     @Test
-    fun `retry with exponential backoff`() = runBlockingTest {
+    fun `retry with exponential backoff`() = runTest {
         var count = 0
         val deferred = async {
             retry {
@@ -25,15 +25,15 @@ internal class CoroutineUtilsTest {
             }
         }
         assertFalse(deferred.isCompleted)
-        advanceTimeBy(1000 + 2000 + 3900)
+        testScheduler.apply { advanceTimeBy(1000 + 2000 + 3900); runCurrent() }
         assertFalse(deferred.isCompleted)
-        advanceTimeBy(200)
+        testScheduler.apply { advanceTimeBy(200); runCurrent() }
         assertTrue(deferred.isCompleted)
         assertEquals(count, deferred.await())
     }
 
     @Test
-    fun `retry throws last exception`() = runBlockingTest {
+    fun `retry throws last exception`() = runTest {
         assertFailsWith<IllegalStateException> {
             retry(2) {
                 throw IllegalStateException("")
@@ -42,16 +42,16 @@ internal class CoroutineUtilsTest {
     }
 
     @Test
-    fun `parallel mapping`() = runBlockingTest {
+    fun `parallel mapping`() = runTest {
         val deferred = async {
             listOf(1, 2, 3, 4, 5).parallelMap {
                 delay(it * 1000L)
                 it + 10
             }
         }
-        advanceTimeBy(4900)
+        testScheduler.apply { advanceTimeBy(4900); runCurrent() }
         assertFalse(deferred.isCompleted)
-        advanceTimeBy(200)
+        testScheduler.apply { advanceTimeBy(200); runCurrent() }
         assertTrue(deferred.isCompleted)
         assertEquals(listOf(11, 12, 13, 14, 15), deferred.await())
     }

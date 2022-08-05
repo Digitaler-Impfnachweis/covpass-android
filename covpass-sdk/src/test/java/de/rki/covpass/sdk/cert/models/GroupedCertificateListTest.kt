@@ -83,7 +83,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     )
 
     @Test
-    fun `Empty CovCertificateList transformed to GroupedCertificatesList and backwards`() = runBlockingTest {
+    fun `Empty CovCertificateList transformed to GroupedCertificatesList and backwards`() = runTest {
         val originalList = CovCertificateList()
 
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
@@ -95,7 +95,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `One element CovCertificateList transformed to GroupedCertificatesList and backwards`() = runBlockingTest {
+    fun `One element CovCertificateList transformed to GroupedCertificatesList and backwards`() = runTest {
 
         val originalList = CovCertificateList(mutableListOf(certComplete1.toCombinedCertLocal()))
 
@@ -113,7 +113,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
     @Test
     fun `Three single elements CovCertificateList transformed to GroupedCertificatesList and backwards`() =
-        runBlockingTest {
+        runTest {
 
             val originalList = CovCertificateList(
                 mutableListOf(
@@ -148,7 +148,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
     @Test
     fun `Two matching element CovCertificateList transformed to GroupedCertificatesList and backwards`() =
-        runBlockingTest {
+        runTest {
 
             val originalList = CovCertificateList(
                 mutableListOf(certIncomplete1.toCombinedCertLocal(), certComplete1.toCombinedCertLocal())
@@ -172,7 +172,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
     @Test
     fun `Six matching element CovCertificateList transformed to GroupedCertificatesList and backwards`() =
-        runBlockingTest {
+        runTest {
 
             val originalList = CovCertificateList(
                 mutableListOf(
@@ -219,7 +219,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
 
     @Test
     fun `Two matching and two single elements transformed to GroupedCertificatesList and backwards`() =
-        runBlockingTest {
+        runTest {
 
             val originalList = CovCertificateList(
                 mutableListOf(
@@ -261,7 +261,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
         }
 
     @Test
-    fun `Ensure favoriteId is set to main certificate after transformation`() = runBlockingTest {
+    fun `Ensure favoriteId is set to main certificate after transformation`() = runTest {
         val testId = GroupedCertificatesId(Name(givenName1), birthDate = "2011-11-11")
 
         val originalList = CovCertificateList(
@@ -296,7 +296,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `getCombinedCertificate on full list returns correct results`() = runBlockingTest {
+    fun `getCombinedCertificate on full list returns correct results`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -343,7 +343,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `getCombinedCertificate on half filled list returns correct results`() = runBlockingTest {
+    fun `getCombinedCertificate on half filled list returns correct results`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -386,7 +386,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `deleteCovCertificate with non-existent id returns false`() = runBlockingTest {
+    fun `deleteCovCertificate with non-existent id returns false`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -402,7 +402,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `deleteCovCertificate for all elements results in empty list`() = runBlockingTest {
+    fun `deleteCovCertificate for all elements results in empty list`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -426,7 +426,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `deleteCovCertificate for some elements results in partial list`() = runBlockingTest {
+    fun `deleteCovCertificate for some elements results in partial list`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -491,7 +491,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `addNewCertificate to empty list and check favoriteCertId`() = runBlockingTest {
+    fun `addNewCertificate to empty list and check favoriteCertId`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf()
         )
@@ -516,7 +516,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `getValidCertificates on full list of valid certificates`() = runBlockingTest {
+    fun `getValidCertificates on full list of valid certificates`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -536,7 +536,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `getValidCertificates on full list of invalid certificates`() = runBlockingTest {
+    fun `getValidCertificates on full list of invalid certificates`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certIncomplete1.toCombinedCertLocal(),
@@ -557,7 +557,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `getValidCertificates on one invalid certificate`() = runBlockingTest {
+    fun `getValidCertificates on one invalid certificate`() = runTest {
         val originalList = CovCertificateList(
             mutableListOf(
                 certComplete1.toCombinedCertLocal("certComplete1"),
@@ -575,7 +575,7 @@ internal class GroupedCertificateListTest : CoroutineTest() {
     }
 
     @Test
-    fun `getValidCertificates on empty list`() = runBlockingTest {
+    fun `getValidCertificates on empty list`() = runTest {
         val originalList = CovCertificateList(emptyList())
         val groupedCertificatesList = mapper.toGroupedCertificatesList(originalList)
 

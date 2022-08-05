@@ -51,7 +51,7 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
         ViewCompat.setAccessibilityDelegate(
             bottomSheetBinding.bottomSheetHeader,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }

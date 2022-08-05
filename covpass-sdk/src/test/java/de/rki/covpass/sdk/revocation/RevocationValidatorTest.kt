@@ -120,7 +120,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     }
 
     @Test
-    fun `test empty kid list revocation`() = runBlockingTest {
+    fun `test empty kid list revocation`() = runTest {
 
         coEvery {
             revocationRemoteListRepository.getKidList()
@@ -129,7 +129,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     }
 
     @Test
-    fun `test empty index list revocation`() = runBlockingTest {
+    fun `test empty index list revocation`() = runTest {
 
         coEvery {
             revocationRemoteListRepository.getIndex(any(), any())
@@ -138,7 +138,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     }
 
     @Test
-    fun `test empty chunk one and two list revocation`() = runBlockingTest {
+    fun `test empty chunk one and two list revocation`() = runTest {
         coEvery {
             revocationRemoteListRepository.getByteOneChunk(any(), any(), any())
         } returns emptyList()
@@ -149,7 +149,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     }
 
     @Test
-    fun `test empty chunk one list revocation`() = runBlockingTest {
+    fun `test empty chunk one list revocation`() = runTest {
         coEvery {
             revocationRemoteListRepository.getByteOneChunk(any(), any(), any())
         } returns emptyList()
@@ -157,7 +157,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     }
 
     @Test
-    fun `test empty chunk two list revocation`() = runBlockingTest {
+    fun `test empty chunk two list revocation`() = runTest {
         coEvery {
             revocationRemoteListRepository.getByteTwoChunk(any(), any(), any(), any())
         } returns emptyList()
@@ -165,7 +165,7 @@ internal class RevocationValidatorTest : CoroutineTest() {
     }
 
     @Test
-    fun `test full revocation`() = runBlockingTest {
+    fun `test full revocation`() = runTest {
         assertTrue(validateRevocation(cert, revocationRemoteListRepository))
     }
 

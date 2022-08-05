@@ -20,7 +20,7 @@ import kotlin.test.assertFailsWith
 internal class AccessTokenRepositoryTest : CoroutineTest() {
 
     @Test
-    fun `test fetchAccessToken throws AccessTokenRequestException`() = runBlockingTest {
+    fun `test fetchAccessToken throws AccessTokenRequestException`() = runTest {
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)
 
@@ -37,7 +37,7 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchAccessToken`() = runBlockingTest {
+    fun `test fetchAccessToken`() = runTest {
 
         val expectedTicketingAccessTokenData = TicketingAccessTokenData(
             "jwtToken", "iv"
@@ -61,7 +61,7 @@ internal class AccessTokenRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchAccessToken null headers x-nonce`() = runBlockingTest {
+    fun `test fetchAccessToken null headers x-nonce`() = runTest {
 
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)

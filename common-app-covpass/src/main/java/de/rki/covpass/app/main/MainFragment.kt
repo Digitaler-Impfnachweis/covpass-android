@@ -115,7 +115,7 @@ internal class MainFragment :
             binding.mainEmptyHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
-                    host: View?,
+                    host: View,
                     info: AccessibilityNodeInfoCompat
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)

@@ -48,7 +48,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         ViewCompat.setAccessibilityDelegate(
             binding.onboardingInfoHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }

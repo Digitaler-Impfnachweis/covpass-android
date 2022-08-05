@@ -41,7 +41,7 @@ internal class BoosterNotificationFragment : BaseBottomSheet() {
         ViewCompat.setAccessibilityDelegate(
             binding.notificationBoosterTitle,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }

@@ -18,7 +18,6 @@ import androidx.camera.core.Camera
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.window.WindowManager
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
@@ -31,13 +30,10 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.abs
-import kotlin.math.max
 import kotlin.math.min
 
 /**
@@ -54,10 +50,8 @@ public abstract class QRScannerFragment : BaseFragment() {
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
     public open val isCovpass: Boolean = true
 
-    private var displayId: Int = -1
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
     private var cameraProvider: ProcessCameraProvider? = null
-    private lateinit var windowManager: WindowManager
     private lateinit var cameraExecutor: ExecutorService
     private var camera: Camera? = null
 
@@ -120,7 +114,6 @@ public abstract class QRScannerFragment : BaseFragment() {
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
-        windowManager = WindowManager(view.context)
 
         view.post {
             binding.scannerImageView.setImageDrawable(
@@ -140,7 +133,7 @@ public abstract class QRScannerFragment : BaseFragment() {
         }
     }
 
-    private fun setUpCamera() {
+    private fun startScanning() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         cameraProviderFuture.addListener(
             {
@@ -148,44 +141,28 @@ public abstract class QRScannerFragment : BaseFragment() {
                 lensFacing = when {
                     hasBackCamera() -> CameraSelector.LENS_FACING_BACK
                     hasFrontCamera() -> CameraSelector.LENS_FACING_FRONT
-                    else -> throw IllegalStateException("Back and front camera are unavailable")
+                    else -> throw IllegalStateException("Back and front camera is unavailable")
                 }
                 bindCameraUseCases()
             },
-            ContextCompat.getMainExecutor(requireContext()),
+            ContextCompat.getMainExecutor(requireContext())
         )
     }
 
-    private fun aspectRatio(width: Int, height: Int): Int {
-        val previewRatio = max(width, height).toDouble() / min(width, height)
-        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
-            return AspectRatio.RATIO_4_3
-        }
-        return AspectRatio.RATIO_16_9
-    }
-
     private fun bindCameraUseCases() {
-        val metrics = windowManager.getCurrentWindowMetrics().bounds
-        val screenAspectRatio = aspectRatio(metrics.width(), metrics.height())
-        val rotation = binding.barcodeScanner.display.rotation
         val cameraProvider = cameraProvider
             ?: throw IllegalStateException("Camera initialization failed.")
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
 
         val preview = Preview.Builder()
-            .setTargetAspectRatio(screenAspectRatio)
-            .setTargetRotation(rotation)
             .build()
+            .also {
+                it.setSurfaceProvider(binding.barcodeScanner.surfaceProvider)
+            }
 
-        val imageCapture = ImageCapture.Builder()
-            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-            .setTargetAspectRatio(screenAspectRatio)
-            .setTargetRotation(rotation)
-            .build()
+        val imageCapture = ImageCapture.Builder().build()
 
         val imageAnalyzer = ImageAnalysis.Builder()
-            .setTargetAspectRatio(screenAspectRatio)
-            .setTargetRotation(rotation)
             .build()
             .apply {
                 setAnalyzer(cameraExecutor) {
@@ -209,7 +186,6 @@ public abstract class QRScannerFragment : BaseFragment() {
             )
             binding.scannerFlashlightButton.isVisible = hasFlash()
             setTorch(isTorchOn.value)
-            preview.setSurfaceProvider(binding.barcodeScanner.surfaceProvider)
         }
     }
 
@@ -219,16 +195,15 @@ public abstract class QRScannerFragment : BaseFragment() {
     }
 
     private suspend fun autoFocus() {
-        val metrics = windowManager.getCurrentWindowMetrics().bounds
         val initialAutoFocusPoint =
-            SurfaceOrientedMeteringPointFactory(metrics.width().toFloat(), metrics.height().toFloat())
-                .createPoint(metrics.exactCenterX(), metrics.exactCenterY())
+            SurfaceOrientedMeteringPointFactory(1f, 1f)
+                .createPoint(.5f, .5f)
         val initialAutoFocusAction = FocusMeteringAction.Builder(
             initialAutoFocusPoint,
             FocusMeteringAction.FLAG_AF,
         ).build()
         camera?.cameraControl?.startFocusAndMetering(initialAutoFocusAction)?.let { future ->
-            suspendCoroutine<Unit> { continuation ->
+            suspendCoroutine { continuation ->
                 future.addListener(
                     {
                         continuation.resume(Unit)
@@ -258,13 +233,6 @@ public abstract class QRScannerFragment : BaseFragment() {
         }
     }
 
-    private fun startScanning() {
-        binding.barcodeScanner.post {
-            displayId = binding.barcodeScanner.display.displayId
-            setUpCamera()
-        }
-    }
-
     private class ScannerDrawable(
         private val width: Int,
         private val height: Int,
@@ -274,7 +242,10 @@ public abstract class QRScannerFragment : BaseFragment() {
             bounds.set(0, 0, width, height)
             val path = Path()
             path.fillType = Path.FillType.EVEN_ODD
-            path.addRect(RectF(0f, 0f, bounds.width().toFloat(), bounds.height().toFloat()), Path.Direction.CCW)
+            path.addRect(
+                RectF(0f, 0f, bounds.width().toFloat(), bounds.height().toFloat()),
+                Path.Direction.CCW
+            )
 
             val squareSize = min(bounds.width(), bounds.height()) - 2 * border
 
@@ -326,10 +297,5 @@ public abstract class QRScannerFragment : BaseFragment() {
 
     private fun hasFrontCamera(): Boolean {
         return cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false
-    }
-
-    private companion object {
-        private const val RATIO_4_3_VALUE = 4.0 / 3.0
-        private const val RATIO_16_9_VALUE = 16.0 / 9.0
     }
 }

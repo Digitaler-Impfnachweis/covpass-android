@@ -109,7 +109,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             binding.mainHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
-                    host: View?,
+                    host: View,
                     info: AccessibilityNodeInfoCompat
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
@@ -121,7 +121,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             binding.mainCheckCertHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
-                    host: View?,
+                    host: View,
                     info: AccessibilityNodeInfoCompat
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
@@ -133,7 +133,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             binding.mainAvailabilityHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
-                    host: View?,
+                    host: View,
                     info: AccessibilityNodeInfoCompat
                 ) {
                     super.onInitializeAccessibilityNodeInfo(host, info)

@@ -21,7 +21,7 @@ import kotlin.test.assertFailsWith
 internal class TicketingValidationRepositoryTest : CoroutineTest() {
 
     @Test
-    fun `test fetchValidationResult throws TicketingSendingCertificateException`() = runBlockingTest {
+    fun `test fetchValidationResult throws TicketingSendingCertificateException`() = runTest {
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)
 
@@ -42,7 +42,7 @@ internal class TicketingValidationRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchValidationResult`() = runBlockingTest {
+    fun `test fetchValidationResult`() = runTest {
         val expectedBookingValidationResponse = BookingValidationResponse(
             BookingPortalValidationResponseResult.OK,
             "",

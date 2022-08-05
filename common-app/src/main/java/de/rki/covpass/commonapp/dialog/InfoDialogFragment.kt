@@ -8,7 +8,6 @@ package de.rki.covpass.commonapp.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -45,12 +44,12 @@ public class InfoDialogFragment : DialogFragment() {
     private fun createDialog(dialogModel: DialogModel): AlertDialog? = activity?.let {
         // Setting maxLines in DialogTitleTextStyle is somehow also working but has some very strange glitches,
         // so doing a workaround for maxlines with custom title here is safer.
-        val titleBinding = DialogTitleBinding.inflate(LayoutInflater.from(context))
+        val titleBinding = DialogTitleBinding.inflate(layoutInflater)
 
         ViewCompat.setAccessibilityDelegate(
             titleBinding.titleTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }

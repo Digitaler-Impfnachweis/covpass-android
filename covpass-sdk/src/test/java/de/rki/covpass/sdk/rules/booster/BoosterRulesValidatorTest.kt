@@ -13,7 +13,7 @@ import de.rki.covpass.sdk.cert.models.Vaccination
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import java.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertTrue
@@ -33,7 +33,7 @@ internal class BoosterRulesValidatorTest {
     )
 
     @Test
-    fun `test empty booster rule repository`() = runBlockingTest {
+    fun `test empty booster rule repository`() = runTest {
         val boosterCertLogicEngine: BoosterCertLogicEngine = mockk()
         val boosterRulesRepository: CovPassBoosterRulesRepository = mockk()
 

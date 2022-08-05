@@ -11,10 +11,10 @@ dependencies {
         // Additionally, we ensure a consistent set of versions here.
         // ------------------------------------------------------------------------------------------------
         versionConstraints = {
-            api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.2")
-            api platform("io.ktor:ktor-bom:1.6.5")
-            api platform("com.ensody.reactivestate:reactivestate-bom:4.4.0")
-            api platform("com.squareup.okhttp3:okhttp-bom:4.9.2")
+            api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.4")
+            api platform("io.ktor:ktor-bom:1.6.8")
+            api platform("com.ensody.reactivestate:reactivestate-bom:5.0.1")
+            api platform("com.squareup.okhttp3:okhttp-bom:4.10.0")
 
             constraints {
                 // While kotlin-stdlib and kotlin-stdlib-common are automatically set by the gradle plugin,
@@ -54,16 +54,16 @@ dependencies {
             testDependency "junit:junit:4.13.2"
             testDependency "org.jetbrains.kotlin:kotlin-test-junit"
             testDependency "org.jetbrains.kotlinx:kotlinx-coroutines-test"
-            testDependency "io.mockk:mockk:1.12.0"
+            testDependency "io.mockk:mockk:1.12.5"
         }
 
-        fragmentVersion = "1.3.6"
+        fragmentVersion = "1.5.1"
         baseAndroid = {
             base()
-            api "androidx.annotation:annotation:1.3.0"
-            api "androidx.core:core-ktx:1.7.0"
+            api "androidx.annotation:annotation:1.4.0"
+            api "androidx.core:core-ktx:1.8.0"
 
-            testImplementation("org.robolectric:robolectric:4.6.1") {
+            testImplementation("org.robolectric:robolectric:4.8.1") {
                 exclude group: "org.bouncycastle"
             }
             testImplementation "org.bouncycastle:bcprov-jdk15to18"
@@ -86,19 +86,18 @@ dependencies {
             testDependency "com.ensody.reactivestate:reactivestate-test"
         }
 
-        activityVersion = "1.4.0"
+        activityVersion = "1.5.1"
         androidUI = {
             baseAndroid()
             coroutines()
 
-            api "com.google.android.material:material:1.4.0"
-            api "androidx.appcompat:appcompat:1.3.1"
+            api "com.google.android.material:material:1.6.1"
+            api "androidx.appcompat:appcompat:1.4.2"
 
             api "androidx.activity:activity-ktx:$activityVersion"
             api "androidx.fragment:fragment-ktx:$fragmentVersion"
-            api "androidx.window:window:1.0.0-alpha09"
 
-            def lifecycleVersion = "2.4.0"
+            def lifecycleVersion = "2.5.1"
             api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
@@ -109,8 +108,8 @@ dependencies {
                 api "androidx.lifecycle:lifecycle-process:$lifecycleVersion"
             }
 
-            api "androidx.constraintlayout:constraintlayout:2.1.1"
-            api "com.airbnb.android:lottie:4.2.0"
+            api "androidx.constraintlayout:constraintlayout:2.1.4"
+            api "com.airbnb.android:lottie:5.2.0"
         }
 
         conscrypt = {
@@ -159,14 +158,14 @@ dependencies {
         }
 
         camerax = {
-            def cameraxVersion = "1.0.2"
+            def cameraxVersion = "1.1.0"
             api "androidx.camera:camera-core:$cameraxVersion"
             api "androidx.camera:camera-camera2:$cameraxVersion"
             api "androidx.camera:camera-lifecycle:$cameraxVersion"
-            api 'androidx.camera:camera-view:1.0.0-alpha30'
+            api "androidx.camera:camera-view:$cameraxVersion"
         }
 
-        def boofCVVersion = "0.40"
+        def boofCVVersion = "0.40.1"
         boofCV = {
             api("org.boofcv:boofcv-core:$boofCVVersion") {
                 exclude group: "xmlpull", module: "xmlpull"
@@ -186,7 +185,7 @@ dependencies {
         }
 
         kotlinxSerialization = {
-            def kotlinxSerializationVersion = "1.3.0"
+            def kotlinxSerializationVersion = "1.3.3"
             api "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
             api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlinxSerializationVersion"
             api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
@@ -202,7 +201,7 @@ dependencies {
         }
 
         room = {
-            def roomVersion = "2.4.2"
+            def roomVersion = "2.4.3"
             api "androidx.room:room-ktx:$roomVersion"
             api "androidx.room:room-runtime:$roomVersion"
             kapt "androidx.room:room-compiler:$roomVersion"

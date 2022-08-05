@@ -21,7 +21,7 @@ import kotlin.test.assertFailsWith
 internal class IdentityDocumentRepositoryTest : CoroutineTest() {
 
     @Test
-    fun `test fetchIdentityDocument`() = runBlockingTest {
+    fun `test fetchIdentityDocument`() = runTest {
 
         val expectedTicketingIdentityDocument = TicketingIdentityDocument(
             TicketingServiceRemote(
@@ -91,7 +91,7 @@ internal class IdentityDocumentRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchIdentityDocument throws AccessTokenRequestException`() = runBlockingTest {
+    fun `test fetchIdentityDocument throws AccessTokenRequestException`() = runTest {
 
         val ticketingApiService: TicketingApiService = mockk()
 
@@ -134,7 +134,7 @@ internal class IdentityDocumentRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchIdentityDocument throws ClientRequestException`() = runBlockingTest {
+    fun `test fetchIdentityDocument throws ClientRequestException`() = runTest {
 
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)
@@ -161,7 +161,7 @@ internal class IdentityDocumentRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchIdentityDocument throws IllegalArgumentException`() = runBlockingTest {
+    fun `test fetchIdentityDocument throws IllegalArgumentException`() = runTest {
 
         val ticketingApiService: TicketingApiService = mockk()
 

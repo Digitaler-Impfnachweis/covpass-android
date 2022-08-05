@@ -18,7 +18,7 @@ import kotlin.test.assertFailsWith
 internal class ValidationServiceIdentityRepositoryTest : CoroutineTest() {
 
     @Test
-    fun `test fetchValidationServiceIdentity`() = runBlockingTest {
+    fun `test fetchValidationServiceIdentity`() = runTest {
 
         val expectedTicketingAccessTokenData = TicketingValidationServiceIdentityResponse(
             "id",
@@ -41,7 +41,7 @@ internal class ValidationServiceIdentityRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `test fetchValidationServiceIdentity throws IdentityDocumentValidationRequestException`() = runBlockingTest {
+    fun `test fetchValidationServiceIdentity throws IdentityDocumentValidationRequestException`() = runTest {
         val ticketingApiService: TicketingApiService = mockk()
         val httpResponse: HttpResponse = mockk(relaxed = true)
 

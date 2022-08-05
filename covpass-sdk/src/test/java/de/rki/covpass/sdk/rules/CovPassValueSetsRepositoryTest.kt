@@ -10,7 +10,7 @@ import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
 import de.rki.covpass.sdk.rules.remote.valuesets.CovPassValueSetRemote
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import io.mockk.*
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
 internal class CovPassValueSetsRepositoryTest {
@@ -31,7 +31,7 @@ internal class CovPassValueSetsRepositoryTest {
         val repository = CovPassValueSetsRepository(
             remoteDataSource, localDataSource, rulesUpdateRepository
         )
-        runBlockingTest {
+        runTest {
             repository.loadValueSets()
         }
 

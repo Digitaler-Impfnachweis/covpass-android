@@ -29,7 +29,7 @@ public abstract class BaseWelcomeFragment : BaseFragment() {
         ViewCompat.setAccessibilityDelegate(
             binding.welcomeHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
@@ -39,7 +39,7 @@ public abstract class BaseWelcomeFragment : BaseFragment() {
         ViewCompat.setAccessibilityDelegate(
             binding.welcomeEncryptionHeaderTextview,
             object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View?, info: AccessibilityNodeInfoCompat) {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
                     info.isHeading = true
                 }
