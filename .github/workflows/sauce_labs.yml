@@ -40,7 +40,7 @@ jobs:
       
     steps:
       - name: authenticate
-        run: curl -L -X GET 'https://api.us-west-1.saucelabs.com/team-management/v1/users/' -H 'Authorization:Basic' -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY
+        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request GET 'https://api.us-west-1.saucelabs.com/team-management/v1/teams'
   
   
   
