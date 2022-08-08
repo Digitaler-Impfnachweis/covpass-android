@@ -39,8 +39,12 @@ jobs:
       SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_LABS_PASSWORD }}
       
     steps:
-      - name: authenticate
-        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request GET 'https://api.us-west-1.saucelabs.com/team-management/v1/teams'
+      - name: upload apk
+        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
+             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
+             --form 'payload=@"covpassdemo-1.29.0-1.510.0-debug.apk"' \
+             --form 'name="covpassdemo-1.29.0-1.510.0-debug.apk"' \
+             --form 'description="Cov Pass"'
   
   
   
