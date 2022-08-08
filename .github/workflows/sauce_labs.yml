@@ -29,11 +29,15 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: download from nexus
         run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD 'https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/1.510.0/app-covpass-demo--debug-1.510.0.zip' -O
-      - name: Extract some files
-        run: unzip app-covpass-demo--debug-1.510.0.zip
       - name: Set output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Check output
+        env:
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.vars.outputs.tag }}
         
   
   upload:
@@ -45,7 +49,7 @@ jobs:
       
     steps:
       - name: upload apk
-        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form 'payload=@"covpassdemo-1.29.0-1.510.0-debug.apk"' --form 'name="covpassdemo-1.29.0-1.510.0-debug.apk"' --form 'description="Cov Pass"'
+        #run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form 'payload=@"covpassdemo-1.29.0-1.510.0-debug.apk"' --form 'name="covpassdemo-1.29.0-1.510.0-debug.apk"' --form 'description="Cov Pass"'
   
   
   
