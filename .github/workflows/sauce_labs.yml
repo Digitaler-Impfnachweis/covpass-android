@@ -5,8 +5,11 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
+    tags:
+      - '*'
   pull_request:
     branches: [ master ]
+  
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -25,9 +28,7 @@ jobs:
     steps:
       - name: download from nexus
         run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD 'https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/1.510.0/app-covpass-demo--debug-1.510.0.zip' -O
-      - name: cleanup
-        run: ls
-    
+ 
   
   
   
