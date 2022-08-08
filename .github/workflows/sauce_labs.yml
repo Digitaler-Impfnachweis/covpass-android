@@ -31,7 +31,7 @@ jobs:
         run: unzip app-covpass-demo--debug-1.510.0.zip
         
   
- upload:
+  upload:
     runs-on: self-hosted
     env:
       SAUCE_LABS_USERNAME: ${{ secrets.SAUCE_LABS_USERNAME }}
