@@ -24,7 +24,7 @@ jobs:
       
     steps:
       - name: download from nexus
-        run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD https://nexus.ihc-css.ihc-devops.net/repository/ihc-helm/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/* -O test.apk 
+        run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD https://nexus.ihc-css.ihc-devops.net/repository/ihc-helm/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/* -O *.zip
     
   
   
