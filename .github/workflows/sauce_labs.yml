@@ -40,11 +40,7 @@ jobs:
       
     steps:
       - name: upload apk
-        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location \
-             --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' \
-             --form 'payload=@"covpassdemo-1.29.0-1.510.0-debug.apk"' \
-             --form 'name="covpassdemo-1.29.0-1.510.0-debug.apk"' \
-             --form 'description="Cov Pass"'
+        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form 'payload=@"covpassdemo-1.29.0-1.510.0-debug.apk"' --form 'name="covpassdemo-1.29.0-1.510.0-debug.apk"' --form 'description="Cov Pass"'
   
   
   
