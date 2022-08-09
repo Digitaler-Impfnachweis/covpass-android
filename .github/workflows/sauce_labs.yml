@@ -33,10 +33,10 @@ jobs:
         run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD "https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-check-demo--debug/$RELEASE_VERSION/app-covpass-check-demo--debug-$RELEASE_VERSION.zip" -O
 
       - name: Unzip covpassdemo
-        run: unzip app-covpass-demo--debug-${RELEASE_VERSION}.zip
+        run: unzip -f app-covpass-demo--debug-${RELEASE_VERSION}.zip
 
       - name: Unzip covpasscheckdemo
-        run: unzip app-covpass-check-demo--debug-*${RELEASE_VERSION}.zip
+        run: unzip -f app-covpass-check-demo--debug-*${RELEASE_VERSION}.zip
         
   upload:
     runs-on: self-hosted
