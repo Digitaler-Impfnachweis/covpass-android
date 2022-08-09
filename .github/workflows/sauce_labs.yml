@@ -36,7 +36,7 @@ jobs:
         run: unzip app-covpass-demo--debug-${RELEASE_VERSION}.zip
 
       - name: Unzip covpasscheckdemo
-        run: unzip app-covpass-check--debug-*${RELEASE_VERSION}.zip
+        run: unzip app-covpass-check-demo--debug-*${RELEASE_VERSION}.zip
         
   upload:
     runs-on: self-hosted
