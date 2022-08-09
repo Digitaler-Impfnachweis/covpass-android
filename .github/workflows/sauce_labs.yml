@@ -24,7 +24,7 @@ jobs:
       
     steps:
       - name: Set env
-        run: echo "RELEASE_VERSION
+        run: echo "RELEASE_VERSION"
 
       - name: download from nexus app-covpass-demo--debug
         run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD 'https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/$RELEASE_VERSION/app-covpass-demo--debug-$RELEASE_VERSION.zip' -O
