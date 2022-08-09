@@ -20,7 +20,7 @@ jobs:
     env:
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
-      RELEASE_VERSION: 'v-1.509.0'
+      RELEASE_VERSION: '1.509.0'
       
     steps:
       - name: Set env
