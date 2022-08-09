@@ -20,16 +20,11 @@ jobs:
     env:
       NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
       NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+      RELEASE_VERSION: 'v-1.509.0'
       
     steps:
       - name: Set env
         run: "test" #echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      - name: Test
-        run: |
-          #echo $RELEASE_VERSION
-          #echo ${{ env.RELEASE_VERSION }}
-          $RELEASE_VERSION == 'v-1.509.0'
 
       - name: download from nexus app-covpass-demo--debug
         run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD 'https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/$RELEASE_VERSION/app-covpass-demo--debug-$RELEASE_VERSION.zip' -O
