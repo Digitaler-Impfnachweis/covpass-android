@@ -27,16 +27,16 @@ jobs:
         run: echo $RELEASE_VERSION
 
       - name: download from nexus app-covpass-demo--debug
-        run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD 'https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/'$RELEASE_VERSION'/app-covpass-demo--debug-'$RELEASE_VERSION'.zip' -O
+        run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD "https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-demo--debug/$RELEASE_VERSION/app-covpass-demo--debug-$RELEASE_VERSION.zip" -O
 
       - name: download from nexus covpass-check-demo--debug
-        run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD 'https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-check-demo--debug/'$RELEASE_VERSION'/app-covpass-check-demo--debug-'$RELEASE_VERSION'.zip' -O
+        run: curl -X GET -u $NEXUS_USERNAME:$NEXUS_PASSWORD "https://nexus.open-insurance-platform.com/repository/covpass-releases/com/ibm/health/de/rki/covpass/app-covpass-check-demo--debug/$RELEASE_VERSION/app-covpass-check-demo--debug-$RELEASE_VERSION.zip" -O
 
       - name: Unzip covpassdemo
-        run: unzip app-covpassdemo*$RELEASE_VERSION.zip
+        run: unzip app-covpassdemo*${RELEASE_VERSION}.zip
 
       - name: Unzip covpasscheckdemo
-        run: unzip covpasscheckdemo*$RELEASE_VERSION.zip
+        run: unzip covpasscheckdemo*${RELEASE_VERSION}.zip
         
   upload:
     runs-on: self-hosted
@@ -49,10 +49,10 @@ jobs:
     steps:
     
       - name: upload apk covpassdemo
-        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form 'payload=@"covpassdemo-$RELEASE_VERSION-debug.apk"' --form 'name="covpassdemo-$RELEASE_VERSION-debug"' --form 'description="covpassdemo"'
+        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form payload=@"covpassdemo-$RELEASE_VERSION-debug.apk" --form name="covpassdemo-$RELEASE_VERSION-debug" --form 'description="covpassdemo"'
 
       - name: upload apk covpasscheckdemo
-        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form 'payload=@"covpasscheckdemo-$RELEASE_VERSION-debug.apk"' --form 'name="covpasscheckdemo-$RELEASE_VERSION-debug"' --form 'description="covpasscheckdemo"'
+        run: curl -u "$SAUCE_USERNAME:$SAUCE_ACCESS_KEY" --location --request POST 'https://api.us-west-1.saucelabs.com/v1/storage/upload' --form payload=@"covpasscheckdemo-$RELEASE_VERSION-debug.apk" --form name="covpasscheckdemo-$RELEASE_VERSION-debug" --form 'description="covpasscheckdemo"'
   
   
   
