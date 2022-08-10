@@ -74,7 +74,11 @@ internal class CertificateFragment : BaseFragment() {
         val isFavoriteButtonVisible = certificateList.certificates.size > 1
 
         launchWhenStarted {
-            binding.certificateCard.qrCodeImage = if (mainCombinedCertificate.isRevoked) {
+            binding.certificateCard.qrCodeImage = if (
+                mainCombinedCertificate.status == CertValidationResult.Revoked ||
+                mainCombinedCertificate.status == CertValidationResult.Expired ||
+                mainCombinedCertificate.status == CertValidationResult.Invalid
+            ) {
                 generateQRCode(REVOKED_QRCODE)
             } else {
                 generateQRCode(mainCombinedCertificate.qrContent)
