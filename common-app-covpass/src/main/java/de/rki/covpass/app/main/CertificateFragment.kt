@@ -26,6 +26,7 @@ import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.BoosterResult
+import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
@@ -87,6 +88,8 @@ internal class CertificateFragment : BaseFragment() {
 
         val showBoosterNotification = !groupedCertificate.hasSeenBoosterDetailNotification &&
             groupedCertificate.boosterNotification.result == BoosterResult.Passed
+        val showDetailReissueNotification = !groupedCertificate.hasSeenReissueDetailNotification &&
+            (groupedCertificate.isBoosterReadyForReissue() || groupedCertificate.isExpiredReadyForReissue())
 
         when (val dgcEntry = mainCertificate.dgcEntry) {
             is Vaccination -> {
@@ -125,7 +128,7 @@ internal class CertificateFragment : BaseFragment() {
                                         ?.toInstant()?.monthTillNow(),
                                 )
                             },
-                            if (showBoosterNotification) {
+                            if (showBoosterNotification || showDetailReissueNotification) {
                                 R.drawable.booster_notification_icon
                             } else {
                                 R.drawable.main_cert_status_complete
@@ -148,7 +151,11 @@ internal class CertificateFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            R.drawable.main_cert_status_incomplete,
+                            if (showDetailReissueNotification) {
+                                R.drawable.main_cert_status_incomplete_notification
+                            } else {
+                                R.drawable.main_cert_status_incomplete
+                            },
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -167,7 +174,11 @@ internal class CertificateFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            R.drawable.main_cert_status_incomplete,
+                            if (showDetailReissueNotification) {
+                                R.drawable.main_cert_status_incomplete_notification
+                            } else {
+                                R.drawable.main_cert_status_incomplete
+                            },
                         )
                     }
                 }
@@ -187,7 +198,11 @@ internal class CertificateFragment : BaseFragment() {
                         R.string.certificate_timestamp_hours,
                         test.sampleCollection?.hoursTillNow(),
                     ),
-                    R.drawable.main_cert_test_blue,
+                    if (showDetailReissueNotification) {
+                        R.drawable.main_cert_test_blue_notification
+                    } else {
+                        R.drawable.main_cert_test_blue
+                    },
                 )
             }
             is Recovery -> {
@@ -202,7 +217,11 @@ internal class CertificateFragment : BaseFragment() {
                         recovery.firstResult?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
                             ?.monthTillNow(),
                     ),
-                    R.drawable.main_cert_status_complete,
+                    if (showDetailReissueNotification) {
+                        R.drawable.booster_notification_icon
+                    } else {
+                        R.drawable.main_cert_status_complete
+                    },
                 )
             }
             // .let{} to enforce exhaustiveness

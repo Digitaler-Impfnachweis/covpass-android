@@ -145,8 +145,11 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         binding.certificateNoteTextview.text = getString(R.string.close)
         val showBoosterNotification = groupedCertificates?.hasSeenBoosterDetailNotification == false &&
             groupedCertificates.boosterNotification.result == BoosterResult.Passed
+        val showDetailReissueNotification = groupedCertificates?.hasSeenReissueDetailNotification == false &&
+            (groupedCertificates.isBoosterReadyForReissue() || groupedCertificates.isExpiredReadyForReissue())
+
         binding.actionButtonIcon.setImageResource(
-            if (showBoosterNotification) {
+            if (showBoosterNotification || showDetailReissueNotification) {
                 R.drawable.certificate_switcher_manage_certificates_notification
             } else {
                 R.drawable.certificate_switcher_manage_certificates
