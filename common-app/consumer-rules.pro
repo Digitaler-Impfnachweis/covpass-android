@@ -1,0 +1,1 @@
+-keep class de.rki.covpass.commonapp.R$font { *; }

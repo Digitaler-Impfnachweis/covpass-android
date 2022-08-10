@@ -4,6 +4,18 @@
 	 width="210mm" height="297mm" viewBox="0 0 595.3 841.9" style="enable-background:new 0 0 595.3 841.9;" xml:space="preserve"
 	>
 <style type="text/css">
+	@font-face {
+		font-family: 'Open Sans';
+		src: url("file:///android_res/font/opensans_semibold.ttf")
+	}
+	@font-face {
+		font-family: 'OpenSans-Bold';
+		src: url("file:///android_res/font/opensans_bold.ttf")
+	}
+	@font-face {
+		font-family: 'OpenSans-Regular';
+		src: url("file:///android_res/font/opensans_regular.ttf")
+	}
 	.st0{fill:#EDA593;}
 	.st1{font-family:'Open Sans';}
 	.st2{font-size:92px;}
