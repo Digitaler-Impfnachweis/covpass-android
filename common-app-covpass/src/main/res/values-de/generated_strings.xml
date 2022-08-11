@@ -117,8 +117,8 @@
 	<string name="certificate_add_popup_note_title">Kein Sperrcode auf Ihrem Smartphone vorhanden</string>
 	<string name="certificate_add_popup_note_message">Die CovPass-App speichert sensible Daten auf Ihrem Smartphone. Um die Daten vor fremdem Zugriff zu schützen, empfehlen wir Ihnen, einen Code zum Entsperren Ihres Smartphones einzurichten.</string>
 	<string name="certificate_add_popup_message">Scannen Sie im folgenden Schritt den QR-Code von einem digitalen COVID-Zertifikat der EU oder laden Sie dieses als Foto oder PDF-Datei hoch. Der Nachweis wird dann direkt in die CovPass-App übertragen.</string>
-	<string name="certificate_add_popup_action_title">Welchen QR-Code kann ich einscannen?</string>
-	<string name="certificate_add_popup_action_title_linked">#Welchen QR-Code kann ich einscannen?::$0#</string>
+	<string name="certificate_add_popup_action_title">Mehr Informationen in den Häufigen Fragen</string>
+	<string name="certificate_add_popup_action_title_linked">#Mehr Informationen in den Häufigen Fragen::$0#</string>
 	<string name="certificate_add_popup_scan_button_title">Zertifikat hinzufügen</string>
 	<string name="certificate_add_dialog_camera_access_title">Kamerazugriff benötigt</string>
 	<string name="certificate_add_dialog_camera_access_message">Die CovPass-App verwendet die Kamera Ihres Smartphones, um einen QR-Code scannen zu können.\n\nDer Zugriff auf Ihre Kamera erfolgt nur während der Nutzung der App und dann auch nur mit Ihrer Erlaubnis. Sie haben jederzeit die Möglichkeit, in den Einstellungen Ihres Smartphones die Berechtigung zu ändern.</string>
@@ -149,7 +149,7 @@
 	<string name="file_import_result_null_button">OK</string>
 	<string name="file_import_result_info_title">Wenn ein Zertifikat fehlt:</string>
 	<string name="file_import_result_info_bullet1">Prüfen Sie, ob in der ausgewählten Datei ein QR-Code vorhanden ist.</string>
-	<string name="file_import_result_info_bullet2">Beachten Sie, dass keine gesperrten Zertifikate importiert werden können.</string>
+	<string name="file_import_result_info_bullet2">Beachten Sie, dass Zertifikate nicht importiert werden können, wenn sie gesperrt, ungültig oder bereits in der App hinterlegt sind.</string>
 	<string name="file_import_result_info_bullet3">Erstellen Sie einen Screenshot des betreffenden QR-Codes und importieren Sie ihn als Foto erneut.</string>
 	<string name="file_import_result_title">Zertifikate auswählen</string>
 	<string name="file_import_result_bulge_select">%1$d von %2$d Zertifikat(e) ausgewählt</string>
@@ -506,8 +506,8 @@
 	<string name="accessibility_test_certificate_detail_view_data_test_centre">Testzentrum oder -einrichtung</string>
 	<string name="test_certificate_detail_view_data_test_country">Land der Testung / Country performing test</string>
 	<string name="accessibility_test_certificate_detail_view_data_test_country">Land der Testung</string>
-	<string name="test_certificate_detail_view_data_test_issuer">Zertifikataussteller / Certificate issuer</string>
-	<string name="accessibility_test_certificate_detail_view_data_test_issuer">Zertifikataussteller</string>
+	<string name="test_certificate_detail_view_data_test_issuer">Zertifikatsaussteller / Certificate issuer</string>
+	<string name="accessibility_test_certificate_detail_view_data_test_issuer">Zertifikatsaussteller</string>
 	<string name="test_certificate_detail_view_data_test_identifier">Zertifikatkennung / Unique certificate identifier</string>
 	<string name="accessibility_test_certificate_detail_view_data_test_identifier">Zertifikatkennung</string>
 	<string name="test_certificate_detail_view_data_expiry_date">Technisches Ablaufdatum / Technical expiry date</string>
@@ -536,8 +536,8 @@
 	<string name="accessibility_recovery_certificate_detail_view_data_date_first_positive_result">Datum des ersten positiven Testergebnisses (Jahr-Monat-Tag)</string>
 	<string name="recovery_certificate_detail_view_data_country">Land der Testung / Country performing test</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_country">Land der Testung</string>
-	<string name="recovery_certificate_detail_view_data_issuer">Zertifikataussteller / Certificate issuer</string>
-	<string name="accessibility_recovery_certificate_detail_view_data_issuer">Zertifikataussteller</string>
+	<string name="recovery_certificate_detail_view_data_issuer">Zertifikatsaussteller / Certificate issuer</string>
+	<string name="accessibility_recovery_certificate_detail_view_data_issuer">Zertifikatsaussteller</string>
 	<string name="recovery_certificate_detail_view_data_valid_from">Zertifikat gültig ab / Certificate valid from (YYYY-MM-DD)</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_valid_from">Zertifikat gültig ab (Jahr-Monat-Tag)</string>
 	<string name="recovery_certificate_detail_view_data_valid_until">Zertifikat gültig bis (höchstens 180 Tage ab dem Datum des ersten positiven Testergebnisses) / Certificate valid until (maximum 180 days after the date of the first positive test result)(YYYY-MM-DD)</string>
@@ -824,11 +824,11 @@
 	<!-- SECTION: DCC revocation -->
 	<string name="revocation_error_scan_title">Das Zertifikat kann nicht hinzugefügt werden</string>
 	<string name="revocation_error_scan_single_DE">Das von Ihnen gescannte Zertifikat wurde vom RKI aufgrund einer behördlichen Verfügung gesperrt.</string>
-	<string name="revocation_error_scan_single_notDE">Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
+	<string name="revocation_error_scan_single_notDE">Das Zertifikat wurde vom Zertifikatsaussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
 	<string name="revocation_error_scan_locationID">Das von Ihnen gescannte Zertifikat wurde vom RKI aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="revocation_dialog_single">Die Gültigkeit eines Zertifikats hat sich geändert. Dieses Zertifikat kann nicht mehr zum Nachweis verwendet werden.</string>
 	<string name="revocation_dialog_locationID">Die Gültigkeit eines Zertifikats hat sich geändert. Dieses Zertifikat kann nicht mehr zum Nachweis verwendet werden. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="revocation_detail_single_DE">Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt.</string>
-	<string name="revocation_detail_single_notDE">Das Zertifikat wurde vom Zertifikataussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
+	<string name="revocation_detail_single_notDE">Das Zertifikat wurde vom Zertifikatsaussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
 	<string name="revocation_detail_locationID">Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 </resources>

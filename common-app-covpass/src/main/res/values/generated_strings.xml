@@ -117,8 +117,8 @@
 	<string name="certificate_add_popup_note_title">Your smartphone is not protected by a code</string>
 	<string name="certificate_add_popup_note_message">The CovPass app saves sensitive data to your smartphone. To protect your data against access by strangers, we recommend that you set up an unlock code for your smartphone.</string>
 	<string name="certificate_add_popup_message">In the following step, scan the QR code from an EU COVID digital certificate or upload it as a photo or PDF file. The certificate will then be loaded directly into the CovPass app.</string>
-	<string name="certificate_add_popup_action_title">Which QR code can I scan and save to my smartphone?</string>
-	<string name="certificate_add_popup_action_title_linked">#Which QR code can I scan?::$0#</string>
+	<string name="certificate_add_popup_action_title">More information in the FAQ</string>
+	<string name="certificate_add_popup_action_title_linked">#More information in the FAQ::$0#</string>
 	<string name="certificate_add_popup_scan_button_title">Add certificate</string>
 	<string name="certificate_add_dialog_camera_access_title">Camera access needed</string>
 	<string name="certificate_add_dialog_camera_access_message">The CovPass app uses your smartphone’s camera to scan QR codes.\n\nYour camera is only ever accessed while you use the app and only with your permission. You have the option to change this permission in your smartphone’s settings at any time.</string>
@@ -149,7 +149,7 @@
 	<string name="file_import_result_null_button">OK</string>
 	<string name="file_import_result_info_title">If a certificate is missing:</string>
 	<string name="file_import_result_info_bullet1">Check whether there is a QR code in the selected file.</string>
-	<string name="file_import_result_info_bullet2">Note that no revoked certificates can be imported.</string>
+	<string name="file_import_result_info_bullet2">Note that certificates cannot be imported if they are revoked, invalid or already stored in the app.</string>
 	<string name="file_import_result_info_bullet3">Take a screenshot of the QR code in question and import it again as a photo.</string>
 	<string name="file_import_result_title">Select certificates</string>
 	<string name="file_import_result_bulge_select">%1$d of %2$d certificate(s) selected</string>
@@ -506,7 +506,7 @@
 	<string name="accessibility_test_certificate_detail_view_data_test_centre">Testing centre or facility</string>
 	<string name="test_certificate_detail_view_data_test_country">Land der Testung / Country performing test</string>
 	<string name="accessibility_test_certificate_detail_view_data_test_country">Country performing test</string>
-	<string name="test_certificate_detail_view_data_test_issuer">Zertifikataussteller / Certificate issuer</string>
+	<string name="test_certificate_detail_view_data_test_issuer">Zertifikatsaussteller / Certificate issuer</string>
 	<string name="accessibility_test_certificate_detail_view_data_test_issuer">Certificate issuer</string>
 	<string name="test_certificate_detail_view_data_test_identifier">Zertifikatkennung / Unique certificate identifier</string>
 	<string name="accessibility_test_certificate_detail_view_data_test_identifier">Unique certificate identifier</string>
@@ -536,7 +536,7 @@
 	<string name="accessibility_recovery_certificate_detail_view_data_date_first_positive_result">Date of first positive test result (Year-Month-Day)</string>
 	<string name="recovery_certificate_detail_view_data_country">Land der Testung / Country performing test</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_country">Country performing test</string>
-	<string name="recovery_certificate_detail_view_data_issuer">Zertifikataussteller / Certificate issuer</string>
+	<string name="recovery_certificate_detail_view_data_issuer">Zertifikatsaussteller / Certificate issuer</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_issuer">Certificate issuer</string>
 	<string name="recovery_certificate_detail_view_data_valid_from">Zertifikat gültig ab / Certificate valid from (YYYY-MM-DD)</string>
 	<string name="accessibility_recovery_certificate_detail_view_data_valid_from">Certificate valid from (Year-Month-Day)</string>
