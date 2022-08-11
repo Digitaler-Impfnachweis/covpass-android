@@ -347,8 +347,8 @@ pipeline {
                     withVault(SECRETS) {
                         def artifactVersion = currentBuild.displayName.replaceAll("v-","") 
                         sh """
-                        app_covpass_demo=\$(find . -name covpassdemo*${artifactVersion}*.apk)
-                        app_covpass_check_demo=\$(find . -name covpasscheckdemo*${artifactVersion}*.apk)
+                        app_covpass_demo=\$(find . -name covpassdemo*${artifactVersion}*-release.apk)
+                        app_covpass_check_demo=\$(find . -name covpasscheckdemo*${artifactVersion}*-release.apk)
                         echo "${env.app_covpass_demo}"
                         echo "${env.app_covpass_check_demo}"
                         curl -u "${env.SAUCE_USERNAME}:${env.SAUCE_ACCESS_KEY}" --location --request POST 'https://api.eu-central-1.saucelabs.com/v1/storage/upload' --form payload=@"${env.app_covpass_demo}" --form name="covpassdemo-${artifactVersion}" --form 'description="covpassdemo"
