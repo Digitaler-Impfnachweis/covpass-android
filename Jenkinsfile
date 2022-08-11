@@ -9,6 +9,8 @@ SECRETS = [
     [path: 'secret/eGA/tools/firebase', secretValues: [[vaultKey: 'token', envVar: 'FIREBASE_CLI_TOKEN']]],
     [path: 'secret/eGA/tools/firebase', secretValues: [[vaultKey: 'FIREBASE_COVPASS_ID', envVar: 'FIREBASE_COVPASS_ID']]],
     [path: 'secret/eGA/tools/firebase', secretValues: [[vaultKey: 'FIREBASE_COVPASS_CHECK_ID', envVar: 'FIREBASE_COVPASS_CHECK_ID']]],
+    [path: 'secret/eGA/tools/sauce', secretValues: [[vaultKey: 'SAUCE_USERNAME', envVar: 'SAUCE_USERNAME']]],
+    [path: 'secret/eGA/tools/sauce', secretValues: [[vaultKey: 'SAUCE_ACCESS_KEY', envVar: 'SAUCE_ACCESS_KEY']]],
 ]
 
 pipeline {
@@ -330,6 +332,29 @@ pipeline {
                     }
                 }
                 finishRelease()
+            }
+        }
+        stage('Publish Souce Labs') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'master'
+                    branch 'release/*'
+                }
+            }
+             steps {
+                script {
+                    withVault(SECRETS) {
+                        sh """
+                        app_covpass_demo=\$(find . -name covpassdemo*${currentBuild.displayName}*.apk)
+                        app_covpass_check_demo=\$(find . -name covpasscheckdemo*${currentBuild.displayName}*.apk)
+                        echo "${env.app_covpass_demo}"
+                        echo "${env.app_covpass_check_demo}"
+                        curl -u "${env.SAUCE_USERNAME}:${env.SAUCE_ACCESS_KEY}" --location --request POST 'https://api.eu-central-1.saucelabs.com/v1/storage/upload' --form payload=@"${env.app_covpass_demo}" --form name="covpassdemo-${currentBuild.displayName}" --form 'description="covpassdemo"
+                        curl -u "${env.SAUCE_USERNAME}:${env.SAUCE_ACCESS_KEY}" --location --request POST 'https://api.eu-central-1.saucelabs.com/v1/storage/upload' --form payload=@"${env.app_covpass_check_demo}" --form name="covpasscheckdemo-${currentBuild.displayName}" --form 'description="covpasscheckdemo"
+                        """
+                    }
+                }
             }
         }
     }
