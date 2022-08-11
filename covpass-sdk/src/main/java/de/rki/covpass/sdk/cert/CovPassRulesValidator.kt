@@ -19,6 +19,7 @@ import dgca.verifier.app.engine.CertLogicEngine
 import dgca.verifier.app.engine.ValidationResult
 import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.ExternalParameter
+import dgca.verifier.app.engine.data.Type
 import kotlinx.serialization.encodeToString
 import java.time.ZonedDateTime
 
@@ -62,7 +63,7 @@ public class CovPassRulesValidator(
             rules.toRules(),
             externalParameter,
             certString,
-        )
+        ).filterNot { it.rule.type == Type.INVALIDATION }
     }
 
     private fun CovCertificate.getCertificateType(): CertificateType =
