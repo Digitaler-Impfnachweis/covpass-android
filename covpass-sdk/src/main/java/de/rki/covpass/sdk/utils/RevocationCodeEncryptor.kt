@@ -46,7 +46,7 @@ public class RevocationCodeEncryptor(private val publicKey: PublicKey) {
 
     public fun encrypt(code: String): ByteArray {
         val senderKeyPair = generateSenderKey()
-        val senderPubBytes = senderKeyPair.private.encoded.takeLast(65).toByteArray()
+        val senderPubBytes = senderKeyPair.public.encoded
         val sharedSecret = getSharedSecret(senderKeyPair.private, publicKey)
         val (aesKey, iv) = deriveAESKeyAndIV(sharedSecret, senderPubBytes)
         return senderPubBytes + code.encodeToByteArray().encryptAesGcm(aesKey, iv)
