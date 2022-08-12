@@ -11,7 +11,8 @@ import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.derived
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.BaseEvents
-import de.rki.covpass.commonapp.R
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.utils.SettingUpdateListBuilder
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationLocalListRepository
 import de.rki.covpass.sdk.rules.CovPassCountriesRepository
@@ -37,9 +38,11 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
     private val dscRepository: DscRepository = sdkDeps.dscRepository,
     private val rulesUpdateRepository: RulesUpdateRepository = sdkDeps.rulesUpdateRepository,
     private val revocationLocalListRepository: RevocationLocalListRepository = sdkDeps.revocationLocalListRepository,
+    private val settingUpdateListBuilder: SettingUpdateListBuilder = commonDeps.settingsUpdateListBuilder,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
-    public val settingItems: MutableValueFlow<List<SettingItem>> = MutableValueFlow(buildList())
+    public val settingItems: MutableValueFlow<List<SettingItem>> =
+        MutableValueFlow(settingUpdateListBuilder.buildList(isCovPassCheck))
     public val allUpToDate: StateFlow<Boolean> = derived {
         isUpToDate(get(rulesUpdateRepository.lastEuRulesUpdate)) &&
             isUpToDate(get(rulesUpdateRepository.lastDomesticRulesUpdate)) &&
@@ -75,7 +78,7 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
                 canceled.value = false
                 revocationLocalListRepository.revocationListUpdateCanceled.value = false
             }
-            settingItems.value = buildList()
+            settingItems.value = settingUpdateListBuilder.buildList(isCovPassCheck)
         }
     }
 
@@ -102,46 +105,6 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
             }
         } else {
             true
-        }
-    }
-
-    private fun buildList(): List<SettingItem> {
-        return (
-            listOf(
-                SettingItem(
-                    R.string.settings_rules_list_entry,
-                    rulesUpdateRepository.lastEuRulesUpdate.value,
-                ),
-                SettingItem(
-                    R.string.settings_rules_list_domestic,
-                    rulesUpdateRepository.lastDomesticRulesUpdate.value,
-                ),
-                SettingItem(
-                    R.string.settings_rules_list_features,
-                    rulesUpdateRepository.lastValueSetsUpdate.value,
-                ),
-                SettingItem(
-                    R.string.settings_rules_list_issuer,
-                    dscRepository.lastUpdate.value,
-                ),
-                SettingItem(
-                    R.string.settings_rules_list_countries,
-                    rulesUpdateRepository.lastCountryListUpdate.value,
-                ),
-            ) + getOfflineRevocationItem()
-            ).filterNot { it.date == DscRepository.NO_UPDATE_YET }
-    }
-
-    private fun getOfflineRevocationItem(): List<SettingItem> {
-        return if (isCovPassCheck) {
-            listOf(
-                SettingItem(
-                    R.string.settings_rules_list_authorities,
-                    revocationLocalListRepository.lastRevocationUpdateFinish.value,
-                ),
-            )
-        } else {
-            emptyList()
         }
     }
 

@@ -15,6 +15,7 @@ import de.rki.covpass.commonapp.kronostime.TimeValidationRepository
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
+import de.rki.covpass.commonapp.utils.SettingUpdateListBuilder
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 import kotlinx.serialization.cbor.Cbor
@@ -65,6 +66,14 @@ public abstract class CommonDependencies {
 
     public val timeValidationRepository: TimeValidationRepository =
         TimeValidationRepository(kronosClock)
+
+    public val settingsUpdateListBuilder: SettingUpdateListBuilder by lazy {
+        SettingUpdateListBuilder(
+            sdkDeps.rulesUpdateRepository,
+            sdkDeps.dscRepository,
+            sdkDeps.revocationLocalListRepository,
+        )
+    }
 
     private companion object {
         private const val DE_NTP_HOST = "1.de.pool.ntp.org"
