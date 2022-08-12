@@ -5,12 +5,9 @@ import de.rki.covpass.commonapp.information.SettingItem
 import de.rki.covpass.sdk.revocation.RevocationLocalListRepository
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
-import de.rki.covpass.sdk.utils.formatDateTime
 import io.mockk.every
 import io.mockk.mockk
 import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -39,23 +36,23 @@ internal class SettingsUpdateListBuilderTest {
         val expectedList = listOf(
             SettingItem(
                 R.string.settings_rules_list_entry,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_features,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_issuer,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_countries,
-                "",
+                null,
             ),
         )
 
@@ -73,33 +70,31 @@ internal class SettingsUpdateListBuilderTest {
         every { dscRepository.lastUpdate.value } returns timeNow
         every { revocationLocalListRepository.lastRevocationUpdateFinish.value } returns timeNow
 
-        val formattedDate = formatInstantDate(timeNow)
-
         val actualList = settingUpdateListBuilder.buildList(true)
         val expectedList = listOf(
             SettingItem(
                 R.string.settings_rules_list_entry,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_features,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_issuer,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_countries,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_authorities,
-                formattedDate,
+                timeNow,
             ),
         )
 
@@ -117,29 +112,27 @@ internal class SettingsUpdateListBuilderTest {
         every { dscRepository.lastUpdate.value } returns timeNow
         every { revocationLocalListRepository.lastRevocationUpdateFinish.value } returns DscRepository.NO_UPDATE_YET
 
-        val formattedDate = formatInstantDate(timeNow)
-
         val actualList = settingUpdateListBuilder.buildList(true)
         val expectedList = listOf(
             SettingItem(
                 R.string.settings_rules_list_entry,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_features,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_issuer,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_countries,
-                formattedDate,
+                timeNow,
             ),
         )
 
@@ -158,23 +151,23 @@ internal class SettingsUpdateListBuilderTest {
         val expectedList = listOf(
             SettingItem(
                 R.string.settings_rules_list_entry,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_features,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_issuer,
-                "",
+                null,
             ),
             SettingItem(
                 R.string.settings_rules_list_countries,
-                "",
+                null,
             ),
         )
 
@@ -192,36 +185,30 @@ internal class SettingsUpdateListBuilderTest {
         every { dscRepository.lastUpdate.value } returns timeNow
         every { revocationLocalListRepository.lastRevocationUpdateFinish.value } returns timeNow
 
-        val formattedDate = formatInstantDate(timeNow)
-
         val actualList = settingUpdateListBuilder.buildList(false)
         val expectedList = listOf(
             SettingItem(
                 R.string.settings_rules_list_entry,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_features,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_issuer,
-                formattedDate,
+                timeNow,
             ),
             SettingItem(
                 R.string.settings_rules_list_countries,
-                formattedDate,
+                timeNow,
             ),
         )
 
         assertEquals(expectedList, actualList)
-    }
-
-    private fun formatInstantDate(date: Instant): String {
-        return LocalDateTime.ofInstant(date, ZoneId.systemDefault()).formatDateTime()
     }
 }

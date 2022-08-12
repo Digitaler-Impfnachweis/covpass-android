@@ -5,10 +5,7 @@ import de.rki.covpass.commonapp.information.SettingItem
 import de.rki.covpass.sdk.revocation.RevocationLocalListRepository
 import de.rki.covpass.sdk.storage.DscRepository
 import de.rki.covpass.sdk.storage.RulesUpdateRepository
-import de.rki.covpass.sdk.utils.formatDateTime
 import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 
 public class SettingUpdateListBuilder(
     private val rulesUpdateRepository: RulesUpdateRepository,
@@ -37,7 +34,7 @@ public class SettingUpdateListBuilder(
                 R.string.settings_rules_list_countries,
                 getDate(rulesUpdateRepository.lastCountryListUpdate.value),
             ),
-        ) + getOfflineRevocationItem(isCovPassCheck).filterNot { it.date.isBlank() }
+        ) + getOfflineRevocationItem(isCovPassCheck).filterNot { it.date == null }
     }
 
     private fun getOfflineRevocationItem(isCovPassCheck: Boolean): List<SettingItem> {
@@ -53,10 +50,10 @@ public class SettingUpdateListBuilder(
         }
     }
 
-    private fun getDate(date: Instant): String {
+    private fun getDate(date: Instant): Instant? {
         if (date == DscRepository.NO_UPDATE_YET) {
-            return ""
+            return null
         }
-        return LocalDateTime.ofInstant(date, ZoneId.systemDefault()).formatDateTime()
+        return date
     }
 }
