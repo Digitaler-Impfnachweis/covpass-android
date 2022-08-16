@@ -357,7 +357,7 @@ pipeline {
                             sh """
                             app_covpass_demo=\$(find . -name covpassdemo*${artifactVersion}*-release.apk)
                             echo \$app_covpass_demo
-                            appId=\$(curl -u "${env.SAUCE_USERNAME}:${env.SAUCE_ACCESS_KEY}" --location --request POST 'https://api.eu-central-1.saucelabs.com/v1/storage/upload' --form payload=@"\$app_covpass_demo" --form name="covpassdemo-${artifactVersion}" --form 'description="covpassdemo"|jq -r '.item|.id')
+                            appId=\$(curl -u "${env.SAUCE_USERNAME}:${env.SAUCE_ACCESS_KEY}" --location --request POST 'https://api.eu-central-1.saucelabs.com/v1/storage/upload' --form payload=@"\$app_covpass_demo" --form name="covpassdemo-${artifactVersion}" --form description="covpassdemo"|jq -r '.item|.id')
                             if [ -n "\$appId" ]; then
                                 git clone https://${USERNAME}:${PASSWORD}@github.ibmgcloud.net/eGA/covpass-test-automation.git
                                 cd covpass-test-automation
