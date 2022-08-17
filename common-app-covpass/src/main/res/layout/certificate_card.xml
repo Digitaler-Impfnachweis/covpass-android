@@ -77,8 +77,10 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/certificate_status_layout"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
@@ -98,8 +100,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/grid_one"
-                            android:ellipsize="end"
-                            android:maxLines="1"
                             android:text="@string/certificate_type_basic_immunisation"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
@@ -111,8 +111,6 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/grid_one"
-                            android:ellipsize="end"
-                            android:maxLines="1"
                             android:textColor="@color/info40"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
