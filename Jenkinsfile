@@ -363,6 +363,10 @@ pipeline {
                             if [ -n "\$appId" ]; then
                                 git clone https://${USERNAME}:${PASSWORD}@github.ibmgcloud.net/eGA/covpass-test-automation.git
                                 cd covpass-test-automation
+                                echo "\$appId" > appId.txt
+                                git add appId.txt
+                                git commit -m "Update appId from android-vaccination-app"
+                                git push origin main
                                 git tag -a ${currentBuild.displayName} -m "appId:\$appId"
                                 git push origin --tags
                                 cd ..
