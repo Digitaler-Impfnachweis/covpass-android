@@ -85,10 +85,10 @@
 	<string name="start_offline_title">Offline prüfen</string>
 	<string name="start_offline_status_available">Verfügbar</string>
 	<string name="start_offline_status_unavailable">Aktualisierung notwendig</string>
-	<string name="start_offline_copy"> Um ohne Internetverbindung zuverlässig prüfen zu können, sollten die Prüfregeln vor weniger als 24 Stunden aktualisiert worden sein.</string>
+	<string name="start_offline_copy">Um ohne Internetverbindung zuverlässig prüfen zu können, sollten die Prüfregeln vor weniger als 24 Stunden aktualisiert worden sein.</string>
 	<string name="start_offline_link_title">Prüfregeln aktualisieren</string>
-	<string name="start_offline_link_subtitle_available"> Letzte Aktualisierung vor weniger als 24 Stunden</string>
-	<string name="start_offline_subtitle_unavailable"> Letzte Aktualisierung älter als 24 Stunden</string>
+	<string name="start_offline_link_subtitle_available">Letzte Aktualisierung vor weniger als 24 Stunden</string>
+	<string name="start_offline_subtitle_unavailable">Letzte Aktualisierung älter als 24 Stunden</string>
 
 	<!-- SECTION: popup: Check vaccination -->
 	<string name="scan_dialog_camera_access_title">Kamerazugriff benötigt</string>
@@ -255,7 +255,7 @@
 	<string name="accessibility_app_information_checking_rules_close">Die Ansicht \"Prüfregeln\" wurde geschlossen</string>
 	<string name="app_information_title_checkrules">Prüfregeln</string>
 	<string name="app_information_offline_revocation_title">Gesperrte Zertifikate offline prüfen</string>
-	<string name="app_information_offline_revocation_copy"> Aktivieren Sie diese Einstellung, wenn Sie auch im Offline-Modus von den Behörden gesperrte Zertifikate erkennen möchten. Andernfalls werden gesperrte Zertifikate nur im Online-Modus erkannt. Diese Funktion verbraucht mehr Datenvolumen.</string>
+	<string name="app_information_offline_revocation_copy">Aktivieren Sie diese Einstellung, wenn Sie auch im Offline-Modus von den Behörden gesperrte Zertifikate erkennen möchten. Andernfalls werden gesperrte Zertifikate nur im Online-Modus erkannt. Diese Funktion verbraucht mehr Datenvolumen.</string>
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_local_rules">Die Ansicht \"Prüfsituation\" wurde geöffnet</string>
 	<string name="app_information_title_local_rules">Regelwerk</string>
