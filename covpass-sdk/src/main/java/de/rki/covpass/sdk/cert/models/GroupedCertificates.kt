@@ -300,7 +300,11 @@ public data class GroupedCertificates(
         }
 
         certificates = certificates.map {
-            if (listIds.contains(it.covCertificate.dgcEntry.id)) {
+            if (
+                listIds.contains(it.covCertificate.dgcEntry.id) &&
+                it.covCertificate.dgcEntry is Vaccination &&
+                (it.covCertificate.dgcEntry as Vaccination).isCompleteDoubleDose
+            ) {
                 it.copy(
                     reissueState = ReissueState.Ready,
                     reissueType = ReissueType.Booster,
@@ -384,7 +388,10 @@ public data class GroupedCertificates(
         val list = mutableListOf<String>()
         val latestVaccination = getLatestVaccination() ?: return emptyList()
 
-        if (latestVaccination.reissueState == ReissueState.Ready) {
+        if (
+            latestVaccination.reissueState == ReissueState.Ready &&
+            latestVaccination.reissueType == ReissueType.Vaccination
+        ) {
             list.add(latestVaccination.covCertificate.dgcEntry.id)
         } else {
             return emptyList()
@@ -490,7 +497,7 @@ public data class GroupedCertificates(
             .map { it.covCertificate.dgcEntry.id }
     }
 
-    public fun getListOfIdsReadyForReissue(): List<String> {
+    public fun getListOfIdsReadyForBoosterReissue(): List<String> {
         val list = mutableListOf<String>()
         val vaccinationIdToReissue = certificates
             .filter {

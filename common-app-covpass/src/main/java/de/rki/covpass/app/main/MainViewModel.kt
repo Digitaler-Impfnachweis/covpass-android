@@ -136,7 +136,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private fun getBoosterReissueIdsList(): List<String> {
         return certRepository.certs.value.certificates.first {
             it.isBoosterReadyForReissue() && !it.hasSeenReissueNotification
-        }.getListOfIdsReadyForReissue()
+        }.getListOfIdsReadyForBoosterReissue()
     }
 
     private fun checkExpiredReissueNotification(): Boolean {

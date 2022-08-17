@@ -452,7 +452,7 @@ internal class DetailFragment :
                         findNavigator().push(
                             ReissueNotificationFragmentNav(
                                 ReissueType.Booster,
-                                groupedCertificate.getListOfIdsReadyForReissue(),
+                                groupedCertificate.getListOfIdsReadyForBoosterReissue(),
                             ),
                         )
                     },

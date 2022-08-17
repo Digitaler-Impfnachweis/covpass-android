@@ -124,36 +124,12 @@ public data class GroupedCertificatesList private constructor(
             }
         }
         matchingGroupedCert?.certificates?.remove(matchingCombinedCert)
-        if (isReissueUpdateNeeded(matchingCombinedCert)) {
-            certificates.forEach { groupedCertificates ->
-                if (groupedCertificates == matchingGroupedCert) {
-                    groupedCertificates.certificates = groupedCertificates.certificates.map {
-                        it.copy(
-                            reissueState = ReissueState.None,
-                            hasSeenReissueNotification = false,
-                        )
-                    }.toMutableList()
-                }
-            }
-        }
         return if (matchingGroupedCert?.certificates?.isEmpty() == true) {
             certificates.remove(matchingGroupedCert)
             true
         } else {
             false
         }
-    }
-
-    private fun isReissueUpdateNeeded(matchingCombinedCert: CombinedCovCertificate?): Boolean {
-        val dgcEntry = matchingCombinedCert?.covCertificate?.dgcEntry
-        return (
-            (
-                matchingCombinedCert?.reissueState == ReissueState.Ready ||
-                    matchingCombinedCert?.reissueState == ReissueState.Completed
-                ) &&
-                (dgcEntry is Vaccination && (dgcEntry.isCompleteSingleDose || dgcEntry.isCompleteDoubleDose))
-            ) ||
-            (dgcEntry is Vaccination && dgcEntry.doseNumber == 2 && dgcEntry.totalSerialDoses == 1)
     }
 
     /**
