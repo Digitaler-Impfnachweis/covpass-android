@@ -340,7 +340,7 @@ pipeline {
                 anyOf {
                     branch 'main'
                     branch 'master'
-                    branch 'release/*'
+                    //branch 'release/*'
                 }
             }
              steps {
