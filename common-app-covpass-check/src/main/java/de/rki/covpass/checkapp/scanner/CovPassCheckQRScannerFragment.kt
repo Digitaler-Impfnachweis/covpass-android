@@ -12,8 +12,8 @@ import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
+import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.validation.ValidAntigenTestFragmentNav
 import de.rki.covpass.checkapp.validation.ValidPcrTestFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResult2GListener
@@ -41,10 +41,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.ZonedDateTime
 
 @Parcelize
-internal class CovPassCheckQRScannerFragmentNav(
-    val isTwoGPlusOn: Boolean,
-    val isTwoGPlusBOn: Boolean,
-) : FragmentNav(CovPassCheckQRScannerFragment::class)
+internal class CovPassCheckQRScannerFragmentNav : FragmentNav(CovPassCheckQRScannerFragment::class)
 
 /**
  * QR Scanner Fragment extending from QRScannerFragment to intercept qr code scan result.
@@ -57,8 +54,10 @@ internal class CovPassCheckQRScannerFragment :
     ValidationResult2GListener,
     CovPassCheckQRScannerDataEvents {
 
-    private val isTwoGPlusOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGPlusOn }
-    private val isTwoGPlusBOn by lazy { getArgs<CovPassCheckQRScannerFragmentNav>().isTwoGPlusBOn }
+    private val isTwoGPlusOn by lazy {
+        covpassCheckDeps.checkAppRepository.is2GPlusOn() || covpassCheckDeps.checkAppRepository.is2GPlusBOn()
+    }
+    private val isTwoGPlusBOn by lazy { covpassCheckDeps.checkAppRepository.is2GPlusBOn() }
     private val viewModel by reactiveState { CovPassCheckQRScannerViewModel(scope) }
     private val dataViewModel by reactiveState {
         CovPassCheckQRScannerDataViewModel(

@@ -10,25 +10,19 @@ import android.view.View
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.databinding.CameraDisclosurePopupContentBinding
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class CovPassCheckCameraDisclosureFragmentNav(
-    val isTwoGPlusOn: Boolean,
-    val isTwoGPlusBOn: Boolean,
-) : FragmentNav(CovPassCheckCameraDisclosureFragment::class)
+internal class CovPassCheckCameraDisclosureFragmentNav : FragmentNav(CovPassCheckCameraDisclosureFragment::class)
 
 /**
  * Fragment which shows a disclosure for the camera permission.
  */
 internal class CovPassCheckCameraDisclosureFragment : BaseBottomSheet() {
 
-    private val isTwoGPlusOn by lazy { getArgs<CovPassCheckCameraDisclosureFragmentNav>().isTwoGPlusOn }
-    private val isTwoGPlusBOn by lazy { getArgs<CovPassCheckCameraDisclosureFragmentNav>().isTwoGPlusBOn }
     private val binding by viewBinding(CameraDisclosurePopupContentBinding::inflate)
     override val buttonTextRes = R.string.scan_dialog_camera_access_action_button
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_dialog_camera_access_announce
@@ -41,6 +35,6 @@ internal class CovPassCheckCameraDisclosureFragment : BaseBottomSheet() {
 
     override fun onActionButtonClicked() {
         findNavigator().pop()
-        findNavigator().push(CovPassCheckQRScannerFragmentNav(isTwoGPlusOn, isTwoGPlusBOn))
+        findNavigator().push(CovPassCheckQRScannerFragmentNav())
     }
 }

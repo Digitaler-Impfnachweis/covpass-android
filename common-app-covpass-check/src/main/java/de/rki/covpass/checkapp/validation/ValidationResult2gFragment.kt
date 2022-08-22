@@ -180,8 +180,7 @@ public class ValidationResult2gFragment : BaseBottomSheet(), ValidationResultLis
     }
 
     private fun fillEmptyElement() {
-        binding.validationResultTypeText.isVisible =
-            !firstCertificateData.isVaccination() &&
+        binding.validationResultTypeText.isVisible = !firstCertificateData.isVaccination() &&
             !firstCertificateData.isBooster() &&
             !firstCertificateData.isRecoveryOlder90Days
         when {

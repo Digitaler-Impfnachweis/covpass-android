@@ -22,9 +22,11 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
+import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
+import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.information.SettingsFragmentNav
@@ -58,7 +60,6 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
     private val settingsUpdateViewModel by reactiveState {
         SettingsUpdateViewModel(scope, true)
     }
-    private val viewModel by reactiveState { MainViewModel(scope) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,18 +69,10 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         binding.mainCheckCertButton.setOnClickListener {
             if (isCameraPermissionGranted(requireContext())) {
                 findNavigator().push(
-                    CovPassCheckQRScannerFragmentNav(
-                        viewModel.isTwoGPlusOn.value,
-                        viewModel.isTwoGPlusBOn.value,
-                    ),
+                    CovPassCheckQRScannerFragmentNav(),
                 )
             } else {
-                findNavigator().push(
-                    CovPassCheckCameraDisclosureFragmentNav(
-                        viewModel.isTwoGPlusOn.value,
-                        viewModel.isTwoGPlusBOn.value,
-                    ),
-                )
+                findNavigator().push(CovPassCheckCameraDisclosureFragmentNav())
             }
         }
         binding.mainAvailabilityUpdateRulesLayout.setOnClickListener {
@@ -90,11 +83,21 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    viewModel.isTwoGPlusOn.value = tab?.position == 1
-                    binding.mainCheckCert2gBLayout.isVisible = tab?.position == 1
-                    if (tab?.position == 0) {
-                        viewModel.isTwoGPlusBOn.value = false
-                        binding.mainCheckCert2gBSwitch.isChecked = false
+                    when {
+                        tab?.position == 1 && covpassCheckDeps.checkAppRepository.is3GOn() -> {
+                            launchWhenStarted {
+                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
+                                    CheckingMode.Mode2GPlus,
+                                )
+                            }
+                        }
+                        tab?.position == 0 && !covpassCheckDeps.checkAppRepository.is3GOn() -> {
+                            launchWhenStarted {
+                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
+                                    CheckingMode.Mode3G,
+                                )
+                            }
+                        }
                     }
                 }
 
@@ -103,7 +106,22 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             },
         )
         binding.mainCheckCert2gBSwitch.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.isTwoGPlusBOn.value = isChecked
+            when {
+                isChecked && !covpassCheckDeps.checkAppRepository.is2GPlusBOn() -> {
+                    launchWhenStarted {
+                        covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
+                            CheckingMode.Mode2GPlusB,
+                        )
+                    }
+                }
+                !isChecked && covpassCheckDeps.checkAppRepository.is2GPlusBOn() -> {
+                    launchWhenStarted {
+                        covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
+                            CheckingMode.Mode2GPlus,
+                        )
+                    }
+                }
+            }
         }
         ViewCompat.setAccessibilityDelegate(
             binding.mainHeaderTextview,
@@ -165,7 +183,29 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             }.let { }
         }
         autoRun {
-            updateScannerCard(get(viewModel.isTwoGPlusOn))
+            when (get(covpassCheckDeps.checkAppRepository.activatedCheckingMode)) {
+                CheckingMode.Mode3G -> {
+                    binding.mainCheckCertTabLayout.getTabAt(0)?.select()
+                    updateScannerCard(false)
+
+                    binding.mainCheckCert2gBLayout.isVisible = false
+                    binding.mainCheckCert2gBSwitch.isChecked = false
+                }
+                CheckingMode.Mode2GPlus -> {
+                    binding.mainCheckCertTabLayout.getTabAt(1)?.select()
+                    updateScannerCard(true)
+
+                    binding.mainCheckCert2gBLayout.isVisible = true
+                    binding.mainCheckCert2gBSwitch.isChecked = false
+                }
+                CheckingMode.Mode2GPlusB -> {
+                    binding.mainCheckCertTabLayout.getTabAt(1)?.select()
+                    updateScannerCard(true)
+
+                    binding.mainCheckCert2gBLayout.isVisible = true
+                    binding.mainCheckCert2gBSwitch.isChecked = true
+                }
+            }
         }
         autoRun {
             showActivatedRules(get(commonDeps.checkContextRepository.isDomesticRulesOn))
@@ -175,11 +215,6 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
     override fun onResume() {
         super.onResume()
-        if (viewModel.isTwoGPlusOn.value) {
-            binding.mainCheckCertTabLayout.getTabAt(1)?.select()
-        } else {
-            binding.mainCheckCertTabLayout.getTabAt(0)?.select()
-        }
         commonDeps.timeValidationRepository.validate()
         covpassCheckBackgroundViewModel.update()
         launchWhenStarted {
