@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -93,9 +94,8 @@
       android:layout_marginTop="@dimen/grid_eighth"
       android:layout_marginEnd="@dimen/grid_one"
       android:importantForAccessibility="no"
-      android:src="@drawable/certificate_switcher_manage_certificates"
-      app:tint="@android:color/white"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription"
+      tools:src="@drawable/certificate_switcher_manage_certificates" />
 
     <TextView
       android:id="@+id/action_button_text"
