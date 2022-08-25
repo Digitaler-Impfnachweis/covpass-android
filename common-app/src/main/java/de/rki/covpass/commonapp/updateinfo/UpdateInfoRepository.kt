@@ -16,6 +16,9 @@ public class UpdateInfoRepository(store: CborSharedPrefsStore) {
     public val updateInfoVersionShown: SuspendMutableValueFlow<Int> =
         store.getData("update_info_version_shown", 0)
 
+    public val updateInfoNotificationActive: SuspendMutableValueFlow<Boolean> =
+        store.getData("update_info_notification_active", true)
+
     public companion object {
         public const val CURRENT_UPDATE_VERSION: Int = 19
     }

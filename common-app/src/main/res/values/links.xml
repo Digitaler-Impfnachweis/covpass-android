@@ -7,4 +7,5 @@
 <resources>
   <string name="data_protection_path" />
   <string name="information_accessibility_statement" />
+  <string name="update_info_path" />
 </resources>

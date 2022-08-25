@@ -108,6 +108,7 @@ public abstract class InformationFragment : BaseFragment() {
 
         if (isCovpassCheck()) {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
+            binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = false
             binding.informationFieldExpertModeLayout.setOnClickListener {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
             }
@@ -123,6 +124,20 @@ public abstract class InformationFragment : BaseFragment() {
             )
         } else {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
+            binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = true
+            binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
+                findNavigator().push(WhatsNewSettingsFragmentNav())
+            }
+            binding.informationFieldCovpassWhatsNewSettingsTitle.setText(
+                R.string.app_information_list_update_notifications,
+            )
+            binding.informationFieldCovpassWhatsNewSettingsStatus.setText(
+                if (commonDeps.updateInfoRepository.updateInfoNotificationActive.value) {
+                    R.string.settings_list_status_on
+                } else {
+                    R.string.settings_list_status_off
+                },
+            )
         }
     }
 

@@ -70,7 +70,8 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 true
             }
             commonDependencies.updateInfoRepository.updateInfoVersionShown.value
-                != UpdateInfoRepository.CURRENT_UPDATE_VERSION -> {
+                != UpdateInfoRepository.CURRENT_UPDATE_VERSION &&
+                commonDependencies.updateInfoRepository.updateInfoNotificationActive.value -> {
                 eventNotifier {
                     showNewUpdateInfo()
                 }

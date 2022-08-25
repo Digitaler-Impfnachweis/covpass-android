@@ -6,9 +6,10 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical">
 
   <LinearLayout
@@ -35,4 +36,58 @@
     android:id="@+id/update_info_web_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/stop_notification_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_three">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+      android:id="@+id/stop_notification_checkbox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_three"
+      android:button="@drawable/checkbox_bg"
+      android:clickable="true"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
+      android:minWidth="0dp"
+      android:minHeight="0dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:checked="true" />
+
+    <TextView
+      android:id="@+id/stop_notification_title"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_one_half"
+      android:layout_marginTop="@dimen/grid_quarter"
+      android:layout_marginEnd="@dimen/grid_three"
+      android:labelFor="@+id/stop_notification_checkbox"
+      android:text="@string/whats_new_screen_update_notifications_checkbox_headline"
+      app:layout_constraintBottom_toTopOf="@+id/stop_notification_info"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/stop_notification_checkbox"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+      android:id="@+id/stop_notification_info"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_one_half"
+      android:layout_marginTop="@dimen/grid_quarter"
+      android:layout_marginEnd="@dimen/grid_three"
+      android:labelFor="@+id/stop_notification_checkbox"
+      android:text="@string/whats_new_screen_update_notifications_checkbox_copy"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/stop_notification_checkbox"
+      app:layout_constraintTop_toBottomOf="@+id/stop_notification_title" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

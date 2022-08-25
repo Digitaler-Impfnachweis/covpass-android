@@ -651,7 +651,7 @@
 	<string name="app_information_title_update_notifications">Update-Benachrichtigungen</string>
 	<string name="app_information_copy_update_notifications">Sie können ab jetzt die Update-Benachrichtigungen deaktivieren. Mit dem Regler können Sie jederzeit die Updates deaktivieren oder wieder aktivieren. Wenn sie den Update-Benachrichtigungen deaktivieren, bekommen Sie keine Updates mehr über die neuesten Software-Entwicklungen in der App.</string>
 	<string name="app_information_update_notifications_toggle">Update-Benachrichtigungen anzeigen</string>
-	<string name="app_information_update_notifications_new_version_copy">Neue Funktionen (Version %d)</string>
+	<string name="app_information_update_notifications_new_version_copy">Neue Funktionen (Version %s)</string>
 	<string name="whats_new_screen_update_notifications_checkbox_headline">Diese Art von Benachrichtigungen nicht mehr anzeigen</string>
 	<string name="whats_new_screen_update_notifications_checkbox_copy">Sie können diese Entscheidung jederzeit in den Einstellungen ändern.</string>
 	<string name="settings_rules_list_title">Prüfregeln</string>

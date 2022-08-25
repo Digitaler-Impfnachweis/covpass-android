@@ -33,17 +33,18 @@ public abstract class UpdateInfoFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetActionButton.text = getString(updateInfoButton)
-        bottomSheetBinding.bottomSheetHeader.isVisible = false
         bottomSheetBinding.bottomSheetClose.isVisible = false
         bottomSheetBinding.bottomSheetActionButton.isEnabled = false
 
         binding.loadingLayout.isVisible = true
         binding.updateInfoWebView.isGone = true
+        binding.stopNotificationLayout.isGone = true
         binding.updateInfoWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 bottomSheetBinding.bottomSheetActionButton.isEnabled = true
                 binding.loadingLayout.isGone = true
                 binding.updateInfoWebView.isVisible = true
+                binding.stopNotificationLayout.isVisible = true
             }
         }
         binding.updateInfoWebView.loadUrl(getString(updateInfoPath))
@@ -52,4 +53,6 @@ public abstract class UpdateInfoFragment : BaseBottomSheet() {
     override fun onActionButtonClicked() {}
 
     override fun onClickOutside() {}
+
+    public fun isStopNotificationChecked(): Boolean = binding.stopNotificationCheckbox.isChecked
 }

@@ -244,7 +244,7 @@
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
 	<string name="settings_rules_list_loading_cancel">Abbrechen</string>
-	<string name="app_information_message_update">Zur Überprüfung eingescannter Zertifikate benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan in Deutschland geltenden Corona-Regeln. Diese Listen aktualisieren sich im Online-Modus täglich automatisch.</string>
+	<string name="app_information_message_update">Legen Sie fest, nach welchen Regeln COVID-Zertifikate geprüft werden sollen. Sollten die Prüfregeln nicht aktuell sein, können Sie hier auch ein manuelles Update vornehmen.</string>
 	<string name="app_information_rules_list_title">Regelwerk</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>

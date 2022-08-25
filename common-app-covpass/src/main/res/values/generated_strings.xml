@@ -651,7 +651,7 @@
 	<string name="app_information_title_update_notifications">Update notifications</string>
 	<string name="app_information_copy_update_notifications">You can now disable the update notifications. You can use the toggle to disable or re-enable the updates at any time. If you disable the update screen, you will no longer receive updates about the latest software developments in the app.</string>
 	<string name="app_information_update_notifications_toggle">Show update notifications</string>
-	<string name="app_information_update_notifications_new_version_copy">New functions (Version %d)</string>
+	<string name="app_information_update_notifications_new_version_copy">New functions (Version %s)</string>
 	<string name="whats_new_screen_update_notifications_checkbox_headline">Do not show this type of notifications anymore</string>
 	<string name="whats_new_screen_update_notifications_checkbox_copy">You can change this option anytime in the settings.</string>
 	<string name="settings_rules_list_title">Checking rules</string>

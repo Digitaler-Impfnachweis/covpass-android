@@ -87,6 +87,17 @@
   <string name="validation_start_screen_offline_modus_note_update"/>
   <string name="validation_start_screen_offline_modus_certificates"/>
   <string name="validation_start_screen_offline_modus_rules"/>
+  <string name="accessibility_app_information_update_notifications_announce_open"/>
+  <string name="accessibility_app_information_update_notifications_announce_close"/>
+  <string name="app_information_list_update_notifications"/>
+  <string name="app_information_title_update_notifications"/>
+  <string name="app_information_copy_update_notifications"/>
+  <string name="app_information_update_notifications_toggle"/>
+  <string name="app_information_update_notifications_new_version_copy"/>
+  <string name="whats_new_screen_update_notifications_checkbox_headline"/>
+  <string name="whats_new_screen_update_notifications_checkbox_copy"/>
+  <string name="settings_list_status_on"/>
+  <string name="settings_list_status_off"/>
 
   <string name="dialog_start_screen_title"/>
   <string name="dialog_start_screen_message"/>
