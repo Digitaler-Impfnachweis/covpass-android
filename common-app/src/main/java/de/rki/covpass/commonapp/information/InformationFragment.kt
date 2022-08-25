@@ -122,7 +122,23 @@ public abstract class InformationFragment : BaseFragment() {
                     R.string.app_information_authorities_function_state_off
                 },
             )
+
+            binding.informationFieldAcousticFeedbackLayout.isVisible = true
+            binding.informationFieldAcousticFeedbackLayout.setOnClickListener {
+                findNavigator().push(AcousticFeedbackFragmentNav())
+            }
+            binding.informationFieldAcousticFeedbackTitle.setText(
+                R.string.app_information_beep_when_checking_title,
+            )
+            binding.informationFieldAcousticFeedbackStatus.setText(
+                if (commonDeps.acousticFeedbackRepository.acousticFeedbackStatus.value) {
+                    R.string.on
+                } else {
+                    R.string.off
+                },
+            )
         } else {
+            binding.informationFieldAcousticFeedbackLayout.isVisible = false
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
             binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = true
             binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
@@ -158,4 +174,5 @@ public abstract class InformationFragment : BaseFragment() {
     protected abstract fun getImprintLinkRes(): Int
     protected abstract fun getEasyLanguageLinkRes(): Int
     protected abstract fun isCovpassCheck(): Boolean
+    protected open fun hasAcousticFeedback(): Boolean = false
 }

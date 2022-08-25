@@ -10,6 +10,10 @@
 	<string name="ok">OK</string>
 	<string name="close">Schließen</string>
 	<string name="cancel">Abbrechen</string>
+	<string name="next">Weiter</string>
+	<string name="back">Zurück</string>
+	<string name="on">An</string>
+	<string name="off">Aus</string>
 
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Willkommen in der CovPassCheck-App</string>
@@ -267,6 +271,9 @@
 	<string name="app_information_title_local_rules_button">Übernehmen</string>
 	<string name="app_information_title_local_rules_status_DE">Innerhalb DE</string>
 	<string name="app_information_title_local_rules_status_EU">Einreise</string>
+	<string name="accessibility_settings_beep_announce_open">Die Ansicht \"Signalton beim Scannen\" wurde geöffnet</string>
+	<string name="accessibility_settings_beep_announce_close">Die Ansicht \"Signalton beim Scannen\" wurde geschlossen</string>
+	<string name="accessibility_settings_beep_backlabel">Zurück</string>
 	<string name="app_information_beep_when_checking_title">Signalton beim Scannen</string>
 	<string name="app_information_beep_when_checking_message">Sie hören bei der Anzeige eines Ergebnisses zusätzlich einen Signalton. Nutzen Sie diese Funktion nur, wenn Sie gewährleisten können, dass umstehende Dritte keine Rückschlüsse auf den Gültigkeitsstatus der geprüften Person ziehen können. Die Identitätsprüfung mittels eines Ausweisdokumentes ist auch weiterhin zwingend notwendig.</string>
 	<string name="accessibility_information_beep_when_checking_on">Signalton anschalten</string>

@@ -12,6 +12,7 @@ import com.lyft.kronos.AndroidClockFactory
 import com.lyft.kronos.KronosClock
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.commonapp.kronostime.TimeValidationRepository
+import de.rki.covpass.commonapp.storage.AcousticFeedbackRepository
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
@@ -47,6 +48,10 @@ public abstract class CommonDependencies {
 
     public val onboardingRepository: OnboardingRepository = OnboardingRepository(
         CborSharedPrefsStore("onboarding_prefs", cbor),
+    )
+
+    public val acousticFeedbackRepository: AcousticFeedbackRepository = AcousticFeedbackRepository(
+        CborSharedPrefsStore("acoustic_feedback_prefs", cbor),
     )
 
     public val updateInfoRepository: UpdateInfoRepository = UpdateInfoRepository(

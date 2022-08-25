@@ -10,6 +10,10 @@
 	<string name="ok">OK</string>
 	<string name="close">Close</string>
 	<string name="cancel">Cancel</string>
+	<string name="next">Continue</string>
+	<string name="back">Back</string>
+	<string name="on">On</string>
+	<string name="off">Off</string>
 
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Welcome to the CovPassCheck app</string>
@@ -267,6 +271,9 @@
 	<string name="app_information_title_local_rules_button">Apply</string>
 	<string name="app_information_title_local_rules_status_DE">Within DE</string>
 	<string name="app_information_title_local_rules_status_EU">Entering DE</string>
+	<string name="accessibility_settings_beep_announce_open">The view \"Beep when checking\" has been opened</string>
+	<string name="accessibility_settings_beep_announce_close">The view \"Beep when checking\" has been closed</string>
+	<string name="accessibility_settings_beep_backlabel">Back</string>
 	<string name="app_information_beep_when_checking_title">Beep when checking</string>
 	<string name="app_information_beep_when_checking_message">You will also hear a beep when a result is displayed. Only use this function if you can guarantee that bystanders cannot draw any conclusions about the validity status of the person being checked. The identity check by means of an identification document is still mandatory.</string>
 	<string name="accessibility_information_beep_when_checking_on">Switch on beep</string>

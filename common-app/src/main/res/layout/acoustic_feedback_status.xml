@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/backgroundPrimary"
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
+
+  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+    android:id="@+id/information_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundPrimary"
+    android:elevation="@dimen/elevation"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/grid_seven"
+    android:paddingStart="@dimen/grid_one"
+    android:paddingEnd="@dimen/grid_one"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/acoustic_feedback_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three_half"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <de.rki.covpass.commonapp.uielements.ExpertModeToggleElement
+        android:id="@+id/acoustic_feedback_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_five"
+        app:layout_constraintTop_toBottomOf="@+id/acoustic_feedback_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
+
+</LinearLayout>

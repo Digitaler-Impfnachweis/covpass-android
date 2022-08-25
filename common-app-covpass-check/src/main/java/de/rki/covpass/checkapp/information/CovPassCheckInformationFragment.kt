@@ -25,4 +25,6 @@ internal class CovPassCheckInformationFragment : InformationFragment() {
     override fun getEasyLanguageLinkRes(): Int = R.string.easy_language_link
 
     override fun isCovpassCheck(): Boolean = true
+
+    override fun hasAcousticFeedback() = true
 }

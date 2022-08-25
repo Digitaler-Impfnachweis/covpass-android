@@ -5,6 +5,7 @@
 
 package de.rki.covpass.checkapp.scanner
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import com.ensody.reactivestate.android.reactiveState
@@ -24,6 +25,7 @@ import de.rki.covpass.checkapp.validation.ValidationResultFailureFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
 import de.rki.covpass.checkapp.validation.ValidationResultSuccessNav
 import de.rki.covpass.checkapp.validation.ValidationResultTechnicalFailureFragmentNav
+import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
@@ -66,16 +68,21 @@ internal class CovPassCheckQRScannerFragment :
             isTwoGPlusBOn,
         )
     }
+    private lateinit var mp: MediaPlayer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         verifyRecoveryOlder90DaysIsValid()
+        mp = MediaPlayer.create(requireContext(), R.raw.covpass_check_certificate_scanned)
     }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
     override val isCovpass = false
 
     override fun onBarcodeResult(qrCode: String) {
+        if (commonDeps.acousticFeedbackRepository.acousticFeedbackStatus.value) {
+            mp.start()
+        }
         viewModel.onQrContentReceived(qrCode)
     }
 

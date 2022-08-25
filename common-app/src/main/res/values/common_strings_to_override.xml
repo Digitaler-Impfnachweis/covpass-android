@@ -7,6 +7,10 @@
 <!--This file contains common strings which have to be overridden in both apps-->
 <resources>
 
+
+  <string name="on"/>
+  <string name="off"/>
+
   <string name="app_information_title"/>
   <string name="app_information_message"/>
   <string name="app_information_title_open_source"/>
@@ -127,5 +131,12 @@
   <string name="settings_rules_list_loading_title"/>
   <string name="cancel"/>
   <string name="validation_start_screen_offline_modus_button"/>
+
+  <string name="app_information_beep_when_checking_title"/>
+  <string name="app_information_beep_when_checking_message"/>
+  <string name="accessibility_information_beep_when_checking_on"/>
+  <string name="accessibility_settings_beep_announce_open"/>
+  <string name="accessibility_settings_beep_announce_close"/>
+  <string name="accessibility_settings_beep_backlabel"/>
 
 </resources>
