@@ -63,6 +63,7 @@
 	<string name="validation_start_screen_scan_title_2G">2G+ prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie einen G-Nachweis nach den 3G-Regeln. Welche Regelung gilt, ist abhängig vom Bundesland in dem Sie sich befinden.</string>
 	<string name="validation_start_screen_scan_message_2G">Scannen Sie nacheinander die notwendigen Nachweise für 2G+.</string>
+	<string name="start_screen_authority_function_hint">Die Behördenfunktion ist nur im 3G-Modus verfügbar!</string>
 	<string name="validation_start_screen_scan_message_2G_toggle">Bei Auffrischimpfungen ist kein Test nötig</string>
 	<string name="validation_start_screen_scan_sync_message_title">Datum und Uhrzeit prüfen</string>
 	<string name="validation_start_screen_scan_sync_message_text">Bitte korrigieren Sie das Datum und die Uhrzeit Ihres Smartphones. \n\n Soll: %s</string>
@@ -256,6 +257,10 @@
 	<string name="app_information_title_checkrules">Prüfregeln</string>
 	<string name="app_information_offline_revocation_title">Gesperrte Zertifikate offline prüfen</string>
 	<string name="app_information_offline_revocation_copy">Aktivieren Sie diese Einstellung, wenn Sie auch im Offline-Modus von den Behörden gesperrte Zertifikate erkennen möchten. Andernfalls werden gesperrte Zertifikate nur im Online-Modus erkannt. Diese Funktion verbraucht mehr Datenvolumen.</string>
+	<string name="app_information_offline_revocation_hint_title">Hinweis</string>
+	<string name="app_information_offline_revocation_hint_copy">Wenn die Funktion deaktiviert wird, werden die lokalen App-Daten von Ihrem Gerät gelöscht. Zertifikate können dann nur noch im Online-Modus geprüft werden.</string>
+	<string name="app_information_offline_revocation_hint_button_active">OK</string>
+	<string name="app_information_offline_revocation_hint_button_inactive">Abbrechen</string>
 	<string name="accessibility_app_information_title_update">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_local_rules">Die Ansicht \"Prüfsituation\" wurde geöffnet</string>
 	<string name="app_information_title_local_rules">Regelwerk</string>

@@ -60,6 +60,9 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
     private val settingsUpdateViewModel by reactiveState {
         SettingsUpdateViewModel(scope, true)
     }
+    private val expertModeViewModel by reactiveState {
+        CovpassCheckExpertModeViewModel(scope)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -210,7 +213,14 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         autoRun {
             showActivatedRules(get(commonDeps.checkContextRepository.isDomesticRulesOn))
         }
+        autoRun {
+            updateExpertModeHintVisibility(get(expertModeViewModel.isHintVisible))
+        }
         showNotificationIfNeeded()
+    }
+
+    private fun updateExpertModeHintVisibility(isVisible: Boolean) {
+        binding.mainCheckCertExpertModeInfoLayout.isVisible = isVisible
     }
 
     override fun onResume() {

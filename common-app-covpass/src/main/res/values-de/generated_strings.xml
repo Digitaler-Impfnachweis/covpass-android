@@ -617,9 +617,13 @@
 	<string name="accessibility_app_information_datenschutz_closing_announce">Die Datenschutzerklärung wurde geschlossen</string>
 	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
+	<string name="accessibility_app_information_update_notifications_announce_open">Die Ansicht \"Update-Benachrichtigungen\" wurde geöffnet</string>
+	<string name="accessibility_app_information_update_notifications_announce_close">Die Ansicht \"Update-Benachrichtigungen\" wurde geschlossen</string>
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="accessibility_app_information_title_informationt_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>
+	<string name="settings_list_status_on">An</string>
+	<string name="settings_list_status_off">Aus</string>
 	<string name="app_information_title">Informationen</string>
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPass-App.</string>
 	<string name="app_information_title_contact">Kontakt</string>
@@ -643,6 +647,13 @@
 	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
 	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
 	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan geltenden Corona-Einreiseregeln in den entsprechenden Ländern.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="app_information_list_update_notifications">Update-Benachrichtigungen</string>
+	<string name="app_information_title_update_notifications">Update-Benachrichtigungen</string>
+	<string name="app_information_copy_update_notifications">Sie können ab jetzt die Update-Benachrichtigungen deaktivieren. Mit dem Regler können Sie jederzeit die Updates deaktivieren oder wieder aktivieren. Wenn sie den Update-Benachrichtigungen deaktivieren, bekommen Sie keine Updates mehr über die neuesten Software-Entwicklungen in der App.</string>
+	<string name="app_information_update_notifications_toggle">Update-Benachrichtigungen anzeigen</string>
+	<string name="app_information_update_notifications_new_version_copy">Neue Funktionen (Version %d)</string>
+	<string name="whats_new_screen_update_notifications_checkbox_headline">Diese Art von Benachrichtigungen nicht mehr anzeigen</string>
+	<string name="whats_new_screen_update_notifications_checkbox_copy">Sie können diese Entscheidung jederzeit in den Einstellungen ändern.</string>
 	<string name="settings_rules_list_title">Prüfregeln</string>
 	<string name="settings_rules_list_status_updated">Aktualisiert</string>
 	<string name="settings_rules_list_status_outofdate">Aktualisierung notwendig</string>
@@ -668,6 +679,7 @@
 	<!-- to be used as alt text for qr codes -->
 	<string name="accessibility_qr_code">QR-Code</string>
 	<string name="accessibility_button">Taste</string>
+	<string name="whats_new_screen_title">Neue Funktionen</string>
 
 	<!-- SECTION: popup: share certification -->
 	<string name="share_certificate_title">Ihre Zertifikate zu Buchungszwecken freigeben</string>

@@ -617,9 +617,13 @@
 	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy notice has been closed</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
+	<string name="accessibility_app_information_update_notifications_announce_open">The view \"update notifications\" has been opened</string>
+	<string name="accessibility_app_information_update_notifications_announce_close">The view \"update notifications\" has been closed</string>
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
 	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
 	<string name="accessibility_app_information_version_number_delimiter">point</string>
+	<string name="settings_list_status_on">On</string>
+	<string name="settings_list_status_off">Off</string>
 	<string name="app_information_title">Information</string>
 	<string name="app_information_message">Here you can find all legal information and answers to the most frequent questions asked about the CovPass app.</string>
 	<string name="app_information_title_contact">Contact</string>
@@ -643,6 +647,13 @@
 	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
 	<string name="app_information_title_update">Update checking rules</string>
 	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers as well as the current Covid-19 rules in the relevant travel countries.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
+	<string name="app_information_list_update_notifications">Update notifications</string>
+	<string name="app_information_title_update_notifications">Update notifications</string>
+	<string name="app_information_copy_update_notifications">You can now disable the update notifications. You can use the toggle to disable or re-enable the updates at any time. If you disable the update screen, you will no longer receive updates about the latest software developments in the app.</string>
+	<string name="app_information_update_notifications_toggle">Show update notifications</string>
+	<string name="app_information_update_notifications_new_version_copy">New functions (Version %d)</string>
+	<string name="whats_new_screen_update_notifications_checkbox_headline">Do not show this type of notifications anymore</string>
+	<string name="whats_new_screen_update_notifications_checkbox_copy">You can change this option anytime in the settings.</string>
 	<string name="settings_rules_list_title">Checking rules</string>
 	<string name="settings_rules_list_status_updated">Updated</string>
 	<string name="settings_rules_list_status_outofdate">Update required</string>
@@ -668,6 +679,7 @@
 	<!-- to be used as alt text for qr codes -->
 	<string name="accessibility_qr_code">QR code</string>
 	<string name="accessibility_button">Button</string>
+	<string name="whats_new_screen_title">New features</string>
 
 	<!-- SECTION: popup: share certification -->
 	<string name="share_certificate_title">Share your certificates for booking purposes</string>

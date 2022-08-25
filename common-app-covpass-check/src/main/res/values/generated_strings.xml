@@ -63,6 +63,7 @@
 	<string name="validation_start_screen_scan_title_2G">Check 2G+</string>
 	<string name="validation_start_screen_scan_message">Scan a G-Proof according to the 3G rules. Which rule applies depends on the federal state you are in.</string>
 	<string name="validation_start_screen_scan_message_2G">Scan the necessary evidence for 2G+ one by one.</string>
+	<string name="start_screen_authority_function_hint">The authority function is only available in 3G mode!</string>
 	<string name="validation_start_screen_scan_message_2G_toggle">No test is needed when a booster vaccination is given</string>
 	<string name="validation_start_screen_scan_sync_message_title">Check date and time</string>
 	<string name="validation_start_screen_scan_sync_message_text">Please check the date and time of your smartphone. \n\n It should be: %s</string>
@@ -256,6 +257,10 @@
 	<string name="app_information_title_checkrules">Checking rules</string>
 	<string name="app_information_offline_revocation_title">Check revoked certificates offline</string>
 	<string name="app_information_offline_revocation_copy">Activate this setting if you also want to detect certificates revoked by the authorities in offline mode. Otherwise, revoked certificates are only detected in online mode. This function consumes more data volume.</string>
+	<string name="app_information_offline_revocation_hint_title">Note</string>
+	<string name="app_information_offline_revocation_hint_copy">If the function is deactivated, the local app data will be deleted from your device. Certificates can then only be checked in online mode.</string>
+	<string name="app_information_offline_revocation_hint_button_active">OK</string>
+	<string name="app_information_offline_revocation_hint_button_inactive">Cancel</string>
 	<string name="accessibility_app_information_title_update">The view \"Update rule set\" has been opened</string>
 	<string name="accessibility_app_information_title_local_rules">The view \"Check situation\" has been opened</string>
 	<string name="app_information_title_local_rules">Checking rules</string>
