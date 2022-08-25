@@ -109,48 +109,13 @@
           app:layout_constraintStart_toStartOf="@id/main_check_cert_header_textview"
           app:layout_constraintTop_toBottomOf="@id/main_check_cert_header_textview" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/main_check_cert_expert_mode_info_layout"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/grid_one_half"
-          android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/main_check_cert_info_textview"
-          tools:visibility="visible">
-
-          <ImageView
-            android:id="@+id/main_check_cert_expert_mode_info_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_three"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/main_check_cert_expert_mode_info_textview"
-            app:srcCompat="@drawable/info_warning"
-            tools:ignore="ContentDescription" />
-
-          <TextView
-            android:id="@+id/main_check_cert_expert_mode_info_textview"
-            style="@style/DefaultText.OnInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_one"
-            android:layout_marginEnd="@dimen/grid_three"
-            android:text="@string/start_screen_authority_function_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/main_check_cert_expert_mode_info_icon"
-            app:layout_constraintTop_toTopOf="@+id/main_check_cert_expert_mode_info_icon" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <Space
           android:id="@+id/main_check_cert_space"
           android:layout_width="0dp"
           android:layout_height="@dimen/grid_nine"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/main_check_cert_expert_mode_info_layout" />
+          app:layout_constraintTop_toBottomOf="@+id/main_check_cert_info_textview" />
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/main_check_cert_button"
