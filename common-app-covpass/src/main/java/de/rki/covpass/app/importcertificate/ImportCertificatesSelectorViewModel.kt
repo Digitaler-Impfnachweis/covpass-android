@@ -163,9 +163,20 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
             val bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor)
             launch {
                 val list = getCovCertificatesFromBitmap(bitmap, MAX_SIZE_QR_CONTENT_LIST)
-                if (list.isNotEmpty()) {
+                val groupedCertificatesList = certRepository.certs.value
+                val listOfIdInTheApp =
+                    groupedCertificatesList.certificates.flatMap { it.certificates }
+                        .map { it.covCertificate.dgcEntry.id }
+                val filteredNewCovCertificates =
+                    list.filter { importCovCertificate ->
+                        !listOfIdInTheApp.contains(importCovCertificate.covCertificate.dgcEntry.id) &&
+                            list.none {
+                                it.covCertificate.dgcEntry.id == importCovCertificate.covCertificate.dgcEntry.id
+                            }
+                    }
+                if (filteredNewCovCertificates.isNotEmpty()) {
                     eventNotifier {
-                        certificatesFound(list)
+                        certificatesFound(filteredNewCovCertificates)
                     }
                 } else {
                     eventNotifier {
