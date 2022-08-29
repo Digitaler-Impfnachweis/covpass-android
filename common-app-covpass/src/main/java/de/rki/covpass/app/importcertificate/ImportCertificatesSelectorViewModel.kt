@@ -169,10 +169,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
                         .map { it.covCertificate.dgcEntry.id }
                 val filteredNewCovCertificates =
                     list.filter { importCovCertificate ->
-                        !listOfIdInTheApp.contains(importCovCertificate.covCertificate.dgcEntry.id) &&
-                            list.none {
-                                it.covCertificate.dgcEntry.id == importCovCertificate.covCertificate.dgcEntry.id
-                            }
+                        !listOfIdInTheApp.contains(importCovCertificate.covCertificate.dgcEntry.id)
                     }
                 if (filteredNewCovCertificates.isNotEmpty()) {
                     eventNotifier {
