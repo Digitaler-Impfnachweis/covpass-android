@@ -16,6 +16,10 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.CheckSettingsBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.dialog.DialogAction
+import de.rki.covpass.commonapp.dialog.DialogListener
+import de.rki.covpass.commonapp.dialog.DialogModel
+import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.parcelize.Parcelize
 
@@ -24,7 +28,7 @@ public class SettingsFragmentNav(
     public val isCovPassCheck: Boolean,
 ) : FragmentNav(SettingsFragment::class)
 
-public class SettingsFragment : BaseFragment() {
+public class SettingsFragment : BaseFragment(), DialogListener {
 
     private val binding by viewBinding(CheckSettingsBinding::inflate)
     private val args by lazy { getArgs<SettingsFragmentNav>() }
@@ -62,8 +66,19 @@ public class SettingsFragment : BaseFragment() {
             updateTitle(R.string.app_information_offline_revocation_title)
             updateToggle(isOfflineRevocationOn)
             setOnClickListener {
-                updateToggle(!binding.offlineRevocationToggle.isChecked())
-                updateOfflineRevocationState()
+                if (!binding.offlineRevocationToggle.isChecked()) {
+                    updateToggle(!binding.offlineRevocationToggle.isChecked())
+                    updateOfflineRevocationState()
+                } else {
+                    val dialogModel = DialogModel(
+                        titleRes = R.string.app_information_offline_revocation_hint_title,
+                        messageString = getString(R.string.app_information_offline_revocation_hint_copy),
+                        positiveButtonTextRes = R.string.app_information_offline_revocation_hint_button_active,
+                        negativeButtonTextRes = R.string.app_information_offline_revocation_hint_button_inactive,
+                        tag = DELETE_REVOCATION_LIST,
+                    )
+                    showDialog(dialogModel, childFragmentManager)
+                }
             }
         }
 
@@ -155,5 +170,16 @@ public class SettingsFragment : BaseFragment() {
             }
             binding.settingsToolbar.setTitle(R.string.app_information_title_update)
         }
+    }
+
+    override fun onDialogAction(tag: String, action: DialogAction) {
+        if (tag == DELETE_REVOCATION_LIST && action == DialogAction.POSITIVE) {
+            binding.offlineRevocationToggle.updateToggle(false)
+            updateOfflineRevocationState()
+        }
+    }
+
+    private companion object {
+        const val DELETE_REVOCATION_LIST = "delete_revocation_list"
     }
 }

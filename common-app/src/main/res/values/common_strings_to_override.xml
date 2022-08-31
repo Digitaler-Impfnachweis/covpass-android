@@ -139,4 +139,8 @@
   <string name="accessibility_settings_beep_announce_close"/>
   <string name="accessibility_settings_beep_backlabel"/>
 
+  <string name="app_information_offline_revocation_hint_title"/>
+  <string name="app_information_offline_revocation_hint_copy"/>
+  <string name="app_information_offline_revocation_hint_button_active"/>
+  <string name="app_information_offline_revocation_hint_button_inactive"/>
 </resources>
