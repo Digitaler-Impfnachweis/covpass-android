@@ -355,7 +355,7 @@ pipeline {
                         ) {
                             def artifactVersion = currentBuild.displayName.replaceAll("v-","") 
                             sh """
-                            app_covpass_demo=\$(find . -name covpassdemo*${artifactVersion}*-release.apk)
+                            app_covpass_demo=\$(find . -name covpassdemo*${artifactVersion}*-debug.apk)
                             echo \$app_covpass_demo
                             app_covpass_demo_name=\$(basename \$app_covpass_demo)
                             echo \$app_covpass_demo_name
