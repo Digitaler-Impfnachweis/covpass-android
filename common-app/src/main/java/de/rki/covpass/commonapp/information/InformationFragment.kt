@@ -123,7 +123,7 @@ public abstract class InformationFragment : BaseFragment() {
                 },
             )
 
-            binding.informationFieldAcousticFeedbackLayout.isVisible = true
+            binding.informationFieldAcousticFeedbackContainer.isVisible = true
             binding.informationFieldAcousticFeedbackLayout.setOnClickListener {
                 findNavigator().push(AcousticFeedbackFragmentNav())
             }
