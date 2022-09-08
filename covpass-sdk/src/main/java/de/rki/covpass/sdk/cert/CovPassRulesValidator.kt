@@ -11,7 +11,8 @@ import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.defaultJson
 import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
-import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
+import de.rki.covpass.sdk.rules.domain.rules.CovPassUseCase
+import de.rki.covpass.sdk.rules.domain.rules.CovPassValidationType
 import de.rki.covpass.sdk.rules.local.rules.eu.toRules
 import de.rki.covpass.sdk.rules.local.valuesets.toValueSets
 import de.rki.covpass.sdk.utils.toZonedDateTimeOrDefault
@@ -24,7 +25,7 @@ import kotlinx.serialization.encodeToString
 import java.time.ZonedDateTime
 
 public class CovPassRulesValidator(
-    private val rulesUseCase: CovPassGetRulesUseCase,
+    private val rulesUseCase: CovPassUseCase,
     private val certLogicEngine: CertLogicEngine,
     private val valueSetsRepository: CovPassValueSetsRepository,
 ) {
@@ -33,6 +34,7 @@ public class CovPassRulesValidator(
         cert: CovCertificate,
         countryIsoCode: String = "de",
         validationClock: ZonedDateTime = ZonedDateTime.now(),
+        validationType: CovPassValidationType = CovPassValidationType.RULES,
     ): List<ValidationResult> {
         val certificateType = cert.getCertificateType()
         val issuerCountryCode = cert.issuer.lowercase()
@@ -41,10 +43,12 @@ public class CovPassRulesValidator(
             issuerCountryCode,
             certificateType,
             validationClock,
+            validationType,
         )
-        val valueSetsMap = valueSetsRepository.getAllCovPassValueSets().toValueSets().map { valueSet ->
-            valueSet.valueSetId to valueSet.valueSetValues.fieldNames().asSequence().toList()
-        }.toMap()
+        val valueSetsMap =
+            valueSetsRepository.getAllCovPassValueSets().toValueSets().associate { valueSet ->
+                valueSet.valueSetId to valueSet.valueSetValues.fieldNames().asSequence().toList()
+            }
         val externalParameter = ExternalParameter(
             validationClock = validationClock.toOffsetDateTime().toZonedDateTime(),
             valueSets = valueSetsMap,

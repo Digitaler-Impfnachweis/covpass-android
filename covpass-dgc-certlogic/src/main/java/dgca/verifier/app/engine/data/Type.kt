@@ -22,5 +22,5 @@ package dgca.verifier.app.engine.data
  * Created by osarapulov on 17.06.21 15:29
  */
 enum class Type {
-    INVALIDATION, ACCEPTANCE
+    INVALIDATION, ACCEPTANCE, TWOG, TWOGPLUS, THREEG, THREEGPLUS, MASK
 }

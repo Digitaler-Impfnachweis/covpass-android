@@ -42,6 +42,8 @@ public data class BoosterNotification(
 public data class GroupedCertificates(
     var certificates: MutableList<CombinedCovCertificate>,
     var boosterNotification: BoosterNotification = BoosterNotification(),
+    var gStatus: ImmunizationStatus = ImmunizationStatus.Partial,
+    var maskStatus: MaskStatus = MaskStatus.Required,
 ) {
 
     var boosterNotificationRuleIds: List<String>
@@ -267,6 +269,18 @@ public data class GroupedCertificates(
     }
 
     /**
+     * @return The latest valid [CombinedCovCertificate] that is a [Vaccination]
+     */
+    public fun getLatestValidVaccination(): CombinedCovCertificate? {
+        return certificates.filter { it.covCertificate.dgcEntry is Vaccination && !it.isExpiredOrRevoked() }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence,
+                ) ?: 0
+            }.firstOrNull()
+    }
+
+    /**
      * @return The latest [CombinedCovCertificate] that is a [Recovery]
      */
     public fun getLatestRecovery(): CombinedCovCertificate? {
@@ -279,10 +293,34 @@ public data class GroupedCertificates(
     }
 
     /**
+     * @return The latest valid [CombinedCovCertificate] that is a [Recovery]
+     */
+    public fun getLatestValidRecovery(): CombinedCovCertificate? {
+        return certificates.filter { it.covCertificate.dgcEntry is Recovery && !it.isExpiredOrRevoked() }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult,
+                ) ?: 0
+            }.firstOrNull()
+    }
+
+    /**
      * @return The latest [CombinedCovCertificate] that is a [TestCert]
      */
     public fun getLatestTest(): CombinedCovCertificate? {
         return certificates.filter { it.covCertificate.dgcEntry is TestCert }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
+                ) ?: 0
+            }.firstOrNull()
+    }
+
+    /**
+     * @return The latest [CombinedCovCertificate] that is a [TestCert]
+     */
+    public fun getLatestValidTest(): CombinedCovCertificate? {
+        return certificates.filter { it.covCertificate.dgcEntry is TestCert && !it.isExpiredOrRevoked() }
             .sortedWith { cert1, cert2 ->
                 (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
                     (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
@@ -575,4 +613,42 @@ public data class GroupedCertificates(
         }
         return false
     }
+
+    public fun getMergedCertificate(): CombinedCovCertificate? {
+        val latestVaccination = getLatestValidVaccination()
+        val latestRecovery = getLatestValidRecovery()
+        val latestTest = getLatestValidTest()
+
+        return when {
+            latestVaccination != null -> {
+                latestVaccination.copy(
+                    covCertificate = latestVaccination.covCertificate.copy(
+                        recoveries = latestRecovery?.covCertificate?.recovery?.let { listOf(it) },
+                        tests = latestTest?.covCertificate?.test?.let { listOf(it) },
+                    ),
+                )
+            }
+            latestRecovery != null -> {
+                latestRecovery.copy(
+                    covCertificate = latestRecovery.covCertificate.copy(
+                        tests = latestTest?.covCertificate?.test?.let { listOf(it) },
+                    ),
+                )
+            }
+            latestTest != null -> {
+                latestTest
+            }
+            else -> {
+                null
+            }
+        }
+    }
+}
+
+public enum class ImmunizationStatus {
+    Full, Partial, Invalid
+}
+
+public enum class MaskStatus {
+    NotRequired, Required, Invalid
 }

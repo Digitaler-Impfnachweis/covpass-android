@@ -17,6 +17,11 @@ public class CovPassBackgroundUpdateViewModel @OptIn(DependencyAccessor::class) 
     private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BackgroundUpdateViewModel(scope, sdkDependencies) {
 
+    private val domesticRulesUpdater: Updater = Updater {
+        if (sdkDependencies.rulesUpdateRepository.lastDomesticRulesUpdate.value.isBeforeUpdateInterval()) {
+            sdkDependencies.covPassDomesticRulesRepository.loadRules()
+        }
+    }
     private val boosterRulesUpdater: Updater = Updater {
         if (sdkDependencies.rulesUpdateRepository.lastBoosterRulesUpdate.value.isBeforeUpdateInterval()) {
             sdkDependencies.covPassBoosterRulesRepository.loadBoosterRules()
@@ -25,6 +30,7 @@ public class CovPassBackgroundUpdateViewModel @OptIn(DependencyAccessor::class) 
 
     public override fun update() {
         super.update()
+        domesticRulesUpdater.update()
         boosterRulesUpdater.update()
     }
 }

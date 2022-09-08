@@ -11,18 +11,11 @@ import dgca.verifier.app.engine.data.CertificateType
 import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
-public interface CovPassUseCase {
-    public suspend fun invoke(
-        acceptanceCountryIsoCode: String,
-        issuanceCountryIsoCode: String,
-        certificateType: CertificateType,
-        validationClock: ZonedDateTime,
-        validationType: CovPassValidationType = CovPassValidationType.RULES,
-        region: String? = null,
-    ): List<CovPassRule>
+public enum class CovPassValidationType {
+    RULES, GG, GGPLUS, GGG, GGGPLUS, MASK
 }
 
-public class CovPassGetRulesUseCase(
+public class CovPassDomesticGetRulesUseCase(
     private val covPassRulesRepository: CovPassRulesRepository,
 ) : CovPassUseCase {
 
@@ -34,7 +27,35 @@ public class CovPassGetRulesUseCase(
         validationType: CovPassValidationType,
         region: String?,
     ): List<CovPassRule> {
+        return if (validationType == CovPassValidationType.RULES) {
+            getAcceptanceAndInvalidationRules(
+                acceptanceCountryIsoCode,
+                issuanceCountryIsoCode,
+                certificateType,
+                validationClock,
+                region,
+            )
+        } else {
+            getGStatusAndMaskRules(
+                acceptanceCountryIsoCode,
+                certificateType,
+                validationClock,
+                validationType.toRulesType(),
+                region,
+            )
+        }
+    }
+
+    private suspend fun getAcceptanceAndInvalidationRules(
+        acceptanceCountryIsoCode: String,
+        issuanceCountryIsoCode: String,
+        certificateType: CertificateType,
+        validationClock: ZonedDateTime,
+        region: String? = null,
+    ): List<CovPassRule> {
         val filteredAcceptanceRules = mutableMapOf<String, CovPassRule>()
+        val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
+
         val selectedRegion: String = region?.trim() ?: ""
         val acceptanceRules = covPassRulesRepository.getRulesBy(
             acceptanceCountryIsoCode,
@@ -58,7 +79,6 @@ public class CovPassGetRulesUseCase(
             }
         }
 
-        val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
         if (issuanceCountryIsoCode.isNotBlank()) {
             val invalidationRules = covPassRulesRepository.getRulesBy(
                 issuanceCountryIsoCode,
@@ -78,6 +98,51 @@ public class CovPassGetRulesUseCase(
             }
         }
         return filteredAcceptanceRules.values + filteredInvalidationRules.values
+    }
+
+    private fun CovPassValidationType.toRulesType(): Type {
+        return when (this) {
+            CovPassValidationType.GG -> Type.TWOG
+            CovPassValidationType.GGPLUS -> Type.TWOGPLUS
+            CovPassValidationType.GGG -> Type.THREEG
+            CovPassValidationType.GGGPLUS -> Type.THREEGPLUS
+            CovPassValidationType.MASK -> Type.MASK
+            else -> throw IllegalStateException("Validation type already handled: ${this.name}")
+        }
+    }
+
+    private suspend fun getGStatusAndMaskRules(
+        countryIsoCode: String,
+        certificateType: CertificateType,
+        validationClock: ZonedDateTime,
+        type: Type,
+        region: String? = null,
+    ): List<CovPassRule> {
+        val filteredRules = mutableMapOf<String, CovPassRule>()
+
+        val selectedRegion: String = region?.trim() ?: ""
+        val acceptanceRules = covPassRulesRepository.getRulesBy(
+            countryIsoCode,
+            validationClock,
+            type,
+            certificateType.toRuleCertificateType(),
+        )
+        for (rule in acceptanceRules) {
+            val ruleRegion: String = rule.region?.trim() ?: ""
+            if (selectedRegion.equals(
+                    ruleRegion,
+                    ignoreCase = true,
+                ) && (
+                    (
+                        filteredRules[rule.identifier]?.version?.toVersion()
+                            ?: -1
+                        ) < (rule.version.toVersion() ?: 0)
+                    )
+            ) {
+                filteredRules[rule.identifier] = rule
+            }
+        }
+        return filteredRules.values.toList()
     }
 
     private fun String.toVersion(): Int? = try {

@@ -843,4 +843,32 @@
 	<string name="revocation_detail_single_DE">Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt.</string>
 	<string name="revocation_detail_single_notDE">Das Zertifikat wurde vom Zertifikatsaussteller aufgrund einer behördlichen Entscheidung gesperrt.</string>
 	<string name="revocation_detail_locationID">Das RKI hat das Zertifikat aufgrund einer behördlichen Verfügung gesperrt. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
+
+	<!-- SECTION: infschg -->
+	<string name="infschg_info_accessibility_announce_open">Die Ansicht \"Neue gesetzliche Regelungen\" wurde geöffnet.</string>
+	<string name="infschg_info_accessibility_announce_close">Die Ansicht \"Neue gesetzliche Regelungen\" wurde geschlossen.</string>
+	<string name="infschg_info_accessibility_close">Schließen</string>
+	<string name="infschg_info_title">Neue gesetzliche Regelungen</string>
+	<string name="infschg_info_copy_1">In Deutschland tritt eine Änderung des Infektionsschutzgesetzes in Kraft. Deshalb ändert sich Ihre CovPass App ab heute auch.</string>
+	<string name="infschg_info_copy_2">Befreiung von der Maskenpflicht</string>
+	<string name="infschg_info_copy_3">Sollten die Nachweise für eine Person ausreichen, um diese Person von der Maskenpflicht zu befreien, färbt sich die Karte dieser Person grün und erhält einen entsprechenden Hinweis. Bei Bedarf können Sie so Ihre Befreiung nachweisen.\n\nVon der Maskenpflicht sind alle Personen befreit, die innerhalb der letzten 3 Monate geimpft wurden oder genesen sind oder innerhalb der letzten 24 Stunden negativ getestet wurden.</string>
+	<string name="infschg_info_button">OK</string>
+	<string name="infschg_start_mask_mandatory">Maskenpflicht</string>
+	<string name="infschg_start_mask_optional">Keine Maskenpflicht</string>
+	<string name="infschg_start_immune_complete">Immunschutz vorhanden</string>
+	<string name="infschg_start_immune_incomplete">Immunschutz unvollständig</string>
+	<string name="infschg_start_notification">Status überprüfen</string>
+	<string name="infschg_start_expired_revoked">Kein gültiges Zertifikat</string>
+	<string name="infschg_cert_overview_title">Ihr aktuelles Zertifikat</string>
+	<string name="infschg_cert_overview_mask_time_until">Befreit bis %d</string>
+	<string name="infschg_cert_overview_mask_time_from">Befreit ab %d</string>
+	<string name="infschg_cert_overview_mask_hint_optional">Sie müssen in Deutschland nicht notwendigerweise eine Maske tragen, da Sie innerhalb der letzten 24 Stunden ein negatives Testergebnis erhalten haben.</string>
+	<string name="infschg_cert_overview_mask_hint_mandatory">Ein negativer Schnell- oder PCR-Test befreit Sie für 24 Stunden deutschlandweit von der Maskenpflicht. In manchen Bundesländern können Sie auch durch Impfungen und Genesungen von der Maskenpflicht befreit sein. Informieren Sie sich bitte über die Regelungen in Ihrem Bundesland.</string>
+	<string name="infschg_cert_overview_immunisation_time_since">Seit %d</string>
+	<string name="infschg_cert_overview_immunisation_time_from">Ab %d</string>
+	<string name="infschg_cert_overview_immunisation_incomplete_A">Sie haben noch nicht alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist noch nicht vollständig.</string>
+	<string name="infschg_cert_overview_immunisation_complete_B2">Sie haben alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist vollständig.</string>
+	<string name="infschg_cert_overview_immunisation_third_vacc_C2">Sie haben alle Impfungen für einen vollständigen Impfschutz erhalten. Ihr Impfschutz ist wirksam. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.</string>
+	<string name="infschg_cert_overview_immunisation_E2">Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.</string>
+	<string name="infschg_cert_overview_immunisation_invalid">Fügen Sie ein gültiges Zertifikat hinzu oder erneuern Sie Ihr neuestes Zertifikat, um Informationen zu Ihrem Impfstatus zu erhalten.</string>
 </resources>

@@ -10,6 +10,7 @@ import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.scanner.CovPassCertificateStorageHelper
+import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
@@ -31,6 +32,7 @@ internal class MisusePreventionViewModel @OptIn(DependencyAccessor::class) const
     scope: CoroutineScope,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val certRepository: CertRepository = covpassDeps.certRepository,
+    private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
 ) : BaseReactiveState<MisusePreventionEvents>(scope) {
 
     fun addNewCertificate(qrContent: String) {
@@ -41,6 +43,7 @@ internal class MisusePreventionViewModel @OptIn(DependencyAccessor::class) const
                 covCertificate,
                 qrContent,
             )?.let {
+                gStatusAndMaskValidator.validate(certRepository)
                 eventNotifier {
                     onSaveSuccess(it)
                 }

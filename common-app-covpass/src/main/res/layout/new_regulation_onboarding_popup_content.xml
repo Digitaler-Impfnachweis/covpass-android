@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <ImageView
+    android:id="@+id/new_regulation_onboarding_illustration"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:contentDescription="@string/accessibility_image_alternative_text"
+    android:src="@drawable/covpass_new_regulation_onboarding_illustration" />
+
+  <TextView
+    android:id="@+id/new_regulation_onboarding_note_one"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three" />
+
+  <TextView
+    android:id="@+id/new_regulation_onboarding_note_two"
+    style="@style/Header.OnBackground.Small"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three" />
+
+  <TextView
+    android:id="@+id/new_regulation_onboarding_note_three"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_three" />
+
+</LinearLayout>

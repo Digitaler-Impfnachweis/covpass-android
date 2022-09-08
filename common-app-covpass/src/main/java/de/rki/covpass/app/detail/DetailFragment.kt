@@ -38,10 +38,13 @@ import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.DGCEntry
 import de.rki.covpass.sdk.cert.models.DGCEntryType
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.ImmunizationStatus
+import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.RecoveryCertType
 import de.rki.covpass.sdk.cert.models.ReissueType
@@ -169,9 +172,63 @@ internal class DetailFragment :
                 CertValidationResult.Expired, CertValidationResult.Invalid, CertValidationResult.Revoked -> true
                 CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
             }
+            val immunizationStatus = groupedCertificate.gStatus
+            val maskStatus = groupedCertificate.maskStatus
             val certStatus = mainCertificate.status
             val personalDataList = mutableListOf(
                 DetailItem.Name(cert.fullName),
+                // TODO add subtitle
+                DetailItem.Widget(
+                    title = getString(
+                        when (maskStatus) {
+                            MaskStatus.NotRequired -> R.string.infschg_start_mask_optional
+                            MaskStatus.Required -> R.string.infschg_start_mask_mandatory
+                            MaskStatus.Invalid -> R.string.infschg_start_expired_revoked
+                        },
+                    ),
+                    statusIcon = when (maskStatus) {
+                        MaskStatus.NotRequired -> R.drawable.status_mask_not_required
+                        MaskStatus.Required -> R.drawable.status_mask_required
+                        MaskStatus.Invalid -> R.drawable.status_mask_invalid
+                    },
+                    message = getString(
+                        when (maskStatus) {
+                            MaskStatus.NotRequired -> R.string.infschg_cert_overview_mask_hint_optional
+                            MaskStatus.Required -> R.string.infschg_cert_overview_mask_hint_mandatory
+                            MaskStatus.Invalid -> R.string.infschg_cert_overview_mask_hint_mandatory
+                        },
+                    ),
+                ),
+                // TODO add subtitle
+                DetailItem.Widget(
+                    title = getString(
+                        when (immunizationStatus) {
+                            ImmunizationStatus.Full -> R.string.infschg_start_immune_complete
+                            ImmunizationStatus.Partial -> R.string.infschg_start_immune_incomplete
+                            ImmunizationStatus.Invalid -> R.string.infschg_start_expired_revoked
+                        },
+                    ),
+                    statusIcon = when (immunizationStatus) {
+                        ImmunizationStatus.Full -> R.drawable.status_immunization_full
+                        ImmunizationStatus.Partial -> R.drawable.status_immunization_partial
+                        ImmunizationStatus.Invalid -> R.drawable.status_immunization_expired
+                    },
+                    message = getString(
+                        when (immunizationStatus) {
+                            ImmunizationStatus.Full ->
+                                getFullImmunizationInfoText(
+                                    dgcEntry,
+                                    groupedCertificate,
+                                )
+                            ImmunizationStatus.Partial -> R.string.infschg_cert_overview_immunisation_incomplete_A
+                            ImmunizationStatus.Invalid -> R.string.infschg_cert_overview_immunisation_invalid
+                        },
+                    ),
+                ),
+                DetailItem.Header(
+                    getString(R.string.infschg_cert_overview_title),
+                    getString(R.string.infschg_cert_overview_title),
+                ),
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
@@ -758,6 +815,29 @@ internal class DetailFragment :
             R.drawable.detail_cert_status_expiring
         } else {
             R.drawable.detail_cert_status_expired
+        }
+    }
+
+    private fun getFullImmunizationInfoText(
+        dgcEntry: DGCEntry,
+        groupedCertificate: GroupedCertificates,
+    ): Int {
+        return when (dgcEntry) {
+            is Vaccination -> {
+                if (dgcEntry.doseNumber > 3) {
+                    R.string.infschg_cert_overview_immunisation_complete_B2
+                }
+                if (dgcEntry.doseNumber == 3) {
+                    R.string.infschg_cert_overview_immunisation_third_vacc_C2
+                }
+                if (dgcEntry.doseNumber == 2 && groupedCertificate.getLatestValidRecovery() != null) {
+                    R.string.infschg_cert_overview_immunisation_E2
+                }
+                R.string.infschg_start_immune_complete
+            }
+            else -> {
+                R.string.infschg_start_immune_complete
+            }
         }
     }
 }

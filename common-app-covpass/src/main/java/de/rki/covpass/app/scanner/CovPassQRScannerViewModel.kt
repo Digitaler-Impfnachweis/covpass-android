@@ -11,6 +11,7 @@ import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.misuseprevention.MisusePreventionHelper
 import de.rki.covpass.app.misuseprevention.MisusePreventionStatus
+import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
@@ -41,6 +42,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
+    private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
 ) : BaseReactiveState<CovPassQRScannerEvents>(scope) {
 
     fun onQrContentReceived(qrContent: String) {
@@ -96,6 +98,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
                 covCertificate,
                 qrContent,
             )?.let {
+                gStatusAndMaskValidator.validate(certRepository)
                 eventNotifier {
                     onScanSuccess(it)
                 }

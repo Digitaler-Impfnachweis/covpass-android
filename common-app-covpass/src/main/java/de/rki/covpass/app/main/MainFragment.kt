@@ -36,6 +36,8 @@ import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.importcertificate.ImportCertificatesResultCallback
 import de.rki.covpass.app.importcertificate.ImportCertificatesSelectorFragmentNav
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
+import de.rki.covpass.app.newregulations.NewRegulationOnboardingCallback
+import de.rki.covpass.app.newregulations.NewRegulationOnboardingFragmentNav
 import de.rki.covpass.app.updateinfo.UpdateInfoCallback
 import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
@@ -61,6 +63,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showNewDataPrivacy()
     fun showDomesticRulesNotification()
     fun showCheckerRemark()
+    fun showNewRegulationOnboarding()
     fun showBoosterNotification()
     fun showBoosterReissueNotification(listIds: List<String>)
     fun showRevokedNotification()
@@ -82,7 +85,8 @@ internal class MainFragment :
     BoosterNotificationCallback,
     ReissueCallback,
     ImportCertificatesResultCallback,
-    NotificationEvents {
+    NotificationEvents,
+    NewRegulationOnboardingCallback {
 
     private val uri: Uri? by lazy { getArgs<MainFragmentNav>().uri }
     private val viewModel by reactiveState { MainViewModel(scope, uri) }
@@ -217,6 +221,10 @@ internal class MainFragment :
         viewModel.showingNotification.complete(Unit)
     }
 
+    override fun onNewRegulationOnboardingFinish() {
+        viewModel.showingNotification.complete(Unit)
+    }
+
     override fun onDataProtectionFinish() {
         viewModel.showingNotification.complete(Unit)
     }
@@ -281,6 +289,10 @@ internal class MainFragment :
 
     override fun showCheckerRemark() {
         findNavigator().push(CheckerRemarkFragmentNav())
+    }
+
+    override fun showNewRegulationOnboarding() {
+        findNavigator().push(NewRegulationOnboardingFragmentNav())
     }
 
     override fun showBoosterNotification() {

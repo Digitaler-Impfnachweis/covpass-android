@@ -843,4 +843,32 @@
 	<string name="revocation_detail_single_DE">The RKI has revoked the certificate due to an official decree.</string>
 	<string name="revocation_detail_single_notDE">The certificate was revoked by the certificate issuer due to an official decision.</string>
 	<string name="revocation_detail_locationID">The RKI has revoked the certificate due to an official decree. Please make every effort to have a new digital certificate issued.</string>
+
+	<!-- SECTION: infschg -->
+	<string name="infschg_info_accessibility_announce_open">The view \"New legal regulations\" has been opened.</string>
+	<string name="infschg_info_accessibility_announce_close">The view \"New legal regulations\" has been closed.</string>
+	<string name="infschg_info_accessibility_close">Close</string>
+	<string name="infschg_info_title">New legal regulations</string>
+	<string name="infschg_info_copy_1">An amendment to the Infection Protection Act comes into force in Germany. Therefore, your CovPass app will also change as of today.</string>
+	<string name="infschg_info_copy_2">Exemption from the mask obligation</string>
+	<string name="infschg_info_copy_3">If the evidence for a person is sufficient to exempt that person from the mask obligation, that person\'s card will turn green and receive a corresponding note. If necessary, you can prove your exemption in this way.\n\nAll persons who have been vaccinated or have recovered within the last 3 months or have tested negative within the last 24 hours are exempt from the mask obligation.</string>
+	<string name="infschg_info_button">OK</string>
+	<string name="infschg_start_mask_mandatory">Mask obligation</string>
+	<string name="infschg_start_mask_optional">No mask obligation</string>
+	<string name="infschg_start_immune_complete">Complete immune protection</string>
+	<string name="infschg_start_immune_incomplete">Incomplete immune protection</string>
+	<string name="infschg_start_notification">Check status</string>
+	<string name="infschg_start_expired_revoked">No valid certificate</string>
+	<string name="infschg_cert_overview_title">Your current certificate</string>
+	<string name="infschg_cert_overview_mask_time_until">Exempt until %d</string>
+	<string name="infschg_cert_overview_mask_time_from">Exempt from %d</string>
+	<string name="infschg_cert_overview_mask_hint_optional">You do not necessarily have to wear a mask in Germany because you have received a negative test result within the last 24 hours.</string>
+	<string name="infschg_cert_overview_mask_hint_mandatory">A negative rapid or PCR test exempts you from the mask requirement for 24 hours throughout Germany. In some federal states, you may also be exempt from the mask requirement due to vaccinations and recoveries. Please inform yourself about the regulations in your federal state.</string>
+	<string name="infschg_cert_overview_immunisation_time_since">Since %d</string>
+	<string name="infschg_cert_overview_immunisation_time_from">From %d</string>
+	<string name="infschg_cert_overview_immunisation_incomplete_A">You have not yet received all currently recommended vaccinations. Your vaccination protection is not yet complete.</string>
+	<string name="infschg_cert_overview_immunisation_complete_B2">You have received all currently recommended vaccinations. Your vaccination protection is complete.</string>
+	<string name="infschg_cert_overview_immunisation_third_vacc_C2">You have received all vaccinations for a complete vaccination protection. Your vaccination protection is effective. However, please also inform yourself about recommended booster vaccinations.</string>
+	<string name="infschg_cert_overview_immunisation_E2">You are considered fully vaccinated based on your vaccination and the infection you have had. However, please also inform yourself about recommended booster vaccinations.</string>
+	<string name="infschg_cert_overview_immunisation_invalid">Add a valid certificate or renew your latest certificate to get information about your vaccination status.</string>
 </resources>

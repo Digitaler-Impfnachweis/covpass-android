@@ -9,6 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.ensody.reactivestate.DependencyAccessor
 import de.rki.covpass.app.checkerremark.CheckerRemarkRepository
 import de.rki.covpass.app.common.ToggleFavoriteUseCase
+import de.rki.covpass.app.newregulations.NewRegulationRepository
 import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
@@ -46,6 +47,12 @@ internal abstract class CovpassDependencies {
     val checkerRemarkRepository: CheckerRemarkRepository by lazy {
         CheckerRemarkRepository(
             CborSharedPrefsStore("checker_remark_prefs", cbor),
+        )
+    }
+
+    val newRegulationRepository: NewRegulationRepository by lazy {
+        NewRegulationRepository(
+            CborSharedPrefsStore("new_regulation_onboarding_prefs", cbor),
         )
     }
 

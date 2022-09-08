@@ -25,6 +25,7 @@ import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -46,6 +47,9 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
 
     internal val args: CertificateSwitcherItemFragmentNav by lazy { getArgs() }
     private val binding by viewBinding(CertificateSwitcherItemBinding::inflate)
+    private val maskStatus by lazy {
+        covpassDeps.certRepository.certs.value.getGroupedCertificates(args.certId)?.maskStatus
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,7 +108,12 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                         ?.toInstant()?.monthTillNow(),
                                 )
                             },
-                            R.drawable.main_cert_status_complete,
+                            maskStatus,
+                            if (maskStatus == MaskStatus.Required) {
+                                R.drawable.main_cert_status_complete
+                            } else {
+                                R.drawable.main_cert_status_complete_green
+                            },
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
@@ -121,7 +130,12 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            R.drawable.main_cert_status_incomplete,
+                            maskStatus,
+                            if (maskStatus == MaskStatus.Required) {
+                                R.drawable.main_cert_status_incomplete
+                            } else {
+                                R.drawable.main_cert_status_incomplete_green
+                            },
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -138,7 +152,12 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            R.drawable.main_cert_status_incomplete,
+                            maskStatus,
+                            if (maskStatus == MaskStatus.Required) {
+                                R.drawable.main_cert_status_incomplete
+                            } else {
+                                R.drawable.main_cert_status_incomplete_green
+                            },
                         )
                     }
                 }
@@ -156,7 +175,12 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                         R.string.certificate_timestamp_hours,
                         test.sampleCollection?.hoursTillNow(),
                     ),
-                    R.drawable.main_cert_test_blue,
+                    maskStatus,
+                    if (maskStatus == MaskStatus.Required) {
+                        R.drawable.main_cert_test_blue
+                    } else {
+                        R.drawable.main_cert_test_green
+                    },
                 )
             }
             is Recovery -> {
@@ -169,7 +193,12 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                         recovery.firstResult?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
                             ?.monthTillNow(),
                     ),
-                    R.drawable.main_cert_status_complete,
+                    maskStatus,
+                    if (maskStatus == MaskStatus.Required) {
+                        R.drawable.main_cert_status_complete
+                    } else {
+                        R.drawable.main_cert_status_complete_green
+                    },
                 )
             }
             // .let{} to enforce exhaustiveness

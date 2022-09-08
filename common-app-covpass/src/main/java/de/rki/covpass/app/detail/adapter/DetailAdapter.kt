@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
@@ -108,12 +109,16 @@ private class WidgetViewHolder(
             binding.detailStatusHeaderTextview.text = widget.title
             binding.detailStatusImageview.setImageResource(widget.statusIcon)
             binding.detailStatusTextview.text = widget.message
-            binding.detailShowCertificateButton.text = widget.buttonText
-            binding.detailShowCertificateButton.setOnClickListener {
-                if (widget.isExpiredOrInvalid) {
-                    listener.onNewCertificateScanClicked()
-                } else {
-                    listener.onShowCertificateClicked()
+
+            widget.buttonText?.let {
+                binding.detailShowCertificateButton.isVisible
+                binding.detailShowCertificateButton.text = it
+                binding.detailShowCertificateButton.setOnClickListener {
+                    if (widget.isExpiredOrInvalid) {
+                        listener.onNewCertificateScanClicked()
+                    } else {
+                        listener.onShowCertificateClicked()
+                    }
                 }
             }
         }

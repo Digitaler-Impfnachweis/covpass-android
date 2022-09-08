@@ -27,6 +27,7 @@ import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.CovPassValueSetsRemoteDataSource
 import de.rki.covpass.sdk.cert.DscListDecoder
 import de.rki.covpass.sdk.cert.DscListService
+import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CertificateListMapper
 import de.rki.covpass.sdk.cert.models.DscList
@@ -51,7 +52,9 @@ import de.rki.covpass.sdk.rules.booster.local.CovPassBoosterRulesLocalDataSource
 import de.rki.covpass.sdk.rules.booster.remote.BoosterRuleInitial
 import de.rki.covpass.sdk.rules.booster.remote.BoosterRuleRemote
 import de.rki.covpass.sdk.rules.booster.remote.toBoosterRule
+import de.rki.covpass.sdk.rules.domain.rules.CovPassDomesticGetRulesUseCase
 import de.rki.covpass.sdk.rules.domain.rules.CovPassGetRulesUseCase
+import de.rki.covpass.sdk.rules.domain.rules.CovPassUseCase
 import de.rki.covpass.sdk.rules.local.CovPassDatabase
 import de.rki.covpass.sdk.rules.local.countries.CountriesDao
 import de.rki.covpass.sdk.rules.local.countries.CovPassCountriesLocalDataSource
@@ -257,7 +260,7 @@ public abstract class SdkDependencies {
     }
 
     private val covPassDomesticRulesRemoteDataSource: CovPassDomesticRulesRemoteDataSource by lazy {
-        CovPassDomesticRulesRemoteDataSource(httpClient, dccRulesHost)
+        CovPassDomesticRulesRemoteDataSource(httpClient, dccBoosterRulesHost)
     }
 
     private val covPassValueSetsRemoteDataSource: CovPassValueSetsRemoteDataSource by lazy {
@@ -433,12 +436,12 @@ public abstract class SdkDependencies {
         )
     }
 
-    private val getEuRulesUseCase: CovPassGetRulesUseCase by lazy {
+    private val getEuRulesUseCase: CovPassUseCase by lazy {
         CovPassGetRulesUseCase(covPassEuRulesRepository)
     }
 
-    private val getDomesticRulesUseCase: CovPassGetRulesUseCase by lazy {
-        CovPassGetRulesUseCase(covPassDomesticRulesRepository)
+    private val getDomesticRulesUseCase: CovPassUseCase by lazy {
+        CovPassDomesticGetRulesUseCase(covPassDomesticRulesRepository)
     }
 
     public val euRulesValidator: CovPassRulesValidator by lazy {
@@ -455,6 +458,10 @@ public abstract class SdkDependencies {
             certLogicDeps.certLogicEngine,
             covPassValueSetsRepository,
         )
+    }
+
+    public val gStatusAndMaskValidator: GStatusAndMaskValidator by lazy {
+        GStatusAndMaskValidator(domesticRulesValidator)
     }
 
     private val boosterCertLogicEngine: BoosterCertLogicEngine by lazy {

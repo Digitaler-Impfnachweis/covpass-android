@@ -30,12 +30,14 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.MaskStatus
 import kotlinx.parcelize.Parcelize
 import kotlin.math.abs
 
 @Parcelize
-internal class CertificateSwitcherFragmentNav(val certId: GroupedCertificatesId) :
-    FragmentNav(CertificateSwitcherFragment::class)
+internal class CertificateSwitcherFragmentNav(
+    val certId: GroupedCertificatesId,
+) : FragmentNav(CertificateSwitcherFragment::class)
 
 internal class CertificateSwitcherFragment : BaseFragment() {
 
@@ -44,6 +46,7 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private val binding by viewBinding(CertificateSwitcherBinding::inflate)
     private var navigationBarColor: Int? = null
     private var statusBarColor: Int? = null
+    private var backgroundColor = R.color.info70
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,10 +57,17 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         autoRun {
             updateCertificates(get(covpassDeps.certRepository.certs).getGroupedCertificates(args.certId))
         }
+
+        binding.fragmentContainer.setBackgroundResource(backgroundColor)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        val maskStatus = covpassDeps.certRepository.certs.value.getGroupedCertificates(args.certId)?.maskStatus
+        if (maskStatus == MaskStatus.NotRequired) {
+            backgroundColor = R.color.full_immunization_green
+        }
         changeTopAndBottomBarColor()
     }
 
@@ -74,8 +84,8 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private fun changeTopAndBottomBarColor() {
         if (navigationBarColor == null) navigationBarColor = requireActivity().window.navigationBarColor
         if (statusBarColor == null) statusBarColor = requireActivity().window.statusBarColor
-        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.info70)
-        requireActivity().window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.info70)
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), backgroundColor)
+        requireActivity().window.navigationBarColor = ContextCompat.getColor(requireContext(), backgroundColor)
     }
 
     private fun revertTopAndBottomBarColor() {

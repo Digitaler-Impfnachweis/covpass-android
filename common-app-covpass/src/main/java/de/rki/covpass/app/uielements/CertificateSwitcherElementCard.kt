@@ -17,6 +17,7 @@ import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateSwitcherElementCardBinding
 import de.rki.covpass.sdk.cert.models.CertValidationResult
+import de.rki.covpass.sdk.cert.models.MaskStatus
 import kotlin.properties.Delegates
 
 internal class CertificateSwitcherElementCard @JvmOverloads constructor(
@@ -34,6 +35,11 @@ internal class CertificateSwitcherElementCard @JvmOverloads constructor(
     private var status: String? by Delegates.observable(null) { _, _, newValue ->
         binding.certificateStatusTextview.text = newValue
         binding.certificateStatusTextview.isVisible = newValue != null
+    }
+
+    private var textColor: Int by Delegates.observable(R.color.info70) { _, _, newValue ->
+        binding.certificateHeaderTextview.setTextColor(ContextCompat.getColor(context, newValue))
+        binding.certificateStatusTextview.setTextColor(ContextCompat.getColor(context, newValue))
     }
 
     private var cardBackground: Int by Delegates.observable(R.color.info70) { _, _, newValue ->
@@ -62,10 +68,15 @@ internal class CertificateSwitcherElementCard @JvmOverloads constructor(
         certStatus: CertValidationResult,
         header: String,
         subtitle: String,
+        maskStatus: MaskStatus?,
         @DrawableRes imageRes: Int,
     ) {
         binding.certificateHeaderTextview.text = header
         binding.certificateStatusTextview.text = subtitle
+
+        if (maskStatus == MaskStatus.NotRequired) {
+            textColor = R.color.full_immunization_green
+        }
 
         when (certStatus) {
             CertValidationResult.Valid,

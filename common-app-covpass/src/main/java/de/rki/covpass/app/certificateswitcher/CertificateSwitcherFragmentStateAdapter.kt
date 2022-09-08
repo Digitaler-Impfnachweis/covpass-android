@@ -15,7 +15,9 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
  * [FragmentStateAdapter] which holds a list of [CertificateSwitcherItemFragment]
  */
 @SuppressLint("NotifyDataSetChanged")
-internal class CertificateSwitcherFragmentStateAdapter(parent: Fragment) : BaseFragmentStateAdapter(parent) {
+internal class CertificateSwitcherFragmentStateAdapter(
+    parent: Fragment,
+) : BaseFragmentStateAdapter(parent) {
 
     private var fragments = mutableListOf<CertificateSwitcherItemFragment>()
 
