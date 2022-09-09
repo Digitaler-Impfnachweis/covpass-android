@@ -851,7 +851,7 @@
 	<string name="infschg_info_title">New legal regulations</string>
 	<string name="infschg_info_copy_1">An amendment to the Infection Protection Act comes into force in Germany. Therefore, your CovPass app will also change as of today.</string>
 	<string name="infschg_info_copy_2">Exemption from the mask obligation</string>
-	<string name="infschg_info_copy_3">If the evidence for a person is sufficient to exempt that person from the mask obligation, that person\'s card will turn green and receive a corresponding note. If necessary, you can prove your exemption in this way.\n\nAll persons who have been vaccinated or have recovered within the last 3 months or have tested negative within the last 24 hours are exempt from the mask obligation.</string>
+	<string name="infschg_info_copy_3">A negative rapid or PCR test exempts you from the mask requirement for 24 hours throughout Germany. In some federal states, you may also be exempt from the mask requirement due to vaccinations and recoveries. Please obtain additional information on the regulations in your federal state.\n\nIf the evidence for a person is sufficient to exempt that person from the mask requirement throughout Germany, that person\'s card will turn green. You can show the exemption by showing the QR code on the start screen or data-saving from the detail view.</string>
 	<string name="infschg_info_button">OK</string>
 	<string name="infschg_start_mask_mandatory">Mask obligation</string>
 	<string name="infschg_start_mask_optional">No mask obligation</string>

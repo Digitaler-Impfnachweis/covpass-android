@@ -824,19 +824,21 @@ internal class DetailFragment :
     ): Int {
         return when (dgcEntry) {
             is Vaccination -> {
-                if (dgcEntry.doseNumber > 3) {
-                    R.string.infschg_cert_overview_immunisation_complete_B2
+                when {
+                    dgcEntry.doseNumber > 3 -> {
+                        R.string.infschg_cert_overview_immunisation_complete_B2
+                    }
+                    dgcEntry.doseNumber == 3 -> {
+                        R.string.infschg_cert_overview_immunisation_third_vacc_C2
+                    }
+                    dgcEntry.doseNumber == 2 && groupedCertificate.getLatestValidRecovery() != null -> {
+                        R.string.infschg_cert_overview_immunisation_E2
+                    }
+                    else -> R.string.infschg_cert_overview_immunisation_incomplete_A
                 }
-                if (dgcEntry.doseNumber == 3) {
-                    R.string.infschg_cert_overview_immunisation_third_vacc_C2
-                }
-                if (dgcEntry.doseNumber == 2 && groupedCertificate.getLatestValidRecovery() != null) {
-                    R.string.infschg_cert_overview_immunisation_E2
-                }
-                R.string.infschg_start_immune_complete
             }
             else -> {
-                R.string.infschg_start_immune_complete
+                R.string.infschg_cert_overview_immunisation_incomplete_A
             }
         }
     }

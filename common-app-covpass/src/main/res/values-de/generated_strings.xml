@@ -851,7 +851,7 @@
 	<string name="infschg_info_title">Neue gesetzliche Regelungen</string>
 	<string name="infschg_info_copy_1">In Deutschland tritt eine Änderung des Infektionsschutzgesetzes in Kraft. Deshalb ändert sich Ihre CovPass App ab heute auch.</string>
 	<string name="infschg_info_copy_2">Befreiung von der Maskenpflicht</string>
-	<string name="infschg_info_copy_3">Sollten die Nachweise für eine Person ausreichen, um diese Person von der Maskenpflicht zu befreien, färbt sich die Karte dieser Person grün und erhält einen entsprechenden Hinweis. Bei Bedarf können Sie so Ihre Befreiung nachweisen.\n\nVon der Maskenpflicht sind alle Personen befreit, die innerhalb der letzten 3 Monate geimpft wurden oder genesen sind oder innerhalb der letzten 24 Stunden negativ getestet wurden.</string>
+	<string name="infschg_info_copy_3">Ein negativer Schnell- oder PCR-Test befreit Sie für 24 Stunden deutschlandweit von der Maskenpflicht. In manchen Bundesländern können Sie auch durch Impfungen und Genesungen von der Maskenpflicht befreit sein. Bitte informieren Sie sich zusätzlich zu den Regelungen in Ihrem Bundesland.\n\nSollten die Nachweise für eine Person ausreichen, um diese Person deutschlandweit von der Maskenpflicht zu befreien, färbt sich die Karte dieser Person grün. Sie können die Befreiung durch das Zeigen des QR-Codes auf dem Startbildschirm oder datensparsam aus der Detail-Ansicht heraus vorzeigen.</string>
 	<string name="infschg_info_button">OK</string>
 	<string name="infschg_start_mask_mandatory">Maskenpflicht</string>
 	<string name="infschg_start_mask_optional">Keine Maskenpflicht</string>
