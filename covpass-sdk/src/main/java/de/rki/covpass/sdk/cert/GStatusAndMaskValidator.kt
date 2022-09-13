@@ -20,11 +20,19 @@ public class GStatusAndMaskValidator(
         for (groupedCert in groupedCertificatesList.certificates) {
             val mergedCertificate = groupedCert.getMergedCertificate()?.covCertificate
 
-            // GStatus Validation
-            groupedCert.gStatus = if (mergedCertificate == null) {
-                ImmunizationStatus.Invalid
+            if (mergedCertificate == null) {
+                groupedCert.gStatus = ImmunizationStatus.Invalid
+                groupedCert.maskStatus = MaskStatus.Invalid
             } else {
-                when {
+                // Acceptance and Invalidation rules validation
+                if (!isValidByType(mergedCertificate, CovPassValidationType.RULES)) {
+                    groupedCert.gStatus = ImmunizationStatus.Partial
+                    groupedCert.maskStatus = MaskStatus.Required
+                    return
+                }
+
+                // GStatus validation
+                groupedCert.gStatus = when {
                     isValidByType(mergedCertificate, CovPassValidationType.GGPLUS) ->
                         ImmunizationStatus.Full
                     isValidByType(mergedCertificate, CovPassValidationType.GG) ->
@@ -35,17 +43,14 @@ public class GStatusAndMaskValidator(
                         ImmunizationStatus.Partial
                     else -> ImmunizationStatus.Partial
                 }
-            }
 
-            // MaskStatus Validation
-            groupedCert.maskStatus = if (mergedCertificate == null) {
-                MaskStatus.Invalid
-            } else {
-                if (isValidByType(mergedCertificate, CovPassValidationType.MASK)) {
-                    MaskStatus.NotRequired
-                } else {
-                    MaskStatus.Required
-                }
+                // MaskStatus Validation
+                groupedCert.maskStatus =
+                    if (isValidByType(mergedCertificate, CovPassValidationType.MASK)) {
+                        MaskStatus.NotRequired
+                    } else {
+                        MaskStatus.Required
+                    }
             }
         }
     }

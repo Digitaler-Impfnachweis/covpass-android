@@ -56,13 +56,21 @@ public class CovPassDomesticGetRulesUseCase(
         val filteredAcceptanceRules = mutableMapOf<String, CovPassRule>()
         val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
 
+        val generalRulePredicates = listOf(
+            { value: Type -> value == Type.TWOG },
+            { value: Type -> value == Type.TWOGPLUS },
+            { value: Type -> value == Type.THREEG },
+            { value: Type -> value == Type.THREEGPLUS },
+            { value: Type -> value == Type.MASK },
+        )
+
         val selectedRegion: String = region?.trim() ?: ""
         val acceptanceRules = covPassRulesRepository.getRulesBy(
             acceptanceCountryIsoCode,
             validationClock,
             Type.ACCEPTANCE,
             certificateType.toRuleCertificateType(),
-        )
+        ).filterNot { rule -> generalRulePredicates.all { it(rule.type) } }
         for (rule in acceptanceRules) {
             val ruleRegion: String = rule.region?.trim() ?: ""
             if (selectedRegion.equals(
@@ -85,7 +93,7 @@ public class CovPassDomesticGetRulesUseCase(
                 validationClock,
                 Type.INVALIDATION,
                 certificateType.toRuleCertificateType(),
-            )
+            ).filterNot { rule -> generalRulePredicates.all { it(rule.type) } }
             for (rule in invalidationRules) {
                 if (
                     (
@@ -121,13 +129,13 @@ public class CovPassDomesticGetRulesUseCase(
         val filteredRules = mutableMapOf<String, CovPassRule>()
 
         val selectedRegion: String = region?.trim() ?: ""
-        val acceptanceRules = covPassRulesRepository.getRulesBy(
+        val rules = covPassRulesRepository.getRulesBy(
             countryIsoCode,
             validationClock,
             type,
             certificateType.toRuleCertificateType(),
         )
-        for (rule in acceptanceRules) {
+        for (rule in rules) {
             val ruleRegion: String = rule.region?.trim() ?: ""
             if (selectedRegion.equals(
                     ruleRegion,
