@@ -57,8 +57,10 @@ import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import de.rki.covpass.sdk.utils.isInFuture
+import de.rki.covpass.sdk.utils.monthTillNow
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
+import java.time.ZoneId
 
 /**
  * Interface to communicate events from [DetailFragment] back to other fragments.
@@ -233,31 +235,32 @@ internal class DetailFragment :
                     is Vaccination -> {
                         when (dgcEntry.type) {
                             VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
-                                val isJanssenFullProtection =
-                                    dgcEntry.isJanssen && dgcEntry.doseNumber == 2
                                 val title = when (certStatus) {
                                     CertValidationResult.Expired ->
                                         getString(R.string.certificates_overview_expired_title)
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        if (
-                                            dgcEntry.isBooster &&
-                                            !isJanssenFullProtection &&
-                                            !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(
-                                                mainCertificate.covCertificate,
-                                            )
-                                        ) {
-                                            getString(R.string.certificate_type_booster)
-                                        } else {
-                                            getString(R.string.vaccination_certificate_overview_complete_title)
-                                        }
+                                        getString(
+                                            R.string.certificates_overview_vaccination_certificate_message,
+                                            dgcEntry.doseNumber,
+                                            dgcEntry.totalSerialDoses,
+                                        )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
                                             cert.validUntil.formatDateOrEmpty(),
                                             cert.validUntil.formatTimeOrEmpty(),
                                         )
+                                }
+                                val subtitle = if (certStatus == CertValidationResult.Valid) {
+                                    getString(
+                                        R.string.certificate_timestamp_months,
+                                        dgcEntry.occurrence?.atStartOfDay(ZoneId.systemDefault())
+                                            ?.toInstant()?.monthTillNow(),
+                                    )
+                                } else {
+                                    null
                                 }
                                 val message = getString(
                                     when (certStatus) {
@@ -270,16 +273,11 @@ internal class DetailFragment :
                                             messageSoonExpiredCert(cert.isGermanCertificate)
                                     },
                                 )
-                                val buttonText = if (isExpiredOrInvalid) {
-                                    getString(R.string.certificates_overview_expired_action_button_title)
-                                } else {
-                                    getString(R.string.vaccination_certificate_overview_complete_action_button_title)
-                                }
                                 DetailItem.Widget(
                                     title = title,
+                                    subtitle = subtitle,
                                     statusIcon = certStatus.getVaccinationStatusIconRes(),
                                     message = message,
-                                    buttonText = buttonText,
                                     isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
@@ -290,13 +288,26 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(R.string.vaccination_certificate_overview_complete_from_title)
+                                        getString(
+                                            R.string.certificates_overview_vaccination_certificate_message,
+                                            dgcEntry.doseNumber,
+                                            dgcEntry.totalSerialDoses,
+                                        )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
                                             cert.validUntil.formatDateOrEmpty(),
                                             cert.validUntil.formatTimeOrEmpty(),
                                         )
+                                }
+                                val subtitle = if (certStatus == CertValidationResult.Valid) {
+                                    getString(
+                                        R.string.certificate_timestamp_months,
+                                        dgcEntry.occurrence?.atStartOfDay(ZoneId.systemDefault())
+                                            ?.toInstant()?.monthTillNow(),
+                                    )
+                                } else {
+                                    null
                                 }
                                 val message = when (certStatus) {
                                     CertValidationResult.Expired ->
@@ -310,16 +321,11 @@ internal class DetailFragment :
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
-                                val buttonText = if (isExpiredOrInvalid) {
-                                    getString(R.string.certificates_overview_expired_action_button_title)
-                                } else {
-                                    getString(R.string.vaccination_certificate_overview_complete_action_button_title)
-                                }
                                 DetailItem.Widget(
                                     title = title,
+                                    subtitle = subtitle,
                                     statusIcon = certStatus.getVaccinationStatusIconRes(),
                                     message = message,
-                                    buttonText = buttonText,
                                     isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
@@ -330,13 +336,26 @@ internal class DetailFragment :
                                     CertValidationResult.Invalid, CertValidationResult.Revoked ->
                                         getString(R.string.certificates_overview_invalid_title)
                                     CertValidationResult.Valid ->
-                                        getString(R.string.vaccination_certificate_overview_incomplete_title)
+                                        getString(
+                                            R.string.certificates_overview_vaccination_certificate_message,
+                                            dgcEntry.doseNumber,
+                                            dgcEntry.totalSerialDoses,
+                                        )
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(
                                             R.string.certificates_overview_soon_expiring_title,
                                             cert.validUntil.formatDateOrEmpty(),
                                             cert.validUntil.formatTimeOrEmpty(),
                                         )
+                                }
+                                val subtitle = if (certStatus == CertValidationResult.Valid) {
+                                    getString(
+                                        R.string.certificate_timestamp_months,
+                                        dgcEntry.occurrence?.atStartOfDay(ZoneId.systemDefault())
+                                            ?.toInstant()?.monthTillNow(),
+                                    )
+                                } else {
+                                    null
                                 }
                                 val message = when (certStatus) {
                                     CertValidationResult.Expired ->
@@ -350,18 +369,11 @@ internal class DetailFragment :
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
-                                val buttonText = if (isExpiredOrInvalid) {
-                                    getString(R.string.certificates_overview_expired_action_button_title)
-                                } else {
-                                    getString(
-                                        R.string.vaccination_certificate_detail_view_incomplete_action_button_title,
-                                    )
-                                }
                                 DetailItem.Widget(
                                     title = title,
+                                    subtitle = subtitle,
                                     statusIcon = certStatus.getIncompleteVaccinationStatusIconRes(),
                                     message = message,
-                                    buttonText = buttonText,
                                     isExpiredOrInvalid = isExpiredOrInvalid,
                                 )
                             }
@@ -800,7 +812,7 @@ internal class DetailFragment :
 
     private fun CertValidationResult.getVaccinationStatusIconRes(): Int {
         return if (this == CertValidationResult.Valid) {
-            R.drawable.detail_cert_status_complete
+            R.drawable.status_immunization_full
         } else if (this == CertValidationResult.ExpiryPeriod) {
             R.drawable.detail_cert_status_expiring
         } else {

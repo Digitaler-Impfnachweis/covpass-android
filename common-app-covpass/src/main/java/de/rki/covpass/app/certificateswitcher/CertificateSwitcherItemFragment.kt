@@ -30,7 +30,6 @@ import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.models.VaccinationCertType
-import de.rki.covpass.sdk.utils.daysTillNow
 import de.rki.covpass.sdk.utils.hoursTillNow
 import de.rki.covpass.sdk.utils.monthTillNow
 import kotlinx.coroutines.invoke
@@ -78,36 +77,18 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                 when (dgcEntry.type) {
                     VaccinationCertType.VACCINATION_FULL_PROTECTION -> {
                         val vaccination = covCertificate.dgcEntry as Vaccination
-                        val isJanssenFullProtection =
-                            vaccination.isJanssen && vaccination.doseNumber == 2
                         binding.certificateCard.createCertificateSwitcherItemView(
                             certStatus,
-                            if (
-                                vaccination.isBooster &&
-                                !isJanssenFullProtection &&
-                                !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(covCertificate)
-                            ) {
-                                getString(R.string.certificate_type_booster)
-                            } else {
-                                getString(R.string.certificate_type_basic_immunisation)
-                            },
-                            if (
-                                vaccination.isBooster &&
-                                !isJanssenFullProtection &&
-                                !groupedCertificate.isCertVaccinationNotBoosterAfterJanssen(covCertificate)
-                            ) {
-                                getString(
-                                    R.string.certificate_timestamp_days,
-                                    vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
-                                        ?.toInstant()?.daysTillNow(),
-                                )
-                            } else {
-                                getString(
-                                    R.string.certificate_timestamp_months,
-                                    vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
-                                        ?.toInstant()?.monthTillNow(),
-                                )
-                            },
+                            getString(
+                                R.string.certificates_overview_vaccination_certificate_message,
+                                vaccination.doseNumber,
+                                vaccination.totalSerialDoses,
+                            ),
+                            getString(
+                                R.string.certificate_timestamp_months,
+                                vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
+                                    ?.toInstant()?.monthTillNow(),
+                            ),
                             maskStatus,
                             if (maskStatus == MaskStatus.Required) {
                                 R.drawable.main_cert_status_complete
