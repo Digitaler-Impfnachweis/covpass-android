@@ -28,7 +28,7 @@ public class GStatusAndMaskValidator(
                 if (!isValidByType(mergedCertificate, CovPassValidationType.RULES)) {
                     groupedCert.gStatus = ImmunizationStatus.Partial
                     groupedCert.maskStatus = MaskStatus.Required
-                    return
+                    continue
                 }
 
                 // GStatus validation
