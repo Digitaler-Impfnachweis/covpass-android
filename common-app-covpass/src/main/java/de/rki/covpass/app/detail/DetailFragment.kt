@@ -227,10 +227,9 @@ internal class DetailFragment :
                         },
                     ),
                 ),
-                DetailItem.Header(
-                    getString(R.string.infschg_cert_overview_title),
-                    getString(R.string.infschg_cert_overview_title),
-                ),
+            )
+
+            if (certStatus != CertValidationResult.Valid) {
                 when (dgcEntry) {
                     is Vaccination -> {
                         when (dgcEntry.type) {
@@ -273,12 +272,14 @@ internal class DetailFragment :
                                             messageSoonExpiredCert(cert.isGermanCertificate)
                                     },
                                 )
-                                DetailItem.Widget(
-                                    title = title,
-                                    subtitle = subtitle,
-                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
-                                    message = message,
-                                    isExpiredOrInvalid = isExpiredOrInvalid,
+                                personalDataList.add(
+                                    DetailItem.Widget(
+                                        title = title,
+                                        subtitle = subtitle,
+                                        statusIcon = certStatus.getVaccinationStatusIconRes(),
+                                        message = message,
+                                        isExpiredOrInvalid = isExpiredOrInvalid,
+                                    ),
                                 )
                             }
                             VaccinationCertType.VACCINATION_COMPLETE -> {
@@ -321,12 +322,14 @@ internal class DetailFragment :
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
-                                DetailItem.Widget(
-                                    title = title,
-                                    subtitle = subtitle,
-                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
-                                    message = message,
-                                    isExpiredOrInvalid = isExpiredOrInvalid,
+                                personalDataList.add(
+                                    DetailItem.Widget(
+                                        title = title,
+                                        subtitle = subtitle,
+                                        statusIcon = certStatus.getVaccinationStatusIconRes(),
+                                        message = message,
+                                        isExpiredOrInvalid = isExpiredOrInvalid,
+                                    ),
                                 )
                             }
                             VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -369,12 +372,14 @@ internal class DetailFragment :
                                     CertValidationResult.ExpiryPeriod ->
                                         getString(messageSoonExpiredCert(cert.isGermanCertificate))
                                 }
-                                DetailItem.Widget(
-                                    title = title,
-                                    subtitle = subtitle,
-                                    statusIcon = certStatus.getIncompleteVaccinationStatusIconRes(),
-                                    message = message,
-                                    isExpiredOrInvalid = isExpiredOrInvalid,
+                                personalDataList.add(
+                                    DetailItem.Widget(
+                                        title = title,
+                                        subtitle = subtitle,
+                                        statusIcon = certStatus.getIncompleteVaccinationStatusIconRes(),
+                                        message = message,
+                                        isExpiredOrInvalid = isExpiredOrInvalid,
+                                    ),
                                 )
                             }
                         }
@@ -415,12 +420,14 @@ internal class DetailFragment :
                                         R.string.pcr_test_certificate_overview_action_button_title,
                                     )
                                 }
-                                DetailItem.Widget(
-                                    title = title,
-                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
-                                    message = message,
-                                    buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid,
+                                personalDataList.add(
+                                    DetailItem.Widget(
+                                        title = title,
+                                        statusIcon = certStatus.getVaccinationStatusIconRes(),
+                                        message = message,
+                                        buttonText = buttonText,
+                                        isExpiredOrInvalid = isExpiredOrInvalid,
+                                    ),
                                 )
                             }
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
@@ -453,12 +460,14 @@ internal class DetailFragment :
                                 } else {
                                     getString(R.string.test_certificate_overview_action_button_title)
                                 }
-                                DetailItem.Widget(
-                                    title = title,
-                                    statusIcon = certStatus.getVaccinationStatusIconRes(),
-                                    message = message,
-                                    buttonText = buttonText,
-                                    isExpiredOrInvalid = isExpiredOrInvalid,
+                                personalDataList.add(
+                                    DetailItem.Widget(
+                                        title = title,
+                                        statusIcon = certStatus.getVaccinationStatusIconRes(),
+                                        message = message,
+                                        buttonText = buttonText,
+                                        isExpiredOrInvalid = isExpiredOrInvalid,
+                                    ),
                                 )
                             }
                             TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> return
@@ -496,16 +505,18 @@ internal class DetailFragment :
                         } else {
                             getString(R.string.recovery_certificate_overview_action_button_title)
                         }
-                        DetailItem.Widget(
-                            title = title,
-                            statusIcon = certStatus.getVaccinationStatusIconRes(),
-                            message = message,
-                            buttonText = buttonText,
-                            isExpiredOrInvalid = isExpiredOrInvalid,
+                        personalDataList.add(
+                            DetailItem.Widget(
+                                title = title,
+                                statusIcon = certStatus.getVaccinationStatusIconRes(),
+                                message = message,
+                                buttonText = buttonText,
+                                isExpiredOrInvalid = isExpiredOrInvalid,
+                            ),
                         )
                     }
-                },
-            )
+                }
+            }
 
             if (groupedCertificate.isBoosterReadyForReissue()) {
                 personalDataList.add(
