@@ -110,6 +110,15 @@ private class WidgetViewHolder(
             binding.detailStatusImageview.setImageResource(widget.statusIcon)
             binding.detailStatusTextview.text = widget.message
 
+            widget.link?.let {
+                binding.detailStatusLinkTextview.isVisible = true
+                binding.detailStatusLinkTextview.apply {
+                    text = getSpanned(widget.link)
+                    movementMethod = LinkMovementMethod.getInstance()
+                    stripUnderlines()
+                }
+            }
+
             widget.buttonText?.let {
                 binding.detailShowCertificateButton.isVisible
                 binding.detailShowCertificateButton.text = it

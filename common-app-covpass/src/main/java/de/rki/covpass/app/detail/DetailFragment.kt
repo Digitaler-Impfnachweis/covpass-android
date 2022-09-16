@@ -60,6 +60,8 @@ import de.rki.covpass.sdk.utils.isInFuture
 import de.rki.covpass.sdk.utils.monthTillNow
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
+import java.time.Duration
+import java.time.LocalDate
 import java.time.ZoneId
 
 /**
@@ -200,6 +202,7 @@ internal class DetailFragment :
                             MaskStatus.Invalid -> R.string.infschg_cert_overview_mask_hint_mandatory
                         },
                     ),
+                    link = R.string.infschg_more_info_link,
                 ),
                 // TODO add subtitle
                 DetailItem.Widget(
@@ -215,17 +218,15 @@ internal class DetailFragment :
                         ImmunizationStatus.Partial -> R.drawable.status_immunization_partial
                         ImmunizationStatus.Invalid -> R.drawable.status_immunization_expired
                     },
-                    message = getString(
-                        when (immunizationStatus) {
-                            ImmunizationStatus.Full ->
-                                getFullImmunizationInfoText(
-                                    dgcEntry,
-                                    groupedCertificate,
-                                )
-                            ImmunizationStatus.Partial -> R.string.infschg_cert_overview_immunisation_incomplete_A
-                            ImmunizationStatus.Invalid -> R.string.infschg_cert_overview_immunisation_invalid
-                        },
-                    ),
+                    message = when (immunizationStatus) {
+                        ImmunizationStatus.Full, ImmunizationStatus.Partial ->
+                            getImmunizationInfoText(
+                                dgcEntry,
+                                groupedCertificate,
+                            )
+                        ImmunizationStatus.Invalid ->
+                            getString(R.string.infschg_cert_overview_immunisation_invalid)
+                    },
                 ),
             )
 
@@ -841,27 +842,43 @@ internal class DetailFragment :
         }
     }
 
-    private fun getFullImmunizationInfoText(
+    private fun getImmunizationInfoText(
         dgcEntry: DGCEntry,
         groupedCertificate: GroupedCertificates,
-    ): Int {
+    ): String {
+        val latestRecovery = groupedCertificate.getLatestValidRecovery()
+        val recovery = latestRecovery?.covCertificate?.dgcEntry as? Recovery
         return when (dgcEntry) {
             is Vaccination -> {
                 when {
                     dgcEntry.doseNumber > 3 -> {
-                        R.string.infschg_cert_overview_immunisation_complete_B2
+                        getString(R.string.infschg_cert_overview_immunisation_complete_B2)
                     }
                     dgcEntry.doseNumber == 3 -> {
-                        R.string.infschg_cert_overview_immunisation_third_vacc_C2
+                        getString(R.string.infschg_cert_overview_immunisation_third_vacc_C2)
                     }
-                    dgcEntry.doseNumber == 2 && groupedCertificate.getLatestValidRecovery() != null -> {
-                        R.string.infschg_cert_overview_immunisation_E2
+                    dgcEntry.doseNumber == 2 && latestRecovery != null &&
+                        dgcEntry.occurrence?.isAfter(recovery?.firstResult) == true -> {
+                        getString(R.string.infschg_cert_overview_immunisation_E2)
                     }
-                    else -> R.string.infschg_cert_overview_immunisation_incomplete_A
+                    dgcEntry.doseNumber == 2 && latestRecovery != null -> {
+                        if (LocalDate.now().isAfter(recovery?.firstResult?.plusDays(29))) {
+                            getString(R.string.infschg_cert_overview_immunisation_E2)
+                        } else {
+                            getString(
+                                R.string.infschg_cert_overview_immunisation_E22,
+                                Duration.between(
+                                    recovery?.firstResult?.plusDays(29),
+                                    LocalDate.now(),
+                                ).toDays(),
+                            )
+                        }
+                    }
+                    else -> getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
                 }
             }
             else -> {
-                R.string.infschg_cert_overview_immunisation_incomplete_A
+                getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
             }
         }
     }

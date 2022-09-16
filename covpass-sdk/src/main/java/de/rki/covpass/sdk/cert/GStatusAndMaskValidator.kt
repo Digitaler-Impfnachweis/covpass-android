@@ -8,9 +8,12 @@ package de.rki.covpass.sdk.cert
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.ImmunizationStatus
 import de.rki.covpass.sdk.cert.models.MaskStatus
+import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.rules.domain.rules.CovPassValidationType
 import de.rki.covpass.sdk.storage.CertRepository
 import dgca.verifier.app.engine.Result
+import java.time.LocalDate
 
 public class GStatusAndMaskValidator(
     private val domesticRulesValidator: CovPassRulesValidator,
@@ -29,19 +32,27 @@ public class GStatusAndMaskValidator(
                     groupedCert.gStatus = ImmunizationStatus.Partial
                     groupedCert.maskStatus = MaskStatus.Required
                     continue
-                }
-
-                // GStatus validation
-                groupedCert.gStatus = when {
-                    isValidByType(mergedCertificate, CovPassValidationType.GGPLUS) ->
-                        ImmunizationStatus.Full
-                    isValidByType(mergedCertificate, CovPassValidationType.GG) ->
-                        ImmunizationStatus.Full
-                    isValidByType(mergedCertificate, CovPassValidationType.GGGPLUS) ->
-                        ImmunizationStatus.Partial
-                    isValidByType(mergedCertificate, CovPassValidationType.GGG) ->
-                        ImmunizationStatus.Partial
-                    else -> ImmunizationStatus.Partial
+                } else {
+                    val latestVaccination = groupedCert.getLatestValidVaccination()
+                    val vaccinationDgcEntry = latestVaccination?.covCertificate?.dgcEntry as? Vaccination
+                    val latestRecovery = groupedCert.getLatestValidRecovery()
+                    val recoveryDgcEntry = latestRecovery?.covCertificate?.dgcEntry as? Recovery
+                    when {
+                        vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber >= 3 -> {
+                            groupedCert.gStatus = ImmunizationStatus.Full
+                        }
+                        vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber == 2 &&
+                            recoveryDgcEntry != null &&
+                            vaccinationDgcEntry.occurrence?.isAfter(recoveryDgcEntry.firstResult) == true -> {
+                            groupedCert.gStatus = ImmunizationStatus.Full
+                        }
+                        vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber == 2 &&
+                            recoveryDgcEntry != null &&
+                            LocalDate.now()?.isAfter(recoveryDgcEntry.firstResult?.plusDays(29)) == true -> {
+                            groupedCert.gStatus = ImmunizationStatus.Full
+                        }
+                        else -> groupedCert.gStatus = ImmunizationStatus.Partial
+                    }
                 }
 
                 // MaskStatus Validation

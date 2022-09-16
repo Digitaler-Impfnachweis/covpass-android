@@ -25,7 +25,7 @@ import java.time.temporal.TemporalAccessor
  *
  * Action could be anything like: `link`, etc.
  */
-private val linkRegex = Regex("#(.*?)::(.*?)#")
+private val linkRegex = Regex("#(.*)::(.*)#")
 
 /**
  * A regular expression which is used to replace phone numbers with clickable links.

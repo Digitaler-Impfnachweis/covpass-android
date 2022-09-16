@@ -23,6 +23,7 @@ public sealed class DetailItem {
         public val subtitle: String? = null,
         public val statusIcon: Int,
         public val message: String,
+        public val link: Int? = null,
         public val buttonText: String? = null,
         public val isExpiredOrInvalid: Boolean = false,
     ) : DetailItem()

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -31,7 +30,7 @@
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
     app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
-    app:layout_constraintTop_toBottomOf="@+id/detail_status_header_textview"/>
+    app:layout_constraintTop_toBottomOf="@+id/detail_status_header_textview" />
 
   <TextView
     android:id="@+id/detail_status_textview"
@@ -39,12 +38,29 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_half"
-    android:layout_marginBottom="@dimen/grid_three"
+    app:layout_constraintBottom_toTopOf="@+id/detail_status_link_textview"
     app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
     app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
     app:layout_constraintTop_toBottomOf="@id/detail_status_subheader_textview"
-    app:layout_constraintBottom_toTopOf="@+id/detail_show_certificate_button"
+    app:layout_goneMarginBottom="@dimen/grid_three"
     tools:text="Weisen Sie Ihren Impfschutz mit dem Impfnachweis nach. Der Nachweis enthält nur Ihren Namen und Ihr Geburtsdatum." />
+
+  <TextView
+    android:id="@+id/detail_status_link_textview"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginBottom="@dimen/grid_three"
+    android:visibility="gone"
+    app:layout_constraintBottom_toTopOf="@+id/detail_show_certificate_button"
+    app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
+    app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
+    app:layout_constraintTop_toBottomOf="@id/detail_status_textview"
+    tools:text="@tools:sample/lorem[3]"
+    tools:visibility="visible"
+    android:focusable="true"
+    android:clickable="true"/>
 
   <ImageView
     android:id="@+id/detail_status_imageview"
@@ -61,15 +77,15 @@
     style="@style/PrimaryButton.Dark"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/grid_three"
     android:layout_marginStart="@dimen/grid_three"
     android:layout_marginEnd="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_three"
     android:visibility="gone"
     app:layout_constrainedHeight="true"
     app:layout_constrainedWidth="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/detail_status_textview" />
+    app:layout_constraintTop_toBottomOf="@id/detail_status_link_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
