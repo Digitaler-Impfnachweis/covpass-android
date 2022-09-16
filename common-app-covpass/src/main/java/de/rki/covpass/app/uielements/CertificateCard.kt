@@ -1,7 +1,9 @@
 package de.rki.covpass.app.uielements
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -12,7 +14,6 @@ import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateCardBinding
-import de.rki.covpass.sdk.cert.models.ImmunizationStatus
 import de.rki.covpass.sdk.cert.models.MaskStatus
 import kotlin.properties.Delegates
 
@@ -36,16 +37,9 @@ public class CertificateCard @JvmOverloads constructor(
         binding.certificateMaskStatusImageview.setImageResource(newValue)
     }
 
-    private var immunizationStatusString: String? by Delegates.observable(null) { _, _, newValue ->
-        binding.certificateImmunizationStatusTextview.text = newValue
-        binding.certificateImmunizationStatusTextview.isVisible = newValue != null
-    }
-    private var immunizationNotificationStatusString: String? by Delegates.observable(null) { _, _, newValue ->
-        binding.certificateImmunizationStatusUpdatingTextview.text = newValue
-        binding.certificateImmunizationStatusUpdatingTextview.isVisible = newValue != null
-    }
-    private var immunizationStatusIcon: Int by Delegates.observable(R.drawable.status_mask_required) { _, _, newValue ->
-        binding.certificateImmunizationStatusImageview.setImageResource(newValue)
+    private var showNotification: Boolean by Delegates.observable(false) { _, _, newValue ->
+        binding.certificateRedDotNotification.isVisible = newValue
+        binding.certificateNotificationText.isVisible = newValue
     }
 
     private var cardBackground: Int by Delegates.observable(R.color.info70) { _, _, newValue ->
@@ -73,15 +67,16 @@ public class CertificateCard @JvmOverloads constructor(
 
     public fun createCertificateCardView(
         fullName: String,
-        immunizationStatus: ImmunizationStatus,
         maskStatus: MaskStatus,
         hasNotification: Boolean,
     ) {
         binding.certificateNameTextview.text = fullName
-
+        showNotification = hasNotification
         showMaskStatus(maskStatus)
-        showImmunizationAndNotificationStatus(immunizationStatus, hasNotification)
         updateBackground(maskStatus)
+        if (maskStatus == MaskStatus.Invalid) {
+            showInvalidCard()
+        }
     }
 
     private fun showMaskStatus(maskRequired: MaskStatus) {
@@ -101,48 +96,21 @@ public class CertificateCard @JvmOverloads constructor(
         }
     }
 
-    private fun showImmunizationAndNotificationStatus(
-        immunizationStatus: ImmunizationStatus,
-        hasNotification: Boolean,
-    ) {
-        when (immunizationStatus) {
-            ImmunizationStatus.Full -> {
-                immunizationStatusString = getString(R.string.infschg_start_immune_complete)
-                immunizationStatusIcon = if (hasNotification) {
-                    R.drawable.status_immunization_full_notification
-                } else {
-                    R.drawable.status_immunization_full
-                }
-            }
-            ImmunizationStatus.Partial -> {
-                immunizationStatusString = getString(R.string.infschg_start_immune_incomplete)
-                immunizationStatusIcon = if (hasNotification) {
-                    R.drawable.status_immunization_partial_notification
-                } else {
-                    R.drawable.status_immunization_partial
-                }
-            }
-            ImmunizationStatus.Invalid -> {
-                immunizationStatusString = getString(R.string.infschg_start_expired_revoked)
-                immunizationStatusIcon = if (hasNotification) {
-                    R.drawable.status_immunization_expired_notification
-                } else {
-                    R.drawable.status_immunization_expired
-                }
-            }
-        }
-        immunizationNotificationStatusString = if (hasNotification) {
-            getString(R.string.infschg_start_notification)
-        } else {
-            null
-        }
-    }
-
     private fun updateBackground(maskStatus: MaskStatus) {
         cardBackground = when (maskStatus) {
             MaskStatus.NotRequired -> R.color.full_immunization_green
             MaskStatus.Required -> R.color.info70
             MaskStatus.Invalid -> R.color.onBrandBase60
         }
+    }
+
+    private fun showInvalidCard() {
+        binding.certificateQrImageview.foreground =
+            ContextCompat.getDrawable(context, R.drawable.expired_overlay_icon_foreground)
+        binding.certificateQrImageview.backgroundTintList =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.expired_overlay_tint))
+        binding.certificateQrImageview.backgroundTintMode = PorterDuff.Mode.MULTIPLY
+        // view height set to zero instead of hidden to prevent issues coming from the qr code having DimensionRatio 1:1
+        binding.certificateCovpassCheckTextview.height = 0
     }
 }

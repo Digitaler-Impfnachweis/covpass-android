@@ -77,7 +77,6 @@ internal class CertificateFragment : BaseFragment() {
 
         binding.certificateCard.createCertificateCardView(
             mainCertificate.fullName,
-            groupedCertificate.gStatus,
             groupedCertificate.maskStatus,
             hasNotification = showBoosterNotification || showDetailReissueNotification,
         )
