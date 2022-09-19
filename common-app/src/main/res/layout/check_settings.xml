@@ -45,36 +45,6 @@
         tools:text="@tools:sample/lorem[7]" />
 
       <LinearLayout
-        android:id="@+id/settings_rules_picker_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/grid_five">
-
-        <TextView
-          style="@style/Header.OnBackground.MediumBig"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingHorizontal="@dimen/grid_three"
-          android:paddingBottom="@dimen/grid_two"
-          android:text="@string/app_information_rules_list_title"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          tools:text="Checking rules" />
-
-        <de.rki.covpass.commonapp.uielements.CheckContextCheckboxElement
-          android:id="@+id/check_context_settings_eu_checkbox"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
-
-        <de.rki.covpass.commonapp.uielements.CheckContextCheckboxElement
-          android:id="@+id/check_context_settings_local_checkbox"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
-
-      </LinearLayout>
-
-      <LinearLayout
         android:id="@+id/offline_revocation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

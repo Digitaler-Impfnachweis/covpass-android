@@ -15,7 +15,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.CheckSettingsBinding
-import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
@@ -55,7 +54,6 @@ public class SettingsFragment : BaseFragment(), DialogListener {
     }
 
     private fun initCovPassContent() {
-        binding.settingsRulesPickerLayout.isGone = true
         binding.offlineRevocationLayout.isGone = true
     }
 
@@ -79,32 +77,6 @@ public class SettingsFragment : BaseFragment(), DialogListener {
                     )
                     showDialog(dialogModel, childFragmentManager)
                 }
-            }
-        }
-
-        val isDomesticRulesOn = commonDeps.checkContextRepository.isDomesticRulesOn.value
-        binding.checkContextSettingsEuCheckbox.apply {
-            updateValues(
-                R.string.check_context_onboarding_option1_title,
-                R.string.check_context_onboarding_option1_subtitle,
-            )
-            updateCheckbox(!isDomesticRulesOn)
-            setOnClickListener {
-                updateCheckbox(true)
-                binding.checkContextSettingsLocalCheckbox.updateCheckbox(false)
-                updateRulesState()
-            }
-        }
-        binding.checkContextSettingsLocalCheckbox.apply {
-            updateValues(
-                R.string.check_context_onboarding_option2_title,
-                R.string.check_context_onboarding_option2_subtitle,
-            )
-            updateCheckbox(isDomesticRulesOn)
-            setOnClickListener {
-                updateCheckbox(true)
-                binding.checkContextSettingsEuCheckbox.updateCheckbox(false)
-                updateRulesState()
             }
         }
     }
@@ -136,14 +108,6 @@ public class SettingsFragment : BaseFragment(), DialogListener {
     private fun showLoading(isLoading: Boolean) {
         binding.settingsLoadingLayout.isVisible = isLoading
         binding.updateButton.isGone = isLoading
-    }
-
-    private fun updateRulesState() {
-        launchWhenStarted {
-            commonDeps.checkContextRepository.isDomesticRulesOn.set(
-                binding.checkContextSettingsLocalCheckbox.isChecked(),
-            )
-        }
     }
 
     private fun updateOfflineRevocationState() {
