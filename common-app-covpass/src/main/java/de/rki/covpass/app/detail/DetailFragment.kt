@@ -194,8 +194,13 @@ internal class DetailFragment :
                         ImmunizationStatus.Invalid -> R.drawable.status_immunization_expired
                     },
                     message = when (immunizationStatus) {
-                        ImmunizationStatus.Full, ImmunizationStatus.Partial ->
-                            getImmunizationInfoText(
+                        ImmunizationStatus.Full ->
+                            getFullImmunizationInfoText(
+                                dgcEntry,
+                                groupedCertificate,
+                            )
+                        ImmunizationStatus.Partial ->
+                            getPartialImmunizationInfoText(
                                 dgcEntry,
                                 groupedCertificate,
                             )
@@ -817,7 +822,7 @@ internal class DetailFragment :
         }
     }
 
-    private fun getImmunizationInfoText(
+    private fun getFullImmunizationInfoText(
         dgcEntry: DGCEntry,
         groupedCertificate: GroupedCertificates,
     ): String {
@@ -836,18 +841,9 @@ internal class DetailFragment :
                         dgcEntry.occurrence?.isAfter(recovery?.firstResult) == true -> {
                         getString(R.string.infschg_cert_overview_immunisation_E2)
                     }
-                    dgcEntry.doseNumber == 2 && latestRecovery != null -> {
-                        if (LocalDate.now().isAfter(recovery?.firstResult?.plusDays(29))) {
-                            getString(R.string.infschg_cert_overview_immunisation_E2)
-                        } else {
-                            getString(
-                                R.string.infschg_cert_overview_immunisation_E22,
-                                Duration.between(
-                                    recovery?.firstResult?.plusDays(29),
-                                    LocalDate.now(),
-                                ).toDays(),
-                            )
-                        }
+                    dgcEntry.doseNumber == 2 && latestRecovery != null &&
+                        LocalDate.now().isAfter(recovery?.firstResult?.plusDays(29)) -> {
+                        getString(R.string.infschg_cert_overview_immunisation_E2)
                     }
                     else -> getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
                 }
@@ -855,6 +851,28 @@ internal class DetailFragment :
             else -> {
                 getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
             }
+        }
+    }
+
+    private fun getPartialImmunizationInfoText(
+        dgcEntry: DGCEntry,
+        groupedCertificate: GroupedCertificates,
+    ): String {
+        val latestRecovery = groupedCertificate.getLatestValidRecovery()
+        val recovery = latestRecovery?.covCertificate?.dgcEntry as? Recovery
+        return if (
+            dgcEntry is Vaccination && dgcEntry.doseNumber == 2 && latestRecovery != null &&
+            LocalDate.now().isBefore(recovery?.firstResult?.plusDays(29))
+        ) {
+            getString(
+                R.string.infschg_cert_overview_immunisation_E22,
+                Duration.between(
+                    recovery?.firstResult?.plusDays(29),
+                    LocalDate.now(),
+                ).toDays(),
+            )
+        } else {
+            getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
         }
     }
 }
