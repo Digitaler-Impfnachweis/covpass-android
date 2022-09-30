@@ -338,9 +338,9 @@ pipeline {
         stage('Publish Souce Labs') {
             when {
                 anyOf {
-                    branch 'main'
-                    branch 'master'
-                    //branch 'release/*'
+//                     branch 'main'
+//                     branch 'master'
+                    branch 'release/*'
                 }
             }
              steps {
