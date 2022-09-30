@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
@@ -45,35 +46,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="@id/main_header_textview" />
 
-    <com.google.android.material.tabs.TabLayout
-      android:id="@+id/main_check_cert_tab_layout"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/grid_four"
-      android:layout_margin="@dimen/grid_three"
-      android:background="@drawable/selector_background"
-      app:layout_constraintTop_toBottomOf="@id/main_header_textview"
-      app:tabBackground="@drawable/selector_tab"
-      app:tabGravity="fill"
-      app:tabIndicatorColor="@android:color/transparent"
-      app:tabIndicatorHeight="0dp"
-      app:tabMode="fixed"
-      app:tabRippleColor="@null"
-      app:tabSelectedTextColor="@color/onBackground100"
-      app:tabTextAppearance="@style/Header.OnBackground.Small"
-      app:tabTextColor="@color/onBackground100">
-
-      <com.google.android.material.tabs.TabItem
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/validation_start_screen_scan_title" />
-
-      <com.google.android.material.tabs.TabItem
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/validation_start_screen_scan_title_2G" />
-
-    </com.google.android.material.tabs.TabLayout>
-
     <com.google.android.material.card.MaterialCardView
       android:id="@+id/main_check_cert_cardview"
       style="@style/CovPassCardView.Elevated"
@@ -82,108 +54,76 @@
       android:layout_marginHorizontal="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_three"
       app:cardBackgroundColor="@color/info70"
-      app:layout_constraintTop_toBottomOf="@id/main_check_cert_tab_layout">
+      app:layout_constraintTop_toBottomOf="@id/main_header_textview">
 
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-          android:id="@+id/main_check_cert_header_textview"
-          style="@style/Header.OnInfo.Big"
-          android:layout_width="0dp"
+          android:id="@+id/federal_state_title"
+          style="@style/Header.OnInfo.ExtraSmall"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_three"
-          android:layout_marginTop="@dimen/grid_two"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginStart="@dimen/grid_four"
+          android:layout_marginTop="@dimen/grid_four"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-          android:id="@+id/main_check_cert_info_textview"
-          style="@style/DefaultText.OnInfo"
-          android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/federal_state_layout"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/grid_one_half"
-          app:layout_constraintEnd_toEndOf="@id/main_check_cert_header_textview"
-          app:layout_constraintStart_toStartOf="@id/main_check_cert_header_textview"
-          app:layout_constraintTop_toBottomOf="@id/main_check_cert_header_textview" />
-
-        <Space
-          android:id="@+id/main_check_cert_space"
-          android:layout_width="0dp"
-          android:layout_height="@dimen/grid_nine"
-          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginHorizontal="@dimen/grid_three"
+          android:background="@drawable/background_dark_blue_round_corners"
+          android:clickable="true"
+          android:focusable="true"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/main_check_cert_info_textview" />
+          app:layout_constraintTop_toBottomOf="@+id/federal_state_title">
+
+          <TextView
+            android:id="@+id/federal_state_name"
+            style="@style/DefaultText.OnInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/grid_two"
+            android:layout_marginStart="@dimen/grid_two"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/federal_state_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageView
+            android:id="@+id/federal_state_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/grid_two"
+            android:src="@drawable/federal_state_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
           android:id="@+id/main_check_cert_button"
           style="@style/PrimaryButton.Light"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_three"
+          android:layout_marginHorizontal="@dimen/grid_six"
+          android:layout_marginTop="@dimen/grid_four_half"
           android:layout_marginBottom="@dimen/grid_three"
           app:icon="@drawable/scan_qr"
-          app:layout_constraintBottom_toTopOf="@+id/main_check_cert_2g_b_layout"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/main_check_cert_space"
+          app:layout_constraintTop_toBottomOf="@+id/federal_state_layout"
           app:layout_goneMarginBottom="@dimen/grid_five" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/main_check_cert_2g_b_layout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@color/info80"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/main_check_cert_button">
-
-          <TextView
-            android:id="@+id/main_check_cert_2g_b_text"
-            style="@style/DefaultText.OnInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/grid_two"
-            android:layout_marginStart="@dimen/grid_three"
-            android:focusable="false"
-            android:labelFor="@+id/main_check_cert_2g_b_switch"
-            android:text="@string/validation_start_screen_scan_message_2G_toggle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/main_check_cert_2g_b_switch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-          <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/main_check_cert_2g_b_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_five"
-            android:layout_marginEnd="@dimen/grid_three"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:theme="@style/SwitchTheme"
-            app:layout_constraintBottom_toBottomOf="@+id/main_check_cert_2g_b_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/main_check_cert_2g_b_text"
-            app:layout_constraintTop_toTopOf="@+id/main_check_cert_2g_b_text" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-      android:id="@+id/main_activated_rules"
-      style="@style/DefaultText.OnBackground70"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_one"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/main_check_cert_cardview" />
 
     <de.rki.covpass.commonapp.uielements.InfoElement
       android:id="@+id/main_clock_out_of_sync"
@@ -193,7 +133,7 @@
       android:layout_marginHorizontal="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_three"
       android:visibility="gone"
-      app:layout_constraintTop_toBottomOf="@+id/main_activated_rules"
+      app:layout_constraintTop_toBottomOf="@+id/main_check_cert_cardview"
       tools:subtitle="@tools:sample/lorem[10]"
       tools:title="@tools:sample/lorem[3]"
       tools:visibility="visible" />
@@ -204,7 +144,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_one"
       app:cardBackgroundColor="@color/backgroundSecondary"
       app:layout_constraintTop_toBottomOf="@id/main_clock_out_of_sync"
       app:layout_goneMarginTop="@dimen/grid_five">

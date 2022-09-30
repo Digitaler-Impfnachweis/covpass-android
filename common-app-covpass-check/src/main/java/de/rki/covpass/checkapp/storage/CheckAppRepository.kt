@@ -13,18 +13,9 @@ import de.rki.covpass.sdk.storage.CborSharedPrefsStore
  */
 public class CheckAppRepository(store: CborSharedPrefsStore) {
 
-    public val activatedCheckingMode: SuspendMutableValueFlow<CheckingMode> =
-        store.getData("activated_checking_mode", CheckingMode.Mode3G)
+    public val newRegulationNotificationShown: SuspendMutableValueFlow<Boolean> =
+        store.getData("new_regulation_notification_shown", false)
 
-    public fun is2GPlusOn(): Boolean = activatedCheckingMode.value == CheckingMode.Mode2GPlus
-
-    public fun is2GPlusBOn(): Boolean = activatedCheckingMode.value == CheckingMode.Mode2GPlusB
-
-    public fun is3GOn(): Boolean = activatedCheckingMode.value == CheckingMode.Mode3G
-}
-
-public enum class CheckingMode {
-    Mode3G,
-    Mode2GPlus,
-    Mode2GPlusB
+    public val federalState: SuspendMutableValueFlow<String> =
+        store.getData("federal_state_in_use", "BW")
 }

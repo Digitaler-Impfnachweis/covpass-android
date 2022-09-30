@@ -15,26 +15,31 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.databinding.ValidationResult2gDifferentDataBinding
-import de.rki.covpass.checkapp.scanner.ValidationResult2gData
+import de.rki.covpass.checkapp.databinding.ValidationResultDifferentDataBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.sdk.cert.models.ExpertModeData
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-public class ValidationResult2gDifferentDataFragmentNav(
-    public val firstCertificateData: ValidationResult2gData,
-    public val secondCertificateData: ValidationResult2gData,
+public class ValidationResultDifferentDataFragmentNav(
+    public val name1: String,
+    public val transliteratedName1: String,
+    public val birthDate1: String,
+    public val name2: String,
+    public val transliteratedName2: String,
+    public val birthDate2: String,
     public val dateDifferent: Boolean,
-) : FragmentNav(ValidationResult2gDifferentDataFragment::class)
+    public val expertModeData: ExpertModeData?,
+    public val isGermanCertificate: Boolean = false,
+) : FragmentNav(ValidationResultDifferentDataFragment::class)
 
-public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
+public class ValidationResultDifferentDataFragment : BaseBottomSheet() {
 
-    private val args by lazy { getArgs<ValidationResult2gDifferentDataFragmentNav>() }
-    private val binding by viewBinding(ValidationResult2gDifferentDataBinding::inflate)
+    private val args by lazy { getArgs<ValidationResultDifferentDataFragmentNav>() }
+    private val binding by viewBinding(ValidationResultDifferentDataBinding::inflate)
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_warning_2G_names_announce_open
 
-    // TODO add close announcement accessibility_warning_2G_names_announce_close
     override val buttonTextRes: Int = R.string.result_2G_button_retry
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,38 +50,40 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
         bottomSheetBinding.bottomSheetSecondWhiteButtonWithBorder.apply {
             isVisible = true
             setOnClickListener {
-                findNavigator().popUntil<ValidationResult2GListener>()
-                    ?.onValidationResetOrFinish()
+                findNavigator().popUntil<ValidationResultListener>()?.onValidationResultClosed()
             }
             setText(R.string.result_2G_button_startover)
         }
 
-        binding.validationResultDifferentDataCertificateDataElement.showInfo(
+        binding.validationResultDifferentDataFirstCertificateDataElement.showInfo(
             R.drawable.validation_result_2g_data,
-            args.firstCertificateData.certificateName,
-            args.firstCertificateData.certificateTransliteratedName,
+            args.name1,
+            args.transliteratedName1,
             getString(
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
-                args.firstCertificateData.certificateBirthDate,
+                args.birthDate1,
             ),
         )
 
-        binding.validationResultDifferentDataTestDataElement.showInfo(
+        binding.validationResultDifferentDataSecondCertificateDataElement.showInfo(
             R.drawable.validation_result_2g_data_warning,
-            args.secondCertificateData.certificateName,
-            args.secondCertificateData.certificateTransliteratedName,
+            args.name2,
+            args.transliteratedName2,
             getString(
                 R.string.validation_check_popup_valid_vaccination_date_of_birth,
-                args.secondCertificateData.certificateBirthDate,
+                args.birthDate2,
             ),
             true,
         )
 
         binding.validationResultDifferentDataValidDifferenceButton.setOnClickListener {
             findNavigator().push(
-                ValidationResult2gFragmentNav(
-                    args.firstCertificateData,
-                    args.secondCertificateData,
+                ValidationResultSuccessFragmentNav(
+                    args.name1,
+                    args.transliteratedName1,
+                    args.birthDate1,
+                    args.expertModeData,
+                    args.isGermanCertificate,
                 ),
             )
         }
@@ -89,8 +96,7 @@ public class ValidationResult2gDifferentDataFragment : BaseBottomSheet() {
     }
 
     private fun tryAgainAndBackEvent() {
-        findNavigator().popUntil<ValidationResult2GListener>()
-            ?.onValidatingFirstCertificate(args.firstCertificateData)
+        findNavigator().popUntil<ValidationResultListener>()?.onValidationFirstScanFinish()
     }
 
     override fun onActionButtonClicked() {

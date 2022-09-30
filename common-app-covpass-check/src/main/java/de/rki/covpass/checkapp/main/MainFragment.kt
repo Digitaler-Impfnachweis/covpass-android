@@ -16,24 +16,25 @@ import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
-import com.google.android.material.tabs.TabLayout
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
+import de.rki.covpass.checkapp.federalstate.ChangeFederalStateCallback
+import de.rki.covpass.checkapp.federalstate.ChangeFederalStateFragmentNav
+import de.rki.covpass.checkapp.federalstate.FederalState
+import de.rki.covpass.checkapp.federalstate.FederalStateResolver
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
-import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.information.SettingsFragmentNav
 import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
-import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
@@ -48,7 +49,7 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 /**
  * Displays the start view of the app.
  */
-internal class MainFragment : BaseFragment(), DataProtectionCallback {
+internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFederalStateCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val revocationListUpdateViewModel by reactiveState {
@@ -61,6 +62,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         SettingsUpdateViewModel(scope, true)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainSettingsImagebutton.setOnClickListener {
@@ -80,49 +82,13 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                 SettingsFragmentNav(true),
             )
         }
-        binding.mainCheckCertTabLayout.addOnTabSelectedListener(
-            object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    when {
-                        tab?.position == 1 && covpassCheckDeps.checkAppRepository.is3GOn() -> {
-                            launchWhenStarted {
-                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
-                                    CheckingMode.Mode2GPlus,
-                                )
-                            }
-                        }
-                        tab?.position == 0 && !covpassCheckDeps.checkAppRepository.is3GOn() -> {
-                            launchWhenStarted {
-                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
-                                    CheckingMode.Mode3G,
-                                )
-                            }
-                        }
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            },
-        )
-        binding.mainCheckCert2gBSwitch.setOnCheckedChangeListener { _, isChecked ->
-            when {
-                isChecked && !covpassCheckDeps.checkAppRepository.is2GPlusBOn() -> {
-                    launchWhenStarted {
-                        covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
-                            CheckingMode.Mode2GPlusB,
-                        )
-                    }
-                }
-                !isChecked && covpassCheckDeps.checkAppRepository.is2GPlusBOn() -> {
-                    launchWhenStarted {
-                        covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
-                            CheckingMode.Mode2GPlus,
-                        )
-                    }
-                }
-            }
+        binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
+        binding.federalStateTitle.text = "Bundesland"
+        binding.federalStateName.text = "Mecklenburg-Vorpommern"
+        binding.federalStateLayout.setOnClickListener {
+            findNavigator().push(ChangeFederalStateFragmentNav("BY"))
         }
+
         ViewCompat.setAccessibilityDelegate(
             binding.mainHeaderTextview,
             object : AccessibilityDelegateCompat() {
@@ -136,7 +102,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
             },
         )
         ViewCompat.setAccessibilityDelegate(
-            binding.mainCheckCertHeaderTextview,
+            binding.federalStateTitle,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
@@ -161,6 +127,13 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         )
 
         autoRun {
+            FederalStateResolver.getFederalStateByCode(
+                get(covpassCheckDeps.checkAppRepository.federalState),
+            )?.nameRes?.let {
+                binding.federalStateName.setText(it)
+            }
+        }
+        autoRun {
             updateAvailabilityCard(get(settingsUpdateViewModel.allUpToDate))
         }
         autoRun {
@@ -181,34 +154,6 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                     binding.mainClockOutOfSync.isVisible = false
                 }
             }.let { }
-        }
-        autoRun {
-            when (get(covpassCheckDeps.checkAppRepository.activatedCheckingMode)) {
-                CheckingMode.Mode3G -> {
-                    binding.mainCheckCertTabLayout.getTabAt(0)?.select()
-                    updateScannerCard(false)
-
-                    binding.mainCheckCert2gBLayout.isVisible = false
-                    binding.mainCheckCert2gBSwitch.isChecked = false
-                }
-                CheckingMode.Mode2GPlus -> {
-                    binding.mainCheckCertTabLayout.getTabAt(1)?.select()
-                    updateScannerCard(true)
-
-                    binding.mainCheckCert2gBLayout.isVisible = true
-                    binding.mainCheckCert2gBSwitch.isChecked = false
-                }
-                CheckingMode.Mode2GPlusB -> {
-                    binding.mainCheckCertTabLayout.getTabAt(1)?.select()
-                    updateScannerCard(true)
-
-                    binding.mainCheckCert2gBLayout.isVisible = true
-                    binding.mainCheckCert2gBSwitch.isChecked = true
-                }
-            }
-        }
-        autoRun {
-            showActivatedRules(get(commonDeps.checkContextRepository.isDomesticRulesOn))
         }
         showNotificationIfNeeded()
     }
@@ -232,35 +177,9 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                 != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION -> {
                 findNavigator().push(DataProtectionFragmentNav())
             }
-            commonDeps.checkContextRepository.checkContextNotificationVersionShown.value
-                != CheckContextRepository.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION -> {
-                findNavigator().push(CheckContextNotificationFragmentNav())
+            !covpassCheckDeps.checkAppRepository.newRegulationNotificationShown.value -> {
+                findNavigator().push(NewRegulationNotificationFragmentNav())
             }
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun showActivatedRules(isDomesticRulesOn: Boolean) {
-        if (isDomesticRulesOn) {
-            binding.mainActivatedRules.text =
-                String(Character.toChars(0x1F1E9) + Character.toChars(0x1F1EA)) +
-                    " ${getString(R.string.startscreen_rules_tag_local)}"
-        } else {
-            binding.mainActivatedRules.text =
-                String(Character.toChars(0x1F1EA) + Character.toChars(0x1F1FA)) +
-                    " ${getString(R.string.startscreen_rules_tag_europe)}"
-        }
-    }
-
-    private fun updateScannerCard(isTwoG: Boolean) {
-        if (isTwoG) {
-            binding.mainCheckCertHeaderTextview.setText(R.string.validation_start_screen_scan_title_2G)
-            binding.mainCheckCertInfoTextview.setText(R.string.validation_start_screen_scan_message_2G)
-            binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
-        } else {
-            binding.mainCheckCertHeaderTextview.setText(R.string.validation_start_screen_scan_title)
-            binding.mainCheckCertInfoTextview.setText(R.string.validation_start_screen_scan_message)
-            binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
         }
     }
 
@@ -274,5 +193,9 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
                 R.string.start_offline_subtitle_unavailable
             },
         )
+    }
+
+    override fun updateFederalState(federalState: FederalState) {
+        covpassCheckDeps
     }
 }

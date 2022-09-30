@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <ImageView
+    android:id="@+id/new_regulation_decorative_image"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_two_half"
+    android:src="@drawable/new_regulation_notification_decorative"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="ContentDescription" />
+
+  <TextView
+    android:id="@+id/new_regulation_note1"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three"
+    app:layout_constraintTop_toBottomOf="@+id/new_regulation_decorative_image" />
+
+  <TextView
+    android:id="@+id/new_regulation_note2"
+    style="@style/Header.OnBackground.Small"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_three"
+    app:layout_constraintTop_toBottomOf="@+id/new_regulation_note1" />
+
+  <TextView
+    android:id="@+id/new_regulation_note3"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintTop_toBottomOf="@+id/new_regulation_note2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

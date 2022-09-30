@@ -35,6 +35,7 @@ public class CovPassRulesValidator(
         countryIsoCode: String = "de",
         validationClock: ZonedDateTime = ZonedDateTime.now(),
         validationType: CovPassValidationType = CovPassValidationType.RULES,
+        region: String? = null,
     ): List<ValidationResult> {
         val certificateType = cert.getCertificateType()
         val issuerCountryCode = cert.issuer.lowercase()
@@ -44,6 +45,7 @@ public class CovPassRulesValidator(
             certificateType,
             validationClock,
             validationType,
+            region,
         )
         val valueSetsMap =
             valueSetsRepository.getAllCovPassValueSets().toValueSets().associate { valueSet ->

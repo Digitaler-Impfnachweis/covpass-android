@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/federal_state_layout"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:clickable="true"
+  android:focusable="true"
+  android:focusableInTouchMode="false">
+
+  <TextView
+    android:id="@+id/federal_state_name"
+    style="@style/DefaultText.OnBackground"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginVertical="@dimen/grid_two"
+    app:drawableEndCompat="@drawable/arrow_right"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <View
+    android:id="@+id/main_availability_divider"
+    style="@style/Divider"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,10 +12,10 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.databinding.ValidationResult2gInfoBinding
+import de.rki.covpass.checkapp.databinding.ValidationResultInfoBinding
 import kotlin.properties.Delegates
 
-public class ValidationResult2gInfoElement @JvmOverloads constructor(
+public class ValidationResultInfoElement @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
@@ -24,8 +24,8 @@ public class ValidationResult2gInfoElement @JvmOverloads constructor(
     attrs,
     defStyleAttr,
 ) {
-    private val binding: ValidationResult2gInfoBinding =
-        ValidationResult2gInfoBinding.inflate(LayoutInflater.from(context))
+    private val binding: ValidationResultInfoBinding =
+        ValidationResultInfoBinding.inflate(LayoutInflater.from(context))
 
     private var icon: Int? by Delegates.observable(null) { _, _, newValue ->
         if (newValue != null) {

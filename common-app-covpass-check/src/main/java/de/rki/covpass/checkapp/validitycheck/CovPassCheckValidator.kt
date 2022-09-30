@@ -9,33 +9,56 @@ import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.validateRevocation
+import de.rki.covpass.sdk.rules.domain.rules.CovPassValidationType
 import dgca.verifier.app.engine.Result
 
 public enum class CovPassCheckValidationResult {
     TechnicalError,
     ValidationError,
+    NoMaskRulesError,
     Success
 }
 
 public suspend fun validate(
     covCertificate: CovCertificate,
-    covPassRulesValidator: CovPassRulesValidator,
+    domesticRulesValidator: CovPassRulesValidator,
+    euRulesValidator: CovPassRulesValidator,
     revocationRemoteListRepository: RevocationRemoteListRepository,
-    recoveryOlder90DaysValid: Boolean = false,
+    region: String? = null,
 ): CovPassCheckValidationResult {
-    val validationResults = covPassRulesValidator.validate(covCertificate)
-    if (validationResults.isEmpty()) {
-        return CovPassCheckValidationResult.TechnicalError
+    // Check mask rules
+    val maskValidationResults = domesticRulesValidator.validate(
+        cert = covCertificate,
+        validationType = CovPassValidationType.MASK,
+        region = region,
+    )
+    if (maskValidationResults.isEmpty()) {
+        return CovPassCheckValidationResult.NoMaskRulesError
     }
-    validationResults.forEach {
-        if (it.result != Result.PASSED) {
-            if (!(recoveryOlder90DaysValid && it.rule.identifier == "RR-DE-0002")) {
-                return CovPassCheckValidationResult.ValidationError
-            }
-        }
-    }
+
     if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
         return CovPassCheckValidationResult.TechnicalError
     }
+
+    // Acceptance and Invalidation rules from /domesticrules
+    val domesticValidationResults = domesticRulesValidator.validate(covCertificate)
+    if (domesticValidationResults.any { it.result == Result.FAIL }) {
+        return CovPassCheckValidationResult.ValidationError
+    }
+
+    // Invalidation rules from /rules
+    val euValidationResults = euRulesValidator.validate(
+        cert = covCertificate,
+        validationType = CovPassValidationType.INVALIDATION,
+    )
+    if (euValidationResults.any { it.result == Result.FAIL }) {
+        return CovPassCheckValidationResult.ValidationError
+    }
+
+    // Validate mask rules
+    if (maskValidationResults.any { it.result == Result.FAIL }) {
+        return CovPassCheckValidationResult.ValidationError
+    }
+
     return CovPassCheckValidationResult.Success
 }

@@ -15,9 +15,6 @@ public class CheckContextRepository(store: CborSharedPrefsStore) {
     public val checkContextNotificationVersionShown: SuspendMutableValueFlow<Int> =
         store.getData("check_context_notification_version_shown", 0)
 
-    public val isDomesticRulesOn: SuspendMutableValueFlow<Boolean> =
-        store.getData("is_domestic_rules_on", false)
-
     public val isExpertModeOn: SuspendMutableValueFlow<Boolean> =
         store.getData("is_expert_mode_on", false)
 

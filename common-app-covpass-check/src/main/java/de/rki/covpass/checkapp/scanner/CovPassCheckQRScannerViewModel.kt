@@ -8,33 +8,32 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
-import com.ensody.reactivestate.MutableValueFlow
+import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.checkapp.validitycheck.validate
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
-import de.rki.covpass.sdk.cert.models.TestCertType
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
+import de.rki.covpass.sdk.utils.DataComparison
+import de.rki.covpass.sdk.utils.DccNameMatchingUtils.compareHolder
 import kotlinx.coroutines.CoroutineScope
-import java.time.ZonedDateTime
 
 /**
  * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
  */
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
-    fun onValidationSuccess(certificate: CovCertificate)
-    fun onValidationFailure(isTechnical: Boolean = false, certificate: CovCertificate? = null)
-    fun onValidPcrTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
-    fun onValidAntigenTest(certificate: CovCertificate, sampleCollection: ZonedDateTime?)
+    fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean)
+    fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean)
+    fun onValidationTechnicalFailure(certificate: CovCertificate? = null)
+    fun onValidationNoRulesFailure(certificate: CovCertificate)
+    fun showWarningDuplicatedType()
 }
 
 /**
@@ -43,87 +42,87 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
 internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
-    private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
+    private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
-    private val checkContextRepository: CheckContextRepository = commonDeps.checkContextRepository,
+    private val regionId: String = covpassCheckDeps.checkAppRepository.federalState.value,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
-    val recoveryOlder90DaysValid: MutableValueFlow<Boolean> = MutableValueFlow(true)
+    var firstCovCertificate: CovCertificate? = null
 
     fun onQrContentReceived(qrContent: String) {
         launch {
             try {
                 val covCertificate = qrCoder.decodeCovCert(qrContent)
                 val dgcEntry = covCertificate.dgcEntry
+                val firstCovCert = firstCovCertificate
+                if (firstCovCert != null && dgcEntry.type == firstCovCert.dgcEntry.type) {
+                    eventNotifier {
+                        showWarningDuplicatedType()
+                    }
+                }
+                val isSecondCertificate = if (firstCovCert == null) {
+                    firstCovCertificate = covCertificate
+                    false
+                } else {
+                    true
+                }
                 validateEntity(dgcEntry.idWithoutPrefix)
+                val mergedCovCertificate: CovCertificate = when {
+                    firstCovCert != null && dgcEntry is Recovery -> {
+                        firstCovCert.copy(
+                            recoveries = listOf(dgcEntry),
+                        )
+                    }
+                    firstCovCert != null && dgcEntry is Vaccination -> {
+                        firstCovCert.copy(
+                            vaccinations = listOf(dgcEntry),
+                        )
+                    }
+                    firstCovCert != null && dgcEntry is TestCert -> {
+                        firstCovCert.copy(
+                            tests = listOf(dgcEntry),
+                        )
+                    }
+                    else -> {
+                        covCertificate
+                    }
+                }
                 when (
                     validate(
-                        covCertificate,
-                        getRuleValidator(),
+                        mergedCovCertificate,
+                        domesticRulesValidator = domesticRulesValidator,
+                        euRulesValidator = euRulesValidator,
                         revocationRemoteListRepository,
-                        recoveryOlder90DaysValid.value,
+                        regionId,
                     )
                 ) {
-                    CovPassCheckValidationResult.Success -> {
-                        when (dgcEntry) {
-                            is Vaccination, is Recovery -> {
-                                eventNotifier {
-                                    onValidationSuccess(covCertificate)
-                                }
-                            }
-                            is TestCert -> {
-                                if (dgcEntry.type == TestCertType.NEGATIVE_PCR_TEST) {
-                                    handleNegativePcrResult(covCertificate)
-                                } else {
-                                    handleNegativeAntigenResult(covCertificate)
-                                }
-                            }
-                            // .let{} to enforce exhaustiveness
-                        }.let {}
-                    }
-                    CovPassCheckValidationResult.TechnicalError -> eventNotifier {
-                        onValidationFailure(true, covCertificate)
+                    CovPassCheckValidationResult.Success -> eventNotifier {
+                        onValidationSuccess(mergedCovCertificate, isSecondCertificate)
                     }
                     CovPassCheckValidationResult.ValidationError -> eventNotifier {
-                        onValidationFailure(certificate = covCertificate)
+                        onValidationFailure(mergedCovCertificate, isSecondCertificate)
+                    }
+                    CovPassCheckValidationResult.NoMaskRulesError -> eventNotifier {
+                        onValidationNoRulesFailure(mergedCovCertificate)
+                    }
+                    CovPassCheckValidationResult.TechnicalError -> eventNotifier {
+                        onValidationTechnicalFailure(mergedCovCertificate)
                     }
                 }
             } catch (exception: Exception) {
                 Lumber.e(exception)
-                eventNotifier { onValidationFailure(true) }
+                eventNotifier { onValidationTechnicalFailure() }
             }
         }
     }
 
-    private fun getRuleValidator(): CovPassRulesValidator =
-        if (checkContextRepository.isDomesticRulesOn.value) {
-            domesticRulesValidator
-        } else {
-            euRulesValidator
-        }
+    fun compareData(covCertificate: CovCertificate, covCertificate2: CovCertificate): DataComparison {
+        val name1 = covCertificate.name
+        val name2 = covCertificate2.name
+        val dob1 = covCertificate.birthDate
+        val dob2 = covCertificate2.birthDate
 
-    private fun handleNegativePcrResult(
-        covCertificate: CovCertificate,
-    ) {
-        val test = covCertificate.dgcEntry as TestCert
-        eventNotifier {
-            onValidPcrTest(
-                covCertificate,
-                test.sampleCollection,
-            )
-        }
-    }
-
-    private fun handleNegativeAntigenResult(
-        covCertificate: CovCertificate,
-    ) {
-        val test = covCertificate.dgcEntry as TestCert
-        eventNotifier {
-            onValidAntigenTest(
-                covCertificate,
-                test.sampleCollection,
-            )
-        }
+        return compareHolder(name1, name2, dob1, dob2)
     }
 }

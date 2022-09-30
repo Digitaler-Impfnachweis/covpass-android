@@ -12,7 +12,7 @@ import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
 public enum class CovPassValidationType {
-    RULES, GG, GGPLUS, GGG, GGGPLUS, MASK
+    RULES, GG, GGPLUS, GGG, GGGPLUS, MASK, INVALIDATION
 }
 
 public class CovPassDomesticGetRulesUseCase(
@@ -27,22 +27,32 @@ public class CovPassDomesticGetRulesUseCase(
         validationType: CovPassValidationType,
         region: String?,
     ): List<CovPassRule> {
-        return if (validationType == CovPassValidationType.RULES) {
-            getAcceptanceAndInvalidationRules(
-                acceptanceCountryIsoCode,
-                issuanceCountryIsoCode,
-                certificateType,
-                validationClock,
-                region,
-            )
-        } else {
-            getGStatusAndMaskRules(
-                acceptanceCountryIsoCode,
-                certificateType,
-                validationClock,
-                validationType.toRulesType(),
-                region,
-            )
+        return when (validationType) {
+            CovPassValidationType.RULES -> {
+                getAcceptanceAndInvalidationRules(
+                    acceptanceCountryIsoCode,
+                    issuanceCountryIsoCode,
+                    certificateType,
+                    validationClock,
+                    region,
+                )
+            }
+            CovPassValidationType.INVALIDATION -> {
+                getInvalidationRules(
+                    issuanceCountryIsoCode,
+                    certificateType,
+                    validationClock,
+                )
+            }
+            else -> {
+                getGStatusAndMaskRules(
+                    acceptanceCountryIsoCode,
+                    certificateType,
+                    validationClock,
+                    validationType.toRulesType(),
+                    region,
+                )
+            }
         }
     }
 
@@ -52,10 +62,17 @@ public class CovPassDomesticGetRulesUseCase(
         certificateType: CertificateType,
         validationClock: ZonedDateTime,
         region: String? = null,
+    ): List<CovPassRule> =
+        getAcceptanceRules(acceptanceCountryIsoCode, certificateType, validationClock, region) +
+            getInvalidationRules(issuanceCountryIsoCode, certificateType, validationClock)
+
+    private suspend fun getAcceptanceRules(
+        acceptanceCountryIsoCode: String,
+        certificateType: CertificateType,
+        validationClock: ZonedDateTime,
+        region: String? = null,
     ): List<CovPassRule> {
         val filteredAcceptanceRules = mutableMapOf<String, CovPassRule>()
-        val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
-
         val generalRulePredicates = listOf(
             { value: Type -> value == Type.TWOG },
             { value: Type -> value == Type.TWOGPLUS },
@@ -63,7 +80,6 @@ public class CovPassDomesticGetRulesUseCase(
             { value: Type -> value == Type.THREEGPLUS },
             { value: Type -> value == Type.MASK },
         )
-
         val selectedRegion: String = region?.trim() ?: ""
         val acceptanceRules = covPassRulesRepository.getRulesBy(
             acceptanceCountryIsoCode,
@@ -71,6 +87,7 @@ public class CovPassDomesticGetRulesUseCase(
             Type.ACCEPTANCE,
             certificateType.toRuleCertificateType(),
         ).filterNot { rule -> generalRulePredicates.all { it(rule.type) } }
+
         for (rule in acceptanceRules) {
             val ruleRegion: String = rule.region?.trim() ?: ""
             if (selectedRegion.equals(
@@ -86,6 +103,22 @@ public class CovPassDomesticGetRulesUseCase(
                 filteredAcceptanceRules[rule.identifier] = rule
             }
         }
+        return filteredAcceptanceRules.values.toList()
+    }
+
+    private suspend fun getInvalidationRules(
+        issuanceCountryIsoCode: String,
+        certificateType: CertificateType,
+        validationClock: ZonedDateTime,
+    ): List<CovPassRule> {
+        val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
+        val generalRulePredicates = listOf(
+            { value: Type -> value == Type.TWOG },
+            { value: Type -> value == Type.TWOGPLUS },
+            { value: Type -> value == Type.THREEG },
+            { value: Type -> value == Type.THREEGPLUS },
+            { value: Type -> value == Type.MASK },
+        )
 
         if (issuanceCountryIsoCode.isNotBlank()) {
             val invalidationRules = covPassRulesRepository.getRulesBy(
@@ -105,7 +138,7 @@ public class CovPassDomesticGetRulesUseCase(
                 }
             }
         }
-        return filteredAcceptanceRules.values + filteredInvalidationRules.values
+        return filteredInvalidationRules.values.toList()
     }
 
     private fun CovPassValidationType.toRulesType(): Type {

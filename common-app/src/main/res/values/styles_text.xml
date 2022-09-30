@@ -80,6 +80,10 @@
     <item name="android:lineSpacingMultiplier">1.0</item>
   </style>
 
+  <style name="Header.OnInfo.ExtraSmall">
+    <item name="android:textSize">@dimen/textsize_small</item>
+  </style>
+
   <style name="Header.OnInfo.Small">
     <item name="android:textSize">@dimen/textsize_default</item>
   </style>
