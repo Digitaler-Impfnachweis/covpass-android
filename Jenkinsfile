@@ -366,7 +366,7 @@ pipeline {
                                 echo "\$appId" > appId.txt
                                 git add appId.txt
                                 git commit -m "Update appId from android-vaccination-app"
-                                git push origin main
+                                git push origin master
                                 git tag -a ${currentBuild.displayName} -m "appId:\$appId"
                                 git push origin --tags
                                 cd ..
