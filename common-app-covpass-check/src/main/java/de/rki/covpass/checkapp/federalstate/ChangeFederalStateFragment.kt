@@ -18,10 +18,6 @@ import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
 import kotlinx.parcelize.Parcelize
 
-public interface ChangeFederalStateCallback {
-    public fun updateFederalState(federalState: FederalState)
-}
-
 @Parcelize
 internal class ChangeFederalStateFragmentNav(val regionId: String) : FragmentNav(ChangeFederalStateFragment::class)
 

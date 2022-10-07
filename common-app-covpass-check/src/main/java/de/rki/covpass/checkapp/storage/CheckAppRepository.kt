@@ -6,6 +6,7 @@
 package de.rki.covpass.checkapp.storage
 
 import com.ensody.reactivestate.SuspendMutableValueFlow
+import de.rki.covpass.checkapp.federalstate.FederalStateResolver
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
 
 /**
@@ -17,5 +18,5 @@ public class CheckAppRepository(store: CborSharedPrefsStore) {
         store.getData("new_regulation_notification_shown", false)
 
     public val federalState: SuspendMutableValueFlow<String> =
-        store.getData("federal_state_in_use", "BW")
+        store.getData("federal_state_in_use", FederalStateResolver.defaultFederalState.regionId)
 }

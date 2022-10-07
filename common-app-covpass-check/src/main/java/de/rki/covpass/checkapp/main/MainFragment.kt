@@ -22,9 +22,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
-import de.rki.covpass.checkapp.federalstate.ChangeFederalStateCallback
 import de.rki.covpass.checkapp.federalstate.ChangeFederalStateFragmentNav
-import de.rki.covpass.checkapp.federalstate.FederalState
 import de.rki.covpass.checkapp.federalstate.FederalStateResolver
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
@@ -49,7 +47,7 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 /**
  * Displays the start view of the app.
  */
-internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFederalStateCallback {
+internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val revocationListUpdateViewModel by reactiveState {
@@ -83,10 +81,9 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFede
             )
         }
         binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
-        binding.federalStateTitle.text = "Bundesland"
-        binding.federalStateName.text = "Mecklenburg-Vorpommern"
+        binding.federalStateTitle.setText(R.string.infschg_start_screen_dropdown_title)
         binding.federalStateLayout.setOnClickListener {
-            findNavigator().push(ChangeFederalStateFragmentNav("BY"))
+            findNavigator().push(ChangeFederalStateFragmentNav(covpassCheckDeps.checkAppRepository.federalState.value))
         }
 
         ViewCompat.setAccessibilityDelegate(
@@ -193,9 +190,5 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFede
                 R.string.start_offline_subtitle_unavailable
             },
         )
-    }
-
-    override fun updateFederalState(federalState: FederalState) {
-        covpassCheckDeps
     }
 }

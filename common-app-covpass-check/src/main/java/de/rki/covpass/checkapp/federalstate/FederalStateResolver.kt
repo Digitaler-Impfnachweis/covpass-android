@@ -12,6 +12,13 @@ import de.rki.covpass.checkapp.R
 import kotlinx.parcelize.Parcelize
 
 public object FederalStateResolver {
+
+    public val defaultFederalState: FederalState =
+        FederalState(
+            R.string.DE_BW,
+            "BW",
+        )
+
     private val federalStateList: Map<String, FederalState> = listOf(
         FederalState(
             R.string.DE_BY,
@@ -25,10 +32,7 @@ public object FederalStateResolver {
             R.string.DE_BE,
             "BE",
         ),
-        FederalState(
-            R.string.DE_BW,
-            "BW",
-        ),
+        defaultFederalState,
         FederalState(
             R.string.DE_HB,
             "HB",
