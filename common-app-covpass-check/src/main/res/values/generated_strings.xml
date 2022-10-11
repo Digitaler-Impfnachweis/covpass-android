@@ -369,14 +369,14 @@
 	<string name="DE_HB">Bremen</string>
 	<string name="DE_HH">Hamburg</string>
 	<string name="DE_HE">Hesse</string>
-	<string name="DE_MV">Mecklenburg Western Pomerania</string>
+	<string name="DE_MV">Mecklenburg-Western Pomerania</string>
 	<string name="DE_NI">Lower Saxony</string>
 	<string name="DE_NW">Northrhine-Westphalia</string>
-	<string name="DE_RP">Rhineland Palatinate</string>
+	<string name="DE_RP">Rhineland-Palatinate</string>
 	<string name="DE_SN">Saxony</string>
 	<string name="DE_ST">Saxony-Anhalt</string>
 	<string name="DE_SL">Saarland</string>
-	<string name="DE_SH">Schleswig Holstein</string>
+	<string name="DE_SH">Schleswig-Holstein</string>
 	<string name="DE_TH">Thuringia</string>
 
 	<!-- SECTION: country list names -->

@@ -369,14 +369,14 @@
 	<string name="DE_HB">Bremen</string>
 	<string name="DE_HH">Hamburg</string>
 	<string name="DE_HE">Hessen</string>
-	<string name="DE_MV">Mecklenburg Vorpommern</string>
+	<string name="DE_MV">Mecklenburg-Vorpommern</string>
 	<string name="DE_NI">Niedersachsen</string>
 	<string name="DE_NW">Nordrhein-Westfalen</string>
-	<string name="DE_RP">Rheinland Pfalz</string>
+	<string name="DE_RP">Rheinland-Pfalz</string>
 	<string name="DE_SN">Sachsen</string>
-	<string name="DE_ST">Sachsen Anhalt</string>
+	<string name="DE_ST">Sachsen-Anhalt</string>
 	<string name="DE_SL">Saarland</string>
-	<string name="DE_SH">Schleswig Holstein</string>
+	<string name="DE_SH">Schleswig-Holstein</string>
 	<string name="DE_TH">Thüringen</string>
 
 	<!-- SECTION: country list names -->
