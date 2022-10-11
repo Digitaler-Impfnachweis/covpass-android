@@ -27,7 +27,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_three"
-    android:text="@string/warning_2G_names_label_1stcert"
+    android:text="@string/infschg_result_mask_mandatory_deviating_data_subtitle_1"
     app:layout_constraintTop_toBottomOf="@+id/validation_result_different_data_note" />
 
   <de.rki.covpass.checkapp.uielements.ValidationResultInfoElement
@@ -45,7 +45,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_three"
-    android:text="@string/warning_2G_names_label_2ndcert"
+    android:text="@string/infschg_result_mask_mandatory_deviating_data_subtitle_2"
     app:layout_constraintTop_toBottomOf="@+id/validation_result_different_data_first_certificate_data_element" />
 
   <de.rki.covpass.checkapp.uielements.ValidationResultInfoElement

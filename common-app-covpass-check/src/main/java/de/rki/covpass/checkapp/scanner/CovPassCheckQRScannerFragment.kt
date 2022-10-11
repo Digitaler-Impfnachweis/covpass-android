@@ -77,8 +77,9 @@ internal class CovPassCheckQRScannerFragment :
     ) {
         scanEnabled.value = false
         val firstCertificate = viewModel.firstCovCertificate
+        val secondCertificate = viewModel.secondCovCertificate
         when {
-            isSecondCertificate && firstCertificate != null -> {
+            isSecondCertificate && firstCertificate != null && secondCertificate != null -> {
                 if (dataComparison == DataComparison.Equal) {
                     findNavigator().push(
                         ValidationResultSuccessFragmentNav(
@@ -90,16 +91,18 @@ internal class CovPassCheckQRScannerFragment :
                         ),
                     )
                 } else {
-                    ValidationResultDifferentDataFragmentNav(
-                        firstCertificate.fullName,
-                        firstCertificate.fullTransliteratedName,
-                        firstCertificate.birthDate,
-                        certificate.fullName,
-                        certificate.fullTransliteratedName,
-                        certificate.birthDate,
-                        dateDifferent = dataComparison == DataComparison.DateOfBirthDifferent,
-                        expertModeData = certificate.getExpertModeData(),
-                        isGermanCertificate = certificate.isGermanCertificate,
+                    findNavigator().push(
+                        ValidationResultDifferentDataFragmentNav(
+                            firstCertificate.fullName,
+                            firstCertificate.fullTransliteratedName,
+                            firstCertificate.birthDate,
+                            secondCertificate.fullName,
+                            secondCertificate.fullTransliteratedName,
+                            secondCertificate.birthDate,
+                            dateDifferent = dataComparison == DataComparison.DateOfBirthDifferent,
+                            expertModeData = certificate.getExpertModeData(),
+                            isGermanCertificate = certificate.isGermanCertificate,
+                        ),
                     )
                 }
             }
@@ -161,12 +164,14 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidationFirstScanFinish() {
         scanEnabled.value = true
+        viewModel.secondCovCertificate = null
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
     }
 
     override fun onValidationResultClosed() {
         scanEnabled.value = true
         viewModel.firstCovCertificate = null
+        viewModel.secondCovCertificate = null
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
     }
 
@@ -195,6 +200,7 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onBackPressed(): Abortable {
         val previousCovCertificate = viewModel.firstCovCertificate
+        viewModel.secondCovCertificate = null
         if (previousCovCertificate != null) {
             scanEnabled.value = false
             findNavigator().push(

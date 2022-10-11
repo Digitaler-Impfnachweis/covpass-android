@@ -49,6 +49,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
     var firstCovCertificate: CovCertificate? = null
+    var secondCovCertificate: CovCertificate? = null
 
     fun onQrContentReceived(qrContent: String) {
         launch {
@@ -65,6 +66,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     firstCovCertificate = covCertificate
                     false
                 } else {
+                    secondCovCertificate = covCertificate
                     true
                 }
                 validateEntity(dgcEntry.idWithoutPrefix)
@@ -122,7 +124,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
         }
     }
 
-    fun compareData(covCertificate: CovCertificate, covCertificate2: CovCertificate): DataComparison {
+    private fun compareData(covCertificate: CovCertificate, covCertificate2: CovCertificate): DataComparison {
         val name1 = covCertificate.name
         val name2 = covCertificate2.name
         val dob1 = covCertificate.birthDate
