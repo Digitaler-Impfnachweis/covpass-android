@@ -92,7 +92,8 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 }
                 when (
                     validate(
-                        mergedCovCertificate,
+                        mergedCovCertificate = mergedCovCertificate,
+                        covCertificate = covCertificate,
                         domesticRulesValidator = domesticRulesValidator,
                         euRulesValidator = euRulesValidator,
                         revocationRemoteListRepository,

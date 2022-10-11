@@ -345,7 +345,7 @@
 	<string name="infschg_result_mask_mandatory_reason_5_title">QR-Code nicht lesbar</string>
 	<string name="infschg_result_mask_mandatory_reason_5_copy">Der QR-Code ist nicht lesbar. Bitte aktualisieren Sie die CovPassCheck-App, wenn dieses Problem häufiger auftritt.</string>
 	<string name="infschg_result_mask_mandatory_second_scan_infobox_title">Zwei Nachweise notwendig?</string>
-	<string name="infschg_result_mask_mandatory_second_scan_infobox_copy">Es kann sein, dass Ihr Bundesland eine Maskenbefreiung bei einer Grundimmunisierung nach einer Genesung ermöglicht. Scannen Sie in diesem Fall beide Zertifikate der Person:</string>
+	<string name="infschg_result_mask_mandatory_second_scan_infobox_copy">Es kann sein, dass Ihr Bundesland eine Befreiung von der Maskenpflicht bei einer Kombination aus zwei Impfungen plus einer Genesung ermöglicht. Scannen Sie in diesem Fall ein weiteres Zertifikat der Person.</string>
 	<string name="infschg_result_mask_mandatory_second_scan_infobox_button">Zweites Zertifikat scannen</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_title">Abweichende Daten</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_copy">Die persönlichen Daten der beiden gescannten Nachweise stimmen nicht überein:</string>

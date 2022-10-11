@@ -20,6 +20,7 @@ public enum class CovPassCheckValidationResult {
 }
 
 public suspend fun validate(
+    mergedCovCertificate: CovCertificate,
     covCertificate: CovCertificate,
     domesticRulesValidator: CovPassRulesValidator,
     euRulesValidator: CovPassRulesValidator,
@@ -28,7 +29,7 @@ public suspend fun validate(
 ): CovPassCheckValidationResult {
     // Check mask rules
     val maskValidationResults = domesticRulesValidator.validate(
-        cert = covCertificate,
+        cert = mergedCovCertificate,
         validationType = CovPassValidationType.MASK,
         region = region,
     )
@@ -41,14 +42,14 @@ public suspend fun validate(
     }
 
     // Acceptance and Invalidation rules from /domesticrules
-    val domesticValidationResults = domesticRulesValidator.validate(covCertificate)
+    val domesticValidationResults = domesticRulesValidator.validate(mergedCovCertificate)
     if (domesticValidationResults.any { it.result == Result.FAIL }) {
         return CovPassCheckValidationResult.ValidationError
     }
 
     // Invalidation rules from /rules
     val euValidationResults = euRulesValidator.validate(
-        cert = covCertificate,
+        cert = mergedCovCertificate,
         validationType = CovPassValidationType.INVALIDATION,
     )
     if (euValidationResults.any { it.result == Result.FAIL }) {
