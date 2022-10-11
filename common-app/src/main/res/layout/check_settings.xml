@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/grid_three"
         android:layout_marginTop="@dimen/grid_one"
-        android:text="@string/app_information_message_update"
+        android:text="@string/app_information_offline_revocation_copy_1"
         tools:text="@tools:sample/lorem[7]" />
 
       <LinearLayout
@@ -69,7 +69,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/grid_three"
-          android:text="@string/app_information_offline_revocation_copy"
+          android:text="@string/app_information_offline_revocation_copy_2"
           tools:text="@tools:sample/lorem[7]" />
 
         <de.rki.covpass.commonapp.uielements.ExpertModeToggleElement
