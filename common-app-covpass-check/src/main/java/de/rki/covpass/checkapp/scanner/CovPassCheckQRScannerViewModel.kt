@@ -29,7 +29,7 @@ import kotlinx.coroutines.CoroutineScope
  * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
  */
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
-    fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean)
+    fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
     fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean)
     fun onValidationTechnicalFailure(certificate: CovCertificate? = null)
     fun onValidationNoRulesFailure(certificate: CovCertificate)
@@ -98,7 +98,12 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     )
                 ) {
                     CovPassCheckValidationResult.Success -> eventNotifier {
-                        onValidationSuccess(mergedCovCertificate, isSecondCertificate)
+                        val validateData = if (firstCovCert != null) {
+                            compareData(firstCovCert, covCertificate)
+                        } else {
+                            DataComparison.HasNullData
+                        }
+                        onValidationSuccess(mergedCovCertificate, isSecondCertificate, validateData)
                     }
                     CovPassCheckValidationResult.ValidationError -> eventNotifier {
                         onValidationFailure(mergedCovCertificate, isSecondCertificate)

@@ -70,12 +70,15 @@ internal class CovPassCheckQRScannerFragment :
         scanEnabled.value = true
     }
 
-    override fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean) {
+    override fun onValidationSuccess(
+        certificate: CovCertificate,
+        isSecondCertificate: Boolean,
+        dataComparison: DataComparison,
+    ) {
         scanEnabled.value = false
         val firstCertificate = viewModel.firstCovCertificate
         when {
             isSecondCertificate && firstCertificate != null -> {
-                val dataComparison = viewModel.compareData(firstCertificate, certificate)
                 if (dataComparison == DataComparison.Equal) {
                     findNavigator().push(
                         ValidationResultSuccessFragmentNav(
