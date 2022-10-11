@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_six"
-      android:text="@string/validation_start_screen_title"
+      android:text="@string/infschg_validation_start_screen_title"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
