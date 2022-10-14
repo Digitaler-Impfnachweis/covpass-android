@@ -21,9 +21,11 @@ public sealed class DetailItem {
     public class Widget(
         public val title: String,
         public val subtitle: String? = null,
+        public val region: String? = null,
         public val statusIcon: Int,
         public val message: String,
         public val link: Int? = null,
+        public val noticeMessage: String? = null,
         public val buttonText: String? = null,
         public val isExpiredOrInvalid: Boolean = false,
     ) : DetailItem()

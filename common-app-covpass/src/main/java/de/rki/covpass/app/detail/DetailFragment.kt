@@ -19,6 +19,7 @@ import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.attachToolbar
+import com.ibm.health.common.android.utils.getString
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
@@ -33,9 +34,12 @@ import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DetailAdapter
 import de.rki.covpass.app.detail.adapter.DetailItem
+import de.rki.covpass.app.information.FederalStateSettingFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.DGCEntry
@@ -76,6 +80,7 @@ public interface DetailClickListener {
     public fun onShowCertificateClicked()
     public fun onNewCertificateScanClicked()
     public fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType)
+    public fun onChangeFederalStateClicked()
 }
 
 internal enum class DetailBoosterAction {
@@ -108,7 +113,16 @@ internal class DetailFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        autoRun { updateViews(get(covpassDeps.certRepository.certs)) }
+        autoRun {
+            updateViews(
+                get(covpassDeps.certRepository.certs),
+                FederalStateResolver.getFederalStateByCode(
+                    get(commonDeps.federalStateRepository.federalState),
+                )?.nameRes?.let {
+                    getString(it)
+                },
+            )
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -149,11 +163,39 @@ internal class DetailFragment :
                 positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
             )
             showDialog(dialogModel, childFragmentManager)
-            updateViews(covpassDeps.certRepository.certs.value)
+            updateViews(
+                covpassDeps.certRepository.certs.value,
+                FederalStateResolver.getFederalStateByCode(
+                    commonDeps.federalStateRepository.federalState.value,
+                )?.nameRes?.let { getString(it) },
+            )
         }
     }
 
-    private fun updateViews(certList: GroupedCertificatesList) {
+    private fun getImmunisationStatusMessage(
+        dgcEntry: DGCEntry,
+        groupedCertificate: GroupedCertificates,
+        immunizationStatus: ImmunizationStatus,
+    ): ImmunizationInfoText {
+        return when (immunizationStatus) {
+            ImmunizationStatus.Full -> getFullImmunizationInfoText(
+                dgcEntry,
+                groupedCertificate,
+            )
+            ImmunizationStatus.Partial -> getPartialImmunizationInfoText(
+                dgcEntry,
+                groupedCertificate,
+            )
+            ImmunizationStatus.Invalid -> ImmunizationInfoText(
+                message = getString(R.string.infschg_cert_overview_immunisation_invalid),
+            )
+        }
+    }
+
+    private fun updateViews(
+        certList: GroupedCertificatesList,
+        region: String?,
+    ) {
         val certId = args.certId
         val firstAdded = args.isFirstAdded
         // Can be null after deletion... in this case no update is necessary anymore
@@ -179,9 +221,10 @@ internal class DetailFragment :
             val immunizationStatus = groupedCertificate.gStatus
             val maskStatus = groupedCertificate.maskStatus
             val certStatus = mainCertificate.status
+            val immunisationStatusMessage =
+                getImmunisationStatusMessage(dgcEntry, groupedCertificate, immunizationStatus)
             val personalDataList = mutableListOf(
                 DetailItem.Name(cert.fullName),
-                // TODO add subtitle
                 DetailItem.Widget(
                     title = getString(
                         when (maskStatus) {
@@ -202,9 +245,21 @@ internal class DetailFragment :
                             MaskStatus.Invalid -> R.string.infschg_cert_overview_mask_hint_mandatory
                         },
                     ),
-                    link = R.string.infschg_more_info_link,
+                    link = when (maskStatus) {
+                        MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_link
+                        MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_link
+                        MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_link
+                    },
+                    region = getString(R.string.infschg_start_screen_status_federal_state, region),
+                    noticeMessage = getString(
+                        when (maskStatus) {
+                            MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_2
+                            MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_2
+                            MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
+                        },
+                    ),
+                    subtitle = getMaskStatusInfoText(maskStatus, dgcEntry, groupedCertificate),
                 ),
-                // TODO add subtitle
                 DetailItem.Widget(
                     title = getString(
                         when (immunizationStatus) {
@@ -218,20 +273,8 @@ internal class DetailFragment :
                         ImmunizationStatus.Partial -> R.drawable.status_immunization_partial
                         ImmunizationStatus.Invalid -> R.drawable.status_immunization_expired
                     },
-                    message = when (immunizationStatus) {
-                        ImmunizationStatus.Full ->
-                            getFullImmunizationInfoText(
-                                dgcEntry,
-                                groupedCertificate,
-                            )
-                        ImmunizationStatus.Partial ->
-                            getPartialImmunizationInfoText(
-                                dgcEntry,
-                                groupedCertificate,
-                            )
-                        ImmunizationStatus.Invalid ->
-                            getString(R.string.infschg_cert_overview_immunisation_invalid)
-                    },
+                    message = immunisationStatusMessage.message,
+                    subtitle = immunisationStatusMessage.date,
                 ),
             )
 
@@ -779,6 +822,10 @@ internal class DetailFragment :
         }.let {}
     }
 
+    override fun onChangeFederalStateClicked() {
+        findNavigator().push(FederalStateSettingFragmentNav())
+    }
+
     private fun setupActionBar() {
         attachToolbar(binding.detailToolbar)
         val activity = (activity as? AppCompatActivity)
@@ -824,7 +871,12 @@ internal class DetailFragment :
     override fun onReissueCancel() {}
 
     override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
-        updateViews(covpassDeps.certRepository.certs.value)
+        updateViews(
+            covpassDeps.certRepository.certs.value,
+            FederalStateResolver.getFederalStateByCode(
+                commonDeps.federalStateRepository.federalState.value,
+            )?.nameRes?.let { getString(it) },
+        )
     }
 
     private fun CertValidationResult.getVaccinationStatusIconRes(): Int {
@@ -850,31 +902,48 @@ internal class DetailFragment :
     private fun getFullImmunizationInfoText(
         dgcEntry: DGCEntry,
         groupedCertificate: GroupedCertificates,
-    ): String {
+    ): ImmunizationInfoText {
         val latestRecovery = groupedCertificate.getLatestValidRecovery()
         val recovery = latestRecovery?.covCertificate?.dgcEntry as? Recovery
         return when (dgcEntry) {
             is Vaccination -> {
                 when {
                     dgcEntry.doseNumber > 3 -> {
-                        getString(R.string.infschg_cert_overview_immunisation_complete_B2)
+                        ImmunizationInfoText(
+                            message = getString(R.string.infschg_cert_overview_immunisation_complete_B2),
+                            date = dgcEntry.occurrence.formatDateOrEmpty(),
+                        )
                     }
                     dgcEntry.doseNumber == 3 -> {
-                        getString(R.string.infschg_cert_overview_immunisation_third_vacc_C2)
+                        ImmunizationInfoText(
+                            message = getString(R.string.infschg_cert_overview_immunisation_third_vacc_C2),
+                            date = dgcEntry.occurrence.formatDateOrEmpty(),
+                        )
                     }
                     dgcEntry.doseNumber == 2 && latestRecovery != null &&
                         dgcEntry.occurrence?.isAfter(recovery?.firstResult) == true -> {
-                        getString(R.string.infschg_cert_overview_immunisation_E2)
+                        ImmunizationInfoText(
+                            message = getString(R.string.infschg_cert_overview_immunisation_E2),
+                            date = dgcEntry.occurrence.formatDateOrEmpty(),
+                        )
                     }
                     dgcEntry.doseNumber == 2 && latestRecovery != null &&
                         LocalDate.now().isAfter(recovery?.firstResult?.plusDays(29)) -> {
-                        getString(R.string.infschg_cert_overview_immunisation_E2)
+                        ImmunizationInfoText(
+                            message = getString(R.string.infschg_cert_overview_immunisation_E2),
+                            date = recovery?.firstResult?.plusDays(29).formatDateOrEmpty(),
+                        )
                     }
-                    else -> getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
+                    else ->
+                        ImmunizationInfoText(
+                            message = getString(R.string.infschg_cert_overview_immunisation_incomplete_A),
+                        )
                 }
             }
             else -> {
-                getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
+                ImmunizationInfoText(
+                    message = getString(R.string.infschg_cert_overview_immunisation_incomplete_A),
+                )
             }
         }
     }
@@ -882,22 +951,54 @@ internal class DetailFragment :
     private fun getPartialImmunizationInfoText(
         dgcEntry: DGCEntry,
         groupedCertificate: GroupedCertificates,
-    ): String {
+    ): ImmunizationInfoText {
         val latestRecovery = groupedCertificate.getLatestValidRecovery()
         val recovery = latestRecovery?.covCertificate?.dgcEntry as? Recovery
         return if (
             dgcEntry is Vaccination && dgcEntry.doseNumber == 2 && latestRecovery != null &&
             LocalDate.now().isBefore(recovery?.firstResult?.plusDays(29))
         ) {
-            getString(
-                R.string.infschg_cert_overview_immunisation_E22,
-                Duration.between(
-                    recovery?.firstResult?.plusDays(29),
-                    LocalDate.now(),
-                ).toDays(),
+            ImmunizationInfoText(
+                message = getString(
+                    R.string.infschg_cert_overview_immunisation_E22,
+                    Duration.between(
+                        recovery?.firstResult?.plusDays(29),
+                        LocalDate.now(),
+                    ).toDays(),
+                ),
+                date = recovery?.firstResult?.plusDays(29).formatDateOrEmpty(),
             )
         } else {
-            getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
+            ImmunizationInfoText(
+                message = getString(R.string.infschg_cert_overview_immunisation_incomplete_A),
+            )
         }
     }
 }
+
+private fun getMaskStatusInfoText(
+    maskStatus: MaskStatus,
+    dgcEntry: DGCEntry,
+    groupedCertificate: GroupedCertificates,
+): String {
+    val latestRecovery = groupedCertificate.getLatestValidRecovery()
+    val recovery = latestRecovery?.covCertificate?.dgcEntry as? Recovery
+    return if (
+        maskStatus == MaskStatus.Required &&
+        dgcEntry is Vaccination && dgcEntry.occurrence?.isAfter(recovery?.firstResult) == true &&
+        !LocalDate.now().isBefore(recovery?.firstResult?.plusDays(29))
+    ) {
+        getString(
+            R.string.infschg_cert_overview_mask_time_from,
+            recovery?.firstResult?.plusDays(29).formatDateOrEmpty(),
+        )
+    } else {
+        // TODO fix
+        ""
+    }
+}
+
+public data class ImmunizationInfoText(
+    val message: String,
+    val date: String? = null,
+)

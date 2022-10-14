@@ -110,6 +110,15 @@ private class WidgetViewHolder(
             binding.detailStatusImageview.setImageResource(widget.statusIcon)
             binding.detailStatusTextview.text = widget.message
 
+            widget.subtitle?.let {
+                binding.detailStatusSubheaderTextview.text = widget.subtitle
+            }
+
+            widget.region?.let {
+                binding.detailRegionSubheaderTextview.isVisible = true
+                binding.detailRegionSubheaderTextview.text = widget.region
+            }
+
             widget.link?.let {
                 binding.detailStatusLinkTextview.isVisible = true
                 binding.detailStatusLinkTextview.apply {
@@ -119,8 +128,18 @@ private class WidgetViewHolder(
                 }
             }
 
+            widget.noticeMessage?.let {
+                binding.detailNoticeTitleTextview.isVisible = true
+                binding.detailNoticeSubheaderTextview.isVisible = true
+                binding.detailNoticeSubheaderTextview.text = it
+                binding.changeFederalStateButton.isVisible = true
+                binding.changeFederalStateButton.setOnClickListener {
+                    listener.onChangeFederalStateClicked()
+                }
+            }
+
             widget.buttonText?.let {
-                binding.detailShowCertificateButton.isVisible
+                binding.detailShowCertificateButton.isVisible = true
                 binding.detailShowCertificateButton.text = it
                 binding.detailShowCertificateButton.setOnClickListener {
                     if (widget.isExpiredOrInvalid) {
