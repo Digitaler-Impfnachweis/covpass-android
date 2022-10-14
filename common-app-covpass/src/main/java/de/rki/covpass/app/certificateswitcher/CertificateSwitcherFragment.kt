@@ -59,6 +59,8 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         }
 
         binding.fragmentContainer.setBackgroundResource(backgroundColor)
+        binding.mainTabLayout.setBackgroundResource(backgroundColor)
+        binding.mainTabLayoutGreen.setBackgroundResource(backgroundColor)
     }
 
     override fun onAttach(context: Context) {
@@ -109,6 +111,9 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         fragmentStateAdapter = CertificateSwitcherFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
+            // no special tab config necessary
+        }.attach()
+        TabLayoutMediator(binding.mainTabLayoutGreen, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
     }
@@ -167,7 +172,13 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         )
 
         groupedCertificates?.getListOfImportantCerts()?.let { list ->
-            binding.mainTabLayout.isVisible = list.size > 1
+            if (backgroundColor == R.color.info70) {
+                binding.mainTabLayout.isVisible = list.size > 1
+                binding.mainTabLayoutGreen.isVisible = false
+            } else {
+                binding.mainTabLayout.isVisible = false
+                binding.mainTabLayoutGreen.isVisible = list.size > 1
+            }
             binding.certificateNoteTextview.text = getString(R.string.modal_subline, list.size)
             fragmentStateAdapter.createFragments(args.certId, list)
         }

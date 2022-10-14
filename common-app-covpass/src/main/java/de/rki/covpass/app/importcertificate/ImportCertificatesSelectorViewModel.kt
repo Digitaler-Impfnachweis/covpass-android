@@ -18,6 +18,8 @@ import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DgcEntryDetailFragment
 import de.rki.covpass.app.detail.DgcEntryDetailViewModel
 import de.rki.covpass.app.scanner.CovPassCertificateStorageHelper.addNewCertificate
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
@@ -46,6 +48,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
     private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
+    private val federalStateRepository: FederalStateRepository = commonDeps.federalStateRepository,
 ) : BaseReactiveState<ImportCertificatesEvents>(scope) {
 
     fun getQrCodes(fileDescriptor: ParcelFileDescriptor?, isPDF: Boolean, displayMetrics: DisplayMetrics) {
@@ -84,7 +87,7 @@ internal class ImportCertificatesSelectorViewModel @OptIn(DependencyAccessor::cl
             list.forEach {
                 addNewCertificate(certRepository.certs, it.covCertificate, it.qrContent)
             }
-            gStatusAndMaskValidator.validate(certRepository)
+            gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
             eventNotifier {
                 addCertificatesFinish()
             }

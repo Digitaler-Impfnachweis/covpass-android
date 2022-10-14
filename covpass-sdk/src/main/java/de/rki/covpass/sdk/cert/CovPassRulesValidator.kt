@@ -59,7 +59,7 @@ public class CovPassRulesValidator(
             iat = cert.validFrom.toZonedDateTimeOrDefault(Long.MIN_VALUE),
             issuerCountryCode = issuerCountryCode,
             kid = "",
-            region = "",
+            region = region ?: "",
         )
 
         val certString = defaultJson.encodeToString(cert)

@@ -44,6 +44,7 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.sdk.cert.models.ImmunizationStatus
+import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.RecoveryCertType
 import de.rki.covpass.sdk.cert.models.ReissueType
@@ -176,9 +177,33 @@ internal class DetailFragment :
                 CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
             }
             val immunizationStatus = groupedCertificate.gStatus
+            val maskStatus = groupedCertificate.maskStatus
             val certStatus = mainCertificate.status
             val personalDataList = mutableListOf(
                 DetailItem.Name(cert.fullName),
+                // TODO add subtitle
+                DetailItem.Widget(
+                    title = getString(
+                        when (maskStatus) {
+                            MaskStatus.NotRequired -> R.string.infschg_start_mask_optional
+                            MaskStatus.Required -> R.string.infschg_start_mask_mandatory
+                            MaskStatus.Invalid -> R.string.infschg_start_expired_revoked
+                        },
+                    ),
+                    statusIcon = when (maskStatus) {
+                        MaskStatus.NotRequired -> R.drawable.status_mask_not_required
+                        MaskStatus.Required -> R.drawable.status_mask_required
+                        MaskStatus.Invalid -> R.drawable.status_mask_invalid
+                    },
+                    message = getString(
+                        when (maskStatus) {
+                            MaskStatus.NotRequired -> R.string.infschg_cert_overview_mask_hint_optional
+                            MaskStatus.Required -> R.string.infschg_cert_overview_mask_hint_mandatory
+                            MaskStatus.Invalid -> R.string.infschg_cert_overview_mask_hint_mandatory
+                        },
+                    ),
+                    link = R.string.infschg_more_info_link,
+                ),
                 // TODO add subtitle
                 DetailItem.Widget(
                     title = getString(

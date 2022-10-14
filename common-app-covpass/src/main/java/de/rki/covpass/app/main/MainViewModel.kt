@@ -16,6 +16,7 @@ import de.rki.covpass.app.newregulations.NewRegulationRepository
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.CheckContextRepository
+import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.sdk.cert.BoosterRulesValidator
@@ -48,6 +49,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private val commonDependencies: CommonDependencies = commonDeps,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
     private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
+    private val federalStateRepository: FederalStateRepository = commonDeps.federalStateRepository,
 ) : BaseReactiveState<NotificationEvents>(scope) {
 
     // prevent the import to be done more than one time
@@ -202,7 +204,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                     showingNotification.await()
                     continue
                 }
-                gStatusAndMaskValidator.validate(certRepository)
+                gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
                 delay(BOOSTER_RULE_VALIDATION_INTERVAL_MS)
             }
         }

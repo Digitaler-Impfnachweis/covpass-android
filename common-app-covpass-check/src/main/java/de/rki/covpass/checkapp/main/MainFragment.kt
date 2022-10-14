@@ -23,7 +23,6 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.federalstate.ChangeFederalStateFragmentNav
-import de.rki.covpass.checkapp.federalstate.FederalStateResolver
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
@@ -35,6 +34,7 @@ import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
+import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
@@ -83,7 +83,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
         binding.federalStateTitle.setText(R.string.infschg_start_screen_dropdown_title)
         binding.federalStateLayout.setOnClickListener {
-            findNavigator().push(ChangeFederalStateFragmentNav(covpassCheckDeps.checkAppRepository.federalState.value))
+            findNavigator().push(ChangeFederalStateFragmentNav(commonDeps.federalStateRepository.federalState.value))
         }
 
         ViewCompat.setAccessibilityDelegate(
@@ -125,7 +125,7 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
 
         autoRun {
             FederalStateResolver.getFederalStateByCode(
-                get(covpassCheckDeps.checkAppRepository.federalState),
+                get(commonDeps.federalStateRepository.federalState),
             )?.nameRes?.let {
                 binding.federalStateName.setText(it)
             }

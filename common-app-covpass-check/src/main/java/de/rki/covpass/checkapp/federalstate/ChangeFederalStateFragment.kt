@@ -14,8 +14,9 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ChangeFederalStatePopupBinding
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.utils.FederalStateResolver
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -37,7 +38,7 @@ public class ChangeFederalStateFragment : BaseBottomSheet() {
             val federalState = (binding.federalStateList.adapter as? ChangeFederalStateAdapter)?.getItem(position)
             launchWhenStarted {
                 federalState?.let {
-                    covpassCheckDeps.checkAppRepository.federalState.set(it.regionId)
+                    commonDeps.federalStateRepository.federalState.set(it.regionId)
                 }
                 findNavigator().popAll()
             }

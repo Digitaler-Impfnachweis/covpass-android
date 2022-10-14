@@ -8,9 +8,9 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.checkapp.validitycheck.validate
+import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.QRCoder
@@ -45,7 +45,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
     private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
-    private val regionId: String = covpassCheckDeps.checkAppRepository.federalState.value,
+    private val regionId: String = commonDeps.federalStateRepository.federalState.value,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
     var firstCovCertificate: CovCertificate? = null

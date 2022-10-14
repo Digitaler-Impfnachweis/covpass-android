@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -7,10 +6,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
   android:id="@+id/fragment_container"
-  android:background="@color/info70">
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
   <TextView
     android:id="@+id/certificate_name_textview"
@@ -63,7 +61,6 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/grid_five"
     android:background="@color/info70"
-    android:visibility="visible"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/main_view_pager"
@@ -73,6 +70,23 @@
     app:tabIndicatorGravity="center"
     app:tabMaxWidth="@dimen/dots_tab_max_width"
     app:tabRippleColor="@null" />
+
+  <com.google.android.material.tabs.TabLayout
+    android:id="@+id/main_tab_layout_green"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_five"
+    android:background="@color/full_immunization_green"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/main_view_pager"
+    app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
+    app:tabIndicator="@drawable/view_pager_dot_selected"
+    app:tabIndicatorColor="@android:color/white"
+    app:tabIndicatorGravity="center"
+    app:tabMaxWidth="@dimen/dots_tab_max_width"
+    app:tabRippleColor="@null"
+    tools:visibility="visible" />
 
   <LinearLayout
     android:id="@+id/action_button"

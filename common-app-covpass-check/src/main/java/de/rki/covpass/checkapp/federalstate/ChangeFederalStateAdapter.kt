@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
 import de.rki.covpass.checkapp.databinding.ChangeFederalStateItemBinding
+import de.rki.covpass.commonapp.utils.FederalState
 
 /**
  * Adapter which holds the list of countries for [ChangeFederalStateFragment].

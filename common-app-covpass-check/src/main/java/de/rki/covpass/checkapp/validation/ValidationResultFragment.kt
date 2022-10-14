@@ -18,13 +18,12 @@ import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResultBinding
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
-import de.rki.covpass.checkapp.federalstate.FederalStateResolver
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
+import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import kotlinx.parcelize.Parcelize
 
@@ -78,7 +77,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
         getString(
             R.string.infschg_result_mask_optional_subtitle,
             FederalStateResolver.getFederalStateByCode(
-                covpassCheckDeps.checkAppRepository.federalState.value,
+                commonDeps.federalStateRepository.federalState.value,
             )?.nameRes?.let {
                 getString(
                     it,

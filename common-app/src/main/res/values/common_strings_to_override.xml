@@ -25,7 +25,6 @@
   <string name="accessibility_app_information_version_number_delimiter"/>
   <string name="accessibility_app_information_title_informationt_announce"/>
 
-
   <string name="error_standard_unexpected_title"/>
   <string name="error_standard_unexpected_message"/>
   <string name="error_standard_unexpected_button_title"/>
@@ -145,4 +144,21 @@
   <string name="app_information_offline_revocation_hint_copy"/>
   <string name="app_information_offline_revocation_hint_button_active"/>
   <string name="app_information_offline_revocation_hint_button_inactive"/>
+
+  <string name="DE_BY"/>
+  <string name="DE_BB"/>
+  <string name="DE_BE"/>
+  <string name="DE_BW"/>
+  <string name="DE_HB"/>
+  <string name="DE_HH"/>
+  <string name="DE_HE"/>
+  <string name="DE_MV"/>
+  <string name="DE_NI"/>
+  <string name="DE_NW"/>
+  <string name="DE_RP"/>
+  <string name="DE_SN"/>
+  <string name="DE_ST"/>
+  <string name="DE_SL"/>
+  <string name="DE_SH"/>
+  <string name="DE_TH"/>
 </resources>

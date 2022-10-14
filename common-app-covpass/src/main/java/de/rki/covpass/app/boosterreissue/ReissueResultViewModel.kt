@@ -10,6 +10,8 @@ import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.scanner.CovPassCertificateStorageHelper
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CovCertificate
@@ -32,6 +34,7 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
     private val reissueType: ReissueType,
     private val qrCoder: QRCoder = sdkDeps.qrCoder,
     private val certRepository: CertRepository = covpassDeps.certRepository,
+    private val federalStateRepository: FederalStateRepository = commonDeps.federalStateRepository,
     private val reissuingRepository: ReissuingRepository = sdkDeps.reissuingRepository,
     private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
 ) : BaseReactiveState<ReissueResultEvents>(scope) {
@@ -76,7 +79,7 @@ internal class ReissueResultViewModel @OptIn(DependencyAccessor::class) construc
                             )
                     }
                 }
-                gStatusAndMaskValidator.validate(certRepository)
+                gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
                 eventNotifier {
                     onReissueFinish(covCertificate, groupedCertificateId)
                 }

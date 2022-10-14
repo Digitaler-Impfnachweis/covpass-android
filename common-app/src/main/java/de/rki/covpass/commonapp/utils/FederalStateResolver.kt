@@ -3,12 +3,12 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.checkapp.federalstate
+package de.rki.covpass.commonapp.utils
 
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import com.ibm.health.common.android.utils.getString
-import de.rki.covpass.checkapp.R
+import de.rki.covpass.commonapp.R
 import kotlinx.parcelize.Parcelize
 
 public object FederalStateResolver {

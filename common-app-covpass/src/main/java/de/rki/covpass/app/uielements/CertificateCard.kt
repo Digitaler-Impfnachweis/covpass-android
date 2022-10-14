@@ -69,6 +69,7 @@ public class CertificateCard @JvmOverloads constructor(
         fullName: String,
         maskStatus: MaskStatus,
         hasNotification: Boolean,
+        federalState: String,
     ) {
         binding.certificateNameTextview.text = fullName
         showNotification = hasNotification
@@ -77,6 +78,7 @@ public class CertificateCard @JvmOverloads constructor(
         if (maskStatus == MaskStatus.Invalid) {
             showInvalidCard()
         }
+        binding.certificateFederalStateTextview.text = federalState
     }
 
     private fun showMaskStatus(maskRequired: MaskStatus) {
@@ -105,6 +107,7 @@ public class CertificateCard @JvmOverloads constructor(
     }
 
     private fun showInvalidCard() {
+        binding.certificateFederalStateTextview.isVisible = false
         binding.certificateQrImageview.foreground =
             ContextCompat.getDrawable(context, R.drawable.expired_overlay_icon_foreground)
         binding.certificateQrImageview.backgroundTintList =

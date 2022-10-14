@@ -18,11 +18,14 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import de.rki.covpass.app.R
 import de.rki.covpass.app.certificateswitcher.CertificateSwitcherFragmentNav
 import de.rki.covpass.app.databinding.CertificateBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
@@ -79,6 +82,16 @@ internal class CertificateFragment : BaseFragment() {
             mainCertificate.fullName,
             groupedCertificate.maskStatus,
             hasNotification = showBoosterNotification || showDetailReissueNotification,
+            getString(
+                R.string.infschg_start_screen_status_federal_state,
+                FederalStateResolver.getFederalStateByCode(
+                    commonDeps.federalStateRepository.federalState.value,
+                )?.nameRes?.let {
+                    getString(
+                        it,
+                    )
+                } ?: "",
+            ),
         )
 
         binding.certificateCard.setOnCardClickListener {

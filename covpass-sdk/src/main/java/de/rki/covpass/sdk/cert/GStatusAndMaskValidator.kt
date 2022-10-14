@@ -18,7 +18,7 @@ import java.time.LocalDate
 public class GStatusAndMaskValidator(
     private val domesticRulesValidator: CovPassRulesValidator,
 ) {
-    public suspend fun validate(certRepository: CertRepository) {
+    public suspend fun validate(certRepository: CertRepository, region: String?) {
         val groupedCertificatesList = certRepository.certs.value
         for (groupedCert in groupedCertificatesList.certificates) {
             val mergedCertificate = groupedCert.getMergedCertificate()?.covCertificate
@@ -28,7 +28,12 @@ public class GStatusAndMaskValidator(
                 groupedCert.maskStatus = MaskStatus.Invalid
             } else {
                 // Acceptance and Invalidation rules validation
-                if (!isValidByType(mergedCertificate, CovPassValidationType.RULES)) {
+                if (
+                    !isValidByType(
+                        mergedCertificate,
+                        CovPassValidationType.RULES,
+                    )
+                ) {
                     groupedCert.gStatus = ImmunizationStatus.Partial
                     groupedCert.maskStatus = MaskStatus.Required
                     continue
@@ -54,6 +59,20 @@ public class GStatusAndMaskValidator(
                         else -> groupedCert.gStatus = ImmunizationStatus.Partial
                     }
                 }
+
+                // MaskStatus Validation
+                groupedCert.maskStatus =
+                    if (
+                        isValidByType(
+                            mergedCertificate,
+                            CovPassValidationType.MASK,
+                            region,
+                        )
+                    ) {
+                        MaskStatus.NotRequired
+                    } else {
+                        MaskStatus.Required
+                    }
             }
         }
     }
@@ -61,10 +80,12 @@ public class GStatusAndMaskValidator(
     private suspend fun isValidByType(
         covCertificate: CovCertificate,
         validationType: CovPassValidationType,
+        region: String? = null,
     ): Boolean {
         return domesticRulesValidator.validate(
             cert = covCertificate,
             validationType = validationType,
+            region = region,
         ).all { it.result == Result.PASSED }
     }
 }
