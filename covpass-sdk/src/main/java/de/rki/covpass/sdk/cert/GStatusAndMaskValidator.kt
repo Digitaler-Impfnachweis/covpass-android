@@ -5,10 +5,12 @@
 
 package de.rki.covpass.sdk.cert
 
-import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.ImmunizationStatus
 import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.rules.domain.rules.CovPassValidationType
 import de.rki.covpass.sdk.storage.CertRepository
@@ -21,54 +23,38 @@ public class GStatusAndMaskValidator(
     public suspend fun validate(certRepository: CertRepository, region: String?) {
         val groupedCertificatesList = certRepository.certs.value
         for (groupedCert in groupedCertificatesList.certificates) {
-            val mergedCertificate = groupedCert.getMergedCertificate()?.covCertificate
+            // Acceptance and Invalidation rules validation
+            val mergedCertificate = getPreFilteredMergedCertificate(groupedCert)
 
-            if (mergedCertificate == null) {
-                groupedCert.gStatus = ImmunizationStatus.Invalid
-                groupedCert.maskStatus = MaskStatus.Invalid
+            val gStatus = if (mergedCertificate == null) {
+                ImmunizationStatus.Invalid
             } else {
-                // Acceptance and Invalidation rules validation
-                if (
-                    !isValidByType(
-                        mergedCertificate,
-                        CovPassValidationType.RULES,
-                    )
-                ) {
-                    groupedCert.gStatus = ImmunizationStatus.Partial
-                    groupedCert.maskStatus = MaskStatus.Required
-                    continue
-                } else {
-                    val latestVaccination = groupedCert.getLatestValidVaccination()
-                    val vaccinationDgcEntry = latestVaccination?.covCertificate?.dgcEntry as? Vaccination
-                    val latestRecovery = groupedCert.getLatestValidRecovery()
-                    val recoveryDgcEntry = latestRecovery?.covCertificate?.dgcEntry as? Recovery
-                    val gStatus = when {
-                        vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber >= 3 -> {
-                            ImmunizationStatus.Full
-                        }
-                        vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber == 2 &&
-                            recoveryDgcEntry != null &&
-                            vaccinationDgcEntry.occurrence?.isAfter(recoveryDgcEntry.firstResult) == true -> {
-                            ImmunizationStatus.Full
-                        }
-                        vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber == 2 &&
-                            recoveryDgcEntry != null &&
-                            LocalDate.now()?.isAfter(recoveryDgcEntry.firstResult?.plusDays(29)) == true -> {
-                            ImmunizationStatus.Full
-                        }
-                        else -> ImmunizationStatus.Partial
+                val latestVaccination = mergedCertificate.covCertificate.vaccination
+                val latestRecovery = mergedCertificate.covCertificate.recovery
+                when {
+                    latestVaccination != null && latestVaccination.doseNumber >= 3 -> {
+                        ImmunizationStatus.Full
                     }
-                    certRepository.certs.update {
-                        it.certificates.map { groupedCertificate ->
-                            if (groupedCertificate.id == groupedCert.id) {
-                                groupedCertificate.gStatus = gStatus
-                            }
-                        }
+                    latestVaccination != null && latestVaccination.doseNumber == 2 &&
+                        latestRecovery != null &&
+                        latestVaccination.occurrence?.isAfter(latestRecovery.firstResult) == true -> {
+                        ImmunizationStatus.Full
                     }
+                    latestVaccination != null && latestVaccination.doseNumber == 2 &&
+                        latestRecovery != null &&
+                        LocalDate.now()
+                        ?.isAfter(latestRecovery.firstResult?.plusDays(29)) == true -> {
+                        ImmunizationStatus.Full
+                    }
+                    else -> ImmunizationStatus.Partial
                 }
+            }
 
-                // MaskStatus Validation
-                val maskStatus = if (
+            // MaskStatus Validation
+            val maskStatus = if (mergedCertificate == null) {
+                MaskStatus.Invalid
+            } else {
+                if (
                     isValidByType(
                         mergedCertificate,
                         CovPassValidationType.MASK,
@@ -79,39 +65,72 @@ public class GStatusAndMaskValidator(
                 } else {
                     MaskStatus.Required
                 }
+            }
 
-                certRepository.certs.update {
-                    it.certificates.map { groupedCertificate ->
-                        if (groupedCertificate.id == groupedCert.id) {
-                            groupedCertificate.maskStatus = maskStatus
-                        }
+            certRepository.certs.update {
+                it.certificates.map { groupedCertificate ->
+                    if (groupedCertificate.id == groupedCert.id) {
+                        groupedCertificate.maskStatus = maskStatus
+                        groupedCertificate.gStatus = gStatus
                     }
                 }
-
-                // MaskStatus Validation
-                groupedCert.maskStatus =
-                    if (
-                        isValidByType(
-                            mergedCertificate,
-                            CovPassValidationType.MASK,
-                            region,
-                        )
-                    ) {
-                        MaskStatus.NotRequired
-                    } else {
-                        MaskStatus.Required
-                    }
             }
         }
     }
 
+    private suspend fun getPreFilteredMergedCertificate(
+        groupedCert: GroupedCertificates,
+    ): CombinedCovCertificate? {
+        val latestVaccinations = groupedCert.getLatestValidVaccinations()
+        val latestRecoveries = groupedCert.getLatestValidRecoveries()
+        val latestTests = groupedCert.getLatestValidTests()
+
+        val latestVaccination = getLatestValidCertificate(latestVaccinations)
+        val latestRecovery = getLatestValidCertificate(latestRecoveries)
+        val latestTest = getLatestValidCertificate(latestTests)
+
+        val validDccList = listOfNotNull(
+            latestVaccination,
+            latestRecovery,
+            latestTest,
+        )
+
+        val validVaccination = validDccList.firstOrNull {
+            it.covCertificate.dgcEntry is Vaccination
+        }
+        val validRecovery = validDccList.firstOrNull {
+            it.covCertificate.dgcEntry is Recovery
+        }
+        val validTest = validDccList.firstOrNull {
+            it.covCertificate.dgcEntry is TestCert
+        }
+
+        return groupedCert.getMergedCertificate(
+            validVaccination,
+            validRecovery,
+            validTest,
+        )
+    }
+
+    private suspend fun getLatestValidCertificate(
+        certificates: List<CombinedCovCertificate>,
+    ): CombinedCovCertificate? {
+        for (certificate in certificates) {
+            if (isValidByType(certificate)) {
+                return certificate
+            }
+        }
+        return null
+    }
+
     private suspend fun isValidByType(
-        covCertificate: CovCertificate,
-        validationType: CovPassValidationType,
+        combinedCovCertificate: CombinedCovCertificate?,
+        validationType: CovPassValidationType = CovPassValidationType.RULES,
         region: String? = null,
     ): Boolean {
+        if (combinedCovCertificate == null) return false
         return domesticRulesValidator.validate(
-            cert = covCertificate,
+            cert = combinedCovCertificate.covCertificate,
             validationType = validationType,
             region = region,
         ).all { it.result == Result.PASSED }

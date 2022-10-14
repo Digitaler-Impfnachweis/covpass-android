@@ -281,6 +281,18 @@ public data class GroupedCertificates(
     }
 
     /**
+     * @return The latest valid [CombinedCovCertificate]'s that are [Vaccination]
+     */
+    public fun getLatestValidVaccinations(): List<CombinedCovCertificate> {
+        return certificates.filter { it.covCertificate.dgcEntry is Vaccination && !it.isExpiredOrRevoked() }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence,
+                ) ?: 0
+            }
+    }
+
+    /**
      * @return The latest [CombinedCovCertificate] that is a [Recovery]
      */
     public fun getLatestRecovery(): CombinedCovCertificate? {
@@ -305,6 +317,18 @@ public data class GroupedCertificates(
     }
 
     /**
+     * @return The latest valid [CombinedCovCertificate]'s that are [Recovery]
+     */
+    public fun getLatestValidRecoveries(): List<CombinedCovCertificate> {
+        return certificates.filter { it.covCertificate.dgcEntry is Recovery && !it.isExpiredOrRevoked() }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult,
+                ) ?: 0
+            }
+    }
+
+    /**
      * @return The latest [CombinedCovCertificate] that is a [TestCert]
      */
     public fun getLatestTest(): CombinedCovCertificate? {
@@ -326,6 +350,18 @@ public data class GroupedCertificates(
                     (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
                 ) ?: 0
             }.firstOrNull()
+    }
+
+    /**
+     * @return The latest [CombinedCovCertificate]'s that are [TestCert]
+     */
+    public fun getLatestValidTests(): List<CombinedCovCertificate> {
+        return certificates.filter { it.covCertificate.dgcEntry is TestCert && !it.isExpiredOrRevoked() }
+            .sortedWith { cert1, cert2 ->
+                (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
+                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
+                ) ?: 0
+            }
     }
 
     public fun validateBoosterReissue() {
@@ -614,11 +650,11 @@ public data class GroupedCertificates(
         return false
     }
 
-    public fun getMergedCertificate(): CombinedCovCertificate? {
-        val latestVaccination = getLatestValidVaccination()
-        val latestRecovery = getLatestValidRecovery()
-        val latestTest = getLatestValidTest()
-
+    public fun getMergedCertificate(
+        latestVaccination: CombinedCovCertificate?,
+        latestRecovery: CombinedCovCertificate?,
+        latestTest: CombinedCovCertificate?,
+    ): CombinedCovCertificate? {
         return when {
             latestVaccination != null -> {
                 latestVaccination.copy(
