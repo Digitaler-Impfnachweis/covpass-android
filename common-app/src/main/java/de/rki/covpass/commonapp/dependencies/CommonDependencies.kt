@@ -20,6 +20,7 @@ import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.SettingUpdateListBuilder
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CborSharedPrefsStore
+import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.serialization.cbor.Cbor
 
 /**
@@ -42,6 +43,8 @@ public abstract class CommonDependencies {
      * The [CommonErrorHandler].
      */
     public abstract val errorHandler: CommonErrorHandler
+
+    public open val certRepository: CertRepository? = null
 
     private val cbor: Cbor = sdkDeps.cbor
 

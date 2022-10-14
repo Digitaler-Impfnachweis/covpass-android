@@ -42,21 +42,49 @@ public class GStatusAndMaskValidator(
                     val vaccinationDgcEntry = latestVaccination?.covCertificate?.dgcEntry as? Vaccination
                     val latestRecovery = groupedCert.getLatestValidRecovery()
                     val recoveryDgcEntry = latestRecovery?.covCertificate?.dgcEntry as? Recovery
-                    when {
+                    val gStatus = when {
                         vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber >= 3 -> {
-                            groupedCert.gStatus = ImmunizationStatus.Full
+                            ImmunizationStatus.Full
                         }
                         vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber == 2 &&
                             recoveryDgcEntry != null &&
                             vaccinationDgcEntry.occurrence?.isAfter(recoveryDgcEntry.firstResult) == true -> {
-                            groupedCert.gStatus = ImmunizationStatus.Full
+                            ImmunizationStatus.Full
                         }
                         vaccinationDgcEntry != null && vaccinationDgcEntry.doseNumber == 2 &&
                             recoveryDgcEntry != null &&
                             LocalDate.now()?.isAfter(recoveryDgcEntry.firstResult?.plusDays(29)) == true -> {
-                            groupedCert.gStatus = ImmunizationStatus.Full
+                            ImmunizationStatus.Full
                         }
-                        else -> groupedCert.gStatus = ImmunizationStatus.Partial
+                        else -> ImmunizationStatus.Partial
+                    }
+                    certRepository.certs.update {
+                        it.certificates.map { groupedCertificate ->
+                            if (groupedCertificate.id == groupedCert.id) {
+                                groupedCertificate.gStatus = gStatus
+                            }
+                        }
+                    }
+                }
+
+                // MaskStatus Validation
+                val maskStatus = if (
+                    isValidByType(
+                        mergedCertificate,
+                        CovPassValidationType.MASK,
+                        region,
+                    )
+                ) {
+                    MaskStatus.NotRequired
+                } else {
+                    MaskStatus.Required
+                }
+
+                certRepository.certs.update {
+                    it.certificates.map { groupedCertificate ->
+                        if (groupedCertificate.id == groupedCert.id) {
+                            groupedCertificate.maskStatus = maskStatus
+                        }
                     }
                 }
 

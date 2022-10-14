@@ -26,5 +26,7 @@ internal class CovPassCheckInformationFragment : InformationFragment() {
 
     override fun isCovpassCheck(): Boolean = true
 
+    override fun showFederalStateSettings() {}
+
     override fun hasAcousticFeedback() = true
 }

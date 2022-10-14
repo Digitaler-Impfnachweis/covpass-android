@@ -160,7 +160,7 @@ public abstract class InformationFragment : BaseFragment() {
             )
 
             binding.informationFieldCovpassFederalStateSettingsLayout.setOnClickListener {
-                findNavigator().push(FederalStateSettingFragmentNav())
+                showFederalStateSettings()
             }
             binding.informationFieldCovpassFederalStateSettingsTitle.setText(
                 R.string.infschg_settings_federal_state_title,
@@ -190,5 +190,6 @@ public abstract class InformationFragment : BaseFragment() {
     protected abstract fun getImprintLinkRes(): Int
     protected abstract fun getEasyLanguageLinkRes(): Int
     protected abstract fun isCovpassCheck(): Boolean
+    protected abstract fun showFederalStateSettings()
     protected open fun hasAcousticFeedback(): Boolean = false
 }

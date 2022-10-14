@@ -6,6 +6,7 @@
 package de.rki.covpass.app.information
 
 import com.ibm.health.common.navigation.android.FragmentNav
+import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.commonapp.information.InformationFragment
 import kotlinx.parcelize.Parcelize
@@ -25,4 +26,10 @@ internal class CovPassInformationFragment : InformationFragment() {
     override fun getEasyLanguageLinkRes(): Int = R.string.easy_language_link
 
     override fun isCovpassCheck(): Boolean = false
+
+    override fun showFederalStateSettings() {
+        findNavigator().push(
+            FederalStateSettingFragmentNav(),
+        )
+    }
 }

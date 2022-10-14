@@ -26,6 +26,7 @@ import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateFragmentNav
 import de.rki.covpass.commonapp.information.SettingsFragmentNav
 import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
@@ -46,7 +47,7 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 /**
  * Displays the start view of the app.
  */
-internal class MainFragment : BaseFragment(), DataProtectionCallback {
+internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFederalStateCallBack {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val revocationListUpdateViewModel by reactiveState {
@@ -81,7 +82,11 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
         binding.federalStateTitle.setText(R.string.infschg_start_screen_dropdown_title)
         binding.federalStateLayout.setOnClickListener {
-            findNavigator().push(ChangeFederalStateFragmentNav(commonDeps.federalStateRepository.federalState.value))
+            findNavigator().push(
+                ChangeFederalStateFragmentNav(
+                    commonDeps.federalStateRepository.federalState.value,
+                ),
+            )
         }
 
         ViewCompat.setAccessibilityDelegate(
@@ -165,6 +170,8 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
     override fun onDataProtectionFinish() {
         showNotificationIfNeeded()
     }
+
+    override fun onChangeDone() {}
 
     private fun showNotificationIfNeeded() {
         when {

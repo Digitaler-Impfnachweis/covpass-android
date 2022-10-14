@@ -16,4 +16,7 @@ public class FederalStateRepository(store: CborSharedPrefsStore) {
 
     public val federalState: SuspendMutableValueFlow<String> =
         store.getData("federal_state_in_use", FederalStateResolver.defaultFederalState.regionId)
+
+    public val federalStateOnboardingShown: SuspendMutableValueFlow<Boolean> =
+        store.getData("federal_state_onboarding_shown", false)
 }

@@ -89,6 +89,12 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+            !commonDependencies.federalStateRepository.federalStateOnboardingShown.value -> {
+                eventNotifier {
+                    showFederalStateOnboarding()
+                }
+                true
+            }
             commonDependencies.checkContextRepository.checkContextNotificationVersionShown.value !=
                 CheckContextRepository.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION -> {
                 eventNotifier {

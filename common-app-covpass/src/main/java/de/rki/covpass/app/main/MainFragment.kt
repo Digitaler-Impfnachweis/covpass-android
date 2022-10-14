@@ -64,6 +64,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showDomesticRulesNotification()
     fun showCheckerRemark()
     fun showNewRegulationOnboarding()
+    fun showFederalStateOnboarding()
     fun showBoosterNotification()
     fun showBoosterReissueNotification(listIds: List<String>)
     fun showRevokedNotification()
@@ -86,7 +87,8 @@ internal class MainFragment :
     ReissueCallback,
     ImportCertificatesResultCallback,
     NotificationEvents,
-    NewRegulationOnboardingCallback {
+    NewRegulationOnboardingCallback,
+    FederalStateOnboardingCallback {
 
     private val uri: Uri? by lazy { getArgs<MainFragmentNav>().uri }
     private val viewModel by reactiveState { MainViewModel(scope, uri) }
@@ -225,6 +227,10 @@ internal class MainFragment :
         viewModel.showingNotification.complete(Unit)
     }
 
+    override fun onFederalStateOnboardingFinish() {
+        viewModel.showingNotification.complete(Unit)
+    }
+
     override fun onDataProtectionFinish() {
         viewModel.showingNotification.complete(Unit)
     }
@@ -293,6 +299,10 @@ internal class MainFragment :
 
     override fun showNewRegulationOnboarding() {
         findNavigator().push(NewRegulationOnboardingFragmentNav())
+    }
+
+    override fun showFederalStateOnboarding() {
+        findNavigator().push(FederalStateOnboardingFragmentNav())
     }
 
     override fun showBoosterNotification() {
