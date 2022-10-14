@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.checkapp.federalstate
+package de.rki.covpass.commonapp.federalstate
 
 import android.os.Bundle
 import android.view.View
@@ -12,15 +12,17 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
-import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.databinding.ChangeFederalStatePopupBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.R
+import de.rki.covpass.commonapp.databinding.ChangeFederalStatePopupBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class ChangeFederalStateFragmentNav(val regionId: String) : FragmentNav(ChangeFederalStateFragment::class)
+public class ChangeFederalStateFragmentNav(public val regionId: String) : FragmentNav(
+    ChangeFederalStateFragment::class,
+)
 
 public class ChangeFederalStateFragment : BaseBottomSheet() {
 
@@ -40,7 +42,7 @@ public class ChangeFederalStateFragment : BaseBottomSheet() {
                 federalState?.let {
                     commonDeps.federalStateRepository.federalState.set(it.regionId)
                 }
-                findNavigator().popAll()
+                findNavigator().pop()
             }
         }
         adapter.apply {

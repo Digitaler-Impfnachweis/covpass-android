@@ -6,6 +6,10 @@
   <attr name="icon" format="reference" />
   <attr name="elementColor" format="reference" />
 
+  <attr name="text" format="string" />
+  <attr name="hint" format="string" />
+  <attr name="background" format="reference" />
+
   <declare-styleable name="InfoElement">
     <attr name="title"/>
     <attr name="subtitle"/>
@@ -19,5 +23,12 @@
     <attr name="subtitle"/>
     <attr name="icon"/>
     <attr name="elementColor"/>
+  </declare-styleable>
+
+  <declare-styleable name="TextViewWithHint">
+    <attr name="hint"/>
+    <attr name="text"/>
+    <attr name="icon"/>
+    <attr name="background"/>
   </declare-styleable>
 </resources>

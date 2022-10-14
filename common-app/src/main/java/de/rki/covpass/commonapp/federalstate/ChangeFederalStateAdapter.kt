@@ -3,7 +3,7 @@
  * (C) Copyright IBM Corp. 2021
  */
 
-package de.rki.covpass.checkapp.federalstate
+package de.rki.covpass.commonapp.federalstate
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
-import de.rki.covpass.checkapp.databinding.ChangeFederalStateItemBinding
+import de.rki.covpass.commonapp.databinding.ChangeFederalStateItemBinding
 import de.rki.covpass.commonapp.utils.FederalState
 
 /**

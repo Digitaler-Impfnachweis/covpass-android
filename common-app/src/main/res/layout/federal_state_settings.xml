@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/backgroundPrimary"
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
+
+  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+    android:id="@+id/federal_state_settings_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundPrimary"
+    android:elevation="@dimen/elevation"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/grid_seven"
+    android:paddingStart="@dimen/grid_one"
+    android:paddingEnd="@dimen/grid_one"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/update_note"
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/infschg_settings_federal_state_page_copy" />
+
+      <de.rki.covpass.commonapp.uielements.TextViewWithHint
+        android:id="@+id/federal_state_element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:hint="@string/infschg_settings_federal_state_page_tag"
+        app:icon="@drawable/federal_state_icon_settings" />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

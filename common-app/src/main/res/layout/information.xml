@@ -214,6 +214,43 @@
 
       </LinearLayout>
 
+      <LinearLayout
+        android:id="@+id/information_field_covpass_federal_state_settings_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/information_field_covpass_federal_state_settings_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:clickable="true"
+          android:focusable="true">
+
+          <TextView
+            android:id="@+id/information_field_covpass_federal_state_settings_title"
+            style="@style/NavigationField"
+            android:background="@color/onBrandBase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+            android:id="@+id/information_field_covpass_federal_state_settings_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/grid_seven"
+            app:layout_constraintBottom_toBottomOf="@+id/information_field_covpass_federal_state_settings_title"
+            app:layout_constraintEnd_toEndOf="@+id/information_field_covpass_federal_state_settings_title"
+            app:layout_constraintTop_toTopOf="@+id/information_field_covpass_federal_state_settings_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View style="@style/Divider" />
+
+      </LinearLayout>
+
       <TextView
         android:id="@+id/information_app_version_label"
         style="DefaultText.OnBackground70"

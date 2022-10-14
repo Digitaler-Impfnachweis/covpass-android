@@ -5,7 +5,6 @@
 
 package de.rki.covpass.checkapp.main
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.AccessibilityDelegateCompat
@@ -22,12 +21,12 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
 import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
-import de.rki.covpass.checkapp.federalstate.ChangeFederalStateFragmentNav
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.federalstate.ChangeFederalStateFragmentNav
 import de.rki.covpass.commonapp.information.SettingsFragmentNav
 import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
@@ -60,7 +59,6 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback {
         SettingsUpdateViewModel(scope, true)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainSettingsImagebutton.setOnClickListener {

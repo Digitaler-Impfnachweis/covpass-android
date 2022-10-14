@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@android:color/white">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/text_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_three"
+    android:background="@drawable/background_grey_line_round_corners"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/text_view_value"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_two"
+      app:layout_constraintBottom_toBottomOf="@+id/text_view_icon"
+      app:layout_constraintEnd_toStartOf="@+id/text_view_icon"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/text_view_icon" />
+
+    <ImageView
+      android:id="@+id/text_view_icon"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_margin="@dimen/grid_two"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/text_view_value"
+      tools:ignore="ContentDescription"
+      />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <TextView
+    android:id="@+id/text_view_hint"
+    style="@style/DefaultText.OnBackground.Small"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_one_half"
+    android:background="@android:color/white"
+    android:paddingHorizontal="@dimen/grid_quarter"
+    app:layout_constraintBottom_toTopOf="@+id/text_view_layout"
+    app:layout_constraintStart_toStartOf="@+id/text_view_layout"
+    app:layout_constraintTop_toTopOf="@+id/text_view_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

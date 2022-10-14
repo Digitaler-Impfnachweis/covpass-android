@@ -145,6 +145,11 @@
   <string name="app_information_offline_revocation_hint_button_active"/>
   <string name="app_information_offline_revocation_hint_button_inactive"/>
 
+  <string name="infschg_settings_federal_state_title"/>
+  <string name="infschg_module_choose_federal_state_title"/>
+  <string name="infschg_settings_federal_state_page_copy"/>
+  <string name="infschg_settings_federal_state_page_tag"/>
+
   <string name="DE_BY"/>
   <string name="DE_BB"/>
   <string name="DE_BE"/>

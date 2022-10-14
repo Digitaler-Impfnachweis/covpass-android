@@ -21,6 +21,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
+import de.rki.covpass.commonapp.utils.FederalStateResolver
 import java.util.Locale
 
 /**
@@ -109,6 +110,7 @@ public abstract class InformationFragment : BaseFragment() {
         if (isCovpassCheck()) {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
             binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = false
+            binding.informationFieldCovpassFederalStateSettingsContainer.isVisible = false
             binding.informationFieldExpertModeLayout.setOnClickListener {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
             }
@@ -141,6 +143,8 @@ public abstract class InformationFragment : BaseFragment() {
             binding.informationFieldAcousticFeedbackLayout.isVisible = false
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
             binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = true
+            binding.informationFieldCovpassFederalStateSettingsContainer.isVisible = true
+
             binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
                 findNavigator().push(WhatsNewSettingsFragmentNav())
             }
@@ -154,6 +158,18 @@ public abstract class InformationFragment : BaseFragment() {
                     R.string.settings_list_status_off
                 },
             )
+
+            binding.informationFieldCovpassFederalStateSettingsLayout.setOnClickListener {
+                findNavigator().push(FederalStateSettingFragmentNav())
+            }
+            binding.informationFieldCovpassFederalStateSettingsTitle.setText(
+                R.string.infschg_settings_federal_state_title,
+            )
+            FederalStateResolver.getFederalStateByCode(
+                commonDeps.federalStateRepository.federalState.value,
+            )?.nameRes?.let {
+                binding.informationFieldCovpassFederalStateSettingsStatus.setText(it)
+            }
         }
     }
 
