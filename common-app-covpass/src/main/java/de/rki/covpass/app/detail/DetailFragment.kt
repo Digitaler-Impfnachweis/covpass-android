@@ -1051,7 +1051,7 @@ private fun maskRequiredStatusInfoText(
     vaccination != null -> {
         getString(
             R.string.infschg_cert_overview_mask_time_from,
-            vaccination.occurrence?.plusDays(28).formatDateOrEmpty(),
+            vaccination.occurrence.formatDateOrEmpty(),
         )
     }
     recovery != null -> {
