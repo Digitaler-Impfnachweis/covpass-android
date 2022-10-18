@@ -980,8 +980,8 @@ internal class DetailFragment :
                 message = getString(
                     R.string.infschg_cert_overview_immunisation_E22,
                     Duration.between(
-                        recovery.firstResult?.plusDays(29),
-                        LocalDate.now(),
+                        recovery.firstResult?.plusDays(29)?.atStartOfDay(),
+                        LocalDate.now().atStartOfDay(),
                     ).toDays(),
                 ),
                 date = getString(
