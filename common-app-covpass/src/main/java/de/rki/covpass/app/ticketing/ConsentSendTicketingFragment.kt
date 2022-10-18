@@ -47,6 +47,9 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
     private val viewModel by reactiveState { ValidateTicketingViewModel(scope) }
     override val buttonTextRes: Int = R.string.share_certificate_transmission_action_button_agree
     override val cancelProcess: Boolean = true
+    override val announcementAccessibilityRes: Int = R.string.accessibility_share_certificate_transmission_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_share_certificate_transmission_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -24,6 +24,7 @@
   <string name="accessibility_app_information_title_open_source_announce"/>
   <string name="accessibility_app_information_version_number_delimiter"/>
   <string name="accessibility_app_information_title_informationt_announce"/>
+  <string name="accessibility_app_information_datenschutz_closing_announce"/>
 
   <string name="error_standard_unexpected_title"/>
   <string name="error_standard_unexpected_message"/>
@@ -66,6 +67,7 @@
   <string name="settings_rules_list_status_outofdate"/>
   <string name="settings_rules_list_title"/>
   <string name="accessibility_app_information_title_update"/>
+  <string name="accessibility_app_information_title_update_closing_announce"/>
 
   <string name="app_information_title_local_rules"/>
   <string name="app_information_title_local_rules_button"/>
@@ -114,6 +116,7 @@
   <string name="accessibility_scan_camera_announce"/>
   <string name="accessibility_scan_camera_torch_on"/>
   <string name="accessibility_scan_camera_torch_off"/>
+  <string name="accessibility_scan_camera_closing_announce"/>
 
   <string name="accessibility_app_information_label_back"/>
   <string name="accessibility_app_information_contact_label_back"/>

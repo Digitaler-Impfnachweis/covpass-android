@@ -46,7 +46,7 @@
         android:layout_marginTop="@dimen/grid_three"
         android:layout_marginBottom="@dimen/grid_three"
         android:adjustViewBounds="true"
-        tools:ignore="ContentDescription"
+        android:contentDescription="@null"
         tools:src="@tools:sample/backgrounds/scenic"/>
 
       <RelativeLayout
@@ -82,7 +82,7 @@
           android:layout_marginLeft="@dimen/grid_four"
           android:adjustViewBounds="true"
           android:src="@drawable/lock_outline"
-          tools:ignore="ContentDescription" />
+          android:contentDescription="@null" />
 
       </RelativeLayout>
 

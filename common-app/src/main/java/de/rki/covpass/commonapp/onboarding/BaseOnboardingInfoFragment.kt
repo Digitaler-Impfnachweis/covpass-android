@@ -7,6 +7,7 @@ package de.rki.covpass.commonapp.onboarding
 
 import android.os.Bundle
 import android.view.View
+import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -41,5 +42,6 @@ public abstract class BaseOnboardingInfoFragment : BaseFragment() {
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingInfoTextview.setText(textRes)
         binding.onboardingImageview.setImageResource(imageRes)
+        binding.onboardingInfoHeaderTextview.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
     }
 }

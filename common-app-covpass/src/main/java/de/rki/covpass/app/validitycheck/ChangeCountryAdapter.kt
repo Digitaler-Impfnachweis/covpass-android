@@ -103,7 +103,7 @@ public class ChangeCountryAdapter(
                 binding.checkbox.isChecked = true
                 checked = position
                 notifyDataSetChanged()
-                accessibilityCallback.updateAccessibilityFocus()
+                accessibilityCallback.updateAccessibilityFocus(item.nameRes)
             }
             binding.root.setAccessibilityDelegate(
                 object : View.AccessibilityDelegate() {

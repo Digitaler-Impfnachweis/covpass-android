@@ -59,6 +59,7 @@ public abstract class QRScannerFragment : BaseFragment() {
     private val scannerViewModel: QRScannerViewModel by reactiveState { QRScannerViewModel(scope) }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
+    override val closingAnnouncementAccessibilityRes: Int = R.string.accessibility_scan_camera_closing_announce
     public open val isCovpass: Boolean = true
 
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK

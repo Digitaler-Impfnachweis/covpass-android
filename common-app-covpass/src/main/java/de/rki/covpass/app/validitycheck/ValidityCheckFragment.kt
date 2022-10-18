@@ -58,6 +58,8 @@ internal class ValidityCheckFragment :
     private val validityCheckViewModel by reactiveState { ValidityCheckViewModel(scope) }
     private val binding by viewBinding(ValidityCheckPopupContentBinding::inflate)
     override val announcementAccessibilityRes: Int = R.string.accessibility_certificate_check_validity_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_certificate_check_validity_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

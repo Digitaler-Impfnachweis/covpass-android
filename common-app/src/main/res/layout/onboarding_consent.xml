@@ -24,7 +24,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/grid_two"
       android:adjustViewBounds="true"
-      tools:ignore="ContentDescription" />
+      android:contentDescription="@null"/>
 
     <TextView
       android:id="@+id/onboarding_info_header_textview"

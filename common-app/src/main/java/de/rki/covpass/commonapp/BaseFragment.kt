@@ -18,9 +18,12 @@ public abstract class BaseFragment(@LayoutRes contentLayoutId: Int = 0) :
     BaseHookedFragment(contentLayoutId = contentLayoutId),
     OnBackPressedNavigation {
 
-    override fun onBackPressed(): Abortable =
-        (this as? NavigatorOwner)?.navigator?.onBackPressed()
-            ?: Continue
+    public open val closingAnnouncementAccessibilityRes: Int? = null
+
+    override fun onBackPressed(): Abortable {
+        closingAnnouncementAccessibilityRes?.let { sendAccessibilityAnnouncementEvent(it) }
+        return (this as? NavigatorOwner)?.navigator?.onBackPressed() ?: Continue
+    }
 
     override fun onError(error: Throwable) {
         commonDeps.errorHandler.handleError(error, childFragmentManager)

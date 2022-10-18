@@ -32,7 +32,7 @@ internal interface ChangeCountryCallback {
 internal class ChangeCountryFragmentNav(val countryCode: String) : FragmentNav(ChangeCountryFragment::class)
 
 public interface AccessibilityCallback {
-    public fun updateAccessibilityFocus()
+    public fun updateAccessibilityFocus(countryNameRes: Int)
 }
 
 /**
@@ -45,6 +45,8 @@ internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback 
     private val binding by viewBinding(ChangeCountryPopupContentBinding::inflate)
     override val announcementAccessibilityRes: Int =
         R.string.accessibility_certificate_check_validity_selection_country_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_certificate_check_validity_selection_country_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,7 +70,10 @@ internal class ChangeCountryFragment : BaseBottomSheet(), AccessibilityCallback 
         newCountry?.let { findNavigator().popUntil<ChangeCountryCallback>()?.updateCountry(it) }
     }
 
-    override fun updateAccessibilityFocus() {
+    override fun updateAccessibilityFocus(countryNameRes: Int) {
+        bottomSheetBinding.bottomSheetActionButton.contentDescription =
+            (getString(countryNameRes) + getString(R.string.certificate_check_validity_selection_country_action_button))
+
         bottomSheetBinding.bottomSheetActionButton.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
     }
 }

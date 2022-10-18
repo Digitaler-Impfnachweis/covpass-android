@@ -21,7 +21,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/grid_five"
       android:adjustViewBounds="true"
-      android:contentDescription="@string/accessibility_image_alternative_text" />
+      android:contentDescription="@null"/>
 
     <TextView
       android:id="@+id/onboarding_info_header_textview"

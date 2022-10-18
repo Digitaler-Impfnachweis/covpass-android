@@ -37,6 +37,12 @@ internal class ChangeTimeFragment : BaseBottomSheet() {
 
     private val args: ChangeTimeFragmentNav by lazy { getArgs() }
     val binding by viewBinding(ChangeTimePopupContentBinding::inflate)
+
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_certificate_check_validity_selection_time_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_certificate_check_validity_selection_time_closing_announce
+
     private val timePicker by lazy { binding.timePicker }
     private val hourPicker: NumberPicker by lazy {
         timePicker.findViewById(Resources.getSystem().getIdentifier("hour", "id", "android"))

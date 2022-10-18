@@ -61,6 +61,9 @@ public class CertificateFilteringTicketingFragment :
     override val heightLayoutParams: Int = ViewGroup.LayoutParams.MATCH_PARENT
     override val buttonTextRes: Int = R.string.share_certificate_selection_no_match_action_button
     override val cancelProcess: Boolean = true
+    override val announcementAccessibilityRes: Int = R.string.accessibility_share_certificate_selection_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_share_certificate_selection_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

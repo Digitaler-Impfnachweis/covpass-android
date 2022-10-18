@@ -36,6 +36,8 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
     override val buttonTextRes = R.string.certificate_add_popup_scan_button_title
     private val binding by viewBinding(AddCovCertPopupContentBinding::inflate)
     override val announcementAccessibilityRes: Int = R.string.accessibility_certificate_add_popup_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_certificate_add_popup_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -27,6 +27,8 @@ public class CommonDataProtectionFragment : BaseBottomSheet() {
     override val heightLayoutParams: Int by lazy { ViewGroup.LayoutParams.MATCH_PARENT }
     private val binding by viewBinding(DataProtectionBinding::inflate)
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_datenschutz_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_information_datenschutz_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

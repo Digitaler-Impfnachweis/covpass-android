@@ -30,7 +30,8 @@ public class ConsentInitializationTicketingFragment : BaseTicketingFragment() {
 
     public val args: ConsentInitializationTicketingFragmentNav by lazy { getArgs() }
 
-    override val announcementAccessibilityRes: Int? = null // TODO change to correct text
+    override val announcementAccessibilityRes: Int = R.string.accessibility_share_certificate_announce
+    override val closingAnnouncementAccessibilityRes: Int = R.string.accessibility_share_certificate_closing_announce
 
     override val buttonTextRes: Int = R.string.share_certificate_transmission_action_button_agree
 
