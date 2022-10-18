@@ -686,5 +686,5 @@ public enum class ImmunizationStatus {
 }
 
 public enum class MaskStatus {
-    NotRequired, Required, Invalid
+    NotRequired, Required, Invalid, NoRules
 }

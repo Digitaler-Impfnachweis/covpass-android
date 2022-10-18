@@ -231,24 +231,28 @@ internal class DetailFragment :
                             MaskStatus.NotRequired -> R.string.infschg_start_mask_optional
                             MaskStatus.Required -> R.string.infschg_start_mask_mandatory
                             MaskStatus.Invalid -> R.string.infschg_start_expired_revoked
+                            MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_title
                         },
                     ),
                     statusIcon = when (maskStatus) {
                         MaskStatus.NotRequired -> R.drawable.status_mask_not_required
                         MaskStatus.Required -> R.drawable.status_mask_required
                         MaskStatus.Invalid -> R.drawable.status_mask_invalid
+                        MaskStatus.NoRules -> R.drawable.status_mask_required_yellow
                     },
                     message = getString(
                         when (maskStatus) {
                             MaskStatus.NotRequired -> R.string.infschg_cert_overview_mask_hint_optional
                             MaskStatus.Required -> R.string.infschg_cert_overview_mask_hint_mandatory
                             MaskStatus.Invalid -> R.string.infschg_cert_overview_mask_hint_mandatory
+                            MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_1
                         },
                     ),
                     link = when (maskStatus) {
                         MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_link
                         MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_link
                         MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_link
+                        MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_link
                     },
                     region = getString(R.string.infschg_start_screen_status_federal_state, region),
                     noticeMessage = getString(
@@ -256,6 +260,7 @@ internal class DetailFragment :
                             MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_2
                             MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_2
                             MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
+                            MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
                         },
                     ),
                     subtitle = getMaskStatusInfoText(maskStatus, dgcEntry, groupedCertificate),

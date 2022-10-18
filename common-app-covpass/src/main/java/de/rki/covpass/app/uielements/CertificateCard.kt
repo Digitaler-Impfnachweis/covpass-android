@@ -95,6 +95,9 @@ public class CertificateCard @JvmOverloads constructor(
                 maskStatusIcon = R.drawable.status_mask_invalid
                 maskStatusString = getString(R.string.infschg_start_expired_revoked)
             }
+            MaskStatus.NoRules -> {
+                binding.certificateStatusLayout.isVisible = false
+            }
         }
     }
 
@@ -103,6 +106,7 @@ public class CertificateCard @JvmOverloads constructor(
             MaskStatus.NotRequired -> R.color.full_immunization_green
             MaskStatus.Required -> R.color.info70
             MaskStatus.Invalid -> R.color.onBrandBase60
+            MaskStatus.NoRules -> R.color.info70
         }
     }
 

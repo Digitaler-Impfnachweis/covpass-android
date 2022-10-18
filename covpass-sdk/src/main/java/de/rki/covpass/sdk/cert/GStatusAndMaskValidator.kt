@@ -42,8 +42,7 @@ public class GStatusAndMaskValidator(
                     }
                     latestVaccination != null && latestVaccination.doseNumber == 2 &&
                         latestRecovery != null &&
-                        LocalDate.now()
-                        ?.isAfter(latestRecovery.firstResult?.plusDays(29)) == true -> {
+                        LocalDate.now()?.isAfter(latestRecovery.firstResult?.plusDays(29)) == true -> {
                         ImmunizationStatus.Full
                     }
                     else -> ImmunizationStatus.Partial
@@ -54,16 +53,16 @@ public class GStatusAndMaskValidator(
             val maskStatus = if (mergedCertificate == null) {
                 MaskStatus.Invalid
             } else {
-                if (
+                when (
                     isValidByType(
                         mergedCertificate,
                         CovPassValidationType.MASK,
                         region,
                     )
                 ) {
-                    MaskStatus.NotRequired
-                } else {
-                    MaskStatus.Required
+                    ValidatorResult.Passed -> MaskStatus.NotRequired
+                    ValidatorResult.Failed -> MaskStatus.Required
+                    ValidatorResult.NoRules -> MaskStatus.NoRules
                 }
             }
 
@@ -116,7 +115,7 @@ public class GStatusAndMaskValidator(
         certificates: List<CombinedCovCertificate>,
     ): CombinedCovCertificate? {
         for (certificate in certificates) {
-            if (isValidByType(certificate)) {
+            if (isValidByType(certificate) == ValidatorResult.Passed) {
                 return certificate
             }
         }
@@ -127,12 +126,27 @@ public class GStatusAndMaskValidator(
         combinedCovCertificate: CombinedCovCertificate?,
         validationType: CovPassValidationType = CovPassValidationType.RULES,
         region: String? = null,
-    ): Boolean {
-        if (combinedCovCertificate == null) return false
-        return domesticRulesValidator.validate(
+    ): ValidatorResult {
+        if (combinedCovCertificate == null) return ValidatorResult.Failed
+        val validateResult = domesticRulesValidator.validate(
             cert = combinedCovCertificate.covCertificate,
             validationType = validationType,
             region = region,
-        ).all { it.result == Result.PASSED }
+        )
+        return when {
+            validateResult.isEmpty() -> {
+                ValidatorResult.NoRules
+            }
+            validateResult.all { it.result == Result.PASSED } -> {
+                ValidatorResult.Passed
+            }
+            else -> {
+                ValidatorResult.Failed
+            }
+        }
     }
+}
+
+public enum class ValidatorResult {
+    Passed, Failed, NoRules
 }
