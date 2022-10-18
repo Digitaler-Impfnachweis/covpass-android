@@ -111,18 +111,19 @@ private class WidgetViewHolder(
             binding.detailStatusTextview.text = widget.message
 
             widget.subtitle?.let {
-                binding.detailStatusSubheaderTextview.text = widget.subtitle
+                binding.detailStatusSubheaderTextview.isVisible = true
+                binding.detailStatusSubheaderTextview.text = it
             }
 
             widget.region?.let {
                 binding.detailRegionSubheaderTextview.isVisible = true
-                binding.detailRegionSubheaderTextview.text = widget.region
+                binding.detailRegionSubheaderTextview.text = it
             }
 
             widget.link?.let {
                 binding.detailStatusLinkTextview.isVisible = true
                 binding.detailStatusLinkTextview.apply {
-                    text = getSpanned(widget.link)
+                    text = getSpanned(it)
                     movementMethod = LinkMovementMethod.getInstance()
                     stripUnderlines()
                 }

@@ -13,46 +13,65 @@
   android:background="@color/backgroundSecondary"
   android:paddingBottom="@dimen/grid_three">
 
+  <ImageView
+    android:id="@+id/detail_status_imageview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    android:layout_marginEnd="@dimen/grid_two"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@id/detail_status_header_textview"
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/status_mask_not_required" />
+
   <TextView
     android:id="@+id/detail_status_header_textview"
     style="@style/Header.OnBackground.Small"
-    android:layout_width="match_parent"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/grid_nine"
+    android:layout_marginStart="@dimen/grid_two"
     android:layout_marginTop="@dimen/grid_three"
     android:layout_marginEnd="@dimen/grid_three"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/detail_status_imageview"
     app:layout_constraintTop_toTopOf="parent"
     tools:text="Impfschutz vollständig" />
 
   <TextView
     android:id="@+id/detail_region_subheader_textview"
-    style="@style/DefaultText.OnBackground70"
+    style="@style/DefaultText.OnBackground"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/grid_three"
     android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
-    app:layout_constraintTop_toBottomOf="@+id/detail_status_header_textview" />
+    app:layout_constraintTop_toBottomOf="@+id/detail_status_header_textview"
+    tools:text="Befreit bis 18.09.2022"
+    tools:visibility="visible" />
 
   <TextView
     android:id="@+id/detail_status_subheader_textview"
     style="@style/DefaultText.OnBackground70"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:layout_constraintEnd_toEndOf="@id/detail_region_subheader_textview"
-    app:layout_constraintStart_toStartOf="@id/detail_region_subheader_textview"
-    app:layout_constraintTop_toBottomOf="@+id/detail_region_subheader_textview" />
+    android:layout_marginEnd="@dimen/grid_three"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
+    app:layout_constraintTop_toBottomOf="@+id/detail_region_subheader_textview"
+    tools:text="In Mecklenburg-Vorpommern"
+    tools:visibility="visible" />
 
   <TextView
     android:id="@+id/detail_status_textview"
     style="@style/DefaultText.OnBackground70"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_half"
-    app:layout_constraintBottom_toTopOf="@+id/detail_status_link_textview"
-    app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginEnd="@dimen/grid_three"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
     app:layout_constraintTop_toBottomOf="@id/detail_status_subheader_textview"
     app:layout_goneMarginBottom="@dimen/grid_three"
@@ -64,11 +83,11 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_one_half"
-    android:layout_marginBottom="@dimen/grid_three"
+    android:layout_marginEnd="@dimen/grid_three"
     android:clickable="true"
     android:focusable="true"
     android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
     app:layout_constraintTop_toBottomOf="@id/detail_status_textview"
     tools:text="@tools:sample/lorem[3]"
@@ -80,21 +99,26 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginEnd="@dimen/grid_three"
     android:text="@string/infschg_detail_page_mask_status_uncertain_subtitle_2"
     android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
-    app:layout_constraintStart_toStartOf="@id/detail_status_link_textview"
-    app:layout_constraintTop_toBottomOf="@id/detail_status_link_textview" />
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
+    app:layout_constraintTop_toBottomOf="@id/detail_status_link_textview"
+    tools:visibility="visible" />
 
   <TextView
     android:id="@+id/detail_notice_subheader_textview"
     style="@style/DefaultText.OnBackground"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/grid_three"
     android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="@id/detail_status_header_textview"
-    app:layout_constraintStart_toStartOf="@id/detail_status_link_textview"
-    app:layout_constraintTop_toBottomOf="@id/detail_notice_title_textview" />
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
+    app:layout_constraintTop_toBottomOf="@id/detail_notice_title_textview"
+    tools:text="@tools:sample/lorem[30]"
+    tools:visibility="visible" />
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/change_federal_state_button"
@@ -106,18 +130,9 @@
     android:text="@string/infschg_detail_page_mask_status_uncertain_button"
     android:textSize="@dimen/textsize_default"
     android:visibility="gone"
-    app:layout_constraintStart_toStartOf="@id/detail_status_link_textview"
-    app:layout_constraintTop_toBottomOf="@+id/detail_notice_subheader_textview" />
-
-  <ImageView
-    android:id="@+id/detail_status_imageview"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_half"
-    android:layout_marginEnd="@dimen/grid_two"
-    app:layout_constraintEnd_toStartOf="@id/detail_status_header_textview"
-    app:layout_constraintTop_toTopOf="@id/detail_status_header_textview"
-    tools:ignore="ContentDescription" />
+    app:layout_constraintStart_toStartOf="@id/detail_status_header_textview"
+    app:layout_constraintTop_toBottomOf="@+id/detail_notice_subheader_textview"
+    tools:visibility="visible" />
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/detail_show_certificate_button"
@@ -125,6 +140,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_two"
     android:layout_marginEnd="@dimen/grid_three"
     android:visibility="gone"
     app:layout_constrainedHeight="true"
@@ -132,6 +148,8 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/detail_status_link_textview" />
+    app:layout_constraintTop_toBottomOf="@id/change_federal_state_button"
+    tools:text="@string/certificates_overview_expired_action_button_title"
+    tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

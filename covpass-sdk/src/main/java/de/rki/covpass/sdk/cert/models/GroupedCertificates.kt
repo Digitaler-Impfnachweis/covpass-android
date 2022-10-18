@@ -271,14 +271,8 @@ public data class GroupedCertificates(
     /**
      * @return The latest valid [CombinedCovCertificate] that is a [Vaccination]
      */
-    public fun getLatestValidVaccination(): CombinedCovCertificate? {
-        return certificates.filter { it.covCertificate.dgcEntry is Vaccination && !it.isExpiredOrRevoked() }
-            .sortedWith { cert1, cert2 ->
-                (cert2.covCertificate.dgcEntry as? Vaccination)?.occurrence?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence,
-                ) ?: 0
-            }.firstOrNull()
-    }
+    public fun getLatestValidVaccination(): CombinedCovCertificate? =
+        getLatestValidVaccinations().firstOrNull()
 
     /**
      * @return The latest valid [CombinedCovCertificate]'s that are [Vaccination]
@@ -307,14 +301,7 @@ public data class GroupedCertificates(
     /**
      * @return The latest valid [CombinedCovCertificate] that is a [Recovery]
      */
-    public fun getLatestValidRecovery(): CombinedCovCertificate? {
-        return certificates.filter { it.covCertificate.dgcEntry is Recovery && !it.isExpiredOrRevoked() }
-            .sortedWith { cert1, cert2 ->
-                (cert2.covCertificate.dgcEntry as? Recovery)?.firstResult?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? Recovery)?.firstResult,
-                ) ?: 0
-            }.firstOrNull()
-    }
+    public fun getLatestValidRecovery(): CombinedCovCertificate? = getLatestValidRecoveries().firstOrNull()
 
     /**
      * @return The latest valid [CombinedCovCertificate]'s that are [Recovery]
@@ -343,14 +330,7 @@ public data class GroupedCertificates(
     /**
      * @return The latest [CombinedCovCertificate] that is a [TestCert]
      */
-    public fun getLatestValidTest(): CombinedCovCertificate? {
-        return certificates.filter { it.covCertificate.dgcEntry is TestCert && !it.isExpiredOrRevoked() }
-            .sortedWith { cert1, cert2 ->
-                (cert2.covCertificate.dgcEntry as? TestCert)?.sampleCollection?.compareTo(
-                    (cert1.covCertificate.dgcEntry as? TestCert)?.sampleCollection,
-                ) ?: 0
-            }.firstOrNull()
-    }
+    public fun getLatestValidTest(): CombinedCovCertificate? = getLatestValidTests().firstOrNull()
 
     /**
      * @return The latest [CombinedCovCertificate]'s that are [TestCert]
