@@ -229,9 +229,10 @@ internal class DetailFragment :
                 DetailItem.Widget(
                     title = getString(
                         when (maskStatus) {
-                            MaskStatus.NotRequired -> R.string.infschg_start_mask_optional
-                            MaskStatus.Required -> R.string.infschg_start_mask_mandatory
-                            MaskStatus.Invalid -> R.string.infschg_start_expired_revoked
+                            MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_title
+                            MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_title
+                            MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_title
+                            // TODO change to infschg_detail_page_mask_status_uncertain_title after twine change
                             MaskStatus.NoRules -> R.string.infschg_start_screen_status_grey_2
                         },
                     ),
@@ -243,16 +244,16 @@ internal class DetailFragment :
                     },
                     message = getString(
                         when (maskStatus) {
-                            MaskStatus.NotRequired -> R.string.infschg_cert_overview_mask_hint_optional
-                            MaskStatus.Required -> R.string.infschg_cert_overview_mask_hint_mandatory
-                            MaskStatus.Invalid -> R.string.infschg_cert_overview_mask_hint_mandatory
+                            MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_1
+                            MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_1
+                            MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_copy
                             MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_1
                         },
                     ),
                     link = when (maskStatus) {
                         MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_link
                         MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_link
-                        MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_link
+                        MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_link
                         MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_link
                     },
                     region = getString(R.string.infschg_start_screen_status_federal_state, region),
