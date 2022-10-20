@@ -232,7 +232,7 @@ internal class DetailFragment :
                             MaskStatus.NotRequired -> R.string.infschg_start_mask_optional
                             MaskStatus.Required -> R.string.infschg_start_mask_mandatory
                             MaskStatus.Invalid -> R.string.infschg_start_expired_revoked
-                            MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_title
+                            MaskStatus.NoRules -> R.string.infschg_start_screen_status_grey_2
                         },
                     ),
                     statusIcon = when (maskStatus) {
