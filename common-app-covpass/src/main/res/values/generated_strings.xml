@@ -866,7 +866,7 @@
 	<string name="infschg_cert_overview_mask_hint_mandatory">You can be exempted from the mask requirement for up to 24 hours in your state. Note that different regulations may apply in your federal state. Also remember that the exemption does not apply to places where a special mask requirement applies: e.g. doctors\' offices, hospitals or long-distance passenger transport.</string>
 	<string name="infschg_cert_overview_immunisation_time_since">Since %s</string>
 	<string name="infschg_cert_overview_immunisation_time_from">From %s</string>
-	<string name="infschg_cert_overview_immunisation_incomplete_A">You have not yet received all currently recommended vaccinations. Your vaccination protection is not yet complete.</string>
+	<string name="infschg_cert_overview_immunisation_incomplete_A">You have not yet received all currently recommended vaccinations. Your vaccination protection is not yet complete. Please note that the vaccination status displayed in the app is determined in accordance with the Infection Protection Act. For children under 12 and all other persons, there are currently no restrictions under federal law that are linked to the \"fully vaccinated\" vaccination status that can be viewed in the app. Please note, on the one hand, the recommendations of the Permanent Vaccination Commission and, on the other hand, possibly deviating rules in your federal state.</string>
 	<string name="infschg_cert_overview_immunisation_complete_B2">You have received all currently recommended vaccinations. Your vaccination protection is complete.</string>
 	<string name="infschg_cert_overview_immunisation_third_vacc_C2">You have received all vaccinations for a complete vaccination protection. Your vaccination protection is effective. However, please also inform yourself about recommended booster vaccinations.</string>
 	<string name="infschg_cert_overview_immunisation_E2">You are considered fully vaccinated based on your vaccination and the infection you have had. However, please also inform yourself about recommended booster vaccinations.</string>
@@ -881,6 +881,7 @@
 	<string name="infschg_start_screen_status_green">No mask required</string>
 	<string name="infschg_start_screen_status_blue">Mask mandatory</string>
 	<string name="infschg_start_screen_status_grey">No valid certificate</string>
+	<string name="infschg_start_screen_status_grey_2">No additional rules</string>
 	<string name="infschg_start_screen_status_federal_state">in %s</string>
 	<string name="infschg_settings_federal_state_title">Federal state</string>
 	<string name="infschg_settings_federal_state_page_title">Federal state</string>

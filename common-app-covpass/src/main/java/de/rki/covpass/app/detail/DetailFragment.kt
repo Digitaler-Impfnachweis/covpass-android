@@ -239,7 +239,7 @@ internal class DetailFragment :
                         MaskStatus.NotRequired -> R.drawable.status_mask_not_required
                         MaskStatus.Required -> R.drawable.status_mask_required
                         MaskStatus.Invalid -> R.drawable.status_mask_invalid
-                        MaskStatus.NoRules -> R.drawable.status_mask_required_yellow
+                        MaskStatus.NoRules -> R.drawable.status_mask_invalid
                     },
                     message = getString(
                         when (maskStatus) {

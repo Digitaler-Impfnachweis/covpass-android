@@ -866,7 +866,7 @@
 	<string name="infschg_cert_overview_mask_hint_mandatory">In ihrem Bundesland können Sie bis zu 24h von der Maskenpflicht befreit werden. Beachten Sie, dass in Ihrem Bundesland andere Bestimmungen gelten können. Denken Sie auch daran, dass die Befreiung nicht für Orte gilt, an denen eine besondere Maskenpflicht gilt: z.B. Arztpraxen, Krankenhäuser oder dem Personenfernverkehr.</string>
 	<string name="infschg_cert_overview_immunisation_time_since">Seit %s</string>
 	<string name="infschg_cert_overview_immunisation_time_from">Ab %s</string>
-	<string name="infschg_cert_overview_immunisation_incomplete_A">Sie haben noch nicht alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist noch nicht vollständig.</string>
+	<string name="infschg_cert_overview_immunisation_incomplete_A">Sie haben noch nicht alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist noch nicht vollständig. Bitte beachten Sie, dass der in der App angezeigte Impfstatus gemäß Infektionsschutzgesetz bestimmt wird. Für Kinder unter 12 Jahren und alle anderen Personen bestehen nach Bundesrecht derzeit keine Beschränkungen, die an den in der App einsehbaren Impfstatus „vollständig geimpft“ anknüpfen. Bitte beachten Sie zum einen die Empfehlungen der Ständigen Impfkommission und zum anderen möglicherweise abweichende Regeln in Ihrem Bundesland.</string>
 	<string name="infschg_cert_overview_immunisation_complete_B2">Sie haben alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist vollständig.</string>
 	<string name="infschg_cert_overview_immunisation_third_vacc_C2">Sie haben alle Impfungen für einen vollständigen Impfschutz erhalten. Ihr Impfschutz ist wirksam. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.</string>
 	<string name="infschg_cert_overview_immunisation_E2">Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.</string>
@@ -881,6 +881,7 @@
 	<string name="infschg_start_screen_status_green">Keine Maskenpflicht</string>
 	<string name="infschg_start_screen_status_blue">Maskenpflicht</string>
 	<string name="infschg_start_screen_status_grey">Kein gültiges Zertifikat</string>
+	<string name="infschg_start_screen_status_grey_2">Keine zusätzlichen Regeln</string>
 	<string name="infschg_start_screen_status_federal_state">in %s</string>
 	<string name="infschg_settings_federal_state_title">Bundesland</string>
 	<string name="infschg_settings_federal_state_page_title">Bundesland</string>
