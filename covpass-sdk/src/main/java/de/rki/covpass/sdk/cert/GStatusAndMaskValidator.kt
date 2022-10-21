@@ -81,12 +81,10 @@ public class GStatusAndMaskValidator(
         groupedCert: GroupedCertificates,
     ): CombinedCovCertificate? {
         val latestVaccinations = groupedCert.getLatestValidVaccinations()
-        val latestRecoveries = groupedCert.getLatestValidRecoveries()
-        val latestTests = groupedCert.getLatestValidTests()
+        val latestRecovery = groupedCert.getLatestValidRecovery()
+        val latestTest = groupedCert.getLatestValidTest()
 
         val latestVaccination = getLatestValidCertificate(latestVaccinations)
-        val latestRecovery = getLatestValidCertificate(latestRecoveries)
-        val latestTest = getLatestValidCertificate(latestTests)
 
         val validDccList = listOfNotNull(
             latestVaccination,
