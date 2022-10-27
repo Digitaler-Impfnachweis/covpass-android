@@ -51,7 +51,7 @@ public abstract class CommonApplication : Application() {
 
         navigationDeps = object : NavigationDependencies() {
             override val application = this@CommonApplication
-            override val defaultScreenOrientation = Orientation.PORTRAIT
+            override val defaultScreenOrientation = Orientation.SENSOR
             override val animationConfig = DefaultNavigationAnimationConfig(250)
         }
         androidDeps = object : AndroidDependencies() {

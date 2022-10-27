@@ -23,7 +23,6 @@
     </provider>
     <activity
       android:name="de.rki.covpass.app.main.MainActivity"
-      android:screenOrientation="portrait"
       android:theme="@style/CovPassAppTheme"
       android:exported="true">
       <intent-filter>

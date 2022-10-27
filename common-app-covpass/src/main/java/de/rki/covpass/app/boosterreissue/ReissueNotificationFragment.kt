@@ -7,6 +7,7 @@ package de.rki.covpass.app.boosterreissue
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.reactiveState
 import com.ibm.health.common.android.utils.viewBinding
@@ -23,6 +24,7 @@ import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.uielements.showInfo
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.sdk.cert.models.ReissueType
 import kotlinx.parcelize.Parcelize
 
@@ -76,6 +78,7 @@ public class ReissueNotificationFragment :
             }
             attachTo(binding.reissueNotificationCertificateList)
         }
+        binding.reissueNotificationImage.isGone = resources.isLandscapeMode()
         binding.reissueNotificationNote.setText(
             when (args.reissueType) {
                 ReissueType.Booster -> R.string.certificate_renewal_startpage_copy

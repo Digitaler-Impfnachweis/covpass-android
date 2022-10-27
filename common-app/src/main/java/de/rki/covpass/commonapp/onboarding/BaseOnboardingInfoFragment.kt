@@ -11,9 +11,11 @@ import android.view.accessibility.AccessibilityEvent
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.isGone
 import com.ibm.health.common.android.utils.viewBinding
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.databinding.OnboardingInfoBinding
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 
 /**
  * Common base fragment for displaying an onboarding info page to the user. Both apps use multiple variations of
@@ -41,6 +43,7 @@ public abstract class BaseOnboardingInfoFragment : BaseFragment() {
         )
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingInfoTextview.setText(textRes)
+        binding.onboardingImageview.isGone = resources.isLandscapeMode()
         binding.onboardingImageview.setImageResource(imageRes)
         binding.onboardingInfoHeaderTextview.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
     }

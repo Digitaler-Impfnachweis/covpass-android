@@ -19,6 +19,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.MisusePreventionBinding
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
@@ -49,6 +50,7 @@ internal class MisusePreventionFragment : BaseBottomSheet(), MisusePreventionEve
         bottomSheetBinding.bottomSheetClose.isGone = true
         bottomSheetBinding.bottomSheetBottomView.isGone = true
 
+        binding.misusePreventionIllustration.isGone = resources.isLandscapeMode()
         binding.misusePreventionActionButton.setOnClickListener {
             viewModel.addNewCertificate(args.qrContent)
         }

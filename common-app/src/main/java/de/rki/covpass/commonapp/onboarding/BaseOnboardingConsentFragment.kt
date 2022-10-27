@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.MutableValueFlow
 import com.ibm.health.common.android.utils.viewBinding
@@ -20,6 +21,7 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.OnboardingConsentBinding
 import de.rki.covpass.commonapp.uielements.showInfo
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 
 /**
  * Common base fragment for displaying a data privacy consent to the user. Both apps use basically the same fragment,
@@ -57,6 +59,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         )
         binding.onboardingInfoHeaderTextview.setText(titleRes)
         binding.onboardingInfoHeaderTextview.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
+        binding.onboardingImageview.isGone = resources.isLandscapeMode()
         binding.onboardingImageview.setImageResource(imageRes)
         fillContent()
         binding.onboardingInfoDataProtectionField.apply {

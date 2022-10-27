@@ -10,11 +10,13 @@ import android.view.View
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
+import androidx.core.view.isGone
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.databinding.WelcomeBinding
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 
 /**
  * Common base fragment for displaying a welcome page to the user. Both apps use basically the same fragment,
@@ -49,6 +51,7 @@ public abstract class BaseWelcomeFragment : BaseFragment() {
         binding.welcomeSubheaderTextview.setText(getSubheaderTextRes())
         binding.welcomeEncryptionHeaderTextview.setText(getEncryptionHeaderTextRes())
         binding.welcomeEncryptionTextview.setText(getEncryptionTextRes())
+        binding.welcomeMainImageview.isGone = resources.isLandscapeMode()
         binding.welcomeMainImageview.setImageResource(getMainImageRes())
         binding.welcomeStartButton.setOnClickListener { findNavigator().push(getOnboardingNav()) }
     }

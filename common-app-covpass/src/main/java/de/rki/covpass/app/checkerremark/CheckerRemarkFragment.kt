@@ -8,6 +8,7 @@ package de.rki.covpass.app.checkerremark
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.view.isGone
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -16,6 +17,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CheckerRemarkPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
 
@@ -39,6 +41,8 @@ internal class CheckerRemarkFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetBinding.bottomSheetTitle.text =
             getString(R.string.certificates_start_screen_pop_up_app_reference_title)
+
+        binding.checkerRemarkIllustration.isGone = resources.isLandscapeMode()
         binding.checkerRemarkFaq.apply {
             text = getSpanned(
                 R.string.certificates_start_screen_pop_up_app_reference_hyperlink_linked,

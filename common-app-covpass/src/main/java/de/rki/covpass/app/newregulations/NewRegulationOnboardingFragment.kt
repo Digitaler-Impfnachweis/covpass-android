@@ -7,6 +7,7 @@ package de.rki.covpass.app.newregulations
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -14,6 +15,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.NewRegulationOnboardingPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import kotlinx.parcelize.Parcelize
 
 internal interface NewRegulationOnboardingCallback {
@@ -36,6 +38,7 @@ internal class NewRegulationOnboardingFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.infschg_info_title)
 
+        binding.newRegulationOnboardingIllustration.isGone = resources.isLandscapeMode()
         binding.newRegulationOnboardingNoteOne.setText(R.string.infschg_info_copy_1)
         binding.newRegulationOnboardingNoteTwo.setText(R.string.infschg_info_copy_2)
         binding.newRegulationOnboardingNoteThree.setText(R.string.infschg_info_copy_3)

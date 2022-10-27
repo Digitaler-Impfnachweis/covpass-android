@@ -7,6 +7,7 @@ package de.rki.covpass.app.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -16,6 +17,7 @@ import de.rki.covpass.app.databinding.DomesticRulesNotificationBinding
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.CheckContextRepository.Companion.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import kotlinx.parcelize.Parcelize
 
 internal interface DomesticRulesNotificationCallback {
@@ -39,6 +41,7 @@ public class DomesticRulesNotificationFragment : BaseBottomSheet() {
     private fun startView() {
         bottomSheetBinding.bottomSheetHeader.isVisible = false
         bottomSheetBinding.bottomSheetClose.isVisible = false
+        binding.domesticRulesNotificationIllustration.isGone = resources.isLandscapeMode()
         binding.domesticRulesNotificationTitle.setText(R.string.dialog_local_rulecheck_title)
         binding.domesticRulesNotificationNoteTitle.setText(R.string.dialog_local_rulecheck_subtitle)
         binding.domesticRulesNotificationNote.setText(R.string.dialog_local_rulecheck_copy)

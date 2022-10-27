@@ -7,6 +7,7 @@ package de.rki.covpass.checkapp.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -14,6 +15,7 @@ import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.NewRegulationNotificationPopupBinding
 import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -29,6 +31,7 @@ public class NewRegulationNotificationFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetTitle.setText(R.string.infschg_info_title)
+        binding.newRegulationDecorativeImage.isGone = resources.isLandscapeMode()
         binding.newRegulationNote1.setText(R.string.infschg_info_copy_1)
         binding.newRegulationNote2.setText(R.string.infschg_info_copy_2)
         binding.newRegulationNote3.setText(R.string.infschg_info_copy_3)

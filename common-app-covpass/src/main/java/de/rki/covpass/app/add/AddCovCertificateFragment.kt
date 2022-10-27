@@ -22,6 +22,7 @@ import de.rki.covpass.app.scanner.CovPassQRScannerFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
 
@@ -42,6 +43,7 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.certificate_add_popup_title)
+        binding.addCovCertIllustration.isGone = resources.isLandscapeMode()
         binding.addCovCertFaq.apply {
             text = getSpanned(
                 R.string.certificate_add_popup_action_title_linked,
