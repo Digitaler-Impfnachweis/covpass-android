@@ -5,6 +5,7 @@
 
 package de.rki.covpass.app.validitycheck
 
+import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
@@ -33,6 +34,7 @@ internal class ChangeTimeFragmentNav(var dateTime: LocalDateTime) : FragmentNav(
 /**
  * Fragment to change date for the validity
  */
+@SuppressLint("DiscouragedApi")
 internal class ChangeTimeFragment : BaseBottomSheet() {
 
     private val args: ChangeTimeFragmentNav by lazy { getArgs() }

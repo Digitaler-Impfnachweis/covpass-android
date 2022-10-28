@@ -19,8 +19,8 @@ ext.androidCommon = { args = [:] ->
     Config config = new Config(args)
 
     int minVersion = config.minVersion ?: 23
-    int targetVersion = config.targetVersion ?: 30
-    int compileVersion = config.compileSdkVersion ?: 31
+    int targetVersion = config.targetVersion ?: 33
+    int compileVersion = config.compileSdkVersion ?: 33
 
     kotlinCommon()
 
