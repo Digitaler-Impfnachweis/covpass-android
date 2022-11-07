@@ -36,6 +36,8 @@ internal class CheckerRemarkFragment : BaseBottomSheet() {
     override val buttonTextRes = R.string.certificates_start_screen_pop_up_app_reference_button
     private val binding by viewBinding(CheckerRemarkPopupContentBinding::inflate)
     override val announcementAccessibilityRes: Int = R.string.accessibility_certificate_popup_checkapp_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_certificate_popup_checkapp_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

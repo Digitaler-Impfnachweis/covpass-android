@@ -135,7 +135,7 @@ public class ResultAdapter(
                             getString(country.nameRes),
                             dateTime.formatDateTimeAccessibility(),
                         ),
-                        description = getString(
+                        descriptionNoLink = getString(
                             R.string.certificate_check_validity_detail_view_result_not_testable_second_message,
                         ),
                         iconRes = R.drawable.info_warning_icon,
@@ -155,7 +155,7 @@ public class ResultAdapter(
                                 getString(country.nameRes),
                                 dateTime.formatDateTimeAccessibility(),
                             ),
-                            description = getString(
+                            descriptionNoLink = getString(
                                 R.string.certificate_check_validity_detail_view_result_valid_info,
                                 rulesCount,
                             ),
@@ -174,7 +174,7 @@ public class ResultAdapter(
                                 getString(country.nameRes),
                                 dateTime.formatDateTimeAccessibility(),
                             ),
-                            description = getString(
+                            descriptionNoLink = getString(
                                 R.string.certificate_check_validity_detail_view_result_no_rules_message,
                             ),
                             iconRes = R.drawable.info_warning_icon,

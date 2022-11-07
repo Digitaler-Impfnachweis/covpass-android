@@ -57,6 +57,7 @@
 	<string name="accessibility_vaccination_start_screen_label_information">More information</string>
 	<string name="accessibility_vaccination_start_screen_label_add_certificate">Add certificate</string>
 	<string name="accessibility_start_screen_info_announce">The start screen has been opened</string>
+	<string name="accessibility_start_screen_info_closing_announce">The start screen will be closed</string>
 	<string name="vaccination_start_screen_title">EU Digital COVID Certificates</string>
 	<string name="accessibility_vaccination_start_screen_title">EU Digital COVID Certificates. Sensible health data will follow. Please take care that nobody listens to or reads on your smartphone.</string>
 	<string name="vaccination_start_screen_note_title">Add a certificate</string>
@@ -91,11 +92,10 @@
 	<string name="certificate_timestamp_months">%d month(s) ago</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Close Pop-up</string>
 	<string name="accessibility_certificate_popup_checkapp_announce">The view \"Please scan!\" has been opened</string>
+	<string name="accessibility_certificate_popup_checkapp_closing_announce">The view \"Please scan!\" has been closed</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="accessibility_certificate_add_popup_label_close">Close</string>
-	<string name="accessibility_scan_camera_torch_on">Switch on torch</string>
-	<string name="accessibility_scan_camera_torch_off">Switch off torch</string>
 	<string name="accessibility_certificate_add_popup_announce">The view \"Scan QR code\" has been opened</string>
 	<string name="accessibility_certificate_add_popup_closing_announce">The view \"Scan QR code\" has been closed</string>
 	<string name="accessibility_certificate_add_warning_maximum_announce">The view \"Are you authorized?\" has been opened</string>
@@ -137,7 +137,12 @@
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 
 	<!-- SECTION: file import -->
+	<string name="accessibility_scan_camera_torch_turn_on">Switch on torch</string>
+	<string name="accessibility_scan_camera_torch_on">Torch has been switched on</string>
+	<string name="accessibility_scan_camera_torch_turn_off">Switch off torch</string>
+	<string name="accessibility_scan_camera_torch_off">Torch has been switched off</string>
 	<string name="accessibility_scan_camera_select_file">Select file</string>
+	<string name="accessibility_scan_camera_file_selected">File has been selected</string>
 	<string name="file_import_menu_title">Open file</string>
 	<string name="file_import_menu_photo">Select photo</string>
 	<string name="file_import_menu_document">Select document</string>
@@ -174,6 +179,8 @@
 	<string name="accessibility_certificate_check_validity_label_close">Close</string>
 	<string name="accessibility_certificate_check_validity_label_results">Results of the EU certificate examination</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Display certificate</string>
+	<string name="accessibility_popup_check_validity_choose_country">Destination %s. Choose a country</string>
+	<string name="accessibility_popup_check_validity_choose_date">Date chosen %s. Choose a departure date.</string>
 	<string name="accessibility_certificate_check_validity_announce">The view \"Check validity\" has been opened</string>
 	<string name="accessibility_certificate_check_validity_closing_announce">The view \"Check validity\" has been closed</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">The view \"Choose destination\" has been opened</string>
@@ -377,6 +384,7 @@
 	<string name="certificates_overview_qr_scan_hint">This QR code can be reliably verified with the CovPassCheck app.</string>
 	<string name="vaccination_certificate_overview_complete_message">Show this QR code when needed. Be ready to show ID when your QR code is checked.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Show certificates</string>
+	<string name="accessibility_certificate_overview_complete_action_button">New regulations</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">New</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_title">Current vaccination status</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">%1$s (Rule ID: %2$s)</string>
@@ -616,11 +624,23 @@
 	<string name="accessibility_app_information_datenschutz_announce">Privacy notice has been opened</string>
 	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy notice has been closed</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
+	<string name="accessibility_app_information_title_contact_closing_announce">Contact has been closed</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
+	<string name="accessibility_app_information_title_open_source_announce_closing">The view \"Open-source licences\" has been closed</string>
 	<string name="accessibility_app_information_update_notifications_announce_open">The view \"update notifications\" has been opened</string>
 	<string name="accessibility_app_information_update_notifications_announce_close">The view \"update notifications\" has been closed</string>
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
 	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
+	<string name="accessibility_app_information_title_information_closing_announce">Information has been closed</string>
+	<string name="accessibility_app_information_title_checking_rules_announce">Update Checking Rules has been opened</string>
+	<string name="accessibility_app_information_title_checking_rules_closing_announce">Update checking rules has been closed</string>
+	<string name="accessibility_app_information_title_update_notifications_announce">Update notifications has been opened</string>
+	<string name="accessibility_app_information_title_update_notifications_closing_announce">Update notifications has been closed</string>
+	<string name="accessibility_app_information_title_federal_state_rules_announce">Federal state rules has been opened</string>
+	<string name="accessibility_app_information_title_federal_state_rules_icon">Select federal state</string>
+	<string name="accessibility_popup_valid_certificate_germany_announce">Validity of certificates in Germany has been opened</string>
+	<string name="accessibility_popup_valid_certificate_germany_closing_announce">Validity of certificates in Germany has been closed</string>
+	<string name="accessibility_app_information_title_federal_state_rules_closing_announce">Federal state rules has been closed</string>
 	<string name="accessibility_app_information_version_number_delimiter">point</string>
 	<string name="settings_list_status_on">On</string>
 	<string name="settings_list_status_off">Off</string>
@@ -726,6 +746,7 @@
 	<string name="share_certificate_selection_no_match_action_button">Close</string>
 	<string name="share_certificate_transmission_title">Submitting your certificate for verification</string>
 	<string name="share_certificate_transmission_details_provider">Provider</string>
+	<string name="share_certificate_transmission_details_partner">Verification Partner</string>
 	<string name="share_certificate_transmission_details_booking">Booking</string>
 	<string name="share_certificate_transmission_message">The selected certificate and your booking data will now be transmitted to the provider\'s verification partner. Your consent is required for the transmission of your data to the verification service.</string>
 	<string name="share_certificate_transmission_consent_title">Your consent</string>
@@ -789,11 +810,15 @@
 	<string name="cancellation_share_certificate_action_button_yes">Yes, finish</string>
 
 	<!-- SECTION: dcc renewal -->
+	<string name="accessibility_popup_renew_certificate_announce">Changes to your certificates has been opened</string>
+	<string name="accessibility_popup_renew_certificate_closing_announce">Changes to your certificates has been closed</string>
 	<string name="certificate_renewal_startpage_headline">Changes to your certificates</string>
 	<string name="certificate_renewal_startpage_copy">The EU specifications for certain vaccination certificates have been changed. This certificate does not correspond to the current numbering. It is still valid. However, if it is a certificate for a booster vaccination, it will not be recognized as such when checked.\n\nTherefore we recommend requesting a new certificate with the number 2/1 directly free of charge via the app.</string>
 	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later on the overview of your certificates.</string>
 	<string name="certificate_renewal_startpage_main_button">Renew now</string>
 	<string name="certificate_renewal_startpage_secondary_button">Renew later</string>
+	<string name="accessibility_renew_certificate_concent_announce">Consent to transmitting your certificates has been opened</string>
+	<string name="accessibility_renew_certificate_concent_closing_announce">Consent to transmitting your certificates has been closed</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_headline">Consent to transmitting your certificates to the RKI</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_subline">Certificates transmitted once:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_subline">Your consent</string>
@@ -862,7 +887,7 @@
 	<string name="infschg_cert_overview_title">Your current certificate</string>
 	<string name="infschg_cert_overview_mask_time_until">Exempt until %s</string>
 	<string name="infschg_cert_overview_mask_time_from">Exempt from %s</string>
-	<string name="infschg_cert_overview_mask_hint_optional">You are exempt from wearing a mask in most areas in Germany. Note that the exemption does not apply to places where a special mask requirement applies: e.g. doctors\' offices, hospitals or long-distance passenger transport.</string>
+	<string name="infschg_cert_overview_mask_hint_optional">You are exempt from the mask requirement in some situations in this state; however, a mask is still recommended.</string>
 	<string name="infschg_cert_overview_mask_hint_mandatory">You can be exempted from the mask requirement for up to 24 hours in your state. Note that different regulations may apply in your federal state. Also remember that the exemption does not apply to places where a special mask requirement applies: e.g. doctors\' offices, hospitals or long-distance passenger transport.</string>
 	<string name="infschg_cert_overview_immunisation_time_since">Since %s</string>
 	<string name="infschg_cert_overview_immunisation_time_from">From %s</string>
@@ -874,10 +899,15 @@
 	<string name="infschg_cert_overview_immunisation_invalid">Add a valid certificate or renew your latest certificate to get information about your vaccination status.</string>
 	<string name="infschg_more_info_link">#More information::https://www.digitaler-impfnachweis-app.de/en/faq/#current-most-frequently-asked-questions#</string>
 	<string name="infschg_popup_choose_federal_state_title">Choose your federal state</string>
+	<string name="accessibility_popup_choose_federal_state_announce">Choose federal state has been opened</string>
+	<string name="accessibility_popup_choose_federal_state_closing_announce">Choose federal state has been opened</string>
+	<string name="accessibility_start_screen_arrow_card">Open all certificates of this person</string>
 	<string name="infschg_popup_choose_federal_state_copy_1">Mask requirement rules may vary by federal state. Select your federal state to see your current mask status.*</string>
 	<string name="infschg_popup_choose_federal_state_tag">Federal state</string>
 	<string name="infschg_popup_choose_federal_state_box_content">%s</string>
-	<string name="infschg_popup_choose_federal_state_copy_2">*You may change the federal state from the corresponding selection in the settings at any time.</string>
+	<string name="infschg_popup_choose_federal_state_copy_2">*You can change the federal state from the corresponding selection in the settings at any time.</string>
+	<string name="accessibility_infschg_modal_view_announce">An overview of all certificates has been opened</string>
+	<string name="accessibility_infschg_modal_view_announce_closing">The overview of all certificates has been closed</string>
 	<string name="infschg_start_screen_status_green">No mask required</string>
 	<string name="infschg_start_screen_status_blue">Mask mandatory</string>
 	<string name="infschg_start_screen_status_grey">No valid certificate</string>
@@ -913,6 +943,9 @@
 	<string name="infschg_detail_page_no_valid_certificate_title">No valid certificate</string>
 	<string name="infschg_detail_page_no_valid_certificate_copy">In your state, you can be exempt from the mask requirement for up to 24h. Note that different regulations may apply in your state. Also remember that the exemption does not apply to places where a special mask requirement applies: e.g. doctors\' offices, hospitals or long-distance passenger transport.</string>
 	<string name="infschg_detail_page_no_valid_certificate_link">#More information::https://www.digitaler-impfnachweis-app.de/en/faq/#current-most-frequently-asked-questions#</string>
+	<string name="accessibility_app_popup_choose_federal_state_announce">Choose federal state has been opened</string>
+	<string name="accessibility_app_popup_choose_federal_state_announce_when_chosen">Federal state %s was selected</string>
+	<string name="accessibility_app_popup_choose_federal_state_closing_announce">Choose federal state has been closed</string>
 	<string name="infschg_module_choose_federal_state_title">Choose federal state</string>
 
 	<!-- SECTION: federal state names -->

@@ -53,6 +53,7 @@ public class CertificateCard @JvmOverloads constructor(
     public fun setOnCardClickListener(onClickListener: OnClickListener) {
         binding.certificateCardview.setOnClickListener(onClickListener)
         binding.certificateCardviewScrollContent.setOnClickListener(onClickListener)
+        binding.certificateArrowImageview.setOnClickListener(onClickListener)
     }
 
     public fun setOnCertificateStatusClickListener(onClickListener: OnClickListener) {

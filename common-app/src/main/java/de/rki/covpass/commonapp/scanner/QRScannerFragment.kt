@@ -116,6 +116,11 @@ public abstract class QRScannerFragment : BaseFragment() {
                 setTorch(!isTorchOn.value)
             }
             scannerFlashlightButtonCovpass.setOnClickListener {
+                if (!isTorchOn.value) {
+                    sendAccessibilityAnnouncementEvent(R.string.accessibility_scan_camera_torch_on)
+                } else {
+                    sendAccessibilityAnnouncementEvent(R.string.accessibility_scan_camera_torch_off)
+                }
                 setTorch(!isTorchOn.value)
             }
             scannerImportButton.setOnClickListener {
@@ -296,10 +301,10 @@ public abstract class QRScannerFragment : BaseFragment() {
     private fun updateTorchView(on: Boolean) {
         if (on) {
             binding.scannerFlashlightButton.contentDescription =
-                resources.getString(R.string.accessibility_scan_camera_torch_off)
+                resources.getString(R.string.accessibility_scan_camera_torch_turn_off)
         } else {
             binding.scannerFlashlightButton.contentDescription =
-                resources.getString(R.string.accessibility_scan_camera_torch_on)
+                resources.getString(R.string.accessibility_scan_camera_torch_turn_on)
         }
     }
 

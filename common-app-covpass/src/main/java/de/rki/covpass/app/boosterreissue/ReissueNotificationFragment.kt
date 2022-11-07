@@ -45,6 +45,9 @@ public class ReissueNotificationFragment :
     override val buttonTextRes: Int by lazy {
         getButtonText()
     }
+    override val announcementAccessibilityRes: Int = R.string.accessibility_popup_renew_certificate_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_popup_renew_certificate_closing_announce
 
     private val combinedCovCertificate by lazy {
         covpassDeps.certRepository.certs.value.getCombinedCertificate(args.listCertIds[0])

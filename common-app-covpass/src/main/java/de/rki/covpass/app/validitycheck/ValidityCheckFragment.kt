@@ -6,18 +6,15 @@
 package de.rki.covpass.app.validitycheck
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
-import android.widget.ImageView
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
-import com.google.android.material.internal.CheckableImageButton
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
@@ -71,7 +68,8 @@ internal class ValidityCheckFragment :
             movementMethod = LinkMovementMethod.getInstance()
             stripUnderlines()
         }
-
+        binding.countryElement.marginVertical = R.dimen.grid_one
+        binding.dateElement.marginVertical = R.dimen.grid_two
         ValidityCertsAdapter(this).attachTo(binding.recyclerCertificates)
 
         autoRun {
@@ -94,7 +92,7 @@ internal class ValidityCheckFragment :
         }
         autoRun {
             val country = get(validityCheckViewModel.country)
-            binding.countryValue.setText(country.nameRes)
+            binding.countryElement.updateText(getString(country.nameRes))
             if (country.countryCode == defaultDeDomesticCountry.countryCode ||
                 country.countryCode == deCountry.countryCode
             ) {
@@ -109,73 +107,43 @@ internal class ValidityCheckFragment :
             } else {
                 binding.domesticRulesWarning.isVisible = false
             }
-            binding.countryValue.setOnClickListener {
+            binding.countryElement.setOnClickListener {
                 findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
             }
-            binding.countryValue.setAccessibilityDelegate(
+            binding.countryElement.setAccessibilityDelegate(
                 object : View.AccessibilityDelegate() {
                     override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
                         super.onInitializeAccessibilityNodeInfo(host, info)
                         info.className = Button::class.java.name
                         info.contentDescription = getString(
-                            R.string.accessibility_certificate_check_validity_selection_country,
+                            R.string.accessibility_popup_check_validity_choose_country,
                             getString(country.nameRes),
                         )
                     }
                 },
             )
-            binding.layoutCountry.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
-                .setAccessibilityDelegate(
-                    object : View.AccessibilityDelegate() {
-                        override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
-                            super.onInitializeAccessibilityNodeInfo(host, info)
-                            info.className = Button::class.java.name
-                            info.contentDescription =
-                                getString(R.string.accessibility_certificate_check_validity_label_choose_country)
-                        }
-                    },
-                )
-
-            binding.layoutCountry.setEndIconOnClickListener {
-                findNavigator().push(ChangeCountryFragmentNav(country.countryCode))
-            }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateCountry(country)
         }
 
         autoRun {
             val time = get(validityCheckViewModel.date)
-            binding.dateValue.text = Editable.Factory.getInstance().newEditable(time.formatDateTime())
+            binding.dateElement.updateText(time.formatDateTime())
 
-            binding.dateValue.setOnClickListener {
+            binding.dateElement.setOnClickListener {
                 findNavigator().push(ChangeDateFragmentNav(time))
             }
-            binding.dateValue.setAccessibilityDelegate(
+            binding.dateElement.setAccessibilityDelegate(
                 object : View.AccessibilityDelegate() {
                     override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
                         super.onInitializeAccessibilityNodeInfo(host, info)
                         info.className = Button::class.java.name
                         info.contentDescription = getString(
-                            R.string.accessibility_certificate_check_validity_selection_date,
+                            R.string.accessibility_popup_check_validity_choose_date,
                             time.formatDateTimeAccessibility(),
                         )
                     }
                 },
             )
-            binding.layoutDate.findViewById<CheckableImageButton>(R.id.text_input_end_icon)
-                .setAccessibilityDelegate(
-                    object : View.AccessibilityDelegate() {
-                        override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
-                            super.onInitializeAccessibilityNodeInfo(host, info)
-                            info.className = ImageView::class.java.name
-                            info.contentDescription =
-                                getString(R.string.accessibility_certificate_check_validity_label_choose_date)
-                        }
-                    },
-                )
-
-            binding.layoutDate.setEndIconOnClickListener {
-                findNavigator().push(ChangeDateFragmentNav(time))
-            }
             (binding.recyclerCertificates.adapter as? ValidityCertsAdapter)?.updateDateTime(time)
         }
         autoRun { showLoading(get(loading) > 0) }

@@ -57,6 +57,7 @@
 	<string name="accessibility_vaccination_start_screen_label_information">Mehr Informationen</string>
 	<string name="accessibility_vaccination_start_screen_label_add_certificate">Nachweis hinzufügen</string>
 	<string name="accessibility_start_screen_info_announce">Der Startbildschirm wurde geöffnet</string>
+	<string name="accessibility_start_screen_info_closing_announce">Der Startbildschirm wird geschlossen</string>
 	<string name="vaccination_start_screen_title">Digitale COVID-Zertifikate der EU</string>
 	<string name="accessibility_vaccination_start_screen_title">Digitale COVID-Zertifikate der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie einen Nachweis hinzu</string>
@@ -91,11 +92,10 @@
 	<string name="certificate_timestamp_months">Vor %d Monat(en)</string>
 	<string name="accessibility_certificates_start_screen_pop_up_app_reference_label">Pop-up schließen</string>
 	<string name="accessibility_certificate_popup_checkapp_announce">Die Ansicht \"Scannen bitte!\" wurde geöffnet</string>
+	<string name="accessibility_certificate_popup_checkapp_closing_announce">Die Ansicht \"Scannen bitte!\" wurde geschlossen</string>
 
 	<!-- SECTION: popup: add certification -->
 	<string name="accessibility_certificate_add_popup_label_close">Schließen</string>
-	<string name="accessibility_scan_camera_torch_on">Taschenlampe anschalten</string>
-	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
 	<string name="accessibility_certificate_add_popup_announce">Die Ansicht \"QR-Code scannen\" wurde geöffnet</string>
 	<string name="accessibility_certificate_add_popup_closing_announce">Die Ansicht \"QR-Code scannen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_add_warning_maximum_announce">Die Ansicht \"Sind Sie berechtigt?\" wurde geöffnet</string>
@@ -137,7 +137,12 @@
 	<string name="error_test_certificate_not_valid_button_title">OK</string>
 
 	<!-- SECTION: file import -->
+	<string name="accessibility_scan_camera_torch_turn_on">Taschenlampe anschalten</string>
+	<string name="accessibility_scan_camera_torch_on">Taschenlampe wurde angeschaltet</string>
+	<string name="accessibility_scan_camera_torch_turn_off">Taschenlampe ausschalten</string>
+	<string name="accessibility_scan_camera_torch_off">Taschenlampe wurde ausgeschaltet</string>
 	<string name="accessibility_scan_camera_select_file">Datei auswählen</string>
+	<string name="accessibility_scan_camera_file_selected">Datei wurde ausgewählt</string>
 	<string name="file_import_menu_title">Datei öffnen</string>
 	<string name="file_import_menu_photo">Foto auswählen</string>
 	<string name="file_import_menu_document">Dokument auswählen</string>
@@ -174,6 +179,8 @@
 	<string name="accessibility_certificate_check_validity_label_close">Schließen</string>
 	<string name="accessibility_certificate_check_validity_label_results">Ergebnisse der EU-Zertifikatsprüfung</string>
 	<string name="accessibility_certificate_check_validity_label_display_certificate">Zertifikat anzeigen</string>
+	<string name="accessibility_popup_check_validity_choose_country">Zielort %s. Wählen Sie ein Land</string>
+	<string name="accessibility_popup_check_validity_choose_date">Datum %s. Wählen Sie ein Datum der Abreise.</string>
 	<string name="accessibility_certificate_check_validity_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geöffnet</string>
 	<string name="accessibility_certificate_check_validity_closing_announce">Die Ansicht \"Gültigkeit prüfen\" wurde geschlossen</string>
 	<string name="accessibility_certificate_check_validity_selection_country_announce">Die Ansicht \"Reiseland wählen\" wurde geöffnet</string>
@@ -377,6 +384,7 @@
 	<string name="certificates_overview_qr_scan_hint">Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App überprüfen.</string>
 	<string name="vaccination_certificate_overview_complete_message">Zeigen Sie bei Bedarf den QR-Code vor. Halten Sie zudem ein Ausweisdokument bei der Überprüfung bereit.</string>
 	<string name="vaccination_certificate_overview_complete_action_button_title">Nachweise anzeigen</string>
+	<string name="accessibility_certificate_overview_complete_action_button">Neue Regelungen</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_icon_new">Neu</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_title">Aktueller Impfstatus</string>
 	<string name="vaccination_certificate_overview_booster_vaccination_notification_message">%1$s (Rule ID: %2$s)</string>
@@ -616,11 +624,23 @@
 	<string name="accessibility_app_information_datenschutz_announce">Datenschutzerklärung-Ansicht wurde geöffnet</string>
 	<string name="accessibility_app_information_datenschutz_closing_announce">Die Datenschutzerklärung wurde geschlossen</string>
 	<string name="accessibility_app_information_title_contact_announce">Kontakt-Ansicht wurde geöffnet</string>
+	<string name="accessibility_app_information_title_contact_closing_announce">Kontakt-Ansicht wurde geschlossen</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_open_source_announce_closing">Die Ansicht \"Open-Source-Lizenzen\" wurde geschlossen</string>
 	<string name="accessibility_app_information_update_notifications_announce_open">Die Ansicht \"Update-Benachrichtigungen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_update_notifications_announce_close">Die Ansicht \"Update-Benachrichtigungen\" wurde geschlossen</string>
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="accessibility_app_information_title_informationt_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_information_closing_announce">Die Ansicht \"Informationen\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_checking_rules_announce">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_checking_rules_closing_announce">Die Ansicht \"Prüfregeln aktualisieren\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_update_notifications_announce">Die Ansicht \"Update-Benachrichtigungen\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_update_notifications_closing_announce">Die Ansicht \"Update-Benachrichtigungen\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_federal_state_rules_announce">Die Ansicht \"Bundeslandregeln\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_federal_state_rules_icon">Bundesland auswählen</string>
+	<string name="accessibility_popup_valid_certificate_germany_announce">Die Ansicht \"Gültigkeit von Zertifikaten in Deutschland\" wurde geöffnet</string>
+	<string name="accessibility_popup_valid_certificate_germany_closing_announce">Die Ansicht \"Gültigkeit von Zertifikaten in Deutschland\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_federal_state_rules_closing_announce">Die Ansicht \"Bundeslandregeln\" wurde geschlossen</string>
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>
 	<string name="settings_list_status_on">An</string>
 	<string name="settings_list_status_off">Aus</string>
@@ -726,6 +746,7 @@
 	<string name="share_certificate_selection_no_match_action_button">Schließen</string>
 	<string name="share_certificate_transmission_title">Übermittlung Ihres Zertifikats zur Prüfung</string>
 	<string name="share_certificate_transmission_details_provider">Anbieter</string>
+	<string name="share_certificate_transmission_details_partner">Prüfpartner</string>
 	<string name="share_certificate_transmission_details_booking">Buchung</string>
 	<string name="share_certificate_transmission_message">Das ausgewählte Zertifikat und Ihre Buchungsdaten werden nun an den Prüfpartner des Anbieters übermittelt. Für die Übermittlung Ihrer Daten an den Überprüfungsservice ist Ihr Einverständnis erforderlich.</string>
 	<string name="share_certificate_transmission_consent_title">Ihr Einverständnis</string>
@@ -789,11 +810,15 @@
 	<string name="cancellation_share_certificate_action_button_yes">Ja, beenden</string>
 
 	<!-- SECTION: dcc renewal -->
+	<string name="accessibility_popup_renew_certificate_announce">Die Ansicht \"Änderungen bei Ihren Zertifikaten\" wurde geöffnet</string>
+	<string name="accessibility_popup_renew_certificate_closing_announce">Die Ansicht \"Änderungen bei Ihren Zertifikaten\" wurde geschlossen</string>
 	<string name="certificate_renewal_startpage_headline">Änderungen bei Ihren Zertifikaten</string>
 	<string name="certificate_renewal_startpage_copy">Die Spezifikationen der EU für bestimmte Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht der aktuellen Nummerierung. Es ist weiterhin gültig. Falls es sich jedoch um ein Zertifikat für eine Auffrischimpfung handelt, wird diese bei einer Prüfung nicht erkannt.\n\nWir empfehlen Ihnen daher, ein neues Impfzertifikat mit der Nummer 2/1 direkt kostenlos über die App anzufordern. Hierfür ist Ihr Einverständnis erforderlich.</string>
 	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Übersicht Ihrer Zertifikate anstoßen.</string>
 	<string name="certificate_renewal_startpage_main_button">Jetzt erneuern</string>
 	<string name="certificate_renewal_startpage_secondary_button">Später nachholen</string>
+	<string name="accessibility_renew_certificate_concent_announce">Die Ansicht \"Einwilligung zur Übermittlung Ihrer Zertifikate\" wurde geöffnet</string>
+	<string name="accessibility_renew_certificate_concent_closing_announce">Die Ansicht \"Einwilligung zur Übermittlung Ihrer Zertifikate\" wurde geschlossen</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_headline">Einwilligung zur Übermittlung Ihrer Zertifikate an das RKI</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_subline">Zertifikate, die einmalig übermittelt werden:</string>
 	<string name="certificate_renewal_consent_page_transfer_certificates_consent_box_subline">Ihr Einverständnis</string>
@@ -862,7 +887,7 @@
 	<string name="infschg_cert_overview_title">Ihr aktuelles Zertifikat</string>
 	<string name="infschg_cert_overview_mask_time_until">Befreit bis %s</string>
 	<string name="infschg_cert_overview_mask_time_from">Befreit ab %s</string>
-	<string name="infschg_cert_overview_mask_hint_optional">Sie sind in Deutschland in den meisten Bereichen vom Tragen einer Maske befreit. Beachten Sie, dass die Befreiung nicht für Orte gilt, an denen eine besondere Maskenpflicht gilt: z.B. Arztpraxen, Krankenhäuser oder dem Personenfernverkehr.</string>
+	<string name="infschg_cert_overview_mask_hint_optional">Sie sind in diesem Bundesland  in einigen Situationen von der Maskenpflicht ausgenommen; eine Maske ist dennoch empfohlen.</string>
 	<string name="infschg_cert_overview_mask_hint_mandatory">In ihrem Bundesland können Sie bis zu 24h von der Maskenpflicht befreit werden. Beachten Sie, dass in Ihrem Bundesland andere Bestimmungen gelten können. Denken Sie auch daran, dass die Befreiung nicht für Orte gilt, an denen eine besondere Maskenpflicht gilt: z.B. Arztpraxen, Krankenhäuser oder dem Personenfernverkehr.</string>
 	<string name="infschg_cert_overview_immunisation_time_since">Seit %s</string>
 	<string name="infschg_cert_overview_immunisation_time_from">Ab %s</string>
@@ -874,10 +899,15 @@
 	<string name="infschg_cert_overview_immunisation_invalid">Fügen Sie ein gültiges Zertifikat hinzu oder erneuern Sie Ihr neuestes Zertifikat, um Informationen zu Ihrem Impfstatus zu erhalten.</string>
 	<string name="infschg_more_info_link">#Mehr Informationen::https://www.digitaler-impfnachweis-app.de/faq/#die-aktuell-h-ufigsten-fragen#</string>
 	<string name="infschg_popup_choose_federal_state_title">Wählen Sie Ihr Bundesland</string>
+	<string name="accessibility_popup_choose_federal_state_announce">Die Ansicht \"Wählen Sie ihr Bundesland\" wurde geöffnet</string>
+	<string name="accessibility_popup_choose_federal_state_closing_announce">Die Ansicht \"Wählen Sie ihr Bundesland\" wurde geschlossen</string>
+	<string name="accessibility_start_screen_arrow_card">Alle Zertifikate von dieser Person öffnen</string>
 	<string name="infschg_popup_choose_federal_state_copy_1">Die Regeln zur Maskenpflicht können je nach Bundesland variieren. Wählen Sie Ihr Bundesland aus, um Ihren aktuellen Maskenstatus sehen zu können.*</string>
 	<string name="infschg_popup_choose_federal_state_tag">Bundesland</string>
 	<string name="infschg_popup_choose_federal_state_box_content">%s</string>
-	<string name="infschg_popup_choose_federal_state_copy_2">*Sie dürfen jederzeit das Bundesland von der entsprechenden Auswahl in den Einstellungen ändern.</string>
+	<string name="infschg_popup_choose_federal_state_copy_2">*Sie können jederzeit das Bundesland von der entsprechenden Auswahl in den Einstellungen ändern.</string>
+	<string name="accessibility_infschg_modal_view_announce">Eine Übersicht aller Zertifikate wurde geöffnet</string>
+	<string name="accessibility_infschg_modal_view_announce_closing">Die Übersicht aller Zertifikate wurde geschlossen</string>
 	<string name="infschg_start_screen_status_green">Keine Maskenpflicht</string>
 	<string name="infschg_start_screen_status_blue">Maskenpflicht</string>
 	<string name="infschg_start_screen_status_grey">Kein gültiges Zertifikat</string>
@@ -913,6 +943,9 @@
 	<string name="infschg_detail_page_no_valid_certificate_title">Kein gültiges Zertifikat</string>
 	<string name="infschg_detail_page_no_valid_certificate_copy">In Ihrem Bundesland können Sie bis zu 24h von der Maskenpflicht befreit werden. Beachten Sie, dass in Ihrem Bundesland andere Bestimmungen gelten können. Denken Sie auch daran, dass die Befreiung nicht für Orte gilt, an denen eine besondere Maskenpflicht gilt: z.B. Arztpraxen, Krankenhäuser oder dem Personenfernverkehr.</string>
 	<string name="infschg_detail_page_no_valid_certificate_link">#Mehr Informationen::https://www.digitaler-impfnachweis-app.de/faq/#die-aktuell-h-ufigsten-fragen#</string>
+	<string name="accessibility_app_popup_choose_federal_state_announce">Die Ansicht \"Bundesland wählen\" wurde geöffnet</string>
+	<string name="accessibility_app_popup_choose_federal_state_announce_when_chosen">Bundesland %s wurde ausgewählt</string>
+	<string name="accessibility_app_popup_choose_federal_state_closing_announce">Die Ansicht \"Bundesland wählen\" wurde geschlossen</string>
 	<string name="infschg_module_choose_federal_state_title">Bundesland wählen</string>
 
 	<!-- SECTION: federal state names -->

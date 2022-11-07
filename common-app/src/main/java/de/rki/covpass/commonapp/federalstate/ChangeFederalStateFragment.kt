@@ -35,6 +35,9 @@ public class ChangeFederalStateFragment : BaseBottomSheet(), ChangeFederalStateE
     private val binding by viewBinding(ChangeFederalStatePopupBinding::inflate)
     private val args: ChangeFederalStateFragmentNav by lazy { getArgs() }
     private val viewModel by reactiveState { ChangeFederalStateViewModel(scope) }
+    override val announcementAccessibilityRes: Int = R.string.accessibility_app_popup_choose_federal_state_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_popup_choose_federal_state_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

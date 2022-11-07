@@ -41,16 +41,15 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_two"
-    app:layout_constraintBottom_toTopOf="@+id/info_description"
+    app:layout_constraintBottom_toTopOf="@+id/layout_info_description"
     app:layout_constraintEnd_toStartOf="@+id/info_icon"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/info_title"
     app:layout_goneMarginBottom="@dimen/grid_two"
     tools:text="@tools:sample/lorem[5]" />
 
-  <TextView
-    android:id="@+id/info_description"
-    style="@style/DefaultText.OnBackground"
+  <LinearLayout
+    android:id="@+id/layout_info_description"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_two"
@@ -61,6 +60,26 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/info_subtitle"
     app:layout_goneMarginTop="@dimen/grid_half"
-    tools:text="@tools:sample/lorem[5]" />
+    tools:text="@tools:sample/lorem[5]"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+      android:id="@+id/info_description"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[5]"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+
+    <TextView
+      android:id="@+id/info_description_no_link"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:text="@tools:sample/lorem[5]"
+      android:visibility="gone"/>
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

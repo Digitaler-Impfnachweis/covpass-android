@@ -31,6 +31,9 @@ public class DomesticRulesNotificationFragment : BaseBottomSheet() {
 
     private val binding by viewBinding(DomesticRulesNotificationBinding::inflate)
     override val buttonTextRes: Int = R.string.dialog_local_rulecheck_button
+    override val announcementAccessibilityRes: Int = R.string.accessibility_popup_valid_certificate_germany_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_popup_valid_certificate_germany_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

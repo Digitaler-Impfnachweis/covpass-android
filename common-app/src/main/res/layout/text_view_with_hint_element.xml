@@ -14,7 +14,8 @@
     android:id="@+id/text_view_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/grid_three"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginVertical="@dimen/grid_three"
     android:background="@drawable/background_grey_line_round_corners"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent">

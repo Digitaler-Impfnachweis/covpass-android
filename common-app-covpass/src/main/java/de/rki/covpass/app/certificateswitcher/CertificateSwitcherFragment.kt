@@ -6,13 +6,10 @@
 package de.rki.covpass.app.certificateswitcher
 
 import android.content.Context
-import android.gesture.GestureOverlayView.ORIENTATION_HORIZONTAL
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
-import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.get
@@ -32,7 +29,6 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.MaskStatus
 import kotlinx.parcelize.Parcelize
-import kotlin.math.abs
 
 @Parcelize
 internal class CertificateSwitcherFragmentNav(
@@ -47,12 +43,14 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private var navigationBarColor: Int? = null
     private var statusBarColor: Int? = null
     private var backgroundColor = R.color.info70
+    override val announcementAccessibilityRes: Int = R.string.accessibility_infschg_modal_view_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_infschg_modal_view_announce_closing
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
-        setupViewPager()
         setupButtons()
         autoRun {
             updateCertificates(get(covpassDeps.certRepository.certs).getGroupedCertificates(args.certId))
@@ -118,42 +116,6 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         }.attach()
     }
 
-    private fun setupViewPager() {
-        with(binding.mainViewPager) {
-            clipToPadding = false
-            clipChildren = false
-            offscreenPageLimit = 3
-        }
-
-        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.grid_three)
-        val offsetPx = resources.getDimensionPixelOffset(R.dimen.grid_three)
-        binding.mainViewPager.setPageTransformer { page, position ->
-            val viewPager = page.parent.parent as ViewPager2
-            val offset = position * -(2 * offsetPx + pageMarginPx)
-            if (viewPager.orientation == ORIENTATION_HORIZONTAL) {
-                if (ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-                    page.translationX = -offset
-                } else {
-                    page.translationX = offset
-                }
-            } else {
-                page.translationY = offset
-            }
-            val alpha = CERTIFICATE_SWITCHER_CARD_MAX_WITH_OFFSET_ALPHA - abs(position)
-            page.alpha = when {
-                alpha > CERTIFICATE_SWITCHER_CARD_MAX_ALPHA -> {
-                    CERTIFICATE_SWITCHER_CARD_MAX_ALPHA
-                }
-                alpha < CERTIFICATE_SWITCHER_CARD_MIN_ALPHA -> {
-                    CERTIFICATE_SWITCHER_CARD_MIN_ALPHA
-                }
-                else -> {
-                    alpha
-                }
-            }
-        }
-    }
-
     private fun updateCertificates(groupedCertificates: GroupedCertificates?) {
         binding.certificateNameTextview.text =
             groupedCertificates?.certificates?.first()?.covCertificate?.fullName
@@ -182,11 +144,5 @@ internal class CertificateSwitcherFragment : BaseFragment() {
             binding.certificateNoteTextview.text = getString(R.string.modal_subline, list.size)
             fragmentStateAdapter.createFragments(args.certId, list)
         }
-    }
-
-    private companion object {
-        const val CERTIFICATE_SWITCHER_CARD_MAX_ALPHA = 1.0f
-        const val CERTIFICATE_SWITCHER_CARD_MIN_ALPHA = 0.4f
-        const val CERTIFICATE_SWITCHER_CARD_MAX_WITH_OFFSET_ALPHA = 1.4f
     }
 }

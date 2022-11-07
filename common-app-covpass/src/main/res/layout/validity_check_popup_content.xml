@@ -46,61 +46,27 @@
         tools:title="@tools:sample/lorem[3]"
         tools:visibility="visible" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_country"
-        style="@style/TextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginTop="@dimen/grid_two"
-        android:background="@color/backgroundSecondary"
-        android:hint="@string/certificate_check_validity_selection_country"
-        android:textColorHint="@color/onBackground"
-        app:endIconDrawable="@drawable/map_icon"
-        app:endIconMode="custom"
-        app:hintTextAppearance="@style/HintTextAppearance"
-        app:hintTextColor="@color/onBackground">
+    <de.rki.covpass.commonapp.uielements.TextViewWithHint
+      android:id="@+id/country_element"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:layout_marginTop="@dimen/grid_two"
+      app:hint="@string/certificate_check_validity_selection_country"
+      app:icon="@drawable/map_icon" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/country_value"
-            style="@style/DefaultText.OnBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:text="@tools:sample/lorem[2]"
-            tools:ignore="KeyboardInaccessibleWidget" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_date"
-        style="@style/TextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginTop="@dimen/grid_two"
-        android:background="@color/backgroundSecondary"
-        android:hint="@string/certificate_check_validity_selection_date"
-        android:textColorHint="@color/onBackground"
-        app:endIconDrawable="@drawable/calender_icon"
-        app:endIconMode="custom"
-        app:hintTextAppearance="@style/HintTextAppearance"
-        app:hintTextColor="@color/onBackground">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/date_value"
-            style="@style/DefaultText.OnBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            tools:ignore="KeyboardInaccessibleWidget"
-            tools:text="@tools:sample/lorem[2]" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <de.rki.covpass.commonapp.uielements.TextViewWithHint
+      android:id="@+id/date_element"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      app:hint="@string/certificate_check_validity_selection_date"
+      app:icon="@drawable/calender_icon"
+      android:layout_marginTop="@dimen/grid_half"/>
 
     <de.rki.covpass.commonapp.uielements.InfoElement
       android:id="@+id/domestic_rules_warning"
@@ -108,7 +74,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_one_half"
       android:focusable="true"
       android:visibility="gone"
       tools:description="@tools:sample/lorem[10]"

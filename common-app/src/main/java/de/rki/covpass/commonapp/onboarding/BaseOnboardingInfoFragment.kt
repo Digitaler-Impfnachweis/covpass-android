@@ -45,6 +45,10 @@ public abstract class BaseOnboardingInfoFragment : BaseFragment() {
         binding.onboardingInfoTextview.setText(textRes)
         binding.onboardingImageview.isGone = resources.isLandscapeMode()
         binding.onboardingImageview.setImageResource(imageRes)
+        resetFocus()
+    }
+
+    public fun resetFocus() {
         binding.onboardingInfoHeaderTextview.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
     }
 }

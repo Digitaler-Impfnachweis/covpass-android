@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -105,7 +106,15 @@ private class WidgetViewHolder(
 ) : BaseViewHolder<DetailWidgetItemBinding>(parent, DetailWidgetItemBinding::inflate) {
 
     override fun onItemBind(item: DetailItem) {
+        ViewCompat.setScreenReaderFocusable(binding.root, false)
         (item as DetailItem.Widget).let { widget ->
+            if (item.isOneElementForScreenReader) {
+                ViewCompat.setScreenReaderFocusable(binding.detailInfoLayoutForAccessibility, true)
+            } else {
+                ViewCompat.setScreenReaderFocusable(binding.detailInfoLayout, true)
+                ViewCompat.setScreenReaderFocusable(binding.detailStatusTextview, true)
+            }
+            binding.detailInfoLayout.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
             binding.detailStatusHeaderTextview.text = widget.title
             binding.detailStatusImageview.setImageResource(widget.statusIcon)
             binding.detailStatusTextview.text = widget.message
@@ -130,6 +139,8 @@ private class WidgetViewHolder(
             }
 
             widget.noticeMessage?.let {
+                ViewCompat.setScreenReaderFocusable(binding.detailNoticeTitleTextview, true)
+                ViewCompat.setScreenReaderFocusable(binding.detailNoticeSubheaderTextview, true)
                 binding.detailNoticeTitleTextview.isVisible = true
                 binding.detailNoticeSubheaderTextview.isVisible = true
                 binding.detailNoticeSubheaderTextview.text = it
@@ -186,7 +197,7 @@ private class InfoboxViewHolder(
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.Infobox).let {
             binding.detailInfoboxElement.title = it.title
-            binding.detailInfoboxElement.description = it.description
+            binding.detailInfoboxElement.descriptionNoLink = it.description
         }
     }
 }

@@ -43,6 +43,17 @@ public class TextViewWithHint @JvmOverloads constructor(
         binding.textViewIcon.isVisible = newValue != null
     }
 
+    public var marginVertical: Int by Delegates.observable(R.dimen.grid_three) { _, _, newValue ->
+        val layoutParams = (binding.textViewLayout.layoutParams as? MarginLayoutParams)
+        layoutParams?.setMargins(
+            layoutParams.topMargin,
+            resources.getDimension(newValue).toInt(),
+            layoutParams.bottomMargin,
+            resources.getDimension(newValue).toInt(),
+        )
+        binding.textViewLayout.layoutParams = layoutParams
+    }
+
     init {
         initView(attrs)
         addView(binding.root)

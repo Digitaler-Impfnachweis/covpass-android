@@ -25,6 +25,8 @@ public class ContactsFragment : BaseFragment() {
     private val binding by viewBinding(ContactsBinding::inflate)
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_contact_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_contact_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

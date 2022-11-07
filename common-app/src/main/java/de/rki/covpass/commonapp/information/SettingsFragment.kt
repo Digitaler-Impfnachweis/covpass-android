@@ -38,16 +38,21 @@ public class SettingsFragment : BaseFragment(), DialogListener {
         )
     }
 
-    override val announcementAccessibilityRes: Int =
-        R.string.accessibility_app_information_title_local_rules
+    override var announcementAccessibilityRes: Int? = null
+
+    override var closingAnnouncementAccessibilityRes: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
 
         if (args.isCovPassCheck) {
+            announcementAccessibilityRes = R.string.accessibility_app_information_title_local_rules
             initCovPassCheckContent()
         } else {
+            announcementAccessibilityRes = R.string.accessibility_app_information_title_checking_rules_announce
+            closingAnnouncementAccessibilityRes =
+                R.string.accessibility_app_information_title_checking_rules_closing_announce
             initCovPassContent()
         }
         initCommonContent()

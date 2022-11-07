@@ -184,7 +184,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                         combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                         combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                     ),
-                    description = getString(
+                    descriptionNoLink = getString(
                         if (combinedCovCertificate.covCertificate.isGermanCertificate) {
                             R.string.certificate_expires_detail_view_note_message
                         } else {
@@ -197,7 +197,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             CertValidationResult.Expired -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
                     title = getString(R.string.certificate_expired_detail_view_note_title),
-                    description = getString(
+                    descriptionNoLink = getString(
                         if (combinedCovCertificate.covCertificate.isGermanCertificate) {
                             R.string.certificate_expired_detail_view_note_message
                         } else {
@@ -210,7 +210,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             CertValidationResult.Revoked -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
                     title = getString(R.string.certificates_overview_invalid_title),
-                    description = getString(
+                    descriptionNoLink = getString(
                         if (combinedCovCertificate.covCertificate.isGermanCertificate) {
                             R.string.revocation_detail_single_DE
                         } else {
@@ -223,7 +223,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             CertValidationResult.Invalid -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
                     title = getString(R.string.certificate_invalid_detail_view_note_title),
-                    description = getString(R.string.certificate_invalid_detail_view_note_message),
+                    descriptionNoLink = getString(R.string.certificate_invalid_detail_view_note_message),
                     iconRes = R.drawable.info_warning_icon,
                 )
             }

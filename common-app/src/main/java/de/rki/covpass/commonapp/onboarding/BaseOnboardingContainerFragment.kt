@@ -8,6 +8,7 @@ package de.rki.covpass.commonapp.onboarding
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isInvisible
+import androidx.lifecycle.lifecycleScope
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayoutMediator
@@ -44,11 +45,17 @@ public abstract class BaseOnboardingContainerFragment : BaseFragment() {
                         binding.onboardingScrollDownButton.isInvisible = it
                     }
                     binding.onboardingContinueButton.setText(fragment.buttonTextRes)
+                    fragment.lifecycleScope.launchWhenResumed {
+                        fragment.resetFocus()
+                    }
                 }
                 is BaseOnboardingInfoFragment -> {
                     binding.onboardingContinueButton.isInvisible = false
                     binding.onboardingScrollDownButton.isInvisible = true
                     binding.onboardingContinueButton.setText(fragment.buttonTextRes)
+                    fragment.lifecycleScope.launchWhenResumed {
+                        fragment.resetFocus()
+                    }
                 }
             }
         }

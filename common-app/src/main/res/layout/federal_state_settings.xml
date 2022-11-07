@@ -52,7 +52,8 @@
         android:clickable="true"
         android:focusable="true"
         app:hint="@string/infschg_settings_federal_state_page_tag"
-        app:icon="@drawable/federal_state_icon_settings" />
+        app:icon="@drawable/federal_state_icon_settings"
+        android:contentDescription="@string/accessibility_app_information_title_federal_state_rules_icon"/>
 
     </LinearLayout>
 

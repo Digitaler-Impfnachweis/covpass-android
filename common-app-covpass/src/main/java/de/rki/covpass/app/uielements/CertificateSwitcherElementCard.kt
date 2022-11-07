@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
@@ -62,6 +63,7 @@ internal class CertificateSwitcherElementCard @JvmOverloads constructor(
         addView(binding.root)
         binding.root.layoutParams =
             LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        ViewCompat.setScreenReaderFocusable(binding.certificateSwitchHeaderLayout, true)
     }
 
     fun createCertificateSwitcherItemView(

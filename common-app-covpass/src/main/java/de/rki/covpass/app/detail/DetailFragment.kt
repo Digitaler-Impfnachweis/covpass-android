@@ -282,6 +282,7 @@ internal class DetailFragment :
                     },
                     message = immunisationStatusMessage.message,
                     subtitle = immunisationStatusMessage.date,
+                    isOneElementForScreenReader = true,
                 ),
             )
 

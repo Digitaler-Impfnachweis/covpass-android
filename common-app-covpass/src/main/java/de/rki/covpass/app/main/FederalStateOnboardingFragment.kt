@@ -34,6 +34,9 @@ internal class FederalStateOnboardingFragment : BaseBottomSheet(), ChangeFederal
 
     private val binding by viewBinding(FederalStateOnboardingPopupContentBinding::inflate)
     override val buttonTextRes: Int = R.string.ok
+    override val announcementAccessibilityRes: Int = R.string.accessibility_popup_choose_federal_state_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_popup_choose_federal_state_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

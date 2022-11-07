@@ -32,8 +32,10 @@ public class FederalStateSettingFragment : BaseFragment(), ChangeFederalStateCal
     private val binding by viewBinding(FederalStateSettingsBinding::inflate)
     private val viewModel by reactiveState { FederalStateSettingsViewModel(scope) }
 
-    // TODO change text
-    override val announcementAccessibilityRes: Int? = null
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_federal_state_rules_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_federal_state_rules_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

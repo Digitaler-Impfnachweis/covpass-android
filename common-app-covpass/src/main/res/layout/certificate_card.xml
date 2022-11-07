@@ -15,6 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_two"
+    android:importantForAccessibility="no"
     app:cardBackgroundColor="@color/info70"
     app:cardUseCompatPadding="true"
     app:rippleColor="?attr/colorControlHighlight"
@@ -29,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:importantForAccessibility="no"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,19 +80,19 @@
             app:layout_constraintTop_toBottomOf="@+id/certificate_name_textview"
             tools:visibility="visible" />
 
-          <ImageButton
+          <ImageView
             android:id="@+id/certificate_arrow_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/accessibility_start_screen_arrow_card"
             android:paddingStart="@dimen/grid_one"
             android:paddingEnd="@dimen/grid_one"
             android:src="@drawable/arrow_right_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/certificate_name_textview"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,8 +103,8 @@
           android:layout_marginTop="@dimen/grid_two"
           android:layout_marginBottom="@dimen/grid_three"
           android:background="@drawable/imageview_rounded_qrcode_background_no_padding"
-          android:paddingBottom="@dimen/grid_two"
-          android:paddingTop="@dimen/grid_one">
+          android:paddingTop="@dimen/grid_one"
+          android:paddingBottom="@dimen/grid_two">
 
           <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/certificate_status_layout"
@@ -127,8 +129,9 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_marginStart="@dimen/grid_one"
-              android:layout_marginEnd="@dimen/grid_two"
               android:layout_marginTop="@dimen/grid_half"
+              android:layout_marginEnd="@dimen/grid_two"
+              android:importantForAccessibility="yes"
               android:orientation="vertical"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@+id/certificate_mask_status_imageview"

@@ -38,6 +38,8 @@ public class OpenSourceLicenseFragment : BaseFragment() {
     private val binding by viewBinding(OpenSourceLicenseBinding::inflate)
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_open_source_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_open_source_announce_closing
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

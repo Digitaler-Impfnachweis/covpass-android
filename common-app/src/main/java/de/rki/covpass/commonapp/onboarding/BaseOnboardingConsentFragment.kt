@@ -58,7 +58,7 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
             },
         )
         binding.onboardingInfoHeaderTextview.setText(titleRes)
-        binding.onboardingInfoHeaderTextview.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
+        resetFocus()
         binding.onboardingImageview.isGone = resources.isLandscapeMode()
         binding.onboardingImageview.setImageResource(imageRes)
         fillContent()
@@ -106,5 +106,9 @@ public abstract class BaseOnboardingConsentFragment : BaseFragment() {
         binding.onboardingScrollView.run {
             post { fullScroll(View.FOCUS_DOWN) }
         }
+    }
+
+    public fun resetFocus() {
+        binding.onboardingInfoHeaderTextview.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED)
     }
 }

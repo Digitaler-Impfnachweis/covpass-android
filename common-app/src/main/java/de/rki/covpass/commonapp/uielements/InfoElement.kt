@@ -63,6 +63,15 @@ public class InfoElement @JvmOverloads constructor(
             stripUnderlines()
         }
         binding.infoDescription.isGone = newValue.isNullOrEmpty()
+        binding.layoutInfoDescription.isGone = newValue.isNullOrEmpty()
+        binding.infoDescriptionNoLink.isGone = true
+    }
+
+    public var descriptionNoLink: String? by Delegates.observable(null) { _, _, newValue ->
+        binding.infoDescriptionNoLink.text = newValue ?: ""
+        binding.infoDescriptionNoLink.isGone = newValue.isNullOrEmpty()
+        binding.layoutInfoDescription.isGone = newValue.isNullOrEmpty()
+        binding.infoDescription.isGone = true
     }
 
     public var descriptionContentDescription: String? by Delegates.observable(null) { _, _, newValue ->
@@ -79,6 +88,7 @@ public class InfoElement @JvmOverloads constructor(
 
     public var descriptionStyle: Int by Delegates.observable(R.style.DefaultText_OnBackground) { _, _, newValue ->
         binding.infoDescription.setTextAppearance(newValue)
+        binding.infoDescriptionNoLink.setTextAppearance(newValue)
     }
 
     public var descriptionTopMarginDimenRes: Int by Delegates.observable(R.dimen.grid_one) { _, _, newValue ->
@@ -142,6 +152,7 @@ public fun InfoElement.showWarning(
     descriptionStyle: Int? = null,
     subtitleContentDescription: String? = null,
     descriptionContentDescription: String? = null,
+    descriptionNoLink: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -151,6 +162,9 @@ public fun InfoElement.showWarning(
     }
     if (descriptionTopMarginDimenRes != null) {
         this.descriptionTopMarginDimenRes = descriptionTopMarginDimenRes
+    }
+    if (descriptionNoLink != null) {
+        this.descriptionNoLink = descriptionNoLink
     }
     if (subtitleStyle != null) {
         this.subtitleStyle = subtitleStyle
@@ -192,12 +206,16 @@ public fun InfoElement.showSuccess(
     iconRes: Int? = null,
     subtitleContentDescription: String? = null,
     descriptionContentDescription: String? = null,
+    descriptionNoLink: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
     elementColor = ContextCompat.getDrawable(context, R.drawable.success_background)
     if (subtitleContentDescription != null) {
         this.subtitleContentDescription = subtitleContentDescription
+    }
+    if (descriptionNoLink != null) {
+        this.descriptionNoLink = descriptionNoLink
     }
     if (descriptionContentDescription != null) {
         this.descriptionContentDescription = descriptionContentDescription
@@ -217,6 +235,7 @@ public fun InfoElement.showInfo(
     subtitleContentDescription: String? = null,
     descriptionContentDescription: String? = null,
     titleStyle: Int? = null,
+    descriptionNoLink: String? = null,
 ) {
     setValues(title, subtitle, description)
     icon = iconRes?.let { ContextCompat.getDrawable(context, it) }
@@ -227,6 +246,9 @@ public fun InfoElement.showInfo(
     }
     if (descriptionStyle != null) {
         this.descriptionStyle = descriptionStyle
+    }
+    if (descriptionNoLink != null) {
+        this.descriptionNoLink = descriptionNoLink
     }
     if (titleStyle != null) {
         this.titleStyle = titleStyle

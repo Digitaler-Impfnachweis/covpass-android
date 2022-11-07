@@ -49,7 +49,8 @@
       android:layout_marginBottom="@dimen/grid_three_half"
       android:background="@drawable/button_flashlight_selector"
       android:textOff=""
-      android:textOn="" />
+      android:textOn=""
+      android:contentDescription="@string/accessibility_scan_camera_torch_turn_on"/>
 
   </FrameLayout>
 
@@ -60,7 +61,7 @@
     android:layout_alignParentBottom="true"
     android:background="@color/backgroundPrimary">
 
-    <ToggleButton
+    <ImageButton
       android:id="@+id/scanner_import_button"
       android:layout_width="56dp"
       android:layout_height="56dp"
@@ -68,13 +69,13 @@
       android:layout_marginTop="@dimen/grid_three"
       android:layout_marginBottom="@dimen/grid_three_half"
       android:background="@drawable/button_import_file"
-      android:textOff=""
-      android:textOn=""
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/scanner_flashlight_button_covpass"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toTopOf="parent"
+      android:contentDescription="@string/accessibility_scan_camera_select_file" />
 
+<!--    Add text off and on-->
     <ToggleButton
       android:id="@+id/scanner_flashlight_button_covpass"
       android:layout_width="56dp"

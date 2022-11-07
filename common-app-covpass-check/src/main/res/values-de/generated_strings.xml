@@ -101,14 +101,16 @@
 	<string name="accessibility_scan_dialog_camera_access_announce">Die Ansicht \"Kamerazugriff benötigt\" wurde geöffnet</string>
 	<string name="scan_dialog_camera_access_action_button">Zugriff erlauben</string>
 	<string name="accessibility_scan_dialog_camera_access_label_close">Schließen</string>
-	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet</string>
 	<string name="accessibility_scan_camera_closing_announce">Kamera-Ansicht wurde geschlossen</string>
 	<string name="error_camera_access_title">Die CovPassCheck-App möchte auf Ihre Kamera zugreifen.</string>
 	<string name="error_camera_access_message">Erlauben Sie den Zugriff, um QR-Codes scannen zu können.</string>
 	<string name="error_camera_access_button_do_not_allow">Nicht Erlauben</string>
 	<string name="error_camera_access_button_allow">Erlauben</string>
-	<string name="accessibility_scan_camera_torch_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_off">Taschenlampe ausschalten</string>
+	<string name="accessibility_scan_camera_announce">Kamera-Ansicht wurde geöffnet. Der QR-Code wird automatisch gescannt.</string>
+	<string name="accessibility_scan_camera_torch_turn_on">Taschenlampe anschalten</string>
+	<string name="accessibility_scan_camera_torch_on">Taschenlampe wurde angeschaltet</string>
+	<string name="accessibility_scan_camera_torch_turn_off">Taschenlampe wurde ausgeschaltet</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Zertifikat gültig*</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
@@ -212,6 +214,7 @@
 	<string name="app_information_message">Hier finden Sie alle rechtlichen Informationen und Antworten auf die häufigsten Fragen rund um die CovPassCheck-App.</string>
 	<string name="app_information_title_contact">Kontakt</string>
 	<string name="accessibility_app_information_title_contact_announce">Die Ansicht \"Kontakt\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_contact_closing_announce">Die Ansicht \"Kontakt\" wurde geschlossen</string>
 	<string name="app_information_message_contact_support">Kontakt bei technischen Fragen zur CovPassCheck-App</string>
 	<string name="app_information_message_contact_support_phone">Telefon: #0800–4747–002::tel:0800–4747–002#</string>
 	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpasscheck-app.de::mailto:support\@covpasscheck-app.de#</string>
@@ -228,12 +231,14 @@
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
+	<string name="accessibility_app_information_title_open_source_closing_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geschlossen</string>
 	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
 	<string name="accessibility_app_information_title_open_source_announce">Die Ansicht \"Open-Source-Lizenzen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_informationt_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_version_number_delimiter">Punkt</string>
 	<string name="app_information_message_open_source">Die App verwendet die folgenden Open-Source-Bibliotheken:</string>
+	<string name="accessibility_app_information_title_informationt_closing_announce">Die Ansicht \"Informationen\" wurde geschlossen</string>
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_title_update">Prüfregeln</string>
 	<string name="settings_rules_list_title">Prüfregeln</string>
@@ -321,6 +326,8 @@
 	<string name="infschg_result_mask_optional_subtitle">In %s</string>
 	<string name="infschg_result_mask_optional_copy">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="infschg_result_mask_optional_copy_notification">Diese Ansicht schließt sich nach 2 Min. von selbst.</string>
+	<string name="accessibility_popup_new_rules_announce">Die Ansicht \"Neue gesetzliche Regelungen\" wurde geöffnet</string>
+	<string name="accessibility_popup_new_rules_closing_announce">Die Ansicht \"Neue gesetzliche Regelungen\" wurde geschlossen</string>
 	<string name="infschg_info_title">Neue gesetzliche Regelungen</string>
 	<string name="infschg_info_copy_1">In Deutschland tritt eine Änderung des Infektionsschutzgesetzes in Kraft. Deshalb ändert sich Ihre CovPassCheck-App ab heute auch.</string>
 	<string name="infschg_info_copy_2">Befreiung von einer bundeslandspezifischen Maskenpflicht</string>
@@ -359,6 +366,9 @@
 	<string name="infschg_result_no_mask_rules_copy_1_bold">Für dieses Bundesland liegen keine bundeslandspezifischen Regeln vor. Es gelten daher nur die bundeseinheitlichen Regeln zur Maskenpflicht.</string>
 	<string name="infschg_result_no_mask_rules_copy_2">Sofern das Bundesland, in dem Sie sich aufhalten, eine Maskenpflicht angeordnet hat, befreit ein negativer Schnell- oder PCR-Test bei Freizeit-, Kultur- und Sportveranstaltungen sowie in gastronomischen Einrichtungen für 24 Stunden von dieser Maskenpflicht. Ein unbeaufsichtigter durchgeführter Selbsttest genügt nicht. Ihr Bundesland kann regeln, dass auch vollständige Impfungen oder Genesungen (wenn diese höchstens drei Monate zurückliegen) von der Maskenpflicht befreien.\n\nEine Befreiung von der Maskenpflicht gilt nicht im öffentlichen Personenfernverkehr, in Krankenhäusern, Pflegeeinrichtungen und in Arztpraxen.</string>
 	<string name="infschg_start_screen_white_box_copy_2">Letzte Aktualisierung vor weniger als 24 Stunden</string>
+	<string name="accessibility_checkapp_popup_choose_federal_state_announce">Die Ansicht \"Bundesland wählen\" wurde geöffnet</string>
+	<string name="accessibility_checkapp_popup_choose_federal_state_announce_when_chosen">Bundesland %s wurde ausgewählt</string>
+	<string name="accessibility_checkapp_popup_choose_federal_state_closing_announce">Die Ansicht \"Bundesland wählen\" wurde geschlossen</string>
 	<string name="infschg_module_choose_federal_state_title">Bundesland wählen</string>
 
 	<!-- SECTION: federal state names -->

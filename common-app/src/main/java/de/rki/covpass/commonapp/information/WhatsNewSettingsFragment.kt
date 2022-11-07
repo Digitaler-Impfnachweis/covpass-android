@@ -29,7 +29,9 @@ public class WhatsNewSettingsFragment : BaseFragment() {
     private val binding by viewBinding(WhatsNewSettingsBinding::inflate)
 
     override val announcementAccessibilityRes: Int =
-        R.string.accessibility_app_information_update_notifications_announce_open
+        R.string.accessibility_app_information_title_update_notifications_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_update_notifications_closing_announce
 
     @SuppressLint("StringFormatInvalid")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

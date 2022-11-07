@@ -101,14 +101,16 @@
 	<string name="accessibility_scan_dialog_camera_access_announce">The view \"Camera access needed\" has been opened</string>
 	<string name="scan_dialog_camera_access_action_button">Allow access</string>
 	<string name="accessibility_scan_dialog_camera_access_label_close">Close</string>
-	<string name="accessibility_scan_camera_announce">Camera has been opened</string>
 	<string name="accessibility_scan_camera_closing_announce">Camera has been closed</string>
 	<string name="error_camera_access_title">The CovPassCheck app wants to access your camera.</string>
 	<string name="error_camera_access_message">Allow access to scan QR codes.</string>
 	<string name="error_camera_access_button_do_not_allow">Do not allow</string>
 	<string name="error_camera_access_button_allow">Allow</string>
-	<string name="accessibility_scan_camera_torch_on">Switch on torch</string>
 	<string name="accessibility_scan_camera_torch_off">Switch off torch</string>
+	<string name="accessibility_scan_camera_announce">Camera has been opened. The QR code will be scanned automatically.</string>
+	<string name="accessibility_scan_camera_torch_turn_on">Switch on torch</string>
+	<string name="accessibility_scan_camera_torch_on">Torch has been switched on</string>
+	<string name="accessibility_scan_camera_torch_turn_off">Torch has been switched off</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Certificate valid*</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Born on %s</string>
@@ -212,6 +214,7 @@
 	<string name="app_information_message">Here you can find all legal information and answers to the most frequent questions asked about the CovPassCheck app.</string>
 	<string name="app_information_title_contact">Contact</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
+	<string name="accessibility_app_information_title_contact_closing_announce">Contact has been closed</string>
 	<string name="app_information_message_contact_support">Contact for technical questions about the CovPassCheck app</string>
 	<string name="app_information_message_contact_support_phone">Telephone: #0800–4747–002::tel:0800–4747–002#</string>
 	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpasscheck-app.de::mailto:support\@covpasscheck-app.de#</string>
@@ -228,12 +231,14 @@
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-source licences</string>
+	<string name="accessibility_app_information_title_open_source_closing_announce">The view \"Open-source licences\" has been closed</string>
 	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
 	<string name="accessibility_app_information_title_open_source_announce">The view \"Open-source licences\" has been opened</string>
 	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
 	<string name="accessibility_app_information_version_number_delimiter">point</string>
 	<string name="app_information_message_open_source">The app uses the following open-source libraries:</string>
+	<string name="accessibility_app_information_title_informationt_closing_announce">Information has been closed</string>
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
 	<string name="app_information_title_update">Checking rules</string>
 	<string name="settings_rules_list_title">Checking rules</string>
@@ -321,6 +326,8 @@
 	<string name="infschg_result_mask_optional_subtitle">In %s</string>
 	<string name="infschg_result_mask_optional_copy">Now compare the following data with an identification document of the person being checked.</string>
 	<string name="infschg_result_mask_optional_copy_notification">This view will close by itself after 2 min.</string>
+	<string name="accessibility_popup_new_rules_announce">New state rules has been opened</string>
+	<string name="accessibility_popup_new_rules_closing_announce">New state rules has been opened</string>
 	<string name="infschg_info_title">New legal regulations</string>
 	<string name="infschg_info_copy_1">An amendment to the Infection Protection Act comes into force in Germany. Therefore, as of today, your CovPassCheck app will also change.</string>
 	<string name="infschg_info_copy_2">Exemption from a state-specific mask obligation</string>
@@ -359,6 +366,9 @@
 	<string name="infschg_result_no_mask_rules_copy_1_bold">There are no federal state-specific rules for this federal state. Therefore, only the uniform federal rules on mandatory masks apply.</string>
 	<string name="infschg_result_no_mask_rules_copy_2">If the federal state in which you are staying has ordered a mask obligation, a negative rapid or PCR test exempts you from this mask obligation for 24 hours at recreational, cultural and sporting events and in catering establishments. An unsupervised self-test performed is not sufficient. Your state may regulate that complete vaccinations or recoveries (if these occurred no more than three months ago) also exempt you from the mask requirement.\n\nAn exemption from the mask requirement does not apply in long-distance public transport, hospitals, nursing facilities, and doctors\' offices.</string>
 	<string name="infschg_start_screen_white_box_copy_2">Last updated less than 24 hours ago</string>
+	<string name="accessibility_checkapp_popup_choose_federal_state_announce">Choose federal state has been opened</string>
+	<string name="accessibility_checkapp_popup_choose_federal_state_announce_when_chosen">Federal state %s was selected</string>
+	<string name="accessibility_checkapp_popup_choose_federal_state_closing_announce">Choose federal state has been closed</string>
 	<string name="infschg_module_choose_federal_state_title">Choose federal state</string>
 
 	<!-- SECTION: federal state names -->

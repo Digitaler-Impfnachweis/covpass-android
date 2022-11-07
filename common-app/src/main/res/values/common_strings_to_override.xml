@@ -21,10 +21,25 @@
   <string name="accessibility_update_info_announce"/>
   <string name="accessibility_app_information_datenschutz_announce"/>
   <string name="accessibility_app_information_title_contact_announce"/>
+  <string name="accessibility_app_information_title_contact_closing_announce"/>
   <string name="accessibility_app_information_title_open_source_announce"/>
+  <string name="accessibility_app_information_title_open_source_announce_closing"/>
   <string name="accessibility_app_information_version_number_delimiter"/>
   <string name="accessibility_app_information_title_informationt_announce"/>
+  <string name="accessibility_app_information_title_information_closing_announce"/>
+  <string name="accessibility_app_information_title_checking_rules_announce"/>
+  <string name="accessibility_app_information_title_checking_rules_closing_announce"/>
+  <string name="accessibility_app_information_title_update_notifications_announce"/>
+  <string name="accessibility_app_information_title_update_notifications_closing_announce"/>
+  <string name="accessibility_app_information_title_federal_state_rules_announce"/>
+  <string name="accessibility_app_information_title_federal_state_rules_icon"/>
+  <string name="accessibility_popup_valid_certificate_germany_announce"/>
+  <string name="accessibility_popup_valid_certificate_germany_closing_announce"/>
+  <string name="accessibility_app_information_title_federal_state_rules_closing_announce"/>
   <string name="accessibility_app_information_datenschutz_closing_announce"/>
+  <string name="accessibility_app_popup_choose_federal_state_announce"/>
+  <string name="accessibility_app_popup_choose_federal_state_announce_when_chosen"/>
+  <string name="accessibility_app_popup_choose_federal_state_closing_announce"/>
 
   <string name="error_standard_unexpected_title"/>
   <string name="error_standard_unexpected_message"/>
@@ -115,7 +130,11 @@
   <string name="accessibility_popup_label_close"/>
   <string name="accessibility_scan_camera_announce"/>
   <string name="accessibility_scan_camera_torch_on"/>
+  <string name="accessibility_scan_camera_torch_turn_on"/>
   <string name="accessibility_scan_camera_torch_off"/>
+  <string name="accessibility_scan_camera_torch_turn_off"/>
+  <string name="accessibility_scan_camera_select_file"/>
+  <string name="accessibility_scan_camera_file_selected"/>
   <string name="accessibility_scan_camera_closing_announce"/>
 
   <string name="accessibility_app_information_label_back"/>

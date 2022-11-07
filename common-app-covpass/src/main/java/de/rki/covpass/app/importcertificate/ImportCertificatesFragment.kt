@@ -39,6 +39,7 @@ public class ImportCertificatesFragment : BaseBottomSheet(), DialogListener {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             withErrorReporting {
                 if (result.resultCode == Activity.RESULT_OK) {
+                    sendAccessibilityAnnouncementEvent(R.string.accessibility_scan_camera_file_selected)
                     result.data?.data?.let { uri ->
                         findNavigator().push(ImportCertificatesSelectorFragmentNav(uri))
                         return@withErrorReporting

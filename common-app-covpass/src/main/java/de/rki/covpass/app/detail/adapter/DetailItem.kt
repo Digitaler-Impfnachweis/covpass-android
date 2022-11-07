@@ -28,6 +28,7 @@ public sealed class DetailItem {
         public val noticeMessage: String? = null,
         public val buttonText: String? = null,
         public val isExpiredOrInvalid: Boolean = false,
+        public val isOneElementForScreenReader: Boolean = false,
     ) : DetailItem()
 
     public class Header(

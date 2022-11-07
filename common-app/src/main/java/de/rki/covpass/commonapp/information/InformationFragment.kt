@@ -33,6 +33,8 @@ public abstract class InformationFragment : BaseFragment() {
     private val binding by viewBinding(InformationBinding::inflate)
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_informationt_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_information_closing_announce
 
     @SuppressLint("StringFormatInvalid", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

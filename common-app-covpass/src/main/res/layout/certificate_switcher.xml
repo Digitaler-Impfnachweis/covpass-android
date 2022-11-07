@@ -54,7 +54,8 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/certificate_note_textview"
-    app:layout_constraintVertical_bias="0.4" />
+    app:layout_constraintVertical_bias="0.4"
+    android:importantForAccessibility="no"/>
 
   <com.google.android.material.tabs.TabLayout
     android:id="@+id/main_tab_layout"

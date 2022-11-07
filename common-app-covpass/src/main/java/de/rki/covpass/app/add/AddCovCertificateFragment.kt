@@ -7,11 +7,11 @@ package de.rki.covpass.app.add
 
 import android.app.KeyguardManager
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.view.isGone
-import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -23,7 +23,6 @@ import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.commonapp.utils.isLandscapeMode
-import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -45,17 +44,16 @@ internal class AddCovCertificateFragment : BaseBottomSheet() {
         bottomSheetBinding.bottomSheetTitle.text = getString(R.string.certificate_add_popup_title)
         binding.addCovCertIllustration.isGone = resources.isLandscapeMode()
         binding.addCovCertFaq.apply {
-            text = getSpanned(
-                R.string.certificate_add_popup_action_title_linked,
-                getString(R.string.cert_add_popup_link),
-            )
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            setText(R.string.certificate_add_popup_action_title)
+            setOnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.cert_add_popup_link)))
+                startActivity(browserIntent)
+            }
         }
         binding.warningElement.apply {
             showWarning(
                 title = getString(R.string.certificate_add_popup_note_title),
-                description = getString(R.string.certificate_add_popup_note_message),
+                descriptionNoLink = getString(R.string.certificate_add_popup_note_message),
                 descriptionTopMarginDimenRes = R.dimen.grid_one,
             )
             binding.warningElement.isGone = requireContext().isDeviceSecure()

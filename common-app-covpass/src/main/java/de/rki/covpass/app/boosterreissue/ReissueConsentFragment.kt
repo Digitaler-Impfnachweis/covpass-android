@@ -45,6 +45,9 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
     }
     override val buttonTextRes: Int =
         R.string.certificate_renewal_consent_page_transfer_certificates_confirmation_button
+    override val announcementAccessibilityRes: Int = R.string.accessibility_renew_certificate_concent_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_renew_certificate_concent_closing_announce
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

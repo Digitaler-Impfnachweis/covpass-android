@@ -17,7 +17,8 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_one"
     android:text="•"
-    tools:ignore="HardcodedText" />
+    tools:ignore="HardcodedText"
+    android:importantForAccessibility="no"/>
 
   <TextView
     android:id="@+id/content"
