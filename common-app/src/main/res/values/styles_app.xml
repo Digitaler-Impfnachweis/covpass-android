@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -32,8 +31,9 @@
     <item name="colorControlHighlight">@color/brandAccent40</item>
   </style>
 
-  <style name="SwitchTheme" parent="Widget.MaterialComponents.CompoundButton.Switch">
-    <item name="colorSecondary">#34C759</item>
+  <style name="SwitchTheme" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+    <item name="trackTint">@color/switch_color_track</item>
+    <item name="thumbTint">@color/switch_color_thumb</item>
   </style>
 
 </resources>

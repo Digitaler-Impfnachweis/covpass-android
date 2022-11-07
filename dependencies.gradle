@@ -91,7 +91,7 @@ dependencies {
             baseAndroid()
             coroutines()
 
-            api "com.google.android.material:material:1.6.1"
+            api "com.google.android.material:material:1.7.0"
             api "androidx.appcompat:appcompat:1.4.2"
 
             api "androidx.activity:activity-ktx:$activityVersion"

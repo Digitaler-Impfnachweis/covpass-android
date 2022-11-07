@@ -238,7 +238,7 @@
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/onBackground40</color>
 
-    <color name="full_immunization_green">#3FA247</color>
+    <color name="full_immunization_green">#198038</color>
     <color name="tab_background_green">#236729</color>
 
 </resources>
