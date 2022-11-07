@@ -128,11 +128,11 @@
               android:layout_height="wrap_content"
               android:layout_marginStart="@dimen/grid_one"
               android:layout_marginEnd="@dimen/grid_two"
+              android:layout_marginTop="@dimen/grid_half"
               android:orientation="vertical"
-              app:layout_constraintBottom_toBottomOf="@+id/certificate_mask_status_imageview"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toEndOf="@+id/certificate_mask_status_imageview"
-              app:layout_constraintTop_toTopOf="@+id/certificate_mask_status_imageview">
+              app:layout_constraintTop_toTopOf="parent">
 
               <TextView
                 android:id="@+id/certificate_mask_status_textview"
