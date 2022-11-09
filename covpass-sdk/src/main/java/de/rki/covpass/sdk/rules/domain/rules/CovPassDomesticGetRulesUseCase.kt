@@ -12,7 +12,7 @@ import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
 public enum class CovPassValidationType {
-    RULES, GG, GGPLUS, GGG, GGGPLUS, MASK, INVALIDATION
+    RULES, IMMUNITYSTATUSBTWO, IMMUNITYSTATUSCTWO, IMMUNITYSTATUSETWO, MASK, INVALIDATION
 }
 
 public class CovPassDomesticGetRulesUseCase(
@@ -45,7 +45,7 @@ public class CovPassDomesticGetRulesUseCase(
                 )
             }
             else -> {
-                getGStatusAndMaskRules(
+                getImmunityStatusAndMaskRules(
                     acceptanceCountryIsoCode,
                     certificateType,
                     validationClock,
@@ -74,10 +74,9 @@ public class CovPassDomesticGetRulesUseCase(
     ): List<CovPassRule> {
         val filteredAcceptanceRules = mutableMapOf<String, CovPassRule>()
         val generalRulePredicates = listOf(
-            { value: Type -> value == Type.TWOG },
-            { value: Type -> value == Type.TWOGPLUS },
-            { value: Type -> value == Type.THREEG },
-            { value: Type -> value == Type.THREEGPLUS },
+            { value: Type -> value == Type.IMPFSTATUSBZWEI },
+            { value: Type -> value == Type.IMPFSTATUSCZWEI },
+            { value: Type -> value == Type.IMPFSTATUSEZWEI },
             { value: Type -> value == Type.MASK },
         )
         val selectedRegion: String = region?.trim() ?: ""
@@ -113,10 +112,9 @@ public class CovPassDomesticGetRulesUseCase(
     ): List<CovPassRule> {
         val filteredInvalidationRules = mutableMapOf<String, CovPassRule>()
         val generalRulePredicates = listOf(
-            { value: Type -> value == Type.TWOG },
-            { value: Type -> value == Type.TWOGPLUS },
-            { value: Type -> value == Type.THREEG },
-            { value: Type -> value == Type.THREEGPLUS },
+            { value: Type -> value == Type.IMPFSTATUSBZWEI },
+            { value: Type -> value == Type.IMPFSTATUSCZWEI },
+            { value: Type -> value == Type.IMPFSTATUSEZWEI },
             { value: Type -> value == Type.MASK },
         )
 
@@ -143,16 +141,15 @@ public class CovPassDomesticGetRulesUseCase(
 
     private fun CovPassValidationType.toRulesType(): Type {
         return when (this) {
-            CovPassValidationType.GG -> Type.TWOG
-            CovPassValidationType.GGPLUS -> Type.TWOGPLUS
-            CovPassValidationType.GGG -> Type.THREEG
-            CovPassValidationType.GGGPLUS -> Type.THREEGPLUS
+            CovPassValidationType.IMMUNITYSTATUSBTWO -> Type.IMPFSTATUSBZWEI
+            CovPassValidationType.IMMUNITYSTATUSCTWO -> Type.IMPFSTATUSCZWEI
+            CovPassValidationType.IMMUNITYSTATUSETWO -> Type.IMPFSTATUSEZWEI
             CovPassValidationType.MASK -> Type.MASK
             else -> throw IllegalStateException("Validation type already handled: ${this.name}")
         }
     }
 
-    private suspend fun getGStatusAndMaskRules(
+    private suspend fun getImmunityStatusAndMaskRules(
         countryIsoCode: String,
         certificateType: CertificateType,
         validationClock: ZonedDateTime,
