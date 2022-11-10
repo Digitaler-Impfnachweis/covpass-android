@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -50,44 +51,73 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_one"
+    android:importantForAccessibility="no"
     app:layout_constraintBottom_toTopOf="@id/action_button"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/certificate_note_textview"
-    app:layout_constraintVertical_bias="0.4"
-    android:importantForAccessibility="no"/>
+    app:layout_constraintVertical_bias="0.4" />
 
-  <com.google.android.material.tabs.TabLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main_tab_layout"
-    android:layout_width="match_parent"
+    android:layout_width="0dp"
     android:layout_height="@dimen/grid_five"
-    android:background="@color/info70"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/main_view_pager"
-    app:tabBackground="@drawable/view_pager_certificate_switcher_dot_selector"
-    app:tabIndicator="@drawable/view_pager_dot_selected"
-    app:tabIndicatorColor="@android:color/white"
-    app:tabIndicatorGravity="center"
-    app:tabMaxWidth="@dimen/dots_tab_max_width"
-    app:tabRippleColor="@null" />
+    app:layout_constraintTop_toBottomOf="@+id/main_view_pager">
 
-  <com.google.android.material.tabs.TabLayout
-    android:id="@+id/main_tab_layout_green"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/grid_five"
-    android:background="@color/full_immunization_green"
-    android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/main_view_pager"
-    app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
-    app:tabIndicator="@drawable/view_pager_dot_selected"
-    app:tabIndicatorColor="@android:color/white"
-    app:tabIndicatorGravity="center"
-    app:tabMaxWidth="@dimen/dots_tab_max_width"
-    app:tabRippleColor="@null"
-    tools:visibility="visible" />
+    <ImageView
+      android:id="@+id/tab_back_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      android:src="@drawable/arrow_left_on_blue"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toStartOf="@id/main_tab_indicator"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+      android:id="@+id/main_tab_indicator"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:background="@color/info70"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="parent"
+      app:tabBackground="@drawable/view_pager_certificate_switcher_dot_selector"
+      app:tabIndicator="@drawable/view_pager_dot_selected"
+      app:tabIndicatorColor="@android:color/white"
+      app:tabIndicatorGravity="center"
+      app:tabMaxWidth="@dimen/dots_tab_max_width"
+      app:tabRippleColor="@null" />
+
+    <com.google.android.material.tabs.TabLayout
+      android:id="@+id/main_tab_indicator_green"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:background="@color/full_immunization_green"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="parent"
+      app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
+      app:tabIndicator="@drawable/view_pager_dot_selected"
+      app:tabIndicatorColor="@android:color/white"
+      app:tabIndicatorGravity="center"
+      app:tabMaxWidth="@dimen/dots_tab_max_width"
+      app:tabRippleColor="@null"
+      tools:visibility="visible" />
+
+    <ImageView
+      android:id="@+id/tab_next_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      android:src="@drawable/arrow_right_on_blue"
+      app:layout_constraintStart_toEndOf="@id/main_tab_indicator"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <LinearLayout
     android:id="@+id/action_button"

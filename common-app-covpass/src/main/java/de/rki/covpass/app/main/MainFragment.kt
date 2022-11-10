@@ -138,10 +138,51 @@ internal class MainFragment :
         }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
-        TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
+        TabLayoutMediator(binding.mainTabIndicatorLayout, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
         setupPageChangeCallback()
+        binding.tabNextButton.setOnClickListener {
+            nextPage()
+        }
+        binding.tabBackButton.setOnClickListener {
+            previousPage()
+        }
+    }
+
+    private fun nextPage() {
+        val certSize = covpassDeps.certRepository.certs.value.certificates.size
+        val currentPage = binding.mainViewPager.currentItem
+        val nextPage = if (currentPage + 1 >= certSize) {
+            0
+        } else {
+            currentPage + 1
+        }
+
+        binding.mainViewPager.setCurrentItem(nextPage, true)
+    }
+
+    private fun previousPage() {
+        val currentPage = binding.mainViewPager.currentItem
+        val previousPage = if (currentPage - 1 < 0) {
+            0
+        } else {
+            currentPage - 1
+        }
+
+        binding.mainViewPager.setCurrentItem(previousPage, true)
+    }
+
+    private fun showTabNavigationButtons(position: Int) {
+        val certSize = covpassDeps.certRepository.certs.value.certificates.size
+
+        if (position == 0) {
+            binding.tabBackButton.isVisible = false
+        }
+        if (position > 0) {
+            binding.tabBackButton.isVisible = true
+        }
+        binding.tabNextButton.isVisible = position != certSize - 1
     }
 
     private fun showValidityCheck(certificateList: GroupedCertificatesList) {
@@ -158,6 +199,7 @@ internal class MainFragment :
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     viewModel.onPageSelected(position)
+                    showTabNavigationButtons(position)
                 }
             },
         )

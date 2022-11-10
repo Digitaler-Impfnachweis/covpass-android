@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
 import com.ensody.reactivestate.get
@@ -43,7 +44,8 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private var navigationBarColor: Int? = null
     private var statusBarColor: Int? = null
     private var backgroundColor = R.color.info70
-    override val announcementAccessibilityRes: Int = R.string.accessibility_infschg_modal_view_announce
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_infschg_modal_view_announce
     override val closingAnnouncementAccessibilityRes: Int =
         R.string.accessibility_infschg_modal_view_announce_closing
 
@@ -51,14 +53,21 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
+        setupOnPageChangeCallback()
         setupButtons()
         autoRun {
             updateCertificates(get(covpassDeps.certRepository.certs).getGroupedCertificates(args.certId))
         }
 
         binding.fragmentContainer.setBackgroundResource(backgroundColor)
-        binding.mainTabLayout.setBackgroundResource(backgroundColor)
-        binding.mainTabLayoutGreen.setBackgroundResource(backgroundColor)
+        binding.mainTabIndicator.setBackgroundResource(backgroundColor)
+        binding.mainTabIndicatorGreen.setBackgroundResource(backgroundColor)
+        binding.tabNextButton.setOnClickListener {
+            nextPage()
+        }
+        binding.tabBackButton.setOnClickListener {
+            previousPage()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -96,6 +105,7 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     }
 
     private fun setupButtons() {
+        setupTabNavigationButtons()
         binding.actionButtonText.setText(R.string.modal_button)
         binding.actionButton.setOnClickListener {
             findNavigator().push(DetailFragmentNav(args.certId))
@@ -108,12 +118,69 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private fun setupAdapter() {
         fragmentStateAdapter = CertificateSwitcherFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
-        TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { _, _ ->
+        TabLayoutMediator(binding.mainTabIndicator, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
-        TabLayoutMediator(binding.mainTabLayoutGreen, binding.mainViewPager) { _, _ ->
+        TabLayoutMediator(binding.mainTabIndicatorGreen, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
+    }
+
+    private fun setupOnPageChangeCallback() {
+        binding.mainViewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    showTabNavigationButtons(position)
+                }
+            },
+        )
+    }
+
+    private fun nextPage() {
+        val certSize = covpassDeps.certRepository.certs.value.certificates.size
+        val currentPage = binding.mainViewPager.currentItem
+        val nextPage = if (currentPage + 1 >= certSize) {
+            0
+        } else {
+            currentPage + 1
+        }
+
+        binding.mainViewPager.setCurrentItem(nextPage, true)
+    }
+
+    private fun previousPage() {
+        val currentPage = binding.mainViewPager.currentItem
+        val previousPage = if (currentPage - 1 < 0) {
+            0
+        } else {
+            currentPage - 1
+        }
+
+        binding.mainViewPager.setCurrentItem(previousPage, true)
+    }
+
+    private fun setupTabNavigationButtons() {
+        if (backgroundColor == R.color.info70) {
+            binding.tabBackButton.setImageResource(R.drawable.arrow_left_on_blue)
+            binding.tabNextButton.setImageResource(R.drawable.arrow_right_on_blue)
+        } else {
+            binding.tabBackButton.setImageResource(R.drawable.arrow_left_on_green)
+            binding.tabNextButton.setImageResource(R.drawable.arrow_right_on_green)
+        }
+    }
+
+    private fun showTabNavigationButtons(position: Int) {
+        val certSize = covpassDeps.certRepository.certs.value.getGroupedCertificates(args.certId)
+            ?.getListOfImportantCerts()?.size ?: return
+
+        if (position == 0) {
+            binding.tabBackButton.isVisible = false
+        }
+        if (position > 0) {
+            binding.tabBackButton.isVisible = true
+        }
+        binding.tabNextButton.isVisible = position != certSize - 1
     }
 
     private fun updateCertificates(groupedCertificates: GroupedCertificates?) {
@@ -134,12 +201,13 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         )
 
         groupedCertificates?.getListOfImportantCerts()?.let { list ->
+            binding.mainTabLayout.isVisible = list.size > 1
             if (backgroundColor == R.color.info70) {
-                binding.mainTabLayout.isVisible = list.size > 1
-                binding.mainTabLayoutGreen.isVisible = false
+                binding.mainTabIndicator.isVisible = list.size > 1
+                binding.mainTabIndicatorGreen.isVisible = false
             } else {
-                binding.mainTabLayout.isVisible = false
-                binding.mainTabLayoutGreen.isVisible = list.size > 1
+                binding.mainTabIndicator.isVisible = false
+                binding.mainTabIndicatorGreen.isVisible = list.size > 1
             }
             binding.certificateNoteTextview.text = getString(R.string.modal_subline, list.size)
             fragmentStateAdapter.createFragments(args.certId, list)

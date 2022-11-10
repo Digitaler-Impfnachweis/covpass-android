@@ -136,19 +136,48 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/main_validity_check_layout" />
 
-  <com.google.android.material.tabs.TabLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main_tab_layout"
     android:layout_width="0dp"
     android:layout_height="@dimen/grid_five"
     app:layout_constraintBottom_toTopOf="@id/bottom_sheet_bottom_view"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:tabBackground="@drawable/view_pager_dot_selector"
-    app:tabIndicator="@drawable/view_pager_dot_selected"
-    app:tabIndicatorColor="@color/brandAccent"
-    app:tabIndicatorGravity="center"
-    app:tabMaxWidth="@dimen/dots_tab_max_width"
-    app:tabRippleColor="@null" />
+    app:layout_constraintStart_toStartOf="parent">
+
+    <ImageView
+      android:id="@+id/tab_back_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      android:src="@drawable/arrow_left_on_white"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toStartOf="@id/main_tab_indicator_layout"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+      android:id="@+id/main_tab_indicator_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:tabBackground="@drawable/view_pager_dot_selector"
+      app:tabIndicator="@drawable/view_pager_dot_selected"
+      app:tabIndicatorColor="@color/brandAccent"
+      app:tabIndicatorGravity="center"
+      app:tabMaxWidth="@dimen/dots_tab_max_width"
+      app:tabRippleColor="@null" />
+
+    <ImageView
+      android:id="@+id/tab_next_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@null"
+      android:src="@drawable/arrow_right_on_white"
+      app:layout_constraintStart_toEndOf="@id/main_tab_indicator_layout"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <FrameLayout
     android:id="@+id/bottom_sheet_bottom_view"
