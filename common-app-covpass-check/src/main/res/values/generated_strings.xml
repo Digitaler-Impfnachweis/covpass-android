@@ -61,8 +61,14 @@
 	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
-	<string name="accessibility_validation_start_screen_label_information">More information</string>
-	<string name="validation_start_screen_title">Overview</string>
+	<string name="accessibility_validation_start_screen_label_information">Settings</string>
+	<string name="validation_start_screen_title">CovPass-Check</string>
+	<string name="start_screen_toggle_mask">Mask obligation</string>
+	<string name="start_screen_toggle_vaccination">Vaccination status</string>
+	<string name="start_screen_vaccination_status_title">Vaccination status according to IfSG §22a</string>
+	<string name="accessibility_start_screen_vaccination_status_title">Vaccination status according to Infection Protection Act paragraph 22a</string>
+	<string name="start_screen_vaccination_status_copy">A valid vaccination status is achieved by at least three vaccinations or two vaccinations and one recovery.</string>
+	<string name="start_screen_vaccination_status_hint">Please always scan the most recent certificates first.</string>
 	<string name="validation_start_screen_scan_title">Check 3G</string>
 	<string name="validation_start_screen_scan_title_2G">Check 2G+</string>
 	<string name="validation_start_screen_scan_message">Scan a G-Proof according to the 3G rules. Which rule applies depends on the federal state you are in.</string>
@@ -111,7 +117,8 @@
 	<string name="accessibility_scan_camera_torch_turn_on">Switch on torch</string>
 	<string name="accessibility_scan_camera_torch_on">Torch has been switched on</string>
 	<string name="accessibility_scan_camera_torch_turn_off">Torch has been switched off</string>
-	<string name="validation_check_popup_valid_vaccination_recovery_title">Certificate valid*</string>
+	<string name="validation_check_popup_valid_vaccination_recovery_title">Full vaccination protection available</string>
+	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">according to IfSG §22a</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Person has recovery or vaccination certificate.</string>
@@ -119,19 +126,32 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Certificate not valid</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">The certificate is invalid for one of the following reasons:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Invalid signature</string>
-	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subline">The certificate was issued by an unauthorized organization, or does not belong to the EU Digital Covid Certificate network.</string>
+	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subline">The certificate is not an EU Digital COVID Certificate or has not been issued by an authorized body.</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading">QR code unreadable</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Unable to read the QR code. Please update the CovPassCheck App, if the problem is recurring.</string>
-	<string name="technical_validation_check_popup_valid_vaccination_button_title">Scan another certificate</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Certificate does not fulfill all conditions</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subline">The checked person can see the reason in their CovPass App. The most common reasons:</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Test expired</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">A negative rapid test has a maximal validity of 48 hours. A negative PCR test has a maximal validity of 72 hours.</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Protection not yet valid</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Individuals are not completely protected until 14 days after the second vaccination. A recovery from a Corona infection has to be at least 28 days in the past.</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Uncompleted vaccination series</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text">Depending on the vaccine, multiple vaccine doses have to be administered for completed protection.</string>
-	<string name="technical_validation_check_popup_valid_vaccination_button_further">Scan another certificate</string>
+	<string name="technical_validation_check_popup_valid_vaccination_button_1_title">New scan</string>
+	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Cancel</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Incomplete vaccination protection</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">according to IfSG §22a</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">The certificate provided does not indicate complete vaccination protection. Possible reasons:</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Vaccination series incomplete</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">For a complete vaccination status, a series of at least three vaccinations or recoveries must be demonstrated, including at least two vaccinations.</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Wrong certificates scanned</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Please always scan the most recent certificates first.</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Not approved vaccine</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text">For vaccination series with vaccines not approved in Germany, at least one vaccination with an mRNA vaccine must be proven.</string>
+	<string name="validation_faq_link">#More information::https://www.digitaler-impfnachweis-app.de/en/faq/#current-most-frequently-asked-questions#</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button">New scan</string>
+	<string name="functional_validation_check_popup_second_scan_title">Immunisation check</string>
+	<string name="functional_validation_check_popup_second_scan_subtitle">according to IfSG §22a</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_1_title">1st certificate</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_1_subtitle">Insufficient</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_2_title">2nd certificate</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_2_subtitle">Please scan another proof of vaccination</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_3_title">3rd certificate</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_3_subtitle">Please scan another proof of vaccination</string>
+	<string name="functional_validation_check_popup_second_scan_hint_title">Please note</string>
+	<string name="functional_validation_check_popup_second_scan_hint_copy">Multiple vaccination proofs are required to confirm complete vaccination protection.</string>
 	<string name="validation_check_popup_valid_vaccination_button_title">Scan another certificate</string>
 	<string name="accessibility_validation_check_popup_valid_vaccination_label_close">Close</string>
 	<string name="validation_check_popup_unsuccessful_certificate_title">Certificate invalid</string>
@@ -370,6 +390,10 @@
 	<string name="accessibility_checkapp_popup_choose_federal_state_announce_when_chosen">Federal state %s was selected</string>
 	<string name="accessibility_checkapp_popup_choose_federal_state_closing_announce">Choose federal state has been closed</string>
 	<string name="infschg_module_choose_federal_state_title">Choose federal state</string>
+	<string name="infschg_name_matching_error_title">Deviating details</string>
+	<string name="infschg_name_matching_error_copy">The personal data of the two scanned certificates do not match. Please scan another certificate.</string>
+	<string name="infschg_name_matching_error_retry">Try again</string>
+	<string name="infschg_name_matching_error_cancel">Cancel check</string>
 
 	<!-- SECTION: federal state names -->
 	<string name="DE_BY">Bavaria</string>

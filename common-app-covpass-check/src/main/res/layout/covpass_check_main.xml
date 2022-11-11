@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_six"
-      android:text="@string/infschg_validation_start_screen_title"
+      android:text="@string/validation_start_screen_title"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,6 +46,35 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="@id/main_header_textview" />
 
+    <com.google.android.material.tabs.TabLayout
+      android:id="@+id/main_check_cert_tab_layout"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/grid_four"
+      android:layout_margin="@dimen/grid_three"
+      android:background="@drawable/selector_background"
+      app:layout_constraintTop_toBottomOf="@id/main_header_textview"
+      app:tabBackground="@drawable/selector_tab"
+      app:tabGravity="fill"
+      app:tabIndicatorColor="@android:color/transparent"
+      app:tabIndicatorHeight="0dp"
+      app:tabMode="fixed"
+      app:tabRippleColor="@null"
+      app:tabSelectedTextColor="@color/onBackground100"
+      app:tabTextAppearance="@style/Header.OnBackground.Small"
+      app:tabTextColor="@color/onBackground100">
+
+      <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_screen_toggle_mask" />
+
+      <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_screen_toggle_vaccination" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <com.google.android.material.card.MaterialCardView
       android:id="@+id/main_check_cert_cardview"
       style="@style/CovPassCardView.Elevated"
@@ -54,55 +83,128 @@
       android:layout_marginHorizontal="@dimen/grid_three"
       android:layout_marginTop="@dimen/grid_three"
       app:cardBackgroundColor="@color/info70"
-      app:layout_constraintTop_toBottomOf="@id/main_header_textview">
+      app:layout_constraintTop_toBottomOf="@id/main_check_cert_tab_layout">
 
       <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-          android:id="@+id/federal_state_title"
-          style="@style/Header.OnInfo.ExtraSmall"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/grid_four"
-          android:layout_marginTop="@dimen/grid_four"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/federal_state_layout"
+          android:id="@+id/layout_tab_display"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_three"
-          android:background="@drawable/background_dark_blue_round_corners"
-          android:clickable="true"
-          android:focusable="true"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/federal_state_title">
+          app:layout_constraintTop_toTopOf="parent">
 
-          <TextView
-            android:id="@+id/federal_state_name"
-            style="@style/DefaultText.OnInfo"
-            android:layout_width="0dp"
+          <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mask_status_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/grid_two"
-            android:layout_marginStart="@dimen/grid_two"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/federal_state_icon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-          <ImageView
-            android:id="@+id/federal_state_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/grid_two"
-            android:src="@drawable/federal_state_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            android:paddingBottom="@dimen/grid_one">
+
+            <TextView
+              android:id="@+id/federal_state_title"
+              style="@style/Header.OnInfo.ExtraSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/grid_four"
+              android:layout_marginTop="@dimen/grid_four"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+              android:id="@+id/federal_state_layout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="@dimen/grid_three"
+              android:background="@drawable/background_dark_blue_round_corners"
+              android:clickable="true"
+              android:focusable="true"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/federal_state_title">
+
+              <TextView
+                android:id="@+id/federal_state_name"
+                style="@style/DefaultText.OnInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/grid_two"
+                android:layout_marginStart="@dimen/grid_two"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/federal_state_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+              <ImageView
+                android:id="@+id/federal_state_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/grid_two"
+                android:src="@drawable/federal_state_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/immunization_status_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+              android:id="@+id/immunization_status_title"
+              style="@style/Header.OnInfo.Standard"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="@dimen/grid_three"
+              android:layout_marginTop="@dimen/grid_three"
+              android:text="@string/start_screen_vaccination_status_title"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+              android:id="@+id/immunization_status_note"
+              style="@style/DefaultText.OnInfo"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="@dimen/grid_three"
+              android:layout_marginTop="@dimen/grid_two"
+              android:text="@string/start_screen_vaccination_status_copy"
+              app:layout_constraintTop_toBottomOf="@+id/immunization_status_title" />
+
+            <ImageView
+              android:id="@+id/immunization_status_info_icon"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/grid_three"
+              android:layout_marginTop="@dimen/grid_two"
+              android:contentDescription="@null"
+              android:importantForAccessibility="no"
+              android:src="@drawable/small_status_info"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/immunization_status_note" />
+
+            <TextView
+              android:id="@+id/immunization_status_info_text"
+              style="@style/Header.OnInfo.Small"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/grid_one"
+              android:layout_marginTop="@dimen/grid_two"
+              android:layout_marginEnd="@dimen/grid_three"
+              android:text="@string/start_screen_vaccination_status_hint"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toEndOf="@+id/immunization_status_info_icon"
+              app:layout_constraintTop_toBottomOf="@+id/immunization_status_note" />
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,13 +214,13 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/grid_six"
-          android:layout_marginTop="@dimen/grid_four_half"
+          android:layout_marginTop="@dimen/grid_three_half"
           android:layout_marginBottom="@dimen/grid_three"
           app:icon="@drawable/scan_qr"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/federal_state_layout"
+          app:layout_constraintTop_toBottomOf="@+id/layout_tab_display"
           app:layout_goneMarginBottom="@dimen/grid_five" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>

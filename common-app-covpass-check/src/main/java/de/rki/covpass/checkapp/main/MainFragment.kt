@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
+import com.google.android.material.tabs.TabLayout
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -24,6 +25,7 @@ import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
+import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
@@ -88,6 +90,31 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFede
                 ),
             )
         }
+        binding.mainCheckCertTabLayout.addOnTabSelectedListener(
+            object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    when {
+                        tab?.position == 1 && covpassCheckDeps.checkAppRepository.isMaskStatusOn() -> {
+                            launchWhenStarted {
+                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
+                                    CheckingMode.ModeImmunizationStatus,
+                                )
+                            }
+                        }
+                        tab?.position == 0 && !covpassCheckDeps.checkAppRepository.isMaskStatusOn() -> {
+                            launchWhenStarted {
+                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
+                                    CheckingMode.ModeMaskStatus,
+                                )
+                            }
+                        }
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            },
+        )
 
         ViewCompat.setAccessibilityDelegate(
             binding.mainHeaderTextview,
@@ -154,6 +181,20 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFede
                     binding.mainClockOutOfSync.isVisible = false
                 }
             }.let { }
+        }
+        autoRun {
+            when (get(covpassCheckDeps.checkAppRepository.activatedCheckingMode)) {
+                CheckingMode.ModeMaskStatus -> {
+                    binding.mainCheckCertTabLayout.getTabAt(0)?.select()
+                    binding.maskStatusLayout.isVisible = true
+                    binding.immunizationStatusLayout.isVisible = false
+                }
+                CheckingMode.ModeImmunizationStatus -> {
+                    binding.mainCheckCertTabLayout.getTabAt(1)?.select()
+                    binding.immunizationStatusLayout.isVisible = true
+                    binding.maskStatusLayout.isVisible = false
+                }
+            }
         }
         showNotificationIfNeeded()
     }

@@ -619,6 +619,16 @@
 	<string name="duplicate_certificate_dialog_button_title">OK</string>
 
 	<!-- SECTION: app information -->
+	<string name="accessibility_app_information_title_accessibility_statement_announce">The view \"Accessibility statement\" has been opened</string>
+	<string name="accessibility_app_information_title_accessibility_statement_announce_closing">The view \"Accessibility statement\" has been closed</string>
+	<string name="accessibility_app_information_title_legal_information_announce">The view \"Legal information\" has been opened</string>
+	<string name="accessibility_app_information_title_legal_information_announce_closing">The view \"Legal information\" has been closed</string>
+	<string name="accessibility_app_information_title_simple_language_announce">The view \"Simple language\" has been opened</string>
+	<string name="accessibility_app_information_title_simple_language_announce_closing">The view \"Simple language\" has been closed</string>
+	<string name="accessibility_app_information_title_faq_announce">The view \"Frequently asked questions\" has been opened</string>
+	<string name="accessibility_app_information_title_faq_announce_closing">The view \"Frequently asked questions\" has been closed</string>
+	<string name="accessibility_app_information_title_us_terms_announce">The view \"Terms of use for US citizens\" has been opened</string>
+	<string name="accessibility_app_information_title_us_terms_announce_closing">The view \"Terms of use for US citizens\" has been closed</string>
 	<string name="accessibility_app_information_title_update">The view \"Update checking rules\" has been opened</string>
 	<string name="accessibility_app_information_title_update_closing_announce">The view \"Update checking rules\" has been closed</string>
 	<string name="accessibility_app_information_datenschutz_announce">Privacy notice has been opened</string>
@@ -630,7 +640,7 @@
 	<string name="accessibility_app_information_update_notifications_announce_open">The view \"update notifications\" has been opened</string>
 	<string name="accessibility_app_information_update_notifications_announce_close">The view \"update notifications\" has been closed</string>
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
-	<string name="accessibility_app_information_title_informationt_announce">Information has been opened</string>
+	<string name="accessibility_app_information_title_information_announce">Information has been opened</string>
 	<string name="accessibility_app_information_title_information_closing_announce">Information has been closed</string>
 	<string name="accessibility_app_information_title_checking_rules_announce">Update Checking Rules has been opened</string>
 	<string name="accessibility_app_information_title_checking_rules_closing_announce">Update checking rules has been closed</string>
@@ -935,7 +945,7 @@
 	<string name="infschg_detail_page_mask_mandatory_button">Change federal state</string>
 	<string name="infschg_detail_page_mask_status_uncertain_title">Mask mandatory</string>
 	<string name="infschg_detail_page_mask_status_uncertain_federal_state">in %s</string>
-	<string name="infschg_detail_page_mask_status_uncertain_copy_1">There are no federal state-specific rules for this federal state. Therefore, only the uniform federal rules on mandatory masks apply.</string>
+	<string name="infschg_detail_page_mask_status_uncertain_copy_1">For this federal state the RKI has not received federal state-specifc rules. Therefore, only the uniform federal rules on mandatory masks apply.</string>
 	<string name="infschg_detail_page_mask_status_uncertain_link">#More information::https://www.digitaler-impfnachweis-app.de/en/faq/#current-most-frequently-asked-questions#</string>
 	<string name="infschg_detail_page_mask_status_uncertain_subtitle_2">Note:</string>
 	<string name="infschg_detail_page_mask_status_uncertain_copy_2">If the federal state in which you are staying has decreed that masks are compulsory, a negative rapid or PCR test will exempt you from this mask requirement for 24 hours at leisure, cultural and sporting events and in catering establishments. An unsupervised self-test is not sufficient. Your state may regulate that you are also exempt from the mask requirement due to vaccinations or recovery (if these occurred no more than three months ago). An exemption from the mask requirement does not apply to long-distance public transport, hospitals, care facilities, and patients in doctors\' offices.\n\nShould your COVID certificates stored in the app be sufficient to exempt you from the mask requirement in your federal state, your certificate will turn green. Your exemption from the mask requirement in your state can be verified by scanning your QR code using the CovPassCheck app.</string>

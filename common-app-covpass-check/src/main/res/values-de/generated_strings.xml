@@ -61,8 +61,14 @@
 	<string name="check_context_onboarding_button">OK</string>
 
 	<!-- SECTION: start screen -->
-	<string name="accessibility_validation_start_screen_label_information">Mehr Informationen</string>
-	<string name="validation_start_screen_title">Übersicht</string>
+	<string name="accessibility_validation_start_screen_label_information">Einstellungen</string>
+	<string name="validation_start_screen_title">CovPass-Check</string>
+	<string name="start_screen_toggle_mask">Maskenpflicht</string>
+	<string name="start_screen_toggle_vaccination">Impfschutz</string>
+	<string name="start_screen_vaccination_status_title">Impfschutz nach IfSG §22a</string>
+	<string name="accessibility_start_screen_vaccination_status_title">Impfschutz nach Infektionsschutzgesetz Paragraph 22a</string>
+	<string name="start_screen_vaccination_status_copy">Einen gültigen Impfschutz hat, wer mindestens drei Impfungen oder zwei Impfungen und eine Genesung nachweisen kann.</string>
+	<string name="start_screen_vaccination_status_hint">Bitte scannen Sie immer die aktuellsten Nachweise zuerst.</string>
 	<string name="validation_start_screen_scan_title">3G prüfen</string>
 	<string name="validation_start_screen_scan_title_2G">2G+ prüfen</string>
 	<string name="validation_start_screen_scan_message">Scannen Sie einen G-Nachweis nach den 3G-Regeln. Welche Regelung gilt, ist abhängig vom Bundesland in dem Sie sich befinden.</string>
@@ -111,7 +117,8 @@
 	<string name="accessibility_scan_camera_torch_turn_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_on">Taschenlampe wurde angeschaltet</string>
 	<string name="accessibility_scan_camera_torch_turn_off">Taschenlampe wurde ausgeschaltet</string>
-	<string name="validation_check_popup_valid_vaccination_recovery_title">Zertifikat gültig*</string>
+	<string name="validation_check_popup_valid_vaccination_recovery_title">Vollständiger Impfschutz vorhanden</string>
+	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">nach IfSG §22a</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Genesenen- oder Impfzertifikat liegt vor.</string>
@@ -119,19 +126,32 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Zertifikat nicht gültig</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">Das geprüfte Zertifikat ist aus einem der folgenden Gründe nicht gültig:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Ungültige Signatur</string>
-	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subline">Das Zertifikat wurde nicht von einer autorisierten Stelle ausgestellt oder gehört nicht zu einem Digitalen COVID-Zertifikat der EU.</string>
+	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subline">Das Zertifikat ist kein Digitales COVID-Zertifikat der EU oder wurde nicht von einer autorisierten Stelle ausgestellt.</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading">QR-Code nicht lesbar</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Der QR-Code ist nicht lesbar. Bitte aktualisieren Sie die CovPassCheck-App, wenn dieses Problem häufiger auftritt.</string>
-	<string name="technical_validation_check_popup_valid_vaccination_button_title">Weiteres Zertifikat scannen</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Zertifikat erfüllt nicht alle Bedingungen</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subline">Die geprüfte Person kann den Grund z. B. in der CovPass-App einsehen. Die häufigsten Gründe:</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Abgelaufener Test</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">Ein negativer Schnelltest ist für maximal 48 Stunden gültig. Ein negativer PCR-Test ist für maximal 72 Stunden gültig.</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Noch nicht gültiger Schutz</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Erst 14 Tage nach der Zweitimpfung gilt der Impfschutz als vollständig. Die Genesung von einer Corona-Infektion muss mindestens 28 Tage alt sein.</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Unvollständige Impfserie</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text">Je nach Impfstoff sind für die Erlangung des vollständigen Impfschutzes mehrere Impfdosen erforderlich.</string>
-	<string name="technical_validation_check_popup_valid_vaccination_button_further">Weiteres Zertifikat scannen</string>
+	<string name="technical_validation_check_popup_valid_vaccination_button_1_title">Neue Prüfung</string>
+	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Abbrechen</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Unvollständiger Impfschutz</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">nach IfSG §22a</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">Der erbrachte Nachweis weist keinen vollständigen Impfschutz aus. Mögliche Gründe:</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Impfserie unvollständig</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">Für einen vollständigen Impfschutz muss eine Reihe von mindestens drei Immun-Ereignissen (Impfungen oder Genesungen) nachgewiesen werden, davon mindestens zwei Impfungen.</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Falsche Zertifikate gescannt</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Bitte scannen Sie immer die aktuellsten Nachweise zuerst.</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Nicht zugelassener Impfstoff</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text">Bei Impfserien mit nicht in Deutschland zugelassenen Impfstoffen muss mindestens eine Impfung mit einem mRNA-Impfstoff nachgewiesen werden.</string>
+	<string name="validation_faq_link">#Mehr Informationen::https://www.digitaler-impfnachweis-app.de/faq/#die-aktuell-h-ufigsten-fragen#</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button">Neue Prüfung</string>
+	<string name="functional_validation_check_popup_second_scan_title">Impfschutz-Prüfung</string>
+	<string name="functional_validation_check_popup_second_scan_subtitle">nach IfSG §22a</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_1_title">1. Zertifikat</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_1_subtitle">Nicht ausreichend</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_2_title">2. Zertifikat</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_2_subtitle">Scannen Sie einen weiteren Nachweis</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_3_title">3. Zertifikat</string>
+	<string name="functional_validation_check_popup_second_scan_blue_card_3_subtitle">Scannen Sie einen weiteren Nachweis</string>
+	<string name="functional_validation_check_popup_second_scan_hint_title">Hinweis</string>
+	<string name="functional_validation_check_popup_second_scan_hint_copy">Für den Nachweis eines vollständigen Impfschutzes sind mehrere Nachweise notwendig.</string>
 	<string name="validation_check_popup_valid_vaccination_button_title">Weiteres Zertifikat scannen</string>
 	<string name="accessibility_validation_check_popup_valid_vaccination_label_close">Schließen</string>
 	<string name="validation_check_popup_unsuccessful_certificate_title">Zertifikat ungültig</string>
@@ -370,6 +390,10 @@
 	<string name="accessibility_checkapp_popup_choose_federal_state_announce_when_chosen">Bundesland %s wurde ausgewählt</string>
 	<string name="accessibility_checkapp_popup_choose_federal_state_closing_announce">Die Ansicht \"Bundesland wählen\" wurde geschlossen</string>
 	<string name="infschg_module_choose_federal_state_title">Bundesland wählen</string>
+	<string name="infschg_name_matching_error_title">Abweichende Daten</string>
+	<string name="infschg_name_matching_error_copy">Die persönlichen Daten der beiden gescannten Nachweise stimmen nicht überein. Scannen Sie bitte einen anderen Nachweis.</string>
+	<string name="infschg_name_matching_error_retry">Nochmal versuchen</string>
+	<string name="infschg_name_matching_error_cancel">Prüfung abbrechen</string>
 
 	<!-- SECTION: federal state names -->
 	<string name="DE_BY">Bayern</string>
