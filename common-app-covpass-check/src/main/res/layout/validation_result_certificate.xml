@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/grid_twelve">
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/result_certificate_cardview"
+    style="@style/CovPassCardView.Level"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/result_2g_element_background"
+    android:clickable="true"
+    android:focusable="true"
+    android:minHeight="@dimen/grid_twelve"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:cardBackgroundColor="@color/validation_result_2g_element_background_color"
+    app:cardUseCompatPadding="false"
+    app:rippleColor="?attr/colorControlHighlight"
+    tools:background="@color/validation_result_2g_element_background_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="@dimen/grid_twelve">
+
+      <ImageView
+        android:id="@+id/result_certificate_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_three"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+      <LinearLayout
+        android:id="@+id/result_certificate_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/grid_three"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_certificate_icon"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+          android:id="@+id/result_certificate_title"
+          style="@style/Header.OnBackground.Standard"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+        <TextView
+          android:id="@+id/result_certificate_note"
+          style="@style/DefaultText.OnBackground70.Small"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          tools:visibility="visible" />
+
+      </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>

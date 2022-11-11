@@ -6,9 +6,11 @@
 package de.rki.covpass.checkapp.validation
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abort
 import com.ibm.health.common.annotations.Abortable
@@ -24,6 +26,7 @@ import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.utils.FederalStateResolver
+import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import kotlinx.parcelize.Parcelize
 
@@ -33,6 +36,7 @@ import kotlinx.parcelize.Parcelize
 internal interface ValidationResultListener {
     fun onValidationFirstScanFinish()
     fun onValidationResultClosed()
+    fun onValidationContinueToNextScan()
 }
 
 /**
@@ -74,7 +78,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
         commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null
     }
 
-    private val regionText: String by lazy {
+    open val regionText: String? by lazy {
         getString(
             R.string.infschg_result_mask_optional_subtitle,
             FederalStateResolver.getFederalStateByCode(
@@ -103,7 +107,10 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
         binding.resultImage.setImageResource(imageRes)
         binding.resultTitle.text = title
         binding.resultText.text = text
-        binding.resultRegionText.text = regionText
+        binding.resultRegionText.isVisible = regionText != null
+        regionText?.let {
+            binding.resultRegionText.text = regionText
+        }
         subtitle?.let {
             binding.resultSubtitle.isVisible = true
             binding.resultSubtitle.text = subtitle
@@ -149,8 +156,12 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
         }
 
         binding.resultInfoFooter.isVisible = textFooter != null
-        if (textFooter != null) {
-            binding.resultInfoFooter.text = textFooter
+        textFooter?.let {
+            binding.resultInfoFooter.apply {
+                text = getSpanned(it)
+                movementMethod = LinkMovementMethod.getInstance()
+                stripUnderlines()
+            }
         }
 
         binding.revocationLegalNotification.isVisible = expertModeVisible
@@ -311,6 +322,138 @@ internal class ValidationResultNoRulesFragment : ValidationResultFragment() {
         getString(R.string.infschg_result_no_mask_rules_copy_2)
     }
     override val imageRes = R.drawable.status_mask_no_rules
+
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
+    override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
+
+    override val buttonTextRes = R.string.result_2G_button_startover
+}
+
+@Parcelize
+internal class ValidationImmunityResultSuccessFragmentNav(
+    val name: String,
+    val transliteratedName: String,
+    val birthDate: String,
+    val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
+) : FragmentNav(ValidationImmunityResultSuccessFragment::class)
+
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display immunity validation success.
+ */
+internal class ValidationImmunityResultSuccessFragment : ValidationResultFragment() {
+    private val args: ValidationImmunityResultSuccessFragmentNav by lazy { getArgs() }
+    override val title by lazy {
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_title)
+    }
+    override val regionText by lazy {
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_subtitle)
+    }
+    override val text by lazy {
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_message)
+    }
+    override val imageRes = R.drawable.status_immunity_valid
+
+    override val name by lazy { args.name }
+    override val transliteratedName by lazy { args.transliteratedName }
+    override val birthDate by lazy { args.birthDate }
+
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
+    override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
+
+    override val buttonTextRes = R.string.result_2G_button_startover
+}
+
+@Parcelize
+internal class ValidationImmunityResultIncompleteFragmentNav(
+    val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
+) : FragmentNav(ValidationImmunityResultIncompleteFragment::class)
+
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display immunity validation incomplete.
+ */
+internal class ValidationImmunityResultIncompleteFragment : ValidationResultFragment() {
+    private val args: ValidationImmunityResultIncompleteFragmentNav by lazy { getArgs() }
+    override val title by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_title)
+    }
+    override val regionText by lazy {
+        getString(R.string.validation_check_popup_valid_vaccination_recovery_subtitle)
+    }
+    override val text by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_copy)
+    }
+    override val imageRes = R.drawable.status_immunity_incomplete
+
+    override val imageInfo1Res = R.drawable.status_immunity_incomplete_icon2
+    override val titleInfo1 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration)
+    }
+    override val textInfo1 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text)
+    }
+
+    override val imageInfo2Res = R.drawable.status_immunity_incomplete_icon1
+    override val titleInfo2 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_protection)
+    }
+    override val textInfo2 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text)
+    }
+
+    override val imageInfo3Res = R.drawable.status_immunity_incomplete_icon1
+    override val titleInfo3 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted)
+    }
+    override val textInfo3 by lazy {
+        getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
+    }
+
+    override val textFooter by lazy { getString(R.string.validation_faq_link) }
+
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
+    override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
+
+    override val buttonTextRes =
+        R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button
+}
+
+@Parcelize
+internal class ValidationImmunityResultFailedFragmentNav(
+    val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
+) : FragmentNav(ValidationImmunityResultFailedFragment::class)
+
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display immunity validation failed.
+ */
+internal class ValidationImmunityResultFailedFragment : ValidationResultFragment() {
+    private val args: ValidationImmunityResultFailedFragmentNav by lazy { getArgs() }
+    override val title by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_title)
+    }
+    override val regionText = null
+    override val text by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_subline)
+    }
+    override val imageRes = R.drawable.status_immunity_failed
+
+    override val imageInfo1Res = R.drawable.result_invalid_technical_signature
+    override val titleInfo1 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_signature_subheading)
+    }
+    override val textInfo1 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_signature_subline)
+    }
+
+    override val imageInfo2Res = R.drawable.result_invalid_technical_qr
+    override val titleInfo2 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading)
+    }
+    override val textInfo2 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline)
+    }
 
     override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }

@@ -63,3 +63,58 @@ public suspend fun validate(
 
     return CovPassCheckValidationResult.Success
 }
+
+public enum class CovPassCheckImmunityValidationResult {
+    TechnicalError,
+    ValidationError,
+    Success,
+}
+
+public suspend fun validateImmunityStatus(
+    mergedCovCertificate: CovCertificate,
+    covCertificate: CovCertificate,
+    domesticRulesValidator: CovPassRulesValidator,
+    revocationRemoteListRepository: RevocationRemoteListRepository,
+): CovPassCheckImmunityValidationResult {
+    if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
+        return CovPassCheckImmunityValidationResult.TechnicalError
+    }
+
+    // Invalidation rules from /domesticrules
+    val domesticValidationResults = domesticRulesValidator.validate(
+        cert = covCertificate,
+        validationType = CovPassValidationType.INVALIDATION,
+    )
+    if (domesticValidationResults.any { it.result == Result.FAIL }) {
+        return CovPassCheckImmunityValidationResult.TechnicalError
+    }
+
+    // Check immunity status b2
+    val immunityStatusBTwo = domesticRulesValidator.validate(
+        cert = mergedCovCertificate,
+        validationType = CovPassValidationType.IMMUNITYSTATUSBTWO,
+    )
+    if (immunityStatusBTwo.all { it.result == Result.PASSED }) {
+        return CovPassCheckImmunityValidationResult.Success
+    }
+
+    // Check immunity status c2
+    val immunityStatusCTwo = domesticRulesValidator.validate(
+        cert = mergedCovCertificate,
+        validationType = CovPassValidationType.IMMUNITYSTATUSCTWO,
+    )
+    if (immunityStatusCTwo.all { it.result == Result.PASSED }) {
+        return CovPassCheckImmunityValidationResult.Success
+    }
+
+    // Check immunity status e2
+    val immunityStatusETwo = domesticRulesValidator.validate(
+        cert = mergedCovCertificate,
+        validationType = CovPassValidationType.IMMUNITYSTATUSETWO,
+    )
+    if (immunityStatusETwo.all { it.result == Result.PASSED }) {
+        return CovPassCheckImmunityValidationResult.Success
+    }
+
+    return CovPassCheckImmunityValidationResult.ValidationError
+}
