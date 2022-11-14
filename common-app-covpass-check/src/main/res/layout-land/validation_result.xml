@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingBottom="@dimen/grid_thirteen">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="@id/guideline"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/result_title"
+      style="@style/Header.OnBackground.Big"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+      android:id="@+id/result_region_text"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_half"
+      app:layout_constraintTop_toBottomOf="@+id/result_title" />
+
+    <TextView
+      android:id="@+id/result_subtitle"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_two"
+      android:visibility="gone"
+      app:layout_constraintTop_toBottomOf="@+id/result_region_text"
+      tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+      android:id="@+id/result_text"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_two"
+      app:layout_constraintTop_toBottomOf="@+id/result_subtitle"
+      tools:text="@tools:sample/lorem[3]" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/result_layout_second_scan"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_three"
+      android:background="@drawable/result_second_scan_layout_background"
+      android:visibility="gone"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/result_text"
+      tools:visibility="visible">
+
+      <ImageView
+        android:id="@+id/result_icon_second_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_two"
+        android:layout_marginTop="@dimen/grid_two"
+        android:src="@drawable/result_second_scan_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+      <TextView
+        android:id="@+id/result_title_second_scan"
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one"
+        android:layout_marginTop="@dimen/grid_two"
+        android:layout_marginEnd="@dimen/grid_two"
+        android:text="@string/infschg_result_mask_mandatory_second_scan_infobox_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_icon_second_scan"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/result_text_second_scan"
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_one"
+        android:layout_marginBottom="@dimen/grid_one_half"
+        android:text="@string/infschg_result_mask_mandatory_second_scan_infobox_copy"
+        app:layout_constraintEnd_toEndOf="@+id/result_title_second_scan"
+        app:layout_constraintStart_toStartOf="@+id/result_title_second_scan"
+        app:layout_constraintTop_toBottomOf="@+id/result_title_second_scan" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottom_sheet_action_button"
+        style="@style/PrimaryButtonWithOutline.LightWithBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_one_half"
+        android:layout_marginBottom="@dimen/grid_two"
+        android:text="@string/infschg_result_mask_mandatory_second_scan_infobox_button"
+        android:textSize="@dimen/textsize_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_text_second_scan" />
+
+      <ImageView
+        android:id="@+id/result_info_image_1"
+        android:layout_width="@dimen/icon_size_result"
+        android:layout_height="@dimen/icon_size_result"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout_1"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_search" />
+
+      <LinearLayout
+        android:id="@+id/result_info_layout_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image_1"
+        app:layout_constraintTop_toBottomOf="@+id/result_layout_second_scan">
+
+        <TextView
+          android:id="@+id/result_info_title_1"
+          style="@style/Header.OnBackground.Small"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+          android:id="@+id/result_info_subtitle_1"
+          style="@style/DefaultText.OnBackground70"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          tools:text="@tools:sample/lorem[3]"
+          tools:visibility="visible" />
+
+        <TextView
+          android:id="@+id/result_info_text_1"
+          style="@style/DefaultText.OnBackground"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+      </LinearLayout>
+
+      <ImageView
+        android:id="@+id/result_info_image_2"
+        android:layout_width="@dimen/icon_size_result"
+        android:layout_height="@dimen/icon_size_result"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout_2"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_invalid_technical_signature" />
+
+      <LinearLayout
+        android:id="@+id/result_info_layout_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image_2"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_layout_1">
+
+        <TextView
+          android:id="@+id/result_info_title_2"
+          style="@style/Header.OnBackground.Small"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+          android:id="@+id/result_info_text_2"
+          style="@style/DefaultText.OnBackground"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+      </LinearLayout>
+
+      <ImageView
+        android:id="@+id/result_info_image_3"
+        android:layout_width="@dimen/icon_size_result"
+        android:layout_height="@dimen/icon_size_result"
+        android:layout_marginStart="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_info_layout_3"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/result_invalid_technical_signature" />
+
+      <LinearLayout
+        android:id="@+id/result_info_layout_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one_half"
+        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginEnd="@dimen/grid_three"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/result_info_image_3"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_layout_2">
+
+        <TextView
+          android:id="@+id/result_info_title_3"
+          style="@style/Header.OnBackground.Small"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+        <TextView
+          android:id="@+id/result_info_text_3"
+          style="@style/DefaultText.OnBackground"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          tools:text="@tools:sample/lorem[3]" />
+
+      </LinearLayout>
+
+      <TextView
+        android:id="@+id/result_info_footer"
+        style="@style/DefaultText.OnBackground70"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/grid_three"
+        android:paddingTop="@dimen/grid_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_layout_3"
+        tools:text="@tools:sample/lorem[3]" />
+
+      <de.rki.covpass.checkapp.uielements.ValidationResultInfoElement
+        android:id="@+id/validation_result_user_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_half"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/result_info_footer" />
+
+      <de.rki.covpass.commonapp.uielements.InfoElement
+        android:id="@+id/revocation_legal_notification"
+        style="@style/InfoElement.Info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_three"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/validation_result_user_data"
+        tools:description="@string/validation_check_popup_revoked_certificate_box_text"
+        tools:icon="@drawable/info_icon"
+        tools:title="@string/revocation_headline"
+        tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@id/guideline"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/result_image"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:scaleType="center"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription"
+      tools:src="@drawable/result_success_image" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/guideline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

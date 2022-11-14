@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
@@ -26,6 +27,7 @@ import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.utils.FederalStateResolver
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import kotlinx.parcelize.Parcelize
@@ -46,7 +48,8 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
 
     override val heightLayoutParams: Int by lazy { ViewGroup.LayoutParams.MATCH_PARENT }
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_result_announce
-    override val closingAnnouncementAccessibilityRes: Int = R.string.accessibility_scan_result_closing_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_scan_result_closing_announce
 
     private val binding by viewBinding(ValidationResultBinding::inflate)
 
@@ -98,6 +101,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setLandscapeModeActionButtonPosition()
         if (allowSecondScan) {
             binding.resultLayoutSecondScan.isVisible = true
             binding.bottomSheetActionButton.setOnClickListener {
@@ -183,6 +187,14 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             descriptionStyle = R.style.Header_Info_Small,
         )
         startTimer()
+    }
+
+    private fun setLandscapeModeActionButtonPosition() {
+        val actionButtonLayoutParams =
+            bottomSheetBinding.bottomSheetActionButton.layoutParams as? ConstraintLayout.LayoutParams
+        actionButtonLayoutParams?.apply {
+            horizontalBias = if (resources.isLandscapeMode()) 1f else 0.5f
+        }
     }
 
     override fun onBackPressed(): Abortable {

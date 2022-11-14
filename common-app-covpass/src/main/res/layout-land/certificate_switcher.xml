@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fragment_container"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <TextView
+    android:id="@+id/certificate_name_textview"
+    style="@style/Header.OnInfo.Standard"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintEnd_toStartOf="@+id/close_button"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/certificate_note_textview"
+    style="@style/DefaultText.OnInfo"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_half"
+    app:layout_constraintEnd_toEndOf="@+id/certificate_name_textview"
+    app:layout_constraintStart_toStartOf="@+id/certificate_name_textview"
+    app:layout_constraintTop_toBottomOf="@+id/certificate_name_textview" />
+
+  <ImageView
+    android:id="@+id/close_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="@dimen/grid_half"
+    android:layout_marginEnd="@dimen/grid_two"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
+    android:contentDescription="@string/accessibility_popup_label_close"
+    android:padding="@dimen/grid_one"
+    android:src="@drawable/close_bottom_sheet"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/main_view_pager"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:importantForAccessibility="no"
+    app:layout_constraintBottom_toTopOf="@id/action_bottom_layout"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/certificate_note_textview" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/action_bottom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginBottom="@dimen/grid_two"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/action_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent">
+
+      <ImageView
+        android:id="@+id/action_button_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/grid_eighth"
+        android:layout_marginEnd="@dimen/grid_one"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/certificate_switcher_manage_certificates" />
+
+      <TextView
+        android:id="@+id/action_button_text"
+        style="@style/Header.OnInfo.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_one"
+        android:text="@string/modal_button"
+        app:layout_constraintBottom_toBottomOf="@id/action_button_icon"
+        app:layout_constraintStart_toEndOf="@id/action_button_icon"
+        app:layout_constraintTop_toTopOf="@id/action_button_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/main_tab_layout"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/grid_five"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <ImageView
+        android:id="@+id/tab_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:src="@drawable/arrow_left_on_blue"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@id/main_tab_indicator_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_tab_indicator_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <com.google.android.material.tabs.TabLayout
+          android:id="@+id/main_tab_indicator"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:background="@color/info70"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="parent"
+          app:tabBackground="@drawable/view_pager_certificate_switcher_dot_selector"
+          app:tabIndicator="@drawable/view_pager_dot_selected"
+          app:tabIndicatorColor="@android:color/white"
+          app:tabIndicatorGravity="center"
+          app:tabMaxWidth="@dimen/dots_tab_max_width"
+          app:tabRippleColor="@null" />
+
+        <com.google.android.material.tabs.TabLayout
+          android:id="@+id/main_tab_indicator_green"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:background="@color/full_immunization_green"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="parent"
+          app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
+          app:tabIndicator="@drawable/view_pager_dot_selected"
+          app:tabIndicatorColor="@android:color/white"
+          app:tabIndicatorGravity="center"
+          app:tabMaxWidth="@dimen/dots_tab_max_width"
+          app:tabRippleColor="@null"
+          tools:visibility="visible" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <ImageView
+        android:id="@+id/tab_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:src="@drawable/arrow_right_on_blue"
+        app:layout_constraintStart_toEndOf="@id/main_tab_indicator_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

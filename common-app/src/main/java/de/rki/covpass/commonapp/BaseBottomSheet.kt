@@ -23,6 +23,7 @@ import com.ibm.health.common.navigation.android.SheetPaneNavigation
 import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.commonapp.databinding.BottomSheetViewBinding
+import de.rki.covpass.commonapp.utils.isLandscapeMode
 
 /** Common base bottom sheet. */
 public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
@@ -85,6 +86,14 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
             )
         }
 
+        if (resources.isLandscapeMode()) {
+            bottomSheetBinding.bottomSheetBottomView.setBackgroundResource(0)
+        } else {
+            bottomSheetBinding.bottomSheetBottomView.setBackgroundResource(
+                R.drawable.common_gradient_fadeout,
+            )
+        }
+
         return bottomSheetBinding.root
     }
 
@@ -114,10 +123,12 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
                     }
                     p0 < showTimerMillisecondsInFuture -> {
                         bottomSheetBinding.bottomSheetCountdown.isVisible = true
-                        bottomSheetBinding.bottomSheetCountdown.text = getString(R.string.result_countdown, time)
+                        bottomSheetBinding.bottomSheetCountdown.text =
+                            getString(R.string.result_countdown, time)
                     }
                 }
             }
+
             override fun onFinish() {
                 findNavigator().popAll()
             }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:importantForAccessibility="no">
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/certificate_cardview"
+    style="@style/CovPassCardView.Elevated.SmallCorner"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_two"
+    android:importantForAccessibility="no"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:rippleColor="?attr/colorControlHighlight">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/imageview_rounded_qrcode_background">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/certificate_status_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+          android:id="@+id/certificate_status_imageview"
+          android:layout_width="@dimen/grid_three"
+          android:layout_height="@dimen/grid_three"
+          android:layout_marginStart="@dimen/grid_quarter"
+          android:contentDescription="@null"
+          app:layout_constraintBottom_toBottomOf="@+id/certificate_switch_header_layout"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/certificate_switch_header_layout"
+          tools:src="@drawable/main_cert_status_complete" />
+
+        <LinearLayout
+          android:id="@+id/certificate_switch_header_layout"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:importantForAccessibility="yes"
+          android:orientation="vertical"
+          app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
+          app:layout_constraintTop_toTopOf="parent">
+
+          <TextView
+            android:id="@+id/certificate_header_textview"
+            style="@style/Header.Info.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_one"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/certificate_type_basic_immunisation"
+            app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+            android:id="@+id/certificate_status_textview"
+            style="@style/DefaultText.OnBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_one"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/info70"
+            app:layout_constraintStart_toEndOf="@+id/certificate_status_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/certificate_header_textview"
+            tools:text="11 month(s) ago" />
+
+        </LinearLayout>
+
+        <TextView
+          android:id="@+id/certificate_covpass_check_textview"
+          style="@style/DefaultText.OnBackground.Small"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/certificates_overview_qr_scan_hint"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <ImageView
+        android:id="@+id/certificate_qr_imageview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/accessibility_vaccination_start_screen_label_qrcode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
@@ -73,40 +74,50 @@
       android:contentDescription="@null"
       android:src="@drawable/arrow_left_on_blue"
       android:visibility="invisible"
-      app:layout_constraintEnd_toStartOf="@id/main_tab_indicator"
+      app:layout_constraintEnd_toStartOf="@id/main_tab_indicator_layout"
       app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.tabs.TabLayout
-      android:id="@+id/main_tab_indicator"
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/main_tab_indicator_layout"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:background="@color/info70"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="parent"
-      app:tabBackground="@drawable/view_pager_certificate_switcher_dot_selector"
-      app:tabIndicator="@drawable/view_pager_dot_selected"
-      app:tabIndicatorColor="@android:color/white"
-      app:tabIndicatorGravity="center"
-      app:tabMaxWidth="@dimen/dots_tab_max_width"
-      app:tabRippleColor="@null" />
+      app:layout_constraintTop_toBottomOf="parent">
 
-    <com.google.android.material.tabs.TabLayout
-      android:id="@+id/main_tab_indicator_green"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:background="@color/full_immunization_green"
-      android:visibility="gone"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="parent"
-      app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
-      app:tabIndicator="@drawable/view_pager_dot_selected"
-      app:tabIndicatorColor="@android:color/white"
-      app:tabIndicatorGravity="center"
-      app:tabMaxWidth="@dimen/dots_tab_max_width"
-      app:tabRippleColor="@null"
-      tools:visibility="visible" />
+      <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tab_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/info70"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:tabBackground="@drawable/view_pager_certificate_switcher_dot_selector"
+        app:tabIndicator="@drawable/view_pager_dot_selected"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorGravity="center"
+        app:tabMaxWidth="@dimen/dots_tab_max_width"
+        app:tabRippleColor="@null" />
+
+      <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tab_indicator_green"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/full_immunization_green"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
+        app:tabIndicator="@drawable/view_pager_dot_selected"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorGravity="center"
+        app:tabMaxWidth="@dimen/dots_tab_max_width"
+        app:tabRippleColor="@null"
+        tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
       android:id="@+id/tab_next_button"
@@ -114,7 +125,7 @@
       android:layout_height="wrap_content"
       android:contentDescription="@null"
       android:src="@drawable/arrow_right_on_blue"
-      app:layout_constraintStart_toEndOf="@id/main_tab_indicator"
+      app:layout_constraintStart_toEndOf="@id/main_tab_indicator_layout"
       app:layout_constraintTop_toTopOf="parent" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
@@ -149,7 +160,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingVertical="@dimen/grid_one"
-      android:text="@string/certificate_action_button_check_validity" />
+      android:text="@string/modal_button" />
 
   </LinearLayout>
 
