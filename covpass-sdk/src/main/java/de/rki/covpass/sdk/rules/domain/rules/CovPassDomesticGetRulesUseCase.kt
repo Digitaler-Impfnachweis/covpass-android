@@ -12,7 +12,7 @@ import dgca.verifier.app.engine.data.Type
 import java.time.ZonedDateTime
 
 public enum class CovPassValidationType {
-    RULES, IMMUNITYSTATUSBTWO, IMMUNITYSTATUSCTWO, IMMUNITYSTATUSETWO, MASK, INVALIDATION
+    RULES, IMMUNITYSTATUSBTWO, IMMUNITYSTATUSCTWO, IMMUNITYSTATUSETWO, IMMUNITYSTATUSEONE, MASK, INVALIDATION
 }
 
 public class CovPassDomesticGetRulesUseCase(
@@ -77,6 +77,7 @@ public class CovPassDomesticGetRulesUseCase(
             { value: Type -> value == Type.IMPFSTATUSBZWEI },
             { value: Type -> value == Type.IMPFSTATUSCZWEI },
             { value: Type -> value == Type.IMPFSTATUSEZWEI },
+            { value: Type -> value == Type.IMPFSTATUSEEINS },
             { value: Type -> value == Type.MASK },
         )
         val selectedRegion: String = region?.trim() ?: ""
@@ -115,6 +116,7 @@ public class CovPassDomesticGetRulesUseCase(
             { value: Type -> value == Type.IMPFSTATUSBZWEI },
             { value: Type -> value == Type.IMPFSTATUSCZWEI },
             { value: Type -> value == Type.IMPFSTATUSEZWEI },
+            { value: Type -> value == Type.IMPFSTATUSEEINS },
             { value: Type -> value == Type.MASK },
         )
 
@@ -144,6 +146,7 @@ public class CovPassDomesticGetRulesUseCase(
             CovPassValidationType.IMMUNITYSTATUSBTWO -> Type.IMPFSTATUSBZWEI
             CovPassValidationType.IMMUNITYSTATUSCTWO -> Type.IMPFSTATUSCZWEI
             CovPassValidationType.IMMUNITYSTATUSETWO -> Type.IMPFSTATUSEZWEI
+            CovPassValidationType.IMMUNITYSTATUSEONE -> Type.IMPFSTATUSEEINS
             CovPassValidationType.MASK -> Type.MASK
             else -> throw IllegalStateException("Validation type already handled: ${this.name}")
         }
