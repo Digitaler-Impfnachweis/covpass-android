@@ -9,7 +9,6 @@ import android.app.Application
 import android.os.Build
 import android.webkit.WebView
 import androidx.fragment.app.FragmentActivity
-import androidx.work.WorkManager
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.AndroidDependencies
 import com.ibm.health.common.android.utils.androidDeps
@@ -66,23 +65,12 @@ public abstract class CommonApplication : Application() {
             override val application: Application = this@CommonApplication
         }
         prepopulateDb()
-        removeWorkers()
     }
 
     public abstract fun getAppVariantAndVersion(): String
 
     public fun start() {
         sdkDeps.validator.updateTrustedCerts(sdkDeps.dscRepository.dscList.value.toTrustedCerts())
-    }
-
-    private fun removeWorkers() {
-        WorkManager.getInstance(this).apply {
-            cancelAllWorkByTag("de.rki.covpass.sdk.worker.DscListWorker")
-            cancelAllWorkByTag("de.rki.covpass.sdk.worker.RulesWorker")
-            cancelAllWorkByTag("de.rki.covpass.sdk.worker.ValueSetsWorker")
-            cancelAllWorkByTag("de.rki.covpass.sdk.worker.BoosterRulesWorker")
-            cancelAllWorkByTag("de.rki.covpass.sdk.worker.CountriesWorker")
-        }
     }
 
     private fun prepopulateDb() {

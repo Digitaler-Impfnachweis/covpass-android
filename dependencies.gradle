@@ -210,9 +210,5 @@ dependencies {
         clockSync = {
             api "com.lyft.kronos:kronos-android:0.0.1-alpha11"
         }
-
-        worker = {
-            api "androidx.work:work-runtime-ktx:2.5.0"
-        }
     }
 }
