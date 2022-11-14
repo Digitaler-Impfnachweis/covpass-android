@@ -66,7 +66,7 @@ public class ValidationPendingResultFragment : BaseBottomSheet() {
             binding.validationResultSecondCertificate.showCertificate(
                 R.drawable.validation_pending_result_certificate_icon,
                 getString(R.string.functional_validation_check_popup_second_scan_blue_card_2_title),
-                getString(R.string.functional_validation_check_popup_second_scan_blue_card_2_subtitle),
+                getString(R.string.functional_validation_check_popup_second_scan_blue_card_1_subtitle),
             )
         }
         binding.validationResultThirdCertificate.showCertificate(
