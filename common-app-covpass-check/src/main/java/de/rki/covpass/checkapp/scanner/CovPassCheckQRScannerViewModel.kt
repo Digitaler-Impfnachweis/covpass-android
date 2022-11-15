@@ -143,7 +143,15 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 }
             } catch (exception: Exception) {
                 Lumber.e(exception)
-                eventNotifier { onValidationTechnicalFailure() }
+                if (checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeMaskStatus) {
+                    eventNotifier {
+                        onValidationTechnicalFailure()
+                    }
+                } else {
+                    eventNotifier {
+                        onImmunityValidationTechnicalFailure()
+                    }
+                }
             }
         }
     }

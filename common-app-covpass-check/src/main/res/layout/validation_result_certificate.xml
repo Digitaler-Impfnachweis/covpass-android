@@ -17,7 +17,7 @@
     style="@style/CovPassCardView.Level"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/result_2g_element_background"
+    android:background="@drawable/result_pending_element_background"
     android:clickable="true"
     android:focusable="true"
     android:minHeight="@dimen/grid_twelve"
