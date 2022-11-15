@@ -40,6 +40,7 @@
     android:layout_alignParentEnd="true"
     android:layout_margin="@dimen/grid_two"
     android:background="?android:attr/selectableItemBackgroundBorderless"
+    android:foreground="@drawable/keyboard_highlight_selector"
     android:contentDescription="@string/accessibility_popup_label_close"
     android:padding="@dimen/grid_one"
     android:src="@drawable/close_bottom_sheet"
@@ -57,7 +58,8 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/certificate_note_textview"
-    app:layout_constraintVertical_bias="0.4" />
+    app:layout_constraintVertical_bias="0.4"
+    android:focusable="false" />
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main_tab_layout"
@@ -109,13 +111,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
-        app:tabIndicator="@drawable/view_pager_dot_selected"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabIndicatorGravity="center"
-        app:tabMaxWidth="@dimen/dots_tab_max_width"
-        app:tabRippleColor="@null"
-        tools:visibility="visible" />
+        android:foreground="@drawable/keyboard_highlight_selector"
+    app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
+    app:tabIndicator="@drawable/view_pager_dot_selected"
+    app:tabIndicatorColor="@android:color/white"
+    app:tabIndicatorGravity="center"
+    app:tabMaxWidth="@dimen/dots_tab_max_width"
+    app:tabRippleColor="@null"
+    tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,10 +141,13 @@
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:paddingVertical="@dimen/grid_quarter"
+    android:paddingHorizontal="@dimen/grid_half"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    app:layout_constraintStart_toStartOf="parent"
+    android:foreground="@drawable/keyboard_highlight_selector">
 
     <ImageView
       android:id="@+id/action_button_icon"

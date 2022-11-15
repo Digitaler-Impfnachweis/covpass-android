@@ -45,6 +45,9 @@
         android:id="@+id/information_field_easy_language"
         style="@style/NavigationField"
         android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector"
         android:visibility="gone"
         tools:visibility="visible" />
 
@@ -57,49 +60,70 @@
       <TextView
         android:id="@+id/information_field_contacts"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_faq"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_data_security_policy"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_imprint"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_open_source_licenses"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_accessibility_statement"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
       <TextView
         android:id="@+id/information_field_app_rules_update"
         style="@style/NavigationField"
-        android:background="@color/onBrandBase" />
+        android:background="@color/onBrandBase"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector" />
 
       <View style="@style/Divider" />
 
@@ -116,7 +140,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:clickable="true"
-          android:focusable="true">
+          android:focusable="true"
+          android:foreground="@drawable/keyboard_highlight_selector">
 
           <TextView
             android:id="@+id/information_field_expert_mode_title"
@@ -152,8 +177,10 @@
           android:id="@+id/information_field_acoustic_feedback_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:background="@color/onBrandBase"
           android:clickable="true"
-          android:focusable="true">
+          android:focusable="true"
+          android:foreground="@drawable/keyboard_highlight_selector">
 
           <TextView
             android:id="@+id/information_field_acoustic_feedback_title"
@@ -190,7 +217,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:clickable="true"
-          android:focusable="true">
+          android:focusable="true"
+          android:foreground="@drawable/keyboard_highlight_selector">
 
           <TextView
             android:id="@+id/information_field_covpass_whats_new_settings_title"

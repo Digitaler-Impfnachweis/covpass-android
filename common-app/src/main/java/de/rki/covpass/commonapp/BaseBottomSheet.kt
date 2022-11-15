@@ -6,6 +6,7 @@
 package de.rki.covpass.commonapp
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.commonapp.databinding.BottomSheetViewBinding
 import de.rki.covpass.commonapp.utils.isLandscapeMode
+import de.rki.covpass.commonapp.utils.updateFragmentsFocusability
 
 /** Common base bottom sheet. */
 public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
@@ -97,6 +99,12 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
         return bottomSheetBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        bottomSheetBinding.bottomSheetTitle.requestFocus()
+    }
+
     public open fun onCloseButtonClicked() {
         triggerBackPress()
     }
@@ -143,6 +151,16 @@ public abstract class BaseBottomSheet : BaseFragment(), SheetPaneNavigation {
     override fun onDestroy() {
         cancelTimer()
         super.onDestroy()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        updateFragmentsFocusability()
+    }
+
+    override fun onDetach() {
+        updateFragmentsFocusability()
+        super.onDetach()
     }
 
     private companion object {

@@ -8,10 +8,12 @@ package de.rki.covpass.app.main
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
@@ -138,9 +140,15 @@ internal class MainFragment :
         }
         fragmentStateAdapter = CertificateFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
-        TabLayoutMediator(binding.mainTabIndicatorLayout, binding.mainViewPager) { _, _ ->
-            // no special tab config necessary
+        TabLayoutMediator(binding.mainTabIndicatorLayout, binding.mainViewPager) { view, _ ->
+            view.view.foreground =
+                ResourcesCompat.getDrawable(resources, R.drawable.keyboard_highlight_selector, null)
         }.attach()
+
+        binding.mainViewPager.isFocusable = false
+        (binding.mainViewPager.getChildAt(0) as RecyclerView).isFocusable = false
+
+        binding.mainTabIndicatorLayout.getTabAt(0)?.select()
         setupPageChangeCallback()
         binding.tabNextButton.setOnClickListener {
             nextPage()

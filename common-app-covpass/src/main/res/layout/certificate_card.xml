@@ -7,7 +7,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:focusable="false">
 
   <com.google.android.material.card.MaterialCardView
     android:id="@+id/certificate_cardview"
@@ -15,11 +16,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_two"
+    android:clickable="true"
+    android:focusable="false"
+    android:foreground="@drawable/keyboard_highlight_selector"
     android:importantForAccessibility="no"
     app:cardBackgroundColor="@color/info70"
     app:cardUseCompatPadding="true"
     app:rippleColor="?attr/colorControlHighlight"
-    tools:background="@color/info70">
+    tools:background="@color/info70"
+    tools:ignore="KeyboardInaccessibleWidget">
 
     <ScrollView
       android:layout_width="match_parent"
@@ -30,6 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="false"
+        android:focusable="false"
         android:importantForAccessibility="no"
         android:orientation="vertical">
 
@@ -86,6 +93,8 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/accessibility_start_screen_arrow_card"
+            android:foreground="@drawable/keyboard_highlight_selector"
+            android:paddingVertical="@dimen/grid_half"
             android:paddingStart="@dimen/grid_one"
             android:paddingEnd="@dimen/grid_one"
             android:src="@drawable/arrow_right_white"

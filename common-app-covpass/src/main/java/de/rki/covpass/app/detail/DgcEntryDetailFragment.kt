@@ -14,6 +14,7 @@ import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import android.view.View
 import android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
@@ -244,11 +245,13 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             supportActionBar?.run {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
-                val icon = R.drawable.back_arrow
+                val icon = R.drawable.back_arrow_big
                 setHomeAsUpIndicator(icon)
                 setHomeActionContentDescription(R.string.accessibility_certificate_detail_view_label_back)
             }
             binding.dgcDetailToolbar.title = getToolbarTitleText(cert)
+            binding.dgcDetailToolbar.getChildAt(1).foreground =
+                ResourcesCompat.getDrawable(resources, R.drawable.keyboard_highlight_selector, null)
         }
     }
 

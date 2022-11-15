@@ -11,7 +11,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@color/backgroundSecondary"
-  android:foreground="?attr/selectableItemBackground"
+  android:foreground="@drawable/keyboard_highlight_selector"
   tools:ignore="Overdraw">
 
   <androidx.constraintlayout.widget.ConstraintLayout
