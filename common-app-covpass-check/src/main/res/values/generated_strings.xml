@@ -130,10 +130,11 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading">QR code unreadable</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Unable to read the QR code. Please update the CovPassCheck App, if the problem is recurring.</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_1_title">New scan</string>
+	<string name="technical_validation_check_popup_retry">Retry last scan</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Cancel</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Incomplete vaccination protection</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">according to IfSG §22a</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">The certificate provided does not indicate complete vaccination protection. Possible reasons:</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">The certificates provided do not indicate complete vaccination protection. Possible reasons:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Vaccination series incomplete</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">For a complete vaccination status, a series of at least three vaccinations or recoveries must be demonstrated, including at least two vaccinations.</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Wrong certificates scanned</string>

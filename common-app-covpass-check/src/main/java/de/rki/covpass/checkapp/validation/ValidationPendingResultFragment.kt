@@ -7,6 +7,7 @@ package de.rki.covpass.checkapp.validation
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abort
@@ -42,11 +43,15 @@ public class ValidationPendingResultFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         bottomSheetBinding.bottomSheetTitle.setText(
-            R.string.functional_validation_check_popup_unsuccessful_certificate_title,
+            R.string.functional_validation_check_popup_second_scan_title,
         )
+        bottomSheetBinding.bottomSheetSubtitle.isVisible = true
         bottomSheetBinding.bottomSheetSubtitle.setText(
             R.string.functional_validation_check_popup_unsuccessful_certificate_subtitle,
         )
+        val params = bottomSheetBinding.bottomSheetSubtitle.layoutParams as ViewGroup.MarginLayoutParams
+        params.topMargin = 0
+        bottomSheetBinding.bottomSheetSubtitle.layoutParams = params
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
         bottomSheetBinding.bottomSheetSecondWhiteButtonWithBorder.apply {
             isVisible = true

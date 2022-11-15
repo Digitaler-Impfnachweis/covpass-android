@@ -126,14 +126,15 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_title">Zertifikat nicht gültig</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_subline">Das geprüfte Zertifikat ist aus einem der folgenden Gründe nicht gültig:</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subheading">Ungültige Signatur</string>
-	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subline">Das Zertifikat ist kein Digitales COVID-Zertifikat der EU oder wurde nicht von einer autorisierten Stelle ausgestellt.</string>
+	<string name="technical_validation_check_popup_unsuccessful_certificate_signature_subline">Das Zertifikat ist kein digitales COVID-Zertifikat der EU oder wurde nicht von einer autorisierten Stelle ausgestellt.</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading">QR-Code nicht lesbar</string>
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Der QR-Code ist nicht lesbar. Bitte aktualisieren Sie die CovPassCheck-App, wenn dieses Problem häufiger auftritt.</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_1_title">Neue Prüfung</string>
+	<string name="technical_validation_check_popup_retry">Letzten Scan wiederholen</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Abbrechen</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Unvollständiger Impfschutz</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">nach IfSG §22a</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">Der erbrachte Nachweis weist keinen vollständigen Impfschutz aus. Mögliche Gründe:</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">Die erbrachten Nachweise ergeben keinen vollständigen Impfschutz. Mögliche Gründe:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Impfserie unvollständig</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">Für einen vollständigen Impfschutz muss eine Reihe von mindestens drei Immun-Ereignissen (Impfungen oder Genesungen) nachgewiesen werden, davon mindestens zwei Impfungen.</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection">Falsche Zertifikate gescannt</string>
@@ -325,7 +326,7 @@
 
 	<!-- SECTION: revocation -->
 	<string name="revocation_headline">Behördenfunktion</string>
-	<string name="revocation_copy">Diese Funktion richtet sich ausschließlich an die Polizeibehörden und ermöglicht diesen, die Sperrkennung eines Zertifikats im Rahmen von Ermittlungen auszulesen. Im normalen Gebrauch soll diese Funktion deaktiviert bleiben. Der Versuch ein Zertifikat unberechtigt durch die Behördenfunktion sperren zu lassen ist strafbar und kann erhebliche Folgen nach sich ziehen.\n\nSollten Sie den Verdacht haben, dass ein gefälschtes oder inhaltlich unrichtiges Zertifikat vorliegt, informieren Sie bitte die nächste Polizeibehörde.</string>
+	<string name="revocation_copy">Diese Funktion richtet sich ausschließlich an die Polizeibehörden und ermöglicht diesen, die Sperrkennung eines Zertifikats im Rahmen von Ermittlungen auszulesen. Im normalen Gebrauch soll diese Funktion deaktiviert bleiben. Der Versuch, ein Zertifikat unberechtigt durch die Behördenfunktion sperren zu lassen, ist strafbar und kann erhebliche Folgen nach sich ziehen.\n\nSollten Sie den Verdacht haben, dass ein gefälschtes oder inhaltlich unrichtiges Zertifikat vorliegt, informieren Sie bitte die nächste Polizeibehörde.</string>
 	<string name="revocation_toggle_text">Behördenfunktion aktivieren</string>
 	<string name="validation_check_popup_revoked_certificate_link_text">Informationen zur Sperrung anzeigen</string>
 	<string name="validation_check_popup_revoked_certificate_box_text">Diese Funktion richtet sich ausschließlich an die Polizeibehörden. Der Versuch ein Zertifikat unberechtigt sperren zu lassen ist strafbar und kann erhebliche Folgen nach sich ziehen.</string>
