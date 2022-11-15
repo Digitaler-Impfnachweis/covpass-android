@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -19,6 +18,7 @@
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:foreground="@drawable/keyboard_highlight_selector"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -52,6 +52,7 @@
     android:adjustViewBounds="true"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:contentDescription="@string/accessibility_vaccination_start_screen_label_information"
+    android:foreground="@drawable/keyboard_highlight_selector"
     android:padding="@dimen/grid_one"
     android:src="@drawable/settings_icon"
     android:theme="@style/CovPassAppTheme.DarkControlHighlight"
@@ -130,6 +131,8 @@
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginTop="@dimen/grid_one"
+    android:focusable="false"
+    android:importantForAccessibility="no"
     android:visibility="gone"
     app:layout_constraintBottom_toTopOf="@id/main_tab_layout"
     app:layout_constraintEnd_toEndOf="parent"
@@ -195,6 +198,7 @@
       android:layout_gravity="center"
       android:layout_marginVertical="@dimen/grid_three"
       android:contentDescription="@string/accessibility_vaccination_start_screen_label_add_certificate"
+      android:foreground="@drawable/keyboard_highlight_selector"
       app:round_button_icon="@drawable/plus" />
 
   </FrameLayout>

@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.appVersion
 import com.ibm.health.common.android.utils.attachToolbar
@@ -181,10 +182,12 @@ public abstract class InformationFragment : BaseFragment() {
             supportActionBar?.run {
                 setDisplayShowTitleEnabled(false)
                 setDisplayHomeAsUpEnabled(true)
-                setHomeAsUpIndicator(R.drawable.back_arrow)
+                setHomeAsUpIndicator(R.drawable.back_arrow_big)
                 setHomeActionContentDescription(R.string.accessibility_app_information_label_back)
             }
             binding.informationToolbar.setTitle(R.string.app_information_title)
+            binding.informationToolbar.getChildAt(1).foreground =
+                ResourcesCompat.getDrawable(resources, R.drawable.keyboard_highlight_selector, null)
         }
     }
 

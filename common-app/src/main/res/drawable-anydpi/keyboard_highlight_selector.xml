@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_focused="true">
+    <layer-list>
+      <item android:drawable="@drawable/border_keyboard_focus_border_primary" />
+      <item android:bottom="@dimen/grid_quarter" android:drawable="@drawable/border_keyboard_focus_border_secondary" android:left="@dimen/grid_quarter" android:right="@dimen/grid_quarter" android:top="@dimen/grid_quarter" />
+    </layer-list>
+  </item>
+</selector>

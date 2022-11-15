@@ -64,6 +64,8 @@ public class CertificateCard @JvmOverloads constructor(
         addView(binding.root)
         binding.root.layoutParams =
             LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        this.isFocusable = false
+        binding.root.isFocusable = false
     }
 
     public fun createCertificateCardView(

@@ -50,6 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/grid_one_half"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector"
         tools:text="@tools:sample/lorem[5]" />
 
       <TextView
@@ -57,6 +60,9 @@
         style="@style/Header.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector"
         tools:text="@tools:sample/lorem[5]" />
 
       <TextView
@@ -73,6 +79,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/grid_one_half"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector"
         tools:text="@tools:sample/lorem[5]" />
 
     </LinearLayout>

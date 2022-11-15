@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.onDestroyView
@@ -118,6 +119,8 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     private fun setupAdapter() {
         fragmentStateAdapter = CertificateSwitcherFragmentStateAdapter(this)
         fragmentStateAdapter.attachTo(binding.mainViewPager)
+        binding.mainTabLayout.isFocusable = false
+        (binding.mainViewPager.getChildAt(0) as RecyclerView).isFocusable = false
         TabLayoutMediator(binding.mainTabIndicator, binding.mainViewPager) { _, _ ->
             // no special tab config necessary
         }.attach()
