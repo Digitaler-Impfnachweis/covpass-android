@@ -107,26 +107,12 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     }
                 }
                 validateEntity(dgcEntry.idWithoutPrefix)
-                val mergedCovCertificate: CovCertificate = when {
-                    firstCovCert != null && dgcEntry is Recovery -> {
-                        firstCovCert.copy(
-                            recoveries = listOf(dgcEntry),
-                        )
-                    }
-                    firstCovCert != null && dgcEntry is Vaccination -> {
-                        firstCovCert.copy(
-                            vaccinations = listOf(dgcEntry),
-                        )
-                    }
-                    firstCovCert != null && dgcEntry is TestCert -> {
-                        firstCovCert.copy(
-                            tests = listOf(dgcEntry),
-                        )
-                    }
-                    else -> {
-                        covCertificate
-                    }
-                }
+
+                val mergedCovCertificate: CovCertificate =
+                    getMergedCertificate(
+                        listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate),
+                    ) ?: return@launch
+
                 if (checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeMaskStatus) {
                     maskStatusValidation(
                         mergedCovCertificate = mergedCovCertificate,
@@ -154,6 +140,33 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 }
             }
         }
+    }
+
+    private fun getMergedCertificate(list: List<CovCertificate>): CovCertificate? {
+        if (list.isEmpty()) {
+            return null
+        }
+        if (list.size == 1) {
+            return list.first()
+        }
+
+        val listVaccination = mutableListOf<Vaccination>()
+        val listRecoveries = mutableListOf<Recovery>()
+        val listTests = mutableListOf<TestCert>()
+
+        list.forEach {
+            when (val dgc = it.dgcEntry) {
+                is Recovery -> listRecoveries.add(dgc)
+                is TestCert -> listTests.add(dgc)
+                is Vaccination -> listVaccination.add(dgc)
+            }
+        }
+
+        return list.first().copy(
+            vaccinations = listVaccination.sortedByDescending { it.occurrence },
+            recoveries = listRecoveries.sortedByDescending { it.firstResult },
+            tests = listTests.sortedByDescending { it.sampleCollection },
+        )
     }
 
     private suspend fun maskStatusValidation(
