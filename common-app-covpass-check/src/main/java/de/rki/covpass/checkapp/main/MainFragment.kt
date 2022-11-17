@@ -26,6 +26,7 @@ import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.checkapp.storage.CheckingMode
+import de.rki.covpass.checkapp.storage.VaccinationProtectionMode
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
@@ -49,7 +50,11 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 /**
  * Displays the start view of the app.
  */
-internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFederalStateCallBack {
+internal class MainFragment :
+    BaseFragment(),
+    DataProtectionCallback,
+    ChangeFederalStateCallBack,
+    ChooseVaccinationProtectionModeCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val revocationListUpdateViewModel by reactiveState {
@@ -188,11 +193,20 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFede
                     binding.mainCheckCertTabLayout.getTabAt(0)?.select()
                     binding.maskStatusLayout.isVisible = true
                     binding.immunizationStatusLayout.isVisible = false
+                    binding.mainVaccinationModeText?.isVisible = false
                 }
                 CheckingMode.ModeImmunizationStatus -> {
-                    binding.mainCheckCertTabLayout.getTabAt(1)?.select()
-                    binding.immunizationStatusLayout.isVisible = true
-                    binding.maskStatusLayout.isVisible = false
+                    if (covpassCheckDeps.checkAppRepository.startImmunizationStatus.value) {
+                        findNavigator().push(
+                            ChooseVaccinationProtectionModeFragmentNav(),
+                        )
+                    } else {
+                        binding.mainCheckCertTabLayout.getTabAt(1)?.select()
+                        binding.immunizationStatusLayout.isVisible = true
+                        binding.maskStatusLayout.isVisible = false
+                        binding.mainVaccinationModeText?.isVisible = true
+                        updateVaccinationCheckMode()
+                    }
                 }
             }
         }
@@ -236,5 +250,41 @@ internal class MainFragment : BaseFragment(), DataProtectionCallback, ChangeFede
                 R.string.start_offline_subtitle_unavailable
             },
         )
+    }
+
+    private fun updateVaccinationCheckMode() {
+        if (covpassCheckDeps.checkAppRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
+            binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_local)
+            binding.mainVaccinationModeText
+                ?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.germany_mode_vaccination_status_icon, 0, 0, 0)
+
+            binding.immunizationStatusInfoIcon.isVisible = true
+            binding.immunizationStatusInfoText.isVisible = true
+
+            binding.immunizationStatusTitle.setText(R.string.start_screen_vaccination_status_title)
+            binding.immunizationStatusNote.setText(R.string.start_screen_vaccination_status_copy)
+        } else {
+            binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_europe)
+            binding.mainVaccinationModeText
+                ?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.entry_mode_vaccination_status_icon, 0, 0, 0)
+
+            binding.immunizationStatusInfoIcon.isVisible = false
+            binding.immunizationStatusInfoText.isVisible = false
+
+            binding.immunizationStatusTitle.setText(R.string.start_vaccination_status_entry_title)
+            binding.immunizationStatusNote.setText(R.string.start_vaccination_status_entry_subtitle)
+        }
+    }
+
+    override fun onModeChooseFinish() {
+        binding.mainCheckCertTabLayout.getTabAt(1)?.select()
+        binding.immunizationStatusLayout.isVisible = true
+        binding.maskStatusLayout.isVisible = false
+        binding.mainVaccinationModeText?.isVisible = true
+        updateVaccinationCheckMode()
+    }
+
+    override fun onModeChooseCancel() {
+        binding.mainCheckCertTabLayout.getTabAt(0)?.select()
     }
 }

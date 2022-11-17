@@ -1,0 +1,23 @@
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="15dp"
+  android:height="15dp"
+  android:viewportWidth="15"
+  android:viewportHeight="15">
+  <group>
+    <clip-path android:pathData="M0,0h15v15h-15z" />
+    <path
+      android:fillColor="#FFDA44"
+      android:pathData="M0.466,10.109C1.526,12.965 4.275,15 7.5,15C10.725,15 13.474,12.965 14.533,10.109L7.5,9.457L0.466,10.109Z" />
+    <path
+      android:fillColor="#000000"
+      android:pathData="M7.5,0C4.275,0 1.526,2.035 0.466,4.891L7.5,5.543L14.533,4.891C13.474,2.035 10.725,0 7.5,0Z" />
+    <path
+      android:fillColor="#D80027"
+      android:pathData="M0.466,4.891C0.165,5.704 0,6.583 0,7.5C0,8.417 0.165,9.296 0.466,10.109H14.533C14.835,9.296 15,8.417 15,7.5C15,6.583 14.835,5.704 14.533,4.891H0.466Z" />
+  </group>
+</vector>
