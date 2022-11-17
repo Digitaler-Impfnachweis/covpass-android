@@ -19,9 +19,6 @@ pipeline {
             label 'Android'
         }
     }
-    parameters {
-        choice(name: 'Firebase', choices: ['false','true'], description: 'Release on firebase')
-    }
     tools {
         jdk 'jdk_11_hotspot'
     }
@@ -263,7 +260,9 @@ pipeline {
         }
         stage("Firebase") {
             when {
-                expression { params.Firebase == 'true' }
+                anyOf {
+                    branch 'release/*'
+                }
             }
             steps {
                 withVault(SECRETS) {
