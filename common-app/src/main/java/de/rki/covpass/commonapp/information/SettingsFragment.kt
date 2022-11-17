@@ -15,6 +15,7 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.CheckSettingsBinding
+import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
@@ -50,7 +51,8 @@ public class SettingsFragment : BaseFragment(), DialogListener {
             announcementAccessibilityRes = R.string.accessibility_app_information_title_local_rules
             initCovPassCheckContent()
         } else {
-            announcementAccessibilityRes = R.string.accessibility_app_information_title_checking_rules_announce
+            announcementAccessibilityRes =
+                R.string.accessibility_app_information_title_checking_rules_announce
             closingAnnouncementAccessibilityRes =
                 R.string.accessibility_app_information_title_checking_rules_closing_announce
             initCovPassContent()
@@ -59,6 +61,7 @@ public class SettingsFragment : BaseFragment(), DialogListener {
     }
 
     private fun initCovPassContent() {
+        binding.settingsRulesPickerLayout.isGone = true
         binding.offlineRevocationLayout.isGone = true
     }
 
@@ -84,6 +87,31 @@ public class SettingsFragment : BaseFragment(), DialogListener {
                 }
             }
         }
+        val isDomesticRulesOn = commonDeps.checkContextRepository.isDomesticRulesOn.value
+        binding.checkContextSettingsLocalCheckbox.apply {
+            updateValues(
+                R.string.settings_rules_context_germany_title,
+                R.string.settings_rules_context_germany_subtitle,
+            )
+            updateCheckbox(isDomesticRulesOn)
+            setOnClickListener {
+                updateCheckbox(true)
+                binding.checkContextSettingsEuCheckbox.updateCheckbox(false)
+                updateRulesState()
+            }
+        }
+        binding.checkContextSettingsEuCheckbox.apply {
+            updateValues(
+                R.string.settings_rules_context_entry_title,
+                R.string.settings_rules_context_entry_subtitle,
+            )
+            updateCheckbox(!isDomesticRulesOn)
+            setOnClickListener {
+                updateCheckbox(true)
+                binding.checkContextSettingsLocalCheckbox.updateCheckbox(false)
+                updateRulesState()
+            }
+        }
     }
 
     private fun initCommonContent() {
@@ -102,6 +130,14 @@ public class SettingsFragment : BaseFragment(), DialogListener {
         }
         binding.cancelButton.setOnClickListener {
             settingsUpdateViewModel.cancel()
+        }
+    }
+
+    private fun updateRulesState() {
+        launchWhenStarted {
+            commonDeps.checkContextRepository.isDomesticRulesOn.set(
+                binding.checkContextSettingsLocalCheckbox.isChecked(),
+            )
         }
     }
 

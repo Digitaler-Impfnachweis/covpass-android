@@ -274,7 +274,7 @@
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
 	<string name="settings_rules_list_loading_cancel">Abbrechen</string>
-	<string name="app_information_message_update">Legen Sie fest, nach welchen Regeln COVID-Zertifikate geprüft werden sollen. Sollten die Prüfregeln nicht aktuell sein, können Sie hier auch ein manuelles Update vornehmen.</string>
+	<string name="app_information_message_update">Legen Sie fest, nach welchen Regeln COVID-Zertifikate geprüft werden sollen. Aktualisieren Sie gegebenenfalls die Prüfregeln (siehe unten).</string>
 	<string name="app_information_rules_list_title">Regelwerk</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
@@ -287,7 +287,7 @@
 	<string name="app_information_title_checkrules">Prüfregeln</string>
 	<string name="app_information_offline_revocation_copy_1">Hier können Sie die Regeln aktualisieren, nach denen Zertifkate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
 	<string name="app_information_offline_revocation_title">Gesperrte Zertifikate offline prüfen</string>
-	<string name="app_information_offline_revocation_copy_2">Aktivieren Sie diese Einstellung, wenn Sie auch im Offline-Modus von den Behörden gesperrte Zertifikate erkennen möchten. Andernfalls werden gesperrte Zertifikate nur im Online-Modus erkannt. Diese Funktion verbraucht mehr Datenvolumen.</string>
+	<string name="app_information_offline_revocation_copy_2">Aktivieren Sie diese Einstellung, erkennt die App von den Behörden gesperrte Zertifikate auch, wenn Sie nicht mit dem Internet verbunden sind. Diese Funktion verbraucht mehr Datenvolumen.</string>
 	<string name="app_information_offline_revocation_hint_title">Hinweis</string>
 	<string name="app_information_offline_revocation_hint_copy">Wenn die Funktion deaktiviert wird, werden die lokalen App-Daten von Ihrem Gerät gelöscht. Zertifikate können dann nur noch im Online-Modus geprüft werden.</string>
 	<string name="app_information_offline_revocation_hint_button_active">OK</string>
@@ -384,7 +384,7 @@
 	<string name="infschg_result_mask_mandatory_deviating_data_link">Abweichung ignorieren</string>
 	<string name="infschg_result_no_mask_rules_title">Keine vorliegenden Regeln</string>
 	<string name="infschg_result_no_mask_rules_subtitle">in %s</string>
-	<string name="infschg_result_no_mask_rules_copy_1_bold">Für dieses Bundesland liegen keine bundeslandspezifischen Regeln vor. Es gelten daher nur die bundeseinheitlichen Regeln zur Maskenpflicht.</string>
+	<string name="infschg_result_no_mask_rules_copy_1_bold">Für dieses Bundesland liegen dem RKI aktuell keine bundeslandspezifischen Regeln vor. Es gelten daher nur die bundeseinheitlichen Regeln zur Maskenpflicht.</string>
 	<string name="infschg_result_no_mask_rules_copy_2">Sofern das Bundesland, in dem Sie sich aufhalten, eine Maskenpflicht angeordnet hat, befreit ein negativer Schnell- oder PCR-Test bei Freizeit-, Kultur- und Sportveranstaltungen sowie in gastronomischen Einrichtungen für 24 Stunden von dieser Maskenpflicht. Ein unbeaufsichtigter durchgeführter Selbsttest genügt nicht. Ihr Bundesland kann regeln, dass auch vollständige Impfungen oder Genesungen (wenn diese höchstens drei Monate zurückliegen) von der Maskenpflicht befreien.\n\nEine Befreiung von der Maskenpflicht gilt nicht im öffentlichen Personenfernverkehr, in Krankenhäusern, Pflegeeinrichtungen und in Arztpraxen.</string>
 	<string name="infschg_start_screen_white_box_copy_2">Letzte Aktualisierung vor weniger als 24 Stunden</string>
 	<string name="accessibility_checkapp_popup_choose_federal_state_announce">Die Ansicht \"Bundesland wählen\" wurde geöffnet</string>
@@ -506,4 +506,43 @@
 	<string name="VN">Vietnam</string>
 	<string name="AR">Argentinien</string>
 	<string name="MX">Mexiko</string>
+
+	<!-- SECTION: ruleset date -->
+	<string name="state_ruleset_date_available_long">Es gelten die bundeslandspezifischen Regeln vom %s (Gültigkeitsbeginn).</string>
+	<string name="state_ruleset_date_available_short">*Regeln vom %s (Gültigkeitsbeginn)</string>
+	<string name="state_ruleset_date_unavailable">Für dieses Bundesland liegen dem RKI aktuell keine bundeslandspezifischen Regeln vor. Es gelten die Regeln des Bundes.</string>
+
+	<!-- SECTION: Entry Check: Settings -->
+	<string name="settings_rules_context_title">Prüfkontext</string>
+	<string name="settings_rules_context_subtitle">Auf dieser Basis wird der Impfschutz angezeigt.</string>
+	<string name="settings_rules_context_germany_title">Ich prüfe innerhalb Deutschlands</string>
+	<string name="settings_rules_context_germany_subtitle">Auf Basis des Infektionsschutzgesetz §22a</string>
+	<string name="settings_rules_context_entry_title">Ich prüfe bei Einreisen</string>
+	<string name="settings_rules_context_entry_subtitle">Auf Basis der Coronavirus-Einreiseverordnung</string>
+	<string name="accessibility_option_selected">Ausgewählt</string>
+	<string name="accessibility_option_unselected">Nicht ausgewählt</string>
+
+	<!-- SECTION: Entry Check: Start View -->
+	<string name="start_vaccination_status_entry_title">Impfschutz nach Coronavirus-Einreiseverordnung</string>
+	<string name="start_vaccination_status_entry_subtitle">Derzeit gibt es keine Beschränkungen für die Einreise nach Deutschland. Um den Impfschutz innerhalb Deutschlands nach Infektionsschutzgesetz §22a zu prüfen, ändern Sie den Prüfkontext in den Einstellungen.</string>
+
+	<!-- SECTION: Entry Check: Initial setup -->
+	<string name="accessibility_rules_context_initial_setup_open">Die Ansicht \"Prüfkontext bestimmen\" wurde geöffnet.</string>
+	<string name="accessibility_rules_context_initial_setup_close">Die Ansicht \"Prüfkontext bestimmen\" wurde geschlossen.</string>
+	<string name="rules_context_initial_setup_title">Wann nutzen Sie die CovPassCheck-App?</string>
+	<string name="rules_context_initial_setup_subtitle">Wählen Sie, auf welcher Grundlage der Impfschutz bestimmt werden soll:</string>
+	<string name="rules_context_initial_setup_hint">Sie können die Angabe jederzeit in den Einstellungen ändern.</string>
+	<string name="rules_context_initial_setup_button">Übernehmen</string>
+
+	<!-- SECTION: Entry Check: No rules dialog -->
+	<string name="dialog_no_entry_rules_available_title">Keine Einreiseregeln</string>
+	<string name="dialog_no_entry_rules_available_subtitle">Aktuell bestehen keine Einreiseregeln nach Deutschland. Wollen Sie den Scanvorgang trotzdem weiterführen?</string>
+	<string name="dialog_no_entry_rules_available_button1">Weiter</string>
+	<string name="dialog_no_entry_rules_available_button2">Abbrechen</string>
+
+	<!-- SECTION: Entry Check: Result Views -->
+	<string name="entry_check_success_title">Keine Einschränkung</string>
+	<string name="entry_check_success_subtitle">nach Coronavirus-Einreiseverordnung</string>
+	<string name="entry_check_success_copy">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
+	<string name="entry_check_link">#Mehr zur Coronavirus-Einreiseverordnung::https://www.bundesgesundheitsministerium.de/service/gesetze-und-verordnungen/guv-19-lp/coronaeinreisev.html#</string>
 </resources>

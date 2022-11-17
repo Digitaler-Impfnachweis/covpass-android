@@ -121,6 +121,13 @@
   <string name="settings_list_status_on"/>
   <string name="settings_list_status_off"/>
 
+  <string name="settings_rules_context_title"/>
+  <string name="settings_rules_context_subtitle"/>
+  <string name="settings_rules_context_germany_title"/>
+  <string name="settings_rules_context_germany_subtitle"/>
+  <string name="settings_rules_context_entry_title"/>
+  <string name="settings_rules_context_entry_subtitle"/>
+
   <string name="dialog_start_screen_title"/>
   <string name="dialog_start_screen_message"/>
   <string name="dialog_start_screen_button_later"/>
