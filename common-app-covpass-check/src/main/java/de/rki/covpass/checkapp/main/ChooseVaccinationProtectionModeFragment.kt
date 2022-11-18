@@ -16,8 +16,9 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ChooseVaccinationProtectionModeBinding
 import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
-import de.rki.covpass.checkapp.storage.VaccinationProtectionMode
 import de.rki.covpass.commonapp.BaseBottomSheet
+import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.CheckContextRepository
 import kotlinx.parcelize.Parcelize
 
 internal interface ChooseVaccinationProtectionModeCallback {
@@ -75,12 +76,12 @@ public class ChooseVaccinationProtectionModeFragment : BaseBottomSheet() {
     override fun onActionButtonClicked() {
         launchWhenStarted {
             if (binding.chooseVaccinationModeGermanyCheckbox.isChecked()) {
-                covpassCheckDeps.checkAppRepository.vaccinationProtectionMode.set(
-                    VaccinationProtectionMode.ModeIfsg,
+                commonDeps.checkContextRepository.vaccinationProtectionMode.set(
+                    CheckContextRepository.VaccinationProtectionMode.ModeIfsg,
                 )
             } else {
-                covpassCheckDeps.checkAppRepository.vaccinationProtectionMode.set(
-                    VaccinationProtectionMode.ModeEntryRules,
+                commonDeps.checkContextRepository.vaccinationProtectionMode.set(
+                    CheckContextRepository.VaccinationProtectionMode.ModeEntryRules,
                 )
             }
             covpassCheckDeps.checkAppRepository.startImmunizationStatus.set(false)

@@ -19,9 +19,6 @@ public class CheckAppRepository(store: CborSharedPrefsStore) {
     public val activatedCheckingMode: SuspendMutableValueFlow<CheckingMode> =
         store.getData("new_activated_checking_mode", CheckingMode.ModeMaskStatus)
 
-    public val vaccinationProtectionMode: SuspendMutableValueFlow<VaccinationProtectionMode> =
-        store.getData("vaccination_protection_mode", VaccinationProtectionMode.ModeIfsg)
-
     public val startImmunizationStatus: SuspendMutableValueFlow<Boolean> =
         store.getData("start_immunization_status", true)
 
@@ -31,9 +28,4 @@ public class CheckAppRepository(store: CborSharedPrefsStore) {
 public enum class CheckingMode {
     ModeMaskStatus,
     ModeImmunizationStatus
-}
-
-public enum class VaccinationProtectionMode {
-    ModeIfsg,
-    ModeEntryRules
 }

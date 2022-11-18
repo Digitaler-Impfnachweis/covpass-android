@@ -20,6 +20,7 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.parcelize.Parcelize
 
@@ -87,17 +88,18 @@ public class SettingsFragment : BaseFragment(), DialogListener {
                 }
             }
         }
-        val isDomesticRulesOn = commonDeps.checkContextRepository.isDomesticRulesOn.value
+        val isModeIfsg = commonDeps.checkContextRepository.vaccinationProtectionMode.value ==
+            CheckContextRepository.VaccinationProtectionMode.ModeIfsg
         binding.checkContextSettingsLocalCheckbox.apply {
             updateValues(
                 R.string.settings_rules_context_germany_title,
                 R.string.settings_rules_context_germany_subtitle,
             )
-            updateCheckbox(isDomesticRulesOn)
+            updateCheckbox(isModeIfsg)
             setOnClickListener {
                 updateCheckbox(true)
                 binding.checkContextSettingsEuCheckbox.updateCheckbox(false)
-                updateRulesState()
+                updateRulesState(CheckContextRepository.VaccinationProtectionMode.ModeIfsg)
             }
         }
         binding.checkContextSettingsEuCheckbox.apply {
@@ -105,11 +107,11 @@ public class SettingsFragment : BaseFragment(), DialogListener {
                 R.string.settings_rules_context_entry_title,
                 R.string.settings_rules_context_entry_subtitle,
             )
-            updateCheckbox(!isDomesticRulesOn)
+            updateCheckbox(!isModeIfsg)
             setOnClickListener {
                 updateCheckbox(true)
                 binding.checkContextSettingsLocalCheckbox.updateCheckbox(false)
-                updateRulesState()
+                updateRulesState(CheckContextRepository.VaccinationProtectionMode.ModeEntryRules)
             }
         }
     }
@@ -133,11 +135,9 @@ public class SettingsFragment : BaseFragment(), DialogListener {
         }
     }
 
-    private fun updateRulesState() {
+    private fun updateRulesState(mode: CheckContextRepository.VaccinationProtectionMode) {
         launchWhenStarted {
-            commonDeps.checkContextRepository.isDomesticRulesOn.set(
-                binding.checkContextSettingsLocalCheckbox.isChecked(),
-            )
+            commonDeps.checkContextRepository.vaccinationProtectionMode.set(mode)
         }
     }
 

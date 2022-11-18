@@ -26,7 +26,6 @@ import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.checkapp.storage.CheckingMode
-import de.rki.covpass.checkapp.storage.VaccinationProtectionMode
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
@@ -35,6 +34,7 @@ import de.rki.covpass.commonapp.information.SettingsFragmentNav
 import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
+import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.utils.FederalStateResolver
@@ -253,10 +253,18 @@ internal class MainFragment :
     }
 
     private fun updateVaccinationCheckMode() {
-        if (covpassCheckDeps.checkAppRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
+        if (
+            commonDeps.checkContextRepository.vaccinationProtectionMode.value ==
+            CheckContextRepository.VaccinationProtectionMode.ModeIfsg
+        ) {
             binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_local)
             binding.mainVaccinationModeText
-                ?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.germany_mode_vaccination_status_icon, 0, 0, 0)
+                ?.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.germany_mode_vaccination_status_icon,
+                    0,
+                    0,
+                    0,
+                )
 
             binding.immunizationStatusInfoIcon.isVisible = true
             binding.immunizationStatusInfoText.isVisible = true
@@ -266,7 +274,12 @@ internal class MainFragment :
         } else {
             binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_europe)
             binding.mainVaccinationModeText
-                ?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.entry_mode_vaccination_status_icon, 0, 0, 0)
+                ?.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.entry_mode_vaccination_status_icon,
+                    0,
+                    0,
+                    0,
+                )
 
             binding.immunizationStatusInfoIcon.isVisible = false
             binding.immunizationStatusInfoText.isVisible = false
