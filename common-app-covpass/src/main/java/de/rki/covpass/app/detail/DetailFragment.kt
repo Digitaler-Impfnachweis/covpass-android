@@ -919,37 +919,25 @@ internal class DetailFragment :
                     dgcEntry.doseNumber > 3 -> {
                         ImmunizationInfoText(
                             message = getString(R.string.infschg_cert_overview_immunisation_complete_B2),
-                            date = getString(
-                                R.string.infschg_cert_overview_immunisation_time_since,
-                                dgcEntry.occurrence.formatDateOrEmpty(),
-                            ),
                         )
                     }
                     dgcEntry.doseNumber == 3 -> {
                         ImmunizationInfoText(
                             message = getString(R.string.infschg_cert_overview_immunisation_third_vacc_C2),
-                            date = getString(
-                                R.string.infschg_cert_overview_immunisation_time_since,
-                                dgcEntry.occurrence.formatDateOrEmpty(),
-                            ),
                         )
                     }
                     dgcEntry.doseNumber == 2 && latestRecovery != null &&
                         dgcEntry.occurrence?.isAfter(recovery?.firstResult) == true -> {
                         ImmunizationInfoText(
                             message = getString(R.string.infschg_cert_overview_immunisation_E2),
-                            date = getString(
-                                R.string.infschg_cert_overview_immunisation_time_since,
-                                dgcEntry.occurrence.formatDateOrEmpty(),
-                            ),
                         )
                     }
                     dgcEntry.doseNumber == 2 && latestRecovery != null &&
-                        LocalDate.now().isAfter(recovery?.firstResult?.plusDays(29)) -> {
+                        LocalDate.now().isBefore(recovery?.firstResult?.plusDays(29)) -> {
                         ImmunizationInfoText(
                             message = getString(R.string.infschg_cert_overview_immunisation_E2),
                             date = getString(
-                                R.string.infschg_cert_overview_immunisation_time_since,
+                                R.string.infschg_cert_overview_immunisation_time_from,
                                 recovery?.firstResult?.plusDays(29).formatDateOrEmpty(),
                             ),
                         )
