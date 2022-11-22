@@ -83,6 +83,19 @@ public abstract class CovPassDomesticRulesDao {
     ): List<CovPassDomesticRuleWithDescriptionsLocal>
     /* ktlint-enable max-line-length */
 
+    /* ktlint-disable max-line-length */
+    @Suppress("MaxLineLength")
+    @Transaction
+    @Query(
+        "SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo) AND :type = type",
+    )
+    public abstract fun getMaskRulesWithDescriptionsBy(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+    ): List<CovPassDomesticRuleWithDescriptionsLocal>
+    /* ktlint-enable max-line-length */
+
     @Transaction
     @Query("SELECT * FROM covpass_domestic_rules WHERE :countryIsoCode = countryCode")
     public abstract fun getRulesWithDescriptionsBy(

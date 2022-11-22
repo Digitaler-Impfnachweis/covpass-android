@@ -55,6 +55,20 @@ public class FederalStateSettingFragment : BaseFragment(), ChangeFederalStateCal
                 )
             }
         }
+        autoRun {
+            get(viewModel.maskRuleValidFrom)?.let { validFrom ->
+                if (validFrom.isNotBlank()) {
+                    binding.federalStateElement.updateDescription(
+                        getString(
+                            de.rki.covpass.app.R.string.infschg_settings_federal_state_page_copy_2,
+                            validFrom,
+                        ),
+                    )
+                } else {
+                    binding.federalStateElement.updateDescription(null)
+                }
+            }
+        }
     }
 
     private fun setupActionBar() {

@@ -66,6 +66,14 @@ public class CovPassDomesticRulesRepository(
         ruleCertificateType,
     )
 
+    public suspend fun getMaskRules(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+    ): List<CovPassRule> = localDataSource.getMaskRules(
+        countryIsoCode,
+        validationClock,
+    )
+
     public suspend fun deleteAll() {
         localDataSource.deleteAll()
     }

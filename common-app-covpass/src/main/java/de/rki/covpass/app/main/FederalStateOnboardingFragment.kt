@@ -9,12 +9,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isGone
 import com.ensody.reactivestate.android.autoRun
+import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.FederalStateOnboardingPopupContentBinding
+import de.rki.covpass.app.information.FederalStateSettingsViewModel
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
@@ -33,6 +35,7 @@ internal class FederalStateOnboardingFragmentNav : FragmentNav(FederalStateOnboa
 internal class FederalStateOnboardingFragment : BaseBottomSheet(), ChangeFederalStateCallBack {
 
     private val binding by viewBinding(FederalStateOnboardingPopupContentBinding::inflate)
+    private val viewModel by reactiveState { FederalStateSettingsViewModel(scope) }
     override val buttonTextRes: Int = R.string.ok
     override val announcementAccessibilityRes: Int = R.string.accessibility_popup_choose_federal_state_announce
     override val closingAnnouncementAccessibilityRes: Int =
@@ -58,6 +61,20 @@ internal class FederalStateOnboardingFragment : BaseBottomSheet(), ChangeFederal
                 )
             }
         }
+        autoRun {
+            get(viewModel.maskRuleValidFrom)?.let { validFrom ->
+                if (validFrom.isNotBlank()) {
+                    binding.federalStateOnboardingValue.updateDescription(
+                        getString(
+                            R.string.infschg_popup_choose_federal_state_copy_3,
+                            validFrom,
+                        ),
+                    )
+                } else {
+                    binding.federalStateOnboardingValue.updateDescription(null)
+                }
+            }
+        }
     }
 
     override fun onActionButtonClicked() {
@@ -74,5 +91,7 @@ internal class FederalStateOnboardingFragment : BaseBottomSheet(), ChangeFederal
         }
     }
 
-    override fun onChangeDone() {}
+    override fun onChangeDone() {
+        viewModel.onFederalStateChanged()
+    }
 }

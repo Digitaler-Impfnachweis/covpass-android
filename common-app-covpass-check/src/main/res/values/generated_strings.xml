@@ -117,6 +117,10 @@
 	<string name="accessibility_scan_camera_torch_turn_on">Switch on torch</string>
 	<string name="accessibility_scan_camera_torch_on">Torch has been switched on</string>
 	<string name="accessibility_scan_camera_torch_turn_off">Torch has been switched off</string>
+	<string name="dialog_second_scan_title">Certificate has already been scanned</string>
+	<string name="dialog_second_scan_message">You have already scanned this certificate. Please scan another certificate.</string>
+	<string name="dialog_second_scan_button_repeat">Repeat</string>
+	<string name="dialog_second_scan_button_update">Cancel</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Full vaccination protection available</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">according to IfSG §22a</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>

@@ -117,6 +117,10 @@
 	<string name="accessibility_scan_camera_torch_turn_on">Taschenlampe anschalten</string>
 	<string name="accessibility_scan_camera_torch_on">Taschenlampe wurde angeschaltet</string>
 	<string name="accessibility_scan_camera_torch_turn_off">Taschenlampe wurde ausgeschaltet</string>
+	<string name="dialog_second_scan_title">Zertifikat wurde bereits gescannt</string>
+	<string name="dialog_second_scan_message">Sie haben dieses Zertifikat bereits gescannt. Scannen Sie bitte einen anderen Nachweis.</string>
+	<string name="dialog_second_scan_button_repeat">Wiederholen</string>
+	<string name="dialog_second_scan_button_update">Abbrechen</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Vollständiger Impfschutz vorhanden</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">nach IfSG §22a</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>

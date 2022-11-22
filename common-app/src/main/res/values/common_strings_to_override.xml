@@ -176,7 +176,9 @@
 
   <string name="infschg_settings_federal_state_title"/>
   <string name="infschg_module_choose_federal_state_title"/>
-  <string name="infschg_settings_federal_state_page_copy"/>
+  <string name="infschg_settings_federal_state_page_copy_1"/>
+  <string name="infschg_settings_federal_state_page_copy_2"/>
+  <string name="infschg_popup_choose_federal_state_copy_3"/>
   <string name="infschg_settings_federal_state_page_tag"/>
 
   <string name="DE_BY"/>

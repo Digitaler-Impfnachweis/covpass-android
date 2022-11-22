@@ -59,4 +59,16 @@
     app:layout_constraintStart_toStartOf="@+id/text_view_layout"
     app:layout_constraintTop_toTopOf="@+id/text_view_layout" />
 
+  <TextView
+    android:id="@+id/text_view_description"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/grid_one"
+    android:paddingHorizontal="@dimen/grid_quarter"
+    app:layout_constraintTop_toBottomOf="@+id/text_view_layout"
+    app:layout_constraintStart_toStartOf="@+id/text_view_layout"
+    app:layout_constraintEnd_toEndOf="@+id/text_view_layout"
+    tools:text="Regeln vom 01.10.2022 (Gültigkeitsbeginn)"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,6 +29,7 @@
     <attr name="hint"/>
     <attr name="text"/>
     <attr name="icon"/>
+    <attr name="description"/>
     <attr name="background"/>
   </declare-styleable>
 </resources>

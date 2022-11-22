@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/grid_three"
         android:layout_marginTop="@dimen/grid_three"
-        android:text="@string/infschg_settings_federal_state_page_copy" />
+        android:text="@string/infschg_settings_federal_state_page_copy_1" />
 
       <de.rki.covpass.commonapp.uielements.TextViewWithHint
         android:id="@+id/federal_state_element"
@@ -50,10 +51,10 @@
         android:layout_marginTop="@dimen/grid_three"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
+        android:contentDescription="@string/accessibility_app_information_title_federal_state_rules_icon"
         android:focusable="true"
         app:hint="@string/infschg_settings_federal_state_page_tag"
-        app:icon="@drawable/federal_state_icon_settings"
-        android:contentDescription="@string/accessibility_app_information_title_federal_state_rules_icon"/>
+        app:icon="@drawable/federal_state_icon_settings" />
 
     </LinearLayout>
 

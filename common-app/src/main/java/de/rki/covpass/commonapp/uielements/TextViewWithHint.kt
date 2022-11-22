@@ -33,6 +33,11 @@ public class TextViewWithHint @JvmOverloads constructor(
         binding.textViewValue.text = newValue
     }
 
+    private var description: String? by Delegates.observable(null) { _, _, newValue ->
+        binding.textViewDescription.text = newValue
+        binding.textViewDescription.isGone = newValue.isNullOrEmpty()
+    }
+
     private var hint: String? by Delegates.observable(null) { _, _, newValue ->
         binding.textViewHint.text = newValue
         binding.textViewHint.isGone = newValue.isNullOrEmpty()
@@ -70,6 +75,7 @@ public class TextViewWithHint @JvmOverloads constructor(
                 text = getString(R.styleable.TextViewWithHint_text)
                 hint = getString(R.styleable.TextViewWithHint_hint)
                 icon = getDrawable(R.styleable.TextViewWithHint_icon)
+                description = getString(R.styleable.TextViewWithHint_description)
             } finally {
                 recycle()
             }
@@ -88,5 +94,9 @@ public class TextViewWithHint @JvmOverloads constructor(
 
     public fun updateText(text: String) {
         this.text = text
+    }
+
+    public fun updateDescription(description: String?) {
+        this.description = description
     }
 }
