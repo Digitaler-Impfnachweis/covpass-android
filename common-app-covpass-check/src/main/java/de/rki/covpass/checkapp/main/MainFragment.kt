@@ -5,8 +5,10 @@
 
 package de.rki.covpass.checkapp.main
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -95,9 +97,14 @@ internal class MainFragment :
                 ),
             )
         }
+        val selectedTabPosition = binding.mainCheckCertTabLayout.selectedTabPosition
+        val selectedTab = binding.mainCheckCertTabLayout.getTabAt(selectedTabPosition)
+        setSelectedTabTypeface(selectedTab)
+
         binding.mainCheckCertTabLayout.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
+                    setSelectedTabTypeface(tab)
                     when {
                         tab?.position == 1 && covpassCheckDeps.checkAppRepository.isMaskStatusOn() -> {
                             launchWhenStarted {
@@ -116,7 +123,10 @@ internal class MainFragment :
                     }
                 }
 
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    setSelectedTabTypeface(tab, Typeface.DEFAULT)
+                }
+
                 override fun onTabReselected(tab: TabLayout.Tab?) {}
             },
         )
@@ -211,6 +221,20 @@ internal class MainFragment :
             }
         }
         showNotificationIfNeeded()
+    }
+
+    // TODO remove after material 1.8.0 will be stable
+    // https://github.com/material-components/material-components-android/issues/2159
+    private fun setSelectedTabTypeface(
+        tab: TabLayout.Tab?,
+        typeface: Typeface = Typeface.DEFAULT_BOLD,
+    ) {
+        tab?.let {
+            for (i in 0 until it.view.childCount) {
+                val tabViewChild = it.view.getChildAt(i)
+                if (tabViewChild is TextView) tabViewChild.typeface = typeface
+            }
+        }
     }
 
     override fun onResume() {

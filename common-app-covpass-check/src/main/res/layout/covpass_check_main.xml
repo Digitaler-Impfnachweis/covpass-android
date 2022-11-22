@@ -60,7 +60,7 @@
       app:tabMode="fixed"
       app:tabRippleColor="@null"
       app:tabSelectedTextColor="@color/onBackground100"
-      app:tabTextAppearance="@style/Header.OnBackground.Small"
+      app:tabTextAppearance="@style/DefaultText.OnBackground"
       app:tabTextColor="@color/onBackground100">
 
       <com.google.android.material.tabs.TabItem
@@ -110,13 +110,15 @@
               android:layout_marginStart="@dimen/grid_four"
               android:layout_marginTop="@dimen/grid_four"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent" />
+              app:layout_constraintTop_toTopOf="parent"
+              tools:text="Federal state" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
               android:id="@+id/federal_state_layout"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginHorizontal="@dimen/grid_three"
+              android:layout_marginTop="@dimen/grid_one"
               android:background="@drawable/background_dark_blue_round_corners"
               android:clickable="true"
               android:focusable="true"
@@ -209,9 +211,9 @@
         <com.google.android.material.button.MaterialButton
           android:id="@+id/main_check_cert_button"
           style="@style/PrimaryButton.Light"
-          android:layout_width="0dp"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/grid_six"
+          android:layout_marginHorizontal="@dimen/grid_three"
           android:layout_marginTop="@dimen/grid_three_half"
           android:layout_marginBottom="@dimen/grid_three"
           app:icon="@drawable/scan_qr"
@@ -219,7 +221,8 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/layout_tab_display"
-          app:layout_goneMarginBottom="@dimen/grid_five" />
+          app:layout_goneMarginBottom="@dimen/grid_five"
+          tools:text="Scan certificate" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 

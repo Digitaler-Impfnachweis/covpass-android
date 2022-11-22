@@ -7,6 +7,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
@@ -46,11 +47,12 @@
     android:id="@+id/choose_vaccination_mode_info_text"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginStart="@dimen/grid_one"
     android:layout_marginEnd="@dimen/grid_three"
+    app:layout_constraintBottom_toBottomOf="@+id/choose_vaccination_mode_info_icon"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@+id/choose_vaccination_mode_info_icon"
-    app:layout_constraintTop_toBottomOf="@+id/choose_vaccination_mode_entry_checkbox" />
+    app:layout_constraintTop_toTopOf="@+id/choose_vaccination_mode_info_icon"
+    tools:text="@string/rules_context_initial_setup_hint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
