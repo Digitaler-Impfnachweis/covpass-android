@@ -14,8 +14,11 @@ import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckImmunityValidationResult
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
 import de.rki.covpass.checkapp.validitycheck.validate
+import de.rki.covpass.checkapp.validitycheck.validateEntry
 import de.rki.covpass.checkapp.validitycheck.validateImmunityStatus
 import de.rki.covpass.commonapp.dependencies.commonDeps
+import de.rki.covpass.commonapp.storage.CheckContextRepository
+import de.rki.covpass.commonapp.storage.CheckContextRepository.VaccinationProtectionMode
 import de.rki.covpass.logging.Lumber
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.QRCoder
@@ -26,9 +29,12 @@ import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.validateEntity
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
+import de.rki.covpass.sdk.rules.CovPassEuRulesRepository
 import de.rki.covpass.sdk.utils.DataComparison
 import de.rki.covpass.sdk.utils.DccNameMatchingUtils.compareHolder
+import dgca.verifier.app.engine.data.Type
 import kotlinx.coroutines.CoroutineScope
+import java.time.ZonedDateTime
 
 /**
  * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
@@ -49,8 +55,12 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     )
 
     fun onImmunityValidationTechnicalFailure(certificate: CovCertificate? = null)
+    fun onImmunityEntryValidationSuccess(certificate: CovCertificate)
+    fun onImmunityEntryValidationFailure(certificate: CovCertificate? = null)
     fun showWarningDuplicatedType()
     fun showWarningDifferentData()
+    fun showWarningNoRules()
+    fun startScanning()
 }
 
 /**
@@ -64,6 +74,8 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
     private val regionId: String = commonDeps.federalStateRepository.federalState.value,
     private val checkAppRepository: CheckAppRepository = covpassCheckDeps.checkAppRepository,
+    private val checkContextRepository: CheckContextRepository = commonDeps.checkContextRepository,
+    private val covPassEuRulesRepository: CovPassEuRulesRepository = sdkDeps.covPassEuRulesRepository,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
 
     var firstCovCertificate: CovCertificate? = null
@@ -121,11 +133,17 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                         isSecondCertificate,
                     )
                 } else {
-                    immunityStatusValidation(
-                        mergedCovCertificate = mergedCovCertificate,
-                        covCertificate = covCertificate,
-                        listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
-                    )
+                    if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
+                        immunityStatusValidation(
+                            mergedCovCertificate = mergedCovCertificate,
+                            covCertificate = covCertificate,
+                            listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
+                        )
+                    } else {
+                        entryValidation(
+                            covCertificate = covCertificate,
+                        )
+                    }
                 }
             } catch (exception: Exception) {
                 Lumber.e(exception)
@@ -134,10 +152,40 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                         onValidationTechnicalFailure()
                     }
                 } else {
-                    eventNotifier {
-                        onImmunityValidationTechnicalFailure()
+                    if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
+                        eventNotifier {
+                            onImmunityValidationTechnicalFailure()
+                        }
+                    } else {
+                        eventNotifier {
+                            onImmunityEntryValidationFailure()
+                        }
                     }
                 }
+            }
+        }
+    }
+
+    fun validateScanningType() {
+        launch {
+            if (
+                checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeImmunizationStatus &&
+                checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeEntryRules
+            ) {
+                val listOfRules = covPassEuRulesRepository.getRulesByType(
+                    "de",
+                    ZonedDateTime.now(),
+                    Type.ACCEPTANCE,
+                )
+                if (listOfRules.isEmpty()) {
+                    eventNotifier {
+                        showWarningNoRules()
+                    }
+                    return@launch
+                }
+            }
+            eventNotifier {
+                startScanning()
             }
         }
     }
@@ -232,6 +280,31 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
             }
             CovPassCheckImmunityValidationResult.TechnicalError -> eventNotifier {
                 onImmunityValidationTechnicalFailure(mergedCovCertificate)
+            }
+        }
+    }
+
+    private suspend fun entryValidation(
+        covCertificate: CovCertificate,
+    ) {
+        when (
+            validateEntry(
+                covCertificate,
+                euRulesValidator,
+                revocationRemoteListRepository,
+            )
+        ) {
+            CovPassCheckImmunityValidationResult.TechnicalError,
+            CovPassCheckImmunityValidationResult.ValidationError,
+            -> {
+                eventNotifier {
+                    onImmunityEntryValidationFailure(covCertificate)
+                }
+            }
+            CovPassCheckImmunityValidationResult.Success -> {
+                eventNotifier {
+                    onImmunityEntryValidationSuccess(covCertificate)
+                }
             }
         }
     }

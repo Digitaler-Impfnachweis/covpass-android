@@ -80,6 +80,19 @@ public abstract class CovPassEuRulesDao {
     ): List<CovPassEuRuleWithDescriptionsLocal>
     /* ktlint-enable max-line-length */
 
+    /* ktlint-disable max-line-length */
+    @Suppress("MaxLineLength")
+    @Transaction
+    @Query(
+        "SELECT * FROM covpass_rules WHERE :countryIsoCode = countryCode AND (:validationClock BETWEEN validFrom AND validTo) AND :type = type",
+    )
+    public abstract fun getRulesByType(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+    ): List<CovPassEuRuleWithDescriptionsLocal>
+    /* ktlint-enable max-line-length */
+
     @Transaction
     @Query("SELECT * FROM covpass_rules WHERE :countryIsoCode = countryCode")
     public abstract fun getRulesWithDescriptionsBy(

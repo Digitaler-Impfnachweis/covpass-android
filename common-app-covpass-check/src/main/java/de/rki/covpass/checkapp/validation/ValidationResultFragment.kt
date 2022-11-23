@@ -28,7 +28,6 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isLandscapeMode
-import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import kotlinx.parcelize.Parcelize
 
@@ -75,7 +74,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
     open val textInfo3: String? = null
     open val imageInfo3Res: Int = 0
 
-    open val textFooter: String? = null
+    open val textFooter: Int? = null
 
     private val expertModeVisible: Boolean by lazy {
         commonDeps.checkContextRepository.isExpertModeOn.value && expertModeData != null
@@ -164,7 +163,6 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             binding.resultInfoFooter.apply {
                 text = getSpanned(it)
                 movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlines()
             }
         }
 
@@ -422,7 +420,7 @@ internal class ValidationImmunityResultIncompleteFragment : ValidationResultFrag
         getString(R.string.functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text)
     }
 
-    override val textFooter by lazy { getString(R.string.validation_faq_link) }
+    override val textFooter = R.string.validation_faq_link
 
     override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
@@ -466,6 +464,87 @@ internal class ValidationImmunityResultFailedFragment : ValidationResultFragment
     override val textInfo2 by lazy {
         getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline)
     }
+
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
+    override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
+
+    override val buttonTextRes = R.string.result_2G_button_startover
+}
+
+@Parcelize
+internal class ValidationEntryResultFailedFragmentNav(
+    val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
+) : FragmentNav(ValidationEntryResultFailedFragment::class)
+
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display entry validation failed.
+ */
+internal class ValidationEntryResultFailedFragment : ValidationResultFragment() {
+    private val args: ValidationEntryResultFailedFragmentNav by lazy { getArgs() }
+    override val title by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_title)
+    }
+    override val regionText = null
+    override val text by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_subline)
+    }
+    override val imageRes = R.drawable.status_immunity_failed
+
+    override val imageInfo1Res = R.drawable.result_invalid_technical_signature
+    override val titleInfo1 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_signature_subheading)
+    }
+    override val textInfo1 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_signature_subline)
+    }
+
+    override val imageInfo2Res = R.drawable.result_invalid_technical_qr
+    override val titleInfo2 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subheading)
+    }
+    override val textInfo2 by lazy {
+        getString(R.string.technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline)
+    }
+
+    override val textFooter: Int = R.string.entry_check_link
+
+    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
+    override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
+
+    override val buttonTextRes = R.string.result_2G_button_startover
+}
+
+@Parcelize
+internal class ValidationEntryResultSuccessFragmentNav(
+    val name: String,
+    val transliteratedName: String,
+    val birthDate: String,
+    val expertModeData: ExpertModeData?,
+    val isGermanCertificate: Boolean = false,
+) : FragmentNav(ValidationEntryResultSuccessFragment::class)
+
+/**
+ * Overrides the texts and icons from [ValidationResultFragment] to display entry validation success.
+ */
+internal class ValidationEntryResultSuccessFragment : ValidationResultFragment() {
+    private val args: ValidationEntryResultSuccessFragmentNav by lazy { getArgs() }
+    override val title by lazy {
+        getString(R.string.entry_check_success_title)
+    }
+    override val regionText by lazy {
+        getString(R.string.entry_check_success_subtitle)
+    }
+    override val text by lazy {
+        getString(R.string.entry_check_success_copy)
+    }
+    override val imageRes = R.drawable.status_immunity_valid
+
+    override val name by lazy { args.name }
+    override val transliteratedName by lazy { args.transliteratedName }
+    override val birthDate by lazy { args.birthDate }
+
+    override val textFooter: Int = R.string.entry_check_link
 
     override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }

@@ -69,6 +69,16 @@ public class CovPassEuRulesRepository(
         ruleCertificateType,
     )
 
+    public suspend fun getRulesByType(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+    ): List<CovPassRule> = localDataSourceEu.getRulesByType(
+        countryIsoCode,
+        validationClock,
+        type,
+    )
+
     public suspend fun deleteAll() {
         localDataSourceEu.deleteAll()
     }

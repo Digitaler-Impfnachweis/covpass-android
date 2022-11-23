@@ -46,6 +46,18 @@ public class CovPassEuRulesLocalDataSource(
         ).toCovPassRules()
     }
 
+    public suspend fun getRulesByType(
+        countryIsoCode: String,
+        validationClock: ZonedDateTime,
+        type: Type,
+    ): List<CovPassRule> = dispatchers.io {
+        covPassEuRulesDao.getRulesByType(
+            countryIsoCode,
+            validationClock,
+            type,
+        ).toCovPassRules()
+    }
+
     public suspend fun deleteAll() {
         dispatchers.io {
             covPassEuRulesDao.deleteAll()
