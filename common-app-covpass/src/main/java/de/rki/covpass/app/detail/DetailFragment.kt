@@ -122,6 +122,7 @@ internal class DetailFragment :
                 )?.nameRes?.let {
                     getString(it)
                 },
+                get(viewModel.maskRuleValidFrom),
             )
         }
     }
@@ -169,6 +170,7 @@ internal class DetailFragment :
                 FederalStateResolver.getFederalStateByCode(
                     commonDeps.federalStateRepository.federalState.value,
                 )?.nameRes?.let { getString(it) },
+                viewModel.maskRuleValidFrom.value,
             )
         }
     }
@@ -196,6 +198,7 @@ internal class DetailFragment :
     private fun updateViews(
         certList: GroupedCertificatesList,
         region: String?,
+        ruleValidFromDate: String?,
     ) {
         val certId = args.certId
         val firstAdded = args.isFirstAdded
@@ -242,21 +245,42 @@ internal class DetailFragment :
                         MaskStatus.Invalid -> R.drawable.status_mask_invalid
                         MaskStatus.NoRules -> R.drawable.status_mask_invalid
                     },
-                    message = getString(
-                        when (maskStatus) {
-                            MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_1
-                            MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_1
-                            MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_copy
-                            MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_1
-                        },
-                    ),
+                    message = when (maskStatus) {
+                        MaskStatus.NotRequired ->
+                            getString(
+                                R.string.infschg_detail_page_no_mask_mandatory_copy_1,
+                                ruleValidFromDate,
+                            )
+                        MaskStatus.Required ->
+                            getString(
+                                R.string.infschg_detail_page_mask_mandatory_copy_1,
+                                ruleValidFromDate,
+                            )
+                        MaskStatus.Invalid ->
+                            getString(R.string.infschg_detail_page_no_valid_certificate_copy)
+                        MaskStatus.NoRules ->
+                            getString(R.string.infschg_detail_page_mask_status_uncertain_copy_1)
+                    },
                     link = when (maskStatus) {
                         MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_link
                         MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_link
                         MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_link
                         MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_link
                     },
-                    region = getString(R.string.infschg_start_screen_status_federal_state, region),
+                    region = when (maskStatus) {
+                        MaskStatus.NotRequired,
+                        MaskStatus.Required,
+                        -> getString(
+                            R.string.infschg_detail_page_mask_mandatory_federal_state,
+                            region,
+                        )
+                        MaskStatus.Invalid,
+                        MaskStatus.NoRules,
+                        -> getString(
+                            R.string.infschg_start_screen_status_federal_state,
+                            region,
+                        )
+                    },
                     noticeMessage = getString(
                         when (maskStatus) {
                             MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_2
@@ -884,6 +908,7 @@ internal class DetailFragment :
             FederalStateResolver.getFederalStateByCode(
                 commonDeps.federalStateRepository.federalState.value,
             )?.nameRes?.let { getString(it) },
+            viewModel.maskRuleValidFrom.value,
         )
     }
 

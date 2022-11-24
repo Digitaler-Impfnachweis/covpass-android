@@ -82,7 +82,6 @@
 
   </LinearLayout>
 
-
   <TextView
     android:id="@+id/detail_status_link_textview"
     style="@style/DefaultText.OnBackground70"

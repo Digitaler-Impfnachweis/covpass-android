@@ -69,6 +69,10 @@ internal class MainFragment :
         SettingsUpdateViewModel(scope, true)
     }
 
+    private val covpassCheckViewModel by reactiveState {
+        CovpassCheckViewModel(scope)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainSettingsImagebutton.setOnClickListener {
@@ -176,6 +180,9 @@ internal class MainFragment :
             }
         }
         autoRun {
+            updateMaskRuleValidityDate(get(covpassCheckViewModel.maskRuleValidFrom))
+        }
+        autoRun {
             updateAvailabilityCard(get(settingsUpdateViewModel.allUpToDate))
         }
         autoRun {
@@ -223,6 +230,16 @@ internal class MainFragment :
         showNotificationIfNeeded()
     }
 
+    private fun updateMaskRuleValidityDate(validFrom: String?) {
+        if (validFrom?.isNotBlank() == true) {
+            binding.ruleValidityStatus?.isVisible = true
+            binding.ruleValidityStatus?.text =
+                getString(R.string.state_ruleset_date_available_long, validFrom)
+        } else {
+            binding.ruleValidityStatus?.isVisible = false
+        }
+    }
+
     // TODO remove after material 1.8.0 will be stable
     // https://github.com/material-components/material-components-android/issues/2159
     private fun setSelectedTabTypeface(
@@ -250,7 +267,9 @@ internal class MainFragment :
         showNotificationIfNeeded()
     }
 
-    override fun onChangeDone() {}
+    override fun onChangeDone() {
+        covpassCheckViewModel.onFederalStateChanged()
+    }
 
     private fun showNotificationIfNeeded() {
         when {
