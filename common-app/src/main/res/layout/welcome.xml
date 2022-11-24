@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -26,6 +25,7 @@
         style="@style/Header.OnBackground.Extralarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hyphenationFrequency="normal"
         android:paddingHorizontal="@dimen/grid_three"
         android:paddingTop="@dimen/grid_six"
         android:paddingBottom="@dimen/grid_one_half"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="@dimen/grid_three"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        tools:src="@tools:sample/backgrounds/scenic"/>
+        tools:src="@tools:sample/backgrounds/scenic" />
 
       <RelativeLayout
         android:layout_width="match_parent"
@@ -81,8 +81,8 @@
           android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/grid_four"
           android:adjustViewBounds="true"
-          android:src="@drawable/lock_outline"
-          android:contentDescription="@null" />
+          android:contentDescription="@null"
+          android:src="@drawable/lock_outline" />
 
       </RelativeLayout>
 
@@ -106,8 +106,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginTop="@dimen/grid_two"
       android:layout_marginVertical="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_two"
       android:text="@string/start_onboarding_button_title" />
 
   </FrameLayout>
