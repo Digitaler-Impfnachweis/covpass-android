@@ -62,7 +62,7 @@ public abstract class BaseExportPdfFragment : BaseBottomSheet(), SharePdfEvents 
         startActivity(shareIntent)
     }
 
-    protected fun loadDataToWebView(pdfString: String) {
+    private fun loadDataToWebView(pdfString: String) {
         if (pdfString.isNotEmpty()) {
             webView.loadDataWithBaseURL(
                 null,
