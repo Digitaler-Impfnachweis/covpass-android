@@ -129,7 +129,9 @@ public suspend fun validateEntry(
     }
 
     // Acceptance and Invalidation rules from /eurules
-    val euValidationResults = euRulesValidator.validate(covCertificate)
+    val euValidationResults = euRulesValidator.validate(covCertificate).filterNot {
+        it.rule.identifier == "GR-DE-0001"
+    }
     if (euValidationResults.any { it.result == Result.FAIL }) {
         return CovPassCheckImmunityValidationResult.ValidationError
     }

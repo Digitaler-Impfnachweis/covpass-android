@@ -176,7 +176,9 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     "de",
                     ZonedDateTime.now(),
                     Type.ACCEPTANCE,
-                )
+                ).filterNot {
+                    it.identifier == "GR-DE-0001"
+                }
                 if (listOfRules.isEmpty()) {
                     eventNotifier {
                         showWarningNoRules()
