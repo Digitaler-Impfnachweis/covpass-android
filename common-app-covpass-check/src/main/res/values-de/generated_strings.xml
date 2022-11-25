@@ -65,7 +65,7 @@
 	<string name="validation_start_screen_title">CovPass-Check</string>
 	<string name="start_screen_toggle_mask">Maskenpflicht</string>
 	<string name="start_screen_toggle_vaccination">Impfschutz</string>
-	<string name="start_screen_vaccination_status_title">Impfschutz nach IfSG §22a</string>
+	<string name="start_screen_vaccination_status_title">Impfschutz nach IfSG § 22a</string>
 	<string name="accessibility_start_screen_vaccination_status_title">Impfschutz nach Infektionsschutzgesetz Paragraph 22a</string>
 	<string name="start_screen_vaccination_status_copy">Einen gültigen Impfschutz hat, wer mindestens drei Impfungen oder zwei Impfungen und eine Genesung nachweisen kann.</string>
 	<string name="start_screen_vaccination_status_hint">Bitte scannen Sie immer die aktuellsten Nachweise zuerst.</string>
@@ -122,7 +122,7 @@
 	<string name="dialog_second_scan_button_repeat">Wiederholen</string>
 	<string name="dialog_second_scan_button_update">Abbrechen</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Vollständiger Impfschutz vorhanden</string>
-	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">nach IfSG §22a</string>
+	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">nach IfSG § 22a</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Geboren am %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Genesenen- oder Impfzertifikat liegt vor.</string>
@@ -137,7 +137,7 @@
 	<string name="technical_validation_check_popup_retry">Letzten Scan wiederholen</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Abbrechen</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Unvollständiger Impfschutz</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">nach IfSG §22a</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">nach IfSG § 22a</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">Die erbrachten Nachweise ergeben keinen vollständigen Impfschutz. Mögliche Gründe:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Impfserie unvollständig</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">Für einen vollständigen Impfschutz muss eine Reihe von mindestens drei Immun-Ereignissen (Impfungen oder Genesungen) nachgewiesen werden, davon mindestens zwei Impfungen.</string>
@@ -148,7 +148,7 @@
 	<string name="validation_faq_link">#Mehr Informationen::https://www.digitaler-impfnachweis-app.de/faq/#die-aktuell-h-ufigsten-fragen#</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button">Neue Prüfung</string>
 	<string name="functional_validation_check_popup_second_scan_title">Impfschutz-Prüfung</string>
-	<string name="functional_validation_check_popup_second_scan_subtitle">nach IfSG §22a</string>
+	<string name="functional_validation_check_popup_second_scan_subtitle">nach IfSG § 22a</string>
 	<string name="functional_validation_check_popup_second_scan_blue_card_1_title">1. Zertifikat</string>
 	<string name="functional_validation_check_popup_second_scan_blue_card_1_subtitle">Nicht ausreichend</string>
 	<string name="functional_validation_check_popup_second_scan_blue_card_2_title">2. Zertifikat</string>
@@ -348,7 +348,7 @@
 	<string name="infschg_settings_title">Prüfregeln</string>
 	<string name="infschg_settings_copy_1">Hier können Sie die Regeln aktualisieren, nach denen Zertifikate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
 	<string name="infschg_result_mask_optional_title">Keine Maskenpflicht</string>
-	<string name="infschg_result_mask_optional_subtitle">In %s</string>
+	<string name="infschg_result_mask_optional_subtitle">in %s*</string>
 	<string name="infschg_result_mask_optional_copy">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="infschg_result_mask_optional_copy_notification">Diese Ansicht schließt sich nach 2 Min. von selbst.</string>
 	<string name="accessibility_popup_new_rules_announce">Die Ansicht \"Neue gesetzliche Regelungen\" wurde geöffnet</string>
@@ -520,7 +520,7 @@
 	<string name="settings_rules_context_title">Prüfkontext</string>
 	<string name="settings_rules_context_subtitle">Auf dieser Basis wird der Impfschutz angezeigt.</string>
 	<string name="settings_rules_context_germany_title">Ich prüfe innerhalb Deutschlands</string>
-	<string name="settings_rules_context_germany_subtitle">Auf Basis des Infektionsschutzgesetz §22a</string>
+	<string name="settings_rules_context_germany_subtitle">Auf Basis des Infektionsschutzgesetz § 22a</string>
 	<string name="settings_rules_context_entry_title">Ich prüfe bei Einreisen</string>
 	<string name="settings_rules_context_entry_subtitle">Auf Basis der Coronavirus-Einreiseverordnung</string>
 	<string name="accessibility_option_selected">Ausgewählt</string>
@@ -528,7 +528,7 @@
 
 	<!-- SECTION: Entry Check: Start View -->
 	<string name="start_vaccination_status_entry_title">Impfschutz nach Coronavirus-Einreiseverordnung</string>
-	<string name="start_vaccination_status_entry_subtitle">Derzeit gibt es keine Beschränkungen für die Einreise nach Deutschland. Um den Impfschutz innerhalb Deutschlands nach Infektionsschutzgesetz §22a zu prüfen, ändern Sie den Prüfkontext in den Einstellungen.</string>
+	<string name="start_vaccination_status_entry_subtitle">Derzeit gibt es keine Beschränkungen für die Einreise nach Deutschland. Um den Impfschutz innerhalb Deutschlands nach Infektionsschutzgesetz § 22a zu prüfen, ändern Sie den Prüfkontext in den Einstellungen.</string>
 
 	<!-- SECTION: Entry Check: Initial setup -->
 	<string name="accessibility_rules_context_initial_setup_open">Die Ansicht \"Prüfkontext bestimmen\" wurde geöffnet.</string>

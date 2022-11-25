@@ -65,7 +65,7 @@
 	<string name="validation_start_screen_title">CovPass-Check</string>
 	<string name="start_screen_toggle_mask">Mask obligation</string>
 	<string name="start_screen_toggle_vaccination">Vaccination status</string>
-	<string name="start_screen_vaccination_status_title">Vaccination status according to IfSG §22a</string>
+	<string name="start_screen_vaccination_status_title">Vaccination status according to IfSG § 22a</string>
 	<string name="accessibility_start_screen_vaccination_status_title">Vaccination status according to Infection Protection Act paragraph 22a</string>
 	<string name="start_screen_vaccination_status_copy">A valid vaccination status is achieved by at least three vaccinations or two vaccinations and one recovery.</string>
 	<string name="start_screen_vaccination_status_hint">Please always scan the most recent certificates first.</string>
@@ -122,7 +122,7 @@
 	<string name="dialog_second_scan_button_repeat">Repeat</string>
 	<string name="dialog_second_scan_button_update">Cancel</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Full vaccination protection available</string>
-	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">according to IfSG §22a</string>
+	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">according to IfSG § 22a</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_message">Check the following data against an ID document from the person you are checking.</string>
 	<string name="validation_check_popup_valid_vaccination_date_of_birth">Born on %s</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_note">* Person has recovery or vaccination certificate.</string>
@@ -137,7 +137,7 @@
 	<string name="technical_validation_check_popup_retry">Retry last scan</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Cancel</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Incomplete vaccination protection</string>
-	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">according to IfSG §22a</string>
+	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">according to IfSG § 22a</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_copy">The certificates provided do not indicate complete vaccination protection. Possible reasons:</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration">Vaccination series incomplete</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_expiration_text">For a complete vaccination status, a series of at least three vaccinations or recoveries must be demonstrated, including at least two vaccinations.</string>
@@ -148,7 +148,7 @@
 	<string name="validation_faq_link">#More information::https://www.digitaler-impfnachweis-app.de/en/faq/#current-most-frequently-asked-questions#</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button">New scan</string>
 	<string name="functional_validation_check_popup_second_scan_title">Check vaccination status</string>
-	<string name="functional_validation_check_popup_second_scan_subtitle">according to IfSG §22a</string>
+	<string name="functional_validation_check_popup_second_scan_subtitle">according to IfSG § 22a</string>
 	<string name="functional_validation_check_popup_second_scan_blue_card_1_title">1st certificate</string>
 	<string name="functional_validation_check_popup_second_scan_blue_card_1_subtitle">Insufficient</string>
 	<string name="functional_validation_check_popup_second_scan_blue_card_2_title">2nd certificate</string>
@@ -348,7 +348,7 @@
 	<string name="infschg_settings_title">Checking rules</string>
 	<string name="infschg_settings_copy_1">Here you can update the rules according to which certificates are checked. If your smartphone is usually connected to the Internet, this happens automatically.</string>
 	<string name="infschg_result_mask_optional_title">No mask obligation</string>
-	<string name="infschg_result_mask_optional_subtitle">In %s</string>
+	<string name="infschg_result_mask_optional_subtitle">in %s*</string>
 	<string name="infschg_result_mask_optional_copy">Now compare the following data with an identification document of the person being checked.</string>
 	<string name="infschg_result_mask_optional_copy_notification">This view will close by itself after 2 min.</string>
 	<string name="accessibility_popup_new_rules_announce">New state rules has been opened</string>
@@ -520,7 +520,7 @@
 	<string name="settings_rules_context_title">Check context</string>
 	<string name="settings_rules_context_subtitle">On this basis, the vaccination status is displayed.</string>
 	<string name="settings_rules_context_germany_title">I check within Germany</string>
-	<string name="settings_rules_context_germany_subtitle">On the basis of the Infection Protection Act §22a</string>
+	<string name="settings_rules_context_germany_subtitle">On the basis of the Infection Protection Act § 22a</string>
 	<string name="settings_rules_context_entry_title">I check at entries</string>
 	<string name="settings_rules_context_entry_subtitle">On the basis of the Coronavirus Entry Regulations</string>
 	<string name="accessibility_option_selected">Selected</string>
@@ -528,7 +528,7 @@
 
 	<!-- SECTION: Entry Check: Start View -->
 	<string name="start_vaccination_status_entry_title">Vaccination status according to the Coronavirus Entry Regulations</string>
-	<string name="start_vaccination_status_entry_subtitle">There are currently no restrictions on entering Germany. To check the vaccination status within Germany according to Infection Protection Act §22a, change the check context in the settings.</string>
+	<string name="start_vaccination_status_entry_subtitle">There are currently no restrictions on entering Germany. To check the vaccination status within Germany according to Infection Protection Act § 22a, change the check context in the settings.</string>
 
 	<!-- SECTION: Entry Check: Initial setup -->
 	<string name="accessibility_rules_context_initial_setup_open">The view \"Determine check context\" has been opened.</string>
