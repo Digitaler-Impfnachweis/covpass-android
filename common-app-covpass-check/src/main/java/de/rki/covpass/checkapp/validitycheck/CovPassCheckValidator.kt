@@ -27,6 +27,10 @@ public suspend fun validate(
     revocationRemoteListRepository: RevocationRemoteListRepository,
     region: String? = null,
 ): CovPassCheckValidationResult {
+    if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
+        return CovPassCheckValidationResult.TechnicalError
+    }
+
     // Check mask rules
     val maskValidationResults = domesticRulesValidator.validate(
         cert = mergedCovCertificate,
@@ -35,10 +39,6 @@ public suspend fun validate(
     )
     if (maskValidationResults.isEmpty()) {
         return CovPassCheckValidationResult.NoMaskRulesError
-    }
-
-    if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
-        return CovPassCheckValidationResult.TechnicalError
     }
 
     // Acceptance and Invalidation rules from /domesticrules
