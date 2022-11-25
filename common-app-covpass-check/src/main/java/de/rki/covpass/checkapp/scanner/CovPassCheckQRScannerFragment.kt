@@ -23,7 +23,6 @@ import de.rki.covpass.checkapp.validation.ValidationImmunityResultIncompleteFrag
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultSuccessFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationPendingResultFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultDifferentDataFragmentNav
-import de.rki.covpass.checkapp.validation.ValidationResultInvalidFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
 import de.rki.covpass.checkapp.validation.ValidationResultNoRulesFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultPartialFragmentNav
@@ -155,7 +154,7 @@ internal class CovPassCheckQRScannerFragment :
     override fun onValidationTechnicalFailure(certificate: CovCertificate?) {
         scanEnabled.value = false
         findNavigator().push(
-            ValidationResultInvalidFragmentNav(
+            ValidationEntryResultFailedFragmentNav(
                 expertModeData = certificate?.getExpertModeData(),
                 isGermanCertificate = certificate?.isGermanCertificate ?: false,
             ),
