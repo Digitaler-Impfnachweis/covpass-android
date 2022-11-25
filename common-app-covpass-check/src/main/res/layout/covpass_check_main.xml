@@ -158,11 +158,9 @@
               android:layout_marginHorizontal="@dimen/grid_three"
               android:layout_marginTop="@dimen/grid_one"
               android:gravity="center"
-              android:visibility="gone"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintTop_toBottomOf="@+id/federal_state_layout"
-              tools:text="@string/state_ruleset_date_available_long"
-              tools:visibility="visible" />
+              tools:text="@string/state_ruleset_date_available_long" />
 
           </androidx.constraintlayout.widget.ConstraintLayout>
 

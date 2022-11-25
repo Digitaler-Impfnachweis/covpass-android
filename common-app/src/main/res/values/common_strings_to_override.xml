@@ -183,6 +183,7 @@
 
   <string name="state_ruleset_date_available_short"/>
   <string name="state_ruleset_date_available_long"/>
+  <string name="state_ruleset_date_unavailable"/>
 
   <string name="DE_BY"/>
   <string name="DE_BB"/>

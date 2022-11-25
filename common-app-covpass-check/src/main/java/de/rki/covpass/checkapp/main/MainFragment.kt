@@ -232,11 +232,10 @@ internal class MainFragment :
 
     private fun updateMaskRuleValidityDate(validFrom: String?) {
         if (validFrom?.isNotBlank() == true) {
-            binding.ruleValidityStatus?.isVisible = true
             binding.ruleValidityStatus?.text =
                 getString(R.string.state_ruleset_date_available_long, validFrom)
         } else {
-            binding.ruleValidityStatus?.isVisible = false
+            binding.ruleValidityStatus?.text = getString(R.string.state_ruleset_date_unavailable)
         }
     }
 
