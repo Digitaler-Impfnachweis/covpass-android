@@ -45,8 +45,8 @@ public class ChooseVaccinationProtectionModeFragment : BaseBottomSheet() {
         bottomSheetBinding.bottomSheetClose.isVisible = false
         binding.chooseVaccinationModeSubtitle.setText(R.string.rules_context_initial_setup_subtitle)
         binding.chooseVaccinationModeGermanyCheckbox.updateValues(
-            R.string.check_context_onboarding_option2_title,
-            R.string.check_context_onboarding_option2_subtitle,
+            R.string.settings_rules_context_germany_title,
+            R.string.settings_rules_context_germany_subtitle,
         )
         binding.chooseVaccinationModeGermanyCheckbox.updateCheckbox(true)
         binding.chooseVaccinationModeGermanyCheckbox.setOnClickListener {
@@ -58,8 +58,8 @@ public class ChooseVaccinationProtectionModeFragment : BaseBottomSheet() {
             )
         }
         binding.chooseVaccinationModeEntryCheckbox.updateValues(
-            R.string.check_context_onboarding_option1_title,
-            R.string.check_context_onboarding_option1_subtitle,
+            R.string.settings_rules_context_entry_title,
+            R.string.settings_rules_context_entry_subtitle,
         )
         binding.chooseVaccinationModeEntryCheckbox.updateCheckbox(false)
         binding.chooseVaccinationModeEntryCheckbox.setOnClickListener {

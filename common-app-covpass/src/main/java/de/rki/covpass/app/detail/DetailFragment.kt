@@ -68,6 +68,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlin.math.abs
 
 /**
  * Interface to communicate events from [DetailFragment] back to other fragments.
@@ -994,10 +995,12 @@ internal class DetailFragment :
             ImmunizationInfoText(
                 message = getString(
                     R.string.infschg_cert_overview_immunisation_E22,
-                    Duration.between(
-                        recovery.firstResult?.plusDays(29)?.atStartOfDay(),
-                        LocalDate.now().atStartOfDay(),
-                    ).toDays(),
+                    abs(
+                        Duration.between(
+                            recovery.firstResult?.plusDays(29)?.atStartOfDay(),
+                            LocalDate.now().atStartOfDay(),
+                        ).toDays(),
+                    ),
                 ),
                 date = getString(
                     R.string.infschg_cert_overview_immunisation_time_from,

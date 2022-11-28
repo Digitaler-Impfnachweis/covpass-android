@@ -11,6 +11,7 @@
     <item name="android:fontFamily">@font/opensans_regular</item>
     <item name="android:textSize">@dimen/textsize_default</item>
     <item name="android:breakStrategy">simple</item>
+    <item name="android:hyphenationFrequency">normal</item>
   </style>
 
   <style name="DefaultText.OnBackground">
@@ -48,6 +49,7 @@
   <style name="Header">
     <item name="android:lineSpacingMultiplier">1.2</item>
     <item name="android:fontFamily">@font/opensans_bold</item>
+    <item name="android:hyphenationFrequency">normal</item>
   </style>
 
   <style name="Header.OnBackground">
