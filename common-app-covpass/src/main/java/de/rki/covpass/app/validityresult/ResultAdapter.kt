@@ -174,7 +174,7 @@ public class ResultAdapter(
                                 getString(country.nameRes),
                                 dateTime.formatDateTimeAccessibility(),
                             ),
-                            descriptionNoLink = getString(
+                            description = getString(
                                 R.string.certificate_check_validity_detail_view_result_no_rules_message,
                             ),
                             iconRes = R.drawable.info_warning_icon,
