@@ -28,6 +28,8 @@ import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.checkapp.storage.CheckingMode
+import de.rki.covpass.checkapp.updateinfo.UpdateInfoCallback
+import de.rki.covpass.checkapp.updateinfo.UpdateInfoCovpassCheckFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
@@ -39,6 +41,7 @@ import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
+import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -56,7 +59,8 @@ internal class MainFragment :
     BaseFragment(),
     DataProtectionCallback,
     ChangeFederalStateCallBack,
-    ChooseVaccinationProtectionModeCallback {
+    ChooseVaccinationProtectionModeCallback,
+    UpdateInfoCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val revocationListUpdateViewModel by reactiveState {
@@ -232,10 +236,10 @@ internal class MainFragment :
 
     private fun updateMaskRuleValidityDate(validFrom: String?) {
         if (validFrom?.isNotBlank() == true) {
-            binding.ruleValidityStatus?.text =
+            binding.ruleValidityStatus.text =
                 getString(R.string.state_ruleset_date_available_long, validFrom)
         } else {
-            binding.ruleValidityStatus?.text = getString(R.string.state_ruleset_date_unavailable)
+            binding.ruleValidityStatus.text = getString(R.string.state_ruleset_date_unavailable)
         }
     }
 
@@ -266,12 +270,21 @@ internal class MainFragment :
         showNotificationIfNeeded()
     }
 
+    override fun onUpdateInfoFinish() {
+        showNotificationIfNeeded()
+    }
+
     override fun onChangeDone() {
         covpassCheckViewModel.onFederalStateChanged()
     }
 
     private fun showNotificationIfNeeded() {
         when {
+            commonDeps.updateInfoRepository.updateInfoVersionShown.value
+                != UpdateInfoRepository.CURRENT_UPDATE_VERSION &&
+                commonDeps.updateInfoRepository.updateInfoNotificationActive.value -> {
+                findNavigator().push(UpdateInfoCovpassCheckFragmentNav())
+            }
             commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value
                 != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION -> {
                 findNavigator().push(DataProtectionFragmentNav())

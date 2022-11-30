@@ -60,6 +60,11 @@
 	<string name="check_context_onboarding_footnote">This information is used to adjust the rules according to which certificates are shown as valid or invalid. You can change the specification at any time in the settings.</string>
 	<string name="check_context_onboarding_button">OK</string>
 
+	<!-- SECTION: what is new: popup -->
+	<string name="whats_new_screen_title">New features</string>
+	<string name="whats_new_screen_update_notifications_checkbox_headline">Do not show this type of notifications anymore</string>
+	<string name="whats_new_screen_update_notifications_checkbox_copy">You can change this option anytime in the settings.</string>
+
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">Settings</string>
 	<string name="validation_start_screen_title">CovPass-Check</string>
@@ -313,6 +318,16 @@
 	<string name="app_information_authorities_function_state_on">On</string>
 	<string name="app_information_authorities_function_state_off">Off</string>
 	<string name="app_information_version_label">Version %s</string>
+
+	<!-- SECTION: what is new: settings -->
+	<string name="accessibility_app_information_title_update_notifications_announce">Update notifications has been opened</string>
+	<string name="accessibility_app_information_title_update_notifications_closing_announce">Update notifications has been closed</string>
+	<string name="app_information_title_update_notifications">Update notifications</string>
+	<string name="app_information_copy_update_notifications">You can now disable the update notifications. You can use the toggle to disable or re-enable the updates at any time. If you disable the update screen, you will no longer receive updates about the latest software developments in the app.</string>
+	<string name="app_information_update_notifications_toggle">Show update notifications</string>
+	<string name="app_information_update_notifications_new_version_copy">New functions (Version %s)</string>
+	<string name="settings_list_status_on">On</string>
+	<string name="settings_list_status_off">Off</string>
 
 	<!-- SECTION: error handling -->
 	<string name="error_standard_unexpected_title">Sorry</string>

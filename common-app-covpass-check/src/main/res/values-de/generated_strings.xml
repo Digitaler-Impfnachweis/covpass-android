@@ -60,6 +60,11 @@
 	<string name="check_context_onboarding_footnote">Anhand dieser Angabe werden die Regeln angepasst, nach denen Zertifikate als gültig oder ungültig ausgewiesen werden. Sie können die Angabe jederzeit in den Einstellungen ändern.</string>
 	<string name="check_context_onboarding_button">OK</string>
 
+	<!-- SECTION: what is new: popup -->
+	<string name="whats_new_screen_title">Neue Funktionen</string>
+	<string name="whats_new_screen_update_notifications_checkbox_headline">Diese Art von Benachrichtigungen nicht mehr anzeigen</string>
+	<string name="whats_new_screen_update_notifications_checkbox_copy">Sie können diese Entscheidung jederzeit in den Einstellungen ändern.</string>
+
 	<!-- SECTION: start screen -->
 	<string name="accessibility_validation_start_screen_label_information">Einstellungen</string>
 	<string name="validation_start_screen_title">CovPass-Check</string>
@@ -313,6 +318,16 @@
 	<string name="app_information_authorities_function_state_on">An</string>
 	<string name="app_information_authorities_function_state_off">Aus</string>
 	<string name="app_information_version_label">Version %s</string>
+
+	<!-- SECTION: what is new: settings -->
+	<string name="accessibility_app_information_title_update_notifications_announce">Die Ansicht \"Update-Benachrichtigungen\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_update_notifications_closing_announce">Die Ansicht \"Update-Benachrichtigungen\" wurde geschlossen</string>
+	<string name="app_information_title_update_notifications">Update-Benachrichtigungen</string>
+	<string name="app_information_copy_update_notifications">Sie können ab jetzt die Update-Benachrichtigungen deaktivieren. Mit dem Regler können Sie jederzeit die Updates deaktivieren oder wieder aktivieren. Wenn sie den Update-Benachrichtigungen deaktivieren, bekommen Sie keine Updates mehr über die neuesten Software-Entwicklungen in der App.</string>
+	<string name="app_information_update_notifications_toggle">Update-Benachrichtigungen anzeigen</string>
+	<string name="app_information_update_notifications_new_version_copy">Neue Funktionen (Version %s)</string>
+	<string name="settings_list_status_on">An</string>
+	<string name="settings_list_status_off">Aus</string>
 
 	<!-- SECTION: error handling -->
 	<string name="error_standard_unexpected_title">Entschuldigung</string>

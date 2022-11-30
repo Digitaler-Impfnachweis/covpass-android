@@ -110,9 +110,22 @@ public abstract class InformationFragment : BaseFragment() {
             }
         }
 
+        binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
+            findNavigator().push(WhatsNewSettingsFragmentNav())
+        }
+        binding.informationFieldCovpassWhatsNewSettingsTitle.setText(
+            R.string.app_information_title_update_notifications,
+        )
+        binding.informationFieldCovpassWhatsNewSettingsStatus.setText(
+            if (commonDeps.updateInfoRepository.updateInfoNotificationActive.value) {
+                R.string.settings_list_status_on
+            } else {
+                R.string.settings_list_status_off
+            },
+        )
+
         if (isCovpassCheck()) {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
-            binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = false
             binding.informationFieldCovpassFederalStateSettingsContainer.isVisible = false
             binding.informationFieldExpertModeLayout.setOnClickListener {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
@@ -145,22 +158,7 @@ public abstract class InformationFragment : BaseFragment() {
         } else {
             binding.informationFieldAcousticFeedbackLayout.isVisible = false
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
-            binding.informationFieldCovpassWhatsNewSettingsContainer.isVisible = true
             binding.informationFieldCovpassFederalStateSettingsContainer.isVisible = true
-
-            binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
-                findNavigator().push(WhatsNewSettingsFragmentNav())
-            }
-            binding.informationFieldCovpassWhatsNewSettingsTitle.setText(
-                R.string.app_information_list_update_notifications,
-            )
-            binding.informationFieldCovpassWhatsNewSettingsStatus.setText(
-                if (commonDeps.updateInfoRepository.updateInfoNotificationActive.value) {
-                    R.string.settings_list_status_on
-                } else {
-                    R.string.settings_list_status_off
-                },
-            )
 
             binding.informationFieldCovpassFederalStateSettingsLayout.setOnClickListener {
                 showFederalStateSettings()
