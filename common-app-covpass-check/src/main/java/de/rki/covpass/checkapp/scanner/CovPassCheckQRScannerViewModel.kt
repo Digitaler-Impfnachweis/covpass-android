@@ -60,6 +60,7 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     fun showWarningDuplicatedType()
     fun showWarningDifferentData()
     fun showWarningNoRules()
+    fun showWarningDuplicatedCertificate()
     fun startScanning()
 }
 
@@ -100,6 +101,12 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     if (firstCovCert != null && compareData(firstCovCert, covCertificate) != DataComparison.Equal) {
                         eventNotifier {
                             showWarningDifferentData()
+                        }
+                        return@launch
+                    }
+                    if (listOfNotNull(firstCovCert, secondCovCert).any { it.dgcEntry.id == dgcEntry.id }) {
+                        eventNotifier {
+                            showWarningDuplicatedCertificate()
                         }
                         return@launch
                     }

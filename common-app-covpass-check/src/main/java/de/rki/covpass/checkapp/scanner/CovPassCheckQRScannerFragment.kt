@@ -87,6 +87,9 @@ internal class CovPassCheckQRScannerFragment :
             tag == TAG_ERROR_NO_ENTRY_RULES && action == DialogAction.NEGATIVE -> {
                 findNavigator().popAll()
             }
+            tag == TAG_ERROR_DUPLICATED_CERTIFICATES && action == DialogAction.NEGATIVE -> {
+                findNavigator().popAll()
+            }
         }
     }
 
@@ -276,6 +279,17 @@ internal class CovPassCheckQRScannerFragment :
         showDialog(dialog, childFragmentManager)
     }
 
+    override fun showWarningDuplicatedCertificate() {
+        val dialog = DialogModel(
+            titleRes = R.string.dialog_second_scan_title,
+            messageString = getString(R.string.dialog_second_scan_message),
+            positiveButtonTextRes = R.string.dialog_second_scan_button_repeat,
+            negativeButtonTextRes = R.string.dialog_second_scan_button_update,
+            tag = TAG_ERROR_DUPLICATED_CERTIFICATES,
+        )
+        showDialog(dialog, childFragmentManager)
+    }
+
     override fun startScanning() {
         scanEnabled.value = true
     }
@@ -362,5 +376,6 @@ internal class CovPassCheckQRScannerFragment :
         const val TAG_ERROR_UNEXPECTED_TYPE = "tag_error_unexpected_type"
         const val TAG_ERROR_DIFFERENT_DATA = "tag_error_different_data"
         const val TAG_ERROR_NO_ENTRY_RULES = "tag_error_no_entry_rules"
+        const val TAG_ERROR_DUPLICATED_CERTIFICATES = "tag_error_duplicated_certificates"
     }
 }
