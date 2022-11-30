@@ -5,7 +5,9 @@
 
 package de.rki.covpass.checkapp.scanner
 
+import android.content.Context
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.ensody.reactivestate.android.reactiveState
@@ -60,9 +62,22 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mp = MediaPlayer.create(requireContext(), R.raw.covpass_check_certificate_scanned)
+        initializeMediaPlayer(requireContext())
         scanEnabled.value = false
         viewModel.validateScanningType()
+    }
+
+    private fun initializeMediaPlayer(context: Context) {
+        if (commonDeps.acousticFeedbackRepository.acousticFeedbackStatus.value) {
+            val mediaPath = Uri.parse(
+                "android.resource://${context.packageName}/" +
+                    "${R.raw.covpass_check_certificate_scanned}",
+            )
+            mp = MediaPlayer().apply {
+                setDataSource(context, mediaPath)
+                prepare()
+            }
+        }
     }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
