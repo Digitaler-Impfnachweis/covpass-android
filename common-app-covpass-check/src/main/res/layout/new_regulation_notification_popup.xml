@@ -16,7 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_two_half"
-    android:src="@drawable/new_regulation_notification_decorative"
+    app:srcCompat="@drawable/new_regulation_notification_decorative"
     app:layout_constraintTop_toTopOf="parent"
     tools:ignore="ContentDescription" />
 
