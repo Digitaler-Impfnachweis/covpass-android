@@ -5,6 +5,7 @@
 
 package de.rki.covpass.sdk.cert.models
 
+import de.rki.covpass.sdk.cert.ImmunizationStatusWrapper
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.utils.CertificateReissueUtils.getBoosterAfterVaccinationAfterRecoveryIds
@@ -42,7 +43,7 @@ public data class BoosterNotification(
 public data class GroupedCertificates(
     var certificates: MutableList<CombinedCovCertificate>,
     var boosterNotification: BoosterNotification = BoosterNotification(),
-    var gStatus: ImmunizationStatus = ImmunizationStatus.Partial,
+    var immunizationStatus: ImmunizationStatusWrapper = ImmunizationStatusWrapper(),
     var maskStatus: MaskStatus = MaskStatus.Required,
 ) {
 
