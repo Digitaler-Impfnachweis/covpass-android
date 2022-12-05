@@ -124,7 +124,7 @@
 	<string name="accessibility_scan_camera_torch_turn_off">Torch has been switched off</string>
 	<string name="dialog_second_scan_title">Certificate has already been scanned</string>
 	<string name="dialog_second_scan_message">You have already scanned this certificate. Please scan another certificate.</string>
-	<string name="dialog_second_scan_button_repeat">Repeat</string>
+	<string name="dialog_second_scan_button_repeat">New scan</string>
 	<string name="dialog_second_scan_button_update">Cancel</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Full vaccination protection available</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">according to IfSG § 22a</string>
@@ -401,7 +401,7 @@
 	<string name="infschg_result_mask_mandatory_deviating_data_subtitle_3">Not an error?</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_copy_2">If you think the error is a typo, you can ignore this discrepancy and continue the check</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_link">Ignore deviation</string>
-	<string name="infschg_result_no_mask_rules_title">No present rules</string>
+	<string name="infschg_result_no_mask_rules_title">No additional rules</string>
 	<string name="infschg_result_no_mask_rules_subtitle">in %s</string>
 	<string name="infschg_result_no_mask_rules_copy_1_bold">The RKI does not currently have any state-specific rules for this federal state. Therefore, only the uniform federal rules on mandatory masks apply.</string>
 	<string name="infschg_result_no_mask_rules_copy_2">If the federal state in which you are staying has ordered a mask obligation, a negative rapid or PCR test exempts you from this mask obligation for 24 hours at recreational, cultural and sporting events and in catering establishments. An unsupervised self-test performed is not sufficient. Your state may regulate that complete vaccinations or recoveries (if these occurred no more than three months ago) also exempt you from the mask requirement.\n\nAn exemption from the mask requirement does not apply in long-distance public transport, hospitals, nursing facilities, and doctors\' offices.</string>
@@ -543,7 +543,7 @@
 
 	<!-- SECTION: Entry Check: Start View -->
 	<string name="start_vaccination_status_entry_title">Vaccination status according to the Coronavirus Entry Regulations</string>
-	<string name="start_vaccination_status_entry_subtitle">There are currently no restrictions on entering Germany. To check the vaccination status within Germany according to Infection Protection Act § 22a, change the check context in the settings.</string>
+	<string name="start_vaccination_status_entry_subtitle">There are currently no restrictions on entering Germany. To check the vaccination status within Germany according to Infection Protection Act § 22a, change the check context in the #settings.::$0#</string>
 
 	<!-- SECTION: Entry Check: Initial setup -->
 	<string name="accessibility_rules_context_initial_setup_open">The view \"Determine check context\" has been opened.</string>

@@ -124,7 +124,7 @@
 	<string name="accessibility_scan_camera_torch_turn_off">Taschenlampe wurde ausgeschaltet</string>
 	<string name="dialog_second_scan_title">Zertifikat wurde bereits gescannt</string>
 	<string name="dialog_second_scan_message">Sie haben dieses Zertifikat bereits gescannt. Scannen Sie bitte einen anderen Nachweis.</string>
-	<string name="dialog_second_scan_button_repeat">Wiederholen</string>
+	<string name="dialog_second_scan_button_repeat">Neuer Scan</string>
 	<string name="dialog_second_scan_button_update">Abbrechen</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_title">Vollständiger Impfschutz vorhanden</string>
 	<string name="validation_check_popup_valid_vaccination_recovery_subtitle">nach IfSG § 22a</string>
@@ -401,7 +401,7 @@
 	<string name="infschg_result_mask_mandatory_deviating_data_subtitle_3">Kein Fehler?</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_copy_2">Sollte es sich Ihrer Ansicht zum Beispiel um einen Tippfehler handeln, können Sie diese Abweichung ignorieren und die Prüfung fortsetzen.</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_link">Abweichung ignorieren</string>
-	<string name="infschg_result_no_mask_rules_title">Keine vorliegenden Regeln</string>
+	<string name="infschg_result_no_mask_rules_title">Keine zusätzlichen Regeln</string>
 	<string name="infschg_result_no_mask_rules_subtitle">in %s</string>
 	<string name="infschg_result_no_mask_rules_copy_1_bold">Für dieses Bundesland liegen dem RKI aktuell keine bundeslandspezifischen Regeln vor. Es gelten daher nur die bundeseinheitlichen Regeln zur Maskenpflicht.</string>
 	<string name="infschg_result_no_mask_rules_copy_2">Sofern das Bundesland, in dem Sie sich aufhalten, eine Maskenpflicht angeordnet hat, befreit ein negativer Schnell- oder PCR-Test bei Freizeit-, Kultur- und Sportveranstaltungen sowie in gastronomischen Einrichtungen für 24 Stunden von dieser Maskenpflicht. Ein unbeaufsichtigter durchgeführter Selbsttest genügt nicht. Ihr Bundesland kann regeln, dass auch vollständige Impfungen oder Genesungen (wenn diese höchstens drei Monate zurückliegen) von der Maskenpflicht befreien.\n\nEine Befreiung von der Maskenpflicht gilt nicht im öffentlichen Personenfernverkehr, in Krankenhäusern, Pflegeeinrichtungen und in Arztpraxen.</string>
@@ -543,7 +543,7 @@
 
 	<!-- SECTION: Entry Check: Start View -->
 	<string name="start_vaccination_status_entry_title">Impfschutz nach Coronavirus-Einreiseverordnung</string>
-	<string name="start_vaccination_status_entry_subtitle">Derzeit gibt es keine Beschränkungen für die Einreise nach Deutschland. Um den Impfschutz innerhalb Deutschlands nach Infektionsschutzgesetz § 22a zu prüfen, ändern Sie den Prüfkontext in den Einstellungen.</string>
+	<string name="start_vaccination_status_entry_subtitle">Derzeit gibt es keine Beschränkungen für die Einreise nach Deutschland. Um den Impfschutz innerhalb Deutschlands nach Infektionsschutzgesetz § 22a zu prüfen, ändern Sie den Prüfkontext in den #Einstellungen.::$0#</string>
 
 	<!-- SECTION: Entry Check: Initial setup -->
 	<string name="accessibility_rules_context_initial_setup_open">Die Ansicht \"Prüfkontext bestimmen\" wurde geöffnet.</string>

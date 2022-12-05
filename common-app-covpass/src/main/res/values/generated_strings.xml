@@ -23,7 +23,7 @@
 	<string name="vaccination_first_onboarding_page_title">Step one: upload your EU Digital COVID Certificate to your smartphone</string>
 	<string name="vaccination_first_onboarding_page_message">Use the CovPass app to scan the EU Digital COVID Certificate for a Covid-19 vaccination or recovery from a Covid-19 infection. To do this, hold your smartphone’s camera above the QR code. Your EU Digital COVID Certificate will be transferred to your smartphone immediately.</string>
 	<string name="vaccination_second_onboarding_page_title">Step two: open the QR code in the CovPass app</string>
-	<string name="vaccination_second_onboarding_page_message">Using the QR code, you can show evidence of a Covid-19 vaccination or recovery from a Covid-19 infection. The QR code is displayed directly in the CovPass app after scanning it. Please be aware that a vaccination only becomes sufficiently effective about 14 days after the final dose. For this reason, the QR code for full vaccination only becomes valid after 14 days have passed.</string>
+	<string name="vaccination_second_onboarding_page_message">You can use the QR code to track Corona vaccinations and recoveries from Corona infection. Likewise, the app shows whether or not you need to wear a mask on public transportation in certain states and in indoor spaces open to the public, such as restaurants or recreational events.</string>
 	<string name="vaccination_third_onboarding_page_title">Step three: show your QR code when needed</string>
 	<string name="vaccination_third_onboarding_page_message">You can show your QR code from the CovPass app when you need it. The person checking the QR code will then scan it. You will also need to have an ID document at hand for this. Your QR code is stored only on your smartphone, so you can display it at any time even without an internet connection.</string>
 	<string name="vaccination_fourth_onboarding_page_title">Data protection and security</string>
@@ -483,7 +483,7 @@
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_data_vaccine_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
-	<string name="vaccination_certificate_detail_view_pdf_action_button_title">Create EU printout</string>
+	<string name="vaccination_certificate_detail_view_pdf_action_button_title">Create PDF</string>
 	<string name="vaccination_certificate_detail_view_pdf_action_button_note">You can only download German certificates as PDF files.</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_title">Vaccine dose %1$d of %2$d</string>
 	<string name="vaccination_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
@@ -559,7 +559,7 @@
 	<string name="recovery_certificate_detail_view_data_test_note_de">Diese Bescheinigung ist kein Reisedokument. Die wissenschaftlichen Erkenntnisse zu COVID-19 in den Bereichen Impfung, Testung und Genesung entwickeln sich fortlaufend weiter, auch im Hinblick auf neue besorgniserregende Virusvarianten. Bitte informieren Sie sich vor Reiseantritt über die am Zielort geltenden Gesundheitsmaßnahmen und entsprechenden Beschränkungen.\n\nInformationen über die in den jeweiligen EU-Ländern geltenden Einreisebestimmungen finden Sie unter #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_data_test_note_en">This certificate is not a travel document. The scientific findings about Covid-19 and vaccination, testing and recovery are continuing to evolve, which includes findings about new, concerning virus variants. \n\nPlease inform yourself about the public-health measures and corresponding restrictions at your travel destination before you travel. You can find information about the travel restrictions applicable in each EU country at #https://reopen.europa.eu::https://reopen.europa.eu#.</string>
 	<string name="recovery_certificate_detail_view_qrcode_action_button_title">Display QR code</string>
-	<string name="recovery_certificate_detail_view_create_pdf_action_button_title">Create EU printout</string>
+	<string name="recovery_certificate_detail_view_create_pdf_action_button_title">Create PDF</string>
 	<string name="recovery_certificate_detail_view_pdf_action_button_note">You can only download German vaccination and recovery certificates as PDF files.</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_title">Full recovery</string>
 	<string name="recovery_certificate_detail_view_qrcode_screen_message">Valid until %s</string>
@@ -574,9 +574,9 @@
 	<string name="certificate_expired_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. Otherwise, you don\'t have to do anything because your latest certificate contains all the necessary information for a check.</string>
 
 	<!-- SECTION: print certificate -->
-	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">The view \"Create EU printout\" has been opened</string>
+	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">The view \"Create PDF\" has been opened</string>
 	<string name="accessibility_certificate_create_pdf_label_close">Close</string>
-	<string name="certificate_create_pdf_headline">Create EU printout</string>
+	<string name="certificate_create_pdf_headline">Create PDF</string>
 	<string name="certificate_create_pdf_first_list_item">You can save the certificate as a PDF document. Saving is voluntary. Initially, only you have access to the PDF document.</string>
 	<string name="certificate_create_pdf_second_list_item">Please note that the PDF document contains sensitive information. We recommend that you handle it with care and only show it to people you trust and who are authorised to check the proof.</string>
 	<string name="certificate_create_pdf_third_list_item">We recommend that you do not publish the PDF document and do not send it by email or share it via other apps.</string>
@@ -912,10 +912,10 @@
 	<string name="accessibility_popup_choose_federal_state_announce">Choose federal state has been opened</string>
 	<string name="accessibility_popup_choose_federal_state_closing_announce">Choose federal state has been opened</string>
 	<string name="accessibility_start_screen_arrow_card">Open all certificates of this person</string>
-	<string name="infschg_popup_choose_federal_state_copy_1">Mask requirement rules may vary by federal state. Select your federal state to see your current mask status.*</string>
+	<string name="infschg_popup_choose_federal_state_copy_1">Beginning October 1, 2022, states may mandate a mask requirement in indoor spaces open to the public. Select your state to see your current mask status.*</string>
 	<string name="infschg_popup_choose_federal_state_tag">Federal state</string>
 	<string name="infschg_popup_choose_federal_state_box_content">%s</string>
-	<string name="infschg_popup_choose_federal_state_copy_2">*You can change the federal state from the corresponding selection in the settings at any time.</string>
+	<string name="infschg_popup_choose_federal_state_copy_2">*You can change the state in the settings at any time. For more information about the mask requirement, see the #frequently asked questions::$0#.</string>
 	<string name="infschg_popup_choose_federal_state_copy_3">Rules from %s (start of validity)</string>
 	<string name="accessibility_infschg_modal_view_announce">An overview of all certificates has been opened</string>
 	<string name="accessibility_infschg_modal_view_announce_closing">The overview of all certificates has been closed</string>
