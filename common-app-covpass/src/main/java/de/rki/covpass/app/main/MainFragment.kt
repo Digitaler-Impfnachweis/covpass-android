@@ -30,16 +30,12 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.boosterreissue.ReissueCallback
 import de.rki.covpass.app.boosterreissue.ReissueNotificationFragmentNav
-import de.rki.covpass.app.checkerremark.CheckRemarkCallback
-import de.rki.covpass.app.checkerremark.CheckerRemarkFragmentNav
 import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.importcertificate.ImportCertificatesResultCallback
 import de.rki.covpass.app.importcertificate.ImportCertificatesSelectorFragmentNav
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
-import de.rki.covpass.app.newregulations.NewRegulationOnboardingCallback
-import de.rki.covpass.app.newregulations.NewRegulationOnboardingFragmentNav
 import de.rki.covpass.app.updateinfo.UpdateInfoCallback
 import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
 import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
@@ -63,9 +59,6 @@ internal interface NotificationEvents : BaseEvents {
     fun showExpiryNotification()
     fun showNewUpdateInfo()
     fun showNewDataPrivacy()
-    fun showDomesticRulesNotification()
-    fun showCheckerRemark()
-    fun showNewRegulationOnboarding()
     fun showFederalStateOnboarding()
     fun showBoosterNotification()
     fun showBoosterReissueNotification(listIds: List<String>)
@@ -83,13 +76,10 @@ internal class MainFragment :
     DialogListener,
     UpdateInfoCallback,
     DataProtectionCallback,
-    CheckRemarkCallback,
-    DomesticRulesNotificationCallback,
     BoosterNotificationCallback,
     ReissueCallback,
     ImportCertificatesResultCallback,
     NotificationEvents,
-    NewRegulationOnboardingCallback,
     FederalStateOnboardingCallback {
 
     private val uri: Uri? by lazy { getArgs<MainFragmentNav>().uri }
@@ -269,23 +259,11 @@ internal class MainFragment :
         viewModel.showingNotification.complete(Unit)
     }
 
-    override fun onCheckRemarkFinish() {
-        viewModel.showingNotification.complete(Unit)
-    }
-
-    override fun onNewRegulationOnboardingFinish() {
-        viewModel.showingNotification.complete(Unit)
-    }
-
     override fun onFederalStateOnboardingFinish() {
         viewModel.showingNotification.complete(Unit)
     }
 
     override fun onDataProtectionFinish() {
-        viewModel.showingNotification.complete(Unit)
-    }
-
-    override fun onDomesticRulesNotificationFinish() {
         viewModel.showingNotification.complete(Unit)
     }
 
@@ -337,18 +315,6 @@ internal class MainFragment :
 
     override fun showNewDataPrivacy() {
         findNavigator().push(DataProtectionFragmentNav())
-    }
-
-    override fun showDomesticRulesNotification() {
-        findNavigator().push(DomesticRulesNotificationFragmentNav())
-    }
-
-    override fun showCheckerRemark() {
-        findNavigator().push(CheckerRemarkFragmentNav())
-    }
-
-    override fun showNewRegulationOnboarding() {
-        findNavigator().push(NewRegulationOnboardingFragmentNav())
     }
 
     override fun showFederalStateOnboarding() {

@@ -6,11 +6,13 @@
 package de.rki.covpass.app.main
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.view.isGone
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
+import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -23,6 +25,7 @@ import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateFragmentNav
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isLandscapeMode
+import de.rki.covpass.commonapp.utils.stripUnderlines
 import kotlinx.parcelize.Parcelize
 
 internal interface FederalStateOnboardingCallback {
@@ -47,6 +50,11 @@ internal class FederalStateOnboardingFragment : BaseBottomSheet(), ChangeFederal
         bottomSheetBinding.bottomSheetTitle.setText(R.string.infschg_popup_choose_federal_state_title)
 
         binding.federalStateOnboardingIllustration.isGone = resources.isLandscapeMode()
+        binding.federalStateOnboardingNote.apply {
+            text = getSpanned(R.string.infschg_popup_choose_federal_state_copy_2)
+            movementMethod = LinkMovementMethod.getInstance()
+            stripUnderlines()
+        }
         binding.federalStateOnboardingValue.setOnClickListener {
             findNavigator().push(
                 ChangeFederalStateFragmentNav(commonDeps.federalStateRepository.federalState.value),

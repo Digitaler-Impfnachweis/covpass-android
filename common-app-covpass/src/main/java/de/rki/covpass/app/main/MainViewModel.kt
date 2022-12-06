@@ -9,13 +9,9 @@ import android.net.Uri
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.dispatchers
-import de.rki.covpass.app.checkerremark.CheckerRemarkRepository
-import de.rki.covpass.app.dependencies.CovpassDependencies
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.app.newregulations.NewRegulationRepository
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository.Companion.CURRENT_DATA_PRIVACY_VERSION
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
@@ -45,7 +41,6 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private val uri: Uri?,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator,
-    private val covpassDependencies: CovpassDependencies = covpassDeps,
     private val commonDependencies: CommonDependencies = commonDeps,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
     private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
@@ -82,23 +77,9 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
-            covpassDependencies.newRegulationRepository.newRegulationOnboardingShown.value !=
-                NewRegulationRepository.CURRENT_NEW_REGULATION_ONBOARDING_VERSION -> {
-                eventNotifier {
-                    showNewRegulationOnboarding()
-                }
-                true
-            }
             !commonDependencies.federalStateRepository.federalStateOnboardingShown.value -> {
                 eventNotifier {
                     showFederalStateOnboarding()
-                }
-                true
-            }
-            commonDependencies.checkContextRepository.checkContextNotificationVersionShown.value !=
-                CheckContextRepository.CURRENT_CHECK_CONTEXT_NOTIFICATION_VERSION -> {
-                eventNotifier {
-                    showDomesticRulesNotification()
                 }
                 true
             }
@@ -106,13 +87,6 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 checkExpiredReissueNotification() -> {
                 eventNotifier {
                     showExpiryNotification()
-                }
-                true
-            }
-            covpassDependencies.checkerRemarkRepository.checkerRemarkShown.value
-                != CheckerRemarkRepository.CURRENT_CHECKER_REMARK_VERSION -> {
-                eventNotifier {
-                    showCheckerRemark()
                 }
                 true
             }
@@ -210,7 +184,10 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                     showingNotification.await()
                     continue
                 }
-                gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
+                gStatusAndMaskValidator.validate(
+                    certRepository,
+                    federalStateRepository.federalState.value,
+                )
                 delay(BOOSTER_RULE_VALIDATION_INTERVAL_MS)
             }
         }

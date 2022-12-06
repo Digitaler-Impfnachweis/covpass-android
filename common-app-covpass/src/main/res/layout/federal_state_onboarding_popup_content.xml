@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -44,7 +46,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_one"
-    android:text="@string/infschg_popup_choose_federal_state_copy_2"
-    app:layout_constraintTop_toBottomOf="@+id/federal_state_onboarding_value" />
+    app:layout_constraintTop_toBottomOf="@+id/federal_state_onboarding_value"
+    tools:text="@string/infschg_popup_choose_federal_state_copy_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
