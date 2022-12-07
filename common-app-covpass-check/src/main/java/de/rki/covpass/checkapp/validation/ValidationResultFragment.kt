@@ -42,6 +42,7 @@ internal interface ValidationResultListener {
     fun onValidationFirstScanFinish()
     fun onValidationResultClosed()
     fun onValidationContinueToNextScan()
+    fun onValidationRetryLastScan()
 }
 
 /**

@@ -46,11 +46,17 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     fun onValidationNoRulesFailure(certificate: CovCertificate)
     fun onImmunityValidationSuccess(
         certificate: CovCertificate,
+        dataComparison: DataComparison3Certs,
+        firstCovCert: CovCertificate?,
+        secondCovCert: CovCertificate?,
         numberOfCertificates: Int,
     )
 
     fun onImmunityValidationFailure(
         certificate: CovCertificate,
+        dataComparison: DataComparison3Certs,
+        firstCovCert: CovCertificate?,
+        secondCovCert: CovCertificate?,
         numberOfCertificates: Int,
     )
 
@@ -103,13 +109,6 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                         }
                         return@launch
                     }
-                } else {
-                    if (firstCovCert != null && compareData(firstCovCert, covCertificate) != DataComparison.Equal) {
-                        eventNotifier {
-                            showWarningDifferentData()
-                        }
-                        return@launch
-                    }
                 }
                 val isSecondCertificate = when {
                     firstCovCert == null -> {
@@ -144,6 +143,8 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                         immunityStatusValidation(
                             mergedCovCertificate = mergedCovCertificate,
                             covCertificate = covCertificate,
+                            firstCovCert = firstCovCert,
+                            secondCovCert = secondCovCert,
                             listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
                         )
                     } else {
@@ -265,6 +266,8 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private suspend fun immunityStatusValidation(
         mergedCovCertificate: CovCertificate,
         covCertificate: CovCertificate,
+        firstCovCert: CovCertificate?,
+        secondCovCert: CovCertificate?,
         numberOfCertificates: Int,
     ) {
         when (
@@ -276,14 +279,30 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
             )
         ) {
             CovPassCheckImmunityValidationResult.Success -> eventNotifier {
+                val validateData = compareDataImmunityStatus(
+                    firstCovCert,
+                    secondCovCert,
+                    covCertificate,
+                )
                 onImmunityValidationSuccess(
                     mergedCovCertificate,
+                    validateData,
+                    firstCovCert,
+                    secondCovCert,
                     numberOfCertificates,
                 )
             }
             CovPassCheckImmunityValidationResult.ValidationError -> eventNotifier {
+                val validateData = compareDataImmunityStatus(
+                    firstCovCert,
+                    secondCovCert,
+                    covCertificate,
+                )
                 onImmunityValidationFailure(
                     mergedCovCertificate,
+                    validateData,
+                    firstCovCert,
+                    secondCovCert,
                     numberOfCertificates,
                 )
             }
@@ -326,4 +345,78 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
 
         return compareHolder(name1, name2, dob1, dob2)
     }
+
+    private fun compareDataImmunityStatus(
+        firstCovCert: CovCertificate?,
+        secondCovCert: CovCertificate?,
+        covCertificate: CovCertificate,
+    ): DataComparison3Certs {
+        return when {
+            firstCovCert == null -> {
+                DataComparison3Certs.Equal
+            }
+            secondCovCert == null -> {
+                when (compareData(firstCovCert, covCertificate)) {
+                    DataComparison.NameDifferent -> DataComparison3Certs.SecondDifferentName
+                    DataComparison.DateOfBirthDifferent -> DataComparison3Certs.SecondDifferentDate
+                    else -> DataComparison3Certs.Equal
+                }
+            }
+            else -> {
+                compareData3Certs(firstCovCert, secondCovCert, covCertificate)
+            }
+        }
+    }
+
+    private fun compareData3Certs(
+        covCertificate: CovCertificate,
+        covCertificate2: CovCertificate,
+        covCertificate3: CovCertificate,
+    ): DataComparison3Certs {
+        val compareFirstAndSecond = compareData(covCertificate, covCertificate2)
+        val compareFirstAndThird = compareData(covCertificate, covCertificate3)
+        val compareSecondAndThird = compareData(covCertificate2, covCertificate3)
+
+        return when {
+            compareFirstAndSecond == DataComparison.Equal &&
+                compareFirstAndThird == DataComparison.Equal &&
+                compareSecondAndThird == DataComparison.Equal -> {
+                DataComparison3Certs.Equal
+            }
+            compareFirstAndSecond == DataComparison.Equal &&
+                compareFirstAndThird != DataComparison.Equal -> {
+                if (compareFirstAndThird == DataComparison.NameDifferent) {
+                    DataComparison3Certs.ThirdDifferentName
+                } else {
+                    DataComparison3Certs.ThirdDifferentDate
+                }
+            }
+
+            compareFirstAndThird == DataComparison.Equal &&
+                compareFirstAndSecond != DataComparison.Equal -> {
+                if (compareFirstAndSecond == DataComparison.NameDifferent) {
+                    DataComparison3Certs.SecondDifferentName
+                } else {
+                    DataComparison3Certs.SecondDifferentDate
+                }
+            }
+            compareFirstAndSecond == DataComparison.DateOfBirthDifferent ||
+                compareFirstAndThird == DataComparison.DateOfBirthDifferent -> {
+                DataComparison3Certs.AllDifferentDate
+            }
+            else -> {
+                DataComparison3Certs.AllDifferentName
+            }
+        }
+    }
+}
+
+public enum class DataComparison3Certs {
+    Equal,
+    SecondDifferentDate,
+    SecondDifferentName,
+    ThirdDifferentDate,
+    ThirdDifferentName,
+    AllDifferentName,
+    AllDifferentDate
 }

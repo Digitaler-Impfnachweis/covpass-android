@@ -25,6 +25,7 @@ import de.rki.covpass.checkapp.validation.ValidationImmunityResultIncompleteFrag
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultSuccessFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationPendingResultFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultDifferentDataFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResultDifferentDataImmunityCheckFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
 import de.rki.covpass.checkapp.validation.ValidationResultNoRulesFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultPartialFragmentNav
@@ -191,41 +192,122 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onImmunityValidationSuccess(
         certificate: CovCertificate,
+        dataComparison: DataComparison3Certs,
+        firstCovCert: CovCertificate?,
+        secondCovCert: CovCertificate?,
         numberOfCertificates: Int,
     ) {
         scanEnabled.value = false
-        findNavigator().push(
-            ValidationImmunityResultSuccessFragmentNav(
-                name = certificate.fullName,
-                transliteratedName = certificate.fullTransliteratedName,
-                birthDate = formatDateFromString(certificate.birthDateFormatted),
-                expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate,
-            ),
-        )
+        if (
+            dataComparison == DataComparison3Certs.Equal ||
+            (numberOfCertificates == 3 && dataComparison == DataComparison3Certs.SecondDifferentName) ||
+            firstCovCert == null
+        ) {
+            findNavigator().push(
+                ValidationImmunityResultSuccessFragmentNav(
+                    name = certificate.fullName,
+                    transliteratedName = certificate.fullTransliteratedName,
+                    birthDate = formatDateFromString(certificate.birthDateFormatted),
+                    expertModeData = certificate.getExpertModeData(),
+                    isGermanCertificate = certificate.isGermanCertificate,
+                ),
+            )
+        } else {
+            onImmunityValidationDataDifference(
+                certificate,
+                dataComparison,
+                firstCovCert,
+                secondCovCert,
+                numberOfCertificates,
+                true,
+            )
+        }
     }
 
     override fun onImmunityValidationFailure(
         certificate: CovCertificate,
+        dataComparison: DataComparison3Certs,
+        firstCovCert: CovCertificate?,
+        secondCovCert: CovCertificate?,
         numberOfCertificates: Int,
     ) {
         scanEnabled.value = false
-        if (numberOfCertificates < 3) {
-            findNavigator().push(
-                ValidationPendingResultFragmentNav(
-                    certificate.getExpertModeData(),
-                    certificate.isGermanCertificate,
-                    numberOfCertificates,
-                ),
-            )
+        if (
+            dataComparison == DataComparison3Certs.Equal ||
+            (numberOfCertificates == 3 && dataComparison == DataComparison3Certs.SecondDifferentName) ||
+            firstCovCert == null
+        ) {
+            if (numberOfCertificates < 3) {
+                findNavigator().push(
+                    ValidationPendingResultFragmentNav(
+                        certificate.getExpertModeData(),
+                        certificate.isGermanCertificate,
+                        numberOfCertificates,
+                    ),
+                )
+            } else {
+                findNavigator().push(
+                    ValidationImmunityResultIncompleteFragmentNav(
+                        certificate.getExpertModeData(),
+                        certificate.isGermanCertificate,
+                    ),
+                )
+            }
         } else {
-            findNavigator().push(
-                ValidationImmunityResultIncompleteFragmentNav(
-                    certificate.getExpertModeData(),
-                    certificate.isGermanCertificate,
-                ),
+            onImmunityValidationDataDifference(
+                certificate,
+                dataComparison,
+                firstCovCert,
+                secondCovCert,
+                numberOfCertificates,
+                false,
             )
         }
+    }
+
+    private fun onImmunityValidationDataDifference(
+        certificate: CovCertificate,
+        dataComparison: DataComparison3Certs,
+        firstCovCert: CovCertificate,
+        secondCovCert: CovCertificate?,
+        numberOfCertificates: Int,
+        isPendingStatus: Boolean,
+    ) {
+        findNavigator().push(
+            ValidationResultDifferentDataImmunityCheckFragmentNav(
+                name1 = firstCovCert.fullName,
+                transliteratedName1 = firstCovCert.fullTransliteratedName,
+                birthDate1 = formatDateFromString(firstCovCert.birthDateFormatted),
+                name2 = secondCovCert?.fullName ?: certificate.fullName,
+                transliteratedName2 = secondCovCert?.fullTransliteratedName ?: certificate.fullTransliteratedName,
+                birthDate2 = if (secondCovCert != null) {
+                    formatDateFromString(secondCovCert.birthDateFormatted)
+                } else {
+                    formatDateFromString(certificate.birthDateFormatted)
+                },
+                name3 = if (secondCovCert != null) {
+                    certificate.fullName
+                } else {
+                    null
+                },
+                transliteratedName3 = if (secondCovCert != null) {
+                    certificate.fullTransliteratedName
+                } else {
+                    null
+                },
+                birthDate3 = if (secondCovCert != null) {
+                    formatDateFromString(certificate.birthDateFormatted)
+                } else {
+                    null
+                },
+                dataComparison3Certs = dataComparison,
+                isPendingStatus = isPendingStatus,
+                numberOfCertificates = numberOfCertificates,
+                expertModeData = certificate.getExpertModeData(),
+                isGermanCertificate = certificate.isGermanCertificate,
+            ),
+
+        )
     }
 
     override fun onImmunityValidationTechnicalFailure(certificate: CovCertificate?) {
@@ -325,6 +407,16 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onValidationContinueToNextScan() {
         scanEnabled.value = true
+        sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
+    }
+
+    override fun onValidationRetryLastScan() {
+        scanEnabled.value = true
+        if (viewModel.thirdCovCertificate != null) {
+            viewModel.thirdCovCertificate = null
+        } else {
+            viewModel.secondCovCertificate = null
+        }
         sendAccessibilityAnnouncementEvent(announcementAccessibilityRes)
     }
 
