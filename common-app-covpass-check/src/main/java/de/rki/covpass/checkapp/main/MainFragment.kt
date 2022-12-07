@@ -7,6 +7,7 @@ package de.rki.covpass.checkapp.main
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
 import androidx.core.view.AccessibilityDelegateCompat
@@ -18,6 +19,7 @@ import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
 import com.google.android.material.tabs.TabLayout
+import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -44,6 +46,7 @@ import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
+import de.rki.covpass.commonapp.utils.underlinedClickable
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
@@ -340,7 +343,13 @@ internal class MainFragment :
             binding.immunizationStatusInfoText.isVisible = false
 
             binding.immunizationStatusTitle.setText(R.string.start_vaccination_status_entry_title)
-            binding.immunizationStatusNote.setText(R.string.start_vaccination_status_entry_subtitle)
+            binding.immunizationStatusNote.apply {
+                text = getSpanned(R.string.start_vaccination_status_entry_subtitle)
+                movementMethod = LinkMovementMethod.getInstance()
+                underlinedClickable {
+                    findNavigator().push(SettingsFragmentNav(true))
+                }
+            }
         }
     }
 

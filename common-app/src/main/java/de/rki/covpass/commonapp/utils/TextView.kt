@@ -8,6 +8,7 @@ package de.rki.covpass.commonapp.utils
 import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.URLSpan
+import android.view.View
 import android.widget.TextView
 
 /**
@@ -26,6 +27,19 @@ public fun TextView.stripUnderlines() {
     text = spString
 }
 
+public fun TextView.underlinedClickable(onClick: () -> Unit) {
+    val spString = SpannableString(text)
+    val spans = spString.getSpans(0, spString.length, URLSpan::class.java)
+    for (span in spans) {
+        val start = spString.getSpanStart(span)
+        val end = spString.getSpanEnd(span)
+        spString.removeSpan(span)
+        val clickableSpan = URLSpanClickable(span.url, onClick)
+        spString.setSpan(clickableSpan, start, end, 0)
+    }
+    text = spString
+}
+
 /**
  * Utility class for making an URL not underlined.
  *
@@ -37,5 +51,15 @@ private class URLSpanNoUnderline(url: String) : URLSpan(url) {
     override fun updateDrawState(ds: TextPaint) {
         super.updateDrawState(ds)
         ds.isUnderlineText = false
+    }
+}
+
+private class URLSpanClickable(
+    url: String,
+    val onClick: () -> Unit,
+) : URLSpan(url) {
+
+    override fun onClick(widget: View) {
+        onClick()
     }
 }

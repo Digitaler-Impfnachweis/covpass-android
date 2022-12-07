@@ -186,6 +186,7 @@
               android:id="@+id/immunization_status_note"
               style="@style/DefaultText.OnInfo"
               android:layout_width="match_parent"
+              android:textColorLink="@color/onInfo"
               android:layout_height="wrap_content"
               android:layout_marginHorizontal="@dimen/grid_three"
               android:layout_marginTop="@dimen/grid_two"
