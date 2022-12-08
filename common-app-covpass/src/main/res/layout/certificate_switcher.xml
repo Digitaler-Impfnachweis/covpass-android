@@ -112,13 +112,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         android:foreground="@drawable/keyboard_highlight_selector"
-    app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
-    app:tabIndicator="@drawable/view_pager_dot_selected"
-    app:tabIndicatorColor="@android:color/white"
-    app:tabIndicatorGravity="center"
-    app:tabMaxWidth="@dimen/dots_tab_max_width"
-    app:tabRippleColor="@null"
-    tools:visibility="visible" />
+        app:tabBackground="@drawable/view_pager_certificate_switcher_green_dot_selector"
+        app:tabIndicator="@drawable/view_pager_dot_selected"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorGravity="center"
+        app:tabMaxWidth="@dimen/dots_tab_max_width"
+        app:tabRippleColor="@null"
+        tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

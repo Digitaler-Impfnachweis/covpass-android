@@ -198,6 +198,7 @@
                 android:layout_marginHorizontal="@dimen/grid_three"
                 android:layout_marginTop="@dimen/grid_two"
                 android:text="@string/start_screen_vaccination_status_copy"
+                android:textColorLink="@color/onInfo"
                 app:layout_constraintTop_toBottomOf="@+id/immunization_status_title" />
 
               <ImageView

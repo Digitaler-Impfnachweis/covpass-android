@@ -188,12 +188,12 @@ public class GStatusAndMaskValidator(
             validationType = CovPassValidationType.IMMUNITYSTATUSEONE,
         )
         if (immunityStatusEOne.all { it.result == Result.PASSED }) {
-            val recovery = combinedCovCertificate.covCertificate.dgcEntry as? Recovery
+            val recovery = combinedCovCertificate.covCertificate.recovery
             val recoveryFirstResultPlus28Days = if (
                 recovery != null &&
                 recovery.firstResult?.isOlderThan(29) == false
             ) {
-                recovery.firstResult.plusDays(28).formatDateOrEmpty()
+                recovery.firstResult.plusDays(29).formatDateOrEmpty()
             } else {
                 ""
             }

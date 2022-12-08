@@ -141,7 +141,8 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     }
 
     private fun nextPage() {
-        val certSize = covpassDeps.certRepository.certs.value.certificates.size
+        val certSize = covpassDeps.certRepository.certs.value.getGroupedCertificates(args.certId)
+            ?.getListOfImportantCerts()?.size ?: 0
         val currentPage = binding.mainViewPager.currentItem
         val nextPage = if (currentPage + 1 >= certSize) {
             0
