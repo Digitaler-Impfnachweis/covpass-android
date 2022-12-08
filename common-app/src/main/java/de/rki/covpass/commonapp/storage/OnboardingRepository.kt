@@ -17,7 +17,7 @@ public class OnboardingRepository(store: CborSharedPrefsStore) {
         store.getData("data_privacy_version_accepted", FIRST_DATA_PRIVACY_VERSION)
 
     public companion object {
-        public const val CURRENT_DATA_PRIVACY_VERSION: Int = 22
+        public const val CURRENT_DATA_PRIVACY_VERSION: Int = 23
         public const val FIRST_DATA_PRIVACY_VERSION: Int = 0
     }
 }
