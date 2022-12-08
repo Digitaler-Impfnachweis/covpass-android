@@ -80,7 +80,7 @@ internal class CertificateFragment : BaseFragment() {
 
         binding.certificateCard.createCertificateCardView(
             mainCertificate.fullName,
-            groupedCertificate.maskStatus,
+            groupedCertificate.maskStatusWrapper.maskStatus,
             hasNotification = showBoosterNotification || showDetailReissueNotification,
             getString(
                 R.string.infschg_start_screen_status_federal_state,

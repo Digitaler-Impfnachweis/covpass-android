@@ -74,7 +74,9 @@ internal class CertificateSwitcherFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        val maskStatus = covpassDeps.certRepository.certs.value.getGroupedCertificates(args.certId)?.maskStatus
+        val maskStatus = covpassDeps.certRepository.certs.value.getGroupedCertificates(
+            args.certId,
+        )?.maskStatusWrapper?.maskStatus
         if (maskStatus == MaskStatus.NotRequired) {
             backgroundColor = R.color.full_immunization_green
         }

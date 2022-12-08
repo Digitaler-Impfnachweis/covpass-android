@@ -59,7 +59,6 @@ import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import de.rki.covpass.sdk.utils.isInFuture
-import de.rki.covpass.sdk.utils.isOlderThan
 import de.rki.covpass.sdk.utils.monthTillNow
 import de.rki.covpass.sdk.utils.toDeviceTimeZone
 import kotlinx.parcelize.Parcelize
@@ -198,8 +197,9 @@ internal class DetailFragment :
                 CertValidationResult.Expired, CertValidationResult.Invalid, CertValidationResult.Revoked -> true
                 CertValidationResult.ExpiryPeriod, CertValidationResult.Valid -> false
             }
-            val immunizationStatusWrapper = groupedCertificate.immunizationStatus
-            val maskStatus = groupedCertificate.maskStatus
+            val immunizationStatusWrapper = groupedCertificate.immunizationStatusWrapper
+            val maskStatusWrapper = groupedCertificate.maskStatusWrapper
+            val maskStatus = maskStatusWrapper.maskStatus
             val certStatus = mainCertificate.status
             val personalDataList = mutableListOf(
                 DetailItem.Name(cert.fullName),
@@ -263,7 +263,25 @@ internal class DetailFragment :
                             MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
                         },
                     ),
-                    subtitle = getMaskStatusInfoText(maskStatus, groupedCertificate),
+                    subtitle = if (maskStatusWrapper.additionalDate.isNotEmpty()) {
+                        when (maskStatus) {
+                            MaskStatus.Required -> {
+                                getString(
+                                    R.string.infschg_cert_overview_mask_time_from,
+                                    maskStatusWrapper.additionalDate,
+                                )
+                            }
+                            MaskStatus.NotRequired -> {
+                                getString(
+                                    R.string.infschg_cert_overview_mask_time_until,
+                                    maskStatusWrapper.additionalDate,
+                                )
+                            }
+                            else -> null
+                        }
+                    } else {
+                        null
+                    },
                 ),
                 DetailItem.Widget(
                     title = getString(
@@ -921,75 +939,4 @@ internal class DetailFragment :
             R.drawable.detail_cert_status_expired
         }
     }
-
-    private fun getMaskStatusInfoText(
-        maskStatus: MaskStatus,
-        groupedCertificate: GroupedCertificates,
-    ): String? {
-        val latestVaccination = groupedCertificate.getLatestValidVaccination()
-        val latestRecovery = groupedCertificate.getLatestValidRecovery()
-        val vaccination = latestVaccination?.covCertificate?.dgcEntry as? Vaccination
-        val recovery = latestRecovery?.covCertificate?.dgcEntry as? Recovery
-        return when (maskStatus) {
-            MaskStatus.NotRequired -> maskNotRequiredStatusInfoText(vaccination, recovery)
-            MaskStatus.Required -> maskRequiredStatusInfoText(vaccination, recovery)
-            else -> null
-        }
-    }
-
-    private fun maskNotRequiredStatusInfoText(
-        vaccination: Vaccination?,
-        recovery: Recovery?,
-    ): String? = when {
-        vaccination != null -> {
-            getString(
-                R.string.infschg_cert_overview_mask_time_until,
-                vaccination.occurrence?.plusDays(90).formatDateOrEmpty(),
-            )
-        }
-        recovery != null -> {
-            getString(
-                R.string.infschg_cert_overview_mask_time_until,
-                recovery.firstResult?.plusDays(90).formatDateOrEmpty(),
-            )
-        }
-        else -> null
-    }
-
-    private fun maskRequiredStatusInfoText(
-        vaccination: Vaccination?,
-        recovery: Recovery?,
-    ): String? = when {
-        vaccination != null && recovery != null -> {
-            if (
-                recovery.firstResult?.isAfter(vaccination.occurrence) == true &&
-                recovery.firstResult?.isOlderThan(29) == true
-            ) {
-                getString(
-                    R.string.infschg_cert_overview_mask_time_from,
-                    recovery.firstResult?.plusDays(28).formatDateOrEmpty(),
-                )
-            } else {
-                null
-            }
-        }
-        vaccination != null -> {
-            getString(
-                R.string.infschg_cert_overview_mask_time_from,
-                vaccination.occurrence.formatDateOrEmpty(),
-            )
-        }
-        recovery != null -> {
-            getString(
-                R.string.infschg_cert_overview_mask_time_from,
-                recovery.firstResult?.plusDays(28).formatDateOrEmpty(),
-            )
-        }
-        else -> null
-    }
 }
-
-public data class ImmunizationInfoText(
-    val message: String,
-    val date: String? = null,
-)

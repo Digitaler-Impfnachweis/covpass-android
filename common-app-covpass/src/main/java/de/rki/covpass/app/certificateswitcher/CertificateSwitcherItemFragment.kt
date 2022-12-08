@@ -47,7 +47,9 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
     internal val args: CertificateSwitcherItemFragmentNav by lazy { getArgs() }
     private val binding by viewBinding(CertificateSwitcherItemBinding::inflate)
     private val maskStatus by lazy {
-        covpassDeps.certRepository.certs.value.getGroupedCertificates(args.certId)?.maskStatus
+        covpassDeps.certRepository.certs.value.getGroupedCertificates(
+            args.certId,
+        )?.maskStatusWrapper?.maskStatus
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -15,6 +15,7 @@ import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.rules.domain.rules.CovPassValidationType
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
+import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import de.rki.covpass.sdk.utils.isOlderThan
 import dgca.verifier.app.engine.Result
@@ -34,8 +35,8 @@ public class GStatusAndMaskValidator(
                 validateImmunityStatus(mergedCertificateForImmunityCheck)
 
             // MaskStatus Validation
-            val maskStatus = if (mergedCertificate == null) {
-                MaskStatus.Invalid
+            val maskStatusWrapper = if (mergedCertificate == null) {
+                MaskStatusWrapper(maskStatus = MaskStatus.Invalid)
             } else {
                 when (
                     isValidByType(
@@ -44,17 +45,56 @@ public class GStatusAndMaskValidator(
                         region,
                     )
                 ) {
-                    ValidatorResult.Passed -> MaskStatus.NotRequired
-                    ValidatorResult.Failed -> MaskStatus.Required
-                    ValidatorResult.NoRules -> MaskStatus.NoRules
+                    ValidatorResult.Passed -> {
+                        val vaccination = mergedCertificate.covCertificate.vaccination
+                        val recovery = mergedCertificate.covCertificate.recovery
+                        val test = mergedCertificate.covCertificate.test
+
+                        val additionalDate = when {
+                            vaccination != null &&
+                                vaccination.occurrence?.isOlderThan(91) == false -> {
+                                vaccination.occurrence.plusDays(91).formatDateOrEmpty()
+                            }
+                            recovery != null &&
+                                recovery.firstResult?.isOlderThan(91) == false -> {
+                                recovery.firstResult.plusDays(91).formatDateOrEmpty()
+                            }
+                            test != null &&
+                                test.sampleCollection?.isOlderThan(25) == false -> {
+                                test.sampleCollection.plusHours(25).formatDateTime()
+                            }
+                            else -> ""
+                        }
+
+                        MaskStatusWrapper(
+                            maskStatus = MaskStatus.NotRequired,
+                            additionalDate = additionalDate,
+                        )
+                    }
+                    ValidatorResult.Failed -> {
+                        val recovery = mergedCertificate.covCertificate.recovery
+                        val recoveryFirstResultPlus28Days = if (
+                            recovery != null &&
+                            recovery.firstResult?.isOlderThan(29) == false
+                        ) {
+                            recovery.firstResult.plusDays(29).formatDateOrEmpty()
+                        } else {
+                            ""
+                        }
+                        MaskStatusWrapper(
+                            maskStatus = MaskStatus.Required,
+                            recoveryFirstResultPlus28Days,
+                        )
+                    }
+                    ValidatorResult.NoRules -> MaskStatusWrapper(maskStatus = MaskStatus.NoRules)
                 }
             }
 
             certRepository.certs.update {
                 it.certificates.map { groupedCertificate ->
                     if (groupedCertificate.id == groupedCert.id) {
-                        groupedCertificate.maskStatus = maskStatus
-                        groupedCertificate.immunizationStatus = immunizationStatusWrapper
+                        groupedCertificate.maskStatusWrapper = maskStatusWrapper
+                        groupedCertificate.immunizationStatusWrapper = immunizationStatusWrapper
                     }
                 }
             }
@@ -236,6 +276,11 @@ public data class ImmunizationStatusWrapper(
     val immunizationStatus: ImmunizationStatus = ImmunizationStatus.Partial,
     val immunizationText: String = "",
     val fullImmunityBasedOnRecoveryDate: String = "",
+)
+
+public data class MaskStatusWrapper(
+    val maskStatus: MaskStatus = MaskStatus.Required,
+    val additionalDate: String = "",
 )
 
 public enum class ValidatorResult {
