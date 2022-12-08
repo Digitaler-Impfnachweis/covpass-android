@@ -17,7 +17,7 @@
 
 	<!-- SECTION: onboarding -->
 	<string name="start_onboarding_title">Willkommen in der CovPassCheck-App</string>
-	<string name="start_onboarding_message">Finden Sie in wenigen Sekunden heraus, ob die geprüfte Person ein gültiges COVID-Zertifikat besitzt.</string>
+	<string name="start_onboarding_message">Finden Sie in wenigen Sekunden heraus, ob die geprüfte Person ein gültiges COVID-Zertifikat der EU besitzt.</string>
 	<string name="start_onboarding_secure_title">Sicher und datensparsam</string>
 	<string name="start_onboarding_secure_message">Die Daten werden nur über den QR-Code eingelesen und nicht gespeichert. Sie sehen nur die notwendigen Informationen.</string>
 	<string name="start_onboarding_button_title">Los geht\'s</string>
