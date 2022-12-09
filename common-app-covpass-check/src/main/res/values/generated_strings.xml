@@ -350,7 +350,7 @@
 	<string name="validation_check_popup_revoked_certificate_link_text">Show revocation information</string>
 	<string name="validation_check_popup_revoked_certificate_box_text">This function is intended exclusively for police authorities. Attempting to revoke a certificate without authorization is punishable by law and can have serious consequences.</string>
 	<string name="revocation_detail_page_title">Technical details of the certificate</string>
-	<string name="revocation_detail_page_button_text">Create PDF</string>
+	<string name="revocation_detail_page_button_text">Create EU printout</string>
 	<string name="revocation_detail_page_transaction_number">Transaction number</string>
 	<string name="revocation_detail_page_key_reference">Key reference (KID)</string>
 	<string name="revocation_detail_page_r_value_signature">R-value-signature</string>

@@ -20,7 +20,6 @@ public class UpdateInfoRepository(store: CborSharedPrefsStore) {
         store.getData("update_info_notification_active", true)
 
     public companion object {
-        // Do not update for version for 1.38
         public const val CURRENT_UPDATE_VERSION: Int = 27
     }
 }

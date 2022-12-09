@@ -350,7 +350,7 @@
 	<string name="validation_check_popup_revoked_certificate_link_text">Informationen zur Sperrung anzeigen</string>
 	<string name="validation_check_popup_revoked_certificate_box_text">Diese Funktion richtet sich ausschließlich an die Polizeibehörden. Der Versuch ein Zertifikat unberechtigt sperren zu lassen ist strafbar und kann erhebliche Folgen nach sich ziehen.</string>
 	<string name="revocation_detail_page_title">Technische Details zum Zertifikat</string>
-	<string name="revocation_detail_page_button_text">PDF erstellen</string>
+	<string name="revocation_detail_page_button_text">EU-Ausdruck erstellen</string>
 	<string name="revocation_detail_page_transaction_number">Transaktionsnummer</string>
 	<string name="revocation_detail_page_key_reference">Schlüsselreferenz (KID)</string>
 	<string name="revocation_detail_page_r_value_signature">R-Wert-Signatur</string>
@@ -399,7 +399,7 @@
 	<string name="infschg_result_mask_mandatory_deviating_data_subtitle_1">1. Zertifikat</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_subtitle_2">2. Zertifikat</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_subtitle_3">Kein Fehler?</string>
-	<string name="infschg_result_mask_mandatory_deviating_data_copy_2">Sollte es sich Ihrer Ansicht zum Beispiel um einen Tippfehler handeln, können Sie diese Abweichung ignorieren und die Prüfung fortsetzen.</string>
+	<string name="infschg_result_mask_mandatory_deviating_data_copy_2">Sollte es sich Ihrer Ansicht nach zum Beispiel um einen Tippfehler handeln, können Sie diese Abweichung ignorieren und die Prüfung fortsetzen.</string>
 	<string name="infschg_result_mask_mandatory_deviating_data_link">Abweichung ignorieren</string>
 	<string name="infschg_result_no_mask_rules_title">Keine zusätzlichen Regeln</string>
 	<string name="infschg_result_no_mask_rules_subtitle">in %s</string>
