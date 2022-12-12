@@ -13,9 +13,6 @@ import de.rki.covpass.sdk.storage.CborSharedPrefsStore
  */
 public class CheckAppRepository(store: CborSharedPrefsStore) {
 
-    public val newRegulationNotificationShown: SuspendMutableValueFlow<Boolean> =
-        store.getData("new_regulation_notification_shown", false)
-
     public val activatedCheckingMode: SuspendMutableValueFlow<CheckingMode> =
         store.getData("new_activated_checking_mode", CheckingMode.ModeMaskStatus)
 

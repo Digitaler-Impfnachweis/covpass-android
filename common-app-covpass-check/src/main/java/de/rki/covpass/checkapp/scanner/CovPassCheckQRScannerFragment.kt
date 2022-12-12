@@ -141,6 +141,7 @@ internal class CovPassCheckQRScannerFragment :
                             dateDifferent = dataComparison == DataComparison.DateOfBirthDifferent,
                             expertModeData = certificate.getExpertModeData(),
                             isGermanCertificate = certificate.isGermanCertificate,
+                            isSuccess = true,
                         ),
                     )
                 }
@@ -159,15 +160,37 @@ internal class CovPassCheckQRScannerFragment :
         }
     }
 
-    override fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean) {
+    override fun onValidationFailure(
+        certificate: CovCertificate,
+        isSecondCertificate: Boolean,
+        dataComparison: DataComparison,
+    ) {
+        val firstCertificate = viewModel.firstCovCertificate
+        val secondCertificate = viewModel.secondCovCertificate
         scanEnabled.value = false
-        findNavigator().push(
-            ValidationResultPartialFragmentNav(
-                expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate,
-                allowSecondCertificate = !isSecondCertificate,
-            ),
-        )
+        if (dataComparison == DataComparison.Equal || secondCertificate == null || firstCertificate == null) {
+            findNavigator().push(
+                ValidationResultPartialFragmentNav(
+                    expertModeData = certificate.getExpertModeData(),
+                    isGermanCertificate = certificate.isGermanCertificate,
+                    allowSecondCertificate = !isSecondCertificate,
+                ),
+            )
+        } else {
+            findNavigator().push(
+                ValidationResultDifferentDataFragmentNav(
+                    firstCertificate.fullName,
+                    firstCertificate.fullTransliteratedName,
+                    firstCertificate.birthDate,
+                    secondCertificate.fullName,
+                    secondCertificate.fullTransliteratedName,
+                    secondCertificate.birthDate,
+                    dateDifferent = dataComparison == DataComparison.DateOfBirthDifferent,
+                    expertModeData = certificate.getExpertModeData(),
+                    isGermanCertificate = certificate.isGermanCertificate,
+                ),
+            )
+        }
     }
 
     override fun onValidationTechnicalFailure(certificate: CovCertificate?) {
@@ -219,7 +242,7 @@ internal class CovPassCheckQRScannerFragment :
                 firstCovCert,
                 secondCovCert,
                 numberOfCertificates,
-                true,
+                false,
             )
         }
     }
@@ -260,7 +283,7 @@ internal class CovPassCheckQRScannerFragment :
                 firstCovCert,
                 secondCovCert,
                 numberOfCertificates,
-                false,
+                true,
             )
         }
     }

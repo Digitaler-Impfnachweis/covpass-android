@@ -292,9 +292,6 @@ internal class MainFragment :
                 != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION -> {
                 findNavigator().push(DataProtectionFragmentNav())
             }
-            !covpassCheckDeps.checkAppRepository.newRegulationNotificationShown.value -> {
-                findNavigator().push(NewRegulationNotificationFragmentNav())
-            }
         }
     }
 

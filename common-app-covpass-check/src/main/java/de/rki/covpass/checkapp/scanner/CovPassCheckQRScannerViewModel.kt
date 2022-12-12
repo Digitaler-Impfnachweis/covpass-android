@@ -41,7 +41,7 @@ import java.time.ZonedDateTime
  */
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
-    fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean)
+    fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
     fun onValidationTechnicalFailure(certificate: CovCertificate? = null)
     fun onValidationNoRulesFailure(certificate: CovCertificate)
     fun onImmunityValidationSuccess(
@@ -252,7 +252,12 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 onValidationSuccess(mergedCovCertificate, isSecondCertificate, validateData)
             }
             CovPassCheckValidationResult.ValidationError -> eventNotifier {
-                onValidationFailure(mergedCovCertificate, isSecondCertificate)
+                val validateData = if (firstCovCert != null) {
+                    compareData(firstCovCert, covCertificate)
+                } else {
+                    DataComparison.HasNullData
+                }
+                onValidationFailure(mergedCovCertificate, isSecondCertificate, validateData)
             }
             CovPassCheckValidationResult.NoMaskRulesError -> eventNotifier {
                 onValidationNoRulesFailure(mergedCovCertificate)
@@ -299,7 +304,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     covCertificate,
                 )
                 onImmunityValidationFailure(
-                    mergedCovCertificate,
+                    covCertificate,
                     validateData,
                     firstCovCert,
                     secondCovCert,

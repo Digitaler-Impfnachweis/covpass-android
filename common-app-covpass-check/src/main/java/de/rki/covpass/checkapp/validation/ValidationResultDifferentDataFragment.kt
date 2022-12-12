@@ -31,6 +31,7 @@ public class ValidationResultDifferentDataFragmentNav(
     public val dateDifferent: Boolean,
     public val expertModeData: ExpertModeData?,
     public val isGermanCertificate: Boolean = false,
+    public val isSuccess: Boolean = false,
 ) : FragmentNav(ValidationResultDifferentDataFragment::class)
 
 public class ValidationResultDifferentDataFragment : BaseBottomSheet() {
@@ -77,15 +78,25 @@ public class ValidationResultDifferentDataFragment : BaseBottomSheet() {
         )
 
         binding.validationResultDifferentDataValidDifferenceButton.setOnClickListener {
-            findNavigator().push(
-                ValidationResultSuccessFragmentNav(
-                    args.name1,
-                    args.transliteratedName1,
-                    args.birthDate1,
-                    args.expertModeData,
-                    args.isGermanCertificate,
-                ),
-            )
+            if (args.isSuccess) {
+                findNavigator().push(
+                    ValidationResultSuccessFragmentNav(
+                        args.name1,
+                        args.transliteratedName1,
+                        args.birthDate1,
+                        args.expertModeData,
+                        args.isGermanCertificate,
+                    ),
+                )
+            } else {
+                findNavigator().push(
+                    ValidationResultPartialFragmentNav(
+                        expertModeData = args.expertModeData,
+                        isGermanCertificate = args.isGermanCertificate,
+                        allowSecondCertificate = false,
+                    ),
+                )
+            }
         }
 
         binding.validationResultDifferentDataValidDifferenceTitle.isVisible = !args.dateDifferent

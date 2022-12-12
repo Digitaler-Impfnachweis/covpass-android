@@ -248,7 +248,7 @@ internal class DetailFragment :
                             R.string.infschg_detail_page_mask_mandatory_federal_state,
                             region,
                         )
-                        MaskStatus.Invalid,
+                        MaskStatus.Invalid -> null
                         MaskStatus.NoRules,
                         -> getString(
                             R.string.infschg_detail_page_mask_status_uncertain_federal_state,
