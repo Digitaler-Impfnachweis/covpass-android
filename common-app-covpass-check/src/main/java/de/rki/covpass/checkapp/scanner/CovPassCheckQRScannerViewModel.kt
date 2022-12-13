@@ -290,7 +290,7 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     covCertificate,
                 )
                 onImmunityValidationSuccess(
-                    mergedCovCertificate,
+                    covCertificate,
                     validateData,
                     firstCovCert,
                     secondCovCert,
