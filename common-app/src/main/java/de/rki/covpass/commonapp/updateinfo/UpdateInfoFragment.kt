@@ -41,10 +41,13 @@ public abstract class UpdateInfoFragment : BaseBottomSheet() {
         binding.stopNotificationLayout.isGone = true
         binding.updateInfoWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
-                bottomSheetBinding.bottomSheetActionButton.isEnabled = true
-                binding.loadingLayout.isGone = true
-                binding.updateInfoWebView.isVisible = true
-                binding.stopNotificationLayout.isVisible = true
+                super.onPageFinished(view, url)
+                launchWhenResumed {
+                    bottomSheetBinding.bottomSheetActionButton.isEnabled = true
+                    binding.loadingLayout.isGone = true
+                    binding.updateInfoWebView.isVisible = true
+                    binding.stopNotificationLayout.isVisible = true
+                }
             }
         }
         binding.updateInfoWebView.loadUrl(getString(updateInfoPath))

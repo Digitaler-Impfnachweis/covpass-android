@@ -55,8 +55,11 @@ public class WhatsNewSettingsFragment : BaseFragment() {
         binding.updateInfoWebView.isGone = true
         binding.updateInfoWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
-                binding.loadingLayout.isGone = true
-                binding.updateInfoWebView.isVisible = true
+                super.onPageFinished(view, url)
+                launchWhenResumed {
+                    binding.loadingLayout.isGone = true
+                    binding.updateInfoWebView.isVisible = true
+                }
             }
         }
         binding.updateInfoWebView.loadUrl(getString(R.string.update_info_path))

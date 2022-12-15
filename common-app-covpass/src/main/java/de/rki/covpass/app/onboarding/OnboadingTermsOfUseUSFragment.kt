@@ -37,9 +37,12 @@ public class OnboadingTermsOfUseUSFragment : BaseBottomSheet() {
 
         binding.onboardingTermsOfUseWebview.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
-                bottomSheetBinding.bottomSheetActionButton.isEnabled = true
-                binding.loadingLayout.isGone = true
-                binding.onboardingTermsOfUseWebview.isVisible = true
+                super.onPageFinished(view, url)
+                launchWhenResumed {
+                    bottomSheetBinding.bottomSheetActionButton.isEnabled = true
+                    binding.loadingLayout.isGone = true
+                    binding.onboardingTermsOfUseWebview.isVisible = true
+                }
             }
         }
         binding.onboardingTermsOfUseWebview.loadUrl(getString(R.string.terms_of_use_us))
