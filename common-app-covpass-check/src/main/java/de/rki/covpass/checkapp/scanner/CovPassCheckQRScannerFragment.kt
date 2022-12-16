@@ -20,12 +20,13 @@ import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.checkapp.validation.ValidationEntryResultFailedFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationEntryResultSuccessFragmentNav
-import de.rki.covpass.checkapp.validation.ValidationImmunityResultFailedFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultIncompleteFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultSuccessFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationPendingResultFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultDifferentDataFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultDifferentDataImmunityCheckFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResultFailedFragmentNav
+import de.rki.covpass.checkapp.validation.ValidationResultFailedSecondCertificateFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
 import de.rki.covpass.checkapp.validation.ValidationResultNoRulesFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultPartialFragmentNav
@@ -193,14 +194,23 @@ internal class CovPassCheckQRScannerFragment :
         }
     }
 
-    override fun onValidationTechnicalFailure(certificate: CovCertificate?) {
+    override fun onValidationTechnicalFailure(certificate: CovCertificate?, numberOfCertificates: Int) {
         scanEnabled.value = false
-        findNavigator().push(
-            ValidationEntryResultFailedFragmentNav(
-                expertModeData = certificate?.getExpertModeData(),
-                isGermanCertificate = certificate?.isGermanCertificate ?: false,
-            ),
-        )
+        if (numberOfCertificates > 1) {
+            findNavigator().push(
+                ValidationResultFailedSecondCertificateFragmentNav(
+                    expertModeData = certificate?.getExpertModeData(),
+                    isGermanCertificate = certificate?.isGermanCertificate ?: false,
+                ),
+            )
+        } else {
+            findNavigator().push(
+                ValidationResultFailedFragmentNav(
+                    expertModeData = certificate?.getExpertModeData(),
+                    isGermanCertificate = certificate?.isGermanCertificate ?: false,
+                ),
+            )
+        }
     }
 
     override fun onValidationNoRulesFailure(certificate: CovCertificate) {
@@ -329,18 +339,26 @@ internal class CovPassCheckQRScannerFragment :
                 expertModeData = certificate.getExpertModeData(),
                 isGermanCertificate = certificate.isGermanCertificate,
             ),
-
         )
     }
 
-    override fun onImmunityValidationTechnicalFailure(certificate: CovCertificate?) {
+    override fun onImmunityValidationTechnicalFailure(certificate: CovCertificate?, numberOfCertificates: Int) {
         scanEnabled.value = false
-        findNavigator().push(
-            ValidationImmunityResultFailedFragmentNav(
-                expertModeData = certificate?.getExpertModeData(),
-                isGermanCertificate = certificate?.isGermanCertificate ?: false,
-            ),
-        )
+        if (numberOfCertificates > 1) {
+            findNavigator().push(
+                ValidationResultFailedSecondCertificateFragmentNav(
+                    expertModeData = certificate?.getExpertModeData(),
+                    isGermanCertificate = certificate?.isGermanCertificate ?: false,
+                ),
+            )
+        } else {
+            findNavigator().push(
+                ValidationResultFailedFragmentNav(
+                    expertModeData = certificate?.getExpertModeData(),
+                    isGermanCertificate = certificate?.isGermanCertificate ?: false,
+                ),
+            )
+        }
     }
 
     override fun onImmunityEntryValidationSuccess(certificate: CovCertificate) {

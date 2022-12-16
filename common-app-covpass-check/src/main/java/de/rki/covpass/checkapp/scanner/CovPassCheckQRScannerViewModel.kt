@@ -42,7 +42,7 @@ import java.time.ZonedDateTime
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
     fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
     fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
-    fun onValidationTechnicalFailure(certificate: CovCertificate? = null)
+    fun onValidationTechnicalFailure(certificate: CovCertificate? = null, numberOfCertificates: Int)
     fun onValidationNoRulesFailure(certificate: CovCertificate)
     fun onImmunityValidationSuccess(
         certificate: CovCertificate,
@@ -60,7 +60,7 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
         numberOfCertificates: Int,
     )
 
-    fun onImmunityValidationTechnicalFailure(certificate: CovCertificate? = null)
+    fun onImmunityValidationTechnicalFailure(certificate: CovCertificate? = null, numberOfCertificates: Int)
     fun onImmunityEntryValidationSuccess(certificate: CovCertificate)
     fun onImmunityEntryValidationFailure(certificate: CovCertificate? = null)
     fun showWarningDuplicatedType()
@@ -157,12 +157,18 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 Lumber.e(exception)
                 if (checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeMaskStatus) {
                     eventNotifier {
-                        onValidationTechnicalFailure()
+                        onValidationTechnicalFailure(
+                            null,
+                            listOfNotNull(firstCovCertificate, secondCovCertificate).size + 1,
+                        )
                     }
                 } else {
                     if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
                         eventNotifier {
-                            onImmunityValidationTechnicalFailure()
+                            onImmunityValidationTechnicalFailure(
+                                null,
+                                listOfNotNull(firstCovCertificate, secondCovCertificate).size + 1,
+                            )
                         }
                     } else {
                         eventNotifier {
@@ -263,7 +269,10 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 onValidationNoRulesFailure(mergedCovCertificate)
             }
             CovPassCheckValidationResult.TechnicalError -> eventNotifier {
-                onValidationTechnicalFailure(mergedCovCertificate)
+                onValidationTechnicalFailure(
+                    mergedCovCertificate,
+                    listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
+                )
             }
         }
     }
@@ -312,7 +321,10 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 )
             }
             CovPassCheckImmunityValidationResult.TechnicalError -> eventNotifier {
-                onImmunityValidationTechnicalFailure(mergedCovCertificate)
+                onImmunityValidationTechnicalFailure(
+                    mergedCovCertificate,
+                    listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
+                )
             }
         }
     }

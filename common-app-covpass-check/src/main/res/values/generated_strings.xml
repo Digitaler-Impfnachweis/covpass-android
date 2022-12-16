@@ -140,6 +140,8 @@
 	<string name="technical_validation_check_popup_unsuccessful_certificate_qrreadibility_subline">Unable to read the QR code. Please update the CovPassCheck App, if the problem is recurring.</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_1_title">New scan</string>
 	<string name="technical_validation_check_popup_retry">Retry last scan</string>
+	<string name="technical_validation_invalid_expired_title">Certificate expired</string>
+	<string name="technical_validation_invalid_expired_subtitle">The technical expiry date of the certificate has been exceeded. Scan a newly issued certificate.</string>
 	<string name="technical_validation_check_popup_valid_vaccination_button_3_title">Cancel</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_title">Incomplete vaccination protection</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subtitle">according to IfSG § 22a</string>
