@@ -52,12 +52,12 @@ public class GStatusAndMaskValidator(
 
                         val additionalDate = when {
                             vaccination != null &&
-                                vaccination.occurrence?.isOlderThan(91) == false -> {
-                                vaccination.occurrence.plusDays(91).formatDateOrEmpty()
+                                vaccination.occurrence?.isOlderThan(90) == false -> {
+                                vaccination.occurrence.plusDays(90).formatDateOrEmpty()
                             }
                             recovery != null &&
-                                recovery.firstResult?.isOlderThan(91) == false -> {
-                                recovery.firstResult.plusDays(91).formatDateOrEmpty()
+                                recovery.firstResult?.isOlderThan(90) == false -> {
+                                recovery.firstResult.plusDays(90).formatDateOrEmpty()
                             }
                             test != null &&
                                 test.sampleCollection?.isOlderThan(25) == false -> {
