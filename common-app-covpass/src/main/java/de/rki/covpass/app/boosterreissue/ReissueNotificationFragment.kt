@@ -42,10 +42,9 @@ public class ReissueNotificationFragment :
     private val binding by viewBinding(ReissueNotificationPopupContentBinding::inflate)
     private val viewModel by reactiveState { ReissueNotificationViewModel(scope, args.listCertIds) }
     private val args: ReissueNotificationFragmentNav by lazy { getArgs() }
-    override val buttonTextRes: Int by lazy {
-        getButtonText()
-    }
-    override val announcementAccessibilityRes: Int = R.string.accessibility_popup_renew_certificate_announce
+    override val buttonTextRes: Int = R.string.certificate_renewal_startpage_main_button
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_popup_renew_certificate_announce
     override val closingAnnouncementAccessibilityRes: Int =
         R.string.accessibility_popup_renew_certificate_closing_announce
 
@@ -61,7 +60,7 @@ public class ReissueNotificationFragment :
             setText(R.string.certificate_renewal_startpage_secondary_button)
             isVisible = true
             setOnClickListener {
-                viewModel.updateHasSeenReissueNotification(args.reissueType, false)
+                showCancelDialog()
             }
         }
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
@@ -97,20 +96,18 @@ public class ReissueNotificationFragment :
         )
     }
 
-    private fun getButtonText() = when (args.reissueType) {
-        ReissueType.Booster -> R.string.certificate_renewal_startpage_main_button
-        ReissueType.Vaccination -> R.string.renewal_expiry_notification_button_vaccination
-        ReissueType.Recovery -> R.string.renewal_expiry_notification_button_recovery
-        ReissueType.None -> R.string.certificate_renewal_startpage_main_button
-    }
-
     override fun onClickOutside() {}
 
     override fun onActionButtonClicked() {
-        viewModel.updateHasSeenReissueNotification(args.reissueType, true)
+        updateHasSeenReissueNotification()
     }
 
     override fun onBackPressed(): Abortable {
+        showCancelDialog()
+        return Abort
+    }
+
+    private fun showCancelDialog() {
         val dialogModel = DialogModel(
             titleRes = R.string.cancellation_share_certificate_title,
             positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
@@ -118,13 +115,16 @@ public class ReissueNotificationFragment :
             tag = REISSUE_NOTIFICATION_END_PROCESS,
         )
         showDialog(dialogModel, childFragmentManager)
-        return Abort
     }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == REISSUE_NOTIFICATION_END_PROCESS && action == DialogAction.POSITIVE) {
-            viewModel.updateHasSeenReissueNotification(args.reissueType, false)
+            updateHasSeenReissueNotification(false)
         }
+    }
+
+    private fun updateHasSeenReissueNotification(continueReissue: Boolean = true) {
+        viewModel.updateHasSeenReissueNotification(args.reissueType, continueReissue)
     }
 
     override fun onUpdateHasSeenReissueNotificationFinish(continueReissue: Boolean) {

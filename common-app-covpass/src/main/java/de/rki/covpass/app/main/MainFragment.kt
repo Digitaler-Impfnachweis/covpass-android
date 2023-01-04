@@ -56,12 +56,11 @@ internal class MainFragmentNav(
 ) : FragmentNav(MainFragment::class)
 
 internal interface NotificationEvents : BaseEvents {
-    fun showExpiryNotification()
     fun showNewUpdateInfo()
     fun showNewDataPrivacy()
     fun showFederalStateOnboarding()
     fun showBoosterNotification()
-    fun showBoosterReissueNotification(listIds: List<String>)
+    fun showReissueNotification(reissueType: ReissueType, listIds: List<String>)
     fun showRevokedNotification()
     fun importCertificateFromShareOption(uri: Uri)
 }
@@ -285,17 +284,6 @@ internal class MainFragment :
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         when (tag) {
-            EXPIRED_DIALOG_TAG -> {
-                launchWhenStarted {
-                    covpassDeps.certRepository.certs.update { groupedCertificateList ->
-                        groupedCertificateList.certificates.forEach {
-                            it.hasSeenExpiryNotification = true
-                            it.hasSeenExpiredReissueNotification = true
-                        }
-                    }
-                    viewModel.showingNotification.complete(Unit)
-                }
-            }
             REVOKED_DIALOG_TAG -> {
                 launchWhenStarted {
                     covpassDeps.certRepository.certs.update { groupedCertificateList ->
@@ -325,22 +313,12 @@ internal class MainFragment :
         findNavigator().push(BoosterNotificationFragmentNav())
     }
 
-    override fun showBoosterReissueNotification(listIds: List<String>) {
-        if (listIds.isNotEmpty()) {
-            findNavigator().push(ReissueNotificationFragmentNav(ReissueType.Booster, listIds))
-        } else {
+    override fun showReissueNotification(reissueType: ReissueType, listIds: List<String>) {
+        if (reissueType == ReissueType.None) {
             viewModel.showingNotification.complete(Unit)
+        } else {
+            findNavigator().push(ReissueNotificationFragmentNav(reissueType, listIds))
         }
-    }
-
-    override fun showExpiryNotification() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.error_validity_check_certificates_title,
-            messageString = getString(R.string.error_validity_check_certificates_message),
-            positiveButtonTextRes = R.string.error_validity_check_certificates_button_title,
-            tag = EXPIRED_DIALOG_TAG,
-        )
-        showDialog(dialogModel, childFragmentManager)
     }
 
     override fun showRevokedNotification() {
@@ -358,7 +336,6 @@ internal class MainFragment :
     }
 
     companion object {
-        private const val EXPIRED_DIALOG_TAG = "expired_dialog"
         private const val REVOKED_DIALOG_TAG = "revoked_dialog"
     }
 }

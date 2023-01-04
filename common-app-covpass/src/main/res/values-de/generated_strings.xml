@@ -68,6 +68,7 @@
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Abgelaufen</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Ungültig</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Status überprüfen</string>
+	<string name="vaccination_start_screen_qrcode_renewal_note_subtitle">Zertifikat erneuern</string>
 	<string name="certificates_start_screen_qr_code_app_reference_text">Dieser QR-Code lässt sich verlässlich mit der CovPassCheck-App prüfen.</string>
 
 	<!-- SECTION: modal_view -->
@@ -824,7 +825,7 @@
 	<string name="accessibility_popup_renew_certificate_closing_announce">Die Ansicht \"Änderungen bei Ihren Zertifikaten\" wurde geschlossen</string>
 	<string name="certificate_renewal_startpage_headline">Änderungen bei Ihren Zertifikaten</string>
 	<string name="certificate_renewal_startpage_copy">Die Spezifikationen der EU für bestimmte Impfzertifikate wurden geändert. Dieses Zertifikat entspricht nicht der aktuellen Nummerierung. Es ist weiterhin gültig. Falls es sich jedoch um ein Zertifikat für eine Auffrischimpfung handelt, wird diese bei einer Prüfung nicht erkannt.\n\nWir empfehlen Ihnen daher, ein neues Impfzertifikat mit der Nummer 2/1 direkt kostenlos über die App anzufordern. Hierfür ist Ihr Einverständnis erforderlich.</string>
-	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Übersicht Ihrer Zertifikate anstoßen.</string>
+	<string name="certificate_renewal_startpage_copy_box">Der Vorgang ist ganz unkompliziert und dauert nur wenige Minuten. Sie können die Erneuerung auch später in der Detailansicht Ihrer Zertifikate anstoßen.</string>
 	<string name="certificate_renewal_startpage_main_button">Jetzt erneuern</string>
 	<string name="certificate_renewal_startpage_secondary_button">Später nachholen</string>
 	<string name="accessibility_renew_certificate_concent_announce">Die Ansicht \"Einwilligung zur Übermittlung Ihrer Zertifikate\" wurde geöffnet</string>
@@ -849,24 +850,36 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Später löschen</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Aktualisieren</string>
 	<string name="certificate_renewal_error_title">Neuausstellung fehlgeschlagen</string>
-	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuausstellung Ihres Zertifikats. Bitte überprüfen Sie Ihre Internetverbindung. Beachten Sie, dass Sie das Zertifikat maximal drei Mal im Jahr neu ausstellen lassen können. Für Informationen zum unten aufgeführten Fehlercode kontaktieren Sie bitte unsere Hotline unter 0800–4747–001 oder support\@covpass-app.de.\n\nFehlercode: %s</string>
+	<string name="certificate_renewal_error_copy">Leider gab es ein Problem bei der Neuausstellung Ihres Zertifikats. Bitte überprüfen Sie Ihre Internetverbindung. Beachten Sie auch, dass ein Zertifikat maximal drei Mal neu ausgestellt werden kann. Falls Sie Ihr Zertifikat bereits in der Corona-Warn-App oder auf einem anderen Gerät erneuert haben, scannen Sie das erneuerte Zertifikat mit der CovPass-App ein.\n\nFehlercode: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
-	<string name="certificate_renewal_error_button_secondary">Mehr Informationen</string>
+	<string name="certificate_renewal_error_button_secondary">Mehr in den häufigen Fragen</string>
 
 	<!-- SECTION: DCC renewal when expiring -->
 	<string name="renewal_expiry_notification_title">Erneuerung notwendig</string>
+	<string name="renewal_bluebox_title_expiring_soon_vaccination">Impfzertifikat läuft bald ab</string>
+	<string name="renewal_bluebox_title_expiring_soon_recovery">Genesenenzertifikat läuft bald ab</string>
+	<string name="renewal_bluebox_title_expired_vaccination">Impfzertifikat abgelaufen</string>
+	<string name="renewal_bluebox_title_expired_recovery">Genesenenzertifikat abgelaufen</string>
+	<string name="renewal_bluebox_copy_expiring_soon">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
+	<string name="renewal_bluebox_copy_expired">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Erneuern Sie jetzt Ihr Zertifikat, um es weiterhin nutzen zu können.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_available">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
+	<string name="renewal_bluebox_copy_expiry_not_german">Die technische Gültigkeit mindestens eines Ihrer Zertifikate ist abgelaufen. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_german">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
 	<string name="renewal_expiry_notification_copy_vaccination">Die technische Laufzeit Ihres Impfzertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_vaccination">Impfzertifikat erneuern</string>
 	<string name="renewal_expiry_notification_copy_recovery">Die technische Laufzeit Ihres Genesenenzertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_recovery">Genesenenzertifikat erneuern</string>
+	<string name="renewal_expiry_notification_button">Jetzt erneuern</string>
 	<string name="renewal_expiry_consent_box_item_1">Die App übermittelt die genannten Zertifikate zur Überprüfung an das RKI.</string>
 	<string name="renewal_expiry_consent_box_item_2">Das RKI überprüft die Zertifikate, stellt ein erneuertes Zertifikat aus und übermittelt dieses an Ihre App.</string>
 	<string name="renewal_expiry_consent_list_item_1">Die Erneuerung der Zertifikate ist freiwillig und kostenlos.</string>
 	<string name="renewal_expiry_consent_list_item_2">Um sicherzustellen, dass Zertifikate nur in begrenztem Umfang aktualisiert werden können, wird die Kennung des alten Zertifikats durch das RKI dokumentiert. Die weiteren Daten zu Ihren Zertifikaten werden nach der Erneuerung beim RKI sofort gelöscht.</string>
 	<string name="renewal_expiry_consent_list_item_3">Stellen Sie bitte bei der Erneuerung von Zertifikaten von Familienmitgliedern sicher, dass die betreffende Person einverstanden ist.</string>
 	<string name="renewal_expiry_consent_list_item_4">In bestimmten Fällen werden zusätzlich zu dem zu erneuernden Zertifikat weitere Zertifikate übermittelt. Dies ist erforderlich, um die bisherige Abfolge der Impfungen und Genesungen im neuen Zertifikat aufnehmen zu können.</string>
-	<string name="renewal_expiry_success_copy">Sie können Ihr Zertifikat nun weiterhin wie gewohnt nutzen.</string>
+	<string name="renewal_expiry_success_copy">Sie können Ihr Zertifikat nun weiterhin wie gewohnt nutzen.\n\nBitte beachten Sie, dass auch Ihr Papier-Zertifikat bald abläuft oder bereits abgelaufen ist. Wenn gewünscht, können Sie Ihr neues Zertifikat als PDF-Datei herunterladen und ausdrucken.</string>
 	<string name="renewal_expiry_success_button">OK</string>
+	<string name="renewal_expiry_success_download_button">PDF erstellen</string>
 
 	<!-- SECTION: DCC revocation -->
 	<string name="revocation_error_scan_title">Das Zertifikat kann nicht hinzugefügt werden</string>

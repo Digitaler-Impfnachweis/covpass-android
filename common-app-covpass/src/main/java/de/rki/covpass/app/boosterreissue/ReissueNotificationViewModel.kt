@@ -37,6 +37,7 @@ internal class ReissueNotificationViewModel @OptIn(DependencyAccessor::class) co
                         } else {
                             groupedCertificates.hasSeenExpiredReissueNotification = true
                         }
+                        groupedCertificates.hasSeenExpiryNotification = true
                     }
                 }
             }

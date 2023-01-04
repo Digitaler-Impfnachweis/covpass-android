@@ -68,6 +68,7 @@
 	<string name="certificates_start_screen_qrcode_certificate_expired_subtitle">Expired</string>
 	<string name="certificates_start_screen_qrcode_certificate_invalid_subtitle">Invalid</string>
 	<string name="vaccination_start_screen_qrcode_booster_vaccination_note_subtitle">Check status</string>
+	<string name="vaccination_start_screen_qrcode_renewal_note_subtitle">Renew certificate</string>
 	<string name="certificates_start_screen_qr_code_app_reference_text">This QR code can be reliably verified with the CovPassCheck app.</string>
 
 	<!-- SECTION: modal_view -->
@@ -824,7 +825,7 @@
 	<string name="accessibility_popup_renew_certificate_closing_announce">Changes to your certificates has been closed</string>
 	<string name="certificate_renewal_startpage_headline">Changes to your certificates</string>
 	<string name="certificate_renewal_startpage_copy">The EU specifications for certain vaccination certificates have been changed. This certificate does not correspond to the current numbering. It is still valid. However, if it is a certificate for a booster vaccination, it will not be recognized as such when checked.\n\nTherefore we recommend requesting a new certificate with the number 2/1 directly free of charge via the app.</string>
-	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later on the overview of your certificates.</string>
+	<string name="certificate_renewal_startpage_copy_box">The process is uncomplicated and takes only a few minutes. You can trigger the renewal also later in the detailed view of your certificates.</string>
 	<string name="certificate_renewal_startpage_main_button">Renew now</string>
 	<string name="certificate_renewal_startpage_secondary_button">Renew later</string>
 	<string name="accessibility_renew_certificate_concent_announce">Consent to transmitting your certificates has been opened</string>
@@ -849,24 +850,36 @@
 	<string name="certificate_renewal_confirmation_page_certificate_secondary_button">Delete later</string>
 	<string name="certificate_renewal_detail_view_notification_box_secondary_button">Update</string>
 	<string name="certificate_renewal_error_title">Reissue failed</string>
-	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your internet connection. Note that the certificate can be reissued a maximum of three times a year. For more information on the error code below please contact our hotline at 0800–4747–001 or support\@covpass-app.de.\n\nError code: %s</string>
+	<string name="certificate_renewal_error_copy">Unfortunately, there was a problem reissuing your certificate. Please check your internet connection. Also note that a certificate can be renewed a maximum of three times. If you have already renewed your certificate in the Corona-Warn-App or on another device, scan the renewed certificate with the CovPass app.\n\nError code: %s</string>
 	<string name="certificate_renewal_error_button_primary">OK</string>
-	<string name="certificate_renewal_error_button_secondary">More information</string>
+	<string name="certificate_renewal_error_button_secondary">More in the FAQ</string>
 
 	<!-- SECTION: DCC renewal when expiring -->
 	<string name="renewal_expiry_notification_title">Renewal needed</string>
+	<string name="renewal_bluebox_title_expiring_soon_vaccination">Vaccination certificate expires soon</string>
+	<string name="renewal_bluebox_title_expiring_soon_recovery">Recovery certificate expires soon</string>
+	<string name="renewal_bluebox_title_expired_vaccination">Vaccination certificate expired</string>
+	<string name="renewal_bluebox_title_expired_recovery">Recovery certificate expired</string>
+	<string name="renewal_bluebox_copy_expiring_soon">The technical validity of your certificate expires on %1$s at %2$s. Renew the certificate to continue using it.</string>
+	<string name="renewal_bluebox_copy_expired">The technical validity of your certificate expired on %1$s at %2$s. Renew your certificate now to continue using it.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available">The technical validity of your certificate has expired on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_available">The technical validity of your certificate expires on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
+	<string name="renewal_bluebox_copy_expiry_not_german">The technical validity of at least one of your certificates has expired. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_german">The technical validity of your certificate expires on %1$s at %2$s. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_expiry_notification_copy_vaccination">The technical validity of your vaccination certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_vaccination">Renew vaccination certificate</string>
 	<string name="renewal_expiry_notification_copy_recovery">The technical validity of your recovery certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_recovery">Renew recovery certificate</string>
+	<string name="renewal_expiry_notification_button">Renew now</string>
 	<string name="renewal_expiry_consent_box_item_1">The app transmits the aforementioned certificates to the RKI for verification.</string>
 	<string name="renewal_expiry_consent_box_item_2">The RKI checks the certificates, issues a renewed certificate and transmits it to your app.</string>
 	<string name="renewal_expiry_consent_list_item_1">The renewal of certificates is voluntary and free of charge.</string>
 	<string name="renewal_expiry_consent_list_item_2">To ensure that certificates can only be updated to a limited extent, the identifier of the old certificate is documented by the RKI. The other data on your certificates will be deleted by the RKI immediately after renewal.</string>
 	<string name="renewal_expiry_consent_list_item_3">When renewing certificates of family members, please ensure that the person concerned agrees.</string>
 	<string name="renewal_expiry_consent_list_item_4">In certain cases, additional certificates are sent in addition to the certificate to be renewed. This is necessary in order to be able to include the previous sequence of vaccinations and recoveries in the new certificate.</string>
-	<string name="renewal_expiry_success_copy">You can now continue to use your certificate as usual.</string>
+	<string name="renewal_expiry_success_copy">You can now continue to use your certificate as usual.\n\nPlease note that your paper certificate will also expire soon or has already expired. If desired, you can download your new certificate as a PDF file and print it out.</string>
 	<string name="renewal_expiry_success_button">OK</string>
+	<string name="renewal_expiry_success_download_button">Create PDF</string>
 
 	<!-- SECTION: DCC revocation -->
 	<string name="revocation_error_scan_title">The certificate cannot be added</string>

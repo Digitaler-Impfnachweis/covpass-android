@@ -23,6 +23,7 @@ import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationRemoteListRepository
 import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
@@ -85,8 +86,19 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             }
             certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } ||
                 checkExpiredReissueNotification() -> {
-                eventNotifier {
-                    showExpiryNotification()
+                val vaccinationIds = getVaccinationReissueIdsList()
+                val recoveryIds = getRecoveryReissueIdsList()
+                when {
+                    vaccinationIds.isNotEmpty() -> {
+                        eventNotifier {
+                            showReissueNotification(ReissueType.Vaccination, vaccinationIds)
+                        }
+                    }
+                    recoveryIds.isNotEmpty() -> {
+                        eventNotifier {
+                            showReissueNotification(ReissueType.Recovery, recoveryIds)
+                        }
+                    }
                 }
                 true
             }
@@ -97,8 +109,11 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 true
             }
             checkBoosterReissueNotification() -> {
-                eventNotifier {
-                    showBoosterReissueNotification(getBoosterReissueIdsList())
+                val boosterIds = getBoosterReissueIdsList()
+                if (boosterIds.isNotEmpty()) {
+                    eventNotifier {
+                        showReissueNotification(ReissueType.Booster, boosterIds)
+                    }
                 }
                 true
             }
@@ -130,6 +145,18 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         return certRepository.certs.value.certificates.first {
             it.isBoosterReadyForReissue() && !it.hasSeenReissueNotification
         }.getListOfIdsReadyForBoosterReissue()
+    }
+
+    private fun getVaccinationReissueIdsList(): List<String> {
+        return certRepository.certs.value.certificates.first {
+            it.isExpiredReadyForReissue() && !it.hasSeenReissueNotification
+        }.getListOfVaccinationIdsReadyForReissue()
+    }
+
+    private fun getRecoveryReissueIdsList(): List<String> {
+        return certRepository.certs.value.certificates.first {
+            it.isExpiredReadyForReissue() && !it.hasSeenReissueNotification
+        }.getListOfRecoveryIdsReadyForReissue()
     }
 
     private fun checkExpiredReissueNotification(): Boolean {
