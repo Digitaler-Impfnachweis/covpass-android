@@ -58,6 +58,15 @@
         tools:title="@tools:sample/lorem[3]"
         tools:visibility="visible" />
 
+      <LinearLayout
+        android:id="@+id/dgc_detail_reissue_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+          android:id="@+id/dgc_detail_reissue_element"
+          layout="@layout/detail_reissue_notification_item"/>
+      </LinearLayout>
+
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dgc_detail_recycler_view"
         android:layout_width="match_parent"

@@ -567,12 +567,12 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Schließen</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Schließen</string>
 	<string name="certificate_expires_detail_view_note_title">Zertifikat läuft am %1$s um %2$s ab</string>
-	<string name="certificate_expires_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Sie können frühere Zertifikate nicht erneuern. In Ihrem neuesten Zertifikat sind alle notwendigen Informationen für eine Prüfung enthalten.</string>
+	<string name="certificate_expires_detail_view_note_message">Die technische Gültigkeit Ihres Zertifikats läuft bald ab. Sie müssen es jedoch nicht erneuern, da es für den Nachweis Ihres Immunschutzes nicht mehr relevant ist.</string>
 	<string name="certificate_expires_detail_view_note_nonDE">Dieses Zertifikat wurde nicht in Deutschland ausgestellt und kann daher nicht in der App erneuert werden. Bitte wenden Sie sich an den Aussteller des Zertifikats.</string>
 	<string name="certificate_invalid_detail_view_note_title">Zertifikat ungültig</string>
 	<string name="certificate_invalid_detail_view_note_message">Das Zertifikat wurde von der ausstellenden Behörde zurückgerufen. Bitte bemühen Sie sich darum, einen neuen digitalen Nachweis ausstellen zu lassen.</string>
 	<string name="certificate_expired_detail_view_note_title">Zertifikat abgelaufen</string>
-	<string name="certificate_expired_detail_view_note_message">Wenn es sich hierbei um Ihr neuestes Zertifikat handelt, können Sie es auf der Übersicht Ihrer Zertifikate erneuern. Andernfalls müssen Sie nichts tun, da in Ihrem neuesten Zertifikat alle notwendigen Informationen für eine Prüfung enthalten sind.</string>
+	<string name="certificate_expired_detail_view_note_message">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Sie müssen es jedoch nicht erneuern, da es für den Nachweis Ihres Immunschutzes nicht mehr relevant ist.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">Die Ansicht für \"PDF erstellen\" wurde geöffnet</string>
@@ -866,7 +866,7 @@
 	<string name="renewal_bluebox_copy_expiring_soon_not_available">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">Die technische Gültigkeit mindestens eines Ihrer Zertifikate ist abgelaufen. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_german">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
-	<string name="renewal_expiry_notification_copy_vaccination">Die technische Laufzeit Ihres Impfzertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
+	<string name="renewal_expiry_notification_copy_vaccination">Die technische Laufzeit Ihres Zertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_vaccination">Impfzertifikat erneuern</string>
 	<string name="renewal_expiry_notification_copy_recovery">Die technische Laufzeit Ihres Genesenenzertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_expiry_notification_button_recovery">Genesenenzertifikat erneuern</string>
@@ -879,6 +879,9 @@
 	<string name="renewal_expiry_consent_list_item_4">In bestimmten Fällen werden zusätzlich zu dem zu erneuernden Zertifikat weitere Zertifikate übermittelt. Dies ist erforderlich, um die bisherige Abfolge der Impfungen und Genesungen im neuen Zertifikat aufnehmen zu können.</string>
 	<string name="renewal_expiry_success_copy">Sie können Ihr Zertifikat nun weiterhin wie gewohnt nutzen.\n\nBitte beachten Sie, dass auch Ihr Papier-Zertifikat bald abläuft oder bereits abgelaufen ist. Wenn gewünscht, können Sie Ihr neues Zertifikat als PDF-Datei herunterladen und ausdrucken.</string>
 	<string name="renewal_expiry_success_button">OK</string>
+	<string name="renewal_expiry_modal_not_available_title">Erneuern Sie Ihr Zertifikat</string>
+	<string name="renewal_expiry_modal_not_available_copy">Die technische Gültigkeit mindestens eines Ihrer Zertifikate läuft bald ab. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
+	<string name="renewal_expiry_modal_not_available_title_1">OK</string>
 	<string name="renewal_expiry_success_download_button">PDF erstellen</string>
 
 	<!-- SECTION: DCC revocation -->

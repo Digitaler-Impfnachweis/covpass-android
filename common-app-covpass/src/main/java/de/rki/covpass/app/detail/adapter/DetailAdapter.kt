@@ -203,7 +203,7 @@ private class InfoboxViewHolder(
 }
 
 private class ReissueNotificationViewHolder(
-    val parent: ViewGroup,
+    parent: ViewGroup,
 ) : BaseViewHolder<DetailReissueNotificationItemBinding>(
     parent,
     DetailReissueNotificationItemBinding::inflate,
@@ -212,11 +212,9 @@ private class ReissueNotificationViewHolder(
     override fun onItemBind(item: DetailItem) {
         (item as DetailItem.ReissueNotification).let {
             binding.reissueNotificationTitle.text = getString(it.titleRes)
-            binding.reissueNotificationText.text = getString(it.textRes)
-            binding.reissueNotificationIcon.text = it.iconTextRes?.let { text -> getString(text) }
-            binding.reissueNotificationIcon.background =
-                it.iconBackgroundRes?.let { res -> getDrawable(parent.context, res) }
+            binding.reissueNotificationText.text = it.textRes
             binding.reissueNotificationButton.setText(it.buttonRes)
+            binding.reissueNotificationButton.isVisible = it.isButtonVisible
             binding.reissueNotificationButton.setOnClickListener(it.buttonClickListener)
         }
     }

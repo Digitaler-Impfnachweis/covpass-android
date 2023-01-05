@@ -49,6 +49,7 @@ import de.rki.covpass.sdk.cert.models.ImmunizationStatus
 import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.RecoveryCertType
+import de.rki.covpass.sdk.cert.models.ReissueState
 import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.TestCertType
@@ -201,8 +202,145 @@ internal class DetailFragment :
             val maskStatusWrapper = groupedCertificate.maskStatusWrapper
             val maskStatus = maskStatusWrapper.maskStatus
             val certStatus = mainCertificate.status
-            val personalDataList = mutableListOf(
+            val personalDataList: MutableList<DetailItem> = mutableListOf(
                 DetailItem.Name(cert.fullName),
+            )
+            if (groupedCertificate.isExpiredReadyForReissue()) {
+                if (groupedCertificate.getListOfVaccinationIdsReadyForReissue().isNotEmpty()) {
+                    val vaccination = groupedCertificate.certificates.find {
+                        it.covCertificate.dgcEntry.id ==
+                            groupedCertificate.getListOfVaccinationIdsReadyForReissue().first()
+                    }
+                    personalDataList.add(
+                        DetailItem.ReissueNotification(
+                            when (vaccination?.reissueState) {
+                                ReissueState.Ready -> {
+                                    if (vaccination.status == CertValidationResult.Expired) {
+                                        R.string.renewal_bluebox_title_expired_vaccination
+                                    } else {
+                                        R.string.renewal_bluebox_title_expiring_soon_vaccination
+                                    }
+                                }
+                                else ->
+                                    R.string.renewal_bluebox_title_expiring_soon_vaccination
+                            },
+                            when (vaccination?.reissueState) {
+                                ReissueState.Ready -> {
+                                    if (vaccination.status == CertValidationResult.Expired) {
+                                        getString(
+                                            R.string.renewal_bluebox_copy_expired,
+                                            vaccination.covCertificate.validUntil.formatDateOrEmpty(),
+                                            vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
+                                        )
+                                    } else {
+                                        getString(
+                                            R.string.renewal_bluebox_copy_expiring_soon,
+                                            vaccination.covCertificate.validUntil.formatDateOrEmpty(),
+                                            vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
+                                        )
+                                    }
+                                }
+                                ReissueState.NotGermanReady ->
+                                    if (vaccination.status == CertValidationResult.Expired) {
+                                        getString(R.string.renewal_bluebox_copy_expiry_not_german)
+                                    } else {
+                                        getString(
+                                            R.string.renewal_bluebox_copy_expiring_soon_not_german,
+                                            vaccination.covCertificate.validUntil.formatDateOrEmpty(),
+                                            vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
+                                        )
+                                    }
+                                else ->
+                                    getString(
+                                        R.string.renewal_bluebox_copy_expiry_not_available,
+                                        vaccination?.covCertificate?.validUntil.formatDateOrEmpty(),
+                                        vaccination?.covCertificate?.validUntil.formatTimeOrEmpty(),
+                                    )
+                            },
+                            null,
+                            null,
+                            R.string.renewal_expiry_notification_button_vaccination,
+                            vaccination?.reissueState == ReissueState.Ready,
+                        ) {
+                            findNavigator().push(
+                                ReissueNotificationFragmentNav(
+                                    ReissueType.Vaccination,
+                                    groupedCertificate.getListOfVaccinationIdsReadyForReissue(),
+                                ),
+                            )
+                        },
+                    )
+                }
+
+                groupedCertificate.getListOfRecoveryIdsReadyForReissue().forEach { recoveryId ->
+                    val recovery = groupedCertificate.certificates.find {
+                        it.covCertificate.dgcEntry.id == recoveryId
+                    }
+                    personalDataList.add(
+                        DetailItem.ReissueNotification(
+                            when (recovery?.reissueState) {
+                                ReissueState.Ready -> {
+                                    if (recovery.status == CertValidationResult.Expired) {
+                                        R.string.renewal_bluebox_title_expired_recovery
+                                    } else {
+                                        R.string.renewal_bluebox_title_expiring_soon_recovery
+                                    }
+                                }
+                                else ->
+                                    R.string.renewal_bluebox_title_expiring_soon_recovery
+                            },
+                            when (recovery?.reissueState) {
+                                ReissueState.Ready -> {
+                                    if (recovery.status == CertValidationResult.Expired) {
+                                        getString(
+                                            R.string.renewal_bluebox_copy_expired,
+                                            recovery.covCertificate.validUntil.formatDateOrEmpty(),
+                                            recovery.covCertificate.validUntil.formatTimeOrEmpty(),
+                                        )
+                                    } else {
+                                        getString(
+                                            R.string.renewal_bluebox_copy_expiring_soon,
+                                            recovery.covCertificate.validUntil.formatDateOrEmpty(),
+                                            recovery.covCertificate.validUntil.formatTimeOrEmpty(),
+                                        )
+                                    }
+                                }
+                                ReissueState.NotGermanReady ->
+                                    if (recovery.status == CertValidationResult.Expired) {
+                                        getString(R.string.renewal_bluebox_copy_expiry_not_german)
+                                    } else {
+                                        getString(
+                                            R.string.renewal_bluebox_copy_expiring_soon_not_german,
+                                            recovery.covCertificate.validUntil.formatDateOrEmpty(),
+                                            recovery.covCertificate.validUntil.formatTimeOrEmpty(),
+                                        )
+                                    }
+                                else ->
+                                    getString(
+                                        R.string.renewal_bluebox_copy_expiry_not_available,
+                                        recovery?.covCertificate?.validUntil.formatDateOrEmpty(),
+                                        recovery?.covCertificate?.validUntil.formatTimeOrEmpty(),
+                                    )
+                            },
+                            null,
+                            null,
+                            R.string.renewal_expiry_notification_button_recovery,
+                            recovery?.reissueState == ReissueState.Ready,
+                        ) {
+                            findNavigator().push(
+                                ReissueNotificationFragmentNav(
+                                    ReissueType.Recovery,
+                                    listOf(recoveryId) + groupedCertificate.getHistoricalDataForDcc(
+                                        recoveryId,
+                                    ),
+                                ),
+                            )
+                        },
+                    )
+                }
+            }
+
+            personalDataList.add(
                 DetailItem.Widget(
                     title = getString(
                         when (maskStatus) {
@@ -283,6 +421,9 @@ internal class DetailFragment :
                         null
                     },
                 ),
+            )
+
+            personalDataList.add(
                 DetailItem.Widget(
                     title = getString(
                         when (immunizationStatusWrapper.immunizationStatus) {
@@ -611,12 +752,13 @@ internal class DetailFragment :
                 personalDataList.add(
                     DetailItem.ReissueNotification(
                         R.string.certificate_renewal_startpage_headline,
-                        R.string.certificate_renewal_startpage_copy,
+                        getString(R.string.certificate_renewal_startpage_copy),
                         if (!groupedCertificate.hasSeenReissueDetailNotification) {
                             R.drawable.background_new_warning
                         } else null,
                         R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new,
                         R.string.certificate_renewal_detail_view_notification_box_secondary_button,
+                        true,
                     ) {
                         findNavigator().push(
                             ReissueNotificationFragmentNav(
@@ -626,56 +768,6 @@ internal class DetailFragment :
                         )
                     },
                 )
-            }
-
-            if (groupedCertificate.isExpiredReadyForReissue()) {
-                if (groupedCertificate.getListOfVaccinationIdsReadyForReissue().isNotEmpty()) {
-                    personalDataList.add(
-                        DetailItem.ReissueNotification(
-                            R.string.renewal_expiry_notification_title,
-                            R.string.renewal_expiry_notification_copy_vaccination,
-                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                                R.drawable.background_new_warning
-                            } else null,
-                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                                R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
-                            } else null,
-                            R.string.renewal_expiry_notification_button_vaccination,
-                        ) {
-                            findNavigator().push(
-                                ReissueNotificationFragmentNav(
-                                    ReissueType.Vaccination,
-                                    groupedCertificate.getListOfVaccinationIdsReadyForReissue(),
-                                ),
-                            )
-                        },
-                    )
-                }
-
-                groupedCertificate.getListOfRecoveryIdsReadyForReissue().forEach { recoveryId ->
-                    personalDataList.add(
-                        DetailItem.ReissueNotification(
-                            R.string.renewal_expiry_notification_title,
-                            R.string.renewal_expiry_notification_copy_recovery,
-                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                                R.drawable.background_new_warning
-                            } else null,
-                            if (!groupedCertificate.hasSeenReissueDetailNotification) {
-                                R.string.vaccination_certificate_overview_booster_vaccination_notification_icon_new
-                            } else null,
-                            R.string.renewal_expiry_notification_button_recovery,
-                        ) {
-                            findNavigator().push(
-                                ReissueNotificationFragmentNav(
-                                    ReissueType.Recovery,
-                                    listOf(recoveryId) + groupedCertificate.getHistoricalDataForDcc(
-                                        recoveryId,
-                                    ),
-                                ),
-                            )
-                        },
-                    )
-                }
             }
 
             if (groupedCertificate.boosterNotification.result == BoosterResult.Passed) {

@@ -14,7 +14,7 @@ public sealed interface CertValidationResult {
 }
 
 public enum class ReissueState {
-    Completed, Ready, None
+    Completed, Ready, None, AfterTimeLimit, NotGermanReady
 }
 
 public enum class ReissueType {

@@ -10,8 +10,12 @@ import de.rki.covpass.sdk.cert.MaskStatusWrapper
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.ANTIGEN_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.cert.models.TestCert.Companion.PCR_TEST_EXPIRY_TIME_HOURS
 import de.rki.covpass.sdk.utils.CertificateReissueUtils.getBoosterAfterVaccinationAfterRecoveryIds
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredGermanAfter90DaysRecoveryIds
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredGermanAfter90DaysVaccinationId
 import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredGermanRecoveryIds
 import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredGermanVaccinationId
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredNotGermanRecoveryIds
+import de.rki.covpass.sdk.utils.CertificateReissueUtils.getExpiredNotGermanVaccinationId
 import de.rki.covpass.sdk.utils.DescriptionLanguage
 import de.rki.covpass.sdk.utils.getDescriptionLanguage
 import de.rki.covpass.sdk.utils.isOlderThan
@@ -374,29 +378,62 @@ public data class GroupedCertificates(
     public fun validateExpiredReissue() {
         val expiredGermanVaccinationId = getExpiredGermanVaccinationId(getLatestVaccination())
         val expiredGermanRecoveryIds = getExpiredGermanRecoveryIds(certificates)
-        if (expiredGermanVaccinationId == null && expiredGermanRecoveryIds.isEmpty()) {
+        val expiredNotGermanVaccinationId = getExpiredNotGermanVaccinationId(getLatestVaccination())
+        val expiredNotGermanRecoveryIds = getExpiredNotGermanRecoveryIds(certificates)
+        val expiredGermanAfter90DaysVaccinationId = getExpiredGermanAfter90DaysVaccinationId(getLatestVaccination())
+        val expiredGermanAfter90DaysRecoveryIds = getExpiredGermanAfter90DaysRecoveryIds(certificates)
+        if (
+            expiredGermanVaccinationId == null &&
+            expiredGermanRecoveryIds.isEmpty() &&
+            expiredNotGermanVaccinationId == null &&
+            expiredNotGermanRecoveryIds.isEmpty() &&
+            expiredGermanAfter90DaysVaccinationId == null &&
+            expiredGermanAfter90DaysRecoveryIds.isEmpty()
+        ) {
             return
         }
 
         certificates = certificates.map {
-            if (it.isRecoveryValidForReissue(expiredGermanRecoveryIds)) {
-                it.copy(
-                    reissueState = ReissueState.Ready,
-                    reissueType = ReissueType.Recovery,
-                )
-            } else {
-                it
-            }
-        }.toMutableList()
-
-        certificates = certificates.map {
-            if (expiredGermanVaccinationId == it.covCertificate.dgcEntry.id) {
-                it.copy(
-                    reissueState = ReissueState.Ready,
-                    reissueType = ReissueType.Vaccination,
-                )
-            } else {
-                it
+            when {
+                it.isRecoveryValidForReissue(expiredGermanRecoveryIds) -> {
+                    it.copy(
+                        reissueState = ReissueState.Ready,
+                        reissueType = ReissueType.Recovery,
+                    )
+                }
+                it.isRecoveryValidForReissue(expiredNotGermanRecoveryIds) -> {
+                    it.copy(
+                        reissueState = ReissueState.NotGermanReady,
+                        reissueType = ReissueType.Recovery,
+                    )
+                }
+                it.isRecoveryValidForReissue(expiredGermanAfter90DaysRecoveryIds) -> {
+                    it.copy(
+                        reissueState = ReissueState.AfterTimeLimit,
+                        reissueType = ReissueType.Recovery,
+                    )
+                }
+                expiredGermanVaccinationId == it.covCertificate.dgcEntry.id -> {
+                    it.copy(
+                        reissueState = ReissueState.Ready,
+                        reissueType = ReissueType.Vaccination,
+                    )
+                }
+                expiredNotGermanVaccinationId == it.covCertificate.dgcEntry.id -> {
+                    it.copy(
+                        reissueState = ReissueState.NotGermanReady,
+                        reissueType = ReissueType.Vaccination,
+                    )
+                }
+                expiredGermanAfter90DaysVaccinationId == it.covCertificate.dgcEntry.id -> {
+                    it.copy(
+                        reissueState = ReissueState.AfterTimeLimit,
+                        reissueType = ReissueType.Vaccination,
+                    )
+                }
+                else -> {
+                    it
+                }
             }
         }.toMutableList()
     }
@@ -426,7 +463,12 @@ public data class GroupedCertificates(
 
     public fun isExpiredReadyForReissue(): Boolean =
         certificates.any {
-            it.reissueState == ReissueState.Ready &&
+            (
+                it.reissueState == ReissueState.Ready ||
+                    it.reissueState == ReissueState.AfterTimeLimit ||
+                    it.reissueState == ReissueState.NotGermanReady
+
+                ) &&
                 (it.reissueType == ReissueType.Vaccination || it.reissueType == ReissueType.Recovery)
         }
 

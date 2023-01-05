@@ -567,12 +567,12 @@
 	<string name="recovery_certificate_detail_view_qrcode_screen_action_button_title">Close</string>
 	<string name="accessibility_recovery_certificate_detail_view_qrcode_screen_label_close">Close</string>
 	<string name="certificate_expires_detail_view_note_title">Certificate expires on %1$s at %2$s</string>
-	<string name="certificate_expires_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. You cannot renew previous certificates. Your latest certificate contains all the necessary information for a check.</string>
+	<string name="certificate_expires_detail_view_note_message">The technical validity of your certificate will expire soon. However, you do not need to renew it as it is no longer relevant for proving your immune protection.</string>
 	<string name="certificate_expires_detail_view_note_nonDE">This certificate was not issued in Germany and therefore cannot be renewed in the app. Please contact the issuer of the certificate.</string>
 	<string name="certificate_invalid_detail_view_note_title">Certificate invalid</string>
 	<string name="certificate_invalid_detail_view_note_message">The certificate has been recalled by the issuing authority. Please make every effort to have a new digital certificate issued.</string>
 	<string name="certificate_expired_detail_view_note_title">Certificate expired</string>
-	<string name="certificate_expired_detail_view_note_message">If this is your latest certificate, you can renew it on the overview of your certificates. Otherwise, you don\'t have to do anything because your latest certificate contains all the necessary information for a check.</string>
+	<string name="certificate_expired_detail_view_note_message">The technical validity of your certificate expired on %1$s at %2$s. However, you do not need to renew it as it is no longer relevant for proving your immune protection.</string>
 
 	<!-- SECTION: print certificate -->
 	<string name="accessibility_vaccination_certificate_detail_view_pdf_announce">The view \"Create PDF\" has been opened</string>
@@ -866,7 +866,7 @@
 	<string name="renewal_bluebox_copy_expiring_soon_not_available">The technical validity of your certificate expires on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">The technical validity of at least one of your certificates has expired. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_german">The technical validity of your certificate expires on %1$s at %2$s. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
-	<string name="renewal_expiry_notification_copy_vaccination">The technical validity of your vaccination certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
+	<string name="renewal_expiry_notification_copy_vaccination">The technical validity of your certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_vaccination">Renew vaccination certificate</string>
 	<string name="renewal_expiry_notification_copy_recovery">The technical validity of your recovery certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
 	<string name="renewal_expiry_notification_button_recovery">Renew recovery certificate</string>
@@ -879,6 +879,9 @@
 	<string name="renewal_expiry_consent_list_item_4">In certain cases, additional certificates are sent in addition to the certificate to be renewed. This is necessary in order to be able to include the previous sequence of vaccinations and recoveries in the new certificate.</string>
 	<string name="renewal_expiry_success_copy">You can now continue to use your certificate as usual.\n\nPlease note that your paper certificate will also expire soon or has already expired. If desired, you can download your new certificate as a PDF file and print it out.</string>
 	<string name="renewal_expiry_success_button">OK</string>
+	<string name="renewal_expiry_modal_not_available_title">Renew your certificate</string>
+	<string name="renewal_expiry_modal_not_available_copy">The technical validity of at least one of your certificates is about to expire. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
+	<string name="renewal_expiry_modal_not_available_title_1">OK</string>
 	<string name="renewal_expiry_success_download_button">Create PDF</string>
 
 	<!-- SECTION: DCC revocation -->

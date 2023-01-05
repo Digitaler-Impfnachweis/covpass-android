@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
@@ -15,7 +14,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_white_round_corners"
+    android:background="@drawable/info_background"
     android:padding="@dimen/grid_two"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -28,12 +27,12 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ImageView
       android:id="@+id/reissue_notification_icon"
-      style="@style/DefaultText.OnInfo"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:gravity="center"
+      android:contentDescription="@null"
+      android:src="@drawable/status_alert"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,11 +47,11 @@
 
     <com.google.android.material.button.MaterialButton
       android:id="@+id/reissue_notification_button"
-      style="@style/PrimaryButtonWithOutline.LightWithBorder"
+      style="@style/PrimaryButton.Dark"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_two"
       android:layout_marginHorizontal="@dimen/grid_three"
+      android:layout_marginTop="@dimen/grid_two"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/reissue_notification_text" />
 

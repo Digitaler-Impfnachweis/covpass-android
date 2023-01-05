@@ -26,6 +26,7 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
+import de.rki.covpass.app.boosterreissue.ReissueNotificationFragmentNav
 import de.rki.covpass.app.databinding.DgcEntryDetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DgcEntryDetailAdapter
@@ -40,8 +41,11 @@ import de.rki.covpass.commonapp.utils.stripUnderlines
 import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.sdk.cert.models.Recovery
+import de.rki.covpass.sdk.cert.models.ReissueState
+import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.sdkDeps
@@ -142,10 +146,15 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
     private fun updateViews(certs: GroupedCertificatesList) {
         val combinedCovCertificate = certs.getCombinedCertificate(certId) ?: return
         val covCertificate = combinedCovCertificate.covCertificate
+        val groupedCertificate = certs.certificates.find {
+            it.certificates.any { combCert ->
+                combCert.covCertificate.dgcEntry.id == certId
+            }
+        } ?: return
         setupActionBar(covCertificate)
         binding.dgcDetailHeaderTextview.text = getHeaderText()
         binding.dgcDetailHeaderTextview.contentDescription = getHeaderAccessibleText()
-        showExpirationInfoElement(combinedCovCertificate)
+        showExpirationInfoElement(combinedCovCertificate, groupedCertificate)
 
         startRecyclerView(covCertificate)
 
@@ -175,38 +184,69 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
         }
     }
 
-    private fun showExpirationInfoElement(combinedCovCertificate: CombinedCovCertificate) {
+    private fun showExpirationInfoElement(
+        combinedCovCertificate: CombinedCovCertificate,
+        groupedCertificate: GroupedCertificates,
+    ) {
         binding.dgcDetailExpirationInfoElement.isVisible = true
+        binding.dgcDetailReissueLayout.isVisible = true
+        val isVaccination = combinedCovCertificate.covCertificate.dgcEntry is Vaccination
         when (combinedCovCertificate.status) {
             CertValidationResult.ExpiryPeriod -> {
-                binding.dgcDetailExpirationInfoElement.showInfo(
-                    title = getString(
-                        R.string.certificate_expires_detail_view_note_title,
-                        combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
-                        combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
-                    ),
-                    descriptionNoLink = getString(
-                        if (combinedCovCertificate.covCertificate.isGermanCertificate) {
-                            R.string.certificate_expires_detail_view_note_message
-                        } else {
-                            R.string.certificate_expires_detail_view_note_nonDE
-                        },
-                    ),
-                    iconRes = R.drawable.main_cert_expiry_period,
-                )
+                if (
+                    combinedCovCertificate.reissueState == ReissueState.Completed ||
+                    combinedCovCertificate.reissueState == ReissueState.None
+                ) {
+                    binding.dgcDetailExpirationInfoElement.showInfo(
+                        title = getString(
+                            R.string.certificate_expires_detail_view_note_title,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        ),
+                        descriptionNoLink = getString(
+                            if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                                R.string.certificate_expires_detail_view_note_message
+                            } else {
+                                R.string.certificate_expires_detail_view_note_nonDE
+                            },
+                        ),
+                        iconRes = R.drawable.main_cert_expiry_period,
+                    )
+                    binding.dgcDetailReissueLayout.isGone = true
+                } else {
+                    if (isVaccination) {
+                        reissueVaccination(combinedCovCertificate, groupedCertificate)
+                    } else {
+                        reissueRecovery(combinedCovCertificate, groupedCertificate)
+                    }
+                    binding.dgcDetailExpirationInfoElement.isGone = true
+                }
             }
             CertValidationResult.Expired -> {
-                binding.dgcDetailExpirationInfoElement.showWarning(
-                    title = getString(R.string.certificate_expired_detail_view_note_title),
-                    descriptionNoLink = getString(
-                        if (combinedCovCertificate.covCertificate.isGermanCertificate) {
-                            R.string.certificate_expired_detail_view_note_message
-                        } else {
-                            R.string.certificate_expires_detail_view_note_nonDE
-                        },
-                    ),
-                    iconRes = R.drawable.info_warning_icon,
-                )
+                if (
+                    combinedCovCertificate.reissueState == ReissueState.Completed ||
+                    combinedCovCertificate.reissueState == ReissueState.None
+                ) {
+                    binding.dgcDetailExpirationInfoElement.showWarning(
+                        title = getString(R.string.certificate_expired_detail_view_note_title),
+                        descriptionNoLink = getString(
+                            if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                                R.string.certificate_expired_detail_view_note_message
+                            } else {
+                                R.string.certificate_expires_detail_view_note_nonDE
+                            },
+                        ),
+                        iconRes = R.drawable.info_warning_icon,
+                    )
+                    binding.dgcDetailReissueLayout.isGone = true
+                } else {
+                    if (isVaccination) {
+                        reissueVaccination(combinedCovCertificate, groupedCertificate)
+                    } else {
+                        reissueRecovery(combinedCovCertificate, groupedCertificate)
+                    }
+                    binding.dgcDetailExpirationInfoElement.isGone = true
+                }
             }
             CertValidationResult.Revoked -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
@@ -220,6 +260,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     ),
                     iconRes = R.drawable.info_warning_icon,
                 )
+                binding.dgcDetailReissueLayout.isGone = true
             }
             CertValidationResult.Invalid -> {
                 binding.dgcDetailExpirationInfoElement.showWarning(
@@ -227,9 +268,149 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     descriptionNoLink = getString(R.string.certificate_invalid_detail_view_note_message),
                     iconRes = R.drawable.info_warning_icon,
                 )
+                binding.dgcDetailReissueLayout.isGone = true
             }
-            else -> binding.dgcDetailExpirationInfoElement.isGone = true
+            else -> {
+                binding.dgcDetailExpirationInfoElement.isGone = true
+                binding.dgcDetailReissueLayout.isGone = true
+            }
         }
+    }
+
+    private fun reissueVaccination(
+        combinedCovCertificate: CombinedCovCertificate,
+        groupedCertificate: GroupedCertificates,
+    ) {
+        updateReissueElement(
+            when (combinedCovCertificate.reissueState) {
+                ReissueState.Ready -> {
+                    if (combinedCovCertificate.status == CertValidationResult.Expired) {
+                        R.string.renewal_bluebox_title_expired_vaccination
+                    } else {
+                        R.string.renewal_bluebox_title_expiring_soon_vaccination
+                    }
+                }
+                else ->
+                    R.string.renewal_bluebox_title_expiring_soon_vaccination
+            },
+            when (combinedCovCertificate.reissueState) {
+                ReissueState.Ready -> {
+                    if (combinedCovCertificate.status == CertValidationResult.Expired) {
+                        getString(
+                            R.string.renewal_bluebox_copy_expired,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        )
+                    } else {
+                        getString(
+                            R.string.renewal_bluebox_copy_expiring_soon,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        )
+                    }
+                }
+                ReissueState.NotGermanReady ->
+                    if (combinedCovCertificate.status == CertValidationResult.Expired) {
+                        getString(R.string.renewal_bluebox_copy_expiry_not_german)
+                    } else {
+                        getString(
+                            R.string.renewal_bluebox_copy_expiring_soon_not_german,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        )
+                    }
+                else ->
+                    getString(
+                        R.string.renewal_bluebox_copy_expiry_not_available,
+                        combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                        combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                    )
+            },
+            R.string.renewal_expiry_notification_button_vaccination,
+            combinedCovCertificate.reissueState == ReissueState.Ready,
+        ) {
+            findNavigator().push(
+                ReissueNotificationFragmentNav(
+                    ReissueType.Vaccination,
+                    groupedCertificate.getListOfVaccinationIdsReadyForReissue(),
+                ),
+            )
+        }
+    }
+
+    private fun reissueRecovery(
+        combinedCovCertificate: CombinedCovCertificate,
+        groupedCertificate: GroupedCertificates,
+    ) {
+        updateReissueElement(
+            when (combinedCovCertificate.reissueState) {
+                ReissueState.Ready -> {
+                    if (combinedCovCertificate.status == CertValidationResult.Expired) {
+                        R.string.renewal_bluebox_title_expired_recovery
+                    } else {
+                        R.string.renewal_bluebox_title_expiring_soon_recovery
+                    }
+                }
+                else ->
+                    R.string.renewal_bluebox_title_expiring_soon_recovery
+            },
+            when (combinedCovCertificate.reissueState) {
+                ReissueState.Ready -> {
+                    if (combinedCovCertificate.status == CertValidationResult.Expired) {
+                        getString(
+                            R.string.renewal_bluebox_copy_expired,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        )
+                    } else {
+                        getString(
+                            R.string.renewal_bluebox_copy_expiring_soon,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        )
+                    }
+                }
+                ReissueState.NotGermanReady ->
+                    if (combinedCovCertificate.status == CertValidationResult.Expired) {
+                        getString(R.string.renewal_bluebox_copy_expiry_not_german)
+                    } else {
+                        getString(
+                            R.string.renewal_bluebox_copy_expiring_soon_not_german,
+                            combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                            combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                        )
+                    }
+                else ->
+                    getString(
+                        R.string.renewal_bluebox_copy_expiry_not_available,
+                        combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                        combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                    )
+            },
+            R.string.renewal_expiry_notification_button_recovery,
+            combinedCovCertificate.reissueState == ReissueState.Ready,
+        ) {
+            findNavigator().push(
+                ReissueNotificationFragmentNav(
+                    ReissueType.Recovery,
+                    listOf(certId) + groupedCertificate.getHistoricalDataForDcc(certId),
+                ),
+            )
+        }
+    }
+
+    private fun updateReissueElement(
+        titleRes: Int,
+        text: String,
+        buttonRes: Int,
+        isButtonVisible: Boolean,
+        buttonClickListener: View.OnClickListener?,
+    ) {
+        binding.dgcDetailReissueElement.reissueNotificationTitle.text = getString(titleRes)
+        binding.dgcDetailReissueElement.reissueNotificationText.text = text
+        binding.dgcDetailReissueElement.reissueNotificationButton.setText(buttonRes)
+        binding.dgcDetailReissueElement.reissueNotificationButton.isVisible = isButtonVisible
+        binding.dgcDetailReissueElement.reissueNotificationButton.setOnClickListener(buttonClickListener)
     }
 
     private fun updatePdfButton(isEnabled: Boolean, isRevoked: Boolean) {

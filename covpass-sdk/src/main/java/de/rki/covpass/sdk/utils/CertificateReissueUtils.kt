@@ -99,6 +99,7 @@ public object CertificateReissueUtils {
     ): List<String> {
         val expiredGermanRecoveries = certificates.asSequence().filter {
             it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod &&
+                it.covCertificate.isGermanCertificate &&
                 it.covCertificate.validUntil?.plus(90, ChronoUnit.DAYS)?.isAfter(Instant.now()) == true
         }.sortedByDescending {
             it.covCertificate.validFrom
@@ -109,6 +110,68 @@ public object CertificateReissueUtils {
         }.toList()
 
         return expiredGermanRecoveries.map { it.dgcEntry.id }
+    }
+
+    public fun getExpiredNotGermanVaccinationId(
+        vaccination: CombinedCovCertificate?,
+    ): String? {
+        if (vaccination == null) return null
+        val isExpiredNotGermanVaccinationCertificate = vaccination.isExpiredOrExpiryPeriod &&
+            !vaccination.covCertificate.isGermanCertificate
+        return if (isExpiredNotGermanVaccinationCertificate) {
+            vaccination.covCertificate.dgcEntry.id
+        } else {
+            null
+        }
+    }
+
+    public fun getExpiredNotGermanRecoveryIds(
+        certificates: List<CombinedCovCertificate>,
+    ): List<String> {
+        val expiredNotGermanRecoveries = certificates.asSequence().filter {
+            it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod &&
+                !it.covCertificate.isGermanCertificate
+        }.sortedByDescending {
+            it.covCertificate.validFrom
+        }.distinctBy {
+            (it.covCertificate.dgcEntry as Recovery).firstResult
+        }.map { it.covCertificate }.filter {
+            it.isGermanCertificate
+        }.toList()
+
+        return expiredNotGermanRecoveries.map { it.dgcEntry.id }
+    }
+
+    public fun getExpiredGermanAfter90DaysVaccinationId(
+        vaccination: CombinedCovCertificate?,
+    ): String? {
+        if (vaccination == null) return null
+        val isExpiredAfter90DaysVaccinationCertificate = vaccination.isExpiredOrExpiryPeriod &&
+            vaccination.covCertificate.isGermanCertificate &&
+            vaccination.covCertificate.validUntil?.plus(90, ChronoUnit.DAYS)?.isBefore(Instant.now()) == true
+        return if (isExpiredAfter90DaysVaccinationCertificate) {
+            vaccination.covCertificate.dgcEntry.id
+        } else {
+            null
+        }
+    }
+
+    public fun getExpiredGermanAfter90DaysRecoveryIds(
+        certificates: List<CombinedCovCertificate>,
+    ): List<String> {
+        val expiredAfter90DaysRecoveries = certificates.asSequence().filter {
+            it.covCertificate.dgcEntry is Recovery && it.isExpiredOrExpiryPeriod &&
+                it.covCertificate.isGermanCertificate &&
+                it.covCertificate.validUntil?.plus(90, ChronoUnit.DAYS)?.isBefore(Instant.now()) == true
+        }.sortedByDescending {
+            it.covCertificate.validFrom
+        }.distinctBy {
+            (it.covCertificate.dgcEntry as Recovery).firstResult
+        }.map { it.covCertificate }.filter {
+            it.isGermanCertificate
+        }.toList()
+
+        return expiredAfter90DaysRecoveries.map { it.dgcEntry.id }
     }
 
     private val CombinedCovCertificate.isExpiredOrExpiryPeriod: Boolean
