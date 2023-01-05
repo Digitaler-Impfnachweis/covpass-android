@@ -84,24 +84,11 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
-            certRepository.certs.value.certificates.any { it.hasSeenExpiryNotification } ||
-                checkExpiredReissueNotification() -> {
-                val vaccinationIds = getVaccinationReissueIdsList()
-                val recoveryIds = getRecoveryReissueIdsList()
-                when {
-                    vaccinationIds.isNotEmpty() -> {
-                        eventNotifier {
-                            showReissueNotification(ReissueType.Vaccination, vaccinationIds)
-                        }
-                    }
-                    recoveryIds.isNotEmpty() -> {
-                        eventNotifier {
-                            showReissueNotification(ReissueType.Recovery, recoveryIds)
-                        }
-                    }
-                }
+            isReissueNeeded() -> {
+                reissueCertificates()
                 true
             }
+
             checkBoosterNotification() -> {
                 eventNotifier {
                     showBoosterNotification()
@@ -133,6 +120,36 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             else -> false
         }
 
+    fun isReissueNeeded() =
+        certRepository.certs.value.certificates.any { !it.hasSeenExpiryNotification } ||
+            checkExpiredReissueNotification()
+
+    fun reissueCertificates() {
+        val vaccinationIds = getVaccinationReissueIdsList()
+        val recoveryIds = getRecoveryReissueIdsList()
+        val listNotGermanIds = getListOfNotGermanIds()
+        when {
+            vaccinationIds.isNotEmpty() -> {
+                eventNotifier {
+                    showReissueNotification(ReissueType.Vaccination, vaccinationIds)
+                }
+            }
+            recoveryIds.isNotEmpty() -> {
+                eventNotifier {
+                    showReissueNotification(ReissueType.Recovery, recoveryIds)
+                }
+            }
+            listNotGermanIds.isNotEmpty() -> {
+                eventNotifier {
+                    showReissueNotificationNotGerman()
+                }
+            }
+            else -> {
+                showingNotification.complete(Unit)
+            }
+        }
+    }
+
     private fun checkBoosterReissueNotification(): Boolean {
         certRepository.certs.value.certificates.forEach { it.validateBoosterReissue() }
         return checkBoosterReadyForReissue()
@@ -156,7 +173,13 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private fun getRecoveryReissueIdsList(): List<String> {
         return certRepository.certs.value.certificates.first {
             it.isExpiredReadyForReissue() && !it.hasSeenReissueNotification
-        }.getListOfRecoveryIdsReadyForReissue()
+        }.getListOfRecoveryIdAndHistoryForReissue()
+    }
+
+    private fun getListOfNotGermanIds(): List<String> {
+        return certRepository.certs.value.certificates.flatMap {
+            it.getListOfNotGermanIds()
+        }
     }
 
     private fun checkExpiredReissueNotification(): Boolean {

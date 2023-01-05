@@ -61,6 +61,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showFederalStateOnboarding()
     fun showBoosterNotification()
     fun showReissueNotification(reissueType: ReissueType, listIds: List<String>)
+    fun showReissueNotificationNotGerman()
     fun showRevokedNotification()
     fun importCertificateFromShareOption(uri: Uri)
 }
@@ -275,7 +276,11 @@ internal class MainFragment :
     }
 
     override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
-        viewModel.showingNotification.complete(Unit)
+        if (viewModel.isReissueNeeded()) {
+            viewModel.reissueCertificates()
+        } else {
+            viewModel.showingNotification.complete(Unit)
+        }
     }
 
     override fun importCertificateFinish() {
@@ -289,6 +294,16 @@ internal class MainFragment :
                     covpassDeps.certRepository.certs.update { groupedCertificateList ->
                         groupedCertificateList.certificates.forEach {
                             it.hasSeenRevokedNotification = true
+                        }
+                    }
+                    viewModel.showingNotification.complete(Unit)
+                }
+            }
+            REISSUE_NOTIFICATION_NOT_GERMAN_DIALOG_TAG -> {
+                launchWhenStarted {
+                    covpassDeps.certRepository.certs.update { groupedCertificateList ->
+                        groupedCertificateList.certificates.forEach {
+                            it.hasSeenNotGermanReissueNotification = true
                         }
                     }
                     viewModel.showingNotification.complete(Unit)
@@ -321,6 +336,16 @@ internal class MainFragment :
         }
     }
 
+    override fun showReissueNotificationNotGerman() {
+        val dialogModel = DialogModel(
+            titleRes = R.string.renewal_expiry_modal_not_available_title,
+            messageString = getString(R.string.renewal_expiry_modal_not_available_copy),
+            positiveButtonTextRes = R.string.renewal_expiry_modal_not_available_title_1,
+            tag = REISSUE_NOTIFICATION_NOT_GERMAN_DIALOG_TAG,
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
+
     override fun showRevokedNotification() {
         val dialogModel = DialogModel(
             titleRes = R.string.certificate_check_invalidity_error_title,
@@ -337,5 +362,6 @@ internal class MainFragment :
 
     companion object {
         private const val REVOKED_DIALOG_TAG = "revoked_dialog"
+        private const val REISSUE_NOTIFICATION_NOT_GERMAN_DIALOG_TAG = "reissue_notification_not_german_dialog"
     }
 }

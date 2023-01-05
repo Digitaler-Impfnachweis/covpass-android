@@ -81,11 +81,11 @@ public data class GroupedCertificates(
             when (it.covCertificate.dgcEntry) {
                 is Vaccination, is Recovery -> when (it.status) {
                     CertValidationResult.Expired, CertValidationResult.ExpiryPeriod, CertValidationResult.Invalid ->
-                        !it.hasSeenExpiryNotification
+                        it.hasSeenExpiryNotification
                     CertValidationResult.Valid, CertValidationResult.Revoked -> false
                 }
                 is TestCert -> false
-            } && !it.covCertificate.isGermanCertificate
+            }
         }
         set(value) {
             certificates = certificates.map {
@@ -130,6 +130,20 @@ public data class GroupedCertificates(
         set(value) {
             certificates = certificates.map {
                 if (it.reissueState == ReissueState.Ready) {
+                    it.copy(hasSeenReissueNotification = value)
+                } else {
+                    it
+                }
+            }.toMutableList()
+        }
+
+    var hasSeenNotGermanReissueNotification: Boolean
+        get() = certificates.any {
+            it.reissueState == ReissueState.NotGermanReady && it.hasSeenReissueNotification
+        }
+        set(value) {
+            certificates = certificates.map {
+                if (it.reissueState == ReissueState.NotGermanReady) {
                     it.copy(hasSeenReissueNotification = value)
                 } else {
                     it
@@ -467,9 +481,11 @@ public data class GroupedCertificates(
                 it.reissueState == ReissueState.Ready ||
                     it.reissueState == ReissueState.AfterTimeLimit ||
                     it.reissueState == ReissueState.NotGermanReady
-
                 ) &&
-                (it.reissueType == ReissueType.Vaccination || it.reissueType == ReissueType.Recovery)
+                (
+                    (it.reissueType == ReissueType.Vaccination && it == getLatestVaccination()) ||
+                        it.reissueType == ReissueType.Recovery
+                    )
         }
 
     public fun finishedReissued(certId: String) {
@@ -498,6 +514,34 @@ public data class GroupedCertificates(
         list.addAll(getHistoricalDataForDcc(latestVaccination.covCertificate.dgcEntry.id))
         return list
     }
+
+    public fun getListOfRecoveryIdAndHistoryForReissue(): List<String> {
+        val list = mutableListOf<String>()
+        val recoveryId = certificates
+            .filter {
+                (it.reissueState == ReissueState.Ready) &&
+                    it.covCertificate.dgcEntry is Recovery &&
+                    !it.hasSeenReissueNotification
+            }
+            .map { it.covCertificate.dgcEntry.id }.firstOrNull()
+
+        if (recoveryId.isNullOrEmpty()) {
+            return emptyList()
+        } else {
+            list.add(recoveryId)
+        }
+
+        list.addAll(getHistoricalDataForDcc(recoveryId))
+        return list
+    }
+
+    public fun getListOfNotGermanIds(): List<String> =
+        certificates
+            .filter {
+                (it.reissueState == ReissueState.NotGermanReady) &&
+                    !it.hasSeenReissueNotification
+            }
+            .map { it.covCertificate.dgcEntry.id }
 
     public fun getHistoricalDataForDcc(id: String): List<String> {
         val covCertificate = certificates.find {
