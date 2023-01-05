@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
@@ -13,9 +14,9 @@
     android:id="@+id/reissue_result_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginBottom="@dimen/grid_twentytwo"
     app:layout_constraintBottom_toBottomOf="parent"
-    android:layout_marginBottom="@dimen/grid_twentytwo">
+    app:layout_constraintTop_toTopOf="parent">
 
     <TextView
       android:id="@+id/reissue_result_info"
@@ -25,37 +26,24 @@
       android:layout_marginHorizontal="@dimen/grid_three"
       app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-      android:id="@+id/reissue_result_title_data_element_new"
-      style="@style/DefaultText.OnBackground70"
-      android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/reissue_result_export_pdf_button"
+      style="@style/SecondaryButton.Share"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
       android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_five"
+      android:layout_marginTop="@dimen/grid_two"
+      android:layout_marginBottom="@dimen/grid_three"
+      android:foreground="@drawable/keyboard_highlight_selector"
+      android:paddingHorizontal="@dimen/grid_one"
+      android:text="@string/renewal_expiry_success_download_button"
+      app:icon="@drawable/share_icon"
+      app:iconPadding="@dimen/grid_one"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/reissue_result_info" />
-
-    <de.rki.covpass.app.uielements.CertificateDataElement
-      android:id="@+id/reissue_result_data_element_new"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_one_half"
-      app:layout_constraintTop_toBottomOf="@+id/reissue_result_title_data_element_new" />
-
-    <TextView
-      android:id="@+id/reissue_result_title_data_element_old"
-      style="@style/DefaultText.OnBackground70"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_five"
-      app:layout_constraintTop_toBottomOf="@+id/reissue_result_data_element_new" />
-
-    <de.rki.covpass.app.uielements.CertificateDataElement
-      android:id="@+id/reissue_result_data_element_old"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_one_half"
-      app:layout_constraintTop_toBottomOf="@+id/reissue_result_title_data_element_old" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

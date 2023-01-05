@@ -21,8 +21,11 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueResultPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.detail.DetailExportPdfFragment
+import de.rki.covpass.app.detail.DetailExportPdfViewModel
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.ReissueType
@@ -42,13 +45,20 @@ public class ReissueResultFragmentNav(
 public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents, DialogListener {
 
     private val args: ReissueResultFragmentNav by lazy { getArgs() }
-    private val viewModel by reactiveState { ReissueResultViewModel(scope, args.listCertIds, args.reissueType) }
-    private val binding by viewBinding(ReissueResultPopupContentBinding::inflate)
-    private val oldCombinedCovCertificate by lazy {
-        covpassDeps.certRepository.certs.value.getCombinedCertificate(args.listCertIds[0])
+    private val viewModel by reactiveState {
+        ReissueResultViewModel(
+            scope,
+            args.listCertIds,
+            args.reissueType,
+        )
     }
+    private val exportPdfViewModel by reactiveState { DetailExportPdfViewModel(scope) }
+    private val certs by lazy { covpassDeps.certRepository.certs.value }
+    private val binding by viewBinding(ReissueResultPopupContentBinding::inflate)
+
     private var groupedCertificatesId: GroupedCertificatesId? = null
-    override val buttonTextRes: Int = R.string.certificate_renewal_confirmation_page_certificate_delete_button
+    private var combinedCovCertificate: CombinedCovCertificate? = null
+    override val buttonTextRes: Int = R.string.renewal_expiry_success_button
     override val heightLayoutParams: Int = ViewGroup.LayoutParams.MATCH_PARENT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,21 +70,13 @@ public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents,
         bottomSheetBinding.bottomSheetClose.isVisible = false
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = false
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = false
-        bottomSheetBinding.bottomSheetTextButton.apply {
-            setText(R.string.certificate_renewal_confirmation_page_certificate_secondary_button)
-            isVisible = true
-            setOnClickListener {
-                findNavigator().popUntil<ReissueCallback>()?.onReissueFinish(groupedCertificatesId)
-            }
-        }
+
         bottomSheetBinding.bottomSheetTitle.setText(R.string.certificate_renewal_confirmation_page_headline)
         binding.reissueResultInfo.setText(R.string.certificate_renewal_confirmation_page_copy)
-        binding.reissueResultTitleDataElementNew
-            .setText(R.string.certificate_renewal_confirmation_page_certificate_list_new)
-        binding.reissueResultTitleDataElementOld
-            .setText(R.string.certificate_renewal_confirmation_page_certificate_list_old)
-        oldCombinedCovCertificate?.covCertificate?.let {
-            binding.reissueResultDataElementOld.showCertificate(it, true)
+        binding.reissueResultExportPdfButton.setOnClickListener {
+            combinedCovCertificate?.let {
+                exportPdfViewModel.onShareClick(it)
+            }
         }
     }
 
@@ -88,12 +90,14 @@ public class ReissueResultFragment : ReissueBaseFragment(), ReissueResultEvents,
     ) {
         this.groupedCertificatesId = groupedCertificatesId
 
-        binding.reissueResultDataElementNew.showCertificate(cert, false)
         binding.loadingLayout.isVisible = false
         binding.reissueResultLayout.isVisible = true
         bottomSheetBinding.bottomSheetTitle.isVisible = true
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = true
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
+
+        this.combinedCovCertificate = certs.getCombinedCertificate(cert.dgcEntry.id)
+            ?: throw DetailExportPdfFragment.NullCertificateException()
     }
 
     override fun onDeleteOldCertificateFinish() {
