@@ -65,7 +65,7 @@
 
       <TextView
         android:id="@+id/detail_region_subheader_textview"
-        style="@style/DefaultText.OnBackground"
+        style="@style/DefaultText.OnBackground70"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/grid_three"

@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
-import de.rki.covpass.app.detail.adapter.CertificateViewHolder
-import de.rki.covpass.app.detail.adapter.DetailItem
+import de.rki.covpass.app.detail.adapter.ReissueCertificateItem
+import de.rki.covpass.app.detail.adapter.ReissueCertificateViewHolder
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
@@ -24,37 +24,37 @@ import de.rki.covpass.sdk.utils.isInFuture
 @SuppressLint("NotifyDataSetChanged")
 public class ReissueContentAdapter(
     parent: Fragment,
-) : BaseRecyclerViewAdapter<CertificateViewHolder>(parent) {
+) : BaseRecyclerViewAdapter<ReissueCertificateViewHolder>(parent) {
 
-    private lateinit var items: List<DetailItem>
+    private lateinit var items: List<ReissueCertificateItem>
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): CertificateViewHolder {
-        return CertificateViewHolder(parent)
+    ): ReissueCertificateViewHolder {
+        return ReissueCertificateViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: CertificateViewHolder, position: Int) {
-        holder.onItemBind(items[position])
+    override fun onBindViewHolder(holder: ReissueCertificateViewHolder, position: Int) {
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int = items.size
 
-    public fun updateList(items: List<DetailItem>) {
+    public fun updateList(items: List<ReissueCertificateItem>) {
         this.items = items
         notifyDataSetChanged()
     }
 }
 
-public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certificate? {
+public fun CombinedCovCertificate.toReissueCertificateItem(isFirst: Boolean = false): ReissueCertificateItem? {
     return when (val groupedDgcEntry = covCertificate.dgcEntry) {
         is Vaccination -> {
-            DetailItem.Certificate(
-                id = groupedDgcEntry.id,
+            ReissueCertificateItem(
                 type = groupedDgcEntry.type,
-                title = getString(R.string.certificates_overview_vaccination_certificate_title),
-                subtitle = getString(
+                fullname = covCertificate.fullName,
+                certificateType = getString(R.string.certificates_overview_vaccination_certificate_title),
+                certificateProgress = getString(
                     R.string.certificates_overview_vaccination_certificate_message,
                     groupedDgcEntry.doseNumber,
                     groupedDgcEntry.totalSerialDoses,
@@ -64,7 +64,7 @@ public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certific
                     groupedDgcEntry.occurrence?.formatDate() ?: "",
                 ),
                 certStatus = status,
-                isActual = true,
+                isFirst = isFirst,
             )
         }
         is Recovery -> {
@@ -79,14 +79,14 @@ public fun CombinedCovCertificate.toDetailItemCertificate(): DetailItem.Certific
                     groupedDgcEntry.validUntil?.formatDateOrEmpty() ?: "",
                 )
             }
-            DetailItem.Certificate(
-                id = groupedDgcEntry.id,
+            ReissueCertificateItem(
                 type = groupedDgcEntry.type,
-                title = getString(R.string.certificates_overview_recovery_certificate_title),
-                subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
+                fullname = covCertificate.fullName,
+                certificateType = getString(R.string.certificates_overview_recovery_certificate_title),
+                certificateProgress = getString(R.string.certificates_overview_recovery_certificate_message),
                 date = date,
                 certStatus = status,
-                isActual = true,
+                isFirst = isFirst,
             )
         }
         is TestCert -> null

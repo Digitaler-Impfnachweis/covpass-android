@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/backgroundSecondary"
+  android:foreground="@drawable/keyboard_highlight_selector"
+  tools:ignore="Overdraw">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/reissue_certificate_status_layout"
+    android:layout_width="@dimen/certificate_item_status_layout_width"
+    android:layout_height="0dp"
+    android:background="@color/backgroundSecondary20"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/divider"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+      android:id="@+id/reissue_certificate_type_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/main_cert_expired"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/grid_one_half"
+    android:layout_marginStart="@dimen/grid_three"
+    android:layout_marginEnd="@dimen/grid_three"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="@id/reissue_certificate_status_layout"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/reissue_certificate_status_layout"
+    app:layout_constraintTop_toTopOf="@id/reissue_certificate_status_layout">
+
+    <TextView
+      android:id="@+id/reissue_certificate_item_title"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="Andrea Schneider" />
+
+    <TextView
+      android:id="@+id/reissue_certificate_item_subtitle"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="Impfzertifikat" />
+
+    <TextView
+      android:id="@+id/reissue_certificate_item_status"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="Impfung 2 von 2" />
+
+    <TextView
+      android:id="@+id/reissue_certificate_item_date"
+      style="@style/DefaultText.OnBackground70"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      tools:text="Geimpft am 06.06.2021"
+      tools:visibility="visible" />
+
+    <TextView
+      android:id="@+id/reissue_certificate_item_actual_title"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/renewal_expiry_notification_title"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
+  </LinearLayout>
+
+  <View
+    android:id="@+id/divider"
+    style="@style/Divider"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/reissue_certificate_status_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

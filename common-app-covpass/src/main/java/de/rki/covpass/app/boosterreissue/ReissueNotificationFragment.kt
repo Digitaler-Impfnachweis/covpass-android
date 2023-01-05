@@ -74,7 +74,7 @@ public class ReissueNotificationFragment :
 
         ReissueContentAdapter(this).apply {
             combinedCovCertificate?.let {
-                it.toDetailItemCertificate()?.let { certificate ->
+                it.toReissueCertificateItem(true)?.let { certificate ->
                     updateList(listOf(certificate))
                 }
             }

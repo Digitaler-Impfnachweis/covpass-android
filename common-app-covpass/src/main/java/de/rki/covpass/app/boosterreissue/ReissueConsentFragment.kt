@@ -45,7 +45,8 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
     }
     override val buttonTextRes: Int =
         R.string.certificate_renewal_consent_page_transfer_certificates_confirmation_button
-    override val announcementAccessibilityRes: Int = R.string.accessibility_renew_certificate_concent_announce
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_renew_certificate_concent_announce
     override val closingAnnouncementAccessibilityRes: Int =
         R.string.accessibility_renew_certificate_concent_closing_announce
 
@@ -68,7 +69,11 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             R.string.certificate_renewal_consent_page_transfer_certificates_subline,
         )
         ReissueContentAdapter(this).apply {
-            updateList(certificateList.mapNotNull { it.toDetailItemCertificate() })
+            updateList(
+                certificateList.mapIndexedNotNull { index, item ->
+                    item.toReissueCertificateItem(index == 0)
+                },
+            )
             attachTo(binding.reissueConsentCertificateList)
         }
         binding.reissueConsentInfoElement.setValues(
