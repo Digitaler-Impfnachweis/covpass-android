@@ -26,24 +26,46 @@
       android:layout_marginHorizontal="@dimen/grid_three"
       app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/reissue_result_export_pdf_button"
-      style="@style/SecondaryButton.Share"
-      android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginHorizontal="@dimen/grid_three"
-      android:layout_marginTop="@dimen/grid_two"
-      android:layout_marginBottom="@dimen/grid_three"
-      android:foreground="@drawable/keyboard_highlight_selector"
-      android:paddingHorizontal="@dimen/grid_one"
-      android:text="@string/renewal_expiry_success_download_button"
-      app:icon="@drawable/share_icon"
-      app:iconPadding="@dimen/grid_one"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/reissue_result_info" />
+      app:layout_constraintTop_toBottomOf="@+id/reissue_result_info"
+      app:layout_goneMarginBottom="@dimen/grid_two">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/reissue_result_export_pdf_button"
+        style="@style/SecondaryButton.Share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_two"
+        android:layout_marginBottom="@dimen/grid_three"
+        android:foreground="@drawable/keyboard_highlight_selector"
+        android:paddingHorizontal="@dimen/grid_one"
+        android:text="@string/renewal_expiry_success_download_button"
+        app:icon="@drawable/share_icon"
+        app:iconPadding="@dimen/grid_one"
+        app:layout_constraintBottom_toTopOf="@+id/reissue_result_bottom_sheet_action_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/reissue_result_bottom_sheet_action_button"
+        style="@style/PrimaryButton.Dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/keyboard_highlight_selector"
+        android:text="@string/renewal_expiry_success_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reissue_result_export_pdf_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
