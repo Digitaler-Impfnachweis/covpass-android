@@ -25,7 +25,6 @@ import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
-import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
@@ -92,7 +91,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                     ?.toInstant()?.monthTillNow(),
                             ),
                             maskStatus,
-                            if (maskStatus == MaskStatus.Required) {
+                            if (maskStatus.isMaskRequired()) {
                                 R.drawable.main_cert_status_complete
                             } else {
                                 R.drawable.main_cert_status_complete_green
@@ -114,7 +113,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                     ?.toInstant()?.monthTillNow(),
                             ),
                             maskStatus,
-                            if (maskStatus == MaskStatus.Required) {
+                            if (maskStatus.isMaskRequired()) {
                                 R.drawable.main_cert_status_incomplete
                             } else {
                                 R.drawable.main_cert_status_incomplete_green
@@ -136,7 +135,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                     ?.toInstant()?.monthTillNow(),
                             ),
                             maskStatus,
-                            if (maskStatus == MaskStatus.Required) {
+                            if (maskStatus.isMaskRequired()) {
                                 R.drawable.main_cert_status_incomplete
                             } else {
                                 R.drawable.main_cert_status_incomplete_green
@@ -159,7 +158,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                         test.sampleCollection?.hoursTillNow(),
                     ),
                     maskStatus,
-                    if (maskStatus == MaskStatus.Required) {
+                    if (maskStatus.isMaskRequired()) {
                         R.drawable.main_cert_test_blue
                     } else {
                         R.drawable.main_cert_test_green
@@ -177,7 +176,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                             ?.monthTillNow(),
                     ),
                     maskStatus,
-                    if (maskStatus == MaskStatus.Required) {
+                    if (maskStatus.isMaskRequired()) {
                         R.drawable.main_cert_status_complete
                     } else {
                         R.drawable.main_cert_status_complete_green

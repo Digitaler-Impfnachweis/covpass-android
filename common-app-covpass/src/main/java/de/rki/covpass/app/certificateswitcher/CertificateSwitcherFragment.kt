@@ -77,7 +77,7 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         val maskStatus = covpassDeps.certRepository.certs.value.getGroupedCertificates(
             args.certId,
         )?.maskStatusWrapper?.maskStatus
-        if (maskStatus == MaskStatus.NotRequired) {
+        if (!maskStatus.isMaskRequired()) {
             backgroundColor = R.color.full_immunization_green
         }
         changeTopAndBottomBarColor()
@@ -223,3 +223,9 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         }
     }
 }
+
+public fun MaskStatus?.isMaskRequired(): Boolean =
+    when (this) {
+        MaskStatus.NotRequired -> false
+        else -> true
+    }
