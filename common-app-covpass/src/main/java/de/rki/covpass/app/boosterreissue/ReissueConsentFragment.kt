@@ -43,8 +43,6 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             covpassDeps.certRepository.certs.value.getCombinedCertificate(it)
         }
     }
-    override val buttonTextRes: Int =
-        R.string.certificate_renewal_consent_page_transfer_certificates_confirmation_button
     override val announcementAccessibilityRes: Int =
         R.string.accessibility_renew_certificate_concent_announce
     override val closingAnnouncementAccessibilityRes: Int =
@@ -53,10 +51,16 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        bottomSheetBinding.bottomSheetBottomLayout.isVisible = false
         bottomSheetBinding.bottomSheetClose.isVisible = false
-        bottomSheetBinding.bottomSheetCancelButton.apply {
+        binding.reissueBottomSheetActionButton.apply {
+            setText(R.string.certificate_renewal_consent_page_transfer_certificates_confirmation_button)
+            setOnClickListener {
+                onReissueActionButtonClicked()
+            }
+        }
+        binding.reissueBottomSheetCancelButton.apply {
             setText(R.string.certificate_renewal_consent_page_transfer_certificates_cancel_button)
-            isVisible = true
             setOnClickListener {
                 showDialogCancelProcess()
             }
@@ -132,9 +136,10 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
         }
     }
 
+    override fun onActionButtonClicked() {}
     override fun onClickOutside() {}
 
-    override fun onActionButtonClicked() {
+    private fun onReissueActionButtonClicked() {
         if (args.reissueType == ReissueType.Booster) {
             findNavigator().push(
                 ReissueResultFragmentNav(

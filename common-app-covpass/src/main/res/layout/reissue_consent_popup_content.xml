@@ -1,79 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~ (C) Copyright IBM Deutschland GmbH 2021
   ~ (C) Copyright IBM Corp. 2021
   -->
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingBottom="@dimen/grid_twentytwo">
+
+  <TextView
+    android:id="@+id/reissue_consent_certificate_list_title"
+    style="@style/DefaultText.OnBackground70"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/grid_twentytwo">
+    android:layout_marginHorizontal="@dimen/grid_three"
+    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/reissue_consent_certificate_list_title"
-        style="@style/DefaultText.OnBackground70"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        app:layout_constraintTop_toTopOf="parent" />
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/reissue_consent_certificate_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_one_half"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_certificate_list_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reissue_consent_certificate_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_one_half"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_certificate_list_title" />
+  <de.rki.covpass.app.uielements.InfoElementWithList
+    android:id="@+id/reissue_consent_info_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_two"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_certificate_list" />
 
-    <de.rki.covpass.app.uielements.InfoElementWithList
-        android:id="@+id/reissue_consent_info_element"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginTop="@dimen/grid_two"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_certificate_list" />
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/reissue_consent_info_element_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:visibility="gone"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_info_element"
+    tools:visibility="visible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reissue_consent_info_element_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_info_element"
-        tools:visibility="visible" />
+  <TextView
+    android:id="@+id/reissue_consent_update_title"
+    style="@style/DefaultText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_two"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_info_element_list" />
 
-    <TextView
-        android:id="@+id/reissue_consent_update_title"
-        style="@style/DefaultText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginTop="@dimen/grid_two"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_info_element_list" />
+  <TextView
+    android:id="@+id/reissue_consent_update_subtitle"
+    style="@style/DefaultText.OnBackground70"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:layout_marginTop="@dimen/grid_one_half"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_title" />
 
-    <TextView
-        android:id="@+id/reissue_consent_update_subtitle"
-        style="@style/DefaultText.OnBackground70"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/grid_three"
-        android:layout_marginTop="@dimen/grid_one_half"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_title" />
+  <TextView
+    android:id="@+id/reissue_consent_update_field_data_privacy"
+    style="@style/NavigationField"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/grid_one_half"
+    android:background="@color/onBrandBase"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_subtitle" />
 
-    <TextView
-        android:id="@+id/reissue_consent_update_field_data_privacy"
-        style="@style/NavigationField"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/grid_one_half"
-        android:background="@color/onBrandBase"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_subtitle" />
+  <View
+    android:id="@+id/divider"
+    style="@style/Divider"
+    android:layout_width="match_parent"
+    app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_field_data_privacy" />
 
-    <View
-        style="@style/Divider"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_field_data_privacy" />
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/divider"
+    app:layout_goneMarginBottom="@dimen/grid_two">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/reissue_bottom_sheet_action_button"
+      style="@style/PrimaryButton.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:layout_marginBottom="@dimen/grid_three"
+      android:foreground="@drawable/keyboard_highlight_selector"
+      android:textSize="@dimen/textsize_default"
+      app:layout_constraintBottom_toTopOf="@+id/reissue_bottom_sheet_cancel_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_goneMarginBottom="@dimen/grid_zero" />
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/reissue_bottom_sheet_cancel_button"
+      style="@style/PrimaryButton.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:foreground="@drawable/keyboard_highlight_selector"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/reissue_bottom_sheet_action_button"
+      tools:visibility="visible" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
