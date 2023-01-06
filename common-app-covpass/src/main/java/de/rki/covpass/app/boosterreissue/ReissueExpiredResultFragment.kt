@@ -20,11 +20,15 @@ import com.ibm.health.common.navigation.android.findNavigator
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueExpiredResultPopupContentBinding
+import de.rki.covpass.app.dependencies.covpassDeps
+import de.rki.covpass.app.detail.DetailExportPdfFragment
+import de.rki.covpass.app.detail.DetailExportPdfViewModel
 import de.rki.covpass.app.errorhandling.ReissueErrorHandler.Companion.TAG_ERROR_REISSUING_INTERNAL_ERROR
 import de.rki.covpass.app.errorhandling.ReissueErrorHandler.Companion.TAG_ERROR_REISSUING_INTERNAL_SERVER_ERROR
 import de.rki.covpass.app.errorhandling.ReissueErrorHandler.Companion.TAG_ERROR_REISSUING_TOO_MANY_REQUESTS
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
+import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.ReissueType
@@ -46,8 +50,11 @@ public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResult
             args.reissueType,
         )
     }
+    private val exportPdfViewModel by reactiveState { DetailExportPdfViewModel(scope) }
     private val binding by viewBinding(ReissueExpiredResultPopupContentBinding::inflate)
+    private val certs by lazy { covpassDeps.certRepository.certs.value }
     private var groupedCertificatesId: GroupedCertificatesId? = null
+    private var combinedCovCertificate: CombinedCovCertificate? = null
     override val buttonTextRes: Int = R.string.renewal_expiry_success_button
     override val heightLayoutParams: Int = ViewGroup.LayoutParams.MATCH_PARENT
 
@@ -61,6 +68,11 @@ public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResult
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = false
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = false
         binding.reissueResultInfo.setText(R.string.renewal_expiry_success_copy)
+        binding.reissueResultExportPdfButton.setOnClickListener {
+            combinedCovCertificate?.let {
+                exportPdfViewModel.onShareClick(it)
+            }
+        }
     }
 
     override fun onActionButtonClicked() {
@@ -77,6 +89,9 @@ public class ReissueExpiredResultFragment : ReissueBaseFragment(), ReissueResult
         binding.reissueResultLayout.isVisible = true
         bottomSheetBinding.bottomSheetBottomLayout.isVisible = true
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
+
+        this.combinedCovCertificate = certs.getCombinedCertificate(cert.dgcEntry.id)
+            ?: throw DetailExportPdfFragment.NullCertificateException()
     }
 
     override fun onDeleteOldCertificateFinish() {

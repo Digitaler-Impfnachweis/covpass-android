@@ -121,8 +121,8 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         }
 
     fun isReissueNeeded() =
-        certRepository.certs.value.certificates.any { !it.hasSeenExpiryNotification } ||
-            checkExpiredReissueNotification()
+        checkExpiredReissueNotification() ||
+            certRepository.certs.value.certificates.any { !it.hasSeenExpiryNotification }
 
     fun reissueCertificates() {
         val vaccinationIds = getVaccinationReissueIdsList()
@@ -159,21 +159,21 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
         certRepository.certs.value.certificates.any { it.isBoosterReadyForReissue() && !it.hasSeenReissueNotification }
 
     private fun getBoosterReissueIdsList(): List<String> {
-        return certRepository.certs.value.certificates.first {
+        return certRepository.certs.value.certificates.firstOrNull {
             it.isBoosterReadyForReissue() && !it.hasSeenReissueNotification
-        }.getListOfIdsReadyForBoosterReissue()
+        }?.getListOfIdsReadyForBoosterReissue() ?: emptyList()
     }
 
     private fun getVaccinationReissueIdsList(): List<String> {
-        return certRepository.certs.value.certificates.first {
-            it.isExpiredReadyForReissue() && !it.hasSeenReissueNotification
-        }.getListOfVaccinationIdsReadyForReissue()
+        return certRepository.certs.value.certificates.firstOrNull {
+            it.isExpiredReadyForReissue() && !it.hasSeenExpiredReissueNotification
+        }?.getListOfVaccinationIdsReadyForReissue() ?: emptyList()
     }
 
     private fun getRecoveryReissueIdsList(): List<String> {
-        return certRepository.certs.value.certificates.first {
-            it.isExpiredReadyForReissue() && !it.hasSeenReissueNotification
-        }.getListOfRecoveryIdAndHistoryForReissue()
+        return certRepository.certs.value.certificates.firstOrNull {
+            it.isExpiredReadyForReissue() && !it.hasSeenExpiredReissueNotification
+        }?.getListOfRecoveryIdAndHistoryForReissue() ?: emptyList()
     }
 
     private fun getListOfNotGermanIds(): List<String> {

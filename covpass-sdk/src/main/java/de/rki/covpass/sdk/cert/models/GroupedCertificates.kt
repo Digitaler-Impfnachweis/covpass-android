@@ -82,7 +82,7 @@ public data class GroupedCertificates(
                 is Vaccination, is Recovery -> when (it.status) {
                     CertValidationResult.Expired, CertValidationResult.ExpiryPeriod, CertValidationResult.Invalid ->
                         it.hasSeenExpiryNotification
-                    CertValidationResult.Valid, CertValidationResult.Revoked -> false
+                    CertValidationResult.Valid, CertValidationResult.Revoked -> true
                 }
                 is TestCert -> false
             }
@@ -153,11 +153,12 @@ public data class GroupedCertificates(
 
     var hasSeenExpiredReissueNotification: Boolean
         get() = certificates.any {
-            it.reissueState == ReissueState.Ready && it.hasSeenExpiredReissueNotification
+            (it.reissueState == ReissueState.Ready || it.reissueState == ReissueState.NotGermanReady) &&
+                it.hasSeenExpiredReissueNotification
         }
         set(value) {
             certificates = certificates.map {
-                if (it.reissueState == ReissueState.Ready) {
+                if (it.reissueState == ReissueState.Ready || it.reissueState == ReissueState.NotGermanReady) {
                     it.copy(hasSeenExpiredReissueNotification = value)
                 } else {
                     it

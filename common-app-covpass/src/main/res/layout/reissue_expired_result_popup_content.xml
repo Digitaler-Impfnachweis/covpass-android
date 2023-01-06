@@ -47,6 +47,24 @@
             android:text="@string/renewal_expiry_success_copy"
             app:layout_constraintTop_toBottomOf="@+id/reissue_expired_success_title" />
 
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/reissue_result_export_pdf_button"
+          style="@style/SecondaryButton.Share"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginHorizontal="@dimen/grid_three"
+          android:layout_marginTop="@dimen/grid_two"
+          android:layout_marginBottom="@dimen/grid_three"
+          android:foreground="@drawable/keyboard_highlight_selector"
+          android:paddingHorizontal="@dimen/grid_one"
+          android:text="@string/renewal_expiry_success_download_button"
+          app:icon="@drawable/share_icon"
+          app:iconPadding="@dimen/grid_one"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/reissue_result_info" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
