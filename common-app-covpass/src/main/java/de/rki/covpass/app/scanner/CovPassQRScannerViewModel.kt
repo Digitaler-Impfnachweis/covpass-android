@@ -31,7 +31,7 @@ import kotlinx.serialization.SerializationException
  * Interface to communicate events from [CovPassQRScannerViewModel] to [CovPassQRScannerFragment].
  */
 internal interface CovPassQRScannerEvents : BaseEvents {
-    fun onScanSuccess(certificateId: GroupedCertificatesId)
+    fun onScanSuccess(certificateId: GroupedCertificatesId, certId: String)
     fun onLimitationWarning(qrContent: String)
     fun onTicketingQrcodeScan(ticketingDataInitialization: TicketingDataInitialization)
 }
@@ -103,7 +103,7 @@ internal class CovPassQRScannerViewModel @OptIn(DependencyAccessor::class) const
             )?.let {
                 gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
                 eventNotifier {
-                    onScanSuccess(it)
+                    onScanSuccess(it, covCertificate.dgcEntry.id)
                 }
             }
         }

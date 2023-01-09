@@ -16,16 +16,23 @@ import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.sdk.cert.CovPassMaskRulesDateResolver
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.dependencies.sdkDeps
+import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 
 internal interface DetailEvents<T> : BaseEvents {
     fun onHasSeenAllDetailNotificationUpdated(tag: T)
+    fun onOpenReissue(reissueType: ReissueType, listCertIds: List<String>)
 }
 
 internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
+    private val groupedCertificatesId: GroupedCertificatesId,
+    isFirstAdded: Boolean,
+    private val certId: String? = null,
+    private val certRepository: CertRepository = covpassDeps.certRepository,
     private val covpassDependencies: CovpassDependencies = covpassDeps,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase = covpassDeps.toggleFavoriteUseCase,
     private val covPassMaskRulesDateResolver: CovPassMaskRulesDateResolver = sdkDeps.covPassMaskRulesDateResolver,
@@ -42,8 +49,30 @@ internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
         }
     }
 
+    private fun validateReissue() {
+        val groupedCertificate =
+            certRepository.certs.value.getGroupedCertificates(groupedCertificatesId)
+        groupedCertificate?.validateExpiredReissue()
+        certId?.let { id ->
+            val combinedCovCertificate = groupedCertificate?.certificates?.firstOrNull {
+                it.covCertificate.dgcEntry.id == id
+            }
+            combinedCovCertificate?.let {
+                eventNotifier {
+                    onOpenReissue(
+                        it.reissueType,
+                        listOf(certId) + groupedCertificate.getHistoricalDataForDcc(certId),
+                    )
+                }
+            }
+        }
+    }
+
     init {
         getRuleValidFromDate()
+        if (isFirstAdded) {
+            validateReissue()
+        }
     }
 
     fun onFavoriteClick(certId: GroupedCertificatesId) {

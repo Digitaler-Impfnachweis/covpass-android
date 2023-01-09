@@ -84,7 +84,8 @@ internal enum class DetailBoosterAction {
 
 @Parcelize
 internal class DetailFragmentNav(
-    var certId: GroupedCertificatesId,
+    var groupedCertificatesId: GroupedCertificatesId,
+    val certId: String? = null,
     val isFirstAdded: Boolean = false,
 ) : FragmentNav(DetailFragment::class)
 
@@ -101,7 +102,14 @@ internal class DetailFragment :
     ReissueCallback {
 
     private val args: DetailFragmentNav by lazy { getArgs() }
-    private val viewModel by reactiveState { DetailViewModel<DetailBoosterAction>(scope) }
+    private val viewModel by reactiveState {
+        DetailViewModel<DetailBoosterAction>(
+            scope,
+            args.groupedCertificatesId,
+            args.isFirstAdded,
+            args.certId,
+        )
+    }
     private val binding by viewBinding(DetailBinding::inflate)
     private var isFavorite = false
 
@@ -138,20 +146,26 @@ internal class DetailFragment :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         if (item.itemId == FAVORITE_ITEM_ID) {
-            viewModel.onFavoriteClick(args.certId)
+            viewModel.onFavoriteClick(args.groupedCertificatesId)
             true
         } else {
             super.onOptionsItemSelected(item)
         }
 
     override fun onBackPressed(): Abortable {
-        viewModel.updateHasSeenAllDetailNotification(args.certId, DetailBoosterAction.BackPressed)
+        viewModel.updateHasSeenAllDetailNotification(
+            args.groupedCertificatesId,
+            DetailBoosterAction.BackPressed,
+        )
         return Abort
     }
 
     override fun onDeletionCompleted(isGroupedCertDeleted: Boolean) {
         if (isGroupedCertDeleted) {
-            viewModel.updateHasSeenAllDetailNotification(args.certId, DetailBoosterAction.Delete)
+            viewModel.updateHasSeenAllDetailNotification(
+                args.groupedCertificatesId,
+                DetailBoosterAction.Delete,
+            )
         } else {
             val dialogModel = DialogModel(
                 titleRes = R.string.delete_result_dialog_header,
@@ -174,7 +188,7 @@ internal class DetailFragment :
         region: String?,
         ruleValidFromDate: String?,
     ) {
-        val certId = args.certId
+        val certId = args.groupedCertificatesId
         val firstAdded = args.isFirstAdded
         // Can be null after deletion... in this case no update is necessary anymore
         val groupedCertificate = certList.getGroupedCertificates(certId) ?: return
@@ -184,8 +198,6 @@ internal class DetailFragment :
         activity?.invalidateOptionsMenu()
 
         mainCertificate.covCertificate.let { cert ->
-            val dgcEntry = cert.dgcEntry
-
             if (firstAdded) {
                 sendLocalAccessibilityAnnouncementEvent(
                     getString(R.string.accessibility_scan_success_announce, cert.fullName),
@@ -667,7 +679,7 @@ internal class DetailFragment :
                 findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
             }
             DetailBoosterAction.BackPressed -> {
-                findNavigator().popUntil<DetailCallback>()?.displayCert(args.certId)
+                findNavigator().popUntil<DetailCallback>()?.displayCert(args.groupedCertificatesId)
             }
         }.let {}
     }
@@ -695,5 +707,9 @@ internal class DetailFragment :
             )?.nameRes?.let { getString(it) },
             viewModel.maskRuleValidFrom.value,
         )
+    }
+
+    override fun onOpenReissue(reissueType: ReissueType, listCertIds: List<String>) {
+        findNavigator().push(ReissueNotificationFragmentNav(reissueType, listCertIds))
     }
 }

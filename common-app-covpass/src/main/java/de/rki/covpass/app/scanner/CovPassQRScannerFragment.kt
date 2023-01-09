@@ -85,9 +85,9 @@ internal class CovPassQRScannerFragment :
         }
     }
 
-    override fun onScanSuccess(certificateId: GroupedCertificatesId) {
+    override fun onScanSuccess(certificateId: GroupedCertificatesId, certId: String) {
         findNavigator().popAll()
-        findNavigator().push(DetailFragmentNav(certificateId, true))
+        findNavigator().push(DetailFragmentNav(certificateId, certId, true))
     }
 
     override fun onTicketingQrcodeScan(ticketingDataInitialization: TicketingDataInitialization) {

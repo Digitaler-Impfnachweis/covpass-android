@@ -59,9 +59,15 @@ internal class MisusePreventionFragment : BaseBottomSheet(), MisusePreventionEve
         }
     }
 
-    override fun onSaveSuccess(certificateId: GroupedCertificatesId) {
+    override fun onSaveSuccess(groupedCertificatesId: GroupedCertificatesId, certId: String) {
         findNavigator().popAll()
-        findNavigator().push(DetailFragmentNav(certificateId, true))
+        findNavigator().push(
+            DetailFragmentNav(
+                groupedCertificatesId,
+                certId = certId,
+                isFirstAdded = true,
+            ),
+        )
     }
 
     override fun onActionButtonClicked() {}

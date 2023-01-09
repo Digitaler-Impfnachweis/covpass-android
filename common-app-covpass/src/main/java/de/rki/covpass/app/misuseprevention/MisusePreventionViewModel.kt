@@ -24,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
  * Interface to communicate events from [MisusePreventionViewModel] to [MisusePreventionFragment].
  */
 internal interface MisusePreventionEvents : BaseEvents {
-    fun onSaveSuccess(certificateId: GroupedCertificatesId)
+    fun onSaveSuccess(groupedCertificatesId: GroupedCertificatesId, certId: String)
 }
 
 /**
@@ -48,7 +48,7 @@ internal class MisusePreventionViewModel @OptIn(DependencyAccessor::class) const
             )?.let {
                 gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
                 eventNotifier {
-                    onSaveSuccess(it)
+                    onSaveSuccess(it, covCertificate.dgcEntry.id)
                 }
             }
         }
