@@ -75,9 +75,7 @@
       style="@style/DefaultText.OnBackground70"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="gone"
-      tools:text="Geimpft am 06.06.2021"
-      tools:visibility="visible" />
+      tools:text="Geimpft am 06.06.2021" />
 
     <TextView
       android:id="@+id/reissue_certificate_item_actual_title"

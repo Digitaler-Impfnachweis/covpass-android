@@ -110,12 +110,8 @@ public class ReissueConsentFragment : ReissueBaseFragment(), DialogListener {
             binding.reissueConsentUpdateTitle.setText(
                 R.string.certificate_renewal_consent_page_transfer_certificates_copy,
             )
-            binding.reissueConsentUpdateSubtitle.setText(
-                R.string.certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy,
-            )
         } else {
             binding.reissueConsentUpdateTitle.isVisible = false
-            binding.reissueConsentUpdateSubtitle.isVisible = false
             binding.reissueConsentInfoElementList.isVisible = true
             InfoElementListAdapter(
                 listOf(

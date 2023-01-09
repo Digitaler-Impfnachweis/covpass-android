@@ -63,6 +63,7 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
     android:layout_marginTop="@dimen/grid_one_half"
+    android:text="@string/certificate_renewal_consent_page_transfer_certificates_headline_privacy_policy"
     app:layout_constraintTop_toBottomOf="@+id/reissue_consent_update_title" />
 
   <TextView
