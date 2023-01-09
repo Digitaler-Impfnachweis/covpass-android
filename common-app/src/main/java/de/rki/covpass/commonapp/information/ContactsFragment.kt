@@ -32,17 +32,6 @@ public class ContactsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         binding.titleTechnicalContacts.setText(R.string.app_information_message_contact_support)
-        binding.textTechnicalEmail.apply {
-            text = getSpanned(R.string.app_information_message_contact_support_mail)
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
-        }
-        binding.textTechnicalPhone.apply {
-            text = getSpanned(R.string.app_information_message_contact_support_phone)
-            movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
-        }
-        binding.titleGeneralContacts.setText(R.string.app_information_message_contact_info)
         binding.textGeneralEmail.apply {
             text = getSpanned(R.string.app_information_message_contact_info_mail)
             movementMethod = LinkMovementMethod.getInstance()

@@ -64,9 +64,6 @@
 
   <string name="app_information_title_contact"/>
   <string name="app_information_message_contact_support"/>
-  <string name="app_information_message_contact_support_phone"/>
-  <string name="app_information_message_contact_support_mail"/>
-  <string name="app_information_message_contact_info"/>
   <string name="app_information_message_contact_info_mail"/>
 
   <string name="app_information_title_accessibility_statement"/>

@@ -247,7 +247,7 @@
 	<string name="app_information_title_contact">Contact</string>
 	<string name="accessibility_app_information_title_contact_announce">Contact has been opened</string>
 	<string name="accessibility_app_information_title_contact_closing_announce">Contact has been closed</string>
-	<string name="app_information_message_contact_support">Contact for technical questions about the CovPassCheck app</string>
+	<string name="app_information_message_contact_support">Contact for questions about the CovPassCheck app</string>
 	<string name="app_information_message_contact_support_phone">Telephone: #0800–4747–002::tel:0800–4747–002#</string>
 	<string name="app_information_message_contact_support_mail">E-Mail: #support\@covpasscheck-app.de::mailto:support\@covpasscheck-app.de#</string>
 	<string name="app_information_message_contact_info">Contact for other questions</string>

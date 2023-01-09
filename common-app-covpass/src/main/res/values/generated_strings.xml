@@ -658,7 +658,7 @@
 	<string name="app_information_title">Information</string>
 	<string name="app_information_message">Here you can find all legal information and answers to the most frequent questions asked about the CovPass app.</string>
 	<string name="app_information_title_contact">Contact</string>
-	<string name="app_information_message_contact_support">Contact for technical questions about the CovPass app</string>
+	<string name="app_information_message_contact_support">Contact for questions about the CovPass app</string>
 	<string name="app_information_message_contact_support_phone">Telephone: #0800–4747–001::tel:0800–4747–001#</string>
 	<string name="app_information_message_contact_support_mail">Email: #support\@covpass-app.de::mailto:support\@covpass-app.de#</string>
 	<string name="app_information_message_contact_info">Contact for other questions</string>
