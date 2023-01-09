@@ -16,6 +16,7 @@ import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.sdk.cert.CovPassMaskRulesDateResolver
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
+import de.rki.covpass.sdk.cert.models.ReissueState
 import de.rki.covpass.sdk.cert.models.ReissueType
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
@@ -58,11 +59,13 @@ internal class DetailViewModel<T> @OptIn(DependencyAccessor::class) constructor(
                 it.covCertificate.dgcEntry.id == id
             }
             combinedCovCertificate?.let {
-                eventNotifier {
-                    onOpenReissue(
-                        it.reissueType,
-                        listOf(certId) + groupedCertificate.getHistoricalDataForDcc(certId),
-                    )
+                if (it.reissueState == ReissueState.Ready) {
+                    eventNotifier {
+                        onOpenReissue(
+                            it.reissueType,
+                            listOf(certId) + groupedCertificate.getHistoricalDataForDcc(certId),
+                        )
+                    }
                 }
             }
         }
