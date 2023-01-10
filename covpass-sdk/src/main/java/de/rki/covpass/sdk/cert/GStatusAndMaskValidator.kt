@@ -5,6 +5,7 @@
 
 package de.rki.covpass.sdk.cert
 
+import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.ImmunizationStatus
@@ -81,10 +82,16 @@ public class GStatusAndMaskValidator(
                         } else {
                             ""
                         }
-                        MaskStatusWrapper(
-                            maskStatus = MaskStatus.Required,
-                            recoveryFirstResultPlus28Days,
-                        )
+                        if (mergedCertificate.status == CertValidationResult.Expired) {
+                            MaskStatusWrapper(
+                                maskStatus = MaskStatus.Invalid,
+                            )
+                        } else {
+                            MaskStatusWrapper(
+                                maskStatus = MaskStatus.Required,
+                                recoveryFirstResultPlus28Days,
+                            )
+                        }
                     }
                     ValidatorResult.NoRules -> MaskStatusWrapper(maskStatus = MaskStatus.NoRules)
                 }

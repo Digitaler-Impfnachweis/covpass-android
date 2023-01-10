@@ -939,6 +939,8 @@
 	<string name="infschg_start_screen_status_blue">Mask mandatory</string>
 	<string name="infschg_start_screen_status_grey">No valid certificate</string>
 	<string name="infschg_start_screen_status_grey_2">No additional rules</string>
+	<string name="infschg_detail_view_status_not_applicable_title">No check possible</string>
+	<string name="infschg_detail_view_status_not_applicable_copy">To check the federal state-specific mask requirement, you must have a technically valid certificate. Please check whether you can renew the certificate.</string>
 	<string name="infschg_start_screen_status_federal_state">in %s</string>
 	<string name="infschg_settings_federal_state_title">Federal state</string>
 	<string name="infschg_settings_federal_state_page_title">Federal state</string>

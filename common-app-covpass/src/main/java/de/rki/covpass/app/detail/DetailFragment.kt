@@ -351,8 +351,14 @@ internal class DetailFragment :
                         when (maskStatus) {
                             MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_title
                             MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_title
-                            MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_title
-                            // TODO change to infschg_detail_page_mask_status_uncertain_title after twine change
+                            MaskStatus.Invalid -> if (
+                                mainCertificate.status == CertValidationResult.Expired &&
+                                mainCertificate.reissueState == ReissueState.AfterTimeLimit
+                            ) {
+                                R.string.infschg_detail_view_status_not_applicable_title
+                            } else {
+                                R.string.infschg_detail_page_no_valid_certificate_title
+                            }
                             MaskStatus.NoRules -> R.string.infschg_start_screen_status_grey_2
                         },
                     ),
@@ -373,8 +379,14 @@ internal class DetailFragment :
                                 R.string.infschg_detail_page_mask_mandatory_copy_1,
                                 ruleValidFromDate,
                             )
-                        MaskStatus.Invalid ->
+                        MaskStatus.Invalid -> if (
+                            mainCertificate.status == CertValidationResult.Expired &&
+                            mainCertificate.reissueState == ReissueState.AfterTimeLimit
+                        ) {
+                            getString(R.string.infschg_detail_view_status_not_applicable_copy)
+                        } else {
                             getString(R.string.infschg_detail_page_no_valid_certificate_copy)
+                        }
                         MaskStatus.NoRules ->
                             getString(R.string.infschg_detail_page_mask_status_uncertain_copy_1)
                     },
@@ -398,14 +410,22 @@ internal class DetailFragment :
                             region,
                         )
                     },
-                    noticeMessage = getString(
-                        when (maskStatus) {
-                            MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_2
-                            MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_2
-                            MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
-                            MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
-                        },
-                    ),
+                    noticeMessage = if (
+                        mainCertificate.status == CertValidationResult.Expired &&
+                        mainCertificate.reissueState == ReissueState.AfterTimeLimit &&
+                        maskStatus != MaskStatus.NoRules
+                    ) {
+                        null
+                    } else {
+                        getString(
+                            when (maskStatus) {
+                                MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_2
+                                MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_2
+                                MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
+                                MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
+                            },
+                        )
+                    },
                     subtitle = if (maskStatusWrapper.additionalDate.isNotEmpty()) {
                         when (maskStatus) {
                             MaskStatus.Required -> {

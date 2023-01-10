@@ -939,6 +939,8 @@
 	<string name="infschg_start_screen_status_blue">Maskenpflicht</string>
 	<string name="infschg_start_screen_status_grey">Kein gültiges Zertifikat</string>
 	<string name="infschg_start_screen_status_grey_2">Keine zusätzlichen Regeln</string>
+	<string name="infschg_detail_view_status_not_applicable_title">Keine Prüfung möglich</string>
+	<string name="infschg_detail_view_status_not_applicable_copy">Voraussetzung für die Überprüfung der bundeslandspezifischen Maskenpflicht ist ein technisch gültiges Zertifikat. Bitte überprüfen Sie, ob Sie das Zertifikat erneuern können.</string>
 	<string name="infschg_start_screen_status_federal_state">in %s</string>
 	<string name="infschg_settings_federal_state_title">Bundesland</string>
 	<string name="infschg_settings_federal_state_page_title">Bundesland</string>
