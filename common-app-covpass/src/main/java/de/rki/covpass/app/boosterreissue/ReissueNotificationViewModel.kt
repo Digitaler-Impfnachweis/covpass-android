@@ -35,7 +35,10 @@ internal class ReissueNotificationViewModel @OptIn(DependencyAccessor::class) co
                         if (reissueType == ReissueType.Booster) {
                             groupedCertificates.hasSeenReissueNotification = true
                         } else {
-                            groupedCertificates.hasSeenExpiredReissueNotification = true
+                            groupedCertificates.updateReissueNotificationForCertificate(
+                                true,
+                                listCertIds.firstOrNull() ?: "",
+                            )
                         }
                         groupedCertificates.hasSeenExpiryNotification = true
                     }

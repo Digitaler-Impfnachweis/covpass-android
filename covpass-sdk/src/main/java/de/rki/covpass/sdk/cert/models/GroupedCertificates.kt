@@ -45,6 +45,7 @@ public data class BoosterNotification(
 /**
  * Data model which groups together a complete and an incomplete certificate (if available).
  */
+@Suppress("LargeClass")
 public data class GroupedCertificates(
     var certificates: MutableList<CombinedCovCertificate>,
     var boosterNotification: BoosterNotification = BoosterNotification(),
@@ -266,6 +267,19 @@ public data class GroupedCertificates(
         } ?: certificateSortedList.find {
             it.isRevoked
         } ?: certificateSortedList.first()
+    }
+
+    public fun updateReissueNotificationForCertificate(value: Boolean, certId: String) {
+        certificates = certificates.map {
+            if (
+                (it.reissueState == ReissueState.Ready || it.reissueState == ReissueState.NotGermanReady) &&
+                it.covCertificate.dgcEntry.id == certId
+            ) {
+                it.copy(hasSeenExpiredReissueNotification = value)
+            } else {
+                it
+            }
+        }.toMutableList()
     }
 
     private fun CombinedCovCertificate.isExpiredOrRevoked() =

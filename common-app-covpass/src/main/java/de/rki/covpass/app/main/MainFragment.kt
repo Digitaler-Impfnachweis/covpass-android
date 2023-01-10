@@ -272,7 +272,11 @@ internal class MainFragment :
     }
 
     override fun onReissueCancel() {
-        viewModel.showingNotification.complete(Unit)
+        if (viewModel.isReissueNeeded()) {
+            viewModel.reissueCertificates()
+        } else {
+            viewModel.showingNotification.complete(Unit)
+        }
     }
 
     override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
