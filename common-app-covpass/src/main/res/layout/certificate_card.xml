@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/infschg_start_notification"
+            android:text="@string/renewal_expiry_notification_title"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/certificate_name_textview"
             app:layout_constraintStart_toStartOf="@+id/certificate_name_textview"
