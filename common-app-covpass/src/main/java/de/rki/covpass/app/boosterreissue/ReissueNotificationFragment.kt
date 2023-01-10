@@ -19,10 +19,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ReissueNotificationPopupContentBinding
 import de.rki.covpass.app.dependencies.covpassDeps
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.sdk.cert.models.ReissueType
@@ -36,7 +32,6 @@ public class ReissueNotificationFragmentNav(
 
 public class ReissueNotificationFragment :
     ReissueBaseFragment(),
-    DialogListener,
     ReissueNotificationEvents {
 
     private val binding by viewBinding(ReissueNotificationPopupContentBinding::inflate)
@@ -60,7 +55,7 @@ public class ReissueNotificationFragment :
             setText(R.string.certificate_renewal_startpage_secondary_button)
             isVisible = true
             setOnClickListener {
-                showCancelDialog()
+                updateHasSeenReissueNotification(false)
             }
         }
         bottomSheetBinding.bottomSheetExtraButtonLayout.isVisible = true
@@ -103,24 +98,8 @@ public class ReissueNotificationFragment :
     }
 
     override fun onBackPressed(): Abortable {
-        showCancelDialog()
+        updateHasSeenReissueNotification(false)
         return Abort
-    }
-
-    private fun showCancelDialog() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.cancellation_share_certificate_title,
-            positiveButtonTextRes = R.string.cancellation_share_certificate_action_button_yes,
-            negativeButtonTextRes = R.string.cancellation_share_certificate_action_button_no,
-            tag = REISSUE_NOTIFICATION_END_PROCESS,
-        )
-        showDialog(dialogModel, childFragmentManager)
-    }
-
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == REISSUE_NOTIFICATION_END_PROCESS && action == DialogAction.POSITIVE) {
-            updateHasSeenReissueNotification(false)
-        }
     }
 
     private fun updateHasSeenReissueNotification(continueReissue: Boolean = true) {
@@ -133,10 +112,5 @@ public class ReissueNotificationFragment :
         } else {
             findNavigator().popUntil<ReissueCallback>()?.onReissueCancel()
         }
-    }
-
-    public companion object {
-        public const val REISSUE_NOTIFICATION_END_PROCESS: String =
-            "reissue_notification_end_process"
     }
 }
