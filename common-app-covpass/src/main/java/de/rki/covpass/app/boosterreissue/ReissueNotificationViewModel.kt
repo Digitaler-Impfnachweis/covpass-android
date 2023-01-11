@@ -40,7 +40,6 @@ internal class ReissueNotificationViewModel @OptIn(DependencyAccessor::class) co
                                 listCertIds.firstOrNull() ?: "",
                             )
                         }
-                        groupedCertificates.hasSeenExpiryNotification = true
                     }
                 }
             }

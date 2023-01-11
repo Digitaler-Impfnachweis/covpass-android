@@ -77,39 +77,6 @@ public data class GroupedCertificates(
             }.toMutableList()
         }
 
-    var hasSeenExpiryNotification: Boolean
-        get() = getMainCertificate().let {
-            when (it.covCertificate.dgcEntry) {
-                is Vaccination, is Recovery -> when (it.status) {
-                    CertValidationResult.Expired, CertValidationResult.ExpiryPeriod, CertValidationResult.Invalid ->
-                        it.hasSeenExpiryNotification
-                    CertValidationResult.Valid, CertValidationResult.Revoked -> true
-                }
-                is TestCert -> false
-            }
-        }
-        set(value) {
-            certificates = certificates.map {
-                if (it == getMainCertificate()) {
-                    when (it.status) {
-                        CertValidationResult.Expired,
-                        CertValidationResult.ExpiryPeriod,
-                        CertValidationResult.Invalid,
-                        -> {
-                            it.copy(hasSeenExpiryNotification = value)
-                        }
-                        CertValidationResult.Valid,
-                        CertValidationResult.Revoked,
-                        -> {
-                            it
-                        }
-                    }
-                } else {
-                    it
-                }
-            }.toMutableList()
-        }
-
     var hasSeenReissueDetailNotification: Boolean
         get() = certificates.any {
             it.reissueState == ReissueState.Ready && it.hasSeenReissueDetailNotification
@@ -153,9 +120,9 @@ public data class GroupedCertificates(
         }
 
     var hasSeenExpiredReissueNotification: Boolean
-        get() = certificates.any {
+        get() = !certificates.any {
             (it.reissueState == ReissueState.Ready || it.reissueState == ReissueState.NotGermanReady) &&
-                it.hasSeenExpiredReissueNotification
+                !it.hasSeenExpiredReissueNotification
         }
         set(value) {
             certificates = certificates.map {

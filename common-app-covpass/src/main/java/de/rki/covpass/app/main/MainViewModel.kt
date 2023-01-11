@@ -120,9 +120,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             else -> false
         }
 
-    fun isReissueNeeded() =
-        checkExpiredReissueNotification() ||
-            certRepository.certs.value.certificates.any { !it.hasSeenExpiryNotification }
+    fun isReissueNeeded() = checkExpiredReissueNotification()
 
     fun reissueCertificates() {
         val vaccinationIds = getVaccinationReissueIdsList()

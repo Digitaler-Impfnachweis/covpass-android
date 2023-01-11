@@ -229,13 +229,15 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                 ) {
                     binding.dgcDetailExpirationInfoElement.showWarning(
                         title = getString(R.string.certificate_expired_detail_view_note_title),
-                        descriptionNoLink = getString(
-                            if (combinedCovCertificate.covCertificate.isGermanCertificate) {
-                                R.string.certificate_expired_detail_view_note_message
-                            } else {
-                                R.string.certificate_expires_detail_view_note_nonDE
-                            },
-                        ),
+                        descriptionNoLink = if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                            getString(
+                                R.string.certificate_expired_detail_view_note_message,
+                                combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                                combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                            )
+                        } else {
+                            getString(R.string.certificate_expires_detail_view_note_nonDE)
+                        },
                         iconRes = R.drawable.info_warning_icon,
                     )
                     binding.dgcDetailReissueLayout.isGone = true
