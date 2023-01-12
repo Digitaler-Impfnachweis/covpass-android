@@ -31,6 +31,7 @@ import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
+import de.rki.covpass.sdk.cert.models.ReissueState
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 
@@ -83,6 +84,13 @@ internal class CertificateFragment : BaseFragment() {
             mainCertificate.fullName,
             groupedCertificate.maskStatusWrapper.maskStatus,
             hasNotification = showBoosterNotification || showDetailReissueNotification,
+            notificationText = getString(
+                when (mainCombinedCertificate.reissueState) {
+                    ReissueState.AfterTimeLimit, ReissueState.NotGermanReady ->
+                        R.string.certificates_overview_expired_title
+                    else -> R.string.vaccination_start_screen_qrcode_renewal_note_subtitle
+                },
+            ),
             getString(
                 R.string.infschg_start_screen_status_federal_state,
                 FederalStateResolver.getFederalStateByCode(

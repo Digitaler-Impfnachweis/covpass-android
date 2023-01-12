@@ -72,10 +72,14 @@ public class CertificateCard @JvmOverloads constructor(
         fullName: String,
         maskStatus: MaskStatus,
         hasNotification: Boolean,
+        notificationText: String?,
         federalState: String,
     ) {
         binding.certificateNameTextview.text = fullName
         showNotification = hasNotification
+        if (hasNotification) {
+            binding.certificateNotificationText.text = notificationText ?: ""
+        }
         showMaskStatus(maskStatus)
         updateBackground(maskStatus)
         if (maskStatus == MaskStatus.Invalid) {

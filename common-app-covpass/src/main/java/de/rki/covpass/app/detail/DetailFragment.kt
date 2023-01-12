@@ -28,6 +28,7 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.boosterreissue.ReissueCallback
+import de.rki.covpass.app.boosterreissue.ReissueConsentFragmentNav
 import de.rki.covpass.app.boosterreissue.ReissueNotificationFragmentNav
 import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
@@ -219,7 +220,10 @@ internal class DetailFragment :
                     personalDataList.add(
                         DetailItem.ReissueNotification(
                             when (vaccination?.reissueState) {
-                                ReissueState.Ready -> {
+                                ReissueState.Ready,
+                                ReissueState.NotGermanReady,
+                                ReissueState.AfterTimeLimit,
+                                -> {
                                     if (vaccination.status == CertValidationResult.Expired) {
                                         R.string.renewal_bluebox_title_expired_vaccination
                                     } else {
@@ -255,6 +259,13 @@ internal class DetailFragment :
                                             vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     }
+                                ReissueState.AfterTimeLimit -> {
+                                    getString(
+                                        R.string.renewal_bluebox_copy_expiry_not_available,
+                                        vaccination.covCertificate.validUntil.formatDateOrEmpty(),
+                                        vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
+                                    )
+                                }
                                 else ->
                                     getString(
                                         R.string.renewal_bluebox_copy_expiry_not_available,
@@ -268,9 +279,9 @@ internal class DetailFragment :
                             vaccination?.reissueState == ReissueState.Ready,
                         ) {
                             findNavigator().push(
-                                ReissueNotificationFragmentNav(
-                                    ReissueType.Vaccination,
+                                ReissueConsentFragmentNav(
                                     groupedCertificate.getListOfVaccinationIdsReadyForReissue(),
+                                    ReissueType.Vaccination,
                                 ),
                             )
                         },
@@ -333,11 +344,11 @@ internal class DetailFragment :
                             recovery?.reissueState == ReissueState.Ready,
                         ) {
                             findNavigator().push(
-                                ReissueNotificationFragmentNav(
-                                    ReissueType.Recovery,
+                                ReissueConsentFragmentNav(
                                     listOf(recoveryId) + groupedCertificate.getHistoricalDataForDcc(
                                         recoveryId,
                                     ),
+                                    ReissueType.Recovery,
                                 ),
                             )
                         },

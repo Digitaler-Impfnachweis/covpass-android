@@ -165,7 +165,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     private fun getVaccinationReissueIdsList(): List<String> {
         return certRepository.certs.value.certificates.firstOrNull {
             it.isExpiredReadyForReissue() && !it.hasSeenExpiredReissueNotification
-        }?.getListOfVaccinationIdsReadyForReissue() ?: emptyList()
+        }?.getListOfVaccinationIdsReadyForReissueNeedNotification() ?: emptyList()
     }
 
     private fun getRecoveryReissueIdsList(): List<String> {
