@@ -462,7 +462,7 @@ public abstract class SdkDependencies {
     }
 
     public val gStatusAndMaskValidator: GStatusAndMaskValidator by lazy {
-        GStatusAndMaskValidator(domesticRulesValidator, covPassMaskRulesDateResolver)
+        GStatusAndMaskValidator(domesticRulesValidator)
     }
 
     public val covPassMaskRulesDateResolver: CovPassMaskRulesDateResolver by lazy {

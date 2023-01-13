@@ -223,31 +223,31 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                 }
             }
             CertValidationResult.Expired -> {
-                if (
-                    combinedCovCertificate.reissueState == ReissueState.Completed ||
-                    combinedCovCertificate.reissueState == ReissueState.None
-                ) {
-                    binding.dgcDetailExpirationInfoElement.showWarning(
-                        title = getString(R.string.certificate_expired_detail_view_note_title),
-                        descriptionNoLink = if (combinedCovCertificate.covCertificate.isGermanCertificate) {
-                            getString(
-                                R.string.certificate_expired_detail_view_note_message,
-                                combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
-                                combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
-                            )
-                        } else {
-                            getString(R.string.certificate_expires_detail_view_note_nonDE)
-                        },
-                        iconRes = R.drawable.info_warning_icon,
-                    )
-                    binding.dgcDetailReissueLayout.isGone = true
-                } else {
-                    if (isVaccination) {
-                        reissueVaccination(combinedCovCertificate, groupedCertificate)
-                    } else {
-                        reissueRecovery(combinedCovCertificate, groupedCertificate)
+                when (combinedCovCertificate.reissueState) {
+                    ReissueState.Completed, ReissueState.None -> {
+                        binding.dgcDetailExpirationInfoElement.showWarning(
+                            title = getString(R.string.certificate_expired_detail_view_note_title),
+                            descriptionNoLink = if (combinedCovCertificate.covCertificate.isGermanCertificate) {
+                                getString(
+                                    R.string.certificate_expired_detail_view_note_message,
+                                    combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
+                                    combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
+                                )
+                            } else {
+                                getString(R.string.certificate_expires_detail_view_note_nonDE)
+                            },
+                            iconRes = R.drawable.info_warning_icon,
+                        )
+                        binding.dgcDetailReissueLayout.isGone = true
                     }
-                    binding.dgcDetailExpirationInfoElement.isGone = true
+                    else -> {
+                        if (isVaccination) {
+                            reissueVaccination(combinedCovCertificate, groupedCertificate)
+                        } else {
+                            reissueRecovery(combinedCovCertificate, groupedCertificate)
+                        }
+                        binding.dgcDetailExpirationInfoElement.isGone = true
+                    }
                 }
             }
             CertValidationResult.Revoked -> {
@@ -291,6 +291,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     } else {
                         R.string.renewal_bluebox_title_expiring_soon_vaccination
                     }
+                }
+                ReissueState.AfterTimeLimit, ReissueState.NotGermanReady -> {
+                    R.string.certificates_overview_expired_certificate_note
                 }
                 else ->
                     R.string.renewal_bluebox_title_expiring_soon_vaccination

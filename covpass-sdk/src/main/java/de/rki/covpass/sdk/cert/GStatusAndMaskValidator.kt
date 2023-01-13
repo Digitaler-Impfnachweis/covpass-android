@@ -23,7 +23,6 @@ import dgca.verifier.app.engine.Result
 
 public class GStatusAndMaskValidator(
     private val domesticRulesValidator: CovPassRulesValidator,
-    private val covPassMaskRulesDateResolver: CovPassMaskRulesDateResolver,
 ) {
     public suspend fun validate(certRepository: CertRepository, region: String?) {
         val groupedCertificatesList = certRepository.certs.value
@@ -38,18 +37,7 @@ public class GStatusAndMaskValidator(
 
             // MaskStatus Validation
             val maskStatusWrapper = if (mergedCertificate == null) {
-                if (region != null) {
-                    val validFrom = covPassMaskRulesDateResolver.getMaskRuleValidity(
-                        region,
-                    )
-                    if (validFrom.isNotBlank()) {
-                        MaskStatusWrapper(maskStatus = MaskStatus.Invalid)
-                    } else {
-                        MaskStatusWrapper(maskStatus = MaskStatus.NoRules)
-                    }
-                } else {
-                    MaskStatusWrapper(maskStatus = MaskStatus.Invalid)
-                }
+                MaskStatusWrapper(maskStatus = MaskStatus.Invalid)
             } else {
                 when (
                     isValidByType(

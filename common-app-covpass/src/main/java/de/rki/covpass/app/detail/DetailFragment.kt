@@ -56,6 +56,7 @@ import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.TestCertType
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.models.VaccinationCertType
+import de.rki.covpass.sdk.cert.models.isExpired
 import de.rki.covpass.sdk.utils.formatDate
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -207,7 +208,11 @@ internal class DetailFragment :
 
             val immunizationStatusWrapper = groupedCertificate.immunizationStatusWrapper
             val maskStatusWrapper = groupedCertificate.maskStatusWrapper
-            val maskStatus = maskStatusWrapper.maskStatus
+            val maskStatus = if (viewModel.maskRuleValidFrom.value?.isNotBlank() == true && cert.isExpired()) {
+                maskStatusWrapper.maskStatus
+            } else {
+                MaskStatus.NoRules
+            }
             val personalDataList: MutableList<DetailItem> = mutableListOf(
                 DetailItem.Name(cert.fullName),
             )
