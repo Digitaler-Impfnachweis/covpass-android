@@ -30,6 +30,7 @@ public class CertificateViewHolder(
                             R.color.backgroundSecondary20
                         },
                     )
+                    binding.certificateItemReissueTitle.isVisible = cert.showReissueTitle
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_complete)
@@ -54,6 +55,7 @@ public class CertificateViewHolder(
                             R.color.backgroundSecondary20
                         },
                     )
+                    binding.certificateItemReissueTitle.isVisible = cert.showReissueTitle
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_status_incomplete)
@@ -104,6 +106,7 @@ public class CertificateViewHolder(
                             R.color.backgroundSecondary20
                         },
                     )
+                    binding.certificateItemReissueTitle.isVisible = cert.showReissueTitle
                     when (cert.certStatus) {
                         CertValidationResult.Valid -> {
                             binding.certificateTypeIcon.setImageResource(R.drawable.main_cert_recovery)

@@ -89,6 +89,18 @@
       app:drawableStartCompat="@drawable/checkbox_green"
       tools:visibility="visible" />
 
+    <TextView
+      android:id="@+id/certificate_item_reissue_title"
+      style="@style/Header.OnBackground.Small"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_half"
+      android:drawablePadding="@dimen/grid_half"
+      android:text="@string/renewal_expiry_notification_title"
+      android:visibility="gone"
+      app:drawableStartCompat="@drawable/info_warning"
+      tools:visibility="visible" />
+
   </LinearLayout>
 
   <ImageView

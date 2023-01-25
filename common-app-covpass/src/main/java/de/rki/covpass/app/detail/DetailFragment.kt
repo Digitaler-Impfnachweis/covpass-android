@@ -589,6 +589,7 @@ internal class DetailFragment :
                                 groupedDgcEntry.occurrence?.formatDate(),
                             ),
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
+                            showReissueTitle = it.reissueState == ReissueState.Ready,
                             certStatus = it.status,
                         )
                     }
@@ -646,6 +647,7 @@ internal class DetailFragment :
                             subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                             date = date,
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
+                            showReissueTitle = it.reissueState == ReissueState.Ready,
                             certStatus = it.status,
                         )
                     }

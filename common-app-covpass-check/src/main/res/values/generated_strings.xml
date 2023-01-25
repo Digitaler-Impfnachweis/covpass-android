@@ -152,7 +152,7 @@
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Please always scan the most recent certificates first.</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Not approved vaccine</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text">For vaccination series with vaccines not approved in Germany, at least one vaccination with an mRNA vaccine must be proven.</string>
-	<string name="validation_faq_link">#More information::https://www.digitaler-impfnachweis-app.de/en/faq/#current-most-frequently-asked-questions#</string>
+	<string name="validation_faq_link">#Go to the FAQ::https://www.digitaler-impfnachweis-app.de/en/faq/#who-is-considered-fully-vaccinated-in-germany-#</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button">New scan</string>
 	<string name="functional_validation_check_popup_second_scan_title">Check vaccination status</string>
 	<string name="functional_validation_check_popup_second_scan_subtitle">according to IfSG § 22a</string>

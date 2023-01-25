@@ -54,6 +54,7 @@ public sealed class DetailItem {
         public val subtitle: String,
         public val date: String,
         public val isActual: Boolean = false,
+        public val showReissueTitle: Boolean = false,
         public val certStatus: CertValidationResult = CertValidationResult.Valid,
     ) : DetailItem()
 

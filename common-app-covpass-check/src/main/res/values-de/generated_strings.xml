@@ -152,7 +152,7 @@
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_protection_text">Bitte scannen Sie immer die aktuellsten Nachweise zuerst.</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted">Nicht zugelassener Impfstoff</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_text">Bei Impfserien mit nicht in Deutschland zugelassenen Impfstoffen muss mindestens eine Impfung mit einem mRNA-Impfstoff nachgewiesen werden.</string>
-	<string name="validation_faq_link">#Mehr Informationen::https://www.digitaler-impfnachweis-app.de/faq/#die-aktuell-h-ufigsten-fragen#</string>
+	<string name="validation_faq_link">#Zu den häufigen Fragen::https://www.digitaler-impfnachweis-app.de/faq/#wer-gilt-in-deutschland-als-vollst-ndig-geimpft-#</string>
 	<string name="functional_validation_check_popup_unsuccessful_certificate_subheadline_uncompleted_button">Neue Prüfung</string>
 	<string name="functional_validation_check_popup_second_scan_title">Impfschutz-Prüfung</string>
 	<string name="functional_validation_check_popup_second_scan_subtitle">nach IfSG § 22a</string>
