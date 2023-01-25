@@ -75,8 +75,8 @@ public fun CombinedCovCertificate.toReissueCertificateItem(isFirst: Boolean = fa
                 )
             } else {
                 getString(
-                    R.string.certificates_overview_recovery_certificate_valid_until_date,
-                    groupedDgcEntry.validUntil?.formatDateOrEmpty() ?: "",
+                    R.string.certificates_overview_recovery_certificate_sample_date,
+                    groupedDgcEntry.firstResult?.formatDateOrEmpty() ?: "",
                 )
             }
             ReissueCertificateItem(

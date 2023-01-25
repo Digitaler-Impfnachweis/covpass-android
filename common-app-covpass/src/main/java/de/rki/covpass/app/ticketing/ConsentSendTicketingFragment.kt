@@ -195,8 +195,9 @@ public class ConsentSendTicketingFragment : BaseTicketingFragment(), ValidationT
                     certificateDataElementTypeIcon.setImageResource(R.drawable.main_cert_status_complete_white)
                     certificateDataElementInfo.setText(R.string.recovery_certificate_detail_view_title)
                     certificateDataElementDate.text = com.ibm.health.common.android.utils.getString(
-                        R.string.certificates_overview_recovery_certificate_valid_until_date,
-                        combinedCovCertificate.covCertificate.validUntil?.formatDateOrEmpty() ?: "",
+                        R.string.certificates_overview_recovery_certificate_sample_date,
+                        (combinedCovCertificate.covCertificate.dgcEntry as Recovery)
+                            .firstResult?.formatDateOrEmpty() ?: "",
                     )
                 }
             }

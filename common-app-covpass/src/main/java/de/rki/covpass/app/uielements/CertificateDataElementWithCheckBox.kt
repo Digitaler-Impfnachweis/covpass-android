@@ -111,8 +111,8 @@ public class CertificateDataElementWithCheckBox @JvmOverloads constructor(
                 type = getString(R.string.certificate_check_validity_recovery)
                 info = getString(R.string.recovery_certificate_detail_view_title)
                 date = getString(
-                    R.string.certificates_overview_recovery_certificate_valid_until_date,
-                    (covCertificate.dgcEntry as Recovery).validUntil?.formatDateOrEmpty() ?: "",
+                    R.string.certificates_overview_recovery_certificate_sample_date,
+                    (covCertificate.dgcEntry as Recovery).firstResult?.formatDateOrEmpty() ?: "",
                 )
             }
         }

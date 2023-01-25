@@ -111,8 +111,8 @@ public class CertificateFilteringTicketingAdapter(
                         certificateDataElementTypeIcon.setImageResource(R.drawable.main_cert_status_complete_white)
                         certificateDataElementInfo.setText(R.string.recovery_certificate_detail_view_title)
                         certificateDataElementDate.text = getString(
-                            R.string.certificates_overview_recovery_certificate_valid_until_date,
-                            item.covCertificate.validUntil?.formatDateOrEmpty() ?: "",
+                            R.string.certificates_overview_recovery_certificate_sample_date,
+                            (item.covCertificate.dgcEntry as Recovery).firstResult?.formatDateOrEmpty() ?: "",
                         )
                     }
                 }
