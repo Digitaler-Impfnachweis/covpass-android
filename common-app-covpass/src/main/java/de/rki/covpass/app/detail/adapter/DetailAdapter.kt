@@ -142,6 +142,9 @@ private class WidgetViewHolder(
                 ViewCompat.setScreenReaderFocusable(binding.detailNoticeTitleTextview, true)
                 ViewCompat.setScreenReaderFocusable(binding.detailNoticeSubheaderTextview, true)
                 binding.detailNoticeTitleTextview.isVisible = true
+                binding.detailNoticeTitleLayout.setOnClickListener {
+                    showInfoContainer(!binding.detailInfoContentContainer.isVisible)
+                }
                 binding.detailNoticeSubheaderTextview.isVisible = true
                 binding.detailNoticeSubheaderTextview.text = it
                 binding.changeFederalStateButton.isVisible = true
@@ -149,6 +152,7 @@ private class WidgetViewHolder(
                     listener.onChangeFederalStateClicked()
                 }
             }
+            binding.detailInfoContainer.isVisible = widget.noticeMessage != null
 
             widget.buttonText?.let {
                 binding.detailShowCertificateButton.isVisible = true
@@ -162,6 +166,11 @@ private class WidgetViewHolder(
                 }
             }
         }
+    }
+    private fun showInfoContainer(isVisible: Boolean) {
+        binding.detailInfoContentContainer.isVisible = isVisible
+        val arrow = if (isVisible) R.drawable.arrow_up_blue else R.drawable.arrow_down_blue
+        binding.detailNoticeTitleArrow.setImageResource(arrow)
     }
 }
 

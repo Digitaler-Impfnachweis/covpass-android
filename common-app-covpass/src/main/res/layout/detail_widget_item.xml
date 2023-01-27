@@ -86,55 +86,12 @@
 
   </LinearLayout>
 
-  <TextView
-    android:id="@+id/detail_status_link_textview"
-    style="@style/DefaultText.OnBackground70"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_one_half"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:clickable="true"
-    android:focusable="true"
-    android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@id/detail_info_layout_for_accessibility"
-    app:layout_constraintTop_toBottomOf="@id/detail_info_layout_for_accessibility"
-    tools:text="@tools:sample/lorem[3]"
-    tools:visibility="visible" />
-
-  <TextView
-    android:id="@+id/detail_notice_title_textview"
-    style="@style/Header.OnBackground.Small"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_six"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:text="@string/infschg_detail_page_mask_status_uncertain_subtitle_2"
-    android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@id/detail_info_layout_for_accessibility"
-    app:layout_constraintTop_toBottomOf="@id/detail_status_link_textview"
-    tools:visibility="visible" />
-
-  <TextView
-    android:id="@+id/detail_notice_subheader_textview"
-    style="@style/DefaultText.OnBackground"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@id/detail_info_layout_for_accessibility"
-    app:layout_constraintTop_toBottomOf="@id/detail_notice_title_textview"
-    tools:text="@tools:sample/lorem[30]"
-    tools:visibility="visible" />
-
   <com.google.android.material.button.MaterialButton
     android:id="@+id/change_federal_state_button"
     style="@style/PrimaryButtonWithOutline.LightWithBorder"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_one_half"
+    android:layout_marginTop="@dimen/grid_three"
     android:layout_marginEnd="@dimen/grid_three"
     android:layout_marginBottom="@dimen/grid_two"
     android:foreground="@drawable/keyboard_highlight_selector"
@@ -142,7 +99,7 @@
     android:textSize="@dimen/textsize_default"
     android:visibility="gone"
     app:layout_constraintStart_toStartOf="@id/detail_info_layout_for_accessibility"
-    app:layout_constraintTop_toBottomOf="@+id/detail_notice_subheader_textview"
+    app:layout_constraintTop_toBottomOf="@+id/detail_info_layout_for_accessibility"
     tools:visibility="visible" />
 
   <com.google.android.material.button.MaterialButton
@@ -163,5 +120,102 @@
     app:layout_constraintTop_toBottomOf="@id/change_federal_state_button"
     tools:text="@string/certificates_overview_expired_action_button_title"
     tools:visibility="visible" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/detail_info_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_two"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@+id/change_federal_state_button"
+    tools:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/detail_notice_title_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <View
+        style="@style/Divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:id="@+id/detail_notice_title_textview"
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/grid_eight"
+        android:paddingTop="@dimen/grid_three"
+        android:paddingEnd="@dimen/grid_one"
+        android:text="@string/infschg_detail_page_mask_status_uncertain_subtitle_2"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/detail_notice_title_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+      <ImageView
+        android:id="@+id/detail_notice_title_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three_half"
+        android:layout_marginEnd="@dimen/grid_three_half"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow_down_blue"
+        tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/detail_info_content_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/detail_notice_title_layout"
+      tools:visibility="visible">
+
+      <TextView
+        android:id="@+id/detail_notice_subheader_textview"
+        style="@style/DefaultText.OnBackground"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/grid_eight"
+        android:paddingEnd="@dimen/grid_three"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem[30]"
+        tools:visibility="visible" />
+
+      <TextView
+        android:id="@+id/detail_status_link_textview"
+        style="@style/DefaultText.OnBackground70"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_one_half"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="@dimen/grid_eight"
+        android:paddingEnd="@dimen/grid_three"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_notice_subheader_textview"
+        tools:text="@tools:sample/lorem[3]"
+        tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
