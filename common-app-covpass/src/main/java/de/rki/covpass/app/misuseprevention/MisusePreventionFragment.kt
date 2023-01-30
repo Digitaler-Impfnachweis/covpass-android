@@ -20,7 +20,7 @@ import de.rki.covpass.app.databinding.MisusePreventionBinding
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.utils.isLandscapeMode
-import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import kotlinx.parcelize.Parcelize
 
@@ -44,7 +44,7 @@ internal class MisusePreventionFragment : BaseBottomSheet(), MisusePreventionEve
         binding.misusePreventionContent.apply {
             text = getSpanned(R.string.certificate_add_warning_maximum_copy_android)
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlinesAndSetExternalLinkImage()
+            setExternalLinkImage()
         }
         bottomSheetBinding.bottomSheetHeader.isGone = true
         bottomSheetBinding.bottomSheetClose.isGone = true

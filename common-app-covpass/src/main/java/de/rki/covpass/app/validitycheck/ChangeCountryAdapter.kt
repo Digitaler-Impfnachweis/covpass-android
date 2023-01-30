@@ -20,7 +20,7 @@ import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.ChangeCountryHeaderBinding
 import de.rki.covpass.app.databinding.ChangeCountryItemBinding
 import de.rki.covpass.app.validitycheck.countries.Country
-import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 
 /**
  * Adapter which holds the list of countries for [ChangeCountryFragment].
@@ -77,7 +77,7 @@ public class ChangeCountryAdapter(
             binding.noteCountry.apply {
                 text = getSpanned(R.string.certificate_check_validity_selection_country_note)
                 movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlinesAndSetExternalLinkImage()
+                setExternalLinkImage()
             }
         }
     }

@@ -11,7 +11,7 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.ContactsBinding
-import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -35,7 +35,7 @@ public class ContactsFragment : BaseFragment() {
         binding.textGeneralEmail.apply {
             text = getSpanned(R.string.app_information_message_contact_info_mail)
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlinesAndSetExternalLinkImage()
+            setExternalLinkImage()
         }
     }
 

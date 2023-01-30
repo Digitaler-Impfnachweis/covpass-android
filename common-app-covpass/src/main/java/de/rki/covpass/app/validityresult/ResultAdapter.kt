@@ -21,7 +21,7 @@ import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomes
 import de.rki.covpass.commonapp.uielements.showError
 import de.rki.covpass.commonapp.uielements.showSuccess
 import de.rki.covpass.commonapp.uielements.showWarning
-import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.LocalDateTime
@@ -239,13 +239,13 @@ public class ResultAdapter(
                 text = getSpanned(resultNoteEn)
                 textLocale = Locale.ENGLISH
                 movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlinesAndSetExternalLinkImage()
+                setExternalLinkImage()
             }
             binding.resultInfoFooterGerman.apply {
                 text = getSpanned(resultNoteDe)
                 textLocale = Locale.GERMAN
                 movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlinesAndSetExternalLinkImage()
+                setExternalLinkImage()
             }
             if (Locale.getDefault() == Locale.GERMANY) {
                 binding.resultInfoFooterEnglish.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO

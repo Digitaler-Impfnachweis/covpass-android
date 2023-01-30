@@ -19,7 +19,7 @@ import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getSpanned
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InfoElementBinding
-import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import kotlin.properties.Delegates
 
 public class InfoElement @JvmOverloads constructor(
@@ -60,7 +60,7 @@ public class InfoElement @JvmOverloads constructor(
         binding.infoDescription.apply {
             text = getSpanned(newValue ?: "")
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlinesAndSetExternalLinkImage()
+            setExternalLinkImage()
         }
         binding.infoDescription.isGone = newValue.isNullOrEmpty()
         binding.layoutInfoDescription.isGone = newValue.isNullOrEmpty()

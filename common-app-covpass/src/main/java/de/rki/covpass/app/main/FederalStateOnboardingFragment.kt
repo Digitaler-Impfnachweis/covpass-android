@@ -25,7 +25,7 @@ import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
 import de.rki.covpass.commonapp.federalstate.ChangeFederalStateFragmentNav
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isLandscapeMode
-import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import kotlinx.parcelize.Parcelize
 
 internal interface FederalStateOnboardingCallback {
@@ -53,7 +53,7 @@ internal class FederalStateOnboardingFragment : BaseBottomSheet(), ChangeFederal
         binding.federalStateOnboardingNote.apply {
             text = getSpanned(R.string.infschg_popup_choose_federal_state_copy_2)
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlinesAndSetExternalLinkImage()
+            setExternalLinkImage()
         }
         binding.federalStateOnboardingValue.setOnClickListener {
             findNavigator().push(
