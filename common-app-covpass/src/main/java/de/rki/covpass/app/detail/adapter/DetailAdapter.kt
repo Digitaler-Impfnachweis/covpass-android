@@ -31,7 +31,7 @@ import de.rki.covpass.app.databinding.DetailInfoboxRowBinding
 import de.rki.covpass.app.databinding.DetailReissueNotificationItemBinding
 import de.rki.covpass.app.databinding.DetailWidgetItemBinding
 import de.rki.covpass.app.detail.DetailClickListener
-import de.rki.covpass.commonapp.utils.stripUnderlines
+import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
 import de.rki.covpass.sdk.cert.models.DGCEntryType
 
 /**
@@ -134,7 +134,7 @@ private class WidgetViewHolder(
                 binding.detailStatusLinkTextview.apply {
                     text = getSpanned(it)
                     movementMethod = LinkMovementMethod.getInstance()
-                    stripUnderlines()
+                    stripUnderlinesAndSetExternalLinkImage()
                 }
             }
 
@@ -247,7 +247,7 @@ private class BoosterNotificationViewHolder(
             binding.notificationFaq.apply {
                 text = getSpanned(R.string.vaccination_certificate_overview_faqlink)
                 movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlines()
+                stripUnderlinesAndSetExternalLinkImage()
             }
             it.iconTextRes?.let { textIcon -> binding.notificationIcon.text = getString(textIcon) }
             it.iconBackgroundRes?.let { iconRes ->

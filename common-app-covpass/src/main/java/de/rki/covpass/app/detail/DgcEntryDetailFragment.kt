@@ -37,7 +37,7 @@ import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
-import de.rki.covpass.commonapp.utils.stripUnderlines
+import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
 import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.CombinedCovCertificate
 import de.rki.covpass.sdk.cert.models.CovCertificate
@@ -169,13 +169,13 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_de)
             textLocale = Locale.GERMAN
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            stripUnderlinesAndSetExternalLinkImage()
         }
         binding.dgcDetailInfoFooterEnglish.apply {
             text = getSpanned(R.string.recovery_certificate_detail_view_data_test_note_en)
             textLocale = Locale.ENGLISH
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            stripUnderlinesAndSetExternalLinkImage()
         }
         if (Locale.getDefault() == Locale.GERMANY) {
             binding.dgcDetailInfoFooterEnglish.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO

@@ -32,7 +32,7 @@ import de.rki.covpass.commonapp.dialog.showDialog
 import de.rki.covpass.commonapp.errorhandling.isNoInternetError
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.uielements.showWarning
-import de.rki.covpass.commonapp.utils.stripUnderlines
+import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -66,7 +66,7 @@ internal class ValidityCheckFragment :
         binding.noteValidity.apply {
             text = getSpanned(R.string.certificate_check_validity_note)
             movementMethod = LinkMovementMethod.getInstance()
-            stripUnderlines()
+            stripUnderlinesAndSetExternalLinkImage()
         }
         binding.countryElement.marginVertical = R.dimen.grid_one
         binding.dateElement.marginVertical = R.dimen.grid_two

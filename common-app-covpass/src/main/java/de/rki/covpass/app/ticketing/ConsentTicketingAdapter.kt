@@ -20,7 +20,7 @@ import de.rki.covpass.app.databinding.ConsentInitializationInfoboxItemBinding
 import de.rki.covpass.app.databinding.ConsentInitializationNoteItemBinding
 import de.rki.covpass.app.databinding.ConsentInitializationTicketingDataItemBinding
 import de.rki.covpass.app.uielements.setValues
-import de.rki.covpass.commonapp.utils.stripUnderlines
+import de.rki.covpass.commonapp.utils.stripUnderlinesAndSetExternalLinkImage
 
 public class ConsentTicketingAdapter(
     private val items: List<ConsentInitItem>,
@@ -132,7 +132,7 @@ private class DataProtectionViewHolder(
             binding.consentTicketingDataProtectionField.apply {
                 text = getSpanned(dataProtection.linkTitle, dataProtection.link)
                 movementMethod = LinkMovementMethod.getInstance()
-                stripUnderlines()
+                stripUnderlinesAndSetExternalLinkImage()
             }
         }
     }
