@@ -589,7 +589,9 @@ internal class DetailFragment :
                                 groupedDgcEntry.occurrence?.formatDate(),
                             ),
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            showReissueTitle = it.reissueState == ReissueState.Ready,
+                            showReissueTitle = it.reissueState.isReadyForReissue(
+                                groupedCertificate.isExpiredReadyForReissue(),
+                            ),
                             certStatus = it.status,
                         )
                     }
@@ -647,7 +649,9 @@ internal class DetailFragment :
                             subtitle = getString(R.string.certificates_overview_recovery_certificate_message),
                             date = date,
                             isActual = mainCertificate.covCertificate.dgcEntry.id == groupedDgcEntry.id,
-                            showReissueTitle = it.reissueState == ReissueState.Ready,
+                            showReissueTitle = it.reissueState.isReadyForReissue(
+                                groupedCertificate.isExpiredReadyForReissue(),
+                            ),
                             certStatus = it.status,
                         )
                     }
@@ -746,6 +750,9 @@ internal class DetailFragment :
             viewModel.maskRuleValidFrom.value,
         )
     }
+
+    private fun ReissueState.isReadyForReissue(isMainCertReadyForReissue: Boolean): Boolean =
+        this == ReissueState.Ready && isMainCertReadyForReissue
 
     override fun onOpenReissue(reissueType: ReissueType, listCertIds: List<String>) {
         findNavigator().push(ReissueNotificationFragmentNav(reissueType, listCertIds))
