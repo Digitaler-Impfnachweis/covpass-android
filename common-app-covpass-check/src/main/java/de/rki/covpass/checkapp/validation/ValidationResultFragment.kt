@@ -32,6 +32,7 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
 import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isLandscapeMode
+import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.ExpertModeData
 import kotlinx.parcelize.Parcelize
 
@@ -157,6 +158,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             binding.resultInfoFooter.apply {
                 text = getSpanned(it)
                 movementMethod = LinkMovementMethod.getInstance()
+                setExternalLinkImage()
             }
         }
 
