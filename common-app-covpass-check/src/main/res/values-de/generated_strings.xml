@@ -296,7 +296,7 @@
 	<string name="accessibility_app_information_checking_rules_open">Die Ansicht \"Prüfregeln\" wurde geöffnet</string>
 	<string name="accessibility_app_information_checking_rules_close">Die Ansicht \"Prüfregeln\" wurde geschlossen</string>
 	<string name="app_information_title_checkrules">Prüfregeln</string>
-	<string name="app_information_offline_revocation_copy_1">Hier können Sie die Regeln aktualisieren, nach denen Zertifkate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
+	<string name="app_information_offline_revocation_copy_1">Hier können Sie die Regeln aktualisieren, nach denen Zertifikate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
 	<string name="app_information_offline_revocation_title">Gesperrte Zertifikate offline prüfen</string>
 	<string name="app_information_offline_revocation_copy_2">Aktivieren Sie diese Einstellung, erkennt die App von den Behörden gesperrte Zertifikate auch, wenn Sie nicht mit dem Internet verbunden sind. Diese Funktion verbraucht mehr Datenvolumen.</string>
 	<string name="app_information_offline_revocation_hint_title">Hinweis</string>
