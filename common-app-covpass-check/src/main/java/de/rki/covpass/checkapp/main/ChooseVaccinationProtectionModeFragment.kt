@@ -9,32 +9,26 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.viewBinding
-import com.ibm.health.common.annotations.Abort
-import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
-import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ChooseVaccinationProtectionModeBinding
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.storage.CheckContextRepository
 import kotlinx.parcelize.Parcelize
 
-internal interface ChooseVaccinationProtectionModeCallback {
-    fun onModeChooseFinish()
-    fun onModeChooseCancel()
-}
-
 @Parcelize
-internal class ChooseVaccinationProtectionModeFragmentNav : FragmentNav(ChooseVaccinationProtectionModeFragment::class)
+internal class ChooseVaccinationProtectionModeFragmentNav :
+    FragmentNav(ChooseVaccinationProtectionModeFragment::class)
 
 public class ChooseVaccinationProtectionModeFragment : BaseBottomSheet() {
 
     private val binding by viewBinding(ChooseVaccinationProtectionModeBinding::inflate)
 
-    override val announcementAccessibilityRes: Int = R.string.accessibility_rules_context_initial_setup_open
-    override val closingAnnouncementAccessibilityRes: Int = R.string.accessibility_rules_context_initial_setup_close
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_rules_context_initial_setup_open
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_rules_context_initial_setup_close
 
     override val buttonTextRes: Int = R.string.infschg_info_button
 
@@ -84,13 +78,6 @@ public class ChooseVaccinationProtectionModeFragment : BaseBottomSheet() {
                     CheckContextRepository.VaccinationProtectionMode.ModeEntryRules,
                 )
             }
-            covpassCheckDeps.checkAppRepository.startImmunizationStatus.set(false)
-            findNavigator().popUntil<ChooseVaccinationProtectionModeCallback>()?.onModeChooseFinish()
         }
-    }
-
-    override fun onBackPressed(): Abortable {
-        findNavigator().popUntil<ChooseVaccinationProtectionModeCallback>()?.onModeChooseCancel()
-        return Abort
     }
 }

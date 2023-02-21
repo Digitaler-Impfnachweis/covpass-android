@@ -14,7 +14,6 @@ import de.rki.covpass.commonapp.errorhandling.CommonErrorHandler
 import de.rki.covpass.commonapp.kronostime.TimeValidationRepository
 import de.rki.covpass.commonapp.storage.AcousticFeedbackRepository
 import de.rki.covpass.commonapp.storage.CheckContextRepository
-import de.rki.covpass.commonapp.storage.FederalStateRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.SettingUpdateListBuilder
@@ -65,10 +64,6 @@ public abstract class CommonDependencies {
     public val checkContextRepository: CheckContextRepository = CheckContextRepository(
         CborSharedPrefsStore("covpass_check_prefs", cbor),
     )
-
-    public val federalStateRepository: FederalStateRepository by lazy {
-        FederalStateRepository(CborSharedPrefsStore("covpass_check_prefs", cbor))
-    }
 
     public val kronosClock: KronosClock by lazy {
         AndroidClockFactory.createKronosClock(

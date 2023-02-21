@@ -58,7 +58,6 @@ internal class MainFragmentNav(
 internal interface NotificationEvents : BaseEvents {
     fun showNewUpdateInfo()
     fun showNewDataPrivacy()
-    fun showFederalStateOnboarding()
     fun showBoosterNotification()
     fun showReissueNotification(reissueType: ReissueType, listIds: List<String>)
     fun showReissueNotificationNotGerman()
@@ -79,8 +78,7 @@ internal class MainFragment :
     BoosterNotificationCallback,
     ReissueCallback,
     ImportCertificatesResultCallback,
-    NotificationEvents,
-    FederalStateOnboardingCallback {
+    NotificationEvents {
 
     private val uri: Uri? by lazy { getArgs<MainFragmentNav>().uri }
     private val viewModel by reactiveState { MainViewModel(scope, uri) }
@@ -259,10 +257,6 @@ internal class MainFragment :
         viewModel.showingNotification.complete(Unit)
     }
 
-    override fun onFederalStateOnboardingFinish() {
-        viewModel.showingNotification.complete(Unit)
-    }
-
     override fun onDataProtectionFinish() {
         viewModel.showingNotification.complete(Unit)
     }
@@ -322,10 +316,6 @@ internal class MainFragment :
 
     override fun showNewDataPrivacy() {
         findNavigator().push(DataProtectionFragmentNav())
-    }
-
-    override fun showFederalStateOnboarding() {
-        findNavigator().push(FederalStateOnboardingFragmentNav())
     }
 
     override fun showBoosterNotification() {

@@ -11,9 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import com.ensody.reactivestate.android.autoRun
-import com.ensody.reactivestate.android.reactiveState
-import com.ensody.reactivestate.get
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abort
@@ -24,13 +21,11 @@ import com.ibm.health.common.navigation.android.getArgs
 import com.ibm.health.common.navigation.android.triggerBackPress
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.ValidationResultBinding
-import de.rki.covpass.checkapp.main.CovpassCheckViewModel
 import de.rki.covpass.checkapp.main.MainFragment
 import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
-import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.ExpertModeData
@@ -191,33 +186,6 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
         }
     }
 
-    protected fun updateMaskRuleValidityDate(validFrom: String?) {
-        binding.resultRegionText.isVisible = true
-        if (validFrom?.isNotBlank() == true) {
-            binding.resultMaskRuleValidityDate?.isVisible = true
-            binding.resultMaskRuleValidityDate?.text =
-                getString(R.string.state_ruleset_date_available_short, validFrom)
-            binding.resultRegionText.text = getString(
-                R.string.infschg_result_mask_optional_subtitle,
-                FederalStateResolver.getFederalStateByCode(
-                    commonDeps.federalStateRepository.federalState.value,
-                )?.nameRes?.let {
-                    getString(it)
-                },
-            )
-        } else {
-            binding.resultMaskRuleValidityDate?.isVisible = false
-            binding.resultRegionText.text = getString(
-                R.string.infschg_result_no_mask_rules_subtitle,
-                FederalStateResolver.getFederalStateByCode(
-                    commonDeps.federalStateRepository.federalState.value,
-                )?.nameRes?.let {
-                    getString(it)
-                },
-            )
-        }
-    }
-
     override fun onBackPressed(): Abortable {
         findNavigator().popUntil<ValidationResultListener>()?.onValidationResultClosed()
         return Abort
@@ -246,7 +214,6 @@ internal class ValidationResultSuccessFragmentNav(
  */
 internal class ValidationResultSuccessFragment : ValidationResultFragment() {
     private val args: ValidationResultSuccessFragmentNav by lazy { getArgs() }
-    private val covpassCheckViewModel by reactiveState { CovpassCheckViewModel(scope) }
 
     override val title by lazy {
         getString(R.string.infschg_result_mask_optional_title)
@@ -264,13 +231,6 @@ internal class ValidationResultSuccessFragment : ValidationResultFragment() {
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.result_2G_button_startover
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        autoRun {
-            updateMaskRuleValidityDate(get(covpassCheckViewModel.maskRuleValidFrom))
-        }
-    }
 }
 
 @Parcelize
@@ -285,7 +245,6 @@ internal class ValidationResultPartialFragmentNav(
  */
 internal class ValidationResultPartialFragment : ValidationResultFragment() {
     private val args: ValidationResultPartialFragmentNav by lazy { getArgs() }
-    private val covpassCheckViewModel by reactiveState { CovpassCheckViewModel(scope) }
 
     override val title by lazy {
         getString(R.string.infschg_result_mask_mandatory_title)
@@ -312,50 +271,6 @@ internal class ValidationResultPartialFragment : ValidationResultFragment() {
     override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
 
     override val buttonTextRes = R.string.result_2G_button_startover
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        autoRun {
-            updateMaskRuleValidityDate(get(covpassCheckViewModel.maskRuleValidFrom))
-        }
-    }
-}
-
-@Parcelize
-internal class ValidationResultNoRulesFragmentNav(
-    val expertModeData: ExpertModeData?,
-    val isGermanCertificate: Boolean = false,
-) : FragmentNav(ValidationResultNoRulesFragment::class)
-
-/**
- * Overrides the texts and icons from [ValidationResultFragment] to display validation success.
- */
-internal class ValidationResultNoRulesFragment : ValidationResultFragment() {
-    private val args: ValidationResultNoRulesFragmentNav by lazy { getArgs() }
-    private val covpassCheckViewModel by reactiveState { CovpassCheckViewModel(scope) }
-
-    override val title by lazy {
-        getString(R.string.infschg_result_no_mask_rules_title)
-    }
-    override val subtitle: String? by lazy {
-        getString(R.string.infschg_result_no_mask_rules_copy_1_bold)
-    }
-    override val text by lazy {
-        getString(R.string.infschg_result_no_mask_rules_copy_2)
-    }
-    override val imageRes = R.drawable.status_mask_no_rules
-
-    override val isGermanCertificate: Boolean by lazy { args.isGermanCertificate }
-    override val expertModeData: ExpertModeData? by lazy { args.expertModeData }
-
-    override val buttonTextRes = R.string.result_2G_button_startover
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        autoRun {
-            updateMaskRuleValidityDate(get(covpassCheckViewModel.maskRuleValidFrom))
-        }
-    }
 }
 
 @Parcelize
@@ -512,7 +427,6 @@ internal class ValidationResultFailedSecondCertificateFragment : ValidationResul
     override val title by lazy {
         getString(R.string.technical_validation_check_popup_unsuccessful_certificate_title)
     }
-    override val regionText = null
     override val text by lazy {
         getString(R.string.technical_validation_check_popup_unsuccessful_certificate_subline)
     }

@@ -45,11 +45,6 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
 
     internal val args: CertificateSwitcherItemFragmentNav by lazy { getArgs() }
     private val binding by viewBinding(CertificateSwitcherItemBinding::inflate)
-    private val maskStatus by lazy {
-        covpassDeps.certRepository.certs.value.getGroupedCertificates(
-            args.certId,
-        )?.maskStatusWrapper?.maskStatus
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,12 +85,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            maskStatus,
-                            if (maskStatus.isMaskRequired()) {
-                                R.drawable.main_cert_status_complete
-                            } else {
-                                R.drawable.main_cert_status_complete_green
-                            },
+                            R.drawable.main_cert_status_complete,
                         )
                     }
                     VaccinationCertType.VACCINATION_COMPLETE -> {
@@ -112,12 +102,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            maskStatus,
-                            if (maskStatus.isMaskRequired()) {
-                                R.drawable.main_cert_status_incomplete
-                            } else {
-                                R.drawable.main_cert_status_incomplete_green
-                            },
+                            R.drawable.main_cert_status_incomplete,
                         )
                     }
                     VaccinationCertType.VACCINATION_INCOMPLETE -> {
@@ -134,12 +119,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                                 vaccination.occurrence?.atStartOfDay(ZoneId.systemDefault())
                                     ?.toInstant()?.monthTillNow(),
                             ),
-                            maskStatus,
-                            if (maskStatus.isMaskRequired()) {
-                                R.drawable.main_cert_status_incomplete
-                            } else {
-                                R.drawable.main_cert_status_incomplete_green
-                            },
+                            R.drawable.main_cert_status_incomplete,
                         )
                     }
                 }
@@ -157,12 +137,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                         R.string.certificate_timestamp_hours,
                         test.sampleCollection?.hoursTillNow(),
                     ),
-                    maskStatus,
-                    if (maskStatus.isMaskRequired()) {
-                        R.drawable.main_cert_test_blue
-                    } else {
-                        R.drawable.main_cert_test_green
-                    },
+                    R.drawable.main_cert_test_blue,
                 )
             }
             is Recovery -> {
@@ -175,12 +150,7 @@ internal class CertificateSwitcherItemFragment : BaseFragment() {
                         recovery.firstResult?.atStartOfDay(ZoneId.systemDefault())?.toInstant()
                             ?.monthTillNow(),
                     ),
-                    maskStatus,
-                    if (maskStatus.isMaskRequired()) {
-                        R.drawable.main_cert_status_complete
-                    } else {
-                        R.drawable.main_cert_status_complete_green
-                    },
+                    R.drawable.main_cert_status_complete,
                 )
             }
             // .let{} to enforce exhaustiveness

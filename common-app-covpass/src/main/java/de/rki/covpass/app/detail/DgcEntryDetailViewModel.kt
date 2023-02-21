@@ -10,9 +10,7 @@ import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.BaseEvents
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.validitycheck.countries.CountryResolver.deCountry
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.storage.FederalStateRepository
-import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
+import de.rki.covpass.sdk.cert.GStatusValidator
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.storage.CertRepository
 import kotlinx.coroutines.CoroutineScope
@@ -31,8 +29,7 @@ internal interface DgcEntryDetailEvents : BaseEvents {
 internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val certRepository: CertRepository = covpassDeps.certRepository,
-    private val gStatusAndMaskValidator: GStatusAndMaskValidator = sdkDeps.gStatusAndMaskValidator,
-    private val federalStateRepository: FederalStateRepository = commonDeps.federalStateRepository,
+    private val gStatusValidator: GStatusValidator = sdkDeps.gStatusValidator,
 ) : BaseReactiveState<DgcEntryDetailEvents>(scope) {
 
     val isPdfExportEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -44,7 +41,7 @@ internal class DgcEntryDetailViewModel @OptIn(DependencyAccessor::class) constru
             certRepository.certs.update {
                 isGroupedCertDeleted = it.deleteCovCertificate(certId)
             }
-            gStatusAndMaskValidator.validate(certRepository, federalStateRepository.federalState.value)
+            gStatusValidator.validate(certRepository)
             eventNotifier {
                 onDeleteDone(isGroupedCertDeleted)
             }

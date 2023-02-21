@@ -290,18 +290,4 @@
     tools:title="@string/revocation_headline"
     tools:visibility="visible" />
 
-  <TextView
-    android:id="@+id/result_mask_rule_validity_date"
-    style="@style/DefaultText.OnBackground"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/grid_three"
-    android:paddingTop="@dimen/grid_three"
-    android:visibility="gone"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/revocation_legal_notification"
-    tools:text="@string/state_ruleset_date_available_short"
-    tools:visibility="visible" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

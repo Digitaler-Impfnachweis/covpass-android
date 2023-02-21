@@ -22,7 +22,6 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
-import de.rki.covpass.commonapp.utils.FederalStateResolver
 import java.util.Locale
 
 /**
@@ -126,7 +125,6 @@ public abstract class InformationFragment : BaseFragment() {
 
         if (isCovpassCheck()) {
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
-            binding.informationFieldCovpassFederalStateSettingsContainer.isVisible = false
             binding.informationFieldExpertModeLayout.setOnClickListener {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
             }
@@ -158,19 +156,6 @@ public abstract class InformationFragment : BaseFragment() {
         } else {
             binding.informationFieldAcousticFeedbackLayout.isVisible = false
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
-            binding.informationFieldCovpassFederalStateSettingsContainer.isVisible = true
-
-            binding.informationFieldCovpassFederalStateSettingsLayout.setOnClickListener {
-                showFederalStateSettings()
-            }
-            binding.informationFieldCovpassFederalStateSettingsTitle.setText(
-                R.string.infschg_settings_federal_state_title,
-            )
-            FederalStateResolver.getFederalStateByCode(
-                commonDeps.federalStateRepository.federalState.value,
-            )?.nameRes?.let {
-                binding.informationFieldCovpassFederalStateSettingsStatus.setText(it)
-            }
         }
     }
 
@@ -193,6 +178,5 @@ public abstract class InformationFragment : BaseFragment() {
     protected abstract fun getImprintLinkRes(): Int
     protected abstract fun getEasyLanguageLinkRes(): Int
     protected abstract fun isCovpassCheck(): Boolean
-    protected abstract fun showFederalStateSettings()
     protected open fun hasAcousticFeedback(): Boolean = false
 }

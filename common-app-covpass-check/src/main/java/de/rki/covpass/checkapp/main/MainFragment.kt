@@ -5,11 +5,9 @@
 
 package de.rki.covpass.checkapp.main
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import android.widget.TextView
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -18,24 +16,19 @@ import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
-import com.google.android.material.tabs.TabLayout
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.checkapp.databinding.CovpassCheckMainBinding
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.information.CovPassCheckInformationFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
-import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.checkapp.updateinfo.UpdateInfoCallback
 import de.rki.covpass.checkapp.updateinfo.UpdateInfoCovpassCheckFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.federalstate.ChangeFederalStateCallBack
-import de.rki.covpass.commonapp.federalstate.ChangeFederalStateFragmentNav
 import de.rki.covpass.commonapp.information.SettingsFragmentNav
 import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
@@ -44,7 +37,6 @@ import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
-import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import de.rki.covpass.commonapp.utils.underlinedClickable
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -61,8 +53,6 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 internal class MainFragment :
     BaseFragment(),
     DataProtectionCallback,
-    ChangeFederalStateCallBack,
-    ChooseVaccinationProtectionModeCallback,
     UpdateInfoCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
@@ -74,10 +64,6 @@ internal class MainFragment :
     }
     private val settingsUpdateViewModel by reactiveState {
         SettingsUpdateViewModel(scope, true)
-    }
-
-    private val covpassCheckViewModel by reactiveState {
-        CovpassCheckViewModel(scope)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,62 +86,9 @@ internal class MainFragment :
             )
         }
         binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
-        binding.federalStateTitle.setText(R.string.infschg_start_screen_dropdown_title)
-        binding.federalStateLayout.setOnClickListener {
-            findNavigator().push(
-                ChangeFederalStateFragmentNav(
-                    commonDeps.federalStateRepository.federalState.value,
-                ),
-            )
-        }
-        val selectedTabPosition = binding.mainCheckCertTabLayout.selectedTabPosition
-        val selectedTab = binding.mainCheckCertTabLayout.getTabAt(selectedTabPosition)
-        setSelectedTabTypeface(selectedTab)
-
-        binding.mainCheckCertTabLayout.addOnTabSelectedListener(
-            object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    setSelectedTabTypeface(tab)
-                    when {
-                        tab?.position == 1 && covpassCheckDeps.checkAppRepository.isMaskStatusOn() -> {
-                            launchWhenStarted {
-                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
-                                    CheckingMode.ModeImmunizationStatus,
-                                )
-                            }
-                        }
-                        tab?.position == 0 && !covpassCheckDeps.checkAppRepository.isMaskStatusOn() -> {
-                            launchWhenStarted {
-                                covpassCheckDeps.checkAppRepository.activatedCheckingMode.set(
-                                    CheckingMode.ModeMaskStatus,
-                                )
-                            }
-                        }
-                    }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    setSelectedTabTypeface(tab, Typeface.DEFAULT)
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            },
-        )
 
         ViewCompat.setAccessibilityDelegate(
             binding.mainHeaderTextview,
-            object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(
-                    host: View,
-                    info: AccessibilityNodeInfoCompat,
-                ) {
-                    super.onInitializeAccessibilityNodeInfo(host, info)
-                    info.isHeading = true
-                }
-            },
-        )
-        ViewCompat.setAccessibilityDelegate(
-            binding.federalStateTitle,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(
                     host: View,
@@ -180,16 +113,6 @@ internal class MainFragment :
         )
 
         autoRun {
-            FederalStateResolver.getFederalStateByCode(
-                get(commonDeps.federalStateRepository.federalState),
-            )?.nameRes?.let {
-                binding.federalStateName.setText(it)
-            }
-        }
-        autoRun {
-            updateMaskRuleValidityDate(get(covpassCheckViewModel.maskRuleValidFrom))
-        }
-        autoRun {
             updateAvailabilityCard(get(settingsUpdateViewModel.allUpToDate))
         }
         autoRun {
@@ -212,52 +135,11 @@ internal class MainFragment :
             }.let { }
         }
         autoRun {
-            when (get(covpassCheckDeps.checkAppRepository.activatedCheckingMode)) {
-                CheckingMode.ModeMaskStatus -> {
-                    binding.mainCheckCertTabLayout.getTabAt(0)?.select()
-                    binding.maskStatusLayout.isVisible = true
-                    binding.immunizationStatusLayout.isVisible = false
-                    binding.mainVaccinationModeText?.isVisible = false
-                }
-                CheckingMode.ModeImmunizationStatus -> {
-                    if (covpassCheckDeps.checkAppRepository.startImmunizationStatus.value) {
-                        findNavigator().push(
-                            ChooseVaccinationProtectionModeFragmentNav(),
-                        )
-                    } else {
-                        binding.mainCheckCertTabLayout.getTabAt(1)?.select()
-                        binding.immunizationStatusLayout.isVisible = true
-                        binding.maskStatusLayout.isVisible = false
-                        binding.mainVaccinationModeText?.isVisible = true
-                        updateVaccinationCheckMode()
-                    }
-                }
-            }
+            updateVaccinationCheckMode(
+                get(commonDeps.checkContextRepository.vaccinationProtectionMode),
+            )
         }
         showNotificationIfNeeded()
-    }
-
-    private fun updateMaskRuleValidityDate(validFrom: String?) {
-        if (validFrom?.isNotBlank() == true) {
-            binding.ruleValidityStatus.text =
-                getString(R.string.state_ruleset_date_available_long, validFrom)
-        } else {
-            binding.ruleValidityStatus.text = getString(R.string.state_ruleset_date_unavailable)
-        }
-    }
-
-    // TODO remove after material 1.8.0 will be stable
-    // https://github.com/material-components/material-components-android/issues/2159
-    private fun setSelectedTabTypeface(
-        tab: TabLayout.Tab?,
-        typeface: Typeface = Typeface.DEFAULT_BOLD,
-    ) {
-        tab?.let {
-            for (i in 0 until it.view.childCount) {
-                val tabViewChild = it.view.getChildAt(i)
-                if (tabViewChild is TextView) tabViewChild.typeface = typeface
-            }
-        }
     }
 
     override fun onResume() {
@@ -275,10 +157,6 @@ internal class MainFragment :
 
     override fun onUpdateInfoFinish() {
         showNotificationIfNeeded()
-    }
-
-    override fun onChangeDone() {
-        covpassCheckViewModel.onFederalStateChanged()
     }
 
     private fun showNotificationIfNeeded() {
@@ -307,10 +185,11 @@ internal class MainFragment :
         )
     }
 
-    private fun updateVaccinationCheckMode() {
+    private fun updateVaccinationCheckMode(
+        vaccinationProtectionMode: CheckContextRepository.VaccinationProtectionMode,
+    ) {
         if (
-            commonDeps.checkContextRepository.vaccinationProtectionMode.value ==
-            CheckContextRepository.VaccinationProtectionMode.ModeIfsg
+            vaccinationProtectionMode == CheckContextRepository.VaccinationProtectionMode.ModeIfsg
         ) {
             binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_local)
             binding.mainVaccinationModeText
@@ -348,17 +227,5 @@ internal class MainFragment :
                 }
             }
         }
-    }
-
-    override fun onModeChooseFinish() {
-        binding.mainCheckCertTabLayout.getTabAt(1)?.select()
-        binding.immunizationStatusLayout.isVisible = true
-        binding.maskStatusLayout.isVisible = false
-        binding.mainVaccinationModeText?.isVisible = true
-        updateVaccinationCheckMode()
-    }
-
-    override fun onModeChooseCancel() {
-        binding.mainCheckCertTabLayout.getTabAt(0)?.select()
     }
 }

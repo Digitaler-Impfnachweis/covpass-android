@@ -16,8 +16,6 @@ import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
-import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.checkapp.validation.ValidationEntryResultFailedFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationEntryResultSuccessFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultIncompleteFragmentNav
@@ -28,7 +26,6 @@ import de.rki.covpass.checkapp.validation.ValidationResultDifferentDataImmunityC
 import de.rki.covpass.checkapp.validation.ValidationResultFailedFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultFailedSecondCertificateFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultListener
-import de.rki.covpass.checkapp.validation.ValidationResultNoRulesFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultPartialFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationResultSuccessFragmentNav
 import de.rki.covpass.commonapp.dependencies.commonDeps
@@ -83,7 +80,8 @@ internal class CovPassCheckQRScannerFragment :
     }
 
     override val announcementAccessibilityRes: Int = R.string.accessibility_scan_camera_announce
-    override val closingAnnouncementAccessibilityRes: Int = R.string.accessibility_scan_camera_closing_announce
+    override val closingAnnouncementAccessibilityRes: Int =
+        R.string.accessibility_scan_camera_closing_announce
     override val isCovpass = false
 
     override fun onBarcodeResult(qrCode: String) {
@@ -194,7 +192,10 @@ internal class CovPassCheckQRScannerFragment :
         }
     }
 
-    override fun onValidationTechnicalFailure(certificate: CovCertificate?, numberOfCertificates: Int) {
+    override fun onValidationTechnicalFailure(
+        certificate: CovCertificate?,
+        numberOfCertificates: Int,
+    ) {
         scanEnabled.value = false
         if (numberOfCertificates > 1) {
             findNavigator().push(
@@ -211,16 +212,6 @@ internal class CovPassCheckQRScannerFragment :
                 ),
             )
         }
-    }
-
-    override fun onValidationNoRulesFailure(certificate: CovCertificate) {
-        scanEnabled.value = false
-        findNavigator().push(
-            ValidationResultNoRulesFragmentNav(
-                expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate,
-            ),
-        )
     }
 
     override fun onImmunityValidationSuccess(
@@ -312,7 +303,8 @@ internal class CovPassCheckQRScannerFragment :
                 transliteratedName1 = firstCovCert.fullTransliteratedName,
                 birthDate1 = formatDateFromString(firstCovCert.birthDateFormatted),
                 name2 = secondCovCert?.fullName ?: certificate.fullName,
-                transliteratedName2 = secondCovCert?.fullTransliteratedName ?: certificate.fullTransliteratedName,
+                transliteratedName2 = secondCovCert?.fullTransliteratedName
+                    ?: certificate.fullTransliteratedName,
                 birthDate2 = if (secondCovCert != null) {
                     formatDateFromString(secondCovCert.birthDateFormatted)
                 } else {
@@ -342,7 +334,10 @@ internal class CovPassCheckQRScannerFragment :
         )
     }
 
-    override fun onImmunityValidationTechnicalFailure(certificate: CovCertificate?, numberOfCertificates: Int) {
+    override fun onImmunityValidationTechnicalFailure(
+        certificate: CovCertificate?,
+        numberOfCertificates: Int,
+    ) {
         scanEnabled.value = false
         if (numberOfCertificates > 1) {
             findNavigator().push(
@@ -465,7 +460,8 @@ internal class CovPassCheckQRScannerFragment :
         return if (kid.isNotEmpty() && rValue.isNotEmpty()) {
             ExpertModeData(
                 transactionNumber =
-                "$kid${getRValueByteArray.toHex()}${System.currentTimeMillis() / 1000}".sha256().toHex().trim(),
+                "$kid${getRValueByteArray.toHex()}${System.currentTimeMillis() / 1000}".sha256()
+                    .toHex().trim(),
                 kid = kid,
                 rValueSignature = getRValueByteArray.toHex(),
                 issuingCountry = issuer.uppercase(),
@@ -486,36 +482,21 @@ internal class CovPassCheckQRScannerFragment :
 
     override fun onBackPressed(): Abortable {
         val previousCovCertificate = viewModel.firstCovCertificate
-        val checkingMode = covpassCheckDeps.checkAppRepository.activatedCheckingMode.value
-        when {
-            previousCovCertificate != null && checkingMode == CheckingMode.ModeMaskStatus -> {
-                viewModel.secondCovCertificate = null
-                scanEnabled.value = false
-                findNavigator().push(
-                    ValidationResultPartialFragmentNav(
-                        expertModeData = previousCovCertificate.getExpertModeData(),
-                        isGermanCertificate = previousCovCertificate.isGermanCertificate,
-                        allowSecondCertificate = true,
-                    ),
-                )
-            }
-            previousCovCertificate != null && checkingMode == CheckingMode.ModeImmunizationStatus -> {
-                scanEnabled.value = false
-                findNavigator().push(
-                    ValidationPendingResultFragmentNav(
-                        viewModel.firstCovCertificate?.getExpertModeData(),
-                        viewModel.firstCovCertificate?.isGermanCertificate ?: false,
-                        listOfNotNull(
-                            viewModel.firstCovCertificate,
-                            viewModel.secondCovCertificate,
-                            viewModel.thirdCovCertificate,
-                        ).size,
-                    ),
-                )
-            }
-            else -> {
-                return super.onBackPressed()
-            }
+        if (previousCovCertificate != null) {
+            scanEnabled.value = false
+            findNavigator().push(
+                ValidationPendingResultFragmentNav(
+                    viewModel.firstCovCertificate?.getExpertModeData(),
+                    viewModel.firstCovCertificate?.isGermanCertificate ?: false,
+                    listOfNotNull(
+                        viewModel.firstCovCertificate,
+                        viewModel.secondCovCertificate,
+                        viewModel.thirdCovCertificate,
+                    ).size,
+                ),
+            )
+        } else {
+            return super.onBackPressed()
         }
         return Abort
     }

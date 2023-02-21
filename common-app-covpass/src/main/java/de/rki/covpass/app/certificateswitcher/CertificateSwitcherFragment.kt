@@ -5,7 +5,6 @@
 
 package de.rki.covpass.app.certificateswitcher
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -29,7 +28,6 @@ import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
-import de.rki.covpass.sdk.cert.models.MaskStatus
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -69,18 +67,6 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         binding.tabBackButton.setOnClickListener {
             previousPage()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        val maskStatus = covpassDeps.certRepository.certs.value.getGroupedCertificates(
-            args.certId,
-        )?.maskStatusWrapper?.maskStatus
-        if (!maskStatus.isMaskRequired()) {
-            backgroundColor = R.color.full_immunization_green
-        }
-        changeTopAndBottomBarColor()
     }
 
     override fun onResume() {
@@ -223,9 +209,3 @@ internal class CertificateSwitcherFragment : BaseFragment() {
         }
     }
 }
-
-public fun MaskStatus?.isMaskRequired(): Boolean =
-    when (this) {
-        MaskStatus.NotRequired -> false
-        else -> true
-    }

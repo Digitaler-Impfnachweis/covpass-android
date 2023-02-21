@@ -24,8 +24,6 @@ import de.rki.covpass.app.databinding.CertificateBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dependencies.commonDeps
-import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
@@ -81,26 +79,25 @@ internal class CertificateFragment : BaseFragment() {
                 groupedCertificate.isExpiredReadyForReissue()
 
         binding.certificateCard.createCertificateCardView(
-            mainCertificate.fullName,
-            groupedCertificate.maskStatusWrapper.maskStatus,
+            fullName = mainCertificate.fullName,
+            certStatus = mainCombinedCertificate.status,
             hasNotification = showBoosterNotification || showDetailReissueNotification,
-            notificationText = getString(
-                when (mainCombinedCertificate.reissueState) {
-                    ReissueState.AfterTimeLimit, ReissueState.NotGermanReady ->
-                        R.string.certificates_overview_expired_title
-                    else -> R.string.vaccination_start_screen_qrcode_renewal_note_subtitle
-                },
-            ),
-            getString(
-                R.string.infschg_start_screen_status_federal_state,
-                FederalStateResolver.getFederalStateByCode(
-                    commonDeps.federalStateRepository.federalState.value,
-                )?.nameRes?.let {
+            notificationText =
+            when {
+                showBoosterNotification -> {
+                    getString(R.string.infschg_start_notification)
+                }
+                showDetailReissueNotification -> {
                     getString(
-                        it,
+                        when (mainCombinedCertificate.reissueState) {
+                            ReissueState.AfterTimeLimit, ReissueState.NotGermanReady ->
+                                R.string.certificates_overview_expired_title
+                            else -> R.string.vaccination_start_screen_qrcode_renewal_note_subtitle
+                        },
                     )
-                } ?: "",
-            ),
+                }
+                else -> null
+            },
         )
 
         binding.certificateCard.setOnCardClickListener {

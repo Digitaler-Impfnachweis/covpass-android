@@ -72,11 +72,11 @@
           android:layout_height="wrap_content"
           android:ellipsize="end"
           android:maxLines="1"
-          android:text="@string/infschg_start_notification"
           android:visibility="gone"
           app:layout_constraintEnd_toEndOf="@+id/certificate_name_textview"
           app:layout_constraintStart_toStartOf="@+id/certificate_name_textview"
           app:layout_constraintTop_toBottomOf="@+id/certificate_name_textview"
+          tools:text="@string/infschg_start_notification"
           tools:visibility="visible" />
 
         <ImageView
@@ -107,54 +107,6 @@
         app:layout_constraintEnd_toEndOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/certificate_holder_name">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/certificate_status_layout"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
-
-          <ImageView
-            android:id="@+id/certificate_mask_status_imageview"
-            android:layout_width="@dimen/grid_four"
-            android:layout_height="@dimen/grid_four"
-            android:layout_marginStart="@dimen/grid_two"
-            android:layout_marginTop="@dimen/grid_one"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription"
-            tools:src="@drawable/status_mask_required" />
-
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_one"
-            android:layout_marginTop="@dimen/grid_half"
-            android:layout_marginEnd="@dimen/grid_two"
-            android:importantForAccessibility="yes"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/certificate_mask_status_imageview"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-              android:id="@+id/certificate_mask_status_textview"
-              style="@style/Header.OnBackground.Small"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/certificate_type_basic_immunisation" />
-
-            <TextView
-              android:id="@+id/certificate_federal_state_textview"
-              style="@style/DefaultText.OnBackground"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content" />
-
-          </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
           android:id="@+id/certificate_covpass_check_textview"

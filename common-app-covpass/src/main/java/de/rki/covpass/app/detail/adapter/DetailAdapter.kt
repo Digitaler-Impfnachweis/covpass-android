@@ -124,11 +124,6 @@ private class WidgetViewHolder(
                 binding.detailStatusSubheaderTextview.text = it
             }
 
-            widget.region?.let {
-                binding.detailRegionSubheaderTextview.isVisible = true
-                binding.detailRegionSubheaderTextview.text = it
-            }
-
             widget.link?.let {
                 binding.detailStatusLinkTextview.isVisible = true
                 binding.detailStatusLinkTextview.apply {
@@ -147,10 +142,6 @@ private class WidgetViewHolder(
                 }
                 binding.detailNoticeSubheaderTextview.isVisible = true
                 binding.detailNoticeSubheaderTextview.text = it
-                binding.changeFederalStateButton.isVisible = true
-                binding.changeFederalStateButton.setOnClickListener {
-                    listener.onChangeFederalStateClicked()
-                }
             }
             binding.detailInfoContainer.isVisible = widget.noticeMessage != null
 

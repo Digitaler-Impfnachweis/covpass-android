@@ -20,12 +20,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/grid_three"
-    android:layout_marginTop="@dimen/grid_half"
     android:layout_marginEnd="@dimen/grid_two"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@id/detail_info_layout_for_accessibility"
     tools:ignore="ContentDescription"
-    tools:src="@drawable/status_mask_not_required" />
+    tools:src="@drawable/status_immunization_full" />
 
   <LinearLayout
     android:id="@+id/detail_info_layout_for_accessibility"
@@ -63,16 +62,6 @@
         tools:text="Befreit bis 18.09.2022"
         tools:visibility="visible" />
 
-      <TextView
-        android:id="@+id/detail_region_subheader_textview"
-        style="@style/DefaultText.OnBackground70"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/grid_three"
-        android:visibility="gone"
-        tools:text="In Mecklenburg-Vorpommern"
-        tools:visibility="visible" />
-
     </LinearLayout>
 
     <TextView
@@ -85,22 +74,6 @@
       tools:text="Weisen Sie Ihren Impfschutz mit dem Impfnachweis nach. Der Nachweis enthält nur Ihren Namen und Ihr Geburtsdatum." />
 
   </LinearLayout>
-
-  <com.google.android.material.button.MaterialButton
-    android:id="@+id/change_federal_state_button"
-    style="@style/PrimaryButtonWithOutline.LightWithBorder"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_three"
-    android:layout_marginEnd="@dimen/grid_three"
-    android:layout_marginBottom="@dimen/grid_two"
-    android:foreground="@drawable/keyboard_highlight_selector"
-    android:text="@string/infschg_detail_page_mask_status_uncertain_button"
-    android:textSize="@dimen/textsize_default"
-    android:visibility="gone"
-    app:layout_constraintStart_toStartOf="@id/detail_info_layout_for_accessibility"
-    app:layout_constraintTop_toBottomOf="@+id/detail_info_layout_for_accessibility"
-    tools:visibility="visible" />
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/detail_show_certificate_button"
@@ -117,7 +90,7 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/change_federal_state_button"
+    app:layout_constraintTop_toBottomOf="@id/detail_info_layout_for_accessibility"
     tools:text="@string/certificates_overview_expired_action_button_title"
     tools:visibility="visible" />
 
@@ -127,7 +100,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/grid_two"
     android:visibility="gone"
-    app:layout_constraintTop_toBottomOf="@+id/change_federal_state_button"
+    app:layout_constraintTop_toBottomOf="@+id/detail_info_layout_for_accessibility"
     tools:visibility="visible">
 
     <androidx.constraintlayout.widget.ConstraintLayout

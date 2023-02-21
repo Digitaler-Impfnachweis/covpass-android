@@ -11,10 +11,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.app.R
 import de.rki.covpass.app.databinding.CertificateCardBinding
-import de.rki.covpass.sdk.cert.models.MaskStatus
+import de.rki.covpass.sdk.cert.models.CertValidationResult
 import kotlin.properties.Delegates
 
 public class CertificateCard @JvmOverloads constructor(
@@ -29,21 +28,18 @@ public class CertificateCard @JvmOverloads constructor(
     private val binding: CertificateCardBinding =
         CertificateCardBinding.inflate(LayoutInflater.from(context))
 
-    private var maskStatusString: String? by Delegates.observable(null) { _, _, newValue ->
-        binding.certificateMaskStatusTextview.text = newValue
-        binding.certificateMaskStatusTextview.isVisible = newValue != null
-    }
-    private var maskStatusIcon: Int by Delegates.observable(R.drawable.status_mask_required) { _, _, newValue ->
-        binding.certificateMaskStatusImageview.setImageResource(newValue)
-    }
-
     private var showNotification: Boolean by Delegates.observable(false) { _, _, newValue ->
         binding.certificateRedDotNotification.isVisible = newValue
         binding.certificateNotificationText.isVisible = newValue
     }
 
     private var cardBackground: Int by Delegates.observable(R.color.info70) { _, _, newValue ->
-        binding.certificateCardview.setCardBackgroundColor(ContextCompat.getColor(context, newValue))
+        binding.certificateCardview.setCardBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                newValue,
+            ),
+        )
     }
 
     public var qrCodeImage: Bitmap? by Delegates.observable(null) { _, _, newValue ->
@@ -70,56 +66,28 @@ public class CertificateCard @JvmOverloads constructor(
 
     public fun createCertificateCardView(
         fullName: String,
-        maskStatus: MaskStatus,
+        certStatus: CertValidationResult,
         hasNotification: Boolean,
         notificationText: String?,
-        federalState: String,
     ) {
         binding.certificateNameTextview.text = fullName
         showNotification = hasNotification
         if (hasNotification) {
             binding.certificateNotificationText.text = notificationText ?: ""
         }
-        showMaskStatus(maskStatus)
-        updateBackground(maskStatus)
-        if (maskStatus == MaskStatus.Invalid) {
-            showInvalidCard()
-        }
-        binding.certificateFederalStateTextview.text = federalState
-    }
-
-    private fun showMaskStatus(maskRequired: MaskStatus) {
-        when (maskRequired) {
-            MaskStatus.NotRequired -> {
-                maskStatusIcon = R.drawable.status_mask_not_required
-                maskStatusString = getString(R.string.infschg_start_mask_optional)
+        when (certStatus) {
+            CertValidationResult.Expired,
+            CertValidationResult.Invalid,
+            CertValidationResult.Revoked,
+            -> {
+                showInvalidCard()
             }
-            MaskStatus.Required -> {
-                maskStatusIcon = R.drawable.status_mask_required
-                maskStatusString = getString(R.string.infschg_start_mask_mandatory)
-            }
-            MaskStatus.Invalid -> {
-                maskStatusIcon = R.drawable.status_mask_invalid
-                maskStatusString = getString(R.string.infschg_start_expired_revoked)
-            }
-            MaskStatus.NoRules -> {
-                maskStatusIcon = R.drawable.status_mask_invalid
-                maskStatusString = getString(R.string.infschg_start_screen_status_grey_2)
-            }
-        }
-    }
-
-    private fun updateBackground(maskStatus: MaskStatus) {
-        cardBackground = when (maskStatus) {
-            MaskStatus.NotRequired -> R.color.full_immunization_green
-            MaskStatus.Required -> R.color.info70
-            MaskStatus.Invalid -> R.color.onBrandBase60
-            MaskStatus.NoRules -> R.color.info70
+            else -> {}
         }
     }
 
     private fun showInvalidCard() {
-        binding.certificateFederalStateTextview.isVisible = false
+        cardBackground = R.color.onBrandBase60
         binding.certificateQrImageview.foreground =
             ContextCompat.getDrawable(context, R.drawable.expired_overlay_icon_foreground)
         binding.certificateQrImageview.backgroundTintList =

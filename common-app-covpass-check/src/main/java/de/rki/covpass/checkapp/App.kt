@@ -7,8 +7,6 @@ package de.rki.covpass.checkapp
 
 import com.ensody.reactivestate.DependencyAccessor
 import com.ibm.health.common.android.utils.appVersion
-import de.rki.covpass.checkapp.dependencies.CovpassCheckDependencies
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
 import de.rki.covpass.checkapp.errorhandling.ErrorHandler
 import de.rki.covpass.commonapp.CommonApplication
 import de.rki.covpass.commonapp.dependencies.CommonDependencies
@@ -22,7 +20,6 @@ public class App : CommonApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        covpassCheckDeps = CovpassCheckDependencies()
         commonDeps = object : CommonDependencies() {
             override val errorHandler = ErrorHandler()
         }

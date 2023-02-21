@@ -22,13 +22,12 @@ import de.rki.covpass.sdk.cert.BoosterRulesValidator
 import de.rki.covpass.sdk.cert.CertValidator
 import de.rki.covpass.sdk.cert.CovPassCountriesRemoteDataSource
 import de.rki.covpass.sdk.cert.CovPassDomesticRulesRemoteDataSource
-import de.rki.covpass.sdk.cert.CovPassMaskRulesDateResolver
 import de.rki.covpass.sdk.cert.CovPassRulesRemoteDataSource
 import de.rki.covpass.sdk.cert.CovPassRulesValidator
 import de.rki.covpass.sdk.cert.CovPassValueSetsRemoteDataSource
 import de.rki.covpass.sdk.cert.DscListDecoder
 import de.rki.covpass.sdk.cert.DscListService
-import de.rki.covpass.sdk.cert.GStatusAndMaskValidator
+import de.rki.covpass.sdk.cert.GStatusValidator
 import de.rki.covpass.sdk.cert.QRCoder
 import de.rki.covpass.sdk.cert.models.CertificateListMapper
 import de.rki.covpass.sdk.cert.models.DscList
@@ -461,12 +460,8 @@ public abstract class SdkDependencies {
         )
     }
 
-    public val gStatusAndMaskValidator: GStatusAndMaskValidator by lazy {
-        GStatusAndMaskValidator(domesticRulesValidator)
-    }
-
-    public val covPassMaskRulesDateResolver: CovPassMaskRulesDateResolver by lazy {
-        CovPassMaskRulesDateResolver(covPassDomesticRulesRepository)
+    public val gStatusValidator: GStatusValidator by lazy {
+        GStatusValidator(domesticRulesValidator)
     }
 
     private val boosterCertLogicEngine: BoosterCertLogicEngine by lazy {

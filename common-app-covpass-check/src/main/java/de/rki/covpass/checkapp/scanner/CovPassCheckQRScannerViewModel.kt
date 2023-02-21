@@ -8,12 +8,7 @@ package de.rki.covpass.checkapp.scanner
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.ErrorEvents
-import de.rki.covpass.checkapp.dependencies.covpassCheckDeps
-import de.rki.covpass.checkapp.storage.CheckAppRepository
-import de.rki.covpass.checkapp.storage.CheckingMode
 import de.rki.covpass.checkapp.validitycheck.CovPassCheckImmunityValidationResult
-import de.rki.covpass.checkapp.validitycheck.CovPassCheckValidationResult
-import de.rki.covpass.checkapp.validitycheck.validate
 import de.rki.covpass.checkapp.validitycheck.validateEntry
 import de.rki.covpass.checkapp.validitycheck.validateImmunityStatus
 import de.rki.covpass.commonapp.dependencies.commonDeps
@@ -40,10 +35,19 @@ import java.time.ZonedDateTime
  * Interface to communicate events from [CovPassCheckQRScannerViewModel] to [CovPassCheckQRScannerFragment].
  */
 internal interface CovPassCheckQRScannerEvents : ErrorEvents {
-    fun onValidationSuccess(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
-    fun onValidationFailure(certificate: CovCertificate, isSecondCertificate: Boolean, dataComparison: DataComparison)
+    fun onValidationSuccess(
+        certificate: CovCertificate,
+        isSecondCertificate: Boolean,
+        dataComparison: DataComparison,
+    )
+
+    fun onValidationFailure(
+        certificate: CovCertificate,
+        isSecondCertificate: Boolean,
+        dataComparison: DataComparison,
+    )
+
     fun onValidationTechnicalFailure(certificate: CovCertificate? = null, numberOfCertificates: Int)
-    fun onValidationNoRulesFailure(certificate: CovCertificate)
     fun onImmunityValidationSuccess(
         certificate: CovCertificate,
         dataComparison: DataComparison3Certs,
@@ -60,7 +64,11 @@ internal interface CovPassCheckQRScannerEvents : ErrorEvents {
         numberOfCertificates: Int,
     )
 
-    fun onImmunityValidationTechnicalFailure(certificate: CovCertificate? = null, numberOfCertificates: Int)
+    fun onImmunityValidationTechnicalFailure(
+        certificate: CovCertificate? = null,
+        numberOfCertificates: Int,
+    )
+
     fun onImmunityEntryValidationSuccess(certificate: CovCertificate)
     fun onImmunityEntryValidationFailure(certificate: CovCertificate? = null)
     fun showWarningDuplicatedType()
@@ -79,8 +87,6 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     private val domesticRulesValidator: CovPassRulesValidator = sdkDeps.domesticRulesValidator,
     private val euRulesValidator: CovPassRulesValidator = sdkDeps.euRulesValidator,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
-    private val regionId: String = commonDeps.federalStateRepository.federalState.value,
-    private val checkAppRepository: CheckAppRepository = covpassCheckDeps.checkAppRepository,
     private val checkContextRepository: CheckContextRepository = commonDeps.checkContextRepository,
     private val covPassEuRulesRepository: CovPassEuRulesRepository = sdkDeps.covPassEuRulesRepository,
 ) : BaseReactiveState<CovPassCheckQRScannerEvents>(scope) {
@@ -96,84 +102,56 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                 val dgcEntry = covCertificate.dgcEntry
                 val firstCovCert = firstCovCertificate
                 val secondCovCert = secondCovCertificate
-                if (listOfNotNull(firstCovCert, secondCovCert).any { it.dgcEntry.id == dgcEntry.id }) {
+                if (listOfNotNull(
+                        firstCovCert,
+                        secondCovCert,
+                    ).any { it.dgcEntry.id == dgcEntry.id }
+                ) {
                     eventNotifier {
                         showWarningDuplicatedCertificate()
                     }
                     return@launch
                 }
-                if (checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeMaskStatus) {
-                    if (firstCovCert != null && dgcEntry.type == firstCovCert.dgcEntry.type) {
-                        eventNotifier {
-                            showWarningDuplicatedType()
-                        }
-                        return@launch
-                    }
-                }
-                val isSecondCertificate = when {
-                    firstCovCert == null -> {
-                        firstCovCertificate = covCertificate
-                        false
-                    }
-                    secondCovCert == null -> {
-                        secondCovCertificate = covCertificate
-                        true
-                    }
-                    else -> {
-                        thirdCovCertificate = covCertificate
-                        false
-                    }
-                }
                 validateEntity(dgcEntry.idWithoutPrefix)
 
                 val mergedCovCertificate: CovCertificate =
                     getMergedCertificate(
-                        listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate),
+                        listOfNotNull(
+                            firstCovCertificate,
+                            secondCovCertificate,
+                            thirdCovCertificate,
+                        ),
                     ) ?: return@launch
 
-                if (checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeMaskStatus) {
-                    maskStatusValidation(
+                if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
+                    immunityStatusValidation(
                         mergedCovCertificate = mergedCovCertificate,
                         covCertificate = covCertificate,
                         firstCovCert = firstCovCert,
-                        isSecondCertificate,
+                        secondCovCert = secondCovCert,
+                        listOfNotNull(
+                            firstCovCertificate,
+                            secondCovCertificate,
+                            thirdCovCertificate,
+                        ).size,
                     )
                 } else {
-                    if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
-                        immunityStatusValidation(
-                            mergedCovCertificate = mergedCovCertificate,
-                            covCertificate = covCertificate,
-                            firstCovCert = firstCovCert,
-                            secondCovCert = secondCovCert,
-                            listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
-                        )
-                    } else {
-                        entryValidation(
-                            covCertificate = covCertificate,
-                        )
-                    }
+                    entryValidation(
+                        covCertificate = covCertificate,
+                    )
                 }
             } catch (exception: Exception) {
                 Lumber.e(exception)
-                if (checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeMaskStatus) {
+                if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
                     eventNotifier {
-                        onValidationTechnicalFailure(
+                        onImmunityValidationTechnicalFailure(
                             null,
                             listOfNotNull(firstCovCertificate, secondCovCertificate).size + 1,
                         )
                     }
                 } else {
-                    if (checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeIfsg) {
-                        eventNotifier {
-                            onImmunityValidationTechnicalFailure(
-                                null,
-                                listOfNotNull(firstCovCertificate, secondCovCertificate).size + 1,
-                            )
-                        }
-                    } else {
-                        eventNotifier {
-                            onImmunityEntryValidationFailure()
-                        }
+                    eventNotifier {
+                        onImmunityEntryValidationFailure()
                     }
                 }
             }
@@ -183,8 +161,8 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
     fun validateScanningType() {
         launch {
             if (
-                checkAppRepository.activatedCheckingMode.value == CheckingMode.ModeImmunizationStatus &&
-                checkContextRepository.vaccinationProtectionMode.value == VaccinationProtectionMode.ModeEntryRules
+                checkContextRepository.vaccinationProtectionMode.value ==
+                VaccinationProtectionMode.ModeEntryRules
             ) {
                 val listOfRules = covPassEuRulesRepository.getRulesByType(
                     "de",
@@ -233,50 +211,6 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
         )
     }
 
-    private suspend fun maskStatusValidation(
-        mergedCovCertificate: CovCertificate,
-        covCertificate: CovCertificate,
-        firstCovCert: CovCertificate?,
-        isSecondCertificate: Boolean,
-    ) {
-        when (
-            validate(
-                mergedCovCertificate = mergedCovCertificate,
-                covCertificate = covCertificate,
-                domesticRulesValidator = domesticRulesValidator,
-                euRulesValidator = euRulesValidator,
-                revocationRemoteListRepository,
-                regionId,
-            )
-        ) {
-            CovPassCheckValidationResult.Success -> eventNotifier {
-                val validateData = if (firstCovCert != null) {
-                    compareData(firstCovCert, covCertificate)
-                } else {
-                    DataComparison.HasNullData
-                }
-                onValidationSuccess(mergedCovCertificate, isSecondCertificate, validateData)
-            }
-            CovPassCheckValidationResult.ValidationError -> eventNotifier {
-                val validateData = if (firstCovCert != null) {
-                    compareData(firstCovCert, covCertificate)
-                } else {
-                    DataComparison.HasNullData
-                }
-                onValidationFailure(mergedCovCertificate, isSecondCertificate, validateData)
-            }
-            CovPassCheckValidationResult.NoMaskRulesError -> eventNotifier {
-                onValidationNoRulesFailure(mergedCovCertificate)
-            }
-            CovPassCheckValidationResult.TechnicalError -> eventNotifier {
-                onValidationTechnicalFailure(
-                    mergedCovCertificate,
-                    listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
-                )
-            }
-        }
-    }
-
     private suspend fun immunityStatusValidation(
         mergedCovCertificate: CovCertificate,
         covCertificate: CovCertificate,
@@ -323,7 +257,11 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
             CovPassCheckImmunityValidationResult.TechnicalError -> eventNotifier {
                 onImmunityValidationTechnicalFailure(
                     mergedCovCertificate,
-                    listOfNotNull(firstCovCertificate, secondCovCertificate, thirdCovCertificate).size,
+                    listOfNotNull(
+                        firstCovCertificate,
+                        secondCovCertificate,
+                        thirdCovCertificate,
+                    ).size,
                 )
             }
         }
@@ -354,7 +292,10 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
         }
     }
 
-    private fun compareData(covCertificate: CovCertificate, covCertificate2: CovCertificate): DataComparison {
+    private fun compareData(
+        covCertificate: CovCertificate,
+        covCertificate2: CovCertificate,
+    ): DataComparison {
         val name1 = covCertificate.name
         val name2 = covCertificate2.name
         val dob1 = covCertificate.birthDate

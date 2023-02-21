@@ -34,12 +34,9 @@ import de.rki.covpass.app.databinding.DetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DetailAdapter
 import de.rki.covpass.app.detail.adapter.DetailItem
-import de.rki.covpass.app.information.FederalStateSettingFragmentNav
 import de.rki.covpass.commonapp.BaseFragment
-import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.commonapp.utils.FederalStateResolver
 import de.rki.covpass.sdk.cert.models.BoosterResult
 import de.rki.covpass.sdk.cert.models.CertValidationResult
 import de.rki.covpass.sdk.cert.models.DGCEntryType
@@ -47,7 +44,6 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.sdk.cert.models.ImmunizationStatus
-import de.rki.covpass.sdk.cert.models.MaskStatus
 import de.rki.covpass.sdk.cert.models.Recovery
 import de.rki.covpass.sdk.cert.models.RecoveryCertType
 import de.rki.covpass.sdk.cert.models.ReissueState
@@ -56,7 +52,6 @@ import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.TestCertType
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.models.VaccinationCertType
-import de.rki.covpass.sdk.cert.models.isExpired
 import de.rki.covpass.sdk.utils.formatDate
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -77,7 +72,6 @@ public interface DetailClickListener {
     public fun onShowCertificateClicked()
     public fun onNewCertificateScanClicked()
     public fun onCovCertificateClicked(id: String, dgcEntryType: DGCEntryType)
-    public fun onChangeFederalStateClicked()
 }
 
 internal enum class DetailBoosterAction {
@@ -119,15 +113,7 @@ internal class DetailFragment :
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         autoRun {
-            updateViews(
-                get(covpassDeps.certRepository.certs),
-                FederalStateResolver.getFederalStateByCode(
-                    get(commonDeps.federalStateRepository.federalState),
-                )?.nameRes?.let {
-                    getString(it)
-                },
-                get(viewModel.maskRuleValidFrom),
-            )
+            updateViews(get(covpassDeps.certRepository.certs))
         }
     }
 
@@ -175,21 +161,11 @@ internal class DetailFragment :
                 positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
             )
             showDialog(dialogModel, childFragmentManager)
-            updateViews(
-                covpassDeps.certRepository.certs.value,
-                FederalStateResolver.getFederalStateByCode(
-                    commonDeps.federalStateRepository.federalState.value,
-                )?.nameRes?.let { getString(it) },
-                viewModel.maskRuleValidFrom.value,
-            )
+            updateViews(covpassDeps.certRepository.certs.value)
         }
     }
 
-    private fun updateViews(
-        certList: GroupedCertificatesList,
-        region: String?,
-        ruleValidFromDate: String?,
-    ) {
+    private fun updateViews(certList: GroupedCertificatesList) {
         val certId = args.groupedCertificatesId
         val firstAdded = args.isFirstAdded
         // Can be null after deletion... in this case no update is necessary anymore
@@ -207,12 +183,6 @@ internal class DetailFragment :
             }
 
             val immunizationStatusWrapper = groupedCertificate.immunizationStatusWrapper
-            val maskStatusWrapper = groupedCertificate.maskStatusWrapper
-            val maskStatus = if (viewModel.maskRuleValidFrom.value?.isNotBlank() == true && cert.isExpired()) {
-                maskStatusWrapper.maskStatus
-            } else {
-                MaskStatus.NoRules
-            }
             val personalDataList: MutableList<DetailItem> = mutableListOf(
                 DetailItem.Name(cert.fullName),
             )
@@ -360,109 +330,6 @@ internal class DetailFragment :
                     )
                 }
             }
-
-            personalDataList.add(
-                DetailItem.Widget(
-                    title = getString(
-                        when (maskStatus) {
-                            MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_title
-                            MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_title
-                            MaskStatus.Invalid -> if (
-                                mainCertificate.status == CertValidationResult.Expired &&
-                                mainCertificate.reissueState == ReissueState.AfterTimeLimit
-                            ) {
-                                R.string.infschg_detail_view_status_not_applicable_title
-                            } else {
-                                R.string.infschg_detail_page_no_valid_certificate_title
-                            }
-                            MaskStatus.NoRules -> R.string.infschg_start_screen_status_grey_2
-                        },
-                    ),
-                    statusIcon = when (maskStatus) {
-                        MaskStatus.NotRequired -> R.drawable.status_mask_not_required
-                        MaskStatus.Required -> R.drawable.status_mask_required
-                        MaskStatus.Invalid -> R.drawable.status_mask_invalid
-                        MaskStatus.NoRules -> R.drawable.status_mask_invalid
-                    },
-                    message = when (maskStatus) {
-                        MaskStatus.NotRequired ->
-                            getString(
-                                R.string.infschg_detail_page_no_mask_mandatory_copy_1,
-                                ruleValidFromDate,
-                            )
-                        MaskStatus.Required ->
-                            getString(
-                                R.string.infschg_detail_page_mask_mandatory_copy_1,
-                                ruleValidFromDate,
-                            )
-                        MaskStatus.Invalid -> if (
-                            mainCertificate.status == CertValidationResult.Expired &&
-                            mainCertificate.reissueState == ReissueState.AfterTimeLimit
-                        ) {
-                            getString(R.string.infschg_detail_view_status_not_applicable_copy)
-                        } else {
-                            getString(R.string.infschg_detail_page_no_valid_certificate_copy)
-                        }
-                        MaskStatus.NoRules ->
-                            getString(R.string.infschg_detail_page_mask_status_uncertain_copy_1)
-                    },
-                    link = when (maskStatus) {
-                        MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_link
-                        MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_link
-                        MaskStatus.Invalid -> R.string.infschg_detail_page_no_valid_certificate_link
-                        MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_link
-                    },
-                    region = when (maskStatus) {
-                        MaskStatus.NotRequired,
-                        MaskStatus.Required,
-                        -> getString(
-                            R.string.infschg_detail_page_mask_mandatory_federal_state,
-                            region,
-                        )
-                        MaskStatus.Invalid -> null
-                        MaskStatus.NoRules,
-                        -> getString(
-                            R.string.infschg_detail_page_mask_status_uncertain_federal_state,
-                            region,
-                        )
-                    },
-                    noticeMessage = if (
-                        mainCertificate.status == CertValidationResult.Expired &&
-                        mainCertificate.reissueState == ReissueState.AfterTimeLimit &&
-                        maskStatus != MaskStatus.NoRules
-                    ) {
-                        null
-                    } else {
-                        getString(
-                            when (maskStatus) {
-                                MaskStatus.NotRequired -> R.string.infschg_detail_page_no_mask_mandatory_copy_2
-                                MaskStatus.Required -> R.string.infschg_detail_page_mask_mandatory_copy_2
-                                MaskStatus.Invalid -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
-                                MaskStatus.NoRules -> R.string.infschg_detail_page_mask_status_uncertain_copy_2
-                            },
-                        )
-                    },
-                    subtitle = if (maskStatusWrapper.additionalDate.isNotEmpty()) {
-                        when (maskStatus) {
-                            MaskStatus.Required -> {
-                                getString(
-                                    R.string.infschg_cert_overview_mask_time_from,
-                                    maskStatusWrapper.additionalDate,
-                                )
-                            }
-                            MaskStatus.NotRequired -> {
-                                getString(
-                                    R.string.infschg_cert_overview_mask_time_until,
-                                    maskStatusWrapper.additionalDate,
-                                )
-                            }
-                            else -> null
-                        }
-                    } else {
-                        null
-                    },
-                ),
-            )
 
             if (immunizationStatusWrapper.immunizationStatus != ImmunizationStatus.Invalid) {
                 personalDataList.add(
@@ -693,10 +560,6 @@ internal class DetailFragment :
         }.let {}
     }
 
-    override fun onChangeFederalStateClicked() {
-        findNavigator().push(FederalStateSettingFragmentNav())
-    }
-
     private fun setupActionBar() {
         attachToolbar(binding.detailToolbar)
         val activity = (activity as? AppCompatActivity)
@@ -742,13 +605,7 @@ internal class DetailFragment :
     override fun onReissueCancel() {}
 
     override fun onReissueFinish(certificatesId: GroupedCertificatesId?) {
-        updateViews(
-            covpassDeps.certRepository.certs.value,
-            FederalStateResolver.getFederalStateByCode(
-                commonDeps.federalStateRepository.federalState.value,
-            )?.nameRes?.let { getString(it) },
-            viewModel.maskRuleValidFrom.value,
-        )
+        updateViews(covpassDeps.certRepository.certs.value)
     }
 
     private fun ReissueState.isReadyForReissue(isMainCertReadyForReissue: Boolean): Boolean =
