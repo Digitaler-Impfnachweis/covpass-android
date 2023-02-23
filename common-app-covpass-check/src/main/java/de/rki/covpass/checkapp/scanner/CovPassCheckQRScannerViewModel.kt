@@ -112,6 +112,17 @@ internal class CovPassCheckQRScannerViewModel @OptIn(DependencyAccessor::class) 
                     }
                     return@launch
                 }
+                when {
+                    firstCovCert == null -> {
+                        firstCovCertificate = covCertificate
+                    }
+                    secondCovCert == null -> {
+                        secondCovCertificate = covCertificate
+                    }
+                    else -> {
+                        thirdCovCertificate = covCertificate
+                    }
+                }
                 validateEntity(dgcEntry.idWithoutPrefix)
 
                 val mergedCovCertificate: CovCertificate =
