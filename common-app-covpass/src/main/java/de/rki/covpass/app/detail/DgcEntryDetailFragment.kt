@@ -26,7 +26,7 @@ import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
-import de.rki.covpass.app.boosterreissue.ReissueNotificationFragmentNav
+import de.rki.covpass.app.boosterreissue.ReissueConsentFragmentNav
 import de.rki.covpass.app.databinding.DgcEntryDetailBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.adapter.DgcEntryDetailAdapter
@@ -335,9 +335,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             combinedCovCertificate.reissueState == ReissueState.Ready,
         ) {
             findNavigator().push(
-                ReissueNotificationFragmentNav(
-                    ReissueType.Vaccination,
+                ReissueConsentFragmentNav(
                     groupedCertificate.getListOfVaccinationIdsReadyForReissue(),
+                    ReissueType.Vaccination,
                 ),
             )
         }
@@ -396,9 +396,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
             combinedCovCertificate.reissueState == ReissueState.Ready,
         ) {
             findNavigator().push(
-                ReissueNotificationFragmentNav(
-                    ReissueType.Recovery,
+                ReissueConsentFragmentNav(
                     listOf(certId) + groupedCertificate.getHistoricalDataForDcc(certId),
+                    ReissueType.Recovery,
                 ),
             )
         }
