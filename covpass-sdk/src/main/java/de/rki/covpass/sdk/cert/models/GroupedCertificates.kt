@@ -301,7 +301,8 @@ public data class GroupedCertificates(
     /**
      * @return The latest valid [CombinedCovCertificate] that is a [Recovery]
      */
-    public fun getLatestValidRecovery(): CombinedCovCertificate? = getLatestValidRecoveries().firstOrNull()
+    public fun getLatestValidRecovery(): CombinedCovCertificate? =
+        getLatestValidRecoveries().firstOrNull()
 
     /**
      * @return The latest valid [CombinedCovCertificate]'s that are [Recovery]
@@ -374,8 +375,10 @@ public data class GroupedCertificates(
         val expiredGermanRecoveryIds = getExpiredGermanRecoveryIds(certificates)
         val expiredNotGermanVaccinationId = getExpiredNotGermanVaccinationId(getLatestVaccination())
         val expiredNotGermanRecoveryIds = getExpiredNotGermanRecoveryIds(certificates)
-        val expiredGermanAfter90DaysVaccinationId = getExpiredGermanAfter90DaysVaccinationId(getLatestVaccination())
-        val expiredGermanAfter90DaysRecoveryIds = getExpiredGermanAfter90DaysRecoveryIds(certificates)
+        val expiredGermanAfter90DaysVaccinationId =
+            getExpiredGermanAfter90DaysVaccinationId(getLatestVaccination())
+        val expiredGermanAfter90DaysRecoveryIds =
+            getExpiredGermanAfter90DaysRecoveryIds(certificates)
         if (
             expiredGermanVaccinationId == null &&
             expiredGermanRecoveryIds.isEmpty() &&
@@ -463,7 +466,10 @@ public data class GroupedCertificates(
                     it.reissueState == ReissueState.NotGermanReady
                 ) &&
                 (
-                    (it.reissueType == ReissueType.Vaccination && it == getLatestVaccination()) ||
+                    (
+                        it.reissueType == ReissueType.Vaccination &&
+                            getMainCertificate() == getLatestVaccination()
+                        ) ||
                         it.reissueType == ReissueType.Recovery
                     )
         }
@@ -552,7 +558,8 @@ public data class GroupedCertificates(
 
         val filteredCertificates = getFilteredForHistoricalData(covCertificate, id)
         val vaccinationList = getFilteredVaccinationForHistoricalData(filteredCertificates)
-        val recoveryList = getFilteredRecoveryForHistoricalData(filteredCertificates, vaccinationList)
+        val recoveryList =
+            getFilteredRecoveryForHistoricalData(filteredCertificates, vaccinationList)
 
         return (vaccinationList + recoveryList).sortedWith { cert1, cert2 ->
             val date1 = (cert1.covCertificate.dgcEntry as? Vaccination)?.occurrence
