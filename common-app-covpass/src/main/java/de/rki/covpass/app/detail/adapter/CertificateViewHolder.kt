@@ -154,19 +154,19 @@ public class CertificateViewHolder(
                     binding.certificateExpiryInfo.isGone = true
                 }
                 CertValidationResult.ExpiryPeriod -> {
-                    binding.certificateExpiryInfo.isVisible = true
+                    binding.certificateExpiryInfo.isGone = cert.showReissueTitle
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_expires_soon_certificate_note)
                 }
                 CertValidationResult.Expired -> {
-                    binding.certificateExpiryInfo.isVisible = true
+                    binding.certificateExpiryInfo.isGone = cert.showReissueTitle
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_expired_certificate_note)
                 }
                 CertValidationResult.Invalid,
                 CertValidationResult.Revoked,
                 -> {
-                    binding.certificateExpiryInfo.isVisible = true
+                    binding.certificateExpiryInfo.isGone = cert.showReissueTitle
                     binding.certificateExpiryInfo.text =
                         getString(R.string.certificates_overview_invalid_certificate_note)
                 }
