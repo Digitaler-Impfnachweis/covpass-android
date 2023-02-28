@@ -440,8 +440,8 @@
 	<string name="certificates_overview_pcr_test_certificate_title">Test certificate</string>
 	<string name="certificates_overview_pcr_test_certificate_message">PCR test</string>
 	<string name="certificates_overview_pcr_test_certificate_date">Sample taken on %s</string>
-	<string name="certificates_overview_all_certificates_app_reference_title">Please scan!</string>
-	<string name="certificates_overview_all_certificates_app_reference_text">Do not show this sensitive data to other people in restaurants, at events or in similar situations. Always have your QR code checked with the CovPassCheck app.</string>
+	<string name="certificates_overview_all_certificates_app_reference_title">Notice:</string>
+	<string name="certificates_overview_all_certificates_app_reference_text">Do not show this sensitive data. In testing situations, only let the QR code be scanned with the CovPassCheck app.</string>
 
 	<!-- SECTION: detail view: delete certificate -->
 	<string name="accessibility_certificate_detail_view_label_delete_button">Delete certificate</string>
