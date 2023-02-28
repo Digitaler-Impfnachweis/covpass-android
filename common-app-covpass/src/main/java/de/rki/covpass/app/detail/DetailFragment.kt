@@ -270,7 +270,10 @@ internal class DetailFragment :
                     personalDataList.add(
                         DetailItem.ReissueNotification(
                             when (recovery?.reissueState) {
-                                ReissueState.Ready -> {
+                                ReissueState.Ready,
+                                ReissueState.NotGermanReady,
+                                ReissueState.AfterTimeLimit,
+                                -> {
                                     if (recovery.status == CertValidationResult.Expired) {
                                         R.string.renewal_bluebox_title_expired_recovery
                                     } else {

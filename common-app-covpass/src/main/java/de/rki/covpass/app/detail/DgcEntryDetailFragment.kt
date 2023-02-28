@@ -370,6 +370,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                         R.string.renewal_bluebox_title_expiring_soon_recovery
                     }
                 }
+                ReissueState.AfterTimeLimit, ReissueState.NotGermanReady -> {
+                    R.string.renewal_bluebox_title_expired_recovery
+                }
                 else ->
                     R.string.renewal_bluebox_title_expiring_soon_recovery
             },

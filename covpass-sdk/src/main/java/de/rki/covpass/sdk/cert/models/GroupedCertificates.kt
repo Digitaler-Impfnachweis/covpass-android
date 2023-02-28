@@ -642,8 +642,11 @@ public data class GroupedCertificates(
     public fun getListOfRecoveryIdsReadyForReissue(): List<String> {
         return certificates
             .filter {
-                it.reissueState == ReissueState.Ready &&
-                    it.covCertificate.dgcEntry is Recovery
+                (
+                    it.reissueState == ReissueState.Ready ||
+                        it.reissueState == ReissueState.NotGermanReady ||
+                        it.reissueState == ReissueState.AfterTimeLimit
+                    ) && it.covCertificate.dgcEntry is Recovery
             }
             .map { it.covCertificate.dgcEntry.id }
     }
