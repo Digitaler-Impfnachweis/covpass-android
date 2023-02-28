@@ -48,10 +48,6 @@ internal class EUValueSetUtilsTest {
         covPassValueSets.map { it.toCovPassValueSetLocal() }
     }
 
-    private val euValueSets by lazy {
-        covPassValueSetsLocal.map { it.toEuValueSet() }
-    }
-
     init {
         coEvery {
             localDataSource.getAll()
@@ -63,34 +59,46 @@ internal class EUValueSetUtilsTest {
     @Test
     fun `validate manufacturers name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "vaccines-covid-19-auth-holders" }?.valueSetValues?.map {
+            covPassValueSetsLocal.find {
+                it.valueSetId == "vaccines-covid-19-auth-holders"
+            }?.toEuValueSet()?.valueSetValues?.map {
                 it.value.display
             },
-            covPassValueSetsRepository.getVaccineManufacturer()?.toEuValueSet()?.valueSetValues?.map {
-                covPassValueSetsRepository.getManufacturerName(it.value.display)
-            },
+            covPassValueSetsRepository.getVaccineManufacturer()
+                ?.toEuValueSet()?.valueSetValues?.map {
+                    covPassValueSetsRepository.getManufacturerName(it.value.display)
+                },
         )
     }
 
     @Test
     fun `validate empty manufacturers name`() {
         val rawManufacturersName = ""
-        assertEquals(rawManufacturersName, covPassValueSetsRepository.getManufacturerName(rawManufacturersName))
+        assertEquals(
+            rawManufacturersName,
+            covPassValueSetsRepository.getManufacturerName(rawManufacturersName),
+        )
     }
 
     @Test
     fun `validate invalid manufacturers name`() {
         val rawManufacturersName = "ORG-100030215XYZ"
-        assertEquals(rawManufacturersName, covPassValueSetsRepository.getManufacturerName(rawManufacturersName))
+        assertEquals(
+            rawManufacturersName,
+            covPassValueSetsRepository.getManufacturerName(rawManufacturersName),
+        )
     }
 
     @Test
     fun `validate product name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "vaccines-covid-19-names" }?.valueSetValues?.map { it.value.display },
-            covPassValueSetsRepository.getVaccineMedicalProduct()?.toEuValueSet()?.valueSetValues?.map {
-                covPassValueSetsRepository.getProductName(it.value.display)
-            },
+            covPassValueSetsLocal.find {
+                it.valueSetId == "vaccines-covid-19-names"
+            }?.toEuValueSet()?.valueSetValues?.map { it.value.display },
+            covPassValueSetsRepository.getVaccineMedicalProduct()
+                ?.toEuValueSet()?.valueSetValues?.map {
+                    covPassValueSetsRepository.getProductName(it.value.display)
+                },
         )
     }
 
@@ -109,29 +117,44 @@ internal class EUValueSetUtilsTest {
     @Test
     fun `validate prophylaxis name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "sct-vaccines-covid-19" }?.valueSetValues?.map { it.value.display },
-            covPassValueSetsRepository.getVaccineProphylaxis()?.toEuValueSet()?.valueSetValues?.map {
-                covPassValueSetsRepository.getManufacturerName(it.value.display)
+            covPassValueSetsLocal.find {
+                it.valueSetId == "sct-vaccines-covid-19"
+            }?.toEuValueSet()?.valueSetValues?.map {
+                it.value.display
             },
+            covPassValueSetsRepository.getVaccineProphylaxis()
+                ?.toEuValueSet()?.valueSetValues?.map {
+                    covPassValueSetsRepository.getManufacturerName(it.value.display)
+                },
         )
     }
 
     @Test
     fun `validate empty prophylaxis name`() {
         val rawProphylaxisName = ""
-        assertEquals(rawProphylaxisName, covPassValueSetsRepository.getProphylaxisName(rawProphylaxisName))
+        assertEquals(
+            rawProphylaxisName,
+            covPassValueSetsRepository.getProphylaxisName(rawProphylaxisName),
+        )
     }
 
     @Test
     fun `validate invalid prophylaxis name`() {
         val rawProphylaxisName = "1119349007XYZ"
-        assertEquals(rawProphylaxisName, covPassValueSetsRepository.getProphylaxisName(rawProphylaxisName))
+        assertEquals(
+            rawProphylaxisName,
+            covPassValueSetsRepository.getProphylaxisName(rawProphylaxisName),
+        )
     }
 
     @Test
     fun `validate test type name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "covid-19-lab-test-type" }?.valueSetValues?.map { it.value.display },
+            covPassValueSetsLocal.find {
+                it.valueSetId == "covid-19-lab-test-type"
+            }?.toEuValueSet()?.valueSetValues?.map {
+                it.value.display
+            },
             covPassValueSetsRepository.getTestType()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getTestTypeName(it.value.display)
             },
@@ -153,7 +176,11 @@ internal class EUValueSetUtilsTest {
     @Test
     fun `validate test result name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "covid-19-lab-result" }?.valueSetValues?.map { it.value.display },
+            covPassValueSetsLocal.find {
+                it.valueSetId == "covid-19-lab-result"
+            }?.toEuValueSet()?.valueSetValues?.map {
+                it.value.display
+            },
             covPassValueSetsRepository.getTestResult()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getTestResultName(it.value.display)
             },
@@ -163,19 +190,27 @@ internal class EUValueSetUtilsTest {
     @Test
     fun `validate empty test result name`() {
         val rawTestResultName = ""
-        assertEquals(rawTestResultName, covPassValueSetsRepository.getTestResultName(rawTestResultName))
+        assertEquals(
+            rawTestResultName,
+            covPassValueSetsRepository.getTestResultName(rawTestResultName),
+        )
     }
 
     @Test
     fun `validate invalid test result name`() {
         val rawTestResultName = "1119349007XYZ"
-        assertEquals(rawTestResultName, covPassValueSetsRepository.getTestResultName(rawTestResultName))
+        assertEquals(
+            rawTestResultName,
+            covPassValueSetsRepository.getTestResultName(rawTestResultName),
+        )
     }
 
     @Test
     fun `validate test manufacturer name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "covid-19-lab-test-manufacturer-and-name" }?.valueSetValues?.map {
+            covPassValueSetsLocal.find {
+                it.valueSetId == "covid-19-lab-test-manufacturer-and-name"
+            }?.toEuValueSet()?.valueSetValues?.map {
                 it.value.display
             },
             covPassValueSetsRepository.getTestManufacturer()?.toEuValueSet()?.valueSetValues?.map {
@@ -205,7 +240,11 @@ internal class EUValueSetUtilsTest {
     @Test
     fun `validate disease agent name`() {
         assertEquals(
-            euValueSets.find { it.valueSetId == "disease-agent-targeted" }?.valueSetValues?.map { it.value.display },
+            covPassValueSetsLocal.find {
+                it.valueSetId == "disease-agent-targeted"
+            }?.toEuValueSet()?.valueSetValues?.map {
+                it.value.display
+            },
             covPassValueSetsRepository.getDiseaseAgent()?.toEuValueSet()?.valueSetValues?.map {
                 covPassValueSetsRepository.getDiseaseAgentName(it.value.display)
             },
@@ -215,13 +254,19 @@ internal class EUValueSetUtilsTest {
     @Test
     fun `validate empty disease agent name`() {
         val rawDiseaseAgentName = ""
-        assertEquals(rawDiseaseAgentName, covPassValueSetsRepository.getDiseaseAgentName(rawDiseaseAgentName))
+        assertEquals(
+            rawDiseaseAgentName,
+            covPassValueSetsRepository.getDiseaseAgentName(rawDiseaseAgentName),
+        )
     }
 
     @Test
     fun `validate invalid disease agent name`() {
         val rawDiseaseAgentName = "1119349007XYZ"
-        assertEquals(rawDiseaseAgentName, covPassValueSetsRepository.getDiseaseAgentName(rawDiseaseAgentName))
+        assertEquals(
+            rawDiseaseAgentName,
+            covPassValueSetsRepository.getDiseaseAgentName(rawDiseaseAgentName),
+        )
     }
 
     private fun CovPassValueSet.toCovPassValueSetLocal() = CovPassValueSetLocal(

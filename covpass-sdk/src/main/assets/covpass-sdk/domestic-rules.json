@@ -1,1 +1,2446 @@
-[{"Identifier":"IB2-DE-0100","Country":"DE","Description":[{"lang":"en","desc":"You have received all currently recommended vaccinations. Your vaccination protection is complete."},{"desc":"Sie haben nun alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist vollständig.","lang":"de"}],"Type":"ImpfstatusBZwei","EngineVersion":"1.0.0","ValidTo":"2030-06-01T00:00:00Z","CertificateType":"General","Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"<":[{"var":"payload.v.0.dn"},3]},false,{"if":[{"===":[{"var":"payload.v.0.dn"},3]},{"if":[{"!":[{"var":"payload.r.0"}]},false,true]},true]}]}]},"Version":"1.0.0","Engine":"CERTLOGIC","AffectedFields":["r.0","v.0","v.0.dn"],"SchemaVersion":"1.0.0","hash":"9f065710ac9b7fcb5135a41565b427bd553eccfb126aebd283a8c06f3b32d518","ValidFrom":"2022-05-04T16:00:00Z"},{"CertificateType":"General","Description":[{"lang":"en","desc":"You have received all currently recommended vaccinations. Your vaccination protection is complete."},{"desc":"Sie haben nun alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist vollständig.","lang":"de"}],"Country":"DE","AffectedFields":["v.0","v.0.mp","v.1","v.1.mp","v.2","v.2.mp","v.3","v.3.mp","v.4","v.4.mp","v.5","v.5.mp","v.6","v.6.mp","v.7","v.7.mp","v.8","v.8.mp","v.9","v.9.mp"],"SchemaVersion":"1.0.0","Identifier":"IB2-DE-0200","ValidTo":"2030-06-01T00:00:00Z","EngineVersion":"1.0.0","Version":"1.0.0","Type":"ImpfstatusBZwei","hash":"dcc69ea07daa58110571f0052094f0e4e1d8933599b8bd79eee38f003a533a43","Engine":"CERTLOGIC","ValidFrom":"2022-05-04T16:00:00Z","Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507","EU\/1\/21\/1529","EU\/1\/20\/1525","EU\/1\/21\/1618","NVX-CoV2373","EU\/1\/21\/1624"]]},true,{"if":[{"!":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/21\/1529","Covishield","EU\/1\/20\/1525","EU\/1\/20\/1507","Inactivated-SARS-CoV-2-Vero-Cell","CoronaVac","Covaxin","Covovax","EU\/1\/21\/1618","Convidecia","WIBP-CorV"]]}]},false,{"if":[{"!":[{"var":"payload.v.1"}]},false,{"if":[{"in":[{"var":"payload.v.1.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.2"}]},false,{"if":[{"in":[{"var":"payload.v.2.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.3"}]},false,{"if":[{"in":[{"var":"payload.v.3.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.4"}]},false,{"if":[{"in":[{"var":"payload.v.4.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.5"}]},false,{"if":[{"in":[{"var":"payload.v.5.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.6"}]},false,{"if":[{"in":[{"var":"payload.v.6.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.7"}]},false,{"if":[{"in":[{"var":"payload.v.7.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.8"}]},false,{"if":[{"in":[{"var":"payload.v.8.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.9"}]},false,{"if":[{"in":[{"var":"payload.v.9.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,false]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}},{"EngineVersion":"1.0.0","ValidFrom":"2022-05-04T16:00:00Z","SchemaVersion":"1.0.0","ValidTo":"2030-06-01T00:00:00Z","Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"and":[{"!":[{"var":"payload.r.0"}]},{"===":[{"var":"payload.v.0.dn"},3]}]},true,false]}]},"Country":"DE","Type":"ImpfstatusCZwei","Engine":"CERTLOGIC","Identifier":"IC2-DE-0100","AffectedFields":["r.0","v.0","v.0.dn"],"CertificateType":"General","hash":"d5d8c9825e9b4a43517942dcaeb1b995c184ddb56d88fab7fe8a252ee6fa9e37","Description":[{"lang":"en","desc":"You have received all vaccinations for full vaccination protection. Your vaccination protection is effective. Please also find out about the recommended booster vaccinations."},{"desc":"Sie haben alle Impfungen für einen vollständigen Impfschutz erhalten. Ihr Impfschutz ist wirksam. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.","lang":"de"}],"Version":"1.0.0"},{"SchemaVersion":"1.0.0","EngineVersion":"1.0.0","Version":"1.0.0","AffectedFields":["v.0","v.0.mp","v.1","v.1.mp","v.2","v.2.mp","v.3","v.3.mp","v.4","v.4.mp","v.5","v.5.mp","v.6","v.6.mp","v.7","v.7.mp","v.8","v.8.mp","v.9","v.9.mp"],"hash":"83680f9191d76ee1d831f92f21ee33a5756c5ff524f246b4223395634ec2a6b1","Type":"ImpfstatusCZwei","Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507","EU\/1\/21\/1529","EU\/1\/20\/1525","EU\/1\/21\/1618","NVX-CoV2373","EU\/1\/21\/1624"]]},true,{"if":[{"!":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/21\/1529","Covishield","EU\/1\/20\/1525","EU\/1\/20\/1507","Inactivated-SARS-CoV-2-Vero-Cell","CoronaVac","Covaxin","Covovax","EU\/1\/21\/1618","Convidecia","WIBP-CorV"]]}]},false,{"if":[{"!":[{"var":"payload.v.1"}]},false,{"if":[{"in":[{"var":"payload.v.1.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.2"}]},false,{"if":[{"in":[{"var":"payload.v.2.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.3"}]},false,{"if":[{"in":[{"var":"payload.v.3.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.4"}]},false,{"if":[{"in":[{"var":"payload.v.4.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.5"}]},false,{"if":[{"in":[{"var":"payload.v.5.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.6"}]},false,{"if":[{"in":[{"var":"payload.v.6.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.7"}]},false,{"if":[{"in":[{"var":"payload.v.7.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.8"}]},false,{"if":[{"in":[{"var":"payload.v.8.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.9"}]},false,{"if":[{"in":[{"var":"payload.v.9.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,false]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]},"CertificateType":"General","Engine":"CERTLOGIC","Country":"DE","ValidFrom":"2022-05-04T16:00:00Z","ValidTo":"2030-06-01T00:00:00Z","Description":[{"lang":"en","desc":"You have received all vaccinations for full vaccination protection. Your vaccination protection is effective. Please also find out about the recommended booster vaccinations."},{"desc":"Sie haben alle Impfungen für einen vollständigen Impfschutz erhalten. Ihr Impfschutz ist wirksam. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.","lang":"de"}],"Identifier":"IC2-DE-0200"},{"SchemaVersion":"1.0.0","Description":[{"lang":"en","desc":"Based on your vaccination and past infection, you are considered to be fully vaccinated. However, your immune protection will not be effective until 29 days passed since your recovery. Please consider that you could still be contagious and also find out about the recommended booster vaccinations."},{"desc":"Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Allerdings ist Ihr Immunschutz erst wirksam, wenn seit Ihrer Genesung 29 Tage vergangen sind. Bitte bedenken Sie, dass Sie noch ansteckend sein können und informieren Sie sich auch über empfohlene Auffrischimpfungen.","lang":"de"}],"Type":"ImpfstatusEEins","EngineVersion":"1.0.0","AffectedFields":["r.0","r.0.fr","v.0","v.0.dn"],"ValidTo":"2030-06-01T00:00:00Z","Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"===":[{"var":"payload.v.0.dn"},2]},{"if":[{"!":[{"var":"payload.r.0"}]},false,{"if":[{"not-after":[{"plusTime":[{"var":"payload.r.0.fr"},29,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"day"]}]},false,true]}]},false]}]},"ValidFrom":"2022-05-04T16:00:00Z","hash":"9ccab611edd1523fd8fcdd69907c8bd50d20f2e3bb79300f81c6e78989175430","Engine":"CERTLOGIC","Version":"1.0.0","CertificateType":"General","Identifier":"IE1-DE-0100","Country":"DE"},{"Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507","EU\/1\/21\/1529","EU\/1\/20\/1525","EU\/1\/21\/1618","NVX-CoV2373","EU\/1\/21\/1624"]]},true,{"if":[{"!":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/21\/1529","Covishield","EU\/1\/20\/1525","EU\/1\/20\/1507","Inactivated-SARS-CoV-2-Vero-Cell","CoronaVac","Covaxin","Covovax","EU\/1\/21\/1618","Convidecia","WIBP-CorV"]]}]},false,{"if":[{"!":[{"var":"payload.v.1"}]},false,{"if":[{"in":[{"var":"payload.v.1.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.2"}]},false,{"if":[{"in":[{"var":"payload.v.2.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.3"}]},false,{"if":[{"in":[{"var":"payload.v.3.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.4"}]},false,{"if":[{"in":[{"var":"payload.v.4.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.5"}]},false,{"if":[{"in":[{"var":"payload.v.5.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.6"}]},false,{"if":[{"in":[{"var":"payload.v.6.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.7"}]},false,{"if":[{"in":[{"var":"payload.v.7.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.8"}]},false,{"if":[{"in":[{"var":"payload.v.8.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.9"}]},false,{"if":[{"in":[{"var":"payload.v.9.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,false]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]},"Version":"1.0.0","hash":"626d4827a4d11db028cf0511ec3e989a6d7fcec8948faf3721f0bed30ce13751","EngineVersion":"1.0.0","Engine":"CERTLOGIC","SchemaVersion":"1.0.0","Country":"DE","CertificateType":"General","Description":[{"lang":"en","desc":"Based on your vaccination and past infection, you are considered to be fully vaccinated. However, your immune protection will not be effective until 29 days passed since your recovery. Please consider that you could still be contagious and also find out about the recommended booster vaccinations."},{"desc":"Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Allerdings ist Ihr Immunschutz erst wirksam, wenn seit Ihrer Genesung 29 Tage vergangen sind. Bitte bedenken Sie, dass Sie noch ansteckend sein können und informieren Sie sich auch über empfohlene Auffrischimpfungen.","lang":"de"}],"ValidFrom":"2022-05-04T16:00:00Z","Type":"ImpfstatusEEins","Identifier":"IE1-DE-0200","AffectedFields":["v.0","v.0.mp","v.1","v.1.mp","v.2","v.2.mp","v.3","v.3.mp","v.4","v.4.mp","v.5","v.5.mp","v.6","v.6.mp","v.7","v.7.mp","v.8","v.8.mp","v.9","v.9.mp"],"ValidTo":"2030-06-01T00:00:00Z"},{"Engine":"CERTLOGIC","Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"===":[{"var":"payload.v.0.dn"},2]},{"if":[{"!":[{"var":"payload.r.0"}]},false,{"if":[{"after":[{"plusTime":[{"var":"payload.r.0.fr"},29,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"day"]}]},false,true]}]},false]}]},"Identifier":"IE2-DE-0100","ValidTo":"2030-06-01T00:00:00Z","hash":"0f797c75d0132e2fd48195f31492a44a6a48947123d633fa8e10afbb336380fb","Version":"1.0.0","Description":[{"lang":"en","desc":"Based on your vaccination and past infection, you are considered to be fully vaccinated. However, please also find out about the recommended booster vaccinations."},{"desc":"Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.","lang":"de"}],"Type":"ImpfstatusEZwei","ValidFrom":"2022-05-04T16:00:00Z","AffectedFields":["r.0","r.0.fr","v.0","v.0.dn"],"SchemaVersion":"1.0.0","Country":"DE","CertificateType":"General","EngineVersion":"1.0.0"},{"Identifier":"IE2-DE-0200","ValidTo":"2030-06-01T00:00:00Z","Country":"DE","CertificateType":"General","SchemaVersion":"1.0.0","Type":"ImpfstatusEZwei","hash":"026e60544f9106fcfdfdb7786d4a1c613579c932d6b008a9b47352d4436109e9","EngineVersion":"1.0.0","Engine":"CERTLOGIC","Version":"1.0.0","ValidFrom":"2022-05-04T16:00:00Z","Description":[{"lang":"en","desc":"Based on your vaccination and past infection, you are considered to be fully vaccinated. However, please also find out about the recommended booster vaccinations."},{"desc":"Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.","lang":"de"}],"AffectedFields":["v.0","v.0.mp","v.1","v.1.mp","v.2","v.2.mp","v.3","v.3.mp","v.4","v.4.mp","v.5","v.5.mp","v.6","v.6.mp","v.7","v.7.mp","v.8","v.8.mp","v.9","v.9.mp"],"Logic":{"if":[{"!":[{"var":"payload.v.0"}]},false,{"if":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507","EU\/1\/21\/1529","EU\/1\/20\/1525","EU\/1\/21\/1618","NVX-CoV2373","EU\/1\/21\/1624"]]},true,{"if":[{"!":[{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/21\/1529","Covishield","EU\/1\/20\/1525","EU\/1\/20\/1507","Inactivated-SARS-CoV-2-Vero-Cell","CoronaVac","Covaxin","Covovax","EU\/1\/21\/1618","Convidecia","WIBP-CorV"]]}]},false,{"if":[{"!":[{"var":"payload.v.1"}]},false,{"if":[{"in":[{"var":"payload.v.1.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.2"}]},false,{"if":[{"in":[{"var":"payload.v.2.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.3"}]},false,{"if":[{"in":[{"var":"payload.v.3.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.4"}]},false,{"if":[{"in":[{"var":"payload.v.4.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.5"}]},false,{"if":[{"in":[{"var":"payload.v.5.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.6"}]},false,{"if":[{"in":[{"var":"payload.v.6.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.7"}]},false,{"if":[{"in":[{"var":"payload.v.7.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.8"}]},false,{"if":[{"in":[{"var":"payload.v.8.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,{"if":[{"!":[{"var":"payload.v.9"}]},false,{"if":[{"in":[{"var":"payload.v.9.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507"]]},true,false]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}]}},{"ValidTo":"2030-06-01T00:00:00Z","Engine":"CERTLOGIC","Identifier":"IR-DE-0001","Version":"1.0.3","Country":"DE","CertificateType":"Vaccination","EngineVersion":"0.8.0","hash":"a7d74c154e91510e4b16bd41baa27f428e9ace083e551ff1ffac9c912983b2ce","ValidFrom":"2022-04-11T00:00:00Z","Type":"Invalidation","Logic":{"if":[{"var":"payload.v.0.ci"},{"if":[{"and":[{"in":[{"extractFromUVCI":[{"var":"payload.v.0.ci"},1]},["A51018097","A80013335"]]},{"===":[{"extractFromUVCI":[{"var":"payload.v.0.ci"},0]},"01DE"]}]},false,true]},true]},"SchemaVersion":"1.0.0","Description":[{"lang":"en","desc":"The certificate must not be issued by an unauthorized party."},{"lang":"de","desc":"Das Zertifikat darf nicht durch unberechtigte Ausgeber ausgestellt worden sein."},{"lang":"fr","desc":"Le certificat ne doit pas avoir été établi par des émetteurs non autorisés."},{"lang":"es","desc":"El certificado no puede haber sido expedido por emisores no autorizados."},{"lang":"it","desc":"Il certificato non può essere rilasciato da un organismo non autorizzato."}],"AffectedFields":["v.0.ci"]},{"CertificateType":"General","Description":[{"lang":"en","desc":"You are currently not required to wear a mask in germany."},{"desc":"Sie sind deutschlandweit von der Maskenpflicht befreit.","lang":"de"}],"Version":"1.0.0","ValidFrom":"2022-05-04T16:00:00Z","EngineVersion":"1.0.0","SchemaVersion":"1.0.0","AffectedFields":["t.0","t.0.sc"],"ValidTo":"2030-06-01T00:00:00Z","hash":"f7b63fdf7985897998380a0a9a3c3488579b22d50365f664ea2e6aff833b0962","Type":"Mask","Logic":{"if":[{"var":"payload.t.0"},{"not-before":[{"plusTime":[{"var":"payload.t.0.sc"},24,"hour"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]},false]},"Country":"DE","Engine":"CERTLOGIC","Identifier":"MA-DE-0100"},{"Description":[{"lang":"en","desc":"You are currently not required to wear a mask in the selected federal state."},{"desc":"Sie sind im gewählten Bundesland von der Maskenpflicht befreit.","lang":"de"}],"Version":"1.0.0","Region":"SH","Engine":"CERTLOGIC","Logic":{"if":[{"var":"payload.t.0"},{"not-before":[{"plusTime":[{"var":"payload.t.0.sc"},24,"hour"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]},{"if":[{"var":"payload.v.0"},{"if":[{"var":"payload.r.0"},{"if":[{"and":[{"after":[{"plusTime":[{"var":"payload.v.0.dt"},0,"hour"]},{"plusTime":[{"var":"payload.r.0.fr"},0,"hour"]}]},{">=":[{"var":"payload.v.0.dn"},2]}]},{"not-before":[{"plusTime":[{"var":"payload.v.0.dt"},90,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]},{"and":[{"not-after":[{"plusTime":[{"var":"payload.r.0.fr"},29,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]},{"not-before":[{"plusTime":[{"var":"payload.r.0.fr"},90,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]}]}]},{"and":[{">=":[{"var":"payload.v.0.dn"},3]},{"not-before":[{"plusTime":[{"var":"payload.v.0.dt"},90,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]}]}]},{"if":[{"var":"payload.r.0"},{"and":[{"not-after":[{"plusTime":[{"var":"payload.r.0.fr"},29,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]},{"not-before":[{"plusTime":[{"var":"payload.r.0.fr"},90,"day"]},{"plusTime":[{"var":"external.validationClock"},0,"hour"]}]}]},false]}]}]},"SchemaVersion":"1.0.0","AffectedFields":["r.0","r.0.fr","t.0","t.0.sc","v.0","v.0.dn","v.0.dt"],"ValidFrom":"2022-05-04T16:00:00Z","Country":"DE","Type":"Mask","EngineVersion":"1.0.0","ValidTo":"2030-06-01T00:00:00Z","CertificateType":"General","Identifier":"MA-DE-0101","hash":"8bc8fc9a786cf29119202c47f0088c06ec0fa60c6af03df644694705d0e618ec"},{"EngineVersion":"0.7.5","hash":"b3c4e2af3259bf5c793e0bed4ccf965ac54cb704a4949dfb55f4681d494a9a0e","CertificateType":"Test","Version":"1.0.0","Country":"DE","Logic":{"if":[{"var":"payload.t.0"},{"in":[{"var":"payload.t.0.tt"},["LP217198-3","LP6464-4"]]},true]},"AffectedFields":["t.0","t.0.tt"],"ValidFrom":"2021-07-03T00:00:00Z","Engine":"CERTLOGIC","Type":"Acceptance","ValidTo":"2030-06-01T00:00:00Z","SchemaVersion":"1.0.0","Identifier":"TR-DE-0001","Description":[{"lang":"en","desc":"This must be an antigen test (e.g., rapid test) or NAA test (e.g., PCR)."},{"lang":"de","desc":"Es muss ein Antigen-Test (z.B. Schnelltest) oder NAA-Test (z.B. PCR) sein."},{"lang":"fr","desc":"Il doit s’agir d‘un test antigénique (p. ex. test rapide) ou TAN (p. ex. PCR)."},{"lang":"es","desc":"Debe ser una prueba de antígenos (por ejemplo, un autotest rápido) o una prueba de amplificación de ácidos nucleicos (por ejemplo, una PCR)."},{"lang":"it","desc":"Deve trattarsi di un test antigenico (test rapido) o NAAT (come PRC)."}]},{"hash":"34d53cfc0e330a05ddadb6262500e65a430a587b0dd29c027b5492f552e046d0","Identifier":"TR-DE-0004","Engine":"CERTLOGIC","Description":[{"lang":"en","desc":"The test result must be negative."},{"lang":"de","desc":"Das Ergebnis des Tests muss negativ sein."},{"lang":"fr","desc":"Le résultat du test doit être négatif."},{"lang":"es","desc":"El resultado de la prueba debe ser negativo."},{"lang":"it","desc":"Il risultato del test deve essere negativo."}],"Version":"1.0.0","EngineVersion":"0.7.5","ValidTo":"2030-06-01T00:00:00Z","Country":"DE","Logic":{"if":[{"var":"payload.t.0"},{"===":[{"var":"payload.t.0.tr"},"260415000"]},true]},"SchemaVersion":"1.0.0","ValidFrom":"2021-07-03T00:00:00Z","AffectedFields":["t.0","t.0.tr"],"Type":"Acceptance","CertificateType":"Test"},{"Description":[{"lang":"en","desc":"The antigen test (e.g., rapid test) must be included in the EU’s \"Common list of COVID-19 rapid antigen tests\"."},{"lang":"de","desc":"Der Antigen-Test (z.B. Schnelltest) muss in der Liste \"Common list of rapid antigen tests\" der EU enthalten sein."},{"lang":"fr","desc":"Le test antigénique (p. ex. test rapide) doit figurer sur la liste commune des tests antigéniques rapides « Common list of rapid antigen tests » de l’UE."},{"lang":"es","desc":"La prueba de antígenos (por ejemplo, una prueba rápida) debe estar incluida en la lista \"Common list of rapid antigen tests\" de la Unión Europea."},{"lang":"it","desc":"Il test antigenico (ad es. test rapido) deve corrispondere a uno dei test della \"Common list of rapid antigen tests\" dell’UE."}],"SchemaVersion":"1.0.0","Country":"DE","ValidTo":"2030-06-01T00:00:00Z","Identifier":"TR-DE-0005","Type":"Acceptance","EngineVersion":"0.7.5","Engine":"CERTLOGIC","ValidFrom":"2021-07-03T00:00:00Z","Version":"1.0.0","AffectedFields":["t.0","t.0.ma","t.0.tt"],"hash":"7e177d5c072d0c1bdee4339e649e74ae5bf53198a4c44d615a203f98c57bbc1f","CertificateType":"Test","Logic":{"if":[{"var":"payload.t.0"},{"if":[{"===":[{"var":"payload.t.0.tt"},"LP217198-3"]},{"in":[{"var":"payload.t.0.ma"},{"var":"external.valueSets.covid-19-lab-test-manufacturer-and-name"}]},true]},true]}},{"Country":"DE","EngineVersion":"0.7.5","Version":"1.0.0","CertificateType":"Vaccination","Description":[{"lang":"en","desc":"Only the following vaccines are accepted: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."},{"lang":"de","desc":"Nur die folgenden Impfstoffe werden akzeptiert: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."},{"lang":"fr","desc":"Seuls les vaccins suivants sont acceptés: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."},{"lang":"es","desc":"Solo se aceptan las siguientes vacunas: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."},{"lang":"it","desc":"Saranno accettati solamente i seguenti vaccini: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."}],"AffectedFields":["v.0","v.0.mp"],"SchemaVersion":"1.0.0","Engine":"CERTLOGIC","Type":"Acceptance","ValidFrom":"2022-09-30T00:00:00Z","ValidTo":"2030-06-01T00:00:00Z","Logic":{"if":[{"var":"payload.v.0"},{"in":[{"var":"payload.v.0.mp"},["EU\/1\/20\/1528","EU\/1\/20\/1507","EU\/1\/21\/1529","EU\/1\/20\/1525","EU\/1\/21\/1618","NVX-CoV2373","EU\/1\/21\/1624"]]},true]},"hash":"5abcf0f41fde952dc259cb31b3ad6b29d3d230b351ab6a0c9bf50384b2f1e32f","Identifier":"VR-DE-5002"}]
+[
+  {
+    "EngineVersion": "1.0.0",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "You have received all currently recommended vaccinations. Your vaccination protection is complete."
+      },
+      {
+        "desc": "Sie haben nun alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist vollständig.",
+        "lang": "de"
+      }
+    ],
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "Identifier": "IB2-DE-0100",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "hash": "9f065710ac9b7fcb5135a41565b427bd553eccfb126aebd283a8c06f3b32d518",
+    "SchemaVersion": "1.0.0",
+    "CertificateType": "General",
+    "Engine": "CERTLOGIC",
+    "AffectedFields": [
+      "r.0",
+      "v.0",
+      "v.0.dn"
+    ],
+    "Type": "ImpfstatusBZwei",
+    "Country": "DE",
+    "Version": "1.0.0",
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "<": [
+                {
+                  "var": "payload.v.0.dn"
+                },
+                3
+              ]
+            },
+            false,
+            {
+              "if": [
+                {
+                  "===": [
+                    {
+                      "var": "payload.v.0.dn"
+                    },
+                    3
+                  ]
+                },
+                {
+                  "if": [
+                    {
+                      "!": [
+                        {
+                          "var": "payload.r.0"
+                        }
+                      ]
+                    },
+                    false,
+                    true
+                  ]
+                },
+                true
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "Identifier": "IB2-DE-0200",
+    "Type": "ImpfstatusBZwei",
+    "CertificateType": "General",
+    "EngineVersion": "1.0.0",
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "in": [
+                {
+                  "var": "payload.v.0.mp"
+                },
+                [
+                  "EU\/1\/20\/1528",
+                  "EU\/1\/20\/1507",
+                  "EU\/1\/21\/1529",
+                  "EU\/1\/20\/1525",
+                  "EU\/1\/21\/1618",
+                  "NVX-CoV2373",
+                  "EU\/1\/21\/1624",
+                  "EU\/1\/21\/1580"
+                ]
+              ]
+            },
+            true,
+            {
+              "if": [
+                {
+                  "!": [
+                    {
+                      "in": [
+                        {
+                          "var": "payload.v.0.mp"
+                        },
+                        [
+                          "EU\/1\/20\/1528",
+                          "EU\/1\/21\/1529",
+                          "Covishield",
+                          "EU\/1\/20\/1525",
+                          "EU\/1\/20\/1507",
+                          "Inactivated-SARS-CoV-2-Vero-Cell",
+                          "CoronaVac",
+                          "Covaxin",
+                          "Covovax",
+                          "EU\/1\/21\/1618",
+                          "Convidecia",
+                          "WIBP-CorV"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                false,
+                {
+                  "if": [
+                    {
+                      "!": [
+                        {
+                          "var": "payload.v.1"
+                        }
+                      ]
+                    },
+                    false,
+                    {
+                      "if": [
+                        {
+                          "in": [
+                            {
+                              "var": "payload.v.1.mp"
+                            },
+                            [
+                              "EU\/1\/20\/1528",
+                              "EU\/1\/20\/1507"
+                            ]
+                          ]
+                        },
+                        true,
+                        {
+                          "if": [
+                            {
+                              "!": [
+                                {
+                                  "var": "payload.v.2"
+                                }
+                              ]
+                            },
+                            false,
+                            {
+                              "if": [
+                                {
+                                  "in": [
+                                    {
+                                      "var": "payload.v.2.mp"
+                                    },
+                                    [
+                                      "EU\/1\/20\/1528",
+                                      "EU\/1\/20\/1507"
+                                    ]
+                                  ]
+                                },
+                                true,
+                                {
+                                  "if": [
+                                    {
+                                      "!": [
+                                        {
+                                          "var": "payload.v.3"
+                                        }
+                                      ]
+                                    },
+                                    false,
+                                    {
+                                      "if": [
+                                        {
+                                          "in": [
+                                            {
+                                              "var": "payload.v.3.mp"
+                                            },
+                                            [
+                                              "EU\/1\/20\/1528",
+                                              "EU\/1\/20\/1507"
+                                            ]
+                                          ]
+                                        },
+                                        true,
+                                        {
+                                          "if": [
+                                            {
+                                              "!": [
+                                                {
+                                                  "var": "payload.v.4"
+                                                }
+                                              ]
+                                            },
+                                            false,
+                                            {
+                                              "if": [
+                                                {
+                                                  "in": [
+                                                    {
+                                                      "var": "payload.v.4.mp"
+                                                    },
+                                                    [
+                                                      "EU\/1\/20\/1528",
+                                                      "EU\/1\/20\/1507"
+                                                    ]
+                                                  ]
+                                                },
+                                                true,
+                                                {
+                                                  "if": [
+                                                    {
+                                                      "!": [
+                                                        {
+                                                          "var": "payload.v.5"
+                                                        }
+                                                      ]
+                                                    },
+                                                    false,
+                                                    {
+                                                      "if": [
+                                                        {
+                                                          "in": [
+                                                            {
+                                                              "var": "payload.v.5.mp"
+                                                            },
+                                                            [
+                                                              "EU\/1\/20\/1528",
+                                                              "EU\/1\/20\/1507"
+                                                            ]
+                                                          ]
+                                                        },
+                                                        true,
+                                                        {
+                                                          "if": [
+                                                            {
+                                                              "!": [
+                                                                {
+                                                                  "var": "payload.v.6"
+                                                                }
+                                                              ]
+                                                            },
+                                                            false,
+                                                            {
+                                                              "if": [
+                                                                {
+                                                                  "in": [
+                                                                    {
+                                                                      "var": "payload.v.6.mp"
+                                                                    },
+                                                                    [
+                                                                      "EU\/1\/20\/1528",
+                                                                      "EU\/1\/20\/1507"
+                                                                    ]
+                                                                  ]
+                                                                },
+                                                                true,
+                                                                {
+                                                                  "if": [
+                                                                    {
+                                                                      "!": [
+                                                                        {
+                                                                          "var": "payload.v.7"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    false,
+                                                                    {
+                                                                      "if": [
+                                                                        {
+                                                                          "in": [
+                                                                            {
+                                                                              "var": "payload.v.7.mp"
+                                                                            },
+                                                                            [
+                                                                              "EU\/1\/20\/1528",
+                                                                              "EU\/1\/20\/1507"
+                                                                            ]
+                                                                          ]
+                                                                        },
+                                                                        true,
+                                                                        {
+                                                                          "if": [
+                                                                            {
+                                                                              "!": [
+                                                                                {
+                                                                                  "var": "payload.v.8"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            false,
+                                                                            {
+                                                                              "if": [
+                                                                                {
+                                                                                  "in": [
+                                                                                    {
+                                                                                      "var": "payload.v.8.mp"
+                                                                                    },
+                                                                                    [
+                                                                                      "EU\/1\/20\/1528",
+                                                                                      "EU\/1\/20\/1507"
+                                                                                    ]
+                                                                                  ]
+                                                                                },
+                                                                                true,
+                                                                                {
+                                                                                  "if": [
+                                                                                    {
+                                                                                      "!": [
+                                                                                        {
+                                                                                          "var": "payload.v.9"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    false,
+                                                                                    {
+                                                                                      "if": [
+                                                                                        {
+                                                                                          "in": [
+                                                                                            {
+                                                                                              "var": "payload.v.9.mp"
+                                                                                            },
+                                                                                            [
+                                                                                              "EU\/1\/20\/1528",
+                                                                                              "EU\/1\/20\/1507"
+                                                                                            ]
+                                                                                          ]
+                                                                                        },
+                                                                                        true,
+                                                                                        false
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Country": "DE",
+    "Version": "1.0.1",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "hash": "4d8302e40428e33fc72eccd741e2580cbe7d037baa309455c413cacd42f57f6e",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "You have received all currently recommended vaccinations. Your vaccination protection is complete."
+      },
+      {
+        "desc": "Sie haben nun alle derzeit empfohlenen Impfungen erhalten. Ihr Impfschutz ist vollständig.",
+        "lang": "de"
+      }
+    ],
+    "AffectedFields": [
+      "v.0",
+      "v.0.mp",
+      "v.1",
+      "v.1.mp",
+      "v.2",
+      "v.2.mp",
+      "v.3",
+      "v.3.mp",
+      "v.4",
+      "v.4.mp",
+      "v.5",
+      "v.5.mp",
+      "v.6",
+      "v.6.mp",
+      "v.7",
+      "v.7.mp",
+      "v.8",
+      "v.8.mp",
+      "v.9",
+      "v.9.mp"
+    ],
+    "SchemaVersion": "1.0.0",
+    "Engine": "CERTLOGIC"
+  },
+  {
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "You have received all vaccinations for full vaccination protection. Your vaccination protection is effective. Please also find out about the recommended booster vaccinations."
+      },
+      {
+        "desc": "Sie haben alle Impfungen für einen vollständigen Impfschutz erhalten. Ihr Impfschutz ist wirksam. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.",
+        "lang": "de"
+      }
+    ],
+    "Type": "ImpfstatusCZwei",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "and": [
+                {
+                  "!": [
+                    {
+                      "var": "payload.r.0"
+                    }
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "var": "payload.v.0.dn"
+                    },
+                    3
+                  ]
+                }
+              ]
+            },
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "Engine": "CERTLOGIC",
+    "CertificateType": "General",
+    "AffectedFields": [
+      "r.0",
+      "v.0",
+      "v.0.dn"
+    ],
+    "SchemaVersion": "1.0.0",
+    "Identifier": "IC2-DE-0100",
+    "Country": "DE",
+    "hash": "d5d8c9825e9b4a43517942dcaeb1b995c184ddb56d88fab7fe8a252ee6fa9e37",
+    "Version": "1.0.0",
+    "EngineVersion": "1.0.0"
+  },
+  {
+    "AffectedFields": [
+      "v.0",
+      "v.0.mp",
+      "v.1",
+      "v.1.mp",
+      "v.2",
+      "v.2.mp",
+      "v.3",
+      "v.3.mp",
+      "v.4",
+      "v.4.mp",
+      "v.5",
+      "v.5.mp",
+      "v.6",
+      "v.6.mp",
+      "v.7",
+      "v.7.mp",
+      "v.8",
+      "v.8.mp",
+      "v.9",
+      "v.9.mp"
+    ],
+    "hash": "6090f7e34bdebe8c44c2cb5ae46dc50f34d12f5f1fd01387358dc817f0cb64ac",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "EngineVersion": "1.0.0",
+    "Identifier": "IC2-DE-0200",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "You have received all vaccinations for full vaccination protection. Your vaccination protection is effective. Please also find out about the recommended booster vaccinations."
+      },
+      {
+        "desc": "Sie haben alle Impfungen für einen vollständigen Impfschutz erhalten. Ihr Impfschutz ist wirksam. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.",
+        "lang": "de"
+      }
+    ],
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "in": [
+                {
+                  "var": "payload.v.0.mp"
+                },
+                [
+                  "EU\/1\/20\/1528",
+                  "EU\/1\/20\/1507",
+                  "EU\/1\/21\/1529",
+                  "EU\/1\/20\/1525",
+                  "EU\/1\/21\/1618",
+                  "NVX-CoV2373",
+                  "EU\/1\/21\/1624",
+                  "EU\/1\/21\/1580"
+                ]
+              ]
+            },
+            true,
+            {
+              "if": [
+                {
+                  "!": [
+                    {
+                      "in": [
+                        {
+                          "var": "payload.v.0.mp"
+                        },
+                        [
+                          "EU\/1\/20\/1528",
+                          "EU\/1\/21\/1529",
+                          "Covishield",
+                          "EU\/1\/20\/1525",
+                          "EU\/1\/20\/1507",
+                          "Inactivated-SARS-CoV-2-Vero-Cell",
+                          "CoronaVac",
+                          "Covaxin",
+                          "Covovax",
+                          "EU\/1\/21\/1618",
+                          "Convidecia",
+                          "WIBP-CorV"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                false,
+                {
+                  "if": [
+                    {
+                      "!": [
+                        {
+                          "var": "payload.v.1"
+                        }
+                      ]
+                    },
+                    false,
+                    {
+                      "if": [
+                        {
+                          "in": [
+                            {
+                              "var": "payload.v.1.mp"
+                            },
+                            [
+                              "EU\/1\/20\/1528",
+                              "EU\/1\/20\/1507"
+                            ]
+                          ]
+                        },
+                        true,
+                        {
+                          "if": [
+                            {
+                              "!": [
+                                {
+                                  "var": "payload.v.2"
+                                }
+                              ]
+                            },
+                            false,
+                            {
+                              "if": [
+                                {
+                                  "in": [
+                                    {
+                                      "var": "payload.v.2.mp"
+                                    },
+                                    [
+                                      "EU\/1\/20\/1528",
+                                      "EU\/1\/20\/1507"
+                                    ]
+                                  ]
+                                },
+                                true,
+                                {
+                                  "if": [
+                                    {
+                                      "!": [
+                                        {
+                                          "var": "payload.v.3"
+                                        }
+                                      ]
+                                    },
+                                    false,
+                                    {
+                                      "if": [
+                                        {
+                                          "in": [
+                                            {
+                                              "var": "payload.v.3.mp"
+                                            },
+                                            [
+                                              "EU\/1\/20\/1528",
+                                              "EU\/1\/20\/1507"
+                                            ]
+                                          ]
+                                        },
+                                        true,
+                                        {
+                                          "if": [
+                                            {
+                                              "!": [
+                                                {
+                                                  "var": "payload.v.4"
+                                                }
+                                              ]
+                                            },
+                                            false,
+                                            {
+                                              "if": [
+                                                {
+                                                  "in": [
+                                                    {
+                                                      "var": "payload.v.4.mp"
+                                                    },
+                                                    [
+                                                      "EU\/1\/20\/1528",
+                                                      "EU\/1\/20\/1507"
+                                                    ]
+                                                  ]
+                                                },
+                                                true,
+                                                {
+                                                  "if": [
+                                                    {
+                                                      "!": [
+                                                        {
+                                                          "var": "payload.v.5"
+                                                        }
+                                                      ]
+                                                    },
+                                                    false,
+                                                    {
+                                                      "if": [
+                                                        {
+                                                          "in": [
+                                                            {
+                                                              "var": "payload.v.5.mp"
+                                                            },
+                                                            [
+                                                              "EU\/1\/20\/1528",
+                                                              "EU\/1\/20\/1507"
+                                                            ]
+                                                          ]
+                                                        },
+                                                        true,
+                                                        {
+                                                          "if": [
+                                                            {
+                                                              "!": [
+                                                                {
+                                                                  "var": "payload.v.6"
+                                                                }
+                                                              ]
+                                                            },
+                                                            false,
+                                                            {
+                                                              "if": [
+                                                                {
+                                                                  "in": [
+                                                                    {
+                                                                      "var": "payload.v.6.mp"
+                                                                    },
+                                                                    [
+                                                                      "EU\/1\/20\/1528",
+                                                                      "EU\/1\/20\/1507"
+                                                                    ]
+                                                                  ]
+                                                                },
+                                                                true,
+                                                                {
+                                                                  "if": [
+                                                                    {
+                                                                      "!": [
+                                                                        {
+                                                                          "var": "payload.v.7"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    false,
+                                                                    {
+                                                                      "if": [
+                                                                        {
+                                                                          "in": [
+                                                                            {
+                                                                              "var": "payload.v.7.mp"
+                                                                            },
+                                                                            [
+                                                                              "EU\/1\/20\/1528",
+                                                                              "EU\/1\/20\/1507"
+                                                                            ]
+                                                                          ]
+                                                                        },
+                                                                        true,
+                                                                        {
+                                                                          "if": [
+                                                                            {
+                                                                              "!": [
+                                                                                {
+                                                                                  "var": "payload.v.8"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            false,
+                                                                            {
+                                                                              "if": [
+                                                                                {
+                                                                                  "in": [
+                                                                                    {
+                                                                                      "var": "payload.v.8.mp"
+                                                                                    },
+                                                                                    [
+                                                                                      "EU\/1\/20\/1528",
+                                                                                      "EU\/1\/20\/1507"
+                                                                                    ]
+                                                                                  ]
+                                                                                },
+                                                                                true,
+                                                                                {
+                                                                                  "if": [
+                                                                                    {
+                                                                                      "!": [
+                                                                                        {
+                                                                                          "var": "payload.v.9"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    false,
+                                                                                    {
+                                                                                      "if": [
+                                                                                        {
+                                                                                          "in": [
+                                                                                            {
+                                                                                              "var": "payload.v.9.mp"
+                                                                                            },
+                                                                                            [
+                                                                                              "EU\/1\/20\/1528",
+                                                                                              "EU\/1\/20\/1507"
+                                                                                            ]
+                                                                                          ]
+                                                                                        },
+                                                                                        true,
+                                                                                        false
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Version": "1.0.1",
+    "Country": "DE",
+    "SchemaVersion": "1.0.0",
+    "Type": "ImpfstatusCZwei",
+    "Engine": "CERTLOGIC",
+    "CertificateType": "General"
+  },
+  {
+    "EngineVersion": "1.0.0",
+    "Version": "1.0.0",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "Engine": "CERTLOGIC",
+    "AffectedFields": [
+      "r.0",
+      "r.0.fr",
+      "v.0",
+      "v.0.dn"
+    ],
+    "Type": "ImpfstatusEEins",
+    "SchemaVersion": "1.0.0",
+    "CertificateType": "General",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "Identifier": "IE1-DE-0100",
+    "Country": "DE",
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "===": [
+                {
+                  "var": "payload.v.0.dn"
+                },
+                2
+              ]
+            },
+            {
+              "if": [
+                {
+                  "!": [
+                    {
+                      "var": "payload.r.0"
+                    }
+                  ]
+                },
+                false,
+                {
+                  "if": [
+                    {
+                      "not-after": [
+                        {
+                          "plusTime": [
+                            {
+                              "var": "payload.r.0.fr"
+                            },
+                            29,
+                            "day"
+                          ]
+                        },
+                        {
+                          "plusTime": [
+                            {
+                              "var": "external.validationClock"
+                            },
+                            0,
+                            "day"
+                          ]
+                        }
+                      ]
+                    },
+                    false,
+                    true
+                  ]
+                }
+              ]
+            },
+            false
+          ]
+        }
+      ]
+    },
+    "hash": "9ccab611edd1523fd8fcdd69907c8bd50d20f2e3bb79300f81c6e78989175430",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "Based on your vaccination and past infection, you are considered to be fully vaccinated. However, your immune protection will not be effective until 29 days passed since your recovery. Please consider that you could still be contagious and also find out about the recommended booster vaccinations."
+      },
+      {
+        "desc": "Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Allerdings ist Ihr Immunschutz erst wirksam, wenn seit Ihrer Genesung 29 Tage vergangen sind. Bitte bedenken Sie, dass Sie noch ansteckend sein können und informieren Sie sich auch über empfohlene Auffrischimpfungen.",
+        "lang": "de"
+      }
+    ]
+  },
+  {
+    "SchemaVersion": "1.0.0",
+    "AffectedFields": [
+      "v.0",
+      "v.0.mp",
+      "v.1",
+      "v.1.mp",
+      "v.2",
+      "v.2.mp",
+      "v.3",
+      "v.3.mp",
+      "v.4",
+      "v.4.mp",
+      "v.5",
+      "v.5.mp",
+      "v.6",
+      "v.6.mp",
+      "v.7",
+      "v.7.mp",
+      "v.8",
+      "v.8.mp",
+      "v.9",
+      "v.9.mp"
+    ],
+    "hash": "d4d7653df20c04dac4240ce6136f9a1bc6ec9d8804dc6c125446d5ed6a6caed5",
+    "EngineVersion": "1.0.0",
+    "Type": "ImpfstatusEEins",
+    "Engine": "CERTLOGIC",
+    "Country": "DE",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "CertificateType": "General",
+    "Identifier": "IE1-DE-0200",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "in": [
+                {
+                  "var": "payload.v.0.mp"
+                },
+                [
+                  "EU\/1\/20\/1528",
+                  "EU\/1\/20\/1507",
+                  "EU\/1\/21\/1529",
+                  "EU\/1\/20\/1525",
+                  "EU\/1\/21\/1618",
+                  "NVX-CoV2373",
+                  "EU\/1\/21\/1624",
+                  "EU\/1\/21\/1580"
+                ]
+              ]
+            },
+            true,
+            {
+              "if": [
+                {
+                  "!": [
+                    {
+                      "in": [
+                        {
+                          "var": "payload.v.0.mp"
+                        },
+                        [
+                          "EU\/1\/20\/1528",
+                          "EU\/1\/21\/1529",
+                          "Covishield",
+                          "EU\/1\/20\/1525",
+                          "EU\/1\/20\/1507",
+                          "Inactivated-SARS-CoV-2-Vero-Cell",
+                          "CoronaVac",
+                          "Covaxin",
+                          "Covovax",
+                          "EU\/1\/21\/1618",
+                          "Convidecia",
+                          "WIBP-CorV"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                false,
+                {
+                  "if": [
+                    {
+                      "!": [
+                        {
+                          "var": "payload.v.1"
+                        }
+                      ]
+                    },
+                    false,
+                    {
+                      "if": [
+                        {
+                          "in": [
+                            {
+                              "var": "payload.v.1.mp"
+                            },
+                            [
+                              "EU\/1\/20\/1528",
+                              "EU\/1\/20\/1507"
+                            ]
+                          ]
+                        },
+                        true,
+                        {
+                          "if": [
+                            {
+                              "!": [
+                                {
+                                  "var": "payload.v.2"
+                                }
+                              ]
+                            },
+                            false,
+                            {
+                              "if": [
+                                {
+                                  "in": [
+                                    {
+                                      "var": "payload.v.2.mp"
+                                    },
+                                    [
+                                      "EU\/1\/20\/1528",
+                                      "EU\/1\/20\/1507"
+                                    ]
+                                  ]
+                                },
+                                true,
+                                {
+                                  "if": [
+                                    {
+                                      "!": [
+                                        {
+                                          "var": "payload.v.3"
+                                        }
+                                      ]
+                                    },
+                                    false,
+                                    {
+                                      "if": [
+                                        {
+                                          "in": [
+                                            {
+                                              "var": "payload.v.3.mp"
+                                            },
+                                            [
+                                              "EU\/1\/20\/1528",
+                                              "EU\/1\/20\/1507"
+                                            ]
+                                          ]
+                                        },
+                                        true,
+                                        {
+                                          "if": [
+                                            {
+                                              "!": [
+                                                {
+                                                  "var": "payload.v.4"
+                                                }
+                                              ]
+                                            },
+                                            false,
+                                            {
+                                              "if": [
+                                                {
+                                                  "in": [
+                                                    {
+                                                      "var": "payload.v.4.mp"
+                                                    },
+                                                    [
+                                                      "EU\/1\/20\/1528",
+                                                      "EU\/1\/20\/1507"
+                                                    ]
+                                                  ]
+                                                },
+                                                true,
+                                                {
+                                                  "if": [
+                                                    {
+                                                      "!": [
+                                                        {
+                                                          "var": "payload.v.5"
+                                                        }
+                                                      ]
+                                                    },
+                                                    false,
+                                                    {
+                                                      "if": [
+                                                        {
+                                                          "in": [
+                                                            {
+                                                              "var": "payload.v.5.mp"
+                                                            },
+                                                            [
+                                                              "EU\/1\/20\/1528",
+                                                              "EU\/1\/20\/1507"
+                                                            ]
+                                                          ]
+                                                        },
+                                                        true,
+                                                        {
+                                                          "if": [
+                                                            {
+                                                              "!": [
+                                                                {
+                                                                  "var": "payload.v.6"
+                                                                }
+                                                              ]
+                                                            },
+                                                            false,
+                                                            {
+                                                              "if": [
+                                                                {
+                                                                  "in": [
+                                                                    {
+                                                                      "var": "payload.v.6.mp"
+                                                                    },
+                                                                    [
+                                                                      "EU\/1\/20\/1528",
+                                                                      "EU\/1\/20\/1507"
+                                                                    ]
+                                                                  ]
+                                                                },
+                                                                true,
+                                                                {
+                                                                  "if": [
+                                                                    {
+                                                                      "!": [
+                                                                        {
+                                                                          "var": "payload.v.7"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    false,
+                                                                    {
+                                                                      "if": [
+                                                                        {
+                                                                          "in": [
+                                                                            {
+                                                                              "var": "payload.v.7.mp"
+                                                                            },
+                                                                            [
+                                                                              "EU\/1\/20\/1528",
+                                                                              "EU\/1\/20\/1507"
+                                                                            ]
+                                                                          ]
+                                                                        },
+                                                                        true,
+                                                                        {
+                                                                          "if": [
+                                                                            {
+                                                                              "!": [
+                                                                                {
+                                                                                  "var": "payload.v.8"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            false,
+                                                                            {
+                                                                              "if": [
+                                                                                {
+                                                                                  "in": [
+                                                                                    {
+                                                                                      "var": "payload.v.8.mp"
+                                                                                    },
+                                                                                    [
+                                                                                      "EU\/1\/20\/1528",
+                                                                                      "EU\/1\/20\/1507"
+                                                                                    ]
+                                                                                  ]
+                                                                                },
+                                                                                true,
+                                                                                {
+                                                                                  "if": [
+                                                                                    {
+                                                                                      "!": [
+                                                                                        {
+                                                                                          "var": "payload.v.9"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    false,
+                                                                                    {
+                                                                                      "if": [
+                                                                                        {
+                                                                                          "in": [
+                                                                                            {
+                                                                                              "var": "payload.v.9.mp"
+                                                                                            },
+                                                                                            [
+                                                                                              "EU\/1\/20\/1528",
+                                                                                              "EU\/1\/20\/1507"
+                                                                                            ]
+                                                                                          ]
+                                                                                        },
+                                                                                        true,
+                                                                                        false
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Version": "1.0.1",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "Based on your vaccination and past infection, you are considered to be fully vaccinated. However, your immune protection will not be effective until 29 days passed since your recovery. Please consider that you could still be contagious and also find out about the recommended booster vaccinations."
+      },
+      {
+        "desc": "Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Allerdings ist Ihr Immunschutz erst wirksam, wenn seit Ihrer Genesung 29 Tage vergangen sind. Bitte bedenken Sie, dass Sie noch ansteckend sein können und informieren Sie sich auch über empfohlene Auffrischimpfungen.",
+        "lang": "de"
+      }
+    ]
+  },
+  {
+    "SchemaVersion": "1.0.0",
+    "Type": "ImpfstatusEZwei",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "Based on your vaccination and past infection, you are considered to be fully vaccinated. However, please also find out about the recommended booster vaccinations."
+      },
+      {
+        "desc": "Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.",
+        "lang": "de"
+      }
+    ],
+    "Engine": "CERTLOGIC",
+    "Version": "1.0.0",
+    "CertificateType": "General",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "Identifier": "IE2-DE-0100",
+    "AffectedFields": [
+      "r.0",
+      "r.0.fr",
+      "v.0",
+      "v.0.dn"
+    ],
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "===": [
+                {
+                  "var": "payload.v.0.dn"
+                },
+                2
+              ]
+            },
+            {
+              "if": [
+                {
+                  "!": [
+                    {
+                      "var": "payload.r.0"
+                    }
+                  ]
+                },
+                false,
+                {
+                  "if": [
+                    {
+                      "after": [
+                        {
+                          "plusTime": [
+                            {
+                              "var": "payload.r.0.fr"
+                            },
+                            29,
+                            "day"
+                          ]
+                        },
+                        {
+                          "plusTime": [
+                            {
+                              "var": "external.validationClock"
+                            },
+                            0,
+                            "day"
+                          ]
+                        }
+                      ]
+                    },
+                    false,
+                    true
+                  ]
+                }
+              ]
+            },
+            false
+          ]
+        }
+      ]
+    },
+    "Country": "DE",
+    "hash": "0f797c75d0132e2fd48195f31492a44a6a48947123d633fa8e10afbb336380fb",
+    "EngineVersion": "1.0.0"
+  },
+  {
+    "SchemaVersion": "1.0.0",
+    "Logic": {
+      "if": [
+        {
+          "!": [
+            {
+              "var": "payload.v.0"
+            }
+          ]
+        },
+        false,
+        {
+          "if": [
+            {
+              "in": [
+                {
+                  "var": "payload.v.0.mp"
+                },
+                [
+                  "EU\/1\/20\/1528",
+                  "EU\/1\/20\/1507",
+                  "EU\/1\/21\/1529",
+                  "EU\/1\/20\/1525",
+                  "EU\/1\/21\/1618",
+                  "NVX-CoV2373",
+                  "EU\/1\/21\/1624",
+                  "EU\/1\/21\/1580"
+                ]
+              ]
+            },
+            true,
+            {
+              "if": [
+                {
+                  "!": [
+                    {
+                      "in": [
+                        {
+                          "var": "payload.v.0.mp"
+                        },
+                        [
+                          "EU\/1\/20\/1528",
+                          "EU\/1\/21\/1529",
+                          "Covishield",
+                          "EU\/1\/20\/1525",
+                          "EU\/1\/20\/1507",
+                          "Inactivated-SARS-CoV-2-Vero-Cell",
+                          "CoronaVac",
+                          "Covaxin",
+                          "Covovax",
+                          "EU\/1\/21\/1618",
+                          "Convidecia",
+                          "WIBP-CorV"
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                false,
+                {
+                  "if": [
+                    {
+                      "!": [
+                        {
+                          "var": "payload.v.1"
+                        }
+                      ]
+                    },
+                    false,
+                    {
+                      "if": [
+                        {
+                          "in": [
+                            {
+                              "var": "payload.v.1.mp"
+                            },
+                            [
+                              "EU\/1\/20\/1528",
+                              "EU\/1\/20\/1507"
+                            ]
+                          ]
+                        },
+                        true,
+                        {
+                          "if": [
+                            {
+                              "!": [
+                                {
+                                  "var": "payload.v.2"
+                                }
+                              ]
+                            },
+                            false,
+                            {
+                              "if": [
+                                {
+                                  "in": [
+                                    {
+                                      "var": "payload.v.2.mp"
+                                    },
+                                    [
+                                      "EU\/1\/20\/1528",
+                                      "EU\/1\/20\/1507"
+                                    ]
+                                  ]
+                                },
+                                true,
+                                {
+                                  "if": [
+                                    {
+                                      "!": [
+                                        {
+                                          "var": "payload.v.3"
+                                        }
+                                      ]
+                                    },
+                                    false,
+                                    {
+                                      "if": [
+                                        {
+                                          "in": [
+                                            {
+                                              "var": "payload.v.3.mp"
+                                            },
+                                            [
+                                              "EU\/1\/20\/1528",
+                                              "EU\/1\/20\/1507"
+                                            ]
+                                          ]
+                                        },
+                                        true,
+                                        {
+                                          "if": [
+                                            {
+                                              "!": [
+                                                {
+                                                  "var": "payload.v.4"
+                                                }
+                                              ]
+                                            },
+                                            false,
+                                            {
+                                              "if": [
+                                                {
+                                                  "in": [
+                                                    {
+                                                      "var": "payload.v.4.mp"
+                                                    },
+                                                    [
+                                                      "EU\/1\/20\/1528",
+                                                      "EU\/1\/20\/1507"
+                                                    ]
+                                                  ]
+                                                },
+                                                true,
+                                                {
+                                                  "if": [
+                                                    {
+                                                      "!": [
+                                                        {
+                                                          "var": "payload.v.5"
+                                                        }
+                                                      ]
+                                                    },
+                                                    false,
+                                                    {
+                                                      "if": [
+                                                        {
+                                                          "in": [
+                                                            {
+                                                              "var": "payload.v.5.mp"
+                                                            },
+                                                            [
+                                                              "EU\/1\/20\/1528",
+                                                              "EU\/1\/20\/1507"
+                                                            ]
+                                                          ]
+                                                        },
+                                                        true,
+                                                        {
+                                                          "if": [
+                                                            {
+                                                              "!": [
+                                                                {
+                                                                  "var": "payload.v.6"
+                                                                }
+                                                              ]
+                                                            },
+                                                            false,
+                                                            {
+                                                              "if": [
+                                                                {
+                                                                  "in": [
+                                                                    {
+                                                                      "var": "payload.v.6.mp"
+                                                                    },
+                                                                    [
+                                                                      "EU\/1\/20\/1528",
+                                                                      "EU\/1\/20\/1507"
+                                                                    ]
+                                                                  ]
+                                                                },
+                                                                true,
+                                                                {
+                                                                  "if": [
+                                                                    {
+                                                                      "!": [
+                                                                        {
+                                                                          "var": "payload.v.7"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    false,
+                                                                    {
+                                                                      "if": [
+                                                                        {
+                                                                          "in": [
+                                                                            {
+                                                                              "var": "payload.v.7.mp"
+                                                                            },
+                                                                            [
+                                                                              "EU\/1\/20\/1528",
+                                                                              "EU\/1\/20\/1507"
+                                                                            ]
+                                                                          ]
+                                                                        },
+                                                                        true,
+                                                                        {
+                                                                          "if": [
+                                                                            {
+                                                                              "!": [
+                                                                                {
+                                                                                  "var": "payload.v.8"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            false,
+                                                                            {
+                                                                              "if": [
+                                                                                {
+                                                                                  "in": [
+                                                                                    {
+                                                                                      "var": "payload.v.8.mp"
+                                                                                    },
+                                                                                    [
+                                                                                      "EU\/1\/20\/1528",
+                                                                                      "EU\/1\/20\/1507"
+                                                                                    ]
+                                                                                  ]
+                                                                                },
+                                                                                true,
+                                                                                {
+                                                                                  "if": [
+                                                                                    {
+                                                                                      "!": [
+                                                                                        {
+                                                                                          "var": "payload.v.9"
+                                                                                        }
+                                                                                      ]
+                                                                                    },
+                                                                                    false,
+                                                                                    {
+                                                                                      "if": [
+                                                                                        {
+                                                                                          "in": [
+                                                                                            {
+                                                                                              "var": "payload.v.9.mp"
+                                                                                            },
+                                                                                            [
+                                                                                              "EU\/1\/20\/1528",
+                                                                                              "EU\/1\/20\/1507"
+                                                                                            ]
+                                                                                          ]
+                                                                                        },
+                                                                                        true,
+                                                                                        false
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Country": "DE",
+    "Engine": "CERTLOGIC",
+    "Type": "ImpfstatusEZwei",
+    "Identifier": "IE2-DE-0200",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "Based on your vaccination and past infection, you are considered to be fully vaccinated. However, please also find out about the recommended booster vaccinations."
+      },
+      {
+        "desc": "Sie gelten aufgrund Ihrer Impfung und durchgemachten Infektion als vollständig geimpft. Bitte informieren Sie sich aber auch über empfohlene Auffrischimpfungen.",
+        "lang": "de"
+      }
+    ],
+    "hash": "710c578400a351a3ae364e6d5f45852eea20033aa83a6f751f321429426fde04",
+    "Version": "1.0.1",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "EngineVersion": "1.0.0",
+    "AffectedFields": [
+      "v.0",
+      "v.0.mp",
+      "v.1",
+      "v.1.mp",
+      "v.2",
+      "v.2.mp",
+      "v.3",
+      "v.3.mp",
+      "v.4",
+      "v.4.mp",
+      "v.5",
+      "v.5.mp",
+      "v.6",
+      "v.6.mp",
+      "v.7",
+      "v.7.mp",
+      "v.8",
+      "v.8.mp",
+      "v.9",
+      "v.9.mp"
+    ],
+    "CertificateType": "General"
+  },
+  {
+    "Engine": "CERTLOGIC",
+    "hash": "a7d74c154e91510e4b16bd41baa27f428e9ace083e551ff1ffac9c912983b2ce",
+    "Country": "DE",
+    "ValidFrom": "2022-04-11T00:00:00Z",
+    "Type": "Invalidation",
+    "CertificateType": "Vaccination",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "AffectedFields": [
+      "v.0.ci"
+    ],
+    "Version": "1.0.3",
+    "SchemaVersion": "1.0.0",
+    "Identifier": "IR-DE-0001",
+    "EngineVersion": "0.8.0",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "The certificate must not be issued by an unauthorized party."
+      },
+      {
+        "lang": "de",
+        "desc": "Das Zertifikat darf nicht durch unberechtigte Ausgeber ausgestellt worden sein."
+      },
+      {
+        "lang": "fr",
+        "desc": "Le certificat ne doit pas avoir été établi par des émetteurs non autorisés."
+      },
+      {
+        "lang": "es",
+        "desc": "El certificado no puede haber sido expedido por emisores no autorizados."
+      },
+      {
+        "lang": "it",
+        "desc": "Il certificato non può essere rilasciato da un organismo non autorizzato."
+      }
+    ],
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.v.0.ci"
+        },
+        {
+          "if": [
+            {
+              "and": [
+                {
+                  "in": [
+                    {
+                      "extractFromUVCI": [
+                        {
+                          "var": "payload.v.0.ci"
+                        },
+                        1
+                      ]
+                    },
+                    [
+                      "A51018097",
+                      "A80013335"
+                    ]
+                  ]
+                },
+                {
+                  "===": [
+                    {
+                      "extractFromUVCI": [
+                        {
+                          "var": "payload.v.0.ci"
+                        },
+                        0
+                      ]
+                    },
+                    "01DE"
+                  ]
+                }
+              ]
+            },
+            false,
+            true
+          ]
+        },
+        true
+      ]
+    }
+  },
+  {
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.t.0"
+        },
+        {
+          "not-before": [
+            {
+              "plusTime": [
+                {
+                  "var": "payload.t.0.sc"
+                },
+                24,
+                "hour"
+              ]
+            },
+            {
+              "plusTime": [
+                {
+                  "var": "external.validationClock"
+                },
+                0,
+                "hour"
+              ]
+            }
+          ]
+        },
+        false
+      ]
+    },
+    "hash": "f7b63fdf7985897998380a0a9a3c3488579b22d50365f664ea2e6aff833b0962",
+    "Version": "1.0.0",
+    "Identifier": "MA-DE-0100",
+    "EngineVersion": "1.0.0",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "CertificateType": "General",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "You are currently not required to wear a mask in germany."
+      },
+      {
+        "desc": "Sie sind deutschlandweit von der Maskenpflicht befreit.",
+        "lang": "de"
+      }
+    ],
+    "AffectedFields": [
+      "t.0",
+      "t.0.sc"
+    ],
+    "ValidFrom": "2022-05-04T16:00:00Z",
+    "Type": "Mask",
+    "Country": "DE",
+    "SchemaVersion": "1.0.0",
+    "Engine": "CERTLOGIC"
+  },
+  {
+    "Engine": "CERTLOGIC",
+    "Region": "SH",
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.t.0"
+        },
+        {
+          "not-before": [
+            {
+              "plusTime": [
+                {
+                  "var": "payload.t.0.sc"
+                },
+                24,
+                "hour"
+              ]
+            },
+            {
+              "plusTime": [
+                {
+                  "var": "external.validationClock"
+                },
+                0,
+                "hour"
+              ]
+            }
+          ]
+        },
+        {
+          "if": [
+            {
+              "var": "payload.v.0"
+            },
+            {
+              "if": [
+                {
+                  "var": "payload.r.0"
+                },
+                {
+                  "if": [
+                    {
+                      "and": [
+                        {
+                          "after": [
+                            {
+                              "plusTime": [
+                                {
+                                  "var": "payload.v.0.dt"
+                                },
+                                0,
+                                "hour"
+                              ]
+                            },
+                            {
+                              "plusTime": [
+                                {
+                                  "var": "payload.r.0.fr"
+                                },
+                                0,
+                                "hour"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          ">=": [
+                            {
+                              "var": "payload.v.0.dn"
+                            },
+                            2
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "not-before": [
+                        {
+                          "plusTime": [
+                            {
+                              "var": "payload.v.0.dt"
+                            },
+                            90,
+                            "day"
+                          ]
+                        },
+                        {
+                          "plusTime": [
+                            {
+                              "var": "external.validationClock"
+                            },
+                            0,
+                            "hour"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "and": [
+                        {
+                          "not-after": [
+                            {
+                              "plusTime": [
+                                {
+                                  "var": "payload.r.0.fr"
+                                },
+                                29,
+                                "day"
+                              ]
+                            },
+                            {
+                              "plusTime": [
+                                {
+                                  "var": "external.validationClock"
+                                },
+                                0,
+                                "hour"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "not-before": [
+                            {
+                              "plusTime": [
+                                {
+                                  "var": "payload.r.0.fr"
+                                },
+                                90,
+                                "day"
+                              ]
+                            },
+                            {
+                              "plusTime": [
+                                {
+                                  "var": "external.validationClock"
+                                },
+                                0,
+                                "hour"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      ">=": [
+                        {
+                          "var": "payload.v.0.dn"
+                        },
+                        3
+                      ]
+                    },
+                    {
+                      "not-before": [
+                        {
+                          "plusTime": [
+                            {
+                              "var": "payload.v.0.dt"
+                            },
+                            90,
+                            "day"
+                          ]
+                        },
+                        {
+                          "plusTime": [
+                            {
+                              "var": "external.validationClock"
+                            },
+                            0,
+                            "hour"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "if": [
+                {
+                  "var": "payload.r.0"
+                },
+                {
+                  "and": [
+                    {
+                      "not-after": [
+                        {
+                          "plusTime": [
+                            {
+                              "var": "payload.r.0.fr"
+                            },
+                            29,
+                            "day"
+                          ]
+                        },
+                        {
+                          "plusTime": [
+                            {
+                              "var": "external.validationClock"
+                            },
+                            0,
+                            "hour"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "not-before": [
+                        {
+                          "plusTime": [
+                            {
+                              "var": "payload.r.0.fr"
+                            },
+                            90,
+                            "day"
+                          ]
+                        },
+                        {
+                          "plusTime": [
+                            {
+                              "var": "external.validationClock"
+                            },
+                            0,
+                            "hour"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                false
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Country": "DE",
+    "EngineVersion": "1.0.0",
+    "Version": "1.0.0",
+    "hash": "8bc8fc9a786cf29119202c47f0088c06ec0fa60c6af03df644694705d0e618ec",
+    "Identifier": "MA-DE-0101",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "You are currently not required to wear a mask in the selected federal state."
+      },
+      {
+        "desc": "Sie sind im gewählten Bundesland von der Maskenpflicht befreit.",
+        "lang": "de"
+      }
+    ],
+    "AffectedFields": [
+      "r.0",
+      "r.0.fr",
+      "t.0",
+      "t.0.sc",
+      "v.0",
+      "v.0.dn",
+      "v.0.dt"
+    ],
+    "Type": "Mask",
+    "CertificateType": "General",
+    "SchemaVersion": "1.0.0",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "ValidFrom": "2022-05-04T16:00:00Z"
+  },
+  {
+    "SchemaVersion": "1.0.0",
+    "AffectedFields": [
+      "t.0",
+      "t.0.tt"
+    ],
+    "Engine": "CERTLOGIC",
+    "ValidFrom": "2021-07-03T00:00:00Z",
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.t.0"
+        },
+        {
+          "in": [
+            {
+              "var": "payload.t.0.tt"
+            },
+            [
+              "LP217198-3",
+              "LP6464-4"
+            ]
+          ]
+        },
+        true
+      ]
+    },
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "This must be an antigen test (e.g., rapid test) or NAA test (e.g., PCR)."
+      },
+      {
+        "lang": "de",
+        "desc": "Es muss ein Antigen-Test (z.B. Schnelltest) oder NAA-Test (z.B. PCR) sein."
+      },
+      {
+        "lang": "fr",
+        "desc": "Il doit s’agir d‘un test antigénique (p. ex. test rapide) ou TAN (p. ex. PCR)."
+      },
+      {
+        "lang": "es",
+        "desc": "Debe ser una prueba de antígenos (por ejemplo, un autotest rápido) o una prueba de amplificación de ácidos nucleicos (por ejemplo, una PCR)."
+      },
+      {
+        "lang": "it",
+        "desc": "Deve trattarsi di un test antigenico (test rapido) o NAAT (come PRC)."
+      }
+    ],
+    "hash": "b3c4e2af3259bf5c793e0bed4ccf965ac54cb704a4949dfb55f4681d494a9a0e",
+    "Version": "1.0.0",
+    "CertificateType": "Test",
+    "Type": "Acceptance",
+    "Country": "DE",
+    "Identifier": "TR-DE-0001",
+    "EngineVersion": "0.7.5"
+  },
+  {
+    "Engine": "CERTLOGIC",
+    "CertificateType": "Test",
+    "AffectedFields": [
+      "t.0",
+      "t.0.tr"
+    ],
+    "hash": "34d53cfc0e330a05ddadb6262500e65a430a587b0dd29c027b5492f552e046d0",
+    "SchemaVersion": "1.0.0",
+    "Identifier": "TR-DE-0004",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "ValidFrom": "2021-07-03T00:00:00Z",
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.t.0"
+        },
+        {
+          "===": [
+            {
+              "var": "payload.t.0.tr"
+            },
+            "260415000"
+          ]
+        },
+        true
+      ]
+    },
+    "EngineVersion": "0.7.5",
+    "Type": "Acceptance",
+    "Version": "1.0.0",
+    "Country": "DE",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "The test result must be negative."
+      },
+      {
+        "lang": "de",
+        "desc": "Das Ergebnis des Tests muss negativ sein."
+      },
+      {
+        "lang": "fr",
+        "desc": "Le résultat du test doit être négatif."
+      },
+      {
+        "lang": "es",
+        "desc": "El resultado de la prueba debe ser negativo."
+      },
+      {
+        "lang": "it",
+        "desc": "Il risultato del test deve essere negativo."
+      }
+    ]
+  },
+  {
+    "AffectedFields": [
+      "t.0",
+      "t.0.ma",
+      "t.0.tt"
+    ],
+    "Engine": "CERTLOGIC",
+    "Version": "1.0.0",
+    "hash": "7e177d5c072d0c1bdee4339e649e74ae5bf53198a4c44d615a203f98c57bbc1f",
+    "Type": "Acceptance",
+    "SchemaVersion": "1.0.0",
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.t.0"
+        },
+        {
+          "if": [
+            {
+              "===": [
+                {
+                  "var": "payload.t.0.tt"
+                },
+                "LP217198-3"
+              ]
+            },
+            {
+              "in": [
+                {
+                  "var": "payload.t.0.ma"
+                },
+                {
+                  "var": "external.valueSets.covid-19-lab-test-manufacturer-and-name"
+                }
+              ]
+            },
+            true
+          ]
+        },
+        true
+      ]
+    },
+    "ValidFrom": "2021-07-03T00:00:00Z",
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "Country": "DE",
+    "CertificateType": "Test",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "The antigen test (e.g., rapid test) must be included in the EU’s \"Common list of COVID-19 rapid antigen tests\"."
+      },
+      {
+        "lang": "de",
+        "desc": "Der Antigen-Test (z.B. Schnelltest) muss in der Liste \"Common list of rapid antigen tests\" der EU enthalten sein."
+      },
+      {
+        "lang": "fr",
+        "desc": "Le test antigénique (p. ex. test rapide) doit figurer sur la liste commune des tests antigéniques rapides « Common list of rapid antigen tests » de l’UE."
+      },
+      {
+        "lang": "es",
+        "desc": "La prueba de antígenos (por ejemplo, una prueba rápida) debe estar incluida en la lista \"Common list of rapid antigen tests\" de la Unión Europea."
+      },
+      {
+        "lang": "it",
+        "desc": "Il test antigenico (ad es. test rapido) deve corrispondere a uno dei test della \"Common list of rapid antigen tests\" dell’UE."
+      }
+    ],
+    "Identifier": "TR-DE-0005",
+    "EngineVersion": "0.7.5"
+  },
+  {
+    "AffectedFields": [
+      "v.0",
+      "v.0.mp"
+    ],
+    "SchemaVersion": "1.0.0",
+    "Logic": {
+      "if": [
+        {
+          "var": "payload.v.0"
+        },
+        {
+          "in": [
+            {
+              "var": "payload.v.0.mp"
+            },
+            [
+              "EU\/1\/20\/1528",
+              "EU\/1\/20\/1507",
+              "EU\/1\/21\/1529",
+              "EU\/1\/20\/1525",
+              "EU\/1\/21\/1618",
+              "NVX-CoV2373",
+              "EU\/1\/21\/1624",
+              "EU\/1\/21\/1580"
+            ]
+          ]
+        },
+        true
+      ]
+    },
+    "ValidFrom": "2022-09-30T00:00:00Z",
+    "Type": "Acceptance",
+    "CertificateType": "Vaccination",
+    "Version": "1.0.1",
+    "Description": [
+      {
+        "lang": "en",
+        "desc": "Only the following vaccines are accepted: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."
+      },
+      {
+        "lang": "de",
+        "desc": "Nur die folgenden Impfstoffe werden akzeptiert: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."
+      },
+      {
+        "lang": "fr",
+        "desc": "Seuls les vaccins suivants sont acceptés: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."
+      },
+      {
+        "lang": "es",
+        "desc": "Solo se aceptan las siguientes vacunas: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."
+      },
+      {
+        "lang": "it",
+        "desc": "Saranno accettati solamente i seguenti vaccini: AstraZeneca, Biontech, Janssen, Moderna, Novavax, Valneva."
+      }
+    ],
+    "ValidTo": "2030-06-01T00:00:00Z",
+    "hash": "d9386f9c80d3c27727d17566c1a5b94e8ab0dbcfb01cf8eeb4f6935d2e93f5c3",
+    "EngineVersion": "0.7.5",
+    "Engine": "CERTLOGIC",
+    "Country": "DE",
+    "Identifier": "VR-DE-5002"
+  }
+]
