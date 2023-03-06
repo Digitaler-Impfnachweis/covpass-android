@@ -98,7 +98,7 @@
       android:drawablePadding="@dimen/grid_half"
       android:text="@string/renewal_expiry_notification_title"
       android:visibility="gone"
-      app:drawableStartCompat="@drawable/info_warning"
+      app:drawableStartCompat="@drawable/info_warning_small"
       tools:visibility="visible" />
 
   </LinearLayout>
