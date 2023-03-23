@@ -140,7 +140,7 @@ public class CertificateViewHolder(
                     R.color.backgroundSecondary50
                 },
             )
-            binding.certificateItemActualTitle.isVisible = cert.isActual
+            binding.certificateItemActualTitle.isVisible = cert.isActualAndValid()
             binding.certificateItemTitle.text = cert.title
             binding.certificateItemSubtitle.text = cert.subtitle
             binding.certificateItemDate.text = cert.date
@@ -174,6 +174,17 @@ public class CertificateViewHolder(
         }
     }
 }
+
+private fun DetailItem.Certificate.isActualAndValid() =
+    when (certStatus) {
+        CertValidationResult.Expired,
+        CertValidationResult.Revoked,
+        CertValidationResult.Invalid,
+        -> false
+        CertValidationResult.Valid,
+        CertValidationResult.ExpiryPeriod,
+        -> isActual
+    }
 
 private fun DetailItem.Certificate.isExpiredInvalidOrRevoked() =
     certStatus == CertValidationResult.Expired ||
