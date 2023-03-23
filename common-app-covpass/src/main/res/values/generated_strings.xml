@@ -350,11 +350,15 @@
 	<string name="certificate_check_validity_detail_view_result_no_rules_message">For the selected country and date, there are currently no entry rules available to check for in the App. \n\nPlease check on the #website Re-Open EU::https://reopen.europa.eu/en# whether the certificate is valid for entry into the selected country.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_title">This certificate is valid on your travel date</string>
 	<string name="certificate_check_validity_detail_view_result_valid_message">For %1$s on %2$s</string>
-	<string name="certificate_check_validity_detail_view_result_valid_info">%d rules of the destination country were successfully checked.</string>
+	<string name="certificate_check_validity_detail_view_result_valid_info_singular">1 rule of the destination country was successfully checked.</string>
+	<string name="certificate_check_validity_detail_view_result_valid_info_plural">%d rules of the destination country were successfully checked.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_info_no_rules">There are currently no entry rules available for this certificate type and the selected country and date. Please note the following:</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_title">This certificate cannot be completely verified.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_first_message">For %1$s on %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_second_message">Sorry, an automatic check is not possible for this certificate. Please review the information marked out below yourself.</string>
+	<string name="check_validity_no_rules_status">No rules available</string>
+	<string name="check_validity_no_rules_title">No entry rules available</string>
+	<string name="check_validity_no_rules_copy">Unfortunately, an automatic check is not possible, as no entry rules are stored for this country. Please consult the website of the Federal Foreign Office for more information.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_note_title">Review this information</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_note_message">Rule at destination: antigen tests are valid for a maximum of 48 hours.</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_title">This certificate is invalid on your travel date</string>

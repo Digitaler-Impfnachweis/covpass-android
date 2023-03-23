@@ -37,8 +37,6 @@ public abstract class ResultFragment : BaseBottomSheet() {
     protected abstract val country: Country
     protected abstract val dateTime: LocalDateTime
     protected abstract val rulesCount: Int
-    protected abstract val resultNoteEn: Int
-    protected abstract val resultNoteDe: Int
 
     public abstract fun getRowList(cert: CovCertificate): List<ResultRowData>
 
@@ -66,7 +64,7 @@ public abstract class ResultFragment : BaseBottomSheet() {
 
     private fun startRecyclerView() {
         val cert = certs.value.getCombinedCertificate(certId)?.covCertificate ?: return
-        ResultAdapter(this, resultNoteEn, resultNoteDe).apply {
+        ResultAdapter(this).apply {
             updateCert(certId)
             updateHeaderWarning(resultType, country, dateTime, rulesCount)
             updateList(getRowList(cert).filterNot { it.value.isNullOrEmpty() })

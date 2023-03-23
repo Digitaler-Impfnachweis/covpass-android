@@ -350,11 +350,15 @@
 	<string name="certificate_check_validity_detail_view_result_no_rules_message">Für das gewählte Land und den gewählten Zeitpunkt stehen derzeit keine Einreiseregeln für die Prüfung in der App zur Verfügung.\n\n Bitte informieren Sie sich auf der #Website Re-Open EU,::https://reopen.europa.eu/de# ob das Zertifikat für die Einreise in das gewählte Land gültig ist.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_title">Dieses Zertifikat ist am Reisedatum gültig</string>
 	<string name="certificate_check_validity_detail_view_result_valid_message">Für %1$s, am %2$s</string>
-	<string name="certificate_check_validity_detail_view_result_valid_info">Es wurden %d Regeln des Ziellandes erfolgreich überprüft.</string>
+	<string name="certificate_check_validity_detail_view_result_valid_info_singular">Es wurde 1 Regel des Ziellandes erfolgreich überprüft.</string>
+	<string name="certificate_check_validity_detail_view_result_valid_info_plural">Es wurden %d Regeln des Ziellandes erfolgreich überprüft.</string>
 	<string name="certificate_check_validity_detail_view_result_valid_info_no_rules">Für diesen Zertifikattyp sind derzeit keine Einreiseregeln für das gewählte Land und den gewählten Zeitpunkt vorhanden. Bitte beachten Sie die folgenden Hinweise:</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_title">Dieses Zertifikat ist nicht vollständig prüfbar.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_first_message">Für %1$s, am %2$s</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_second_message">Leider ist eine automatische Prüfung nicht möglich. Überprüfen Sie die unten markierten Werte bitte selbst.</string>
+	<string name="check_validity_no_rules_status">Keine Regeln vorhanden</string>
+	<string name="check_validity_no_rules_title">Keine Einreiseregeln vorhanden</string>
+	<string name="check_validity_no_rules_copy">Leider ist eine automatische Prüfung nicht möglich, da für dieses Land keine Einreiseregeln hinterlegt sind. Bitte informieren Sie sich auf der Internetseite des Auswärtigen Amts.</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_note_title">Überprüfen Sie diese Information</string>
 	<string name="certificate_check_validity_detail_view_result_not_testable_note_message">Regel des Ziellands: Ein Antigentest ist maximal 48 Stunden gültig.</string>
 	<string name="certificate_check_validity_detail_view_result_not_valid_title">Dieses Zertifikat ist am Reisedatum nicht gültig</string>

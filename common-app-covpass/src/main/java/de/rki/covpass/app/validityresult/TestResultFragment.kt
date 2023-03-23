@@ -46,8 +46,6 @@ internal class TestResultFragment : ResultFragment() {
     override val country: Country by lazy { args.countryName }
     override val dateTime: LocalDateTime by lazy { args.dateTime }
     override val rulesCount: Int by lazy { args.rulesCount }
-    override val resultNoteEn: Int = R.string.certificate_check_validity_detail_view_test_result_note_en
-    override val resultNoteDe: Int = R.string.certificate_check_validity_detail_view_test_result_note_de
 
     override fun getRowList(cert: CovCertificate): List<ResultRowData> {
         val test = cert.dgcEntry as? TestCert ?: return emptyList()
@@ -133,12 +131,14 @@ internal class TestResultFragment : ResultFragment() {
                 getString(R.string.accessibility_test_certificate_detail_view_data_expiry_date),
                 value = getString(
                     R.string.test_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTime(),
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault())
+                        .formatDateTime(),
                 ),
                 description = getString(R.string.test_certificate_detail_view_data_expiry_date_note),
                 valueAccessibleDescription = getString(
                     R.string.test_certificate_detail_view_data_expiry_date_message,
-                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault()).formatDateTimeAccessibility(),
+                    ZonedDateTime.ofInstant(cert.validUntil, ZoneId.systemDefault())
+                        .formatDateTimeAccessibility(),
                 ),
             ),
         )

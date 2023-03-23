@@ -1,14 +1,11 @@
 package de.rki.covpass.app.validityresult
 
 import android.annotation.SuppressLint
-import android.text.method.LinkMovementMethod
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
-import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.getString
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.app.R
@@ -21,17 +18,13 @@ import de.rki.covpass.app.validitycheck.countries.CountryResolver.defaultDeDomes
 import de.rki.covpass.commonapp.uielements.showError
 import de.rki.covpass.commonapp.uielements.showSuccess
 import de.rki.covpass.commonapp.uielements.showWarning
-import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.utils.formatDateTime
 import de.rki.covpass.sdk.utils.formatDateTimeAccessibility
 import java.time.LocalDateTime
-import java.util.Locale
 
 @SuppressLint("NotifyDataSetChanged")
 public class ResultAdapter(
     parent: Fragment,
-    private val resultNoteEn: Int,
-    private val resultNoteDe: Int,
 ) : BaseRecyclerViewAdapter<BindingViewHolder<*>>(parent) {
 
     private var resultItems: List<ResultFragment.ResultRowData> = emptyList()
@@ -68,7 +61,7 @@ public class ResultAdapter(
         when (viewType) {
             TYPE_HEADER -> HeaderViewHolder(parent)
             TYPE_NORMAL -> NormalViewHolder(parent)
-            TYPE_FOOTER -> FooterViewHolder(parent, resultNoteEn, resultNoteDe)
+            TYPE_FOOTER -> FooterViewHolder(parent)
             else -> NormalViewHolder(parent)
         }
 
@@ -155,15 +148,12 @@ public class ResultAdapter(
                                 getString(country.nameRes),
                                 dateTime.formatDateTimeAccessibility(),
                             ),
-                            descriptionNoLink = getString(
-                                R.string.certificate_check_validity_detail_view_result_valid_info,
-                                rulesCount,
-                            ),
+                            descriptionNoLink = getQuantityString(rulesCount),
                             iconRes = R.drawable.info_success_icon,
                         )
                     } else {
                         binding.resultWarningElement.showWarning(
-                            title = getString(R.string.certificate_check_validity_detail_view_result_no_rules_title),
+                            title = getString(R.string.check_validity_no_rules_title),
                             subtitle = getString(
                                 R.string.certificate_check_validity_detail_view_result_valid_message,
                                 getString(country.nameRes),
@@ -175,12 +165,19 @@ public class ResultAdapter(
                                 dateTime.formatDateTimeAccessibility(),
                             ),
                             description = getString(
-                                R.string.certificate_check_validity_detail_view_result_no_rules_message,
+                                R.string.check_validity_no_rules_copy,
                             ),
                             iconRes = R.drawable.info_warning_icon,
                         )
                     }
                 }
+            }
+        }
+        private fun getQuantityString(count: Int): String {
+            return if (count > 1) {
+                getString(R.string.certificate_check_validity_detail_view_result_valid_info_plural, count)
+            } else {
+                getString(R.string.certificate_check_validity_detail_view_result_valid_info_singular)
             }
         }
     }
@@ -198,13 +195,15 @@ public class ResultAdapter(
                 binding.resultRowSubtitleTextview.text = item.value
                 binding.resultRowDataTextview.text = item.description
                 if (item.valueAccessibleDescription != null) {
-                    binding.resultRowSubtitleTextview.contentDescription = item.valueAccessibleDescription
+                    binding.resultRowSubtitleTextview.contentDescription =
+                        item.valueAccessibleDescription
                 }
             } else {
                 binding.resultRowSubtitleTextview.isVisible = false
                 binding.resultRowDataTextview.text = item.value
                 if (item.valueAccessibleDescription != null) {
-                    binding.resultRowDataTextview.contentDescription = item.valueAccessibleDescription
+                    binding.resultRowDataTextview.contentDescription =
+                        item.valueAccessibleDescription
                 }
             }
             when {
@@ -225,8 +224,6 @@ public class ResultAdapter(
 
     public class FooterViewHolder(
         parent: ViewGroup,
-        private val resultNoteEn: Int,
-        private val resultNoteDe: Int,
     ) : BindingViewHolder<ResultFooterBinding>(
         parent,
         ResultFooterBinding::inflate,
@@ -234,23 +231,6 @@ public class ResultAdapter(
         public fun bind(parent: Fragment, certId: String) {
             binding.resultDisplayQrButton.setOnClickListener {
                 parent.findNavigator().push(DisplayQrCodeFragmentNav(certId))
-            }
-            binding.resultInfoFooterEnglish.apply {
-                text = getSpanned(resultNoteEn)
-                textLocale = Locale.ENGLISH
-                movementMethod = LinkMovementMethod.getInstance()
-                setExternalLinkImage()
-            }
-            binding.resultInfoFooterGerman.apply {
-                text = getSpanned(resultNoteDe)
-                textLocale = Locale.GERMAN
-                movementMethod = LinkMovementMethod.getInstance()
-                setExternalLinkImage()
-            }
-            if (Locale.getDefault() == Locale.GERMANY) {
-                binding.resultInfoFooterEnglish.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-            } else {
-                binding.resultInfoFooterGerman.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
             }
         }
     }

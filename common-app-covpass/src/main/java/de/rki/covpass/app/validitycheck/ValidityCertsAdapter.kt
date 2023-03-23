@@ -128,7 +128,7 @@ public class ValidityCertsAdapter(parent: Fragment) :
                         binding.certificateTypeIcon.setImageResource(R.drawable.validation_no_rules)
                         binding.certificateStatusLayout.setBackgroundResource(R.color.warning20)
                         binding.certificateItemValidity.setText(
-                            R.string.certificate_check_validity_result_not_testable,
+                            R.string.check_validity_no_rules_status,
                         )
                     }
                     else -> {
