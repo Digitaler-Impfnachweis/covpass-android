@@ -13,40 +13,50 @@ public class SettingUpdateListBuilder(
     private val revocationLocalListRepository: RevocationLocalListRepository,
 ) {
     public fun buildList(isCovPassCheck: Boolean): List<SettingItem> {
-        return listOf(
-            SettingItem(
-                R.string.settings_rules_list_entry,
-                getDate(rulesUpdateRepository.lastEuRulesUpdate.value),
-            ),
-            SettingItem(
-                R.string.settings_rules_list_domestic,
-                getDate(rulesUpdateRepository.lastDomesticRulesUpdate.value),
-            ),
-            SettingItem(
-                R.string.settings_rules_list_features,
-                getDate(rulesUpdateRepository.lastValueSetsUpdate.value),
-            ),
-            SettingItem(
-                R.string.settings_rules_list_issuer,
-                getDate(dscRepository.lastUpdate.value),
-            ),
-            SettingItem(
-                R.string.settings_rules_list_countries,
-                getDate(rulesUpdateRepository.lastCountryListUpdate.value),
-            ),
-        ) + getOfflineRevocationItem(isCovPassCheck).filterNot { it.date == null }
-    }
-
-    private fun getOfflineRevocationItem(isCovPassCheck: Boolean): List<SettingItem> {
-        return if (isCovPassCheck) {
-            listOf(
+        return buildList {
+            if (!isCovPassCheck) {
+                add(
+                    SettingItem(
+                        R.string.settings_rules_list_entry,
+                        getDate(rulesUpdateRepository.lastEuRulesUpdate.value),
+                    ),
+                )
+            }
+            add(
                 SettingItem(
-                    R.string.settings_rules_list_authorities,
-                    getDate(revocationLocalListRepository.lastRevocationUpdateFinish.value),
+                    R.string.settings_rules_list_domestic,
+                    getDate(rulesUpdateRepository.lastDomesticRulesUpdate.value),
                 ),
             )
-        } else {
-            emptyList()
+            add(
+                SettingItem(
+                    R.string.settings_rules_list_features,
+                    getDate(rulesUpdateRepository.lastValueSetsUpdate.value),
+                ),
+            )
+            add(
+                SettingItem(
+                    R.string.settings_rules_list_issuer,
+                    getDate(dscRepository.lastUpdate.value),
+                ),
+            )
+            add(
+                SettingItem(
+                    R.string.settings_rules_list_countries,
+                    getDate(rulesUpdateRepository.lastCountryListUpdate.value),
+                ),
+            )
+            if (isCovPassCheck) {
+                val lastUpdate = getDate(revocationLocalListRepository.lastRevocationUpdateFinish.value)
+                if (lastUpdate != null) {
+                    add(
+                        SettingItem(
+                            R.string.settings_rules_list_authorities,
+                            lastUpdate,
+                        ),
+                    )
+                }
+            }
         }
     }
 

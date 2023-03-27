@@ -17,12 +17,4 @@ public class CheckContextRepository(store: CborSharedPrefsStore) {
 
     public val isOfflineRevocationOn: SuspendMutableValueFlow<Boolean> =
         store.getData("is_offline_revocation_on", false)
-
-    public val vaccinationProtectionMode: SuspendMutableValueFlow<VaccinationProtectionMode> =
-        store.getData("vaccination_protection_mode", VaccinationProtectionMode.ModeIfsg)
-
-    public enum class VaccinationProtectionMode {
-        ModeIfsg,
-        ModeEntryRules
-    }
 }

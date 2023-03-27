@@ -35,10 +35,6 @@ internal class SettingsUpdateListBuilderTest {
         val actualList = settingUpdateListBuilder.buildList(true)
         val expectedList = listOf(
             SettingItem(
-                R.string.settings_rules_list_entry,
-                null,
-            ),
-            SettingItem(
                 R.string.settings_rules_list_domestic,
                 null,
             ),
@@ -72,10 +68,6 @@ internal class SettingsUpdateListBuilderTest {
 
         val actualList = settingUpdateListBuilder.buildList(true)
         val expectedList = listOf(
-            SettingItem(
-                R.string.settings_rules_list_entry,
-                timeNow,
-            ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
                 timeNow,
@@ -114,10 +106,6 @@ internal class SettingsUpdateListBuilderTest {
 
         val actualList = settingUpdateListBuilder.buildList(true)
         val expectedList = listOf(
-            SettingItem(
-                R.string.settings_rules_list_entry,
-                timeNow,
-            ),
             SettingItem(
                 R.string.settings_rules_list_domestic,
                 timeNow,

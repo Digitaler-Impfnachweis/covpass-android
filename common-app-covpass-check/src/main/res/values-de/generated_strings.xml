@@ -285,7 +285,7 @@
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
 	<string name="settings_rules_list_loading_cancel">Abbrechen</string>
-	<string name="app_information_message_update">Legen Sie fest, nach welchen Regeln COVID-Zertifikate geprüft werden sollen. Aktualisieren Sie gegebenenfalls die Prüfregeln (siehe unten).</string>
+	<string name="app_information_message_update">Hier können Sie die Regeln aktualisieren, nach denen Zertifikate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
 	<string name="app_information_rules_list_title">Regelwerk</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>

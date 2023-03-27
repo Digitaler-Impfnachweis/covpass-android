@@ -66,23 +66,3 @@ public suspend fun validateImmunityStatus(
 
     return CovPassCheckImmunityValidationResult.ValidationError
 }
-
-public suspend fun validateEntry(
-    covCertificate: CovCertificate,
-    euRulesValidator: CovPassRulesValidator,
-    revocationRemoteListRepository: RevocationRemoteListRepository,
-): CovPassCheckImmunityValidationResult {
-    if (validateRevocation(covCertificate, revocationRemoteListRepository)) {
-        return CovPassCheckImmunityValidationResult.TechnicalError
-    }
-
-    // Acceptance and Invalidation rules from /eurules
-    val euValidationResults = euRulesValidator.validate(covCertificate).filterNot {
-        it.rule.identifier == "GR-DE-0001"
-    }
-    if (euValidationResults.any { it.result == Result.FAIL }) {
-        return CovPassCheckImmunityValidationResult.ValidationError
-    }
-
-    return CovPassCheckImmunityValidationResult.Success
-}

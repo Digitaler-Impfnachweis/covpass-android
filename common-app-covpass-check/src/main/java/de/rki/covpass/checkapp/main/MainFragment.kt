@@ -33,7 +33,6 @@ import de.rki.covpass.commonapp.information.SettingsFragmentNav
 import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
-import de.rki.covpass.commonapp.storage.CheckContextRepository
 import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
@@ -68,6 +67,7 @@ internal class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         binding.mainSettingsImagebutton.setOnClickListener {
             findNavigator().push(CovPassCheckInformationFragmentNav())
         }
@@ -134,11 +134,6 @@ internal class MainFragment :
                 }
             }.let { }
         }
-        autoRun {
-            updateVaccinationCheckMode(
-                get(commonDeps.checkContextRepository.vaccinationProtectionMode),
-            )
-        }
         showNotificationIfNeeded()
     }
 
@@ -185,46 +180,25 @@ internal class MainFragment :
         )
     }
 
-    private fun updateVaccinationCheckMode(
-        vaccinationProtectionMode: CheckContextRepository.VaccinationProtectionMode,
-    ) {
-        if (
-            vaccinationProtectionMode == CheckContextRepository.VaccinationProtectionMode.ModeIfsg
-        ) {
-            binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_local)
-            binding.mainVaccinationModeText
-                ?.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.germany_mode_vaccination_status_icon,
-                    0,
-                    0,
-                    0,
-                )
+    private fun initView() {
+        binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_europe)
+        binding.mainVaccinationModeText
+            ?.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.entry_mode_vaccination_status_icon,
+                0,
+                0,
+                0,
+            )
 
-            binding.immunizationStatusInfoIcon.isVisible = true
-            binding.immunizationStatusInfoText.isVisible = true
+        binding.immunizationStatusInfoIcon.isVisible = false
+        binding.immunizationStatusInfoText.isVisible = false
 
-            binding.immunizationStatusTitle.setText(R.string.start_screen_vaccination_status_title)
-            binding.immunizationStatusNote.setText(R.string.start_screen_vaccination_status_copy)
-        } else {
-            binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_europe)
-            binding.mainVaccinationModeText
-                ?.setCompoundDrawablesWithIntrinsicBounds(
-                    R.drawable.entry_mode_vaccination_status_icon,
-                    0,
-                    0,
-                    0,
-                )
-
-            binding.immunizationStatusInfoIcon.isVisible = false
-            binding.immunizationStatusInfoText.isVisible = false
-
-            binding.immunizationStatusTitle.setText(R.string.start_vaccination_status_entry_title)
-            binding.immunizationStatusNote.apply {
-                text = getSpanned(R.string.start_vaccination_status_entry_subtitle)
-                movementMethod = LinkMovementMethod.getInstance()
-                underlinedClickable {
-                    findNavigator().push(SettingsFragmentNav(true))
-                }
+        binding.immunizationStatusTitle.setText(R.string.start_vaccination_status_entry_title)
+        binding.immunizationStatusNote.apply {
+            text = getSpanned(R.string.start_vaccination_status_entry_subtitle)
+            movementMethod = LinkMovementMethod.getInstance()
+            underlinedClickable {
+                findNavigator().push(SettingsFragmentNav(true))
             }
         }
     }

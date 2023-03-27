@@ -47,7 +47,7 @@ public class SettingsAdapter(
             binding.title.text = getString(item.title)
             binding.date.text = item.date?.let {
                 LocalDateTime.ofInstant(item.date, ZoneId.systemDefault()).formatDateTime()
-            } ?: ""
+            } ?: "N/A"
         }
     }
 }

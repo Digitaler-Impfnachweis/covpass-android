@@ -16,8 +16,6 @@ import com.ibm.health.common.annotations.Abortable
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.checkapp.R
-import de.rki.covpass.checkapp.validation.ValidationEntryResultFailedFragmentNav
-import de.rki.covpass.checkapp.validation.ValidationEntryResultSuccessFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultIncompleteFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationImmunityResultSuccessFragmentNav
 import de.rki.covpass.checkapp.validation.ValidationPendingResultFragmentNav
@@ -62,8 +60,6 @@ internal class CovPassCheckQRScannerFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeMediaPlayer(requireContext())
-        scanEnabled.value = false
-        viewModel.validateScanningType()
     }
 
     private fun initializeMediaPlayer(context: Context) {
@@ -98,9 +94,6 @@ internal class CovPassCheckQRScannerFragment :
                 viewModel.firstCovCertificate = null
                 viewModel.secondCovCertificate = null
                 viewModel.thirdCovCertificate = null
-            }
-            tag == TAG_ERROR_NO_ENTRY_RULES && action == DialogAction.NEGATIVE -> {
-                findNavigator().popAll()
             }
             tag == TAG_ERROR_DUPLICATED_CERTIFICATES && action == DialogAction.NEGATIVE -> {
                 findNavigator().popAll()
@@ -356,29 +349,6 @@ internal class CovPassCheckQRScannerFragment :
         }
     }
 
-    override fun onImmunityEntryValidationSuccess(certificate: CovCertificate) {
-        scanEnabled.value = false
-        findNavigator().push(
-            ValidationEntryResultSuccessFragmentNav(
-                name = certificate.fullName,
-                transliteratedName = certificate.fullTransliteratedName,
-                birthDate = formatDateFromString(certificate.birthDateFormatted),
-                expertModeData = certificate.getExpertModeData(),
-                isGermanCertificate = certificate.isGermanCertificate,
-            ),
-        )
-    }
-
-    override fun onImmunityEntryValidationFailure(certificate: CovCertificate?) {
-        scanEnabled.value = false
-        findNavigator().push(
-            ValidationEntryResultFailedFragmentNav(
-                expertModeData = certificate?.getExpertModeData(),
-                isGermanCertificate = certificate?.isGermanCertificate ?: false,
-            ),
-        )
-    }
-
     override fun showWarningDuplicatedType() {
         val dialog = DialogModel(
             titleRes = R.string.error_2G_unexpected_type_title,
@@ -401,17 +371,6 @@ internal class CovPassCheckQRScannerFragment :
         showDialog(dialog, childFragmentManager)
     }
 
-    override fun showWarningNoRules() {
-        val dialog = DialogModel(
-            titleRes = R.string.dialog_no_entry_rules_available_title,
-            messageString = getString(R.string.dialog_no_entry_rules_available_subtitle),
-            positiveButtonTextRes = R.string.dialog_no_entry_rules_available_button1,
-            negativeButtonTextRes = R.string.dialog_no_entry_rules_available_button2,
-            tag = TAG_ERROR_NO_ENTRY_RULES,
-        )
-        showDialog(dialog, childFragmentManager)
-    }
-
     override fun showWarningDuplicatedCertificate() {
         val dialog = DialogModel(
             titleRes = R.string.dialog_second_scan_title,
@@ -421,10 +380,6 @@ internal class CovPassCheckQRScannerFragment :
             tag = TAG_ERROR_DUPLICATED_CERTIFICATES,
         )
         showDialog(dialog, childFragmentManager)
-    }
-
-    override fun startScanning() {
-        scanEnabled.value = true
     }
 
     override fun onValidationFirstScanFinish() {
@@ -504,7 +459,6 @@ internal class CovPassCheckQRScannerFragment :
     private companion object {
         const val TAG_ERROR_UNEXPECTED_TYPE = "tag_error_unexpected_type"
         const val TAG_ERROR_DIFFERENT_DATA = "tag_error_different_data"
-        const val TAG_ERROR_NO_ENTRY_RULES = "tag_error_no_entry_rules"
         const val TAG_ERROR_DUPLICATED_CERTIFICATES = "tag_error_duplicated_certificates"
     }
 }
