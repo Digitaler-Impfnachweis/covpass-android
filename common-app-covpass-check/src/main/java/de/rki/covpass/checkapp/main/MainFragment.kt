@@ -6,7 +6,6 @@
 package de.rki.covpass.checkapp.main
 
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
@@ -16,7 +15,6 @@ import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
-import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
@@ -37,7 +35,6 @@ import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
-import de.rki.covpass.commonapp.utils.underlinedClickable
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
@@ -181,25 +178,19 @@ internal class MainFragment :
     }
 
     private fun initView() {
-        binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_europe)
+        binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_local)
         binding.mainVaccinationModeText
             ?.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.entry_mode_vaccination_status_icon,
+                R.drawable.germany_mode_vaccination_status_icon,
                 0,
                 0,
                 0,
             )
 
-        binding.immunizationStatusInfoIcon.isVisible = false
-        binding.immunizationStatusInfoText.isVisible = false
+        binding.immunizationStatusInfoIcon.isVisible = true
+        binding.immunizationStatusInfoText.isVisible = true
 
-        binding.immunizationStatusTitle.setText(R.string.start_vaccination_status_entry_title)
-        binding.immunizationStatusNote.apply {
-            text = getSpanned(R.string.start_vaccination_status_entry_subtitle)
-            movementMethod = LinkMovementMethod.getInstance()
-            underlinedClickable {
-                findNavigator().push(SettingsFragmentNav(true))
-            }
-        }
+        binding.immunizationStatusTitle.setText(R.string.start_screen_vaccination_status_title)
+        binding.immunizationStatusNote.setText(R.string.start_screen_vaccination_status_copy)
     }
 }
