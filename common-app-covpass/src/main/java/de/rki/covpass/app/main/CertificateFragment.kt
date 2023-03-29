@@ -76,7 +76,7 @@ internal class CertificateFragment : BaseFragment() {
             groupedCertificate.boosterNotification.result == BoosterResult.Passed
         val showDetailReissueNotification =
             (!groupedCertificate.hasSeenBoosterNotification && groupedCertificate.isBoosterReadyForReissue()) ||
-                groupedCertificate.isExpiredReadyForReissue()
+                groupedCertificate.showReadyForReissueNotification()
 
         binding.certificateCard.createCertificateCardView(
             fullName = mainCertificate.fullName,

@@ -185,7 +185,7 @@ internal class CertificateSwitcherFragment : BaseFragment() {
             groupedCertificates?.hasSeenReissueDetailNotification == false &&
                 groupedCertificates.isBoosterReadyForReissue()
             ) ||
-            groupedCertificates?.isExpiredReadyForReissue() == true
+            groupedCertificates?.showReadyForReissueNotification() == true
 
         binding.actionButtonIcon.setImageResource(
             if (showBoosterNotification || showDetailReissueNotification) {

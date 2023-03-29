@@ -458,6 +458,18 @@ public data class GroupedCertificates(
                     (it.covCertificate.dgcEntry as Vaccination).totalSerialDoses == 1
             }
 
+    public fun showReadyForReissueNotification(): Boolean =
+        certificates.any {
+            it.reissueState == ReissueState.Ready &&
+                (
+                    (
+                        it.reissueType == ReissueType.Vaccination &&
+                            getMainCertificate() == getLatestVaccination()
+                        ) ||
+                        it.reissueType == ReissueType.Recovery
+                    )
+        }
+
     public fun isExpiredReadyForReissue(): Boolean =
         certificates.any {
             (
