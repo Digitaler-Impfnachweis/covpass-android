@@ -617,4 +617,13 @@ internal class DetailFragment :
     override fun onOpenReissue(reissueType: ReissueType, listCertIds: List<String>) {
         findNavigator().push(ReissueNotificationFragmentNav(reissueType, listCertIds))
     }
+
+    override fun onExpiredNonGermanReissuePopUp() {
+        val dialogModel = DialogModel(
+            titleRes = R.string.renewal_expiry_modal_not_available_title,
+            messageString = getString(R.string.renewal_expiry_modal_not_available_copy),
+            positiveButtonTextRes = R.string.renewal_expiry_modal_not_available_title_1,
+        )
+        showDialog(dialogModel, childFragmentManager)
+    }
 }
