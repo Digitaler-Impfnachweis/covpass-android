@@ -38,15 +38,6 @@ internal class OnboardingInfo2Fragment : CommonOnboardingInfoFragment() {
 }
 
 /**
- * Fragment which holds information for the third page of the Onboarding flow
- */
-internal class OnboardingInfo3Fragment : CommonOnboardingInfoFragment() {
-    override val titleRes = R.string.vaccination_third_onboarding_page_title
-    override val textRes = R.string.vaccination_third_onboarding_page_message
-    override val imageRes = R.drawable.onboarding_info_3
-}
-
-/**
  * Fragment which holds information for the consent page of the Onboarding flow
  */
 internal class OnboardingConsentFragment : BaseOnboardingConsentFragment() {

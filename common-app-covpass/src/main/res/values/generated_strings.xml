@@ -20,10 +20,10 @@
 	<string name="next_onboarding_page_button_title">Next</string>
 	<string name="accessibility_onboarding_pages_label_back">Back</string>
 	<string name="accessibility_page_indicator">Page %1$d of %2$d</string>
-	<string name="vaccination_first_onboarding_page_title">Step one: upload your EU Digital COVID Certificate to your smartphone</string>
+	<string name="vaccination_first_onboarding_page_title">Upload your EU Digital COVID Certificate to your smartphone</string>
 	<string name="vaccination_first_onboarding_page_message">Use the CovPass app to scan the EU Digital COVID Certificate for a Covid-19 vaccination or recovery from a Covid-19 infection. To do this, hold your smartphone’s camera above the QR code. Your EU Digital COVID Certificate will be transferred to your smartphone immediately.</string>
-	<string name="vaccination_second_onboarding_page_title">Step two: open the QR code in the CovPass app</string>
-	<string name="vaccination_second_onboarding_page_message">You can use the QR code to track Corona vaccinations and recoveries from Corona infection. Likewise, the app shows whether or not you need to wear a mask on public transportation in certain states and in indoor spaces open to the public, such as restaurants or recreational events.</string>
+	<string name="vaccination_second_onboarding_page_title">Open the QR code in the CovPass app</string>
+	<string name="vaccination_second_onboarding_page_message">You can use the QR code to track Corona vaccinations and recoveries from Corona infection. You can show your QR code from the CovPass app when you need it. The person checking the QR code then scans it with the CovPassCheck app. You will also need to have an ID document at hand for this.</string>
 	<string name="vaccination_third_onboarding_page_title">Step three: show your QR code when needed</string>
 	<string name="vaccination_third_onboarding_page_message">You can show your QR code from the CovPass app when you need it. The person checking the QR code then scans it with the CovPassCheck app. You will also need to have an ID document at hand for this. Your QR code is stored only on your smartphone, so you can display it at any time even without an internet connection.</string>
 	<string name="vaccination_fourth_onboarding_page_title">Data protection and security</string>

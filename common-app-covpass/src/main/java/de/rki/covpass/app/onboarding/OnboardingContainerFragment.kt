@@ -34,7 +34,6 @@ internal class OnboardingContainerFragment : BaseOnboardingContainerFragment() {
             fragments = listOf(
                 OnboardingInfo1Fragment(),
                 OnboardingInfo2Fragment(),
-                OnboardingInfo3Fragment(),
                 OnboardingConsentFragment(),
             ),
         )
