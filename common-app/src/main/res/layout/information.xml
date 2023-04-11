@@ -156,16 +156,6 @@
         tools:visibility="visible" />
 
       <TextView
-        android:id="@+id/information_field_contacts"
-        style="@style/NavigationField"
-        android:background="@color/onBrandBase"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/keyboard_highlight_selector" />
-
-      <View style="@style/Divider" />
-
-      <TextView
         android:id="@+id/information_field_data_security_policy"
         style="@style/NavigationField"
         android:background="@color/onBrandBase"

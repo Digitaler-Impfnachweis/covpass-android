@@ -32,7 +32,8 @@ public abstract class InformationFragment : BaseFragment() {
 
     private val binding by viewBinding(InformationBinding::inflate)
 
-    override val announcementAccessibilityRes: Int = R.string.accessibility_app_information_title_informationt_announce
+    override val announcementAccessibilityRes: Int =
+        R.string.accessibility_app_information_title_informationt_announce
     override val closingAnnouncementAccessibilityRes: Int =
         R.string.accessibility_app_information_title_information_closing_announce
 
@@ -40,16 +41,21 @@ public abstract class InformationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
-        binding.informationAppVersionLabel.text = getString(R.string.app_information_version_label, appVersion)
+        binding.informationAppVersionLabel.text =
+            getString(R.string.app_information_version_label, appVersion)
         binding.informationAppVersionLabel.contentDescription = getString(
             R.string.app_information_version_label,
-            appVersion.replace(".", getString(R.string.accessibility_app_information_version_number_delimiter)),
+            appVersion.replace(
+                ".",
+                getString(R.string.accessibility_app_information_version_number_delimiter),
+            ),
         )
         if (Locale.getDefault().language == Locale.GERMAN.language) {
             binding.informationFieldEasyLanguage.apply {
                 setText(R.string.app_information_title_company_easy_language)
                 setOnClickListener {
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(getEasyLanguageLinkRes())))
+                    val browserIntent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(getString(getEasyLanguageLinkRes())))
                     startActivity(browserIntent)
                 }
             }
@@ -59,7 +65,8 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldFaq.apply {
             setText(R.string.app_information_title_faq)
             setOnClickListener {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(getFAQLinkRes())))
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(getString(getFAQLinkRes())))
                 startActivity(browserIntent)
             }
         }
@@ -72,7 +79,8 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldImprint.apply {
             setText(R.string.app_information_title_company_details)
             setOnClickListener {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(getImprintLinkRes())))
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(getString(getImprintLinkRes())))
                 startActivity(browserIntent)
             }
         }
@@ -81,13 +89,6 @@ public abstract class InformationFragment : BaseFragment() {
             text = getString(R.string.app_information_title_open_source)
             setOnClickListener {
                 findNavigator().push(OpenSourceLicenseFragmentNav())
-            }
-        }
-
-        binding.informationFieldContacts.apply {
-            setText(R.string.app_information_title_contact)
-            setOnClickListener {
-                findNavigator().push(ContactsFragmentNav())
             }
         }
 
