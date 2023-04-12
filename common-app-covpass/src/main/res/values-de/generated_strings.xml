@@ -683,7 +683,7 @@
 	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
 	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
-	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller und der momentan geltenden Corona-Einreiseregeln in den entsprechenden Ländern.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
 	<string name="app_information_list_update_notifications">Update-Benachrichtigungen</string>
 	<string name="app_information_title_update_notifications">Update-Benachrichtigungen</string>
 	<string name="app_information_copy_update_notifications">Sie können ab jetzt die Update-Benachrichtigungen deaktivieren. Mit dem Regler können Sie jederzeit die Updates deaktivieren oder wieder aktivieren. Wenn sie den Update-Benachrichtigungen deaktivieren, bekommen Sie keine Updates mehr über die neuesten Software-Entwicklungen in der App.</string>

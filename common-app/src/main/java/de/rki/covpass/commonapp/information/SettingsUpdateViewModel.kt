@@ -15,12 +15,7 @@ import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.utils.SettingUpdateListBuilder
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.revocation.RevocationLocalListRepository
-import de.rki.covpass.sdk.rules.CovPassCountriesRepository
-import de.rki.covpass.sdk.rules.CovPassDomesticRulesRepository
-import de.rki.covpass.sdk.rules.CovPassEuRulesRepository
-import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
 import de.rki.covpass.sdk.storage.DscRepository
-import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.DscListUpdater
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
@@ -31,12 +26,7 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
     scope: CoroutineScope,
     private val isCovPassCheck: Boolean,
     private val dscListUpdater: DscListUpdater = sdkDeps.dscListUpdater,
-    private val euRulesRepository: CovPassEuRulesRepository = sdkDeps.covPassEuRulesRepository,
-    private val domesticRulesRepository: CovPassDomesticRulesRepository = sdkDeps.covPassDomesticRulesRepository,
-    private val valueSetsRepository: CovPassValueSetsRepository = sdkDeps.covPassValueSetsRepository,
-    private val countriesRepository: CovPassCountriesRepository = sdkDeps.covPassCountriesRepository,
     private val dscRepository: DscRepository = sdkDeps.dscRepository,
-    private val rulesUpdateRepository: RulesUpdateRepository = sdkDeps.rulesUpdateRepository,
     private val revocationLocalListRepository: RevocationLocalListRepository = sdkDeps.revocationLocalListRepository,
     private val settingUpdateListBuilder: SettingUpdateListBuilder = commonDeps.settingsUpdateListBuilder,
 ) : BaseReactiveState<BaseEvents>(scope) {
@@ -44,11 +34,7 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
     public val settingItems: MutableValueFlow<List<SettingItem>> =
         MutableValueFlow(settingUpdateListBuilder.buildList(isCovPassCheck))
     public val allUpToDate: StateFlow<Boolean> = derived {
-        isUpToDate(get(rulesUpdateRepository.lastEuRulesUpdate)) &&
-            isUpToDate(get(rulesUpdateRepository.lastDomesticRulesUpdate)) &&
-            isUpToDate(get(rulesUpdateRepository.lastValueSetsUpdate)) &&
-            isUpToDate(get(dscRepository.lastUpdate)) &&
-            isUpToDate(get(rulesUpdateRepository.lastCountryListUpdate)) &&
+        isUpToDate(get(dscRepository.lastUpdate)) &&
             isOfflineRevocationActiveAndUpdated(
                 get(revocationLocalListRepository.revocationListUpdateIsOn),
                 get(revocationLocalListRepository.lastRevocationUpdateFinish),
@@ -59,18 +45,6 @@ public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) construct
     public fun update() {
         launch {
             dscListUpdater.update()
-            if (!canceled.value) {
-                euRulesRepository.loadRules()
-            }
-            if (!canceled.value) {
-                domesticRulesRepository.loadRules()
-            }
-            if (!canceled.value) {
-                valueSetsRepository.loadValueSets()
-            }
-            if (!canceled.value) {
-                countriesRepository.loadCountries()
-            }
             if (isCovPassCheck && !canceled.value) {
                 revocationLocalListRepository.update()
             }

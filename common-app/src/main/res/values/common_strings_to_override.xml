@@ -145,11 +145,7 @@
 
   <string name="result_countdown"/>
 
-  <string name="settings_rules_list_entry"/>
-  <string name="settings_rules_list_domestic"/>
-  <string name="settings_rules_list_features"/>
   <string name="settings_rules_list_issuer"/>
-  <string name="settings_rules_list_countries"/>
   <string name="settings_rules_list_authorities"/>
   <string name="settings_rules_list_loading_title"/>
   <string name="cancel"/>

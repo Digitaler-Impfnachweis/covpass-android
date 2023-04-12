@@ -77,7 +77,6 @@ public abstract class CommonDependencies {
 
     public val settingsUpdateListBuilder: SettingUpdateListBuilder by lazy {
         SettingUpdateListBuilder(
-            sdkDeps.rulesUpdateRepository,
             sdkDeps.dscRepository,
             sdkDeps.revocationLocalListRepository,
         )
