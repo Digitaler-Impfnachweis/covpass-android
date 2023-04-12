@@ -5,23 +5,16 @@
 
 package de.rki.covpass.sdk.rules
 
-import de.rki.covpass.sdk.cert.CovPassValueSetsRemoteDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetLocal
 import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.toEuValueSet
-import de.rki.covpass.sdk.rules.remote.valuesets.toCovPassValueSet
-import de.rki.covpass.sdk.storage.RulesUpdateRepository
-import de.rki.covpass.sdk.utils.distinctGroupBy
-import de.rki.covpass.sdk.utils.parallelMapNotNull
 import kotlinx.coroutines.runBlocking
 
 public class CovPassValueSetsRepository(
-    private val remoteDataSource: CovPassValueSetsRemoteDataSource,
     private val localDataSource: CovPassValueSetsLocalDataSource,
-    private val rulesUpdateRepository: RulesUpdateRepository,
 ) {
 
-    public var allCovpassValueSets: List<CovPassValueSetLocal> = emptyList()
+    private var allCovpassValueSets: List<CovPassValueSetLocal> = emptyList()
 
     init {
         runBlocking {
@@ -126,32 +119,6 @@ public class CovPassValueSetsRepository(
      */
     public fun getDiseaseAgentName(rawName: String): String =
         getDiseaseAgent()?.toEuValueSet()?.valueSetValues?.get(rawName)?.display ?: rawName
-
-    public suspend fun loadValueSets() {
-        val remoteIdentifiers =
-            remoteDataSource.getValueSetIdentifiers().distinctGroupBy { it.id }
-
-        val localValueSets = localDataSource.getAll().distinctGroupBy { it.valueSetId }
-
-        val added = remoteIdentifiers - localValueSets.keys
-        val removed = localValueSets - remoteIdentifiers.keys
-        val changed = remoteIdentifiers.filter { (k, v) ->
-            k in localValueSets && v.hash != localValueSets[k]?.hash
-        }
-
-        val newValueSets = (added + changed).values.parallelMapNotNull { identifier ->
-            remoteDataSource.getValueSet(
-                identifier.hash,
-            ).toCovPassValueSet(identifier.hash)
-        }
-
-        localDataSource.update(
-            keep = (localValueSets - changed.keys - removed.keys).keys,
-            add = newValueSets,
-        )
-        rulesUpdateRepository.markValueSetsUpdated()
-        allCovpassValueSets = getAllCovPassValueSets()
-    }
 
     public suspend fun getAllCovPassValueSets(): List<CovPassValueSetLocal> =
         localDataSource.getAll()

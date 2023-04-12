@@ -15,7 +15,6 @@ import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsLocalDataSource
 import de.rki.covpass.sdk.rules.local.valuesets.toEuValueSet
 import de.rki.covpass.sdk.rules.remote.valuesets.CovPassValueSetRemote
 import de.rki.covpass.sdk.rules.remote.valuesets.toCovPassValueSet
-import de.rki.covpass.sdk.storage.RulesUpdateRepository
 import de.rki.covpass.sdk.utils.readTextAssetFromTest
 import io.mockk.coEvery
 import io.mockk.every
@@ -27,11 +26,9 @@ import kotlin.test.assertEquals
 @OptIn(DependencyAccessor::class)
 internal class EUValueSetUtilsTest {
 
-    private val remoteDataSource: CovPassValueSetsRemoteDataSource = mockk(relaxed = true)
     private val localDataSource: CovPassValueSetsLocalDataSource = mockk(relaxed = true)
-    private val rulesUpdateRepository: RulesUpdateRepository = mockk(relaxed = true)
     private val covPassValueSetsRepository: CovPassValueSetsRepository by lazy {
-        CovPassValueSetsRepository(remoteDataSource, localDataSource, rulesUpdateRepository)
+        CovPassValueSetsRepository(localDataSource)
     }
     private val euValueSetsPath: String by lazy { "covpass-sdk/eu-value-sets.json" }
     private val covPassValueSetsRemote: List<CovPassValueSetRemote> by lazy {

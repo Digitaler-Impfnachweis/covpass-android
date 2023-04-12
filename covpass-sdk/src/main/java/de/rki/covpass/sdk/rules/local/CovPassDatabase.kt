@@ -11,8 +11,6 @@ import androidx.room.TypeConverters
 import de.rki.covpass.sdk.rules.booster.local.BoosterDescriptionLocal
 import de.rki.covpass.sdk.rules.booster.local.BoosterRuleLocal
 import de.rki.covpass.sdk.rules.booster.local.BoosterRulesDao
-import de.rki.covpass.sdk.rules.local.countries.CountriesDao
-import de.rki.covpass.sdk.rules.local.countries.CountryLocal
 import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRuleDescriptionLocal
 import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRuleLocal
 import de.rki.covpass.sdk.rules.local.rules.domestic.CovPassDomesticRulesDao
@@ -31,9 +29,8 @@ import de.rki.covpass.sdk.rules.local.valuesets.CovPassValueSetsDao
         CovPassValueSetLocal::class,
         BoosterDescriptionLocal::class,
         BoosterRuleLocal::class,
-        CountryLocal::class,
     ],
-    version = 9,
+    version = 10,
 )
 @TypeConverters(Converters::class)
 public abstract class CovPassDatabase : RoomDatabase() {
@@ -45,6 +42,4 @@ public abstract class CovPassDatabase : RoomDatabase() {
     public abstract fun covPassValueSetsDao(): CovPassValueSetsDao
 
     public abstract fun boosterRulesDao(): BoosterRulesDao
-
-    public abstract fun countriesDao(): CountriesDao
 }

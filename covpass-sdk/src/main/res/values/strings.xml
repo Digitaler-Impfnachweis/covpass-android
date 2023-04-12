@@ -8,5 +8,4 @@
   <string name="trust_service_host">de.dscg.ubirch.com</string>
   <string name="revocation_list_service_host">de.crl.dscg.ubirch.com</string>
   <string name="reissue_service_host">api.reissue.ubirch.com</string>
-  <string name="dcc_booster_rules_host">distribution.dcc-rules.de</string>
 </resources>

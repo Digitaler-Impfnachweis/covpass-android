@@ -25,6 +25,7 @@ import de.rki.covpass.checkapp.scanner.CovPassCheckCameraDisclosureFragmentNav
 import de.rki.covpass.checkapp.scanner.CovPassCheckQRScannerFragmentNav
 import de.rki.covpass.checkapp.updateinfo.UpdateInfoCallback
 import de.rki.covpass.checkapp.updateinfo.UpdateInfoCovpassCheckFragmentNav
+import de.rki.covpass.commonapp.BackgroundUpdateViewModel
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.information.SettingsFragmentNav
@@ -56,7 +57,7 @@ internal class MainFragment :
         RevocationListUpdateViewModel(scope)
     }
     private val covpassCheckBackgroundViewModel by reactiveState {
-        CovpassCheckBackgroundViewModel(scope)
+        BackgroundUpdateViewModel(scope)
     }
     private val settingsUpdateViewModel by reactiveState {
         SettingsUpdateViewModel(scope, true)

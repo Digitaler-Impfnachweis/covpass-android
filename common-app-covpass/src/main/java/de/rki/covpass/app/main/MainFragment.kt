@@ -38,7 +38,7 @@ import de.rki.covpass.app.importcertificate.ImportCertificatesSelectorFragmentNa
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
 import de.rki.covpass.app.updateinfo.UpdateInfoCallback
 import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
-import de.rki.covpass.app.validitycheck.ValidityCheckFragmentNav
+import de.rki.covpass.commonapp.BackgroundUpdateViewModel
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
@@ -83,7 +83,7 @@ internal class MainFragment :
     private val uri: Uri? by lazy { getArgs<MainFragmentNav>().uri }
     private val viewModel by reactiveState { MainViewModel(scope, uri) }
     private val covPassBackgroundUpdateViewModel by reactiveState {
-        CovPassBackgroundUpdateViewModel(
+        BackgroundUpdateViewModel(
             scope,
         )
     }
@@ -120,9 +120,6 @@ internal class MainFragment :
             },
         )
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
-        binding.mainValidityCheckLayout.setOnClickListener {
-            showValidityCheck(covpassDeps.certRepository.certs.value)
-        }
         binding.mainSettingsImagebutton.setOnClickListener {
             findNavigator().push(CovPassInformationFragmentNav())
         }
@@ -181,14 +178,6 @@ internal class MainFragment :
         binding.tabNextButton.isVisible = position != certSize - 1
     }
 
-    private fun showValidityCheck(certificateList: GroupedCertificatesList) {
-        if (certificateList.getValidCertificates().isEmpty()) {
-            showInvalidCertValidationDialog()
-        } else {
-            findNavigator().push(ValidityCheckFragmentNav())
-        }
-    }
-
     private fun setupPageChangeCallback() {
         binding.mainViewPager.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
@@ -220,7 +209,6 @@ internal class MainFragment :
             }
         }
         binding.mainTabLayout.isVisible = certificateList.certificates.size > 1
-        binding.mainValidityCheckLayout.isVisible = certificateList.certificates.size > 0
     }
 
     override fun onDeletionCompleted() {
@@ -228,15 +216,6 @@ internal class MainFragment :
             titleRes = R.string.delete_result_dialog_header,
             messageString = getString(R.string.delete_result_dialog_message),
             positiveButtonTextRes = R.string.delete_result_dialog_positive_button_text,
-        )
-        showDialog(dialogModel, childFragmentManager)
-    }
-
-    private fun showInvalidCertValidationDialog() {
-        val dialogModel = DialogModel(
-            titleRes = R.string.no_cert_applicable_for_validation_dialog_header,
-            messageString = getString(R.string.no_cert_applicable_for_validation_dialog_message),
-            positiveButtonTextRes = R.string.no_cert_applicable_for_validation_positive_button_text,
         )
         showDialog(dialogModel, childFragmentManager)
     }
@@ -356,6 +335,7 @@ internal class MainFragment :
 
     companion object {
         private const val REVOKED_DIALOG_TAG = "revoked_dialog"
-        private const val REISSUE_NOTIFICATION_NOT_GERMAN_DIALOG_TAG = "reissue_notification_not_german_dialog"
+        private const val REISSUE_NOTIFICATION_NOT_GERMAN_DIALOG_TAG =
+            "reissue_notification_not_german_dialog"
     }
 }

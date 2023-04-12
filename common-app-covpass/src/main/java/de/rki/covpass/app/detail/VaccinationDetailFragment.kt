@@ -8,7 +8,7 @@ package de.rki.covpass.app.detail
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
-import de.rki.covpass.app.validitycheck.countries.CountryResolver
+import de.rki.covpass.app.countries.CountryResolver
 import de.rki.covpass.sdk.cert.models.CovCertificate
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.utils.formatDateInternational

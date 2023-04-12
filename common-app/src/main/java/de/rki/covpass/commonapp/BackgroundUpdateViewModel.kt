@@ -16,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
 @SuppressWarnings("UnusedPrivateMember")
-public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
+public class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
     private val sdkDependencies: SdkDependencies = sdkDeps,
 ) : BaseReactiveState<BaseEvents>(scope) {
@@ -26,25 +26,19 @@ public open class BackgroundUpdateViewModel @OptIn(DependencyAccessor::class) co
             sdkDependencies.dscListUpdater.update()
         }
     }
-    private val valueSetsUpdater: Updater = Updater {
-        if (sdkDependencies.rulesUpdateRepository.lastValueSetsUpdate.value.isBeforeUpdateInterval()) {
-            sdkDependencies.covPassValueSetsRepository.loadValueSets()
-        }
-    }
 
-    public open fun update() {
+    public fun update() {
         backgroundDscListUpdater.update()
-        valueSetsUpdater.update()
     }
 
-    protected fun logOnError(throwable: Throwable) {
+    private fun logOnError(throwable: Throwable) {
         Lumber.e(throwable)
     }
 
-    protected inner class Updater(private var block: suspend CoroutineScope.() -> Unit) {
+    private inner class Updater(private var block: suspend CoroutineScope.() -> Unit) {
         private var job: Job? = null
 
-        public fun update() {
+        fun update() {
             if (job?.isActive != true) {
                 job = launch(onError = ::logOnError, withLoading = null, block = block)
             }

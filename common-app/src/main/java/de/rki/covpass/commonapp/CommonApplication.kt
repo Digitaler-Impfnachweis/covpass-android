@@ -80,32 +80,26 @@ public abstract class CommonApplication : Application() {
                 sdkDeps.covPassDomesticRulesRepository.deleteAll()
                 sdkDeps.covPassValueSetsRepository.deleteAll()
                 sdkDeps.covPassBoosterRulesRepository.deleteAll()
-                sdkDeps.covPassCountriesRepository.deleteAll()
                 sdkDeps.rulesUpdateRepository.updateLocalDatabaseVersion()
             }
-            if (sdkDeps.covPassEuRulesRepository.getAllRules().isNullOrEmpty()) {
+            if (sdkDeps.covPassEuRulesRepository.getAllRules().isEmpty()) {
                 sdkDeps.covPassEuRulesRepository.prepopulate(
                     sdkDeps.bundledEuRules,
                 )
             }
-            if (sdkDeps.covPassDomesticRulesRepository.getAllRules().isNullOrEmpty()) {
+            if (sdkDeps.covPassDomesticRulesRepository.getAllRules().isEmpty()) {
                 sdkDeps.covPassDomesticRulesRepository.prepopulate(
                     sdkDeps.bundledDomesticRules,
                 )
             }
-            if (sdkDeps.covPassValueSetsRepository.getAllCovPassValueSets().isNullOrEmpty()) {
+            if (sdkDeps.covPassValueSetsRepository.getAllCovPassValueSets().isEmpty()) {
                 sdkDeps.covPassValueSetsRepository.prepopulate(
                     sdkDeps.bundledValueSets,
                 )
             }
-            if (sdkDeps.covPassBoosterRulesRepository.getAllBoosterRules().isNullOrEmpty()) {
+            if (sdkDeps.covPassBoosterRulesRepository.getAllBoosterRules().isEmpty()) {
                 sdkDeps.covPassBoosterRulesRepository.prepopulate(
                     sdkDeps.bundledBoosterRules,
-                )
-            }
-            if (sdkDeps.covPassCountriesRepository.getAllCovPassCountries().isNullOrEmpty()) {
-                sdkDeps.covPassCountriesRepository.prepopulate(
-                    sdkDeps.bundledCountries,
                 )
             }
         }
