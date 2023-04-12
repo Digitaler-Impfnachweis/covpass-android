@@ -1,8 +1,5 @@
 [
   {
-    "hash": "669ef04a4a5676597093f18b7b01df9d1498003e312e37a09758a84ea28f5c9d",
-    "valueSetDate": "2019-11-01",
-    "valueSetId": "country-2-codes",
     "valueSetValues": {
       "IM": {
         "system": "urn:iso:std:iso:3166",
@@ -1754,9 +1751,13 @@
         "active": true,
         "version": ""
       }
-    }
+    },
+    "valueSetDate": "2019-11-01",
+    "hash": "669ef04a4a5676597093f18b7b01df9d1498003e312e37a09758a84ea28f5c9d",
+    "valueSetId": "country-2-codes"
   },
   {
+    "valueSetId": "covid-19-lab-result",
     "valueSetValues": {
       "260415000": {
         "system": "http:\/\/snomed.info\/sct",
@@ -1773,14 +1774,12 @@
         "version": "http:\/\/snomed.info\/sct\/900000000000207008\/version\/20210131"
       }
     },
-    "valueSetDate": "2021-04-27",
     "hash": "64f946691cc68966335da6dfe16d4177de8c5d3ce6abc2cf18c30103a70763d6",
-    "valueSetId": "covid-19-lab-result"
+    "valueSetDate": "2021-04-27"
   },
   {
-    "hash": "84a0d06a77b6b0ff0696497b3aa06cc4a89b4f27f57552db1c3e61a37a6f4511",
     "valueSetId": "covid-19-lab-test-manufacturer-and-name",
-    "valueSetDate": "2023-02-28",
+    "hash": "cfb03439b63223bd6addeaad665bebeca39ce1bac6d1778d8e19f036ced50e7d",
     "valueSetValues": {
       "2107": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
@@ -1827,7 +1826,7 @@
         "display": "Hangzhou AllTest Biotech Co. Ltd., SARS-CoV-2\/Influenza A+B\/RSV Antigen Combo Rapid Test (Nasopharyngeal Swab)",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2023-01-31 00:00:00 CET"
       },
       "2230": {
@@ -1923,7 +1922,7 @@
         "display": "Assure Tech (Hangzhou) Co. Ltd., COVID-19 & Influenza A\/B& RSV Antigen Nasal Test Kit",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2023-01-31 00:00:00 CET"
       },
       "1296": {
@@ -1955,7 +1954,7 @@
         "display": "Hangzhou AllTest Biotech Co. Ltd., SARS-CoV-2\/Influenza A+B\/RSV\/Adenovirus Antigen Combo Rapid Test (Nasopharyngeal Swab)",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2023-01-31 00:00:00 CET"
       },
       "5804": {
@@ -1963,7 +1962,7 @@
         "display": "Vitrosens Biotechnology Co. Ltd., RapidFor™ SARS-CoV-2 + FLU A\/B + RSV Combo Test Kit",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2023-01-31 00:00:00 CET"
       },
       "1271": {
@@ -2014,6 +2013,14 @@
         "validUntil": null,
         "version": "2022-01-21 00:00:00 CET"
       },
+      "4111": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Wuhan Uni-science Biotechnology Co. Ltd., SARS-CoV-2 Antigen Rapid Test Kit",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
+      },
       "2584": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
         "display": "TÃ¼rklab Tibbi Mal. San. ve Tic. A.S., INFO Covid-19 Ag Test",
@@ -2037,6 +2044,14 @@
         "active": true,
         "validUntil": null,
         "version": "2021-07-07 05:19:48 CEST"
+      },
+      "4081": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "General Biologicals Corporation, GB COVID-19 Ag POCT",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
       },
       "2979": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
@@ -2133,6 +2148,14 @@
         "active": true,
         "validUntil": null,
         "version": "2021-12-21 00:00:00 CET"
+      },
+      "2560": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Lomina Superbio a.s., Lomina SARS-CoV-2 Antigen LTX test",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
       },
       "344": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
@@ -2726,6 +2749,14 @@
         "validUntil": null,
         "version": "2022-10-05 00:00:00 CEST"
       },
+      "4064": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Glallergen Co. Ltd., Novel Coronavirus (2019-nCoV) Antigen Test Kit (Latex Method)",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
+      },
       "1581": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
         "display": "CTK Biotech Inc., OnSite COVID-19 Ag Rapid Test",
@@ -2803,7 +2834,7 @@
         "display": "Vitrosens Biotechnology Co. Ltd., RapidFor™ SARS-CoV-2 & FLU A\/B Antigen Combo Test",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2022-12-09 00:00:00 CET"
       },
       "1773": {
@@ -2875,7 +2906,7 @@
         "display": "Hangzhou AllTest Biotech Co. Ltd., SARS-CoV-2 and Influenza A+B Antigen Combo Rapid Test (Nasopharyngeal Swab)",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2022-11-11 00:00:00 CET"
       },
       "3093": {
@@ -3094,6 +3125,14 @@
         "validUntil": null,
         "version": "2022-07-09 00:00:00 CEST"
       },
+      "25542": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Humasis Co. Ltd., Humasis COVID-19 Ag Test",
+        "lang": "en",
+        "active": false,
+        "validUntil": null,
+        "version": "2022-07-09 00:00:00 CEST"
+      },
       "1223": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
         "display": "BIOSYNEX S.A., BIOSYNEX COVID-19 Ag BSS",
@@ -3155,7 +3194,7 @@
         "display": "Assure Tech (Hangzhou) Co. Ltd., COVID-19 & Influenza A\/B Antigen Combo Test Device",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2022-12-09 00:00:00 CET"
       },
       "4058": {
@@ -3173,6 +3212,14 @@
         "active": true,
         "validUntil": null,
         "version": "2021-12-21 00:00:00 CET"
+      },
+      "24759": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "SD BIOSENSOR Inc., STANDARD F COVID-19 Ag FIA",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2021-02-17 00:00:00 CET"
       },
       "1957": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
@@ -3419,7 +3466,7 @@
         "display": "Assure Tech (Hangzhou) Co. Ltd., COVID-19 & Influenza A\/B Antigen Nasal Test Kit",
         "lang": "en",
         "active": true,
-        "validUntil": null,
+        "validUntil": "2023-05-04 00:00:00 CEST",
         "version": "2022-12-09 00:00:00 CET"
       },
       "1228": {
@@ -3701,6 +3748,14 @@
         "active": true,
         "validUntil": null,
         "version": "2022-03-04 00:00:00 CET"
+      },
+      "3966": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Chastru Biotech Limited, COVID-19 Antigen Test Cassette",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
       },
       "1884": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
@@ -4030,6 +4085,14 @@
         "validUntil": null,
         "version": "2021-10-20 00:00:00 CEST"
       },
+      "5812": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Rapid Labs Ltd., SARS-CoV-2 Antigen Rapid Test  (Nasal Swab)",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
+      },
       "2973": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
         "display": "Medifood Hungary Innovation Kft., MediDia COVID-19 Ag",
@@ -4037,6 +4100,14 @@
         "active": true,
         "validUntil": null,
         "version": "2022-11-11 00:00:00 CET"
+      },
+      "2075": {
+        "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
+        "display": "Amazing Biotech (Shanghai) Co. Ltd., COVID-19 Antigen Sealing Tube Test Strip (Colloidal Gold)",
+        "lang": "en",
+        "active": true,
+        "validUntil": null,
+        "version": "2023-03-15 00:00:00 CET"
       },
       "1501": {
         "system": "https:\/\/covid-19-diagnostics.jrc.ec.europa.eu\/devices",
@@ -4102,11 +4173,10 @@
         "validUntil": null,
         "version": "2022-03-04 00:00:00 CET"
       }
-    }
+    },
+    "valueSetDate": "2023-04-11"
   },
   {
-    "valueSetId": "covid-19-lab-test-type",
-    "hash": "3b30b9a612ff5ae09feb60977d1d4394761237dfcd489b83bed30d8e3508f49d",
     "valueSetValues": {
       "LP6464-4": {
         "system": "http:\/\/loinc.org",
@@ -4123,9 +4193,13 @@
         "version": "2.69"
       }
     },
+    "valueSetId": "covid-19-lab-test-type",
+    "hash": "3b30b9a612ff5ae09feb60977d1d4394761237dfcd489b83bed30d8e3508f49d",
     "valueSetDate": "2021-04-27"
   },
   {
+    "valueSetId": "disease-agent-targeted",
+    "hash": "9810aafdbb7ad976845179c152c356987553eb82291b18d300db5044c4185bd8",
     "valueSetValues": {
       "840539006": {
         "system": "http:\/\/snomed.info\/sct",
@@ -4135,11 +4209,12 @@
         "version": "http:\/\/snomed.info\/sct\/900000000000207008\/version\/20210131"
       }
     },
-    "valueSetDate": "2021-04-27",
-    "valueSetId": "disease-agent-targeted",
-    "hash": "9810aafdbb7ad976845179c152c356987553eb82291b18d300db5044c4185bd8"
+    "valueSetDate": "2021-04-27"
   },
   {
+    "hash": "fec7472273dfeeb048915a86c11b99ffde2d35cf883c70861f7d75e469762635",
+    "valueSetId": "sct-vaccines-covid-19",
+    "valueSetDate": "2023-01-25",
     "valueSetValues": {
       "29061000087103": {
         "system": "http:\/\/snomed.info\/sct",
@@ -4204,12 +4279,11 @@
         "active": false,
         "version": "2021-01"
       }
-    },
-    "valueSetId": "sct-vaccines-covid-19",
-    "hash": "fec7472273dfeeb048915a86c11b99ffde2d35cf883c70861f7d75e469762635",
-    "valueSetDate": "2023-01-25"
+    }
   },
   {
+    "valueSetDate": "2022-01-26",
+    "hash": "fc72b62b0ab98fb73d093f1988007c108496ec149570eba360f5dd2ec6bfd34c",
     "valueSetValues": {
       "ORG-100033914": {
         "system": "https:\/\/spor.ema.europa.eu\/v1\/organisations",
@@ -4422,14 +4496,10 @@
         "version": ""
       }
     },
-    "valueSetId": "vaccines-covid-19-auth-holders",
-    "hash": "fc72b62b0ab98fb73d093f1988007c108496ec149570eba360f5dd2ec6bfd34c",
-    "valueSetDate": "2022-01-26"
+    "valueSetId": "vaccines-covid-19-auth-holders"
   },
   {
     "valueSetDate": "2023-01-26",
-    "valueSetId": "vaccines-covid-19-encoding-instructions",
-    "hash": "82c21657b465bfb3b6e3fc3249f07cb9adb351aba135b5a59d488f8c8c81d03f",
     "valueSetValues": {
       "Sputnik V": {
         "sct-codes": [
@@ -4750,10 +4820,14 @@
         "note": "Do not confuse with Sputnik V or Sputnik Light.",
         "vaccine-code": "Sputnik-M"
       }
-    }
+    },
+    "hash": "82c21657b465bfb3b6e3fc3249f07cb9adb351aba135b5a59d488f8c8c81d03f",
+    "valueSetId": "vaccines-covid-19-encoding-instructions"
   },
   {
     "valueSetId": "vaccines-covid-19-names",
+    "valueSetDate": "2022-11-30",
+    "hash": "5ed44b2da0ded0d0d0b4151414f097dcbed97c1358fd79f3be20ca99151d143e",
     "valueSetValues": {
       "SCTV01C": {
         "system": "http:\/\/ec.europa.eu\/temp\/vaccineproductname",
@@ -5021,8 +5095,6 @@
         "active": true,
         "version": ""
       }
-    },
-    "hash": "5ed44b2da0ded0d0d0b4151414f097dcbed97c1358fd79f3be20ca99151d143e",
-    "valueSetDate": "2022-11-30"
+    }
   }
 ]
