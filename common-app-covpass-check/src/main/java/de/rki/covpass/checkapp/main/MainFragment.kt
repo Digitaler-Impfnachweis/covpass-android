@@ -86,18 +86,6 @@ internal class MainFragment :
         binding.mainCheckCertButton.setText(R.string.validation_start_screen_scan_action_button_title)
 
         ViewCompat.setAccessibilityDelegate(
-            binding.mainHeaderTextview,
-            object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(
-                    host: View,
-                    info: AccessibilityNodeInfoCompat,
-                ) {
-                    super.onInitializeAccessibilityNodeInfo(host, info)
-                    info.isHeading = true
-                }
-            },
-        )
-        ViewCompat.setAccessibilityDelegate(
             binding.mainAvailabilityHeaderTextview,
             object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(

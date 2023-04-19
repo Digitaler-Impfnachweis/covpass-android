@@ -566,4 +566,6 @@
 	<string name="entry_check_success_subtitle">according to the Coronavirus Entry Regulations</string>
 	<string name="entry_check_success_copy">Now match the following data with an identity document of the person being checked.</string>
 	<string name="entry_check_link">#More about the Coronavirus Entry Regulations::https://www.bundesgesundheitsministerium.de/en/service/gesetze-und-verordnungen/guv-19-lp/coronavirus-einreiseverordnung.html#</string>
+	<string name="start_infobox_title">Important information</string>
+	<string name="start_infobox_copy">The rules according to which the app checks certificates will no longer be updated and will remain at the status of 30 May 2023.</string>
 </resources>

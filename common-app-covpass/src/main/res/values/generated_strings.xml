@@ -1009,4 +1009,6 @@
 	<string name="a11y_accordion_expand_hint_android">Expand</string>
 	<string name="a11y_accordion_collapse_hint_ios">Double tap to collapse</string>
 	<string name="a11y_accordion_collapse_hint_android">Collapse</string>
+	<string name="start_infobox_title">Important information</string>
+	<string name="start_infobox_copy">The Corona entry regulation is expiring. You can no longer check your certificates in the app for validity when travelling.</string>
 </resources>

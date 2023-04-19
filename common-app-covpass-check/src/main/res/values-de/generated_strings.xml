@@ -566,4 +566,6 @@
 	<string name="entry_check_success_subtitle">nach Coronavirus-Einreiseverordnung</string>
 	<string name="entry_check_success_copy">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="entry_check_link">#Mehr zur Coronavirus-Einreiseverordnung::https://www.bundesgesundheitsministerium.de/service/gesetze-und-verordnungen/guv-19-lp/coronaeinreisev.html#</string>
+	<string name="start_infobox_title">Wichtige Information</string>
+	<string name="start_infobox_copy">Die Regeln, nach denen die App Zertifikate prüft, werden nicht mehr aktualisiert und verbleiben auf dem Stand vom 30. Mai 2023.</string>
 </resources>
