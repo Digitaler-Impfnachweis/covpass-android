@@ -260,6 +260,15 @@
 	<string name="accessibility_app_information_datenschutz_closing_announce">Privacy policy has been closed</string>
 	<string name="app_information_title_company_details">Legal information</string>
 	<string name="app_information_title_company_details_linked">#Legal information::$0#</string>
+	<string name="app_imprint_title">Publisher</string>
+	<string name="app_imprint_subtitle">(responsible according to § 5 para. 1 TMG, § 18 para. 1 MStV, DSGVO, BDSG)</string>
+	<string name="app_imprint_publisher">Robert Koch-Institut</string>
+	<string name="app_imprint_address">Nordufer 20\n13353 Berlin\nrepresented by the President</string>
+	<string name="app_imprint_contact_title">Contact</string>
+	<string name="app_imprint_contact_mail">#info\@covpass-app.de::mailto:info\@covpass-app.de#</string>
+	<string name="app_imprint_contact_form">or use the #contact-form of the Robert Koch-Institut::https://www.rki.de/SharedDocs/Kontaktformulare/weitere/covpass-app/covpass-app_Integrator.html#</string>
+	<string name="app_imprint_identnr_title">VAT identification number</string>
+	<string name="app_imprint_identnr_nr">DE 165 893 430</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-source licences</string>
@@ -285,7 +294,7 @@
 	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
 	<string name="settings_rules_list_loading_cancel">Cancel</string>
-	<string name="app_information_message_update">Here you can update the rules according to which certificates are checked. If your smartphone is usually connected to the Internet, this happens automatically.</string>
+	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
 	<string name="app_information_rules_list_title">Rules</string>
 	<string name="app_information_message_update_note">Most recent update</string>
 	<string name="app_information_message_update_pattern">Most recent update: %s</string>

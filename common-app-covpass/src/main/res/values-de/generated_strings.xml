@@ -649,8 +649,8 @@
 	<string name="accessibility_app_information_label_back">Zurück zum Startbildschirm</string>
 	<string name="accessibility_app_information_title_information_announce">Die Ansicht \"Informationen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_information_closing_announce">Die Ansicht \"Informationen\" wurde geschlossen</string>
-	<string name="accessibility_app_information_title_checking_rules_announce">Die Ansicht \"Prüfregeln aktualisieren\" wurde geöffnet</string>
-	<string name="accessibility_app_information_title_checking_rules_closing_announce">Die Ansicht \"Prüfregeln aktualisieren\" wurde geschlossen</string>
+	<string name="accessibility_app_information_title_checking_rules_announce">Die Ansicht \"Prüfregeln\" wurde geöffnet</string>
+	<string name="accessibility_app_information_title_checking_rules_closing_announce">Die Ansicht \"Prüfregeln\" wurde geschlossen</string>
 	<string name="accessibility_app_information_title_update_notifications_announce">Die Ansicht \"Update-Benachrichtigungen\" wurde geöffnet</string>
 	<string name="accessibility_app_information_title_update_notifications_closing_announce">Die Ansicht \"Update-Benachrichtigungen\" wurde geschlossen</string>
 	<string name="accessibility_app_information_title_federal_state_rules_announce">Die Ansicht \"Bundeslandregeln\" wurde geöffnet</string>
@@ -675,6 +675,15 @@
 	<string name="app_information_title_datenschutz">Datenschutzerklärung</string>
 	<string name="app_information_title_company_details">Impressum</string>
 	<string name="app_information_title_company_details_linked">#Impressum::$0#</string>
+	<string name="app_imprint_title">Herausgeber</string>
+	<string name="app_imprint_subtitle">(verantwortlich nach § 5 Abs. 1 TMG, § 18 Abs. 1 MStV, DSGVO, BDSG)</string>
+	<string name="app_imprint_publisher">Robert Koch-Institut</string>
+	<string name="app_imprint_address">Nordufer 20\n13353 Berlin\nvertreten durch den Präsidenten</string>
+	<string name="app_imprint_contact_title">Kontakt</string>
+	<string name="app_imprint_contact_mail">#info\@covpass-app.de::mailto:info\@covpass-app.de#</string>
+	<string name="app_imprint_contact_form">oder über das #Kontaktformular des Robert Koch-Institut::https://www.rki.de/SharedDocs/Kontaktformulare/weitere/covpass-app/covpass-app_Integrator.html#</string>
+	<string name="app_imprint_identnr_title">Umsatzsteueridentifikationsnummer</string>
+	<string name="app_imprint_identnr_nr">DE 165 893 430</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-Source-Lizenzen</string>
@@ -682,7 +691,7 @@
 	<string name="accessibility_app_information_open_source_label_back">Zurück</string>
 	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
-	<string name="app_information_title_update">Prüfregeln aktualisieren</string>
+	<string name="app_information_title_update">Prüfregeln</string>
 	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
 	<string name="app_information_list_update_notifications">Update-Benachrichtigungen</string>
 	<string name="app_information_title_update_notifications">Update-Benachrichtigungen</string>

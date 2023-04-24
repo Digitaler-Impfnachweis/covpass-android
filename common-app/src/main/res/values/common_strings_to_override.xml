@@ -16,6 +16,8 @@
   <string name="app_information_title_open_source"/>
   <string name="app_information_title_faq"/>
   <string name="app_information_title_company_details"/>
+  <string name="accessibility_app_information_title_legal_information_announce"/>
+  <string name="accessibility_app_information_title_legal_information_announce_closing"/>
   <string name="app_information_version_label"/>
   <string name="app_information_title_company_easy_language"/>
   <string name="accessibility_update_info_announce"/>
@@ -163,31 +165,14 @@
   <string name="app_information_offline_revocation_hint_button_active"/>
   <string name="app_information_offline_revocation_hint_button_inactive"/>
 
-  <string name="infschg_settings_federal_state_title"/>
-  <string name="infschg_module_choose_federal_state_title"/>
-  <string name="infschg_settings_federal_state_page_copy_1"/>
-  <string name="infschg_settings_federal_state_page_copy_2"/>
-  <string name="infschg_popup_choose_federal_state_copy_3"/>
-  <string name="infschg_settings_federal_state_page_tag"/>
+  <string name="app_imprint_title"/>
+  <string name="app_imprint_subtitle"/>
+  <string name="app_imprint_publisher"/>
+  <string name="app_imprint_address"/>
+  <string name="app_imprint_contact_title"/>
+  <string name="app_imprint_contact_mail"/>
+  <string name="app_imprint_contact_form"/>
+  <string name="app_imprint_identnr_title"/>
+  <string name="app_imprint_identnr_nr"/>
 
-  <string name="state_ruleset_date_available_short"/>
-  <string name="state_ruleset_date_available_long"/>
-  <string name="state_ruleset_date_unavailable"/>
-
-  <string name="DE_BY"/>
-  <string name="DE_BB"/>
-  <string name="DE_BE"/>
-  <string name="DE_BW"/>
-  <string name="DE_HB"/>
-  <string name="DE_HH"/>
-  <string name="DE_HE"/>
-  <string name="DE_MV"/>
-  <string name="DE_NI"/>
-  <string name="DE_NW"/>
-  <string name="DE_RP"/>
-  <string name="DE_SN"/>
-  <string name="DE_ST"/>
-  <string name="DE_SL"/>
-  <string name="DE_SH"/>
-  <string name="DE_TH"/>
 </resources>

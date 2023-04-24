@@ -7,7 +7,6 @@
 <resources>
   <string name="on_boarding_consent_data_protection_link">https://www.digitaler-impfnachweis-app.de/en/webviews/verification-app/privacy/</string>
   <string name="information_faq_link">https://www.digitaler-impfnachweis-app.de/en/webviews/verification-app/faq/</string>
-  <string name="information_imprint_link">https://www.digitaler-impfnachweis-app.de/en/webviews/imprint/</string>
   <string name="data_protection_path">file:///android_asset/privacy-covpasscheck.html</string>
   <string name="update_info_path">file:///android_asset/check_announcements_en.html</string>
   <string name="easy_language_link" translatable="false">https://digitaler-impfnachweis-app.de/webviews/leichte-sprache/covpasscheckapp</string>

@@ -79,9 +79,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldImprint.apply {
             setText(R.string.app_information_title_company_details)
             setOnClickListener {
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(getString(getImprintLinkRes())))
-                startActivity(browserIntent)
+                findNavigator().push(ImpressumFragmentNav())
             }
         }
 
@@ -176,7 +174,6 @@ public abstract class InformationFragment : BaseFragment() {
     }
 
     protected abstract fun getFAQLinkRes(): Int
-    protected abstract fun getImprintLinkRes(): Int
     protected abstract fun getEasyLanguageLinkRes(): Int
     protected abstract fun isCovpassCheck(): Boolean
     protected open fun hasAcousticFeedback(): Boolean = false

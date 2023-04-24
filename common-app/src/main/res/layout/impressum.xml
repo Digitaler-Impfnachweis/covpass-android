@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ (C) Copyright IBM Deutschland GmbH 2021
+  ~ (C) Copyright IBM Corp. 2021
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/backgroundPrimary"
+  android:orientation="vertical"
+  tools:ignore="Overdraw">
+
+  <de.rki.covpass.commonapp.uielements.CenteredTitleToolbar
+    android:id="@+id/information_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundPrimary"
+    android:elevation="@dimen/elevation"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/grid_seven"
+    android:paddingStart="@dimen/grid_one"
+    android:paddingEnd="@dimen/grid_one"
+    android:theme="@style/CovPassAppTheme.DarkControlHighlight"
+    app:popupTheme="@style/CovPassAppTheme.DarkControlHighlight" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/grid_three"
+      android:orientation="vertical">
+
+      <TextView
+        style="@style/Header.OnBackground.MediumBig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/app_imprint_title"
+        tools:text="Publisher" />
+
+      <TextView
+        style="@style/Header.OnBackground.MediumBig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/app_imprint_subtitle"
+        tools:text="(responsible according to § 5 para. 1 TMG, § 18 para. 1 MStV, DSGVO, BDSG)" />
+
+      <TextView
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/app_imprint_publisher"
+        tools:text="Robert Koch-Institut" />
+
+      <TextView
+        style="@style/DefaultText.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_half"
+        android:text="@string/app_imprint_address"
+        tools:text="Nordufer 20\n13353 Berlin\nrepresented by the President" />
+
+      <TextView
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/app_imprint_contact_title"
+        tools:text="Contact" />
+
+      <TextView
+        android:id="@+id/impressum_email"
+        style="@style/DefaultText.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_half"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/keyboard_highlight_selector"
+        tools:text="info@covpass-app.de" />
+
+      <TextView
+        android:id="@+id/impressum_form"
+        style="@style/DefaultText.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_half"
+        android:text="@string/app_imprint_contact_form"
+        tools:text="or use the contact-form of the Robert Koch-Institut" />
+
+      <TextView
+        style="@style/Header.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_three"
+        android:text="@string/app_imprint_identnr_title"
+        tools:text="VAT identification number" />
+
+      <TextView
+        style="@style/DefaultText.OnBackground.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_half"
+        android:text="@string/app_imprint_identnr_nr"
+        tools:text="DE 165 893 430" />
+
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

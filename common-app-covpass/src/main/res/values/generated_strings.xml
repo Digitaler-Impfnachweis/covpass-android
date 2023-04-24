@@ -649,8 +649,8 @@
 	<string name="accessibility_app_information_label_back">Back to the start screen</string>
 	<string name="accessibility_app_information_title_information_announce">Information has been opened</string>
 	<string name="accessibility_app_information_title_information_closing_announce">Information has been closed</string>
-	<string name="accessibility_app_information_title_checking_rules_announce">Update Checking Rules has been opened</string>
-	<string name="accessibility_app_information_title_checking_rules_closing_announce">Update checking rules has been closed</string>
+	<string name="accessibility_app_information_title_checking_rules_announce">Checking Rules has been opened</string>
+	<string name="accessibility_app_information_title_checking_rules_closing_announce">Checking rules has been closed</string>
 	<string name="accessibility_app_information_title_update_notifications_announce">Update notifications has been opened</string>
 	<string name="accessibility_app_information_title_update_notifications_closing_announce">Update notifications has been closed</string>
 	<string name="accessibility_app_information_title_federal_state_rules_announce">Federal state rules has been opened</string>
@@ -675,6 +675,15 @@
 	<string name="app_information_title_datenschutz">Privacy notice</string>
 	<string name="app_information_title_company_details">Legal information</string>
 	<string name="app_information_title_company_details_linked">#Legal information::$0#</string>
+	<string name="app_imprint_title">Publisher</string>
+	<string name="app_imprint_subtitle">(responsible according to § 5 para. 1 TMG, § 18 para. 1 MStV, DSGVO, BDSG)</string>
+	<string name="app_imprint_publisher">Robert Koch-Institut</string>
+	<string name="app_imprint_address">Nordufer 20\n13353 Berlin\nrepresented by the President</string>
+	<string name="app_imprint_contact_title">Contact</string>
+	<string name="app_imprint_contact_mail">#info\@covpass-app.de::mailto:info\@covpass-app.de#</string>
+	<string name="app_imprint_contact_form">or use the #contact-form of the Robert Koch-Institut::https://www.rki.de/SharedDocs/Kontaktformulare/weitere/covpass-app/covpass-app_Integrator.html#</string>
+	<string name="app_imprint_identnr_title">VAT identification number</string>
+	<string name="app_imprint_identnr_nr">DE 165 893 430</string>
 	<string name="app_information_title_company_easy_language_linked">#Leichte Sprache::$0#</string>
 	<string name="app_information_title_company_easy_language">Leichte Sprache</string>
 	<string name="app_information_title_open_source">Open-source licences</string>
@@ -682,7 +691,7 @@
 	<string name="accessibility_app_information_open_source_label_back">Back</string>
 	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
-	<string name="app_information_title_update">Update checking rules</string>
+	<string name="app_information_title_update">Checking rules</string>
 	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
 	<string name="app_information_list_update_notifications">Update notifications</string>
 	<string name="app_information_title_update_notifications">Update notifications</string>
