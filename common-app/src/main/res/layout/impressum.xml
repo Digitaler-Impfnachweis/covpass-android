@@ -46,10 +46,10 @@
         tools:text="Publisher" />
 
       <TextView
-        style="@style/Header.OnBackground.MediumBig"
+        style="@style/DefaultText.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_three"
+        android:layout_marginTop="@dimen/grid_one_half"
         android:text="@string/app_imprint_subtitle"
         tools:text="(responsible according to § 5 para. 1 TMG, § 18 para. 1 MStV, DSGVO, BDSG)" />
 
@@ -65,7 +65,7 @@
         style="@style/DefaultText.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_half"
+        android:layout_marginTop="@dimen/grid_quarter"
         android:text="@string/app_imprint_address"
         tools:text="Nordufer 20\n13353 Berlin\nrepresented by the President" />
 
@@ -82,7 +82,7 @@
         style="@style/DefaultText.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_half"
+        android:layout_marginTop="@dimen/grid_quarter"
         android:clickable="true"
         android:focusable="true"
         android:foreground="@drawable/keyboard_highlight_selector"
@@ -93,7 +93,7 @@
         style="@style/DefaultText.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_half"
+        android:layout_marginTop="@dimen/grid_one_half"
         android:text="@string/app_imprint_contact_form"
         tools:text="or use the contact-form of the Robert Koch-Institut" />
 
@@ -109,7 +109,7 @@
         style="@style/DefaultText.OnBackground.Small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_half"
+        android:layout_marginTop="@dimen/grid_quarter"
         android:text="@string/app_imprint_identnr_nr"
         tools:text="DE 165 893 430" />
 

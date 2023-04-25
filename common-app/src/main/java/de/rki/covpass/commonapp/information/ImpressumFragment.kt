@@ -11,7 +11,6 @@ import com.ibm.health.common.navigation.android.FragmentNav
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.ImpressumBinding
-import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -32,12 +31,10 @@ public class ImpressumFragment : BaseFragment() {
         binding.impressumEmail.apply {
             text = getSpanned(R.string.app_imprint_contact_mail)
             movementMethod = LinkMovementMethod.getInstance()
-            setExternalLinkImage()
         }
         binding.impressumForm.apply {
             text = getSpanned(R.string.app_imprint_contact_form)
             movementMethod = LinkMovementMethod.getInstance()
-            setExternalLinkImage()
         }
     }
 
