@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.appVersion
 import com.ibm.health.common.android.utils.attachToolbar
@@ -22,6 +23,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
+import de.rki.covpass.commonapp.utils.SunsetChecker
 import java.util.Locale
 
 /**
@@ -41,6 +43,8 @@ public abstract class InformationFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
+        val isSunset = SunsetChecker.isSunset()
+
         binding.informationAppVersionLabel.text =
             getString(R.string.app_information_version_label, appVersion)
         binding.informationAppVersionLabel.contentDescription = getString(
@@ -62,6 +66,9 @@ public abstract class InformationFragment : BaseFragment() {
             binding.informationFieldEasyLanguage.isVisible = true
             binding.dividerEasyLanguage.isVisible = true
         }
+        binding.informationFieldEasyLanguage.isGone = isSunset
+        binding.dividerEasyLanguage.isGone = isSunset
+
         binding.informationFieldFaq.apply {
             setText(R.string.app_information_title_faq)
             setOnClickListener {
@@ -96,6 +103,8 @@ public abstract class InformationFragment : BaseFragment() {
                 findNavigator().push(SettingsFragmentNav(isCovpassCheck()))
             }
         }
+        binding.informationFieldAppRulesUpdate.isGone = isSunset
+        binding.dividerInformationFieldAppRulesUpdate.isGone = isSunset
 
         binding.informationFieldAccessibilityStatement.apply {
             setText(R.string.app_information_title_accessibility_statement)
@@ -107,6 +116,8 @@ public abstract class InformationFragment : BaseFragment() {
                 startActivity(browserIntent)
             }
         }
+        binding.informationFieldAccessibilityStatement.isGone = isSunset
+        binding.dividerInformationFieldAccessibilityStatement.isGone = isSunset
 
         binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
             findNavigator().push(WhatsNewSettingsFragmentNav())
@@ -123,7 +134,10 @@ public abstract class InformationFragment : BaseFragment() {
         )
 
         if (isCovpassCheck()) {
-            binding.informationFieldCovpassCheckSettingsContainer.isVisible = true
+            if (isSunset) {
+                binding.informationFieldCovpassCheckSettingsContainer.isGone = true
+                resetExpertMode()
+            }
             binding.informationFieldExpertModeLayout.setOnClickListener {
                 findNavigator().push(ExpertModeSettingsFragmentNav())
             }
@@ -155,6 +169,12 @@ public abstract class InformationFragment : BaseFragment() {
         } else {
             binding.informationFieldAcousticFeedbackLayout.isVisible = false
             binding.informationFieldCovpassCheckSettingsContainer.isVisible = false
+        }
+    }
+
+    private fun resetExpertMode() {
+        launchWhenStarted {
+            commonDeps.checkContextRepository.isExpertModeOn.set(false)
         }
     }
 

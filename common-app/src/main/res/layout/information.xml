@@ -51,7 +51,9 @@
         android:focusable="true"
         android:foreground="@drawable/keyboard_highlight_selector" />
 
-      <View style="@style/Divider" />
+      <View
+        android:id="@+id/divider_information_field_app_rules_update"
+        style="@style/Divider" />
 
       <LinearLayout
         android:id="@+id/information_field_covpass_whats_new_settings_container"
@@ -193,7 +195,9 @@
         android:focusable="true"
         android:foreground="@drawable/keyboard_highlight_selector" />
 
-      <View style="@style/Divider" />
+      <View
+        android:id="@+id/divider_information_field_accessibility_statement"
+        style="@style/Divider" />
 
       <LinearLayout
         android:id="@+id/information_field_covpass_check_settings_container"
