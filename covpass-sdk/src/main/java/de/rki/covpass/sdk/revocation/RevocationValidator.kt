@@ -7,12 +7,16 @@ package de.rki.covpass.sdk.revocation
 
 import android.util.Base64
 import de.rki.covpass.sdk.cert.models.CovCertificate
+import de.rki.covpass.sdk.utils.SunsetChecker
 import de.rki.covpass.sdk.utils.sha256
 
 public suspend fun validateRevocation(
     covCertificate: CovCertificate,
     revocationRemoteListRepository: RevocationRemoteListRepository,
 ): Boolean {
+    if (SunsetChecker.isSunset()) {
+        return false
+    }
     val kid = Base64.decode(covCertificate.kid, Base64.DEFAULT)
     val kidList: List<RevocationKidEntry> = revocationRemoteListRepository.getKidList()
     if (kidList.isEmpty() || !validateKid(kid, kidList)) {

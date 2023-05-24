@@ -45,11 +45,11 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.sdk.cert.models.ReissueType
+import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -1,4 +1,4 @@
-package de.rki.covpass.commonapp.utils
+package de.rki.covpass.sdk.utils
 
 import java.time.LocalDateTime
 import java.time.Month

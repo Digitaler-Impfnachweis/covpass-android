@@ -40,8 +40,8 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
-import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
+import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

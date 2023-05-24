@@ -27,10 +27,10 @@ import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
-import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.ExpertModeData
+import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.parcelize.Parcelize
 
 /**

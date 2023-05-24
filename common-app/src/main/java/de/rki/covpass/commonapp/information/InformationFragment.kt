@@ -23,7 +23,7 @@ import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.InformationBinding
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.onboarding.CommonDataProtectionFragmentNav
-import de.rki.covpass.commonapp.utils.SunsetChecker
+import de.rki.covpass.sdk.utils.SunsetChecker
 import java.util.Locale
 
 /**

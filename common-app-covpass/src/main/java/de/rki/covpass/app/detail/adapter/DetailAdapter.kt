@@ -32,9 +32,9 @@ import de.rki.covpass.app.databinding.DetailInfoboxRowBinding
 import de.rki.covpass.app.databinding.DetailReissueNotificationItemBinding
 import de.rki.covpass.app.databinding.DetailWidgetItemBinding
 import de.rki.covpass.app.detail.DetailClickListener
-import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.DGCEntryType
+import de.rki.covpass.sdk.utils.SunsetChecker
 
 /**
  * Adapter which holds the data for Detail screen.
