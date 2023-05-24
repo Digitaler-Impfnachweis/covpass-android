@@ -15,6 +15,7 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -31,6 +32,7 @@ import de.rki.covpass.app.databinding.DetailInfoboxRowBinding
 import de.rki.covpass.app.databinding.DetailReissueNotificationItemBinding
 import de.rki.covpass.app.databinding.DetailWidgetItemBinding
 import de.rki.covpass.app.detail.DetailClickListener
+import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.DGCEntryType
 
@@ -146,7 +148,8 @@ private class WidgetViewHolder(
             binding.detailInfoContainer.isVisible = widget.noticeMessage != null
 
             widget.buttonText?.let {
-                binding.detailShowCertificateButton.isVisible = true
+                binding.detailShowCertificateButton.isGone =
+                    widget.isExpiredOrInvalid && SunsetChecker.isSunset()
                 binding.detailShowCertificateButton.text = it
                 binding.detailShowCertificateButton.setOnClickListener {
                     if (widget.isExpiredOrInvalid) {

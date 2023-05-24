@@ -28,6 +28,7 @@ import androidx.camera.core.Preview
 import androidx.camera.core.SurfaceOrientedMeteringPointFactory
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ensody.reactivestate.MutableValueFlow
 import com.ensody.reactivestate.android.autoRun
@@ -39,6 +40,7 @@ import com.ibm.health.common.navigation.android.findNavigator
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.FragmentQrScannerBinding
+import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutorService
@@ -123,6 +125,7 @@ public abstract class QRScannerFragment : BaseFragment() {
                 }
                 setTorch(!isTorchOn.value)
             }
+            scannerImportButton.isGone = SunsetChecker.isSunset()
             scannerImportButton.setOnClickListener {
                 setupImportButton()
             }
