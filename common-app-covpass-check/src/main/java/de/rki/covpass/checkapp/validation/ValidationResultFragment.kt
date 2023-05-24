@@ -10,6 +10,7 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.getSpanned
 import com.ibm.health.common.android.utils.viewBinding
@@ -26,6 +27,7 @@ import de.rki.covpass.checkapp.revocation.RevocationExportFragmentNav
 import de.rki.covpass.commonapp.BaseBottomSheet
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.uielements.showInfo
+import de.rki.covpass.commonapp.utils.SunsetChecker
 import de.rki.covpass.commonapp.utils.isLandscapeMode
 import de.rki.covpass.commonapp.utils.setExternalLinkImage
 import de.rki.covpass.sdk.cert.models.ExpertModeData
@@ -148,7 +150,7 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             )
         }
 
-        binding.resultInfoFooter.isVisible = textFooter != null
+        binding.resultInfoFooter.isGone = textFooter == null || SunsetChecker.isSunset()
         textFooter?.let {
             binding.resultInfoFooter.apply {
                 text = getSpanned(it)
