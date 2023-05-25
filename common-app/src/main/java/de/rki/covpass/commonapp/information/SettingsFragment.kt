@@ -3,8 +3,6 @@ package de.rki.covpass.commonapp.information
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import com.ensody.reactivestate.android.autoRun
 import com.ensody.reactivestate.android.reactiveState
 import com.ensody.reactivestate.get
@@ -15,11 +13,6 @@ import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.commonapp.BaseFragment
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.databinding.CheckSettingsBinding
-import de.rki.covpass.commonapp.dialog.DialogAction
-import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.dialog.DialogModel
-import de.rki.covpass.commonapp.dialog.showDialog
-import de.rki.covpass.sdk.dependencies.sdkDeps
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -27,15 +20,12 @@ public class SettingsFragmentNav(
     public val isCovPassCheck: Boolean,
 ) : FragmentNav(SettingsFragment::class)
 
-public class SettingsFragment : BaseFragment(), DialogListener {
+public class SettingsFragment : BaseFragment() {
 
     private val binding by viewBinding(CheckSettingsBinding::inflate)
     private val args by lazy { getArgs<SettingsFragmentNav>() }
     private val settingsUpdateViewModel by reactiveState {
-        SettingsUpdateViewModel(
-            scope,
-            args.isCovPassCheck,
-        )
+        SettingsUpdateViewModel(scope)
     }
 
     override var announcementAccessibilityRes: Int? = null
@@ -48,43 +38,13 @@ public class SettingsFragment : BaseFragment(), DialogListener {
 
         if (args.isCovPassCheck) {
             announcementAccessibilityRes = R.string.accessibility_app_information_title_local_rules
-            initCovPassCheckContent()
         } else {
             announcementAccessibilityRes =
                 R.string.accessibility_app_information_title_checking_rules_announce
             closingAnnouncementAccessibilityRes =
                 R.string.accessibility_app_information_title_checking_rules_closing_announce
-            initCovPassContent()
         }
         initCommonContent()
-    }
-
-    private fun initCovPassContent() {
-        binding.offlineRevocationLayout.isGone = true
-    }
-
-    private fun initCovPassCheckContent() {
-        val isOfflineRevocationOn =
-            sdkDeps.revocationLocalListRepository.revocationListUpdateIsOn.value
-        binding.offlineRevocationToggle.apply {
-            updateTitle(R.string.app_information_offline_revocation_title)
-            updateToggle(isOfflineRevocationOn)
-            setOnClickListener {
-                if (!binding.offlineRevocationToggle.isChecked()) {
-                    updateToggle(!binding.offlineRevocationToggle.isChecked())
-                    updateOfflineRevocationState()
-                } else {
-                    val dialogModel = DialogModel(
-                        titleRes = R.string.app_information_offline_revocation_hint_title,
-                        messageString = getString(R.string.app_information_offline_revocation_hint_copy),
-                        positiveButtonTextRes = R.string.app_information_offline_revocation_hint_button_active,
-                        negativeButtonTextRes = R.string.app_information_offline_revocation_hint_button_inactive,
-                        tag = DELETE_REVOCATION_LIST,
-                    )
-                    showDialog(dialogModel, childFragmentManager)
-                }
-            }
-        }
     }
 
     private fun initCommonContent() {
@@ -94,38 +54,6 @@ public class SettingsFragment : BaseFragment(), DialogListener {
             adapter.updateList(
                 get(settingsUpdateViewModel.settingItems),
             )
-        }
-        autoRun { showLoading(get(loading) > 0) }
-        autoRun { showBadge(get(settingsUpdateViewModel.allUpToDate)) }
-
-        binding.updateButton.setOnClickListener {
-            settingsUpdateViewModel.update()
-        }
-        binding.cancelButton.setOnClickListener {
-            settingsUpdateViewModel.cancel()
-        }
-    }
-
-    private fun showBadge(allUpToDate: Boolean) {
-        binding.settingsSuccessBadge.isVisible = allUpToDate
-        binding.settingsWarningBadge.isGone = allUpToDate
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.settingsLoadingLayout.isVisible = isLoading
-        binding.updateButton.isGone = isLoading
-    }
-
-    private fun updateOfflineRevocationState() {
-        launchWhenStarted {
-            sdkDeps.revocationLocalListRepository.revocationListUpdateIsOn.set(
-                binding.offlineRevocationToggle.isChecked(),
-            )
-            if (binding.offlineRevocationToggle.isChecked()) {
-                settingsUpdateViewModel.update()
-            } else {
-                settingsUpdateViewModel.deleteRevocationLocalList()
-            }
         }
     }
 
@@ -140,16 +68,5 @@ public class SettingsFragment : BaseFragment(), DialogListener {
             }
             binding.settingsToolbar.setTitle(R.string.app_information_title_update)
         }
-    }
-
-    override fun onDialogAction(tag: String, action: DialogAction) {
-        if (tag == DELETE_REVOCATION_LIST && action == DialogAction.POSITIVE) {
-            binding.offlineRevocationToggle.updateToggle(false)
-            updateOfflineRevocationState()
-        }
-    }
-
-    private companion object {
-        const val DELETE_REVOCATION_LIST = "delete_revocation_list"
     }
 }

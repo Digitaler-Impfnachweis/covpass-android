@@ -105,7 +105,9 @@ internal class MainFragment :
 
     override fun onResume() {
         super.onResume()
-        covPassBackgroundUpdateViewModel.update()
+        if (!SunsetChecker.isSunset()) {
+            covPassBackgroundUpdateViewModel.update()
+        }
     }
 
     private fun setupViews() {
@@ -121,6 +123,9 @@ internal class MainFragment :
                 }
             },
         )
+        binding.moreInfoActionButton?.setOnClickListener {
+            // TODO add navigation
+        }
         binding.mainAddButton.isInvisible = SunsetChecker.isSunset()
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
         binding.mainSettingsImagebutton.setOnClickListener {

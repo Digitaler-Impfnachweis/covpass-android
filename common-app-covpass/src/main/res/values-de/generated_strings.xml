@@ -692,7 +692,7 @@
 	<string name="app_information_title_accessibility_statement">Barrierefreiheitserklärung</string>
 	<string name="app_information_title_accessibility_statement_linked">#Barrierefreiheitserklärung::$0#</string>
 	<string name="app_information_title_update">Prüfregeln</string>
-	<string name="app_information_message_update">Zur Überprüfung der Gültigkeit von Zertifikaten benötigt die App aktuelle Listen der vertrauenswürdigen Zertifikatsaussteller.\n\nDiese Listen aktualisieren sich täglich automatisch. Sie können hier auch jederzeit eine manuelle Aktualisierung vornehmen.</string>
+	<string name="app_information_message_update">Die App wird ab dem 1. Juli 2023 nicht mehr weiterentwickelt. Die Prüfregeln können nicht mehr aktualisiert werden.</string>
 	<string name="app_information_list_update_notifications">Update-Benachrichtigungen</string>
 	<string name="app_information_title_update_notifications">Update-Benachrichtigungen</string>
 	<string name="app_information_copy_update_notifications">Sie können ab jetzt die Update-Benachrichtigungen deaktivieren. Mit dem Regler können Sie jederzeit die Updates deaktivieren oder wieder aktivieren. Wenn sie den Update-Benachrichtigungen deaktivieren, bekommen Sie keine Updates mehr über die neuesten Software-Entwicklungen in der App.</string>
@@ -705,8 +705,10 @@
 	<string name="settings_rules_list_status_outofdate">Aktualisierung notwendig</string>
 	<string name="settings_rules_list_entry">Einreiseregeln</string>
 	<string name="settings_rules_list_domestic">Inlandsregeln</string>
-	<string name="settings_rules_list_features">Regelmerkmale</string>
+	<string name="settings_rules_list_features">Regeln nach Infektionsschutzgesetz § 22a</string>
+	<string name="settings_rules_list_features_lastupdated">Zuletzt aktualisiert am 30.04.2023</string>
 	<string name="settings_rules_list_issuer">Zertifikatsaussteller</string>
+	<string name="settings_rules_list_issuer_lastupdated">Zuletzt aktualisiert am 13.06.2023</string>
 	<string name="settings_rules_list_countries">Länderlisten</string>
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
@@ -879,6 +881,8 @@
 	<string name="renewal_bluebox_copy_expired">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Erneuern Sie jetzt Ihr Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_bluebox_copy_expiry_not_available">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_available">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available_30_6">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_available_30_6">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">Die technische Gültigkeit mindestens eines Ihrer Zertifikate ist abgelaufen. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_german">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
 	<string name="renewal_expiry_notification_copy_vaccination">Die technische Laufzeit Ihres Zertifikats läuft bald ab oder ist bereits abgelaufen. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
@@ -1018,6 +1022,15 @@
 	<string name="a11y_accordion_expand_hint_android">Ausklappen</string>
 	<string name="a11y_accordion_collapse_hint_ios">Doppelklicken zum Einklappen</string>
 	<string name="a11y_accordion_collapse_hint_android">Einklappen</string>
-	<string name="start_infobox_title">Wichtige Information</string>
-	<string name="start_infobox_copy">Die Corona-Einreiseverordnung läuft aus. Sie können ihre Zertifikate in der App nicht mehr auf Gültigkeit bei Reisen prüfen.</string>
+	<string name="start_infobox_title">Achtung</string>
+	<string name="start_infobox_copy">Die Entwicklung der CovPass-App endet, da die gesetzliche Grundlage wegfällt. Ihre Zertifikate bleiben jedoch erhalten.</string>
+	<string name="start_infobox_button">Mehr anzeigen</string>
+	<string name="popup_sundown_info_image">Das Bild zeigt eine glückliche Familie, eine Person hält ein Smartphone mit einem grünen Haken.</string>
+	<string name="popup_sundown_info_title">Achtung!</string>
+	<string name="popup_sundown_info_copy">Ab dem 1. Juli 2023 wird die CovPass-App nicht mehr weiterentwickelt. Auf Ihre in der App gespeicherten Zertifikate haben Sie jedoch weiterhin Zugriff.</string>
+	<string name="popup_sundown_info_subtitle">Das bedeutet für Sie:</string>
+	<string name="popup_sundown_info_bullet1">Es werden keine neuen Funktionen veröffentlicht.</string>
+	<string name="popup_sundown_info_bullet2">Es wird kein Support mehr für die App angeboten.</string>
+	<string name="popup_sundown_info_bullet3">Sie können technisch abgelaufene Zertifikate nicht mehr in der App erneuern.</string>
+	<string name="popup_sundown_info_bullet4">Gespeicherte Zertifikate bleiben erhalten und können als PDF exportiert werden.</string>
 </resources>

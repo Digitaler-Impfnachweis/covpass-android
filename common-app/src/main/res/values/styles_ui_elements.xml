@@ -59,6 +59,19 @@
     <item name="rippleColor">@color/brandAccent40</item>
     <item name="android:letterSpacing">0.05</item>
   </style>
+
+  <style name="SecondaryButtonWithOutline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <item name="android:ellipsize">end</item>
+    <item name="android:fontFamily">@font/opensans_semibold</item>
+    <item name="strokeColor">@color/info</item>
+    <item name="backgroundTint">@color/onInfo</item>
+    <item name="android:textColor">@color/info</item>
+    <item name="rippleColor">@color/brandAccent40</item>
+    <item name="shapeAppearance">@style/ButtonShapeAppearance</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="iconTint">@null</item>
+  </style>
+
   <!--
   Button - Secondary
 

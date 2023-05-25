@@ -76,10 +76,7 @@ public abstract class CommonDependencies {
         TimeValidationRepository(kronosClock)
 
     public val settingsUpdateListBuilder: SettingUpdateListBuilder by lazy {
-        SettingUpdateListBuilder(
-            sdkDeps.dscRepository,
-            sdkDeps.revocationLocalListRepository,
-        )
+        SettingUpdateListBuilder()
     }
 
     private companion object {

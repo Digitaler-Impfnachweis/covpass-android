@@ -692,7 +692,7 @@
 	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
 	<string name="app_information_title_update">Checking rules</string>
-	<string name="app_information_message_update">To check the validity of certificates, the app requires up-to-date lists of trusted certificate issuers.\n\nThese lists are updated automatically on a daily basis. You can also manually update them here at any time.</string>
+	<string name="app_information_message_update">The app will no longer be developed from 1 July 2023. The checking rules can no longer be updated.</string>
 	<string name="app_information_list_update_notifications">Update notifications</string>
 	<string name="app_information_title_update_notifications">Update notifications</string>
 	<string name="app_information_copy_update_notifications">You can now disable the update notifications. You can use the toggle to disable or re-enable the updates at any time. If you disable the update screen, you will no longer receive updates about the latest software developments in the app.</string>
@@ -705,8 +705,10 @@
 	<string name="settings_rules_list_status_outofdate">Update required</string>
 	<string name="settings_rules_list_entry">Entry rules</string>
 	<string name="settings_rules_list_domestic">Domestic rules</string>
-	<string name="settings_rules_list_features">Rule features</string>
+	<string name="settings_rules_list_features">Rules according to Infection Protection Act § 22a</string>
+	<string name="settings_rules_list_features_lastupdated">Last updated 30.04.2023</string>
 	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_issuer_lastupdated">Last updated 13.06.2023</string>
 	<string name="settings_rules_list_countries">Country lists</string>
 	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
@@ -879,6 +881,8 @@
 	<string name="renewal_bluebox_copy_expired">The technical validity of your certificate expired on %1$s at %2$s. Renew your certificate now to continue using it.</string>
 	<string name="renewal_bluebox_copy_expiry_not_available">The technical validity of your certificate has expired on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_available">The technical validity of your certificate expires on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available_30_6">The technical validity of your certificate has expired on %1$s at %2$s.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_available_30_6">The technical validity of your certificate expires on %1$s at %2$s.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">The technical validity of at least one of your certificates has expired. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_german">The technical validity of your certificate expires on %1$s at %2$s. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_expiry_notification_copy_vaccination">The technical validity of your certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
@@ -1018,6 +1022,15 @@
 	<string name="a11y_accordion_expand_hint_android">Expand</string>
 	<string name="a11y_accordion_collapse_hint_ios">Double tap to collapse</string>
 	<string name="a11y_accordion_collapse_hint_android">Collapse</string>
-	<string name="start_infobox_title">Important information</string>
-	<string name="start_infobox_copy">The Corona entry regulation is expiring. You can no longer check your certificates in the app for validity when travelling.</string>
+	<string name="start_infobox_title">Attention</string>
+	<string name="start_infobox_copy">The development of the CovPass app ends as the legal basis no longer exists. However, your certificates will remain.</string>
+	<string name="start_infobox_button">Show more</string>
+	<string name="popup_sundown_info_image">Image showing a happy family, one person is holding a smartphone with a green check.</string>
+	<string name="popup_sundown_info_title">Attention!</string>
+	<string name="popup_sundown_info_copy">As of 1 July 2023, the CovPass app will no longer be developed. However, you will still have access to your certificates stored in the app.</string>
+	<string name="popup_sundown_info_subtitle">This means for you:</string>
+	<string name="popup_sundown_info_bullet1">No new functions will be released.</string>
+	<string name="popup_sundown_info_bullet2">Support for the app is no longer offered.</string>
+	<string name="popup_sundown_info_bullet3">You can no longer renew technically expired certificates in the app.</string>
+	<string name="popup_sundown_info_bullet4">Saved certificates are retained and can be exported as PDFs.</string>
 </resources>

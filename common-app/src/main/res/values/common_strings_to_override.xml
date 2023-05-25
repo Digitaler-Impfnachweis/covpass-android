@@ -147,11 +147,15 @@
 
   <string name="result_countdown"/>
 
-  <string name="settings_rules_list_issuer"/>
   <string name="settings_rules_list_authorities"/>
   <string name="settings_rules_list_loading_title"/>
   <string name="cancel"/>
   <string name="validation_start_screen_offline_modus_button"/>
+
+  <string name="settings_rules_list_issuer"/>
+  <string name="settings_rules_list_issuer_lastupdated"/>
+  <string name="settings_rules_list_features"/>
+  <string name="settings_rules_list_features_lastupdated"/>
 
   <string name="app_information_beep_when_checking_title"/>
   <string name="app_information_beep_when_checking_message"/>

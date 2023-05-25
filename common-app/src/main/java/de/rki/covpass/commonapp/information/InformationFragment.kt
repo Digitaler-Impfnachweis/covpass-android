@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -70,6 +71,10 @@ public abstract class InformationFragment : BaseFragment() {
         binding.dividerEasyLanguage.isGone = isSunset
 
         binding.informationFieldFaq.apply {
+            if (isSunset) {
+                val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+                setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+            }
             setText(R.string.app_information_title_faq)
             setOnClickListener {
                 val browserIntent =
@@ -103,8 +108,6 @@ public abstract class InformationFragment : BaseFragment() {
                 findNavigator().push(SettingsFragmentNav(isCovpassCheck()))
             }
         }
-        binding.informationFieldAppRulesUpdate.isGone = isSunset
-        binding.dividerInformationFieldAppRulesUpdate.isGone = isSunset
 
         binding.informationFieldAccessibilityStatement.apply {
             setText(R.string.app_information_title_accessibility_statement)

@@ -36,6 +36,7 @@ import de.rki.covpass.commonapp.storage.OnboardingRepository
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
+import de.rki.covpass.sdk.utils.SunsetChecker
 import de.rki.covpass.sdk.utils.formatDateTime
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
@@ -60,12 +61,15 @@ internal class MainFragment :
         BackgroundUpdateViewModel(scope)
     }
     private val settingsUpdateViewModel by reactiveState {
-        SettingsUpdateViewModel(scope, true)
+        SettingsUpdateViewModel(scope)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        binding.moreInfoActionButton?.setOnClickListener {
+            // TODO add navigation
+        }
         binding.mainSettingsImagebutton.setOnClickListener {
             findNavigator().push(CovPassCheckInformationFragmentNav())
         }
@@ -126,9 +130,11 @@ internal class MainFragment :
     override fun onResume() {
         super.onResume()
         commonDeps.timeValidationRepository.validate()
-        covpassCheckBackgroundViewModel.update()
-        launchWhenStarted {
-            revocationListUpdateViewModel.update()
+        if (!SunsetChecker.isSunset()) {
+            covpassCheckBackgroundViewModel.update()
+            launchWhenStarted {
+                revocationListUpdateViewModel.update()
+            }
         }
     }
 
