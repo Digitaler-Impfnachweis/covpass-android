@@ -30,6 +30,7 @@ import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
 import de.rki.covpass.sdk.cert.models.ReissueState
+import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.coroutines.invoke
 import kotlinx.parcelize.Parcelize
 
@@ -77,13 +78,15 @@ internal class CertificateFragment : BaseFragment() {
         val showDetailReissueNotification =
             (!groupedCertificate.hasSeenBoosterNotification && groupedCertificate.isBoosterReadyForReissue()) ||
                 groupedCertificate.showReadyForReissueNotification()
+        val isSunset = SunsetChecker.isSunset()
 
         binding.certificateCard.createCertificateCardView(
             fullName = mainCertificate.fullName,
             certStatus = mainCombinedCertificate.status,
-            hasNotification = showBoosterNotification || showDetailReissueNotification,
+            hasNotification = (showBoosterNotification || showDetailReissueNotification) && !isSunset,
             notificationText =
             when {
+                isSunset -> null
                 showBoosterNotification -> {
                     getString(R.string.infschg_start_notification)
                 }

@@ -50,6 +50,7 @@ import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.dependencies.sdkDeps
 import de.rki.covpass.sdk.rules.CovPassValueSetsRepository
+import de.rki.covpass.sdk.utils.SunsetChecker
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatTimeOrEmpty
 import java.util.Locale
@@ -195,6 +196,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
         binding.dgcDetailExpirationInfoElement.isVisible = true
         binding.dgcDetailReissueLayout.isVisible = true
         val isVaccination = combinedCovCertificate.covCertificate.dgcEntry is Vaccination
+        val isSunset = SunsetChecker.isSunset()
         when (combinedCovCertificate.status) {
             CertValidationResult.ExpiryPeriod -> {
                 if (
@@ -220,9 +222,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     binding.dgcDetailReissueLayout.isGone = true
                 } else {
                     if (isVaccination) {
-                        reissueVaccination(combinedCovCertificate, groupedCertificate)
+                        reissueVaccination(combinedCovCertificate, groupedCertificate, isSunset)
                     } else {
-                        reissueRecovery(combinedCovCertificate, groupedCertificate)
+                        reissueRecovery(combinedCovCertificate, groupedCertificate, isSunset)
                     }
                     binding.dgcDetailExpirationInfoElement.isGone = true
                 }
@@ -249,9 +251,9 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     binding.dgcDetailReissueLayout.isGone = true
                 } else {
                     if (isVaccination) {
-                        reissueVaccination(combinedCovCertificate, groupedCertificate)
+                        reissueVaccination(combinedCovCertificate, groupedCertificate, isSunset)
                     } else {
-                        reissueRecovery(combinedCovCertificate, groupedCertificate)
+                        reissueRecovery(combinedCovCertificate, groupedCertificate, isSunset)
                     }
                     binding.dgcDetailExpirationInfoElement.isGone = true
                 }
@@ -296,6 +298,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
     private fun reissueVaccination(
         combinedCovCertificate: CombinedCovCertificate,
         groupedCertificate: GroupedCertificates,
+        isSunset: Boolean,
     ) {
         updateReissueElement(
             when (combinedCovCertificate.reissueState) {
@@ -316,13 +319,15 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                 ReissueState.Ready -> {
                     if (combinedCovCertificate.status == CertValidationResult.Expired) {
                         getString(
-                            R.string.renewal_bluebox_copy_expired,
+                            if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                            else R.string.renewal_bluebox_copy_expired,
                             combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                             combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                         )
                     } else {
                         getString(
-                            R.string.renewal_bluebox_copy_expiring_soon,
+                            if (isSunset) R.string.renewal_bluebox_copy_expiring_soon_not_available_30_6
+                            else R.string.renewal_bluebox_copy_expiring_soon,
                             combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                             combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                         )
@@ -340,13 +345,14 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     }
                 else ->
                     getString(
-                        R.string.renewal_bluebox_copy_expiry_not_available,
+                        if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                        else R.string.renewal_bluebox_copy_expiry_not_available,
                         combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                         combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                     )
             },
             R.string.renewal_expiry_notification_button_vaccination,
-            combinedCovCertificate.reissueState == ReissueState.Ready,
+            combinedCovCertificate.reissueState == ReissueState.Ready && !isSunset,
         ) {
             findNavigator().push(
                 ReissueConsentFragmentNav(
@@ -360,6 +366,7 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
     private fun reissueRecovery(
         combinedCovCertificate: CombinedCovCertificate,
         groupedCertificate: GroupedCertificates,
+        isSunset: Boolean,
     ) {
         updateReissueElement(
             when (combinedCovCertificate.reissueState) {
@@ -380,13 +387,15 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                 ReissueState.Ready -> {
                     if (combinedCovCertificate.status == CertValidationResult.Expired) {
                         getString(
-                            R.string.renewal_bluebox_copy_expired,
+                            if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                            else R.string.renewal_bluebox_copy_expired,
                             combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                             combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                         )
                     } else {
                         getString(
-                            R.string.renewal_bluebox_copy_expiring_soon,
+                            if (isSunset) R.string.renewal_bluebox_copy_expiring_soon_not_available_30_6
+                            else R.string.renewal_bluebox_copy_expiring_soon,
                             combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                             combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                         )
@@ -404,13 +413,14 @@ public abstract class DgcEntryDetailFragment : BaseFragment(), DgcEntryDetailEve
                     }
                 else ->
                     getString(
-                        R.string.renewal_bluebox_copy_expiry_not_available,
+                        if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                        else R.string.renewal_bluebox_copy_expiry_not_available,
                         combinedCovCertificate.covCertificate.validUntil.formatDateOrEmpty(),
                         combinedCovCertificate.covCertificate.validUntil.formatTimeOrEmpty(),
                     )
             },
             R.string.renewal_expiry_notification_button_recovery,
-            combinedCovCertificate.reissueState == ReissueState.Ready,
+            combinedCovCertificate.reissueState == ReissueState.Ready && !isSunset,
         ) {
             findNavigator().push(
                 ReissueConsentFragmentNav(

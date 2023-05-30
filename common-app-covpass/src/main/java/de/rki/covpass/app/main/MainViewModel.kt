@@ -29,6 +29,7 @@ import de.rki.covpass.sdk.revocation.isBeforeUpdateInterval
 import de.rki.covpass.sdk.revocation.validateRevocation
 import de.rki.covpass.sdk.storage.CertRepository
 import de.rki.covpass.sdk.utils.DescriptionLanguage
+import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -111,7 +112,13 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
             else -> false
         }
 
-    fun isReissueNeeded() = checkExpiredReissueNotification()
+    fun isReissueNeeded(): Boolean {
+        return if (SunsetChecker.isSunset()) {
+            false
+        } else {
+            checkExpiredReissueNotification()
+        }
+    }
 
     fun reissueCertificates() {
         val vaccinationIds = getVaccinationReissueIdsList()
@@ -140,6 +147,9 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     }
 
     private fun checkBoosterReissueNotification(): Boolean {
+        if (SunsetChecker.isSunset()) {
+            return false
+        }
         certRepository.certs.value.certificates.forEach { it.validateBoosterReissue() }
         return checkBoosterReadyForReissue()
     }

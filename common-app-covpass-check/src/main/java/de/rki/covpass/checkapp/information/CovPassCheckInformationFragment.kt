@@ -8,7 +8,6 @@ package de.rki.covpass.checkapp.information
 import com.ibm.health.common.navigation.android.FragmentNav
 import de.rki.covpass.checkapp.R
 import de.rki.covpass.commonapp.information.InformationFragment
-import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -20,14 +19,7 @@ internal class CovPassCheckInformationFragmentNav : FragmentNav(CovPassCheckInfo
  */
 internal class CovPassCheckInformationFragment : InformationFragment() {
 
-    override fun getFAQLinkRes(): Int {
-        return if (SunsetChecker.isSunset()) {
-            // TODO replace with URL from RKI
-            R.string.information_faq_link
-        } else {
-            R.string.information_faq_link
-        }
-    }
+    override fun getFAQLinkRes() = R.string.information_faq_link
 
     override fun getEasyLanguageLinkRes(): Int = R.string.easy_language_link
 

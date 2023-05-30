@@ -52,6 +52,7 @@ import de.rki.covpass.sdk.cert.models.TestCert
 import de.rki.covpass.sdk.cert.models.TestCertType
 import de.rki.covpass.sdk.cert.models.Vaccination
 import de.rki.covpass.sdk.cert.models.VaccinationCertType
+import de.rki.covpass.sdk.utils.SunsetChecker
 import de.rki.covpass.sdk.utils.formatDate
 import de.rki.covpass.sdk.utils.formatDateOrEmpty
 import de.rki.covpass.sdk.utils.formatDateTime
@@ -186,6 +187,7 @@ internal class DetailFragment :
             val personalDataList: MutableList<DetailItem> = mutableListOf(
                 DetailItem.Name(cert.fullName),
             )
+            val isSunset = SunsetChecker.isSunset()
             if (groupedCertificate.isExpiredReadyForReissue()) {
                 if (groupedCertificate.getListOfVaccinationIdsReadyForReissue().isNotEmpty()) {
                     val vaccination = groupedCertificate.certificates.find {
@@ -205,6 +207,7 @@ internal class DetailFragment :
                                         R.string.renewal_bluebox_title_expiring_soon_vaccination
                                     }
                                 }
+
                                 else ->
                                     R.string.renewal_bluebox_title_expiring_soon_vaccination
                             },
@@ -212,18 +215,21 @@ internal class DetailFragment :
                                 ReissueState.Ready -> {
                                     if (vaccination.status == CertValidationResult.Expired) {
                                         getString(
-                                            R.string.renewal_bluebox_copy_expired,
+                                            if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                                            else R.string.renewal_bluebox_copy_expired,
                                             vaccination.covCertificate.validUntil.formatDateOrEmpty(),
                                             vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     } else {
                                         getString(
-                                            R.string.renewal_bluebox_copy_expiring_soon,
+                                            if (isSunset) R.string.renewal_bluebox_copy_expiring_soon_not_available_30_6
+                                            else R.string.renewal_bluebox_copy_expiring_soon,
                                             vaccination.covCertificate.validUntil.formatDateOrEmpty(),
                                             vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     }
                                 }
+
                                 ReissueState.NotGermanReady ->
                                     if (vaccination.status == CertValidationResult.Expired) {
                                         getString(R.string.renewal_bluebox_copy_expiry_not_german)
@@ -234,16 +240,20 @@ internal class DetailFragment :
                                             vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     }
+
                                 ReissueState.AfterTimeLimit -> {
                                     getString(
-                                        R.string.renewal_bluebox_copy_expiry_not_available,
+                                        if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                                        else R.string.renewal_bluebox_copy_expiry_not_available,
                                         vaccination.covCertificate.validUntil.formatDateOrEmpty(),
                                         vaccination.covCertificate.validUntil.formatTimeOrEmpty(),
                                     )
                                 }
+
                                 else ->
                                     getString(
-                                        R.string.renewal_bluebox_copy_expiry_not_available,
+                                        if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                                        else R.string.renewal_bluebox_copy_expiry_not_available,
                                         vaccination?.covCertificate?.validUntil.formatDateOrEmpty(),
                                         vaccination?.covCertificate?.validUntil.formatTimeOrEmpty(),
                                     )
@@ -251,7 +261,7 @@ internal class DetailFragment :
                             null,
                             null,
                             R.string.renewal_expiry_notification_button_vaccination,
-                            vaccination?.reissueState == ReissueState.Ready,
+                            vaccination?.reissueState == ReissueState.Ready && !isSunset,
                         ) {
                             findNavigator().push(
                                 ReissueConsentFragmentNav(
@@ -280,6 +290,7 @@ internal class DetailFragment :
                                         R.string.renewal_bluebox_title_expiring_soon_recovery
                                     }
                                 }
+
                                 else ->
                                     R.string.renewal_bluebox_title_expiring_soon_recovery
                             },
@@ -287,18 +298,21 @@ internal class DetailFragment :
                                 ReissueState.Ready -> {
                                     if (recovery.status == CertValidationResult.Expired) {
                                         getString(
-                                            R.string.renewal_bluebox_copy_expired,
+                                            if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                                            else R.string.renewal_bluebox_copy_expired,
                                             recovery.covCertificate.validUntil.formatDateOrEmpty(),
                                             recovery.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     } else {
                                         getString(
-                                            R.string.renewal_bluebox_copy_expiring_soon,
+                                            if (isSunset) R.string.renewal_bluebox_copy_expiring_soon_not_available_30_6
+                                            else R.string.renewal_bluebox_copy_expiring_soon,
                                             recovery.covCertificate.validUntil.formatDateOrEmpty(),
                                             recovery.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     }
                                 }
+
                                 ReissueState.NotGermanReady ->
                                     if (recovery.status == CertValidationResult.Expired) {
                                         getString(R.string.renewal_bluebox_copy_expiry_not_german)
@@ -309,9 +323,11 @@ internal class DetailFragment :
                                             recovery.covCertificate.validUntil.formatTimeOrEmpty(),
                                         )
                                     }
+
                                 else ->
                                     getString(
-                                        R.string.renewal_bluebox_copy_expiry_not_available,
+                                        if (isSunset) R.string.renewal_bluebox_copy_expiry_not_available_30_6
+                                        else R.string.renewal_bluebox_copy_expiry_not_available,
                                         recovery?.covCertificate?.validUntil.formatDateOrEmpty(),
                                         recovery?.covCertificate?.validUntil.formatTimeOrEmpty(),
                                     )
@@ -319,7 +335,7 @@ internal class DetailFragment :
                             null,
                             null,
                             R.string.renewal_expiry_notification_button_recovery,
-                            recovery?.reissueState == ReissueState.Ready,
+                            recovery?.reissueState == ReissueState.Ready && !isSunset,
                         ) {
                             findNavigator().push(
                                 ReissueConsentFragmentNav(
@@ -356,6 +372,7 @@ internal class DetailFragment :
                                     getString(R.string.infschg_cert_overview_immunisation_incomplete_A)
                                 }
                             }
+
                             ImmunizationStatus.Invalid ->
                                 getString(R.string.infschg_cert_overview_immunisation_invalid)
                         },
@@ -372,7 +389,7 @@ internal class DetailFragment :
                 )
             }
 
-            if (groupedCertificate.isBoosterReadyForReissue()) {
+            if (groupedCertificate.isBoosterReadyForReissue() && !isSunset) {
                 personalDataList.add(
                     DetailItem.ReissueNotification(
                         R.string.certificate_renewal_startpage_headline,
@@ -465,6 +482,7 @@ internal class DetailFragment :
                             certStatus = it.status,
                         )
                     }
+
                     is TestCert -> {
                         when (groupedDgcEntry.type) {
                             TestCertType.NEGATIVE_PCR_TEST -> {
@@ -482,6 +500,7 @@ internal class DetailFragment :
                                     certStatus = it.status,
                                 )
                             }
+
                             TestCertType.NEGATIVE_ANTIGEN_TEST -> {
                                 DetailItem.Certificate(
                                     id = groupedDgcEntry.id,
@@ -497,9 +516,11 @@ internal class DetailFragment :
                                     certStatus = it.status,
                                 )
                             }
+
                             TestCertType.POSITIVE_PCR_TEST, TestCertType.POSITIVE_ANTIGEN_TEST -> null
                         }
                     }
+
                     is Recovery -> {
                         val date = if (groupedDgcEntry.validFrom.isInFuture()) {
                             getString(
@@ -548,14 +569,17 @@ internal class DetailFragment :
             -> {
                 findNavigator().push(VaccinationDetailFragmentNav(id))
             }
+
             TestCertType.NEGATIVE_PCR_TEST,
             TestCertType.NEGATIVE_ANTIGEN_TEST,
             -> {
                 findNavigator().push(TestDetailFragmentNav(id))
             }
+
             RecoveryCertType.RECOVERY -> {
                 findNavigator().push(RecoveryDetailFragmentNav(id))
             }
+
             TestCertType.POSITIVE_PCR_TEST,
             TestCertType.POSITIVE_ANTIGEN_TEST,
             -> return
@@ -586,6 +610,7 @@ internal class DetailFragment :
             DetailBoosterAction.Delete -> {
                 findNavigator().popUntil<DetailCallback>()?.onDeletionCompleted()
             }
+
             DetailBoosterAction.BackPressed -> {
                 findNavigator().popUntil<DetailCallback>()?.displayCert(args.groupedCertificatesId)
             }
