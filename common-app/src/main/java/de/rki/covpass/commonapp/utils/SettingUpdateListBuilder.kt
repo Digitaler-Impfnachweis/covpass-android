@@ -2,6 +2,7 @@ package de.rki.covpass.commonapp.utils
 
 import de.rki.covpass.commonapp.R
 import de.rki.covpass.commonapp.information.SettingItem
+import de.rki.covpass.sdk.utils.SunsetChecker
 
 public class SettingUpdateListBuilder {
     public fun buildList(): List<SettingItem> {
@@ -18,6 +19,14 @@ public class SettingUpdateListBuilder {
                     R.string.settings_rules_list_features_lastupdated,
                 ),
             )
+            if (!SunsetChecker.isSunset()) {
+                add(
+                    SettingItem(
+                        R.string.settings_rules_list_authorities,
+                        R.string.settings_rules_list_issuer_lastupdated,
+                    ),
+                )
+            }
         }
     }
 }
