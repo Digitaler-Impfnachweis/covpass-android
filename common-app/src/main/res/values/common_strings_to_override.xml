@@ -8,6 +8,7 @@
 <resources>
 
 
+  <string name="ok"/>
   <string name="on"/>
   <string name="off"/>
 
@@ -178,5 +179,14 @@
   <string name="app_imprint_contact_form"/>
   <string name="app_imprint_identnr_title"/>
   <string name="app_imprint_identnr_nr"/>
+
+  <string name="popup_sundown_info_image"/>
+  <string name="popup_sundown_info_title"/>
+  <string name="popup_sundown_info_copy"/>
+  <string name="popup_sundown_info_subtitle"/>
+  <string name="popup_sundown_info_bullet1"/>
+  <string name="popup_sundown_info_bullet2"/>
+  <string name="popup_sundown_info_bullet3"/>
+  <string name="popup_sundown_info_bullet4"/>
 
 </resources>

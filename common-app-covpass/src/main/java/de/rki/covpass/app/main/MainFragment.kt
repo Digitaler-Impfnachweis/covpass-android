@@ -5,7 +5,6 @@
 
 package de.rki.covpass.app.main
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -26,7 +25,6 @@ import com.ibm.health.common.android.utils.BaseEvents
 import com.ibm.health.common.android.utils.viewBinding
 import com.ibm.health.common.navigation.android.FragmentNav
 import com.ibm.health.common.navigation.android.findNavigator
-import com.ibm.health.common.navigation.android.getArgs
 import de.rki.covpass.app.R
 import de.rki.covpass.app.add.AddCovCertificateFragmentNav
 import de.rki.covpass.app.boosterreissue.ReissueCallback
@@ -35,7 +33,6 @@ import de.rki.covpass.app.databinding.CovpassMainBinding
 import de.rki.covpass.app.dependencies.covpassDeps
 import de.rki.covpass.app.detail.DetailCallback
 import de.rki.covpass.app.importcertificate.ImportCertificatesResultCallback
-import de.rki.covpass.app.importcertificate.ImportCertificatesSelectorFragmentNav
 import de.rki.covpass.app.information.CovPassInformationFragmentNav
 import de.rki.covpass.app.updateinfo.UpdateInfoCallback
 import de.rki.covpass.app.updateinfo.UpdateInfoCovpassFragmentNav
@@ -45,6 +42,8 @@ import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
 import de.rki.covpass.commonapp.dialog.DialogModel
 import de.rki.covpass.commonapp.dialog.showDialog
+import de.rki.covpass.commonapp.sunset.SunsetPopupCallback
+import de.rki.covpass.commonapp.sunset.SunsetPopupFragmentNav
 import de.rki.covpass.sdk.cert.models.GroupedCertificates
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesId
 import de.rki.covpass.sdk.cert.models.GroupedCertificatesList
@@ -53,9 +52,7 @@ import de.rki.covpass.sdk.utils.SunsetChecker
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-internal class MainFragmentNav(
-    val uri: Uri?,
-) : FragmentNav(MainFragment::class)
+internal class MainFragmentNav : FragmentNav(MainFragment::class)
 
 internal interface NotificationEvents : BaseEvents {
     fun showNewUpdateInfo()
@@ -64,7 +61,7 @@ internal interface NotificationEvents : BaseEvents {
     fun showReissueNotification(reissueType: ReissueType, listIds: List<String>)
     fun showReissueNotificationNotGerman()
     fun showRevokedNotification()
-    fun importCertificateFromShareOption(uri: Uri)
+    fun showSunsetPopup()
 }
 
 /**
@@ -80,10 +77,10 @@ internal class MainFragment :
     BoosterNotificationCallback,
     ReissueCallback,
     ImportCertificatesResultCallback,
+    SunsetPopupCallback,
     NotificationEvents {
 
-    private val uri: Uri? by lazy { getArgs<MainFragmentNav>().uri }
-    private val viewModel by reactiveState { MainViewModel(scope, uri) }
+    private val viewModel by reactiveState { MainViewModel(scope) }
     private val covPassBackgroundUpdateViewModel by reactiveState {
         BackgroundUpdateViewModel(
             scope,
@@ -124,7 +121,7 @@ internal class MainFragment :
             },
         )
         binding.moreInfoActionButton?.setOnClickListener {
-            // TODO add navigation
+            findNavigator().push(SunsetPopupFragmentNav())
         }
         binding.mainAddButton.isInvisible = SunsetChecker.isSunset()
         binding.mainAddButton.setOnClickListener { showAddCovCertificatePopup() }
@@ -272,6 +269,10 @@ internal class MainFragment :
         viewModel.showingNotification.complete(Unit)
     }
 
+    override fun onSunsetPopupFinish() {
+        viewModel.showingNotification.complete(Unit)
+    }
+
     override fun onDialogAction(tag: String, action: DialogAction) {
         when (tag) {
             REVOKED_DIALOG_TAG -> {
@@ -284,6 +285,7 @@ internal class MainFragment :
                     viewModel.showingNotification.complete(Unit)
                 }
             }
+
             REISSUE_NOTIFICATION_NOT_GERMAN_DIALOG_TAG -> {
                 launchWhenStarted {
                     covpassDeps.certRepository.certs.update { groupedCertificateList ->
@@ -337,8 +339,8 @@ internal class MainFragment :
         showDialog(dialogModel, childFragmentManager)
     }
 
-    override fun importCertificateFromShareOption(uri: Uri) {
-        findNavigator().push(ImportCertificatesSelectorFragmentNav(uri, true))
+    override fun showSunsetPopup() {
+        findNavigator().push(SunsetPopupFragmentNav())
     }
 
     companion object {

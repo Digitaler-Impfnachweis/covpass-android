@@ -5,7 +5,6 @@
 
 package de.rki.covpass.app.main
 
-import android.net.Uri
 import com.ensody.reactivestate.BaseReactiveState
 import com.ensody.reactivestate.DependencyAccessor
 import com.ensody.reactivestate.dispatchers
@@ -39,16 +38,12 @@ import kotlinx.coroutines.delay
  */
 internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
-    private val uri: Uri?,
     private val certRepository: CertRepository = covpassDeps.certRepository,
     private val boosterRulesValidator: BoosterRulesValidator = sdkDeps.boosterRulesValidator,
     private val commonDependencies: CommonDependencies = commonDeps,
     private val revocationRemoteListRepository: RevocationRemoteListRepository = sdkDeps.revocationRemoteListRepository,
     private val gStatusValidator: GStatusValidator = sdkDeps.gStatusValidator,
 ) : BaseReactiveState<NotificationEvents>(scope) {
-
-    // prevent the import to be done more than one time
-    private var importFromShareOption: Boolean = true
 
     init {
         runValidations()
@@ -69,6 +64,7 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+
             commonDependencies.updateInfoRepository.updateInfoVersionShown.value
                 != UpdateInfoRepository.CURRENT_UPDATE_VERSION &&
                 commonDependencies.updateInfoRepository.updateInfoNotificationActive.value -> {
@@ -77,16 +73,19 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+
             isReissueNeeded() -> {
                 reissueCertificates()
                 true
             }
+
             checkBoosterNotification() -> {
                 eventNotifier {
                     showBoosterNotification()
                 }
                 true
             }
+
             checkBoosterReissueNotification() -> {
                 val boosterIds = getBoosterReissueIdsList()
                 if (boosterIds.isNotEmpty()) {
@@ -96,19 +95,21 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                 }
                 true
             }
+
             validateRevokedCertificates() -> {
                 eventNotifier {
                     showRevokedNotification()
                 }
                 true
             }
-            importFromShareOption && uri != null -> {
-                importFromShareOption = false
+
+            commonDependencies.checkContextRepository.showSunsetPopup.value -> {
                 eventNotifier {
-                    importCertificateFromShareOption(uri)
+                    showSunsetPopup()
                 }
                 true
             }
+
             else -> false
         }
 
@@ -130,16 +131,19 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                     showReissueNotification(ReissueType.Vaccination, vaccinationIds)
                 }
             }
+
             recoveryIds.isNotEmpty() -> {
                 eventNotifier {
                     showReissueNotification(ReissueType.Recovery, recoveryIds)
                 }
             }
+
             listNotGermanIds.isNotEmpty() -> {
                 eventNotifier {
                     showReissueNotificationNotGerman()
                 }
             }
+
             else -> {
                 showingNotification.complete(Unit)
             }
@@ -252,9 +256,11 @@ internal class MainViewModel @OptIn(DependencyAccessor::class) constructor(
                     )
                     validateBoosterRules(boosterRulesValidator, mergedCertificate)
                 }
+
                 latestVaccination != null -> {
                     validateBoosterRules(boosterRulesValidator, latestVaccination)
                 }
+
                 else -> emptyList()
             }
 

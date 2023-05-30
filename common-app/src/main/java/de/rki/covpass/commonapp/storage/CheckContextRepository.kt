@@ -17,4 +17,7 @@ public class CheckContextRepository(store: CborSharedPrefsStore) {
 
     public val isOfflineRevocationOn: SuspendMutableValueFlow<Boolean> =
         store.getData("is_offline_revocation_on", false)
+
+    public val showSunsetPopup: SuspendMutableValueFlow<Boolean> =
+        store.getData("show_sunset_popup", true)
 }

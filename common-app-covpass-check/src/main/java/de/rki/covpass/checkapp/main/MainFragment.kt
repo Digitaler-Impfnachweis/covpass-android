@@ -33,6 +33,8 @@ import de.rki.covpass.commonapp.information.SettingsUpdateViewModel
 import de.rki.covpass.commonapp.kronostime.TimeValidationState
 import de.rki.covpass.commonapp.revocation.RevocationListUpdateViewModel
 import de.rki.covpass.commonapp.storage.OnboardingRepository
+import de.rki.covpass.commonapp.sunset.SunsetPopupCallback
+import de.rki.covpass.commonapp.sunset.SunsetPopupFragmentNav
 import de.rki.covpass.commonapp.uielements.showWarning
 import de.rki.covpass.commonapp.updateinfo.UpdateInfoRepository
 import de.rki.covpass.commonapp.utils.isCameraPermissionGranted
@@ -51,7 +53,8 @@ public class MainFragmentNav : FragmentNav(MainFragment::class)
 internal class MainFragment :
     BaseFragment(),
     DataProtectionCallback,
-    UpdateInfoCallback {
+    UpdateInfoCallback,
+    SunsetPopupCallback {
 
     private val binding by viewBinding(CovpassCheckMainBinding::inflate)
     private val revocationListUpdateViewModel by reactiveState {
@@ -68,7 +71,7 @@ internal class MainFragment :
         super.onViewCreated(view, savedInstanceState)
         initView()
         binding.moreInfoActionButton?.setOnClickListener {
-            // TODO add navigation
+            findNavigator().push(SunsetPopupFragmentNav(isCovPassCheck = true))
         }
         binding.mainSettingsImagebutton.setOnClickListener {
             findNavigator().push(CovPassCheckInformationFragmentNav())
@@ -146,6 +149,10 @@ internal class MainFragment :
         showNotificationIfNeeded()
     }
 
+    override fun onSunsetPopupFinish() {
+        showNotificationIfNeeded()
+    }
+
     private fun showNotificationIfNeeded() {
         when {
             commonDeps.updateInfoRepository.updateInfoVersionShown.value
@@ -156,6 +163,9 @@ internal class MainFragment :
             commonDeps.onboardingRepository.dataPrivacyVersionAccepted.value
                 != OnboardingRepository.CURRENT_DATA_PRIVACY_VERSION -> {
                 findNavigator().push(DataProtectionFragmentNav())
+            }
+            commonDeps.checkContextRepository.showSunsetPopup.value -> {
+                findNavigator().push(SunsetPopupFragmentNav(isCovPassCheck = true))
             }
         }
     }
