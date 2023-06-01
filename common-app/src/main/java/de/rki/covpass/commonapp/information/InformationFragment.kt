@@ -122,6 +122,7 @@ public abstract class InformationFragment : BaseFragment() {
         binding.informationFieldAccessibilityStatement.isGone = isSunset
         binding.dividerInformationFieldAccessibilityStatement.isGone = isSunset
 
+        binding.informationFieldCovpassWhatsNewSettingsContainer.isGone = isSunset
         binding.informationFieldCovpassWhatsNewSettingsLayout.setOnClickListener {
             findNavigator().push(WhatsNewSettingsFragmentNav())
         }
@@ -137,8 +138,8 @@ public abstract class InformationFragment : BaseFragment() {
         )
 
         if (isCovpassCheck()) {
+            binding.informationFieldCovpassCheckSettingsContainer.isGone = isSunset
             if (isSunset) {
-                binding.informationFieldCovpassCheckSettingsContainer.isGone = true
                 resetExpertMode()
             }
             binding.informationFieldExpertModeLayout.setOnClickListener {

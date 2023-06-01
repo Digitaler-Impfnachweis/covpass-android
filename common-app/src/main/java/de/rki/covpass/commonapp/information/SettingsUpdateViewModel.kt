@@ -23,12 +23,13 @@ import java.time.Instant
 @SuppressWarnings("UnusedPrivateMember")
 public class SettingsUpdateViewModel @OptIn(DependencyAccessor::class) constructor(
     scope: CoroutineScope,
+    isCovPassCheck: Boolean,
     private val dscRepository: DscRepository = sdkDeps.dscRepository,
     settingUpdateListBuilder: SettingUpdateListBuilder = commonDeps.settingsUpdateListBuilder,
 ) : BaseReactiveState<BaseEvents>(scope) {
 
     public val settingItems: MutableValueFlow<List<SettingItem>> =
-        MutableValueFlow(settingUpdateListBuilder.buildList())
+        MutableValueFlow(settingUpdateListBuilder.buildList(isCovPassCheck))
     public val allUpToDate: StateFlow<Boolean> = derived {
         isUpToDate(get(dscRepository.lastUpdate))
     }

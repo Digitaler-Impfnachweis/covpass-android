@@ -64,7 +64,7 @@ internal class MainFragment :
         BackgroundUpdateViewModel(scope)
     }
     private val settingsUpdateViewModel by reactiveState {
-        SettingsUpdateViewModel(scope)
+        SettingsUpdateViewModel(scope, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

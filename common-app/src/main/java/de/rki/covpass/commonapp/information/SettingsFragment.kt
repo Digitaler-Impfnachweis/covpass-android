@@ -25,7 +25,7 @@ public class SettingsFragment : BaseFragment() {
     private val binding by viewBinding(CheckSettingsBinding::inflate)
     private val args by lazy { getArgs<SettingsFragmentNav>() }
     private val settingsUpdateViewModel by reactiveState {
-        SettingsUpdateViewModel(scope)
+        SettingsUpdateViewModel(scope, args.isCovPassCheck)
     }
 
     override var announcementAccessibilityRes: Int? = null
