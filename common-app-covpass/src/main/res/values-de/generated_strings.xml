@@ -62,6 +62,8 @@
 	<string name="accessibility_vaccination_start_screen_title">Digitale COVID-Zertifikate der EU. Es folgen sensible Gesundheitsdaten. Bitte achten Sie darauf, dass keine andere Person mithört oder mitliest.</string>
 	<string name="vaccination_start_screen_note_title">Fügen Sie einen Nachweis hinzu</string>
 	<string name="vaccination_start_screen_note_message">Sie haben aktuell kein digitales COVID-Zertifikat der EU gespeichert. Drücken Sie auf die Taste \"Nachweis hinzufügen\" (Plus-Symbol), um ein digitales COVID-Zertifikat der EU hinzuzufügen.</string>
+	<string name="vaccination_start_screen_note_title_after_july">Keine Zertifikate vorhanden</string>
+	<string name="vaccination_start_screen_note_message_after_july">Seit dem 1. Juli 2023 wird die CovPass-App nicht mehr weiterentwickelt. Daher können keine Zertifikate mehr hinzugefügt werden.</string>
 	<string name="startscreen_card_title">Digitales COVID-Zertifikat der EU</string>
 	<string name="startscreen_card_button">Zertifikate anzeigen</string>
 	<string name="accessibility_vaccination_start_screen_label_qrcode">Schwarzer QR-Code auf weißem Hintergrund</string>

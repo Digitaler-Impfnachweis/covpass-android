@@ -183,6 +183,7 @@ internal class MainFragment :
     }
 
     private fun initView() {
+        binding.mainAvailabilityCardview.isGone = SunsetChecker.isSunset()
         binding.mainVaccinationModeText?.setText(R.string.startscreen_rules_tag_local)
         binding.mainVaccinationModeText
             ?.setCompoundDrawablesWithIntrinsicBounds(

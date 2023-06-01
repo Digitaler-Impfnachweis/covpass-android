@@ -62,6 +62,8 @@
 	<string name="accessibility_vaccination_start_screen_title">EU Digital COVID Certificates. Sensible health data will follow. Please take care that nobody listens to or reads on your smartphone.</string>
 	<string name="vaccination_start_screen_note_title">Add a certificate</string>
 	<string name="vaccination_start_screen_note_message">You do not have any EU Digital COVID Certificate saved at the moment. Tap the button \"Add a certificate\" (plus symbol) to add a Digital COVID Certificate.</string>
+	<string name="vaccination_start_screen_note_title_after_july">No certificates found</string>
+	<string name="vaccination_start_screen_note_message_after_july">Since 1st of July 2023, the CovPass app will not be developed any further. Therefore, certificates can no longer be added.</string>
 	<string name="startscreen_card_title">EU Digital COVID Certificate</string>
 	<string name="startscreen_card_button">Display certificates</string>
 	<string name="accessibility_vaccination_start_screen_label_qrcode">Black QR code on white background</string>

@@ -108,6 +108,10 @@ internal class MainFragment :
     }
 
     private fun setupViews() {
+        if (SunsetChecker.isSunset()) {
+            binding.mainEmptyHeaderTextview.text = getString(R.string.vaccination_start_screen_note_title_after_july)
+            binding.mainEmptyTextview.text = getString(R.string.vaccination_start_screen_note_message_after_july)
+        }
         ViewCompat.setAccessibilityDelegate(
             binding.mainEmptyHeaderTextview,
             object : AccessibilityDelegateCompat() {

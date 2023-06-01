@@ -159,7 +159,8 @@ internal abstract class ValidationResultFragment : BaseBottomSheet() {
             }
         }
 
-        binding.revocationLegalNotification.isVisible = expertModeVisible
+        binding.revocationLegalNotification.isVisible =
+            expertModeVisible && !SunsetChecker.isSunset()
         binding.revocationLegalNotification.showInfo(
             title = getString(R.string.revocation_headline),
             subtitle = getString(R.string.validation_check_popup_revoked_certificate_box_text),
