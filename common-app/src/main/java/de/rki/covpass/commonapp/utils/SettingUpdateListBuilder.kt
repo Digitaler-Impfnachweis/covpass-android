@@ -18,6 +18,13 @@ public class SettingUpdateListBuilder(
                     getDate(dscRepository.lastUpdate.value),
                 ),
             )
+            add(
+                SettingItem(
+                    R.string.settings_rules_list_ifsg_title,
+                    date = null,
+                    staticDate = R.string.settings_rules_list_ifsg_subtitle,
+                ),
+            )
             if (isCovPassCheck) {
                 val lastUpdate =
                     getDate(revocationLocalListRepository.lastRevocationUpdateFinish.value)

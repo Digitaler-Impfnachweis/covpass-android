@@ -175,4 +175,7 @@
   <string name="app_imprint_identnr_title"/>
   <string name="app_imprint_identnr_nr"/>
 
+  <string name="settings_rules_list_ifsg_title"/>
+  <string name="settings_rules_list_ifsg_subtitle"/>
+
 </resources>

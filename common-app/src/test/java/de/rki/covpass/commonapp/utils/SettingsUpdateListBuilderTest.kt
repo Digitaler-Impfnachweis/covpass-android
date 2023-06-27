@@ -31,6 +31,11 @@ internal class SettingsUpdateListBuilderTest {
                 R.string.settings_rules_list_issuer,
                 null,
             ),
+            SettingItem(
+                R.string.settings_rules_list_ifsg_title,
+                date = null,
+                staticDate = R.string.settings_rules_list_ifsg_subtitle,
+            ),
         )
 
         assertEquals(expectedList, actualList)
@@ -48,6 +53,11 @@ internal class SettingsUpdateListBuilderTest {
             SettingItem(
                 R.string.settings_rules_list_issuer,
                 timeNow,
+            ),
+            SettingItem(
+                R.string.settings_rules_list_ifsg_title,
+                date = null,
+                staticDate = R.string.settings_rules_list_ifsg_subtitle,
             ),
             SettingItem(
                 R.string.settings_rules_list_authorities,
@@ -71,6 +81,11 @@ internal class SettingsUpdateListBuilderTest {
                 R.string.settings_rules_list_issuer,
                 timeNow,
             ),
+            SettingItem(
+                R.string.settings_rules_list_ifsg_title,
+                date = null,
+                staticDate = R.string.settings_rules_list_ifsg_subtitle,
+            ),
         )
 
         assertEquals(expectedList, actualList)
@@ -85,6 +100,11 @@ internal class SettingsUpdateListBuilderTest {
             SettingItem(
                 R.string.settings_rules_list_issuer,
                 null,
+            ),
+            SettingItem(
+                R.string.settings_rules_list_ifsg_title,
+                date = null,
+                staticDate = R.string.settings_rules_list_ifsg_subtitle,
             ),
         )
 
@@ -103,6 +123,11 @@ internal class SettingsUpdateListBuilderTest {
             SettingItem(
                 R.string.settings_rules_list_issuer,
                 timeNow,
+            ),
+            SettingItem(
+                R.string.settings_rules_list_ifsg_title,
+                date = null,
+                staticDate = R.string.settings_rules_list_ifsg_subtitle,
             ),
         )
 

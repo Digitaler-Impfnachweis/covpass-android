@@ -289,6 +289,8 @@
 	<string name="settings_rules_list_domestic">Inlandsregeln</string>
 	<string name="settings_rules_list_features">Regelmerkmale</string>
 	<string name="settings_rules_list_issuer">Zertifikatsaussteller</string>
+	<string name="settings_rules_list_ifsg_title">Regeln nach Infektionsschutzgesetz § 22a</string>
+	<string name="settings_rules_list_ifsg_subtitle">Zuletzt aktualisiert am 30.04.2023</string>
 	<string name="settings_rules_list_countries">Länderlisten</string>
 	<string name="settings_rules_list_authorities">Behördenlisten</string>
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
@@ -576,5 +578,5 @@
 	<string name="entry_check_success_copy">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
 	<string name="entry_check_link">#Mehr zur Coronavirus-Einreiseverordnung::https://www.bundesgesundheitsministerium.de/service/gesetze-und-verordnungen/guv-19-lp/coronaeinreisev.html#</string>
 	<string name="start_infobox_title">Wichtige Information</string>
-	<string name="start_infobox_copy">Die Regeln, nach denen die App Zertifikate prüft, werden nicht mehr aktualisiert und verbleiben auf dem Stand vom 30. Mai 2023.</string>
+	<string name="start_infobox_copy">Zertifikate können derzeit nicht mehr mit der CovPassCheck-App auf Gültigkeit beim Reisen überprüft werden. Nutzerinnen und Nutzern wird empfohlen, sich im Vorfeld einer Reise über die in ihrem Bestimmungsland geltenden Regelungen zu informieren.</string>
 </resources>

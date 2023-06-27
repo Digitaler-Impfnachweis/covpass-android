@@ -16,6 +16,7 @@ import java.time.ZoneId
 public data class SettingItem(
     @StringRes val title: Int,
     val date: Instant?,
+    @StringRes val staticDate: Int? = null,
 )
 
 @SuppressLint("NotifyDataSetChanged")
@@ -48,6 +49,9 @@ public class SettingsAdapter(
             binding.date.text = item.date?.let {
                 LocalDateTime.ofInstant(item.date, ZoneId.systemDefault()).formatDateTime()
             } ?: "N/A"
+            binding.date.text = item.staticDate?.let {
+                getString(it)
+            }
         }
     }
 }

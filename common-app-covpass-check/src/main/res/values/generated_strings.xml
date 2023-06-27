@@ -289,6 +289,8 @@
 	<string name="settings_rules_list_domestic">Domestic rules</string>
 	<string name="settings_rules_list_features">Rule features</string>
 	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_ifsg_title">Rules according to § 22a of the Infection Protection Act</string>
+	<string name="settings_rules_list_ifsg_subtitle">Last updated 30.04.2023</string>
 	<string name="settings_rules_list_countries">Country lists</string>
 	<string name="settings_rules_list_authorities">List of authorities</string>
 	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
@@ -576,5 +578,5 @@
 	<string name="entry_check_success_copy">Now match the following data with an identity document of the person being checked.</string>
 	<string name="entry_check_link">#More about the Coronavirus Entry Regulations::https://www.bundesgesundheitsministerium.de/en/service/gesetze-und-verordnungen/guv-19-lp/coronavirus-einreiseverordnung.html#</string>
 	<string name="start_infobox_title">Important information</string>
-	<string name="start_infobox_copy">The rules according to which the app checks certificates will no longer be updated and will remain at the status of 30 May 2023.</string>
+	<string name="start_infobox_copy">Certificates can currently no longer be checked for validity when travelling using the CovPassCheck app. Users are advised to find out about the regulations in force in their country of destination before travelling.</string>
 </resources>

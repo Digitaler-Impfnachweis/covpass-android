@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import com.ibm.health.common.android.utils.appVersion
@@ -52,6 +53,9 @@ public abstract class InformationFragment : BaseFragment() {
         )
         if (Locale.getDefault().language == Locale.GERMAN.language) {
             binding.informationFieldEasyLanguage.apply {
+                val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+                setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+
                 setText(R.string.app_information_title_company_easy_language)
                 setOnClickListener {
                     val browserIntent =
@@ -63,6 +67,9 @@ public abstract class InformationFragment : BaseFragment() {
             binding.dividerEasyLanguage.isVisible = true
         }
         binding.informationFieldFaq.apply {
+            val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+            setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+
             setText(R.string.app_information_title_faq)
             setOnClickListener {
                 val browserIntent =
@@ -98,6 +105,9 @@ public abstract class InformationFragment : BaseFragment() {
         }
 
         binding.informationFieldAccessibilityStatement.apply {
+            val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+            setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+
             setText(R.string.app_information_title_accessibility_statement)
             setOnClickListener {
                 val browserIntent = Intent(

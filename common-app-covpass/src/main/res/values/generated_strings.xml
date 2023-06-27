@@ -707,6 +707,8 @@
 	<string name="settings_rules_list_domestic">Domestic rules</string>
 	<string name="settings_rules_list_features">Rule features</string>
 	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_ifsg_title">Rules according to § 22a of the Infection Protection Act</string>
+	<string name="settings_rules_list_ifsg_subtitle">Last updated 30.04.2023</string>
 	<string name="settings_rules_list_countries">Country lists</string>
 	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
@@ -1019,5 +1021,5 @@
 	<string name="a11y_accordion_collapse_hint_ios">Double tap to collapse</string>
 	<string name="a11y_accordion_collapse_hint_android">Collapse</string>
 	<string name="start_infobox_title">Important information</string>
-	<string name="start_infobox_copy">The Corona entry regulation is expiring. You can no longer check your certificates in the app for validity when travelling.</string>
+	<string name="start_infobox_copy">You can currently no longer check your certificates in the app for validity when travelling. Therefore, please inform yourself about the regulations applicable in your country of destination before travelling.</string>
 </resources>

@@ -707,6 +707,8 @@
 	<string name="settings_rules_list_domestic">Inlandsregeln</string>
 	<string name="settings_rules_list_features">Regelmerkmale</string>
 	<string name="settings_rules_list_issuer">Zertifikatsaussteller</string>
+	<string name="settings_rules_list_ifsg_title">Regeln nach Infektionsschutzgesetz § 22a</string>
+	<string name="settings_rules_list_ifsg_subtitle">Zuletzt aktualisiert am 30.04.2023</string>
 	<string name="settings_rules_list_countries">Länderlisten</string>
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
@@ -1019,5 +1021,5 @@
 	<string name="a11y_accordion_collapse_hint_ios">Doppelklicken zum Einklappen</string>
 	<string name="a11y_accordion_collapse_hint_android">Einklappen</string>
 	<string name="start_infobox_title">Wichtige Information</string>
-	<string name="start_infobox_copy">Die Corona-Einreiseverordnung läuft aus. Sie können ihre Zertifikate in der App nicht mehr auf Gültigkeit bei Reisen prüfen.</string>
+	<string name="start_infobox_copy">Sie können Ihre Zertifikate in der App derzeit nicht mehr auf Gültigkeit beim Reisen prüfen. Bitte informieren Sie sich daher im Vorfeld einer Reise über die in Ihrem Bestimmungsland geltenden Regelungen.</string>
 </resources>
