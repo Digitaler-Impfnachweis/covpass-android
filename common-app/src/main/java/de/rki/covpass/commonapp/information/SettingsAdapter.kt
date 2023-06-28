@@ -49,8 +49,8 @@ public class SettingsAdapter(
             binding.date.text = item.date?.let {
                 LocalDateTime.ofInstant(item.date, ZoneId.systemDefault()).formatDateTime()
             } ?: "N/A"
-            binding.date.text = item.staticDate?.let {
-                getString(it)
+            if (item.staticDate != null) {
+                binding.date.text = getString(item.staticDate)
             }
         }
     }
