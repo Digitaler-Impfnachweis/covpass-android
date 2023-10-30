@@ -13,7 +13,7 @@ dependencies {
         versionConstraints = {
             api platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.7.3")
             api platform("io.ktor:ktor-bom:1.6.8")
-            api platform("com.ensody.reactivestate:reactivestate-bom:5.5.7")
+            api platform("com.ensody.reactivestate:reactivestate-bom:5.6.0")
             api platform("com.squareup.okhttp3:okhttp-bom:4.11.0")
 
             constraints {
@@ -86,7 +86,7 @@ dependencies {
             testDependency "com.ensody.reactivestate:reactivestate-test"
         }
 
-        activityVersion = "1.7.2"
+        activityVersion = "1.8.0"
         androidUI = {
             baseAndroid()
             coroutines()
@@ -97,7 +97,7 @@ dependencies {
             api "androidx.activity:activity-ktx:$activityVersion"
             api "androidx.fragment:fragment-ktx:$fragmentVersion"
 
-            def lifecycleVersion = "2.6.1"
+            def lifecycleVersion = "2.6.2"
             api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
             api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
@@ -157,7 +157,7 @@ dependencies {
         }
 
         camerax = {
-            def cameraxVersion = "1.2.3"
+            def cameraxVersion = "1.3.0"
             api "androidx.camera:camera-core:$cameraxVersion"
             api "androidx.camera:camera-camera2:$cameraxVersion"
             api "androidx.camera:camera-lifecycle:$cameraxVersion"
@@ -200,7 +200,7 @@ dependencies {
         }
 
         room = {
-            def roomVersion = "2.5.2"
+            def roomVersion = "2.6.0"
             api "androidx.room:room-ktx:$roomVersion"
             api "androidx.room:room-runtime:$roomVersion"
             kapt "androidx.room:room-compiler:$roomVersion"

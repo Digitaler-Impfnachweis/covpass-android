@@ -879,7 +879,7 @@
 	<string name="renewal_bluebox_title_expired_recovery">Recovery certificate expired</string>
 	<string name="renewal_bluebox_copy_expiring_soon">The technical validity of your certificate expires on %1$s at %2$s. Renew the certificate to continue using it.</string>
 	<string name="renewal_bluebox_copy_expired">The technical validity of your certificate expired on %1$s at %2$s. Renew your certificate now to continue using it.</string>
-	<string name="renewal_bluebox_copy_expiry_not_available">The technical validity of your certificate has expired on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available">The technical validity of your certificate has expired on %1$s at %2$s. If you still need the certificate, please visit a participating pharmacy to have a new certificate issued.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_available">The technical validity of your certificate expires on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">The technical validity of at least one of your certificates has expired. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_german">The technical validity of your certificate expires on %1$s at %2$s. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
