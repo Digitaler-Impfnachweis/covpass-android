@@ -8,10 +8,15 @@ import com.ibm.health.common.android.utils.BaseRecyclerViewAdapter
 import com.ibm.health.common.android.utils.BindingViewHolder
 import com.ibm.health.common.android.utils.getString
 import de.rki.covpass.commonapp.databinding.SettingItemBinding
+import de.rki.covpass.sdk.utils.formatDateTime
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 public data class SettingItem(
     @StringRes val title: Int,
-    @StringRes val date: Int,
+    val date: Instant?,
+    @StringRes val staticDate: Int? = null,
 )
 
 @SuppressLint("NotifyDataSetChanged")
@@ -41,7 +46,12 @@ public class SettingsAdapter(
         BindingViewHolder<SettingItemBinding>(parent, SettingItemBinding::inflate) {
         public fun bind(item: SettingItem) {
             binding.title.text = getString(item.title)
-            binding.date.text = getString(item.date)
+            binding.date.text = item.date?.let {
+                LocalDateTime.ofInstant(item.date, ZoneId.systemDefault()).formatDateTime()
+            } ?: "N/A"
+            if (item.staticDate != null) {
+                binding.date.text = getString(item.staticDate)
+            }
         }
     }
 }

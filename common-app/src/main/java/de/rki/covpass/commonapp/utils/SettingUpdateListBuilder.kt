@@ -15,13 +15,22 @@ public class SettingUpdateListBuilder(
             add(
                 SettingItem(
                     R.string.settings_rules_list_issuer,
-                    R.string.settings_rules_list_issuer_lastupdated,
+                    date = null,
+                    staticDate = R.string.settings_rules_list_issuer_lastupdated,
                 ),
             )
             add(
                 SettingItem(
                     R.string.settings_rules_list_features,
-                    R.string.settings_rules_list_features_lastupdated,
+                    date = null,
+                    staticDate = R.string.settings_rules_list_features_lastupdated,
+                ),
+            )
+            add(
+                SettingItem(
+                    R.string.settings_rules_list_ifsg_title,
+                    date = null,
+                    staticDate = R.string.settings_rules_list_ifsg_subtitle,
                 ),
             )
             if (isCovPassCheck) {
@@ -31,7 +40,8 @@ public class SettingUpdateListBuilder(
                     add(
                         SettingItem(
                             R.string.settings_rules_list_authorities,
-                            R.string.settings_rules_list_issuer_lastupdated,
+                            date = null,
+                            staticDate = R.string.settings_rules_list_issuer_lastupdated,
                         ),
                     )
                 }

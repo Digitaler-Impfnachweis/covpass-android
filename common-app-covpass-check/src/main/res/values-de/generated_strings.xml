@@ -287,16 +287,16 @@
 	<string name="settings_rules_list_status_outofdate">Aktualisierung notwendig</string>
 	<string name="settings_rules_list_entry">Einreiseregeln</string>
 	<string name="settings_rules_list_domestic">Inlandsregeln</string>
-	<string name="settings_rules_list_features">Regeln nach Infektionsschutzgesetz § 22a</string>
-	<string name="settings_rules_list_features_lastupdated">Zuletzt aktualisiert am 30.04.2023</string>
+	<string name="settings_rules_list_features">Regelmerkmale</string>
 	<string name="settings_rules_list_issuer">Zertifikatsaussteller</string>
-	<string name="settings_rules_list_issuer_lastupdated">Zuletzt aktualisiert am 13.06.2023</string>
+	<string name="settings_rules_list_ifsg_title">Regeln nach Infektionsschutzgesetz § 22a</string>
+	<string name="settings_rules_list_ifsg_subtitle">Zuletzt aktualisiert am 30.04.2023</string>
 	<string name="settings_rules_list_countries">Länderlisten</string>
 	<string name="settings_rules_list_authorities">Behördenlisten</string>
 	<string name="settings_rules_list_loading_title">Listen werden aktualisiert…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
 	<string name="settings_rules_list_loading_cancel">Abbrechen</string>
-	<string name="app_information_message_update">Die App wird ab dem 1. Juli 2023 nicht mehr weiterentwickelt. Die Prüfregeln können nicht mehr aktualisiert werden.</string>
+	<string name="app_information_message_update">Die App wird ab dem 1. Januar 2024 nicht mehr weiterentwickelt. Die Prüfregeln können nicht mehr aktualisiert werden.</string>
 	<string name="app_information_rules_list_title">Regelwerk</string>
 	<string name="app_information_message_update_note">Letztes Update</string>
 	<string name="app_information_message_update_pattern">Letztes Update: %s</string>
@@ -307,7 +307,7 @@
 	<string name="accessibility_app_information_checking_rules_open">Die Ansicht \"Prüfregeln\" wurde geöffnet</string>
 	<string name="accessibility_app_information_checking_rules_close">Die Ansicht \"Prüfregeln\" wurde geschlossen</string>
 	<string name="app_information_title_checkrules">Prüfregeln</string>
-	<string name="app_information_offline_revocation_copy_1">Die App wird ab dem 1. Juli 2023 nicht mehr weiterentwickelt. Die Prüfregeln können nicht mehr aktualisiert werden.</string>
+	<string name="app_information_offline_revocation_copy_1">Hier können Sie die Regeln aktualisieren, nach denen Zertifikate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
 	<string name="app_information_offline_revocation_title">Gesperrte Zertifikate offline prüfen</string>
 	<string name="app_information_offline_revocation_copy_2">Aktivieren Sie diese Einstellung, erkennt die App von den Behörden gesperrte Zertifikate auch, wenn Sie nicht mit dem Internet verbunden sind. Diese Funktion verbraucht mehr Datenvolumen.</string>
 	<string name="app_information_offline_revocation_hint_title">Hinweis</string>
@@ -374,7 +374,7 @@
 	<string name="certificate_share_pdf_shareitem_android_covpasscheck">PDF speichern</string>
 	<string name="accessibility_revocation_settings_page_announce">Einstellungen zur Behördenfunktion wurden geöffnet</string>
 	<string name="infschg_settings_title">Prüfregeln</string>
-	<string name="infschg_settings_copy_1">Die App wird ab dem 1. Juli 2023 nicht mehr weiterentwickelt. Die Prüfregeln können nicht mehr aktualisiert werden.</string>
+	<string name="infschg_settings_copy_1">Hier können Sie die Regeln aktualisieren, nach denen Zertifikate geprüft werden. Sollte Ihr Smartphone üblicherweise mit dem Internet verbunden sein, passiert das automatisch.</string>
 	<string name="infschg_result_mask_optional_title">Keine Maskenpflicht</string>
 	<string name="infschg_result_mask_optional_subtitle">in %s*</string>
 	<string name="infschg_result_mask_optional_copy">Gleichen Sie jetzt folgende Daten mit einem Ausweisdokument der geprüften Person ab.</string>
@@ -582,7 +582,7 @@
 	<string name="start_infobox_button">Mehr anzeigen</string>
 	<string name="popup_sundown_info_image">Das Bild zeigt eine glückliche Familie, eine Person hält ein Smartphone mit einem grünen Haken.</string>
 	<string name="popup_sundown_info_title">Achtung!</string>
-	<string name="popup_sundown_info_copy">Ab dem 1. Juli 2023 wird die CovPassCheck-App nicht mehr weiterentwickelt.</string>
+	<string name="popup_sundown_info_copy">Ab dem 1. Januar 2024 wird die CovPassCheck-App nicht mehr weiterentwickelt.</string>
 	<string name="popup_sundown_info_subtitle">Das bedeutet für Sie:</string>
 	<string name="popup_sundown_info_bullet1">Es werden keine neuen Funktionen veröffentlicht.</string>
 	<string name="popup_sundown_info_bullet2">Es wird kein Support mehr für die App angeboten.</string>

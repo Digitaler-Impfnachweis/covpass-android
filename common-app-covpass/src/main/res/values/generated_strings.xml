@@ -63,7 +63,7 @@
 	<string name="vaccination_start_screen_note_title">Add a certificate</string>
 	<string name="vaccination_start_screen_note_message">You do not have any EU Digital COVID Certificate saved at the moment. Tap the button \"Add a certificate\" (plus symbol) to add a Digital COVID Certificate.</string>
 	<string name="vaccination_start_screen_note_title_after_july">No certificates found</string>
-	<string name="vaccination_start_screen_note_message_after_july">Since 1st of July 2023, the CovPass app will not be developed any further. Therefore, certificates can no longer be added.</string>
+	<string name="vaccination_start_screen_note_message_after_july">Since 1st of January 2024, the CovPass app will not be developed any further. Therefore, certificates can no longer be added.</string>
 	<string name="startscreen_card_title">EU Digital COVID Certificate</string>
 	<string name="startscreen_card_button">Display certificates</string>
 	<string name="accessibility_vaccination_start_screen_label_qrcode">Black QR code on white background</string>
@@ -694,7 +694,7 @@
 	<string name="app_information_title_accessibility_statement">Accessibility statement</string>
 	<string name="app_information_title_accessibility_statement_linked">#Accessibility statement::$0#</string>
 	<string name="app_information_title_update">Checking rules</string>
-	<string name="app_information_message_update">The app will no longer be developed from 1 July 2023. The checking rules can no longer be updated.</string>
+	<string name="app_information_message_update">The app will no longer be developed from 1 January 2024. The checking rules can no longer be updated.</string>
 	<string name="app_information_list_update_notifications">Update notifications</string>
 	<string name="app_information_title_update_notifications">Update notifications</string>
 	<string name="app_information_copy_update_notifications">You can now disable the update notifications. You can use the toggle to disable or re-enable the updates at any time. If you disable the update screen, you will no longer receive updates about the latest software developments in the app.</string>
@@ -709,8 +709,10 @@
 	<string name="settings_rules_list_domestic">Domestic rules</string>
 	<string name="settings_rules_list_features">Rules according to Infection Protection Act § 22a</string>
 	<string name="settings_rules_list_features_lastupdated">Last updated 30.04.2023</string>
-	<string name="settings_rules_list_issuer">Certificate issuer</string>
 	<string name="settings_rules_list_issuer_lastupdated">Last updated 13.06.2023</string>
+	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_ifsg_title">Rules according to § 22a of the Infection Protection Act</string>
+	<string name="settings_rules_list_ifsg_subtitle">Last updated 30.04.2023</string>
 	<string name="settings_rules_list_countries">Country lists</string>
 	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
@@ -881,10 +883,10 @@
 	<string name="renewal_bluebox_title_expired_recovery">Recovery certificate expired</string>
 	<string name="renewal_bluebox_copy_expiring_soon">The technical validity of your certificate expires on %1$s at %2$s. Renew the certificate to continue using it.</string>
 	<string name="renewal_bluebox_copy_expired">The technical validity of your certificate expired on %1$s at %2$s. Renew your certificate now to continue using it.</string>
-	<string name="renewal_bluebox_copy_expiry_not_available">The technical validity of your certificate has expired on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
-	<string name="renewal_bluebox_copy_expiring_soon_not_available">The technical validity of your certificate expires on %1$s at %2$s. If you still need the certificate, please visit a pharmacy to have a new certificate issued.</string>
-	<string name="renewal_bluebox_copy_expiry_not_available_30_6">The technical validity of your certificate has expired on %1$s at %2$s.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available">The technical validity of your certificate has expired on %1$s at %2$s. If you still need the certificate, please visit a participating pharmacy to have a new certificate issued.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_available">The technical validity of your certificate expires on %1$s at %2$s. If you still need the certificate, please visit a participating pharmacy to have a new certificate issued.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_available_30_6">The technical validity of your certificate expires on %1$s at %2$s.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available_30_6">The technical validity of your certificate has expired on %1$s at %2$s.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">The technical validity of at least one of your certificates has expired. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_german">The technical validity of your certificate expires on %1$s at %2$s. As your certificate was not issued in Germany, it cannot be renewed in the CovPass app. Please check the requirements of the country of issuance.</string>
 	<string name="renewal_expiry_notification_copy_vaccination">The technical validity of your certificate is about to expire or has already expired. Renew the certificate to continue using it.</string>
@@ -1029,7 +1031,7 @@
 	<string name="start_infobox_button">Show more</string>
 	<string name="popup_sundown_info_image">Image showing a happy family, one person is holding a smartphone with a green check.</string>
 	<string name="popup_sundown_info_title">Attention!</string>
-	<string name="popup_sundown_info_copy">As of 1 July 2023, the CovPass app will no longer be developed. However, you will still have access to your certificates stored in the app.</string>
+	<string name="popup_sundown_info_copy">As of 1 January 2024, the CovPass app will no longer be developed. However, you will still have access to your certificates stored in the app.</string>
 	<string name="popup_sundown_info_subtitle">This means for you:</string>
 	<string name="popup_sundown_info_bullet1">No new functions will be released.</string>
 	<string name="popup_sundown_info_bullet2">Support for the app is no longer offered.</string>

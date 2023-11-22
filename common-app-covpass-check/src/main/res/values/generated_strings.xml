@@ -287,16 +287,16 @@
 	<string name="settings_rules_list_status_outofdate">Update required</string>
 	<string name="settings_rules_list_entry">Entry rules</string>
 	<string name="settings_rules_list_domestic">Domestic rules</string>
-	<string name="settings_rules_list_features">Rules according to Infection Protection Act § 22a</string>
-	<string name="settings_rules_list_features_lastupdated">Last updated 30.04.2023</string>
+	<string name="settings_rules_list_features">Rule features</string>
 	<string name="settings_rules_list_issuer">Certificate issuer</string>
-	<string name="settings_rules_list_issuer_lastupdated">Last updated 13.06.2023</string>
+	<string name="settings_rules_list_ifsg_title">Rules according to § 22a of the Infection Protection Act</string>
+	<string name="settings_rules_list_ifsg_subtitle">Last updated 30.04.2023</string>
 	<string name="settings_rules_list_countries">Country lists</string>
 	<string name="settings_rules_list_authorities">List of authorities</string>
 	<string name="settings_rules_list_loading_title">Lists are being updated…</string>
 	<string name="settings_rules_list_loading_size">%1$d / %2$d MB</string>
 	<string name="settings_rules_list_loading_cancel">Cancel</string>
-	<string name="app_information_message_update">The app will no longer be developed from 1 July 2023. The checking rules can no longer be updated.</string>
+	<string name="app_information_message_update">The app will no longer be developed from 1 January 2024. The checking rules can no longer be updated.</string>
 	<string name="app_information_rules_list_title">Rules</string>
 	<string name="app_information_message_update_note">Most recent update</string>
 	<string name="app_information_message_update_pattern">Most recent update: %s</string>
@@ -307,7 +307,7 @@
 	<string name="accessibility_app_information_checking_rules_open">The view \"Checking rules\" has been opened</string>
 	<string name="accessibility_app_information_checking_rules_close">The view \"Checking rules\" has been closed</string>
 	<string name="app_information_title_checkrules">Checking rules</string>
-	<string name="app_information_offline_revocation_copy_1">The app will no longer be developed from 1 July 2023. The checking rules can no longer be updated.</string>
+	<string name="app_information_offline_revocation_copy_1">Here you can update the rules based on which you check certificates. If your smartphone is continuously connected to the internet, this will happen automatically.</string>
 	<string name="app_information_offline_revocation_title">Check revoked certificates offline</string>
 	<string name="app_information_offline_revocation_copy_2">If you enable this setting, the app will detect certificates blocked by the authorities even if you are not connected to the Internet. This feature consumes more data volume.</string>
 	<string name="app_information_offline_revocation_hint_title">Note</string>
@@ -374,7 +374,7 @@
 	<string name="certificate_share_pdf_shareitem_android_covpasscheck">Save PDF</string>
 	<string name="accessibility_revocation_settings_page_announce">Settings about the function for authorities were opened</string>
 	<string name="infschg_settings_title">Checking rules</string>
-	<string name="infschg_settings_copy_1">The app will no longer be developed from 1 July 2023. The checking rules can no longer be updated.</string>
+	<string name="infschg_settings_copy_1">Here you can update the rules according to which certificates are checked. If your smartphone is usually connected to the Internet, this happens automatically.</string>
 	<string name="infschg_result_mask_optional_title">No mask obligation</string>
 	<string name="infschg_result_mask_optional_subtitle">in %s*</string>
 	<string name="infschg_result_mask_optional_copy">Now compare the following data with an identification document of the person being checked.</string>
@@ -582,7 +582,7 @@
 	<string name="start_infobox_button">Show more</string>
 	<string name="popup_sundown_info_image">Image showing a happy family, one person is holding a smartphone with a green check.</string>
 	<string name="popup_sundown_info_title">Attention!</string>
-	<string name="popup_sundown_info_copy">As of 1 July 2023, the CovPassCheck app will no longer be developed.</string>
+	<string name="popup_sundown_info_copy">As of 1 January 2024, the CovPassCheck app will no longer be developed.</string>
 	<string name="popup_sundown_info_subtitle">This means for you:</string>
 	<string name="popup_sundown_info_bullet1">No new functions will be released.</string>
 	<string name="popup_sundown_info_bullet2">Support for the app is no longer offered.</string>

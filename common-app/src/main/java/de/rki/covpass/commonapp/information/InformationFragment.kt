@@ -57,6 +57,9 @@ public abstract class InformationFragment : BaseFragment() {
         )
         if (Locale.getDefault().language == Locale.GERMAN.language) {
             binding.informationFieldEasyLanguage.apply {
+                val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+                setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+
                 setText(R.string.app_information_title_company_easy_language)
                 setOnClickListener {
                     val browserIntent =
@@ -110,6 +113,9 @@ public abstract class InformationFragment : BaseFragment() {
         }
 
         binding.informationFieldAccessibilityStatement.apply {
+            val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+            setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+
             setText(R.string.app_information_title_accessibility_statement)
             setOnClickListener {
                 val browserIntent = Intent(

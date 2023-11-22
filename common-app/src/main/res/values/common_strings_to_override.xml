@@ -189,4 +189,7 @@
   <string name="popup_sundown_info_bullet3"/>
   <string name="popup_sundown_info_bullet4"/>
 
+  <string name="settings_rules_list_ifsg_title"/>
+  <string name="settings_rules_list_ifsg_subtitle"/>
+
 </resources>
