@@ -74,10 +74,9 @@ public abstract class InformationFragment : BaseFragment() {
         binding.dividerEasyLanguage.isGone = isSunset
 
         binding.informationFieldFaq.apply {
-            if (isSunset) {
-                val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
-                setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
-            }
+            val icon = ContextCompat.getDrawable(context, R.drawable.ic_external_link)
+            setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null)
+
             setText(R.string.app_information_title_faq)
             setOnClickListener {
                 val browserIntent =
