@@ -709,7 +709,7 @@
 	<string name="settings_rules_list_domestic">Domestic rules</string>
 	<string name="settings_rules_list_features">Rules according to Infection Protection Act § 22a</string>
 	<string name="settings_rules_list_features_lastupdated">Last updated 30.04.2023</string>
-	<string name="settings_rules_list_issuer_lastupdated">Last updated 13.06.2023</string>
+	<string name="settings_rules_list_issuer_lastupdated">Last updated 01.12.2023</string>
 	<string name="settings_rules_list_issuer">Certificate issuer</string>
 	<string name="settings_rules_list_ifsg_title">Rules according to § 22a of the Infection Protection Act</string>
 	<string name="settings_rules_list_ifsg_subtitle">Last updated 30.04.2023</string>

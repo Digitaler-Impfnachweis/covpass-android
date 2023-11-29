@@ -289,6 +289,7 @@
 	<string name="settings_rules_list_domestic">Domestic rules</string>
 	<string name="settings_rules_list_features">Rule features</string>
 	<string name="settings_rules_list_issuer">Certificate issuer</string>
+	<string name="settings_rules_list_issuer_lastupdated">Last updated 01.12.2023</string>
 	<string name="settings_rules_list_ifsg_title">Rules according to § 22a of the Infection Protection Act</string>
 	<string name="settings_rules_list_ifsg_subtitle">Last updated 30.04.2023</string>
 	<string name="settings_rules_list_countries">Country lists</string>
