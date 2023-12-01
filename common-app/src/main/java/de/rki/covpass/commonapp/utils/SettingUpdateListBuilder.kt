@@ -21,13 +21,6 @@ public class SettingUpdateListBuilder(
             )
             add(
                 SettingItem(
-                    R.string.settings_rules_list_features,
-                    date = null,
-                    staticDate = R.string.settings_rules_list_features_lastupdated,
-                ),
-            )
-            add(
-                SettingItem(
                     R.string.settings_rules_list_ifsg_title,
                     date = null,
                     staticDate = R.string.settings_rules_list_ifsg_subtitle,

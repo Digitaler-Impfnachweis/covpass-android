@@ -188,6 +188,10 @@
   <string name="popup_sundown_info_bullet2"/>
   <string name="popup_sundown_info_bullet3"/>
   <string name="popup_sundown_info_bullet4"/>
+  <string name="popup_sundown_info_bullet5"/>
+  <string name="popup_sundown_info_bullet6"/>
+  <string name="popup_sundown_info_bullet7"/>
+  <string name="popup_sundown_info_bullet8"/>
 
   <string name="settings_rules_list_ifsg_title"/>
   <string name="settings_rules_list_ifsg_subtitle"/>

@@ -38,7 +38,10 @@ internal class SunsetPopupFragment : BaseBottomSheet() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.sunsetIllustration.isGone = resources.isLandscapeMode()
-        binding.sunsetBulletContainer4.isGone = args.isCovPassCheck
+        binding.sunsetBulletContainer5.isGone = args.isCovPassCheck
+        binding.sunsetBulletContainer6.isGone = args.isCovPassCheck
+        binding.sunsetBulletContainer7.isGone = args.isCovPassCheck
+        binding.sunsetBulletContainer8.isGone = args.isCovPassCheck
     }
 
     override fun onActionButtonClicked() {

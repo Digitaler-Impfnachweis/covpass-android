@@ -883,8 +883,8 @@
 	<string name="renewal_bluebox_title_expired_recovery">Genesenenzertifikat abgelaufen</string>
 	<string name="renewal_bluebox_copy_expiring_soon">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Erneuern Sie das Zertifikat, um es weiterhin nutzen zu können.</string>
 	<string name="renewal_bluebox_copy_expired">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Erneuern Sie jetzt Ihr Zertifikat, um es weiterhin nutzen zu können.</string>
-	<string name="renewal_bluebox_copy_expiry_not_available">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine teilnehmende Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
-	<string name="renewal_bluebox_copy_expiring_soon_not_available">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte an eine teilnehmende Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
+	<string name="renewal_bluebox_copy_expiry_not_available">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte bis zum 31.12.2023 an eine teilnehmende Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
+	<string name="renewal_bluebox_copy_expiring_soon_not_available">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab. Wenn Sie das Zertifikat weiter benötigen, wenden Sie sich bitte bis zum 31.12.2023 an eine teilnehmende Apotheke, um sich ein neues Zertifikat ausstellen zu lassen.</string>
 	<string name="renewal_bluebox_copy_expiring_soon_not_available_30_6">Die technische Gültigkeit Ihres Zertifikats läuft am %1$s um %2$s ab.</string>
 	<string name="renewal_bluebox_copy_expiry_not_available_30_6">Die technische Gültigkeit Ihres Zertifikats ist am %1$s um %2$s abgelaufen.</string>
 	<string name="renewal_bluebox_copy_expiry_not_german">Die technische Gültigkeit mindestens eines Ihrer Zertifikate ist abgelaufen. Da Ihr Zertifikat nicht in Deutschland ausgestellt wurde, kann dieses nicht in der CovPass-App erneuert werden. Bitte prüfen Sie die Vorgaben des Ausstellungslandes.</string>
@@ -1031,10 +1031,14 @@
 	<string name="start_infobox_button">Mehr anzeigen</string>
 	<string name="popup_sundown_info_image">Das Bild zeigt eine glückliche Familie, eine Person hält ein Smartphone mit einem grünen Haken.</string>
 	<string name="popup_sundown_info_title">Achtung!</string>
-	<string name="popup_sundown_info_copy">Ab dem 1. Januar 2024 wird die CovPass-App nicht mehr weiterentwickelt. Auf Ihre in der App gespeicherten Zertifikate haben Sie jedoch weiterhin Zugriff.</string>
-	<string name="popup_sundown_info_subtitle">Das bedeutet für Sie:</string>
-	<string name="popup_sundown_info_bullet1">Es werden keine neuen Funktionen veröffentlicht.</string>
-	<string name="popup_sundown_info_bullet2">Es wird kein Support mehr für die App angeboten.</string>
-	<string name="popup_sundown_info_bullet3">Sie können technisch abgelaufene Zertifikate nicht mehr in der App erneuern.</string>
-	<string name="popup_sundown_info_bullet4">Gespeicherte Zertifikate bleiben erhalten und können als PDF exportiert werden.</string>
+	<string name="popup_sundown_info_copy">Die Europäische Union hat im Jahr 2021 mit dem digitalen COVID-Zertifikat einen EU-weit anerkannten Nachweis über eine Impfung, eine Genesung oder eine negative Testung von COVID-19 eingeführt. Diese Verordnung trat zum 30. Juni 2023 außer Kraft. Übergangsweise betreibt die EU die technischen Systeme zur Ermöglichung der länderübergreifenden Zertifikatsprüfung bis zum 31. Dezember 2023 weiter. Der Übergangsbetrieb endet zu diesem Zeitpunkt.\n\nIn Deutschland wird daher die Möglichkeit zur Ausstellung von digitalen COVID-Zertifikaten wie etwa Impf- und Genesenenzertifikaten zum 31. Dezember 2023 eingestellt. Eingestellt werden deshalb auch die CovPass-App und die CovPassCheck-App. Die CovPass-App wird in einen Walletmodus versetzt, in welchem die gespeicherten Zertifikate erhalten bleiben.</string>
+	<string name="popup_sundown_info_subtitle">Das bedeutet für Sie: Bis zum 31.12.2023 sind alle bisherigen Funktionalitäten verfügbar.\n\nAb dem 01.01.2024:</string>
+	<string name="popup_sundown_info_bullet1">Ihre in der CovPass-App vorhandenen Zertifikate bleiben auf Ihrem Smartphone gespeichert.</string>
+	<string name="popup_sundown_info_bullet2">Sie können in der CovPass-App weiterhin auf Ihre gespeicherten Zertifikate zugreifen.</string>
+	<string name="popup_sundown_info_bullet3">Sie können gespeicherte Zertifikate als PDF exportieren (Funktion „PDF erstellen“).</string>
+	<string name="popup_sundown_info_bullet4">Sie können technisch abgelaufene Zertifikate nicht mehr in der App erneuern.</string>
+	<string name="popup_sundown_info_bullet5">Es wird kein Support mehr für die App angeboten.</string>
+	<string name="popup_sundown_info_bullet6">Die Apps sind im App-Store für einen (erneuten) Download nicht mehr verfügbar.</string>
+	<string name="popup_sundown_info_bullet7">Es werden keine neuen Funktionen veröffentlicht.</string>
+	<string name="popup_sundown_info_bullet8">Weitere Hinweise finden Sie außerdem in der Datenschutzerklärung der CovPass-App.</string>
 </resources>

@@ -155,9 +155,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/grid_three"
-    android:visibility="gone"
-    app:layout_constraintTop_toBottomOf="@+id/sunset_bullet_container_3"
-    tools:visibility="visible">
+    app:layout_constraintTop_toBottomOf="@+id/sunset_bullet_container_3">
 
     <TextView
       android:id="@+id/sunset_bullet_point_4"
@@ -180,6 +178,146 @@
       android:text="@string/popup_sundown_info_bullet4"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/sunset_bullet_point_4"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_goneMarginStart="@dimen/grid_three" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/sunset_bullet_container_5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@+id/sunset_bullet_container_4"
+    tools:visibility="visible">
+
+    <TextView
+      android:id="@+id/sunset_bullet_point_5"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="\u2022"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="HardcodedText" />
+
+    <TextView
+      android:id="@+id/sunset_bullet_text_5"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_half"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="@string/popup_sundown_info_bullet5"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/sunset_bullet_point_5"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_goneMarginStart="@dimen/grid_three" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/sunset_bullet_container_6"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@+id/sunset_bullet_container_5"
+    tools:visibility="visible">
+
+    <TextView
+      android:id="@+id/sunset_bullet_point_6"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="\u2022"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="HardcodedText" />
+
+    <TextView
+      android:id="@+id/sunset_bullet_text_6"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_half"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="@string/popup_sundown_info_bullet6"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/sunset_bullet_point_6"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_goneMarginStart="@dimen/grid_three" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/sunset_bullet_container_7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@+id/sunset_bullet_container_6"
+    tools:visibility="visible">
+
+    <TextView
+      android:id="@+id/sunset_bullet_point_7"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="\u2022"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="HardcodedText" />
+
+    <TextView
+      android:id="@+id/sunset_bullet_text_7"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_half"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="@string/popup_sundown_info_bullet7"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/sunset_bullet_point_7"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_goneMarginStart="@dimen/grid_three" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/sunset_bullet_container_8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/grid_three"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@+id/sunset_bullet_container_7"
+    tools:visibility="visible">
+
+    <TextView
+      android:id="@+id/sunset_bullet_point_8"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="\u2022"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="HardcodedText" />
+
+    <TextView
+      android:id="@+id/sunset_bullet_text_8"
+      style="@style/DefaultText.OnBackground"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/grid_half"
+      android:layout_marginTop="@dimen/grid_three"
+      android:text="@string/popup_sundown_info_bullet8"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/sunset_bullet_point_8"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_goneMarginStart="@dimen/grid_three" />
 
