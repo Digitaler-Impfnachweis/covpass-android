@@ -1036,9 +1036,9 @@
 	<string name="popup_sundown_info_bullet1">Ihre in der CovPass-App vorhandenen Zertifikate bleiben auf Ihrem Smartphone gespeichert.</string>
 	<string name="popup_sundown_info_bullet2">Sie können in der CovPass-App weiterhin auf Ihre gespeicherten Zertifikate zugreifen.</string>
 	<string name="popup_sundown_info_bullet3">Sie können gespeicherte Zertifikate als PDF exportieren (Funktion „PDF erstellen“).</string>
-	<string name="popup_sundown_info_bullet4">Sie können technisch abgelaufene Zertifikate nicht mehr in der App erneuern.</string>
-	<string name="popup_sundown_info_bullet5">Es wird kein Support mehr für die App angeboten.</string>
-	<string name="popup_sundown_info_bullet6">Die Apps sind im App-Store für einen (erneuten) Download nicht mehr verfügbar.</string>
-	<string name="popup_sundown_info_bullet7">Es werden keine neuen Funktionen veröffentlicht.</string>
-	<string name="popup_sundown_info_bullet8">Weitere Hinweise finden Sie außerdem in der Datenschutzerklärung der CovPass-App.</string>
+	<string name="popup_sundown_info_bullet4">Sie können keine Zertifikate mehr hinzufügen (Die Funktion zum Scannen von Zertifikaten haben wir entfernt).</string>
+	<string name="popup_sundown_info_bullet5">Sie können technisch abgelaufene Zertifikate nicht mehr in der App erneuern. Daher wird auch nicht mehr auf deren Ablauf und Erneuerung hingewiesen.</string>
+	<string name="popup_sundown_info_bullet6">Es wird kein Support mehr für die App angeboten.</string>
+	<string name="popup_sundown_info_bullet7">Die Apps sind im App-Store für einen (erneuten) Download nicht mehr verfügbar.</string>
+	<string name="popup_sundown_info_bullet8">Es werden keine neuen Funktionen veröffentlicht.</string>
 </resources>
