@@ -42,6 +42,7 @@ internal class SunsetPopupFragment : BaseBottomSheet() {
         binding.sunsetBulletContainer6.isGone = args.isCovPassCheck
         binding.sunsetBulletContainer7.isGone = args.isCovPassCheck
         binding.sunsetBulletContainer8.isGone = args.isCovPassCheck
+        binding.sunsetBulletContainer9.isGone = args.isCovPassCheck
     }
 
     override fun onActionButtonClicked() {

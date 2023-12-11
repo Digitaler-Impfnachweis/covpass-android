@@ -1031,8 +1031,8 @@
 	<string name="start_infobox_button">Show more</string>
 	<string name="popup_sundown_info_image">Image showing a happy family, one person is holding a smartphone with a green check.</string>
 	<string name="popup_sundown_info_title">Attention!</string>
-	<string name="popup_sundown_info_copy">In 2021, the European Union introduced the digital COVID certificate as an EU-wide recognised proof of vaccination, recovery or negative testing for COVID-19. This regulation expired on 30 June 2023. On a transitional basis, the EU will continue to operate the technical systems to enable cross-border certificate checks until 31 December 2023. The transitional operation will end on that date.\n\nIn Germany, the possibility of issuing digital COVID certificates such as vaccination and recovery certificates will therefore be discontinued on 31 December 2023. The CovPass app and the CovPassCheck app will therefore also be discontinued. The CovPass app will be switched to wallet mode, where the stored certificates will be retained.</string>
-	<string name="popup_sundown_info_subtitle">What does this mean for you? All functionalities will continue to beavailable until 31 December 2023.\n\nFrom 1 January2024:</string>
+	<string name="popup_sundown_info_copy">In 2021, the European Union introduced the digital COVID certificate as an EU-wide recognised proof of vaccination, recovery or negative testing for COVID-19. This regulation expired on 30 June 2023. On a transitional basis, the EU will continue to operate the technical systems to enable cross-border certificate checks until 31 December 2023. The transitional operation will end on that date. There is currently no international system with comparable functions and scope.\n\nIn Germany, the possibility of issuing digital COVID certificates such as vaccination and recovery certificates will therefore be discontinued on 31 December 2023. The CovPass app and the CovPassCheck app will therefore also be discontinued. The CovPass app will be switched to wallet mode, where the stored certificates will be retained.</string>
+	<string name="popup_sundown_info_subtitle">What does this mean for you? All functionalities will continue to be available until 31 December 2023.\n\nFrom 1 January 2024:</string>
 	<string name="popup_sundown_info_bullet1">Your existing certificates in the CovPass app will still be stored on your smartphone.</string>
 	<string name="popup_sundown_info_bullet2">You will still be able to access your saved certificates in the CovPass app.</string>
 	<string name="popup_sundown_info_bullet3">You will be able to export saved certificates as a PDF (\"Create PDF\" function).</string>
@@ -1041,4 +1041,5 @@
 	<string name="popup_sundown_info_bullet6">Support for the app will no longer be offered.</string>
 	<string name="popup_sundown_info_bullet7">The apps will no longer be available for (re)download in the app store.</string>
 	<string name="popup_sundown_info_bullet8">No new functions will be published.</string>
+	<string name="popup_sundown_info_bullet9">Further information can also be found in the CovPass app privacy policy.</string>
 </resources>
